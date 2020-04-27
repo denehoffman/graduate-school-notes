@@ -1,0 +1,281 @@
+\documentclass[a4paper,twoside]{article}
+\input{../../preamble.tex}
+\title{33-761 Homework 5}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section*{1. Free Space Green Function in Cylindrical Coordinates}
+In this problem we fill in the missing details in Jackson’s derivation of (3.148) free space Green function in cylindrical coordinates. Note that the first claim is about the Wronskian, we verify this statement below. Assume that we have a differential equation in hermitian form:
+\begin{equation}
+    \label{eq:diffeq}
+    \dv{x}\left[ p(x) \dv{y}{x} \right] + r(x)y = 0
+\end{equation}
+Define
+\begin{equation}
+    W[y_1,y_2] = \left[ y_1 \dv{y_2}{x} - y_2 \dv{y_1}{x} \right],
+\end{equation}
+for two solutions $ y_1 $, $ y_2 $ which satisfy different initial conditions at a given point $ x_0 $. Show that as a function of $ x $
+\begin{equation}
+    W(x) = -W(x_0) \frac{1}{p(x)} 
+\end{equation}
+where $ W(x_0) $ refers to the value of the Wronskian at $ x_0 $. For the Bessel case, this implies that
+\begin{equation}
+    W[I_m,K_m] = -B \frac{1}{x},
+\end{equation}
+for some constant $ B $ that we do not know. We need to get this constant $ B $. Note that we require the jump condition; this means the product $ A I_m(k \rho_<)K_m(k \rho_>) $ should satisfy (3.143) for a proper choice of $ A $. This condition is equivalent to the Wronskian condition (3.146). Since $ - \frac{1}{x} $ behavior is clearly true, as a general result, we only need to check the Wronskian for a special value to fix $ B $. For this, use the following information.
+\begin{equation}
+    \dv{I_m}{x} = \frac{1}{2} (I_{m-1} (x) + I_{m+1} (x))
+\end{equation}
+\begin{equation}
+    \dv{K_m}{x} = -\frac{1}{2} (K_{m-1} (x) + K_{m+1} (x))
+\end{equation}
+Moreover we have the expansions for small values of $ x $ given by (3.102) and (3.103). Use these expansions now and keep only the leading order terms, as a result show that $ A = 4 \pi $ is the correct choice.
+
+\hr
+
+\begin{tcolorbox}[breakable]
+    Expanding the differential equation in \ref{eq:diffeq}, we have
+    \begin{equation}
+        p(x) y'' + p'(x) y' + r(x) y = 0
+    \end{equation}
+    We will use Abel's Differential Equation Identity to prove the first part of the problem.
+    \begin{theorem}
+        Abel's Differential Equation Identity:
+        
+        For any differential equation of the form
+        \begin{equation}
+            A(x) y'' + B(x) y' + C(x) y = 0
+        \end{equation}
+        we can compute the Wronskian as a function of two linearly independent solutions:
+        \begin{equation}
+            W[y_1,y_2] = [y_1y'_2 - y'_1y_2]
+        \end{equation}
+        Taking the derivative of both sides, we find
+        \begin{equation}
+            W' = (y_1y''_2 + y'_1y'_2 - y'_1y'_2 - y''_1y_2) = [y_1y''_2 - y''_1y_2]
+        \end{equation}
+        Additionally,
+        \begin{align}
+            0 &= y_1 \overbrace{\left( A(x)y''_2 + B(x) y'_2 + C(x) y_2 \right)}^{=0} - y_2 \overbrace{\left( A(x)y''_1 + B(x)y'_1 + C(x)y_1 \right)}^{=0}\\
+            &= A(x) W' + B(x) W
+        \end{align}
+        We can solve this equation:
+        \begin{equation}
+            W' = - \frac{B(x)}{A(x)} W \implies W = W_0 e^{-\int \frac{B(x)}{A(x)} \dd{x}}
+        \end{equation}
+        where $ W_0\equiv W(x_0) $ is the Wronskian under some initial conditions at a given point $ x_0 $.
+    \end{theorem}
+
+    In our case, $ A(x) = p(x) $ and $ B(x) = p'(x) $ so
+    \begin{equation}
+        W = W(x_0) e^{- \int \frac{\dd{p(x)}}{p(x)}} = W(x_0) e^{-\ln{p(x)}} = W(x_0) \frac{1}{p(x)}
+    \end{equation}
+    Here, the choice of sign doesn't matter, since $ W(x_0) $ is a constant.
+
+    For the second half of the problem, we use the small $ x $ approximations of the modified Bessel functions:
+    \begin{equation}
+        I_m(kx) = \frac{1}{\Gamma (m+1)} \left( \frac{kx}{2} \right)^m
+    \end{equation}
+    and
+    \begin{equation}
+        K_m(kx) = \frac{\Gamma (m)}{2} \left( \frac{2}{kx} \right)^m,\quad m \neq 0
+    \end{equation}
+    We can now take the Wronskian, using the given definitions for the derivatives:
+    \begin{align}
+        W[I_m(x),K_m(x)] &= - \frac{1}{2} \left[ I_m K_{m-1} - I_m K_{m+1} - I_{m-1}K_m - I_{m+1}K_m \right]\\
+        &= -\frac{1}{2}\overbrace{\frac{1}{\Gamma (m+1)} 2^{-m} x^m \frac{\Gamma (m-1)}{2} 2^{m-1} x^{-(m-1)}}^{\frac{\Gamma (m-1)}{\Gamma (m+1)} \frac{x}{4}}\\ &-\frac{1}{2}\overbrace{\frac{1}{\Gamma (m+1)} 2^{-m} x^m \frac{\Gamma (m+1)}{2} 2^{m+1} x^{-(m+1)}}^{\frac{1}{x}}\\ &-\frac{1}{2}\overbrace{\frac{1}{\Gamma (m)} x^{m-1} 2^{-(m-1)} \frac{\Gamma (m)}{2} 2^m x^{-m}}^{\frac{1}{x}}\\ &-\frac{1}{2}\overbrace{\frac{1}{\Gamma (m+2)} x^{m+1} 2^{-(m+1)} \frac{\Gamma (m)}{2} 2^m x^{-m}}^{\frac{\Gamma (m)}{\Gamma (m+2)} \frac{x}{4}}\\
+        &= - \frac{1}{x} - \left( \frac{\Gamma (m-1)}{\Gamma (m+1)} + \frac{\Gamma (m)}{\Gamma (m+2)} \right) \frac{x}{4}\\
+        &= - \frac{1}{x} - \frac{1}{m^2 - 1} \frac{x}{2}
+    \end{align}
+    In the limit of small $ x $, we only take the leading term, since the second term gets very small as long as $ m \neq 1 $. Therefore
+    \begin{equation}
+        W[I_m(kx),K_m(kx)]\approx - \frac{1}{kx}
+    \end{equation}
+    From Jackson, we are given
+    \begin{equation}
+        - \frac{4 \pi}{x} = k W[A I_m(kx), K_m(kx)]
+    \end{equation}
+    and in this problem, we are asked to find $ A $ (which is equivalent to $ B $ in the differential equation discussion). It is easy to see that constants can be factored out of the Wronskian, so we now have
+    \begin{equation}
+        - \frac{4 \pi}{x} =- k \frac{A}{kx}
+    \end{equation}
+    so $ A = 4 \pi $.
+\end{tcolorbox}
+
+\section*{2. Jackson Problem 3.17}
+This is very similar to what we have discussed in the free case, the arguments are exactly the same, except, for $ z $ we need to choose vanishing functions at both ends.
+
+\hr
+The Dirichlet Green function for the unbounded space between the planes at $ z = 0 $ and $ z = L $ allows discussion of a point charge or a distribution of charge between parallel conducting planes held at zero potential.
+\begin{itemize}
+    \item[(a)] Using cylindrical coordinates show that one form of the Green function is
+        \begin{equation}
+            G( \vec{x}, \vec{x}' ) = \frac{4}{L} \sum_{n=1}^{\infty} \sum_{m=-\infty}^{\infty} e^{\imath m(\phi - \phi')} \sin\left( \frac{n \pi z}{L} \right) \sin\left( \frac{n \pi z'}{L} \right) I_m\left( \frac{n \pi}{L} \rho_< \right) K_m\left( \frac{n \pi}{L} \rho_> \right)
+        \end{equation}
+        \begin{tcolorbox}[breakable]
+            The Laplacian of the Green function in cylindrical coordinates is known:
+            \begin{equation}
+                \laplacian{G(x,x')} = \left[ \frac{1}{\rho}\partial_\rho \rho \partial_\rho + \frac{1}{\rho^2} \partial^2_\phi + \partial^2_z \right] =- \frac{4 \pi}{\rho} \delta (\rho - \rho') \delta (\phi-\phi') \delta (z-z')
+            \end{equation}
+            This implies some expansion in periodic functions of $ \phi $, and since our boundaries are conducting planes, we must have solutions where the Green function vanishes at the proper values of $ z $. By completeness,
+            \begin{equation}
+                \sum_{m=- \infty}^{\infty} e^{\imath m (\phi - \phi')} = 2\pi\delta(\phi-\phi')
+            \end{equation}
+            and by orthogonality of the sine function (and choosing coordinates where the argument will be zero on the boundaries):
+            \begin{equation}
+                \sum_{n=1}^{\infty} \sin \left( \frac{n \pi z}{L} \right) \sin \left( \frac{n \pi z'}{L} \right) = \frac{L}{2}\delta(z-z')
+            \end{equation}
+            Given this, it seems appropriate to expand the Green function as
+            \begin{equation}
+                G(x,x') = \sum_{n=1}^{\infty} \sum_{m=- \infty}^{\infty} g(\rho, \rho') e^{\imath m(\phi-\phi')} \sin \left( \frac{n \pi z}{L} \right) \sin \left( \frac{n \pi z'}{L} \right)
+            \end{equation}
+            We now need to find the expansion for $ g(\rho, \rho') $. If we plug in our current expansion back into the Dirichlet equation, we find
+            \begin{equation}
+                \left[ \frac{1}{\rho} \partial_\rho \rho \partial_\rho - \frac{m^2}{\rho^2} - \left( \frac{n \pi}{L} \right)^2 \right] g(\rho,\rho') = - \frac{4}{L \rho} \delta(\rho - \rho')
+            \end{equation}
+            By making the substitution $ x = \frac{n \pi \rho}{L} $ we can put this into modified Bessel form:
+            \begin{equation}
+                \left[ \partial^2_x + \frac{1}{x} \partial_x - \left( 1 + \frac{m^2}{x^2} \right) \right] g(x,x') = - \frac{4}{L x}\delta(x,x')
+            \end{equation}
+            The solutions to an equation of this form are the modified Bessel functions. We know that $ I_m(x) $ blows up at large $ x $ and $ K_m(x) $ does the same for small $ x $, so
+            \begin{equation}
+                g(x,x') = \begin{cases} AI_m(x) & x<x'\\BK_m(x) & x>x' \end{cases} 
+            \end{equation}
+            We also know that these solutions must be continuous and their derivatives must jump by $ \frac{4}{Lx} $ when $ x = x' $. This is to say
+            \begin{equation}
+                A I_m(x') = B K_m(x')
+            \end{equation}
+            and
+            \begin{equation}
+                AI'_m(x') = BK'_m(x') + \frac{4}{L x'}
+            \end{equation}
+            We already showed in the previous problem what the Wronskian for these functions is ($ W[I_m(x'),K_m(x') = -\frac{1}{x'} $), so we can use that here to quickly solve for the coefficients.
+            \begin{align}
+                W[AI_m, BK_m] &= ABW[I_m, K_m] = AB(I_mK'_m - I'_mK_m)\\
+                &= AB \left(\cancelto{0}{\frac{B}{A} K_mK'_m - \frac{B}{A} K_mK'_m} - \frac{4 K_m}{A L x'} \right)\\
+                &= -\frac{4 B K_m(x')}{Lx'} = - \frac{AB}{x'}
+            \end{align}
+            Therefore
+            \begin{equation}
+                A = \frac{4 K_m(x')}{L}
+            \end{equation}
+            and 
+            \begin{equation}
+                B = \frac{4 I_m(x')}{L}
+            \end{equation}
+            so
+            \begin{equation}
+                g(x,x') = \frac{4}{L} \begin{cases} I_m(x)K_m(x') & x<x'\\ I_m(x')K_m(x) x>x' \end{cases} = \frac{4}{L} I_m(x_<)K_m(x_>)
+            \end{equation}
+            Substituting back from $ x $ to $ \rho $, we get the Green's function given at the outset of the problem.
+        \end{tcolorbox}
+    \item[(b)] Show that an alternative form of the Green function is
+        \begin{equation}
+            G( \vec{x}, \vec{x}' ) = 2 \sum_{m=- \infty}^{\infty} \int_0^\infty \dd{k} e^{\imath m (\varphi - \varphi')} J_m(k \rho)J_m(k \rho') \frac{\sinh(kz_<)\sinh[k(L-z_>)]}{\sinh(kL)}
+        \end{equation}
+        \begin{tcolorbox}[breakable]
+            We could alternatively expand in $\rho$ instead of in $ z $, since
+            \begin{equation}
+                \int_{0}^{\infty} kJ_\mu(k \rho)J_\mu(k \rho') \dd{k} = \frac{1}{\rho} \delta(\rho-\rho')
+            \end{equation}
+            so the Green function can be written
+            \begin{equation}
+                G(x,x') = \sum_{m=- \infty}^{\infty} \int_0^{\infty} k g(z,z') e^{\imath m (\phi-\phi')} J_m(k \rho)J_m(k \rho') \dd{k} 
+            \end{equation}
+            (we can choose to sum over the Bessel functions with the same index as the exponentials since we're summing over all of them)
+
+            Plugging this into the Dirichlet Poisson equation, we get
+            \begin{equation}
+                (\partial^2_z - k^2)g(z,z') = -2 \delta(z-z')
+            \end{equation}
+            where the $ k^2 $ comes from the Laplacian acting on the Bessel functions. This function still has to meet the boundary conditions at $ z = 0 $ and $ z = L $, so hyperbolic sine solutions seem to be the obvious solution to the differential equation (sine functions alone will give the wrong sign on $ k^2 $):
+            \begin{equation}
+                g(z,z') = \begin{cases} A\sinh(kz) & z<z'\\ B\sinh(k(L-z)) & z>z' \end{cases}
+            \end{equation}
+            Again, these must agree at $ z = z' $ and their derivatives jump by $ \frac{2}{k} $:
+            \begin{equation}
+                A\sinh(kz') = B\sinh(k(L-z'))
+            \end{equation}
+            and
+            \begin{equation}
+                A\cosh(kz') = -B\cosh(k(L-z')) + \frac{2}{k}
+            \end{equation}
+            Solving this for $ A $ and $ B $ (which is greatly simplified through conversions to exponentials, but I'll let Mathematica handle that for now), we find
+            \begin{equation}
+                A = \frac{2\sinh(k(L-z'))}{k\sinh(kL)}
+            \end{equation}
+            \begin{equation}
+                B = \frac{2\sinh(kz')}{k\sinh(kL)}
+            \end{equation}
+            If we rewrite $ g(z,z') $ now with the $ z_< $ and $ z_> $ notation, we see that,
+            \begin{equation}
+                g(z,z') = \frac{2}{k\sinh(kL)} \sinh(kz_<)\sinh(k(L-z_>))
+            \end{equation}
+            which is the desired dependence in the equation given at the outset of the problem.
+        \end{tcolorbox}
+\end{itemize}
+
+
+\section*{3. Jackson Problem 3.20 [Parts (a) and (b) only]}
+You should not discuss the connection of answer in part (b) with that of Problem 3.19 since we did not work on it.
+
+\hr
+\begin{itemize}
+    \item[(a)] From the results of Problem 3.17 or from first principles show that the potential at a point charge $ q $ between two infinite parallel conducting planes held at zero potential can be written as
+        \begin{equation}
+            \Phi(z, \rho) = \frac{q}{\pi \epsilon_0 L} \sum_{n=1}^{\infty} \sin \left( \frac{n \pi z_0}{L} \right) \sin \left( \frac{n \pi z}{L} \right) K_0 \left( \frac{n \pi \rho}{L} \right)
+        \end{equation}
+        where the planes are at $ z = 0 $ and $ z = L $ and the charge is on the $ z $ axis at the point $ z = z_0 $.
+        \begin{tcolorbox}[breakable]
+            In general
+            \begin{equation}
+                \Phi(x) = \frac{1}{4 \pi \epsilon_0} \int_{V} \rho(x') G(x,x') \dd[3]{x'} - \cancelto{0}{\frac{1}{4 \pi} \oint_S \Phi(x') \pdv{G}{n'}\dd{a'}}
+            \end{equation}
+            where the second term cancels because we are told potential on the surfaces is held at zero. We can get the charge distribution through normalization:
+            \begin{equation}
+                \rho(x') = \frac{q}{2 \pi \rho'}\delta(z'-z_0)\delta(\rho'-0)
+            \end{equation}
+            since
+            \begin{equation}
+                q = \int \rho \dd{V} = 2\pi \int_0^{\infty} \rho'\delta(\rho'-0) \dd{\rho'}
+            \end{equation}
+            $ \rho' $ is zero, so it will be the smaller $ \rho_{>/<} $ in the equation given for the cylindrical form of the Green function. We can now write all of these components into the integral:
+            \begin{equation}
+                \begin{split}
+                \Phi(x) = \frac{1}{4 \pi \epsilon_0}& \frac{4}{L} \int_V \sum_{n=1}^{\infty} \sum_{m=- \infty}^{\infty} \frac{q}{2 \pi \rho'}\delta(z'-z_0)\delta(\rho'-0)\\&\times e^{\imath m(\phi-\phi')} \sin \left( \frac{n \pi z}{L} \right) \sin \left( \frac{n \pi z'}{L} \right)\\ &\times I_m \left( \frac{n \pi \rho'}{L} \right) K_m \left( \frac{n \pi \rho}{L} \right) \rho'\dd{\rho'}\dd{\phi'}\dd{z'} 
+            \end{split}
+            \end{equation}
+            Symmetry about the $ z $ axis in this problem implies that the exponential term with $\phi$ must be $ 1 $, so only the $ m = 0 $ term survives from the second summation. Additionally, the $\delta$ functions set $\rho' = 0$ so we lose the $ I_m $ function (because $ I_m(0) = 0 $). The other $\delta$ will set $ z' = z_0 $ in the integral over $ z $, so in the end we have
+            \begin{equation}
+                \Phi(x) = \frac{1}{\pi \epsilon_0 L} \frac{q}{2 \pi} \sum_{n=1}^{\infty} \sin \left( \frac{n \pi z_0}{L} \right) \sin \left( \frac{n \pi z}{L} \right) K_0 \left( \frac{n \pi \rho}{L} \right)  \int_0^{2 \pi} \dd{\phi}
+            \end{equation}
+            so
+            \begin{equation}
+                \Phi(x) = \frac{q}{\pi \epsilon_0 L} \sum_{n=1}^{\infty} \sin \left( \frac{n \pi z_0}{L} \right) \sin \left( \frac{n \pi z}{L} \right) K_0 \left( \frac{n \pi \rho}{L} \right)
+            \end{equation}
+        \end{tcolorbox}
+    \item[(b)] Calculate the induced surface charge densities $ \sigma_0(\rho) $ and $ \sigma_L(\rho) $ on the lower and upper plates. The result for $ \sigma_L(\rho) $ is
+        \begin{equation}
+            \sigma_L(\rho) = \frac{q}{L^2} \sum_{n=1}^{\infty} (-1)^n n \sin \left( \frac{n \pi z_0}{L} \right) K_0 \left( \frac{n \pi \rho}{L} \right)
+        \end{equation}
+        \begin{tcolorbox}[breakable]
+            Since we have $ \Phi(x) $, we can calculate the surface charge densities which are induced as
+            \begin{equation}
+                \sigma_{0,L} = - \epsilon_0 \eval{\pdv{\Phi(x)}{z}}_{z=0,L}
+            \end{equation}
+            In either case, the derivative will only act on the $ \sin \left( \frac{n \pi z}{L} \right) $ part and leave the remaining terms unchanged.
+            \begin{equation}
+                \pdv{\sin \left( \frac{n \pi z}{L} \right)}{z} = \frac{n \pi}{L} \cos \left( \frac{n \pi z}{L} \right)
+            \end{equation}
+            Evaluating this at $ z = 0 $ gives $ \frac{n \pi}{L} \cos(0) = \frac{n \pi}{L} $, so
+            \begin{equation}
+                \sigma_0(\rho) = - \frac{q}{L^2} \sum_{n=1}^{\infty} n \sin \left( \frac{n \pi z_0}{L} \right) K_0 \left( \frac{n \pi \rho}{L} \right)
+            \end{equation}
+            Evaluating at $ z = L $, we have $ \frac{n \pi}{L} \cos(n \pi) = \frac{n \pi}{L} (-1)^n $ so
+            \begin{equation}
+                \sigma_L(\rho) = \frac{q}{L^2} \sum_{n=1}^{\infty} (-1)^n n \sin \left( \frac{n \pi z_0}{L} \right) K_0 \left( \frac{n \pi \rho}{L} \right)
+            \end{equation}
+        \end{tcolorbox}
+\end{itemize}
+\end{document}

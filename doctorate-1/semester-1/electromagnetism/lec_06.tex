@@ -1,0 +1,104 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{6}{Mon Sep 2 2019}{Green's Functions on Special Geometries, Continued}
+
+\section{Continued Sphere Example}%
+\label{sec:continued_sphere_example}
+
+\begin{equation}
+    G_D = \frac{1}{|\vec{x}-\vec{x}'|} - \frac{\frac{a}{x'}}{\left|\vec{x}-\frac{a^2}{x'^2}\vec{x}'\right|}
+\end{equation}
+
+\begin{equation}
+    \Phi(x) = \frac{1}{4\pi\epsilon_0}\int G_D(x,x')\rho(x')d^3x'-\frac{1}{4\pi}\oint\frac{\partial G_D(x,x')}{\partial n'}\Phi(x')da'
+\end{equation}
+
+If $\rho(x') = 0$ and $\Phi(x)$ is given on the sphere,
+$\frac{\partial G_D}{\partial n'} = -\frac{\partial G_D}{\partial r'}.$
+
+In spherical coordinates, you can compute
+\begin{equation}
+    -\frac{\partial G_D}{\partial r'}\bigg|_{r'=a}=\frac{(a^2-r^2)}{a[r^2+a^2-2ar\cos\gamma]^{3/2}}
+\end{equation}
+
+\begin{align}
+    \cos\gamma &= \hat{n}\cdot\hat{n}' = \cos\theta\cos\theta'+\sin\theta\sin\theta'\cos(\phi-phi')\\
+    &= \cos\theta\cos\theta' + \sin\theta\sin\phi\sin\theta'\sin\phi' + \sin\theta\cos\phi\sin\theta'\cos\phi'
+.\end{align}
+
+
+Now we can solve for the potential:
+
+\begin{equation}
+    \Phi(x) = -\int\frac{(a^2-r^2)}{a[r^2+a^2-2ar\cos\gamma]^{3/2}}\Phi(a,\theta',\phi')a^2d\Omega'.
+\end{equation}
+
+$d\Omega' = \sin\theta'd\theta'd\phi'$ so
+
+\begin{equation}
+    \Phi(r,\theta,\phi) = -\int^{2\pi}_{0}d\phi'\int^{\pi}_{0}d\theta'\frac{a(a^2-r^2)}{[r^2+a^2-2ar\cos\gamma]^{3/2}}\Phi(a,\theta',\phi')\sin\theta'.
+\end{equation}
+
+where $\Phi(a,...)$ is the given potential on the surface of the
+sphere.
+
+\subsection{How to Solve the Laplace Equation Directly}%
+\label{sub:how_to_solve_the_laplace_equation_directly}
+
+We will compare this with the Green's function approach later. The Green's function is more painful to construct, but it applies to more general systems, whereas this solution will only apply to an individual problem.
+
+Say we have a box joining the xy, xz, and yz-planes with planes at $x=a$, $y=b$, and $z=c$. Let's say all the surfaces are kept at $\Phi = 0$ except for the $z=c$ plane, which has some potential $V(x,y)$.
+
+\subsubsection{Separation of Variables}%
+\label{subsub:separation_of_variables}
+
+Assume $\Phi = X(x)Y(y)Z(z)$, so $\nabla^2\Phi = X''YZ+XY''Z+XYZ''=0$
+
+Assuming $\Phi$ never vanishes inside, we can divide by $XYZ$:
+
+\begin{equation}
+   \frac{X''}{X}+\frac{Y''}{Y}+\frac{Z''}{Z}=0
+\end{equation}
+
+Each of these is independent, so the only solutions involve these fractions being constants. Let us pick $\frac{X''}{X} = -\alpha^2$, $\frac{Y''}{Y}=-\beta^2$, and $\frac{Z''}{Z}=(\alpha^2+\beta^2)$. The solutions for these are not difficult. $X = A\sin(\alpha x) + B\cos(\alpha x)$, $Y=C\sin(\beta y) + D\cos(\beta y)$.
+
+We know $X(0) = 0$, so $B=0$. Also, $X(a) = 0$ so $\sin(\alpha a) = 0$, so $\alpha = \frac{n\pi}{a},\ n=1,2,...$. Additionally, $D=0$ and $\beta = \frac{m\pi}{b},\ m=1,2,...$.
+
+We can write out a solution for $Z$ using hyperbolic functions:
+
+\begin{equation}
+   Z(z) = E\sinh (\sqrt{\alpha^2+\beta^2}z) + F\cosh(\sqrt{\alpha^2+\beta^2}z).
+\end{equation}
+
+$Z(0)=0\Rightarrow F=0$. We have one more boundary condition, namely $Z(c) = V(x,y)$. By superposition,
+
+\begin{equation}
+   \Phi = \sum_{m,n}A_{mn}\sin(\frac{n\pi}{a})\sin(\frac{m\pi}{b}y)\sinh(\sqrt{\frac{n^2\pi^2}{a^2}+\frac{m^2\pi^2}{b^2}}z)
+\end{equation}
+
+Now we are given $\Phi(x,y,z=c) = V(x,y)$. If we set this up, we would find
+
+\begin{equation}
+   V(x,y)=\sum_{m,n}A_{mn}\sin(\frac{n\pi}{a})\sin(\frac{m\pi}{b}y)\sinh(\sqrt{\frac{n^2\pi^2}{a^2}+\frac{m^2\pi^2}{b^2}}c)
+\end{equation}
+
+If $V(x,y)$ is well-behaved,
+
+\begin{equation}
+   A_{mn} = \frac{4}{ab\sinh(\sqrt{\frac{n^2\pi^2}{a^2}+\frac{m^2\pi^2}{b^2}}c)}\int_0^a da\int_0^b dy V(x,y)\sin(\frac{n\pi}{a})\sin(\frac{m\pi}{b}y)
+\end{equation}
+
+We will not justify this solution, Dirichlet solved it a long time ago. Right after this, Sturm and Liouville showed that any differential operator $\mathcal{D} = \frac{d}{dx}(p(x)\frac{d}{dx}) + q(x)$ will have a complete basis on a finite interval.
+
+\begin{note}{Digression:}
+We have $\sqrt{\frac{2}{a}}\sin(\frac{n\pi x}{a})$ as a basis of the set of ``nice'' functions on $[0,a]$. This is a complete basis, so summing over all $n$ of two basis elements will give $\delta(x-x')$ and integrating over $x$ over two basis elements on the interval will yield $\delta_{nm}$.
+\end{note}
+
+Sturm-Liouville problems require boundary conditions where either the function or its derivative (not both) vanish at the boundaries (you also need to specify which occurs at which boundary for both boundaries).
+
+\begin{equation}
+   \int_0^a[f(x)(\mathcal{D}g(x)) - (\mathcal{D}f)g(x)]dx = [f(x)g'(x)-g(x)f'(x)]\bigg|_0^a = 0
+\end{equation}
+
+then $\mathcal{D}f_\lambda = \lambda f_\lambda$, so $|f_\lambda\rangle$ form an orthonormal basis.
+\end{document}

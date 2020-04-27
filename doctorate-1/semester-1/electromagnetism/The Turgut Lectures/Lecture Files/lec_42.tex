@@ -1,0 +1,95 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{42}{Monday, November 18, 2019}{Radiation in the Far Field}
+Wait, that's the only kind of radiation.
+
+Recall our three regimes:
+\begin{itemize}
+    \item Far Field: $ d << \lambda << r $
+    \item Intermediate $ d << \lambda \sim r $
+    \item Near Field $ d << r << \lambda $ (static limit)
+\end{itemize}
+If we expand our solutions in the near field,
+\begin{equation}
+    e^{\imath \frac{2 \pi}{\lambda} \abs{ \va{x} - \va{x}'}} \sim 1 + \imath \frac{2 \pi}{\lambda} \abs{ \va{x} - \va{x}'} + \cdots
+\end{equation}
+where $ 1 $ represents the static point.
+
+In the radiation zone, let's expand the exponential in the vector potential:
+
+\begin{equation}
+    \va{A}_{\omega} = \frac{\mu_0}{4 \pi} \int \frac{ \va{J}_{\omega}( \va{x}') e^{\imath k r \left( 1 - \frac{2 \va{x} \vdot \va{x}'}{r^2} + \frac{ \va{x}'^2}{r^2} \right)^{\frac{1}{2}}}}{r \left[ 1 - \frac{2 \va{x} \vdot \va{x}'}{r^2} + \frac{ \va{x}'^2}{r^2} \right]^{\frac{1}{2}}} \dd[3]{x'}
+\end{equation}
+However, $ r \frac{ \va{x} \vdot \va{x}'}{r^2} \to k \vu{n} \vdot \va{x}' $ is on the order of $ \order{\frac{d}{\lambda}} $. In the radiation zone, $ \frac{d}{r} << \frac{d}{\lambda} $. The next term also has a vanishing order.
+
+Let's try ignoring both of these terms. We find, to zeroth order, that
+\begin{equation}
+    \va{A}_{\omega} \simeq \frac{\mu_0}{4 \pi} \int \frac{\dd[3]{x'} \va{J}_{\omega}( \va{x}') e^{\imath k r}}{r}
+\end{equation}
+
+In the radiation zone, we find
+\begin{equation}
+    \va{A}_{\omega} \simeq \frac{\mu_0}{4 \pi} \left[ \int \dd[3]{x'} \va{J}_{\omega}( \va{x}') e^{\imath k \vu{n} \vdot \va{x}'} \right] \frac{e^{\imath kr}}{r}
+\end{equation}
+
+We can expand this last term in the intermediate range as
+\begin{equation}
+    \frac{e^{\imath k \abs{ \va{x} - \va{x}'}}}{\abs{ \va{x} - \va{x}'}} = \imath k \sum_{l,m} j_{l} (kr') h_{l}^{(1)} (kr) Y_{lm}(\Omega) Y_{lm}^*(\Omega') 
+\end{equation}
+where
+\begin{equation}
+    j_{l}(kr) = \frac{J_{l+ 1/2}(kr)}{\sqrt{r}}
+\end{equation}
+and $ h_{l}^{(1)} $ is a Hankel function of the first kind. We can expand this in the far field to get the radiation effects, since the Hankel function will look like an exponential for large $ r $. We'll derive all of this later.
+
+\begin{equation}
+    \va{A}_{\omega} = \frac{\mu_0}{4 \pi} \frac{e^{\imath k r}}{r} \int \va{J}_{\omega}( \va{x}') \dd[3]{x'}
+\end{equation}
+Now let's look at the divergence of $ \va{A}_{\omega} $:
+\begin{equation}
+    \int_{\Omega} \partial_j (x_i J_j) \dd[3]{x} = \int_{\Omega} \delta_{ij} J_j + x_i \partial_j J_j
+\end{equation}
+so
+\begin{equation}
+    \int_{\Omega} J_i = - \int x_i \partial_j J_j
+\end{equation}
+Recall that $ \partial_t \rho + \div{ \va{J}} = 0 $, so
+\begin{equation}
+    \int_{\Omega} J_i = - \int \imath \omega \rho_{\omega}( \va{x}') x' \dd[3]{x'}
+\end{equation}
+This term is actually the dipole moment of the charge distribution!
+\begin{equation}
+    \va{A}_{\omega} = - \frac{\imath \mu}{4 \pi} \omega \left[ \int \underbrace{\dd[3]{x'} \rho_{\omega}( \va{x}') \va{x}'}_{ \va{p}_{\omega}} \right] \frac{e^{\imath kr}}{r}
+\end{equation}
+
+Therefore,
+\begin{equation}
+    \va{B}_{\omega} = \curl{ \va{A}_{\omega}} = + \frac{\imath \mu_0 \omega}{4 \pi} \va{p}_{\omega} \cross \div{\left( \frac{e^{\imath kr}}{r} \right)}
+\end{equation}
+and
+\begin{equation}
+    \grad{e^{\imath kr}} = \imath k \left( \frac{ \va{x}}{r} \right) e^{\imath kr} 
+\end{equation}
+so
+\begin{equation}
+    \va{B}_{\omega} = \left( \frac{\imath (\imath k) \mu_0 \omega}{4 \pi} \va{p}(\omega) \cross \vu{n} \right) \frac{e^{\imath kr}}{r} + \cdots
+\end{equation}
+and
+\begin{equation}
+    \va{E}_{\omega} = \frac{\imath c}{k} \curl{\left[ - \frac{k^2 \mu_0 c}{4 \pi} \va{p}_{\omega} \cross \vu{n}  \right] \frac{e^{\imath kr}}{r}} = \frac{\imath c^2 k \mu_0}{4 \pi} \left[ ( \va{p}_{\omega} \cross \vu{n}) \cross \imath k \vu{n} \right] \frac{e^{\imath kr}}{r}
+\end{equation}
+so
+\begin{equation}
+    \va{E}_{\omega} = \frac{- c^2 k^2}{4 \pi} \mu_0 \left[ ( \va{p}_{\omega} \cross \vu{n}) \cross \vu{n} \right] \frac{e^{\imath kr}}{r}
+\end{equation}
+
+Now lets look at the power. We will calculate $ \dv{P}{\Omega} = \Re[\ev{ \va{S}} \vdot r^2 \vu{n}] $, the change in power as a function of solid angle. This morning we found that the time average of the Poynting vector was something like $ \frac{1}{2} ( \va{E}_{\omega} \cross \va{B}_{\omega}^*) $, which will get rid of the $ e^{\imath kr} $ terms, so we will get something like
+\begin{equation}
+    \dv{P}{\Omega} \sim \left[ \frac{c^2 k^2}{4 \pi} \mu_0 \frac{c k^2 \mu_0}{4 \pi} \right] \vu{n} \cdot \left( \left[ ( \va{p}_{\omega} \cross \vu{n}) \cross \vu{n} \right] \cross ( \va{p}_{\omega} \cross \vu{n}) \right)
+\end{equation}
+We can rewrite it using some vector identities, so its similar to
+\begin{equation}
+    \sim k^4 \left( ( \va{p}_{\omega} \cross \vu{n}) \cross \vu{n} \right) \vdot \left( ( \va{p}_{\omega} \cross \vu{n}) \cross \vu{n} \right)^*
+\end{equation}
+
+\end{document}

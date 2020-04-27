@@ -1,0 +1,91 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{43}{Friday, November 22, 2019}{Rotation of Observables}
+
+Let's imagine we have some observable $ \vu{A} $ with eigenstates $ \vu{A}\ket{u_n} = a_n\ket{u_n} $. We first define the rotated eigenvector: $\ket{u'_n} = \vu{R}\ket{u_n} $, and next, we define $ \vu{A}'\ket{u'_n} = a_n\ket{u'_n} $. Therefore
+\begin{equation}
+    \vu{A}' \vu{R}\ket{u_n} = a_n \vu{R}\ket{u_n} \quad \forall\ket{u_n}
+\end{equation}
+so
+\begin{equation}
+    \vu{A}' = \vu{R} \vu{A} \vu{R}^{-1}
+\end{equation}
+
+We've discussed some types of observables. Scalar observables commute with all components of angular momentum: $ \comm{ \va{J}}{ \vu{A}} = 0 $. For example, $ \vu{H} $, $ \abs{ \va{R}}^2 $, $ \abs{ \va{P}}^2  $, $ \va{R} \vdot \va{P} $, etc.
+
+Additionally, we can have vector observables: $ \va{A} = (\vu{A}_x, \vu{A}_y, \vu{A}_z) $.
+
+\begin{equation}
+    \mathscr{R}_{ \vu{x}}(\dd{\alpha})\implies\begin{cases} \vu{x} \to \vu{x}' = \vu{x} \\ \vu{A}_x \to \vu{A}'_x = \vu{x}' \vdot \va{A} = \vu{A}_x \\ \comm{ \vu{J}_x}{ \vu{A}_x} = 0\end{cases}
+\end{equation}
+
+However,
+\begin{equation}
+    \mathscr{R}_{ \vu{y}}(\dd{\alpha}) \implies \begin{cases} \vu{x} \to \vu{x}' = \vu{x} + \dd{\alpha} \vu{y} \cross \vu{x} = \vu{x} - \dd{\alpha} \vu{z} \\ \vu{A}_x \to \vu{A}'_x = \vu{A}_x - \dd{\alpha} \vu{A}_z \\ \comm{ \vu{J}_y}{ \vu{A}_x} = - \imath \hbar \vu{A}_z \end{cases}
+\end{equation}
+and similarly
+\begin{equation}
+    \comm{ \vu{J}_z}{ \vu{A}_x} = \imath \hbar \vu{A}_y
+\end{equation}
+Since $ \vu{R} = e^{- \frac{\imath}{\hbar} \dd{\alpha} \va{J} \vdot \vu{u}} \approx 1- \frac{\imath}{\hbar} \dd{\alpha} \va{J} \vdot \vu{u} $ so $ \vu{A}' = \vu{A} - \frac{\imath}{\hbar} \dd{\alpha} \comm{ \va{J} \vdot \vu{u}}{ \vu{A}} $.
+
+We can see that vector observables are things that commute with angular momentum in a way similar to angular momentum's commutation relations: $ \va{J} $, $ \va{L} $, $ \va{S} $, $ \va{R} $, $ \va{P} $, etc.
+
+\begin{ex}
+    2-D Harmonic Oscillator:
+    $ \vu{V}(x,y) = \frac{1}{2} m \omega^2(x^2 + y^2) $, and $ \vu{H} = \frac{\abs{ \va{P}}^2}{2m} + \frac{1}{2} m \omega^2 \abs{ \va{R}}^2 = \vu{H}_x + \vu{H}_y $. We can write the eigenstates as
+    \begin{equation}
+        \ket{n_x n_y} =\ket{n_x} \otimes\ket{n_y} = ( \vu{a}^\dagger_x)^{n_x} ( \vu{a}^\dagger_y)^{n_y}\ket{00}
+    \end{equation}
+    Note that we can write the Hamiltonian as $ \vu{H} = ( \vu{N}_x + \vu{N}_y + 1) \hbar \omega $, so
+    \begin{equation}
+        E_{n_x n_y} = (n_x + n_y + 1) \hbar \omega
+    \end{equation}
+    Therefore, $ E_{00} $ is the ground state, $ E_{10} = E_{01} $ are degenerate first excited states, and $ E_{20} = E_{11} = E_{02} $ are degenerate second excited states. Because of this degeneracy, we know there must be another observable to add to our complete set of commuting observables (CSOCO) to get all the ``good'' quantum numbers to sufficiently distinguish the states of the system. The angular momentum operator $ \vu{L}_z = \vu{X} \vu{P}_y - \vu{Y} \vu{P}_x = \imath \hbar ( \vu{a}_x \vu{a}^\dagger_y - \vu{a}^\dagger_x \vu{a}_y) $ commutes with the Hamiltonian. Our number states are not eigenstates of the angular momentum, but we can define some new raising and lowering operators (with French suffixes, of course):
+    \begin{equation}
+        \vu{a}_d = \frac{1}{\sqrt{2}} ( \vu{a}_x - \imath \vu{a}_y)
+    \end{equation}
+    (droite/right)
+    \begin{equation}
+        \vu{a}_g = \frac{1}{\sqrt{2}} ( \vu{a}_x + \imath \vu{a}_y)
+    \end{equation}
+    (gauche/left)
+    \begin{equation}
+        \comm{ \vu{a}_{(d,g)}}{ \vu{a}^\dagger_{(d,g)}} = 1
+    \end{equation}
+    We can also see that
+    \begin{equation}
+        \vu{a}_d\ket{n_x n_y} = (\cdots)\ket{n_x - 1, n_y} + (\cdots)\ket{n_x, n_y - 1}
+    \end{equation}
+    $ \vu{a}_d $ and $ \vu{a}_g $ are lowering operators which take us between linear combinations of energy states. Our previous operators $ \vu{a}_{(x,y)} $ act on linearly polarized states which are only in the $ x $ or $ y $ direction. However, these operators act on linear combinations of linearly polarized states (which give us circularly or elliptically polarized states), the ``droite'' operator acting on right-polarized states and ``gauche'' acting on left-polarized states.
+
+    This allows us to express the Hamiltonian as
+    \begin{equation}
+        \vu{H} = \left( \vu{a}^\dagger_d \vu{a}_d + \vu{a}^\dagger_g \vu{a}_g + 1 \right) \hbar \omega = ( \vu{N}_d + \vu{N}_g + 1) \hbar \omega
+    \end{equation}
+    Additionally,
+    \begin{equation}
+        ( \vu{N}_d - \vu{N}_g) \hbar = \vu{L}_z
+    \end{equation}
+
+    We can now create simultaneous eigenstates of these number operators:
+    \begin{equation}
+        \ket{n_d n_g} = \frac{1}{\sqrt{n_d! n_g!}} ( \vu{a}^\dagger_d)^{n_d} ( \vu{a}^\dagger_g)^{n_g}\ket{00}
+    \end{equation}
+    so
+    \begin{equation}
+        \vu{H}\ket{n_d n_g} = (n_d + n_g + 1) \hbar \omega\ket{n_d n_g}
+    \end{equation}
+    and
+    \begin{equation}
+        \vu{L}_z\ket{n_d n_g} = (n_d - n_g) \hbar\ket{n_d n_g}
+    \end{equation}
+    Therefore, we now have a similar ladder of degenerate energy states: One ground state $ \chi_{00} \sim e^{- r^2 / 2}  $, two first-excited states, $ \chi_{01} \sim r e^{- r^2 / 2} e^{- \imath \varphi}  $, $ \chi_{10} \sim r e^{-r^2 / 2} e^{\imath \varphi} $, and three second-excited states, $ \chi_{02} \sim r^2 e^{- r^2 / 2} e^{-2 \imath \varphi} $, $ \chi_{11} \sim (r^2 - 1) e^{- r^2 / 2} $, and $ \chi_{20} \sim r^2 e^{-r^2 / 2} e^{2 \imath \varphi} $.
+\end{ex}
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,147 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{24}{Fri Oct 11 2019}{Force Acting on a Localized Current Distribution}
+
+From the previous lecture, we found that
+\begin{equation}
+    \vec{m} = \frac{1}{2} \int \vec{x} \times \vec{J}(x) \dd[3]{x}
+\end{equation}
+We assume that
+\begin{equation}
+    \vec{F} = q \vec{v} \times \vec{B}
+\end{equation}
+or
+\begin{equation}
+    \vec{F} = \int \vec{J} \times \vec{B} \dd[3]{x}
+\end{equation}
+
+We will Taylor expand this in components (to deal with the cross product):
+
+\begin{align}
+    F_i &= \int \epsilon_{ijk} J_j \left[ B_k(0) + x_l\partial_l\eval_0 B_k + \frac{1}{2} (x_l\partial_l)^2\eval_0 B_k + \cdots \right] \dd{x}\\
+    &= \epsilon_{ijk} B_k(0) \cancelto{0}{\int J_j \dd[3]{x}} + \int \dd[3]{x} \epsilon_{ijk} J_j x_l \partial_l\eval_0 B_k + \ldots
+\end{align}
+Recall the way we split up index notation in last lecture:
+\begin{equation}
+    \int x_l J_j \dd[3]{x} = \int x_{[l} J_{j]} + \cancelto{0}{x_{(l}J_{j)}} \dd[3]{x} = \frac{1}{2} \int \underbrace{x_lJ_j-x_jJ_l}_{\epsilon_{ljm} ( \vec{x} \times \vec{J})_m} \dd[3]{x}
+\end{equation}
+so
+\begin{align}
+    F_i &= \epsilon_{ijk} \epsilon_{ljm} \frac{1}{2} \int ( \vec{x} \times \vec{J})_m \dd[3]{x} \partial_l\eval_0 B_k\\
+    &= (\delta_{il}\delta_{km} - \delta_{im} \delta_{kl})m_m\partial_l\eval_0 B_k = m_k\partial_i\eval_0 B_k - \underbrace{\cancelto{0}{m_i\partial_k\eval_0 B_k}}_{\div{B} = 0}
+\end{align}
+
+We can then say that
+\begin{equation}
+    \vec{F}\approx \nabla\eval_0( \vec{m} \cdot \vec{B} )
+\end{equation}
+Recall that since $ \curl{ \vec{B}} = 0 $ (we suppose this magnetic field is external), $ \partial_i B_k - \partial_k B_i = 0 $, so
+\begin{equation}
+    m_k\partial_iB_k = m_k\partial_k B_i
+\end{equation}
+so
+\begin{equation}
+    \vec{F}\approx \eval{( \vec{m} \cdot \vec{\nabla} )}_0 \vec{B}
+\end{equation}
+
+What is the torque on this system?
+\begin{note}{Notation}
+    Jackson uses ``$ n $'', but we will use $ \mathcal{T} $
+\end{note}
+\begin{equation}
+    \mathcal{T} = \int \vec{x} \times ( \vec{J} \times \vec{B}) \dd[3]{x}
+\end{equation}
+Again, let's look at the elements:
+\begin{align}
+    \mathcal{T}_i &= \int (J_i(x_kB_k)-B_i(x_kJ_k)) \dd[3]{x}\\
+    &= \int J_i(x_kB_k \dd[3]{x} - \cancelto{0}{\int B_i x_k J_k \dd[3]{x}}
+\end{align}
+because we can expand $ B_i $ as
+\begin{equation}
+    B_i(0) + \vec{x} \cdot \nabla\eval_0 \vec{B} + \cdots
+\end{equation}
+and
+\begin{equation}
+    B_i(0) \int x_k J_k \dd[3]{x} = 0
+\end{equation}
+because these are symmetrized indices.
+
+We can expand the other side as
+\begin{align}
+    \mathcal{T}_i &= \int J_i x_k [B_k(0) + ( \vec{x} \cdot \nabla)\eval_0 \vec{B} +\ldots] \dd[3]{x}\\
+    &= \int \frac{1}{2} (x_k J_i - x_iJ_k)B_k(0) \dd[3]{x} + \ldots\\
+    &= \epsilon_{kil} m_l B_k(0)\\
+    &= \epsilon_{ilk} m_l B_k(0)\\
+    &= \vec{m} \times \vec{B}(0)
+\end{align}
+
+\begin{note}{Remark}
+    \begin{equation}
+        \curl{ \vec{B}} = \mu_0 \vec{J}
+    \end{equation}
+    \begin{equation}
+        \curl{ \curl{ \vec{B}}} = \mu_0 \curl{J}
+    \end{equation}
+    \begin{equation}
+        \grad{\cancelto{0}{\div{ \vec{B}}}} - \laplacian{ \vec{B}} = \mu_0 \curl{ \vec{J}}
+    \end{equation}
+    so
+    \begin{equation}
+        \laplacian{ \vec{B}} = - \mu_0 \curl{ \vec{J}}
+    \end{equation}
+\end{note}
+
+From quantum mechanics, (circularly polarized light, for example), we know that these fields must carry some information about angular momentum. This can't be derived from our current expansions of $ \vec{B} $ and $ \vec{E} $. There is a more ``transparent'' expansion, but of course, it requires a ``roundabout'' way of doing the expansion. In the special case of $ \vec{J} = 0 $, we find that $ \curl{ \vec{B}} = 0 $ so $ \vec{B} = - \div{ \Phi_M} $, where $ \Phi_m $ is some scalar potential for the magnetic field. There is a problem with this. If we were to look at some path of current and integrate over a path overlapping it (passing through $ x_0 $),
+\begin{equation}
+    \oint_\Gamma \vec{B} \cdot \dd{ \vec{l}} = \mu_0 I
+\end{equation}
+this would imply that
+\begin{equation}
+    \int \grad{ \Phi_m} \cdot \dd{ \vec{l}} = \Phi_m( \vec{x}_0 ) - \Phi_m( \vec{x}_0 ) = 0
+\end{equation}
+unless we allow the potential to be multivalued (which we shouldn't).
+
+If we look at $ \vec{x} \cdot \vec{B} $ instead, we see that
+\begin{equation}
+    \vec{x} \cdot \laplacian{ \vec{B}} = \laplacian{( \vec{x} \cdot \vec{B} )} - 2 \cancelto{0}{\div{ \vec{B}}}
+\end{equation}
+so
+\begin{equation}
+    \laplacian{ \vec{B}} = - \mu_0 \curl{ \vec{J}} \implies \vec{x} \cdot \laplacian{ \vec{B}} = -mu_0 \vec{x} \cdot \curl{ \vec{J}} = \laplacian{( \vec{x} \cdot \vec{B})}
+\end{equation}
+We can now start playing with this expression:
+\begin{align}
+    \laplacian{( \vec{x} \cdot \vec{B})} &= - \mu_0 \vec{x} \cdot \curl{ \vec{J}}\\
+    &\rightarrow x_i \epsilon_{ijl} \partial_j J_l\\
+    &= \epsilon_{ijl} x_i\partial_j J_l\\
+    &= ( x \times \nabla) \cdot \vec{J}
+\end{align}
+so
+\begin{align}
+    \laplacian{( \vec{x} \cdot \vec{B})} &= - \mu_0 ( \vec{x} \times \nabla ) \cdot \vec{J}\\
+    &= -\imath \mu_0 (\underbrace{-\imath \vec{x} \times \nabla}_{ \vec{\mathbb{L}}}) \cdot \vec{J}\\
+    &= -\imath\mu_0 \vec{\mathbb{L}} \cdot \vec{J}
+\end{align}
+so
+\begin{equation}
+    \vec{x} \cdot \vec{B} = \frac{\imath \mu_0}{4 \pi} \int \frac{\vec{\mathbb{L}} \cdot \vec{J}(x')}{\abs{ \vec{x} - \vec{x}'}} \dd[3]{x'}
+\end{equation}
+We now expand the denominator in terms of our spherical harmonics:
+\begin{align}
+    \vec{x} \cdot \vec{B} &= \frac{\imath \mu_0}{4 \pi} \int ( \vec{\mathbb{L}} \cdot \vec{J})(x') \sum_{l=0}^{\infty} \sum_{m=-l}^{l} \frac{4 \pi}{2l+1} Y_{lm}^*(\theta', \varphi')Y_{lm}(\theta, \varphi) \frac{r_<^l}{r_>^{l+1}} \dd[3]{x'}\\
+    &= \frac{\imath \mu_0}{4 \pi} = \int \sum_{l,m} Y_{lm}^*(\Omega') \vec{\mathbb{L}} \cdot \vec{J}(\Omega',r') \dd{\Omega'} \dd{r'} \frac{4 \pi}{2l+1} \frac{r_<^l}{r_>^{l+1}} \dd[3]{x'} Y_{lm} (\Omega)
+\end{align}
+It turns out that we can also express
+\begin{equation}
+    \vec{x} \cdot \vec{B} = -r \pdv{\Phi_m}{r}
+\end{equation}
+so
+\begin{align}
+    \pdv{\Phi_m}{r} &= \frac{-\imath \mu_0}{4 \pi} \frac{1}{r} \sum_{l,m} \int \frac{4 \pi}{2l+1} Y_{lm}^*(\Omega')( \vec{\mathbb{L}} \cdot \vec{J})(\Omega', r')r'^l \dd{\Omega'} \dd{r'} \frac{Y_{lm} (\Omega)}{r^{l+1}}\\
+    &= \left( \frac{-\imath \mu_0}{4 \pi} \right) \sum_{l,m} \left(\frac{4 \pi}{2l + 1} \int Y_{lm}^*(\Omega) \vec{\mathbb{L}} \cdot \vec{J} \dd{\Omega'} r'^l \dd{r'}\right) \frac{Y_{lm}}{r^{l+1}}\\
+    &= \Phi_M = \frac{\imath \mu_0}{\sqrt{l+1}} \sqrt{l} \sum_{l,m} \left( \frac{4 \pi}{2l+1} \right)\left\{ \int \frac{ \vec{\mathbb{L}} Y_{lm}^*}{\sqrt{l(l+1)}} \cdot \vec{J} \dd{\Omega'} r'^l \dd{r'} \right\} \frac{Y_{lm}}{r^{l+1}}
+\end{align}
+where $ \vec{\mathbb{L}} Y_{lm}^* $ are the vector spherical harmonics
+
+
+\end{document}

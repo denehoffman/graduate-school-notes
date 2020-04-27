@@ -1,0 +1,138 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{15}{Monday, February 17, 2020}{Extensivity}
+
+Variables in thermodynamics are typically intensive or extensive. Intensive variables are the ones which do not scale as we change the size of the system, whereas extensive variables do. For example, entropy is extensive. Note that
+\begin{equation}
+    \dd{S} = \frac{1}{T} \dd{U} + \frac{P}{T} \dd{V} - \frac{\mu}{T} \dd{N}
+\end{equation}
+If we take a system defined by variables $ U $, $ V $, and $ N $, scaling the system to $ \lambda V $, $ \lambda N $ and $ \lambda U $ will demonstrate degree-one extensivity:
+\begin{equation}
+    S(\lambda U, \lambda V, \lambda N) = \lambda S(U,V,N)
+\end{equation}
+
+Knowing this, we can use one of Euler's theorems:
+\begin{equation}
+    f(\lambda x_1, \lambda x_2, \cdots, \lambda x_n) = \lambda^m f(x_1, \cdots, x_n)
+\end{equation}
+then
+\begin{equation}
+    \dv{\lambda} f(\lambda s xu 1, \cdots, \lambda x_n) = m \lambda^{m-1} f(x_1, \cdots, x_n)
+\end{equation}
+This is equivalent to
+\begin{equation}
+    \sum_{i=1}^{n} \eval{\pdv{f}{x^i}}_{\lambda x^i} \underbrace{\dv{\lambda x_i}{\lambda}}_{x^i} = m \lambda^{m-1} f(x_1, \cdots, x_n)
+\end{equation}
+In the limit $ \lambda \to 1 $,
+\begin{equation}
+    \lim_{\lambda \to 1} \sum_{i=1}^{n} \eval{\pdv{f}{x^i}}_{\lambda x^i} x^i = mf(x_1, \cdots, x_n) = \sum_{i=1}^{n} \pdv{f}{x^i} x^i
+\end{equation}
+
+Using this result, we can write
+\begin{equation}
+    S = \eval{\pdv{S}{U}}_{V,N} U + \eval{\pdv{S}{V}}_{U,V} V + \eval{\pdv{S}{N}}_{V,U} N
+\end{equation}
+Plugging in our known derivatives of $ S $, we have
+\begin{equation}
+    S = \frac{1}{T} U + \frac{P}{T} V - \frac{\mu}{T} N
+\end{equation}
+or
+\begin{equation}
+    U = TS - PV + \mu N
+\end{equation}
+We had this before, but as a differential. This only works because of extensivity. However, this only holds well with microsystems with short-range interactions. We previously showed that gravitational systems are not consistent with this theorem.
+
+We know that
+\begin{equation}
+    \dd{U} = T \dd{S} - P \dd{V} + \mu \dd{N}
+\end{equation}
+but the relationship that we just found means that, due to extensivity,
+\begin{equation}
+    \dd{U} = T \dd{S} + S \dd{T} - P \dd{V} - V \dd{P} + N \dd{\mu} + \mu \dd{N}
+\end{equation}
+which implies
+\begin{equation}\label{eq:gibbs_duhem}
+    0 = S \dd{T} - V \dd{P} + N \dd{\mu}\tag{Gibbs-Duhem Relation}
+\end{equation}
+This tells us that $ T $, $ P $, and $ \mu $ can not independently vary. This tells us that there is no thermodynamic potential that can be defined using only intensive variables. You need to have an extensive variable.
+
+Let's rewrite this as
+\begin{equation}
+    \dd{\mu} = - \frac{S}{N} \dd{T} + \frac{V}{N} \dd{P}
+\end{equation}
+
+Because of the way we are writing the differential, we have to put it in terms of the differentials $ \dd{T} $ and $ \dd{P} $: $ \frac{S(N,T,P)}{N} = s(T,P) $ and $ \frac{V}{N} = v(T,P) $ is the specific volume.
+\begin{equation}
+    \dd{\mu} = -s(T,P) \dd{T} + v(T,P) \dd{P}
+\end{equation}
+
+We can also write the extensivity equation in terms of the entropy:
+\begin{equation}
+    S = \frac{U}{T} + \frac{P}{T} V + \frac{\mu}{T} N
+\end{equation}
+such that
+\begin{equation}
+    \dd{S} = \dd{U} \frac{1}{T} + U \dd{\left( \frac{1}{T} \right)} + \dd{V} \frac{P}{T} + V \dd{\left( \frac{P}{T} \right)} - \dd{\left( \frac{\mu}{T} \right)} N - \frac{\mu}{T} \dd{N}
+\end{equation}
+Again, from our original definition of $ \dd{S} $, this implies
+\begin{equation}
+    0 = U \dd{\left( \frac{1}{T} \right)} + V \dd{\left( \frac{P}{T} \right)} - N \dd{\left( \frac{\mu}{T}\right)}
+\end{equation}
+We can define new variables $ \tilde{P} = \frac{P}{T} $ and $ \tilde{T} = \frac{1}{T} $ such that
+
+\begin{equation}
+    \dd{\left( \frac{\mu}{T} \right)} = \frac{U}{N} \dd{\tilde{T}} + \frac{V}{N} \dd{\tilde{P}}
+\end{equation}
+or
+\begin{equation}
+    \dd{\left( \frac{\mu}{T} \right)} = \frac{U(\tilde{T}, \tilde{P}, N)}{N} \dd{\tilde{T}} + \frac{V(\tilde{T}, \tilde{P}, N)}{N} \dd{\tilde{P}}
+\end{equation}
+From this, we can get relations like
+\begin{equation}
+    \eval{\pdv{\tilde{T}}(\mu \tilde{T})}_{\tilde{P}} = \frac{U(\tilde{T}, \tilde{P}, N)}{N} = u(\tilde{T}, \tilde{P})
+\end{equation}
+and
+\begin{equation}
+    \eval{\pdv{\tilde{P}}(\mu \tilde{T})}_{\tilde{T}} = \frac{V(\tilde{T}, \tilde{P}, N)}{N} = v(\tilde{T}, \tilde{P})
+\end{equation}
+
+These relations might be useful for a particular experiment. Our goal in doing this is to write things we know in many different ways. Let's now use Legendre transforms to write thermodynamic potentials using these new relations, particularly the Euler relation $ U = TS - PV - \mu N $. Using extensivity, we can write
+\begin{alignat}{4}
+    H &= U + PV \qquad &&= TS \quad & \quad & +\mu N \\
+    F &= U - TS \qquad &&= \quad & -PV \quad & +\mu N\\
+    G &= U - TS + PV \qquad &&= \quad & \quad & + \mu N\\
+    \Omega &= U - TS - \mu N \qquad &&= \quad & -PV \quad &
+\end{alignat}
+
+\section{Various Partial Derivatives}
+\label{sec:various_partial_derivatives}
+
+The majority of Chapter 14 in the textbook concerns
+\begin{equation}
+    \eval{\pdv{(\text{this})}{(\text{that})}}_{\text{something}}
+\end{equation}
+or partial derivatives where something is held constant. Let's look at an ideal gas with $ U = \frac{3}{2} N k_B T $:
+\begin{equation}
+    \eval{\pdv{U}{V}}_{S,N} = -P < 0
+\end{equation}
+\begin{equation}
+    \eval{\pdv{U}{V}}_{V,N} = \pdv{V}\left( \frac{3}{2} PV \right) = \frac{3}{2} P > 0
+\end{equation}
+\begin{equation}
+    \eval{\pdv{U}{V}}_{T,N} = 0
+\end{equation}
+
+As we can see here, general derivatives like this are meaningless unless we specify what is being kept constant. We have some additional partial derivatives defined by $ \dd{U} = T \dd{S} - P \dd{V} + \mu \dd{N} $, but what if we want more from this? We can take second derivatives, and these should give us more information.
+\begin{center}
+\begin{tabular}{@{}c|ccc@{}}
+    & $ \pdv{S} $ & $ \pdv{V} $ & $ \pdv{N} $ \\
+    \toprule
+    $ \pdv{S} $ & $ \pdv[2]{S} $ & $ \pdv{S} \pdv{V} $ & $ \pdv{S} \pdv{N} $ \\
+    $ \pdv{V} $ & & $ \pdv[2]{V} $ & $ \pdv{V} \pdv{N} $ \\
+    $ \pdv{N} $ & & & $ \pdv[2]{N} $
+\end{tabular}
+\end{center}
+
+
+
+\end{document}

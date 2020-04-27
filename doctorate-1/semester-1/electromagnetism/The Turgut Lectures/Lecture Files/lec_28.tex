@@ -1,0 +1,125 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{28}{Monday, October 21, 2019}{Selected Magnetic Density Problems}
+\section{Magnetic Dipole Density Examples}
+\label{sec:magnetic_dipole_density_examples}
+\begin{ex}
+    A magnetized ball: $ \vec{M} = M_0 \hat{z} $
+    \textbf{1st Method}
+    \begin{equation}
+        \vec{J}_M = \curl{ \vec{M}} = 0
+    \end{equation}
+    \begin{equation}
+        \vec{K}_M = \vec{M} \times \hat{n} = M_0 \sin(\theta) \hat{\varphi}
+    \end{equation}
+    This is exactly like the rotating sphere homework:
+    \begin{equation}
+        \vec{A} = \frac{\mu_0}{4 \pi} \oint \frac{ \vec{K}_M(x')}{\abs{ \vec{x} - \vec{x}'}} \dd{a'}
+    \end{equation}
+    \textbf{2nd Method}
+    \begin{equation}
+        \vec{H} = - \grad{\Phi_M}
+    \end{equation}
+    \begin{equation}
+        \vec{J}_{\text{free}} = 0
+    \end{equation}
+    \begin{equation}
+        \laplacian{\Phi_M} = -[- \div{ \vec{M}} ]
+    \end{equation}
+    Recall that we derived the form of $ \Phi_M $:
+    \begin{equation}
+        \Phi_M = \frac{1}{4 \pi} \int_{\Omega} \frac{- \div{ \vec{M}}}{\abs{ \vec{x} - \vec{x}'}} \dd[3]{x} + \frac{1}{4 \pi}\oint \frac{M_0 \cdot \hat{n}'}{\abs{ \vec{x} - \vec{x}'}} \dd{a'}
+    \end{equation}
+    By our definition of $ \vec{M} $:
+    \begin{equation}
+        \div{ \vec{M}} = 0
+    \end{equation}
+    However, there is a surface term:
+    \begin{equation}
+        \vec{M} \cdot \hat{n} = M_0 \cos(\theta)
+    \end{equation}
+    Therefore:
+    \begin{equation}
+        \Phi_M = \frac{1}{4 \pi}\oint_{S^2} \frac{M_0 \cos(\theta')}{\abs{ \vec{x} - \vec{x}'}} \dd{\Omega'} a^2 = \frac{M_0 a^2}{4 \pi} \int \frac{\cos(\theta')}{\abs{ \vec{x} - \vec{x}'}} \dd{\Omega'} = \frac{M_0 a^2}{4 \pi} \frac{4 \pi}{3} \frac{r_<}{r_>^2} \underbrace{P_1(\cos(\theta))}_{\cos(\theta)}
+    \end{equation}
+    Therefore,
+    \begin{equation}
+        \Phi_M =
+        \begin{cases}
+            \frac{M_0 a^2}{3} \frac{r}{a^2} \cos(\theta) = \frac{M_0}{3} z & r<a\\
+            \frac{M_0 a^2}{3} \frac{a}{r^2} \cos(\theta) = \frac{m \cos(\theta)}{4 \pi r^2} & r>a
+        \end{cases}
+    \end{equation}
+    where $ \vec{m} = \left( \frac{4 \pi}{3} a^3 \right)M_0 \hat{z} $.
+    \begin{equation}
+        \vec{H}_{\text{in}} = - \frac{M_0}{3} \hat{z}
+    \end{equation}
+    \begin{equation}
+        \vec{H}_{\text{out}} \propto \text{dipole field}
+    \end{equation}
+    \begin{equation}
+        \vec{B}_{\text{in}} = \mu_0 \left[ - \frac{M_0}{3} \hat{z} + M_0 \hat{z} \right]= \frac{2}{3} \mu_0 M_0 \hat{z}
+    \end{equation}
+\end{ex}
+\begin{ex}
+    Let us consider putting such a sphere into an external field. We would then imagine, by superposition, that $ \vec{B}_0 + \frac{2}{3} \mu_0 \vec{M} = \vec{B}_{\text{in}} $. Additionally, this means that $ \vec{H}_{\text{in}} - \frac{1}{3} \vec{M} $. The solution must be self-consistent, such that
+    \begin{equation}
+        \vec{H}_{\text{in}} = \frac{1}{\mu} \vec{B}_{\text{in}}
+    \end{equation}
+    This gives the relation
+    \begin{equation}
+        \frac{1}{\mu_0} \vec{B}_0 - \frac{1}{3} \vec{M} = \frac{1}{\mu} \left[ \vec{B}_0 + \frac{2}{3} \mu_0 \vec{M}\right]
+    \end{equation}
+    so
+    \begin{equation}
+        \vec{M} = \frac{3}{\mu_0} \left[ \frac{\mu - \mu_0}{\mu + 2 \mu_0} \right] \vec{B}_0
+    \end{equation}
+\end{ex}
+\begin{ex}
+    \textbf{Magnetic Shielding}
+    We now have a shell with inner radius $ a $ and outer radius $ b $ with an external magnetic field. Again, let us assume $ \vec{J}_{\text{free}} = 0 $ (the field is curl-free):
+    \begin{equation}
+        \vec{H} = - \grad{\Phi_M}
+    \end{equation}
+    Because $ \div{ \vec{B}} = 0 $,
+    \begin{equation}
+        \laplacian{\Phi_M} = 0
+    \end{equation}
+    Using the azimuthal symmetry of this problem, we can write
+    \begin{equation}
+        \Phi_M = 
+        \begin{cases}
+            \sum_{l=0}^{\infty} \alpha_l r^l P_l(\cos(\theta)) & r<a\\
+            \sum_{l=0}^{\infty} \left[ \beta_l r^l + \frac{\gamma_l}{r^{l+1}} \right]P_l(\cos(\theta)) & a<r<b\\
+            -H_0 r \cos(\theta) + \sum_{l=0}^{\infty} \frac{\delta_l}{r^{l+1}} P_l(\cos(\theta)) & b<r
+        \end{cases}
+    \end{equation}
+    Our first boundary condition is that the magnetic field $ B $ is continuous normal to the boundaries at $ a $ and $ b $. Additionally, the tangential component is $ H_\theta $, which must also be continuous at each boundary. This problem is left as an exercise for the reader. The solution is given in Jackson. If $ \mu >> 1 $, there is strong magnetic shielding.
+\end{ex}
+
+\section{Faraday's Law}
+\label{sec:faradays_law}
+
+For a surface $ \Sigma $ and loop $ \Gamma $ such that $ \Gamma = \partial\Sigma $, the boundary of the surface, the energy gained by going around the loop once is
+\begin{equation}
+    \mathscr{E} = - \dv{t} \int_{\Sigma} \vec{B} \cdot \hat{n} \dd{a}
+\end{equation}
+where $ \int_{\Sigma} \vec{B} \cdot \hat{n} \dd{a} = \text{flux} $ so $ \mathscr{E} = - \dv{\text{flux}}{t} $.
+This ``electromotive force'' or ``emf'' $ \mathscr{E} $ corresponds to an electric field felt on the loop induced by the magnetic field in the rest frame of the loop. We can then say that
+\begin{equation}
+    \mathscr{E} = \oint_{Gamma} \vec{E}' \cdot \dd{\vec{l}}
+\end{equation}
+The electric field can no longer be curl-free (it's in a loop, after all). Because the surface is fixed, we can write
+\begin{equation}
+    \oint_{\Gamma} \vec{E} \cdot \dd{ \vec{l}} = - \dv{t} \int_{\Sigma} \vec{B} \cdot \dd{ \vec{a}} = - \int \pdv{ \vec{B}}{t} \cdot \dd{ \vec{a}}
+\end{equation}
+By Stokes' Theorem, this implies
+\begin{equation}
+    \int \left( \curl{ \vec{E}} + \pdv{ \vec{B}}{t} \right) \cdot \dd{ \vec{a}} = 0
+\end{equation}
+so we must now modify Maxwell's equations to include
+\begin{equation}
+    \curl{ \vec{E}} = - \pdv{ \vec{B}}{t}
+\end{equation}
+This is only in the rest frame! However, if $ v << c $, $ \vec{E}' = \vec{E} + \vec{v} \times \vec{B} $, so Faraday is consistent.
+\end{document}

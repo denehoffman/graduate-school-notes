@@ -1,0 +1,185 @@
+\documentclass[a4paper,twoside]{article}
+\input{../../preamble.tex}
+\title{33-761 Homework 7}
+\date{\today}
+\begin{document}
+\maketitle
+\section*{1. Uniqueness of Magnetostatic Boundary Problems}
+Show the uniqueness of solutions to magnetostatic boundary problems: If we specify the current distribution $ \vec{J} $ in a domain $ \Omega $ and either the vector potential $ \vec{A} $ or the magnetic field $ \vec{B} $ is specified on the bounding surfaces (collectively written as $ \Sigma $ ), then we have a unique solution. In order to establish this, we need to first prove an integral identity:
+\begin{equation}
+    \int_{\Omega} \dd[3]{x} \left[ (\curl{ \vec{U}}) \cdot (\curl{ \vec{V}}) - \vec{U} \cdot (\curl{( \curl{ \vec{V}})}) \right] = \oint_{\Sigma}\left[ \vec{U} \times (\curl{ \vec{V}}) \right] \cdot \dd{ \vec{a}}
+\end{equation}
+\begin{problem}
+    First, I will prove the identity:
+    \begin{align}
+        \int_{\Omega} \dd[3]{x} \left[ (\curl{ \vec{U}}) \cdot (\curl{ \vec{V}}) - \vec{U} \cdot (\curl{( \curl{ \vec{V}})}) \right] &= \oint_{\Sigma}\left[ \vec{U} \times (\curl{ \vec{V}}) \right] \cdot \dd{ \vec{a}}\\
+        &= \oint_{\Sigma}\left[ \vec{U} \times (\curl{ \vec{V}}) \right] \cdot \hat{n} \dd{a}\\
+        &= \int_{\Omega} \dd[3]{x} \div{[ \vec{U} \times (\curl{ \vec{V}})]}\\
+    \end{align}
+    Now, let $ \curl{ \vec{V}} = \vec{W} $:
+    \begin{equation}
+        \int_{\Omega} \dd[3]{x} [(\curl{ \vec{U}}) \cdot \vec{W} - \vec{U} \cdot (\curl{ \vec{W}})] = \int_{\Omega} \dd[3]{x} \div{[ \vec{U} \times \vec{W}]}
+    \end{equation}
+    To prove this, I show the following:
+    \begin{equation}
+        (\curl{ \vec{U}}) \cdot \vec{W} - \vec{U} \cdot (\curl{ \vec{W}}) - \div{( \vec{U} \times \vec{W})} = 0
+    \end{equation}
+    This is equivalent to
+    \begin{equation}
+    (\curl{ \vec{U}}) \cdot \vec{W} - \vec{U} \cdot (\curl{ \vec{W}}) - ( \vec{W} \cdot (\curl{ \vec{U}}) - \vec{U} \cdot (\curl{ \vec{W}})) = 0
+    \end{equation}
+    Next, to prove the uniqueness of magnetostatic boundary systems, let $ \vec{U} = \vec{V} = \vec{A}_1 - \vec{A}_2 = \delta \vec{A} $ for two solutions for the vector potential of a system. Let $ \delta \vec{B} = \vec{B}_1 - \vec{B}_2 = \curl{\delta \vec{A}} $ by linearity:
+    \begin{equation}
+        \int_{\Omega} \dd[3]{x} \left[ \delta \vec{B}^2 - \delta \vec{A} ( \curl{\delta \vec{B}}) \right] = \oint_{\Sigma} \delta \vec{A} \times \delta \vec{B}
+    \end{equation}
+    If the vector potential or the magnetic field are defined on the surfaces, the right-hand side vanishes, and when the current is specified, $ \curl{\delta \vec{B}} $ vanishes on the left-hand side, which implies
+    \begin{equation}
+        \int_{\Omega} \dd[3]{x} \delta B^2 = 0
+    \end{equation}
+    so there is no difference in the resultant magnetic fields from the two potentials, so the solutions are unique.
+\end{problem}
+
+\section*{2. Rotating Charged Sphere}
+This is a classic problem to be done in Jackson way. Let us consider a uniformly charged sphere of radius $ a $, surface charge density $\sigma$ rotating with angular velocity $\omega$ around an axis passing through its center. Show that the current density in spherical coordinates is given by $ \vec{J} = a \sigma \omega \sin(\theta) \delta(r-a) \hat{\varphi} $. Since the problem is spherically symmetric we can set the observation point again on the $ xz $-plane for simplicity. Now use this expression in the vector potential solution:
+\begin{equation}
+    \vec{A} = \frac{\mu_0}{4 \pi} \int \frac{ \vec{J}( \vec{x}')}{\abs{ \vec{x} - \vec{x}'}} \dd[3]{x'}.
+\end{equation}
+Having found the vector potential, calculate the magnetic field.
+\begin{problem}
+    I will begin by showing that the current density is as the problem describes.
+    \begin{equation}
+        \vec{J} = \sigma \vec{v} = \sigma (\omega \times \rho) = \sigma \omega a \sin(\theta) \delta(r-a)
+    \end{equation}
+    since the velocity at a point on the sphere is described as the cross-product of its radial position and angular velocity, which I then rewrote in terms of the given boundary.
+
+    Next, I want to write out the full equation for the vector potential. First, I will convert this expression of $ \vec{J} $ into Cartesian coordinates:
+    \begin{equation}
+        \vec{J} = a \sigma \omega \sin(\theta) \delta(r-a) (\cos(\varphi) \hat{y} - \sin(\varphi) \hat{x})
+    \end{equation}
+    Next, because of the symmetry of the problem, I restrict the derivation to the $ xz $-plane. I could also do this later, but doing it now eliminates the annoying $ \hat{x} $ component:
+    \begin{equation}
+        \vec{J} \mapsto a \sigma \omega \sin(\theta) \delta(r-a) \cos(\varphi) \hat{y}
+    \end{equation}
+    Next, I will rewrite the angular portion in terms of spherical harmonics:
+    \begin{equation}
+        \vec{J} = a \sigma \omega \delta(r-a) \left( Y_{1,-1}(\Omega) - Y_{1,1}(\Omega) \right) \sqrt{\frac{2 \pi}{3}}
+    \end{equation}
+    Finally, I expand the vector potential:
+    \begin{equation}
+        \vec{A} = \frac{\mu_0}{4 \pi} \int \sum_{l,m} \frac{4 \pi a \sigma \omega}{2l+1} \delta(r'-a) \frac{r_<^l}{r_>^{l+1}} \sqrt{\frac{2 \pi}{3}} \left[ Y_{lm}^* (\Omega')Y_{1,-1}(\Omega') - Y_{lm}^*(\Omega') Y_{1,1}(\Omega') \right]Y_{lm}(\Omega) \dd[3]{x'}
+    \end{equation}
+    By the orthogonality of the spherical harmonics, we know that the only nonzero terms of the sum will have $ l = 1 $ and $ m = \pm 1 $, depending on which part of the integral is taken. This integral simplifies to
+    \begin{equation}
+        \vec{A} =
+        \begin{cases}
+            \frac{\mu_0 a^3 \sigma \omega}{3} \sqrt{\frac{2 \pi}{3}} \frac{r}{a^2} \overbrace{\left( Y_{1,-1}(\Omega) - Y_{1,1}(\Omega) \right)}^{\sqrt{\frac{3}{2 \pi}} \sin(\theta) \cos(\varphi)} \hat{y} & r<a\\
+            \frac{\mu_0 \sigma \omega}{3} \frac{a^4}{r^2} \sin(\theta) \cos(\varphi) & r > a
+        \end{cases}
+    \end{equation}
+    On the $ xz $-plane, $ \varphi = 0 $ and $ \hat{y} = \hat{\varphi} $, so in the complete picture,
+    \begin{equation}
+        \vec{A} =
+        \begin{cases}
+            \frac{\mu_0 a^3 \sigma \omega}{3} r \sin(\theta) \hat{\varphi} & r<a\\
+            \frac{\mu_0 a^4 \sigma \omega}{3} \frac{1}{r^2} \sin(\theta) \hat{\varphi} & r>a
+        \end{cases}
+    \end{equation}
+    Now, to calculate the $ \vec{B} $ field, we take the curl of the vector potential. Since there is only a $ \hat{\varphi} $ component, the curl operator reduces to
+    \begin{equation}
+        \curl{A_{\varphi}} = \frac{1}{r \sin(\theta)} \left( \partial_{\theta}(A_{\varphi} \sin(\theta)) \right) \hat{r} - \frac{1}{r} (\partial_r (r A_{\varphi})) \hat{\theta}
+    \end{equation}
+    Taking the proper derivatives gives
+    \begin{equation}
+        \vec{B} =
+        \begin{cases}
+            \frac{\mu_0 \sigma \omega}{3} a^3 (2 \cos(\theta) \hat{r} - \sin(\theta) \hat{\theta}) & r<a\\
+            \frac{\mu_0 \sigma \omega}{3} \frac{a^4}{r^3} (2 \cos(\theta) \hat{r} + \sin(\theta) \hat{\theta}) & r>a
+        \end{cases}
+    \end{equation}
+    Checking what it actually should be, I seem to be missing a factor of $ 2 $ in front of the $ \sin(\theta) \hat{\theta} $ in the first line, but I'm not sure where it went.
+\end{problem}
+
+\section*{3. Minimum Heat Dissipation}
+It is claimed that the current distribution in Ohmic conductors is given by minimum heat dissipation once we specify the currents extracted/injected into the system through perfectly conducting electrodes embedded into the conductor (represented as surfaces) and assume time independent (steady-state) situation. To see this, we propose the following dissipation functional:
+\begin{equation}
+    \mathcal{P} [ \vec{J}] = \int_{\Omega} \dd[3]{x} \left[ \frac{1}{\sigma} \vec{J}^2 - \Phi \div{ \vec{J}} \right] + \sum_{a} \psi_{a} \left[ \oint_{S_a} \vec{J} \cdot \dd{ \vec{a}} - I_a \right].
+\end{equation}
+What is the meaning of each term here? Note the Lagrange multipliers are a field $ \Phi $ and constants $ \psi_a $ here. Assume we have independent variations inside the conductor as well as independent variations at the boundaries. To get the equations of motion we seek after, what physical meaning should be assigned to $ \Phi $?
+\begin{problem}
+    I'll take a hint from the title of the problem and guess that I need to vary this functional like one would vary an action for a Lagrangian. If we want to minimize heat dissipation, $ \fdv{\mathcal{P}}{ \vec{J}} = 0 $. If we define $ \mathcal{P} = \int L(J, \div{J} \dd[3]{x} $ (I'm just simplifying this here, the surface term will not be ignored), we see that
+    \begin{equation}
+        \pdv{L}{ \vec{J}} - \div{\pdv{L}{\div{ \vec{J}}}} = 0
+    \end{equation}
+    This first part is
+    \begin{equation}
+        \pdv{L}{ \vec{J}} = \frac{2}{\sigma} \vec{J}
+    \end{equation}
+    For the second, using the divergence theorem on the second part of the action, we see that
+    \begin{equation}
+        \pdv{L}{\div{ \vec{J}}} = - \Phi + \sum_a \psi_a
+    \end{equation}
+    so
+    \begin{equation}
+        \frac{2}{\sigma} \vec{J} = \grad{\sum_a \psi_a} - \grad{\Phi}
+    \end{equation}
+    If we ignore the surface term, we see that
+    \begin{equation}
+        \vec{J} = \frac{\sigma}{2}\grad{\Phi}
+    \end{equation}
+    which is the desired equation of motion (with an extra factor of two for some reason) if we say that $\grad{\Phi} = \vec{E}$ refers to the electric potential.
+\end{problem}
+
+\section*{4. Jackson Problem 5.6}
+A cylindrical conductor of radius $ a $ has a hole of radius $ b $ bored parallel to, and centered a distance $ d $ from, the cylinder axis ($ d+b<a $). The current density is uniform throughout the remaining metal of the cylinder and is parallel to the axis. Use Amp\`ere's law and principle of linear superposition to find the magnitude and direction of the magentic-flux density in the hole.
+\begin{problem}
+    First, Amp\`ere's law states:
+    \begin{equation}
+        \oint_C \vec{B} \cdot \dd{ \vec{l}} = \mu_0 \int_S \vec{J} \cdot \hat{n}\dd{a}
+    \end{equation}
+    For this problem, let assume without loss of generality that the current in the cylinder moves in the $ + \hat{z} $ direction and the hole is centered at $ x = d $, a point away from the origin on the $ x $-axis. I will break the system into two parts. First, there is the unmodified cylinder of current with radius $ a $ and current density $ J $, and second, to complete the system, I create a superposition of a current cylinder which is of the same shape as the hole but has a current density $ J $ moving in the $ - \hat{z} $ direction.
+    For the first cylinder, symmetry suggests there is only a component in the $ \hat{\varphi} $ direction, so we can rewrite Amp\`ere's law for this system as
+    \begin{align}
+        B_{\varphi} \oint_C \dd{l} &= \mu_0 J \int_S \dd{a}\\
+        B_{\varphi} 2 \pi r = \mu_0 J \varphi r^2
+    \end{align}
+    so
+    \begin{equation}
+        \vec{B} = \frac{1}{2} \mu_0 J r \hat{\varphi} = \frac{1}{2} \mu_0 J (x \hat{y} - y \hat{x})
+    \end{equation}
+    This solution is valid inside the conducting body. Next, we can modify this equation for a similar cylinder of radius $ b $ with the direction of the current flipped:
+    \begin{equation}
+        \vec{B}_{\text{hole}} = - \frac{1}{2} \mu_0 J (x \hat{y} - y \hat{x})
+    \end{equation}
+    Now we can shift this by $ d $ and superimpose it with the original field to get the total field:
+    \begin{equation}
+        \vec{B}_{\text{tot}} = \frac{1}{2} \mu_0 J (x \hat{y} - y \hat{x}) - \frac{1}{2} \mu_0 J ( (x-d) \hat{y} - y \hat{x} ) = \frac{d}{2} \mu_0 J \hat{y}
+    \end{equation}
+\end{problem}
+
+\section*{5. Magnetic Field in Circular Loop}
+In class, we have shown that a circular loop on the $ xy $-plane, its center coinciding with the origin, and carrying current $ I $ produces a vector potential expressed in cylindrical coordinates given by
+\begin{equation}
+    A_{\varphi}(\rho,z) = \frac{\mu_0 I a}{\pi} \int_{0}^{\infty} \dd{k} \cos(kz) I_1(k \rho_<)K_1(k \rho_>).
+\end{equation}
+Calculate the magnetic field $ \vec{B} $ and show that along the $ z $-axis it reduces to the familiar expression.
+\begin{problem}
+    I first find the $ \vec{B} $ field by taking the curl of $ A_{\varphi} $ in cylindrical coordinates:
+    \begin{equation}
+        \vec{B} = -\partial_z \hat{\rho} A_{\varphi} + \frac{1}{\rho} \partial_{\rho} \rho \hat{z} A_{\varphi}
+    \end{equation}
+    Inside the ring, $ \rho_< = \rho $ and $ \rho_> = a $:
+    \begin{align}
+        B_in &= \frac{\mu_0 I a}{\pi} \hat{\rho} \left( \int_0^{\infty} \dd{k} k \sin(kz) I_1(k \rho)K_1(ka) \right)+ \frac{\mu_0 I a}{\pi} \hat{z} \left( \int_0^{\infty} \dd{k} \cos(kz) K_1(ka)\left[ \frac{1}{\rho} \partial_{\rho} I_1(k \rho) \right] \right)\\
+        &= \frac{\mu_0 I a}{\pi} \hat{z} \left( \int_0^{\infty} \dd{k} \cos(kz) K_1(ka) k \right)
+    \end{align}
+    where the second line comes from taking the limit as $ \rho \to 0 $. The first term vanishes because $ I_1(0) = 0 $, but the derivative evaluates to $ \frac{1}{\rho} \partial_{\rho}I_1(k\rho) = \frac{1}{\rho} k \rho = k $:
+    \begin{equation}
+        I_{\alpha}'(z) \approx \frac{\alpha z^{\alpha-1}}{\Gamma(\alpha + 1) 2^{\alpha}} \qfor z<<1
+    \end{equation}
+    Actually performing the final integration is not exactly trivial, but throwing it through Mathematica gives:
+    \begin{equation}
+        \vec{B}(\rho = 0) = \frac{\mu_0 I a}{\pi} \hat{z} \left( \frac{a \pi}{2 \left( 1+ \frac{a^2}{z^2} \right)^{3/2} z^3} \right) = \frac{\mu_0 I a^2}{2(z^2 + a^2)^{3/2}}
+    \end{equation}
+\end{problem}
+
+\end{document}

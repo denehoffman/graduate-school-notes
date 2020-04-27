@@ -1,0 +1,131 @@
+\documentclass[a4paper,twoside]{article}
+\input{../../preamble.tex}
+\title{33-756 Homework 8}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section*{1. Electric Quadrupole Moment from Multipole Expansion}
+In class, we looked at the leading order terms in the multipole expansion and showed that it corresponds to the electric dipole. Expand to next order and show that it corresponds to a combination of the electric quadrupole and magnetic dipole.
+\begin{problem}
+    We expand
+    \begin{equation}
+        e^{\imath \frac{\omega}{c} (\vu{n} \vdot \va{x})} = 1 + \imath \frac{\omega}{c} \vu{n} + \va{x} +\cdots
+    \end{equation}
+    to get the dipole term and the next order in the multipole expansion. If we look at this second term, we find
+    \begin{equation}
+        \mel{n}{e^{\imath \frac{\omega}{c} \vu{n} \vdot \va{x}} \vu{\epsilon} \vdot \va{p}}{i} \approx \mel{n}{\imath \frac{\omega}{c} (\vu{n} \vdot \va{x}) \vu{\epsilon} \vdot \va{p}}{i} = \frac{\imath \omega}{c} \mel{n}{x_z p_x}{i}
+    \end{equation}
+    for a wave moving in the $ z $-direction.
+    \begin{align}
+        x_z p_x &= \frac{1}{2} x_z p_x - \frac{1}{2} p_z x_x + \frac{1}{2} p_z x_x + \frac{1}{2} x_z p_x \\
+        &\implies \frac{\imath \omega}{2c} \mel{n}{x_z p_x - x_x p_z + p_z x_x + x_z p_x}{i} \\
+        &= \frac{\imath \omega}{2c} \mel{n}{L_y + \frac{m}{\imath \hbar} \comm{x_z}{H_0} x_x + \frac{m}{\imath \hbar} x_z \comm{x_x}{H_0}}{i} \\
+        &= \frac{\imath \omega}{2c} \mel{n}{L_y}{i} + \frac{m \omega}{2c \hbar} \mel{n}{\comm{x_x x_z}{H_0}}{i} \\
+        &= \frac{\imath \omega}{2c} \mel{n}{L_y}{i} + \frac{m \omega}{2 \hbar c} \left( \mel{n}{x_x x_z H_0}{i} - \mel{n}{H_0 x_x x_z}{i} \right) \\
+        &= \underbrace{\frac{\imath \omega}{2c} \mel{n}{L_y}{i}}_{\text{Magnetic Dipole}} + \underbrace{\frac{m \omega \omega_{ni}}{2c} \mel{n}{x_x x_z}{i}}_{\text{Electric Quadrupole}}
+    \end{align}
+\end{problem}
+
+\section*{2. Thomas-Reiche Sum Rule}
+Consdier the Thomas-Reiche sum rule we proved in class
+\begin{equation}
+    \sum_n f_{in} = \sum_n \frac{2m \omega_{ni}}{\hbar}\abs{\mel{n}{x}{i}}^2 = 1
+\end{equation}
+It is independent of the Hamiltonian!\ Show that it is obeyed for a one-dimensional harmonic oscillator by explicitly calculating the sum of the matrix elements. Then do the same for the three-dimensional harmonic oscillator, where now $ x \to \va{x} $. Notice that in the 3D case, we have to specify more clearly what we mean by the sum rule.
+\begin{equation}
+    \sum_n f_{in} = \sum_n \frac{2m \omega_{ni}}{\hbar} \abs{\mel{n}{x}{i}}^2 = \delta_{ij}
+\end{equation}
+\begin{problem}
+    \begin{align}
+        f_{in} &= \frac{2m}{\hbar} \left( \hbar \omega (n - i) \right) \abs{\mel{n}{x}{i}}^2 \\
+        &= \frac{2m \omega}{\hbar} (n-i) \abs{\sqrt{\frac{\hbar}{2m \omega}} \left( \mel{n}{a}{i} + \mel{n}{a^\dagger}{i} \right)} \\
+        &= (n-i) \left( \sqrt{i}\bra{n}\ket{i-1} + \sqrt{i+1}\bra{n}\ket{i+1} \right)^2 \\
+        &= (n-i)\left( i \delta_{n,i-1} + 2 \sqrt{i(i+1)} \delta_{n,i-1} \delta_{n,i+1} + (i+1) \delta_{n,i+1} \right) \\
+        &= (n-i)\left( i \delta_{n,i-1} + (i+1) \delta_{n,i+1} \right)
+    \end{align}
+    so
+    \begin{equation}
+        \sum_n f_{in} = (i-1-i)(i) + (i+1-i)(i+1) = -i + i + 1 = 1
+    \end{equation}
+    For three dimensions, if $ i = j $, we already have the result. However, if $ i \neq j $, we will have $\delta$ functions which operate on different quantum numbers of the state. Since the raising and lowering operators will only raise and lower one of these quantum numbers, the states will all vanish due to orthonormality if $ i \neq j $ because, for instance, if $ j = x \neq i $, there will be nothing in the first matrix element to lower or raise the $ x $ component while there will be in the second matrix element. Before summation, these matrix elements will contain $\delta$ functions which contain this raising and lowering information, as seen in the 1D case above. However, there will also be $\delta$ functions for the components which were not operated on, and these will cause the matrix elements to cancel to $ 0 $ if $ i \neq j $.
+\end{problem}
+
+\section*{3. Generalization for $ Z $ Electrons}
+Let us see if we can generalize the KR sum rule. Suppose we have an atom with $ Z $ electrons. Show that
+\begin{equation}
+    \sum_n f_{in} = \sum_n \frac{2m \omega_{ni}}{\hbar} \abs{\mel{n}{x}{i}}^2 = Z.
+\end{equation}
+\begin{problem}
+    We treat such a system as having independent electrons: $ \va{x} = x_1 \otimes 1 \otimes 1 \otimes \cdots + 1 \otimes x_2 \otimes 1 \otimes \cdots + \cdots + \cdots \otimes 1 \otimes x_Z $. Therefore, the total cross section will just be the sum of the individual cross sections from each electron:
+    \begin{equation}
+        \sum_{i=0}^{Z} \sum_n f_{in} = \sum_{i=0}^{Z} 1 = Z
+    \end{equation}
+\end{problem}
+
+\section*{4. Other Sum Rules}
+There are many other sum rules, but they all follow from the same basic principles. Here is another one for you to prove
+\begin{equation}
+    \sum_n \abs{\mel{0}{e^{\imath qx}}{n}}^2(E_n - E_0) = \frac{q^2 \hbar^2}{2m}
+\end{equation}
+Hint: Use the same double commutator tricks we used in class for the KR sum rule, and utilize the fact that $ x $ generates translations.
+\begin{problem}
+    \begin{equation}
+        \sum_n \abs{\mel{0}{e^{\imath q x}}{n}}^2 (E_n - E_0) = \sum_n \frac{1}{2} \left( \mel{0}{\comm{e^{\imath q x}}{H}}{n} \mel{n}{e^{-} \imath q x}{0} + \text{h.c.} \right)
+    \end{equation}
+    We can find the commutator to be
+    \begin{align}
+        \comm{f(x)}{p^2} &= f(x) pp - pp f(x) \\
+        &= f(x) pp - p f(x) p + \imath \hbar f'(x) p
+        &= \comm{f(x)}{p} p +im \hbar f'(x) p \\
+        &= \imath \hbar f'(x) p + \imath \hbar f'(x) p = 2 \imath \hbar f'(x) p
+    \end{align}
+    We have $ f(x) = e^{\imath q x} \implies f'(x) = \imath q e^{\imath q x} $, so
+    \begin{equation}
+        \comm{e^{\imath q x}}{H} = \comm{e^{\imath q x}}{\frac{p^2}{2m}} = \frac{1}{2m} \left( -2 \hbar q e^{\imath q x} p \right) = - \frac{\hbar q}{m} (e^{\imath q x} p)
+    \end{equation}
+    Therefore,
+    \begin{align}
+        \sum_n \abs{\mel{0}{e^{\imath q x}}{n}}^2 (E_n - E_0) &= \sum_n \frac{1}{2} \left( - \frac{\hbar q}{m} \right) \left( \mel{0}{e^{\imath q x} p}{n} \mel{n}{e^{- \imath q x}}{0} + \text{h.c.} \right) \\
+        &= \frac{1}{2} \left( - \frac{\hbar q}{m} \right) \left( \mel{0}{e^{\imath q x} p e^{- \imath q x}}{0} + \text{h.c.}\right) \\
+        &= - \frac{\hbar q}{2m}\left(\bra{0} e^{\imath q x} (- \imath \hbar) \partial_x e^{- \imath q x}\ket{0} + \text{h.c.} \right) \\
+        &= \frac{\hbar^2 q^2}{2m} \left(\bra{0}\ket{0} +\bra{0} e^{\imath q x} e^{\imath q x} \partial_x + \text{h.c.} \right) = \frac{\hbar^2 q^2}{2m}
+    \end{align}
+\end{problem}
+
+\section*{5. Lifetime of $ 2p $ State}
+Calculate the lifetime of the $ 2p $ state of hydrogen. First, determine the allowed final state(s) using the selection rules. Show that $ \tau = 1.6 \times 10^{-9} \second $.
+\begin{problem}
+    First, we need to calculate the density of states, which we did in the previous homework:
+    \begin{equation}
+        \rho(E) = 4 \pi n^2 \dd{n} = 4 \pi n^2 \dv{n}{E} \dd{E} = 4 \pi \frac{\hbar^2 \omega^2 L^2}{4 \pi^2 \hbar^2 c^2} \frac{L}{2 \pi \hbar c} \dd{E} = \frac{\omega^2}{2 \pi^2 \hbar c^3} L^3 \dd{E}
+    \end{equation}
+    where we integrate over a box such that $ E = 2 \pi \hbar c n / L = \hbar \omega $.
+
+    Next, the photon wavelength will be much larger than the atom, so we can use the following approximation for the matrix elemtn:
+    \begin{equation}
+        \mel{1s}{e^{\imath \frac{\omega}{c} (\vu{n} \vdot \va{x})} \vu{\epsilon} \vdot \va{p}}{2p} = \mel{1s}{\vu{\epsilon} \vdot \va{p}}{2p} = \frac{m}{\imath \hbar} \mel{1s}{\vu{\epsilon} \vdot \comm{\va{x}}{H}}{2p} = - \imath m \omega \mel{1s}{\vu{\epsilon} \vdot \va{x}}{2p}
+    \end{equation}
+    By the selection rules, $ l $ must change by $ 1 $ and $ m $ can change by $ 1 $ or not at all, so any of the $ 2p $ states are allowed to transition to $ 1s $. We can write the dot product in spherical coordinates as:
+    \begin{equation}
+        \vu{\epsilon} \vdot \va{x} = \sqrt{\frac{4 \pi}{3}} \left( - \epsilon_- r Y_{1,1} + \epsilon_+ r Y_{1,-1} + \epsilon_0 r Y_{1,0} \right)
+    \end{equation}
+    where $ \epsilon_{\pm} = \frac{\epsilon_x \pm \imath \epsilon_{y}}{\sqrt{2}} $ and $ \epsilon_z = \epsilon_0 $. Because these spherical harmonics are tensors with $ l=1 $, the matrix elements $ \mel{1s}{rY_1^{m'}}{2pm} $ will only be nonzero if $ m = -m' $. Using Wigner-Eckart theorem, we can therefore write each matrix element as
+    \begin{equation}
+        \mel{1s}{rY_{1}^{m'}}{2pm} =\bra{1,-m;1,m}\ket{00}\bra{1s} |rY_1|\ket{2p}
+    \end{equation}
+    The reduced matrix element can be calculated as follows:
+    \begin{align}
+        \bra{1s} |rY_1|\ket{2p} &= \frac{\mel{1s}{r Y_1^0}{2p0}}{\bra{1,0;1,0}\ket{0,0}} = - \sqrt{3} \left( \sqrt{\frac{3}{4 \pi}} \mel{1s}{z}{2p0} \right) \\
+        &= - \sqrt{\frac{1}{4 \pi}} \frac{1}{4 \sqrt{2} a_0 \pi} \times 2 \pi \times \int_0^{\infty} r^4 e^{-r/a_0} e^{-r/(2a_0)} \dd{r} \int_{-1}^{1} \cos[2](\theta) \dd{(\cos(\theta))} \\
+        &= - \sqrt{\frac{1}{4 \pi}} \frac{128 \sqrt{2} a_0}{243} = - \frac{64 \sqrt{2} a_0}{243 \sqrt{\pi}} \equiv M
+    \end{align}
+    All of the CG coefficients are $ \pm \sqrt{\frac{1}{3}} $, so averaging over the final states, we find, by Fermi's Golden Rule, that
+    \begin{equation}
+        \Gamma = \frac{2 \pi}{\hbar} A_0^2 \frac{e^2}{m^2 c^2} \int \rho(E) \dd{E} \sum_m \abs{M}^2 = \frac{131072}{177147} \frac{e^2}{\hbar c} \frac{a_0^2}{c^2} \omega^2 = \frac{1}{\tau}
+    \end{equation}
+    With $ A_0 = \sqrt{\frac{2 \pi \hbar c^2}{\omega L^3}} $ (7.6.21) and $ \omega $ calculated from the Rydberg formula, we get the expected result.
+    
+\end{problem}
+
+\end{document}

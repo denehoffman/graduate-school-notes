@@ -1,0 +1,123 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\chapter{Potential Scattering}
+\lecture{27}{Monday, October 21, 2019}{Motion in Continuous Spaces}
+The probability density for a particle to be found in some position $ \vec{r} $ is
+\begin{equation}
+    \rho( \vec{r}) = \Pr([ \vec{r}]) = \bra{\psi} \ket{r} \bra{r} \ket{\psi} = \abs{\psi(r)}^2
+\end{equation}
+
+Assuming continuous motion in time and space, the only way a probability of a single point can change is if it flows from nearby points. This leads to the continuity condition:
+\begin{equation}
+    \pdv{t} \rho( \vec{r}, t) + \div{ \vec{J}} = 0
+\end{equation}
+
+Substituting in $ \psi $ for $ \rho $ from above, we can write this as
+\begin{equation}
+    \pdv{t} \abs{\psi}^2 = \psi^* \pdv{\psi}{t} + \psi \pdv{\psi^*}{t}
+\end{equation}
+
+From the Schr\"odinger equation (in free space), we have $ \vec{P} = -\imath\hbar\nabla $, $ H = \frac{P^2}{2m} $, so $ \imath\hbar \pdv{\psi}{t}= H \psi $:
+\begin{equation}
+    \pdv{t} \abs{\psi}^2 = - \frac{\hbar}{2m\imath} \left\{ \psi^* \laplacian{\psi} - \psi \laplacian{\psi^*} + \grad{\psi^*} \cdot\grad{\psi} - \grad{\psi} \cdot \grad{\psi^*}  \right\} = - \frac{\hbar}{2m\imath} \div{\underbrace{\left\{(\psi^* \grad{\psi} - \psi \grad{\psi^*}  \right\}}_{\propto\vec{J}}}
+\end{equation}
+so
+\begin{equation}
+    \vec{J} = \frac{\hbar}{2m\imath} \left\{ \psi^* \grad{\psi} - \psi \grad{\psi^*} \right\} = \Re\left\{ \psi^* \left( \frac{\hbar}{\imath m} \grad{\psi} \right) \right\}\propto \rho v
+\end{equation}
+
+\section{The Potential Step}
+\label{sec:the_potential_step}
+Let's set up a potential which is zero for negative $ x $ and $ V_0 $ for positive $ x $. We will send a wave packet $ \varphi $ from negative to positive $ x $:
+\begin{equation}
+    \imath\hbar \pdv{t} \varphi(x, t) = \left\{ - \frac{\hbar^2}{2m}\nabla^2 + V(x)  \right\} \varphi(x, t)
+\end{equation}
+Instead of thinking of this wave packet as a single particle, imagine there is a source sending many particles. We want to find the steady state (time independent) solutions to this equation to study things like reflection and transmission. The generic steady state wave packet is
+\begin{equation}
+    \varphi(x,t) = e^{-\imath E t/\hbar} \varphi(x)
+\end{equation}
+which keeps $ \varphi $ at a constant magnitude in time. The other way we get a steady state is if we are in an energy eigenstate. In either case, we can now write this in terms of the time independent Schr\"odinger equation
+\begin{equation}
+    E \varphi(x) = H \varphi(x)
+\end{equation}
+
+Let's now solve for $ x<0 $, which is where $ V(x) = 0 $:
+
+\begin{equation}
+    - \frac{\hbar^2}{2m} \varphi''(x) = E \varphi(x)
+\end{equation}
+We know how to solve this differential equation. In general,
+\begin{equation}
+    \varphi(x) = A e^{\imath k x} + B e^{-\imath k x}
+\end{equation}
+Points of constant phase for the first term move to the right, while the second term describes left-moving packets. In this case, $ E = \frac{\hbar^2}{2m} k^2 > 0 $. We assume the energy is positive. If we didn't, we would see that the solutions are now exponentials, so coming from $ - \infty $, we would either have infinite or zero probability density at $ x = 0 $, which does not represent our system properly. Therefore, $ k = \sqrt{2mE/k^2} \in \mathbb{R} $.
+
+Now lets look on the other side, where $ x > 0 $ and $ V > 0 $:
+\begin{equation}
+    \varphi(x) = C e^{\imath k' x} + D e^{-\imath k' x}
+\end{equation}
+We see here that $ k' = \sqrt{2m(E-V_0)/\hbar^2} $. If $ E > V_0 $, then $ k' \in \mathbb{R} $, so we get oscillating solutions. However, if $ E < V_0 $, $ k' \in \mathbb{I} $, so we get decaying and growing exponentials. To make further progress, we need to look at the step boundary condition. We can start by writing the Schr\"odinger equation:
+\begin{equation}
+    \left(\pdv[2]{x} + \frac{2m(E-V_0)}{\hbar^2} \right) \varphi(x) = 0
+\end{equation}
+We will now integrate this over a small region $ [-\epsilon,\epsilon] $:
+
+\begin{align}\label{eq:barrier_integral}
+    &\int_{-\epsilon}^{\epsilon} \left\{ \left(\pdv[2]{x} + \frac{2m(E-V_0)}{\hbar^2} \right) \varphi(x) = 0\right\} \dd{x}\\
+    &= \varphi'(\epsilon) - \varphi'(-\epsilon) + \int_{- \epsilon}^{\epsilon} \frac{2m(E-V_0)}{\hbar^2} \varphi(x) \dd{x}
+\end{align}
+
+In this second integral, everything is a constant except for $ \varphi(x) $, which is of order $ \order{\epsilon} $, and as $ \epsilon \to 0 $, this integral also vanishes, so both $ \varphi(x) $ and $ \varphi'(x) $ are continuous over the boundary. For example, if $ 0 < E < V_0 $, defining $ \imath k' \equiv \kappa \in \mathbb{R}_+ $:
+\begin{equation}
+    \varphi(x) = 
+    \begin{cases}
+        A e^{\imath k x} + B e^{-\imath k x} & x<0\\
+        C e^{-\kappa x} + D e^{\kappa x} & 0 < x
+    \end{cases}
+\end{equation}
+Continuity of $ \varphi(x) $ tells us that $ A+B = C+D $. Continuity of $ \varphi'(x) $ tells us that $ \imath k A - \imath k B = - \kappa C + \kappa D $. Now we want to solve for these coefficients. $ k $ and $ \kappa $ are properties of the source particles, so we actually don't have to solve for them since they are considered ``known'' in this scenario. Additionally, $ A $ is set by properties of the source, since it represents the incoming wave. For now, let's just choose $ A = 1 $. The magnitude of $ A $ gives us the magnitude of the incident flux, while the phase of $ A $ gives us the phase of the incident flux, which we really don't care about right now. Additionally, $ e^{\kappa x} $ is growing exponentially with $ x $, so $ D = 0 $ due to divergence as $ x \to \infty $. The only unknowns now are $ B $ and $ C $, which we can solve as:
+\begin{equation}
+    B = - \frac{\kappa + \imath k}{\kappa - \imath k} \qc C = - \frac{2\imath k}{\kappa - \imath k}
+\end{equation}
+
+What is the incident flux now?
+\begin{equation}
+    J_{\text{inc}} = \underbrace{\abs{A^2}}_{1} \frac{hbar k}{m} = \rho v
+\end{equation}
+
+What about the reflected flux?
+\begin{equation}
+    J_{\text{refl}} = - \underbrace{\abs{B^2}}_{1} \frac{\hbar k}{m} = \rho v_{\text{refl}} = - J_{\text{inc}}
+\end{equation}
+
+Every particle which hits the barrier is reflected, but there is a nonzero probability to find a particle in the ``classically forbidden'' region, since $ C \neq 0 $. This is called ``tunneling'' and the probability is constant with time.
+
+What happens as the energy of the incident particle approaches $ V_0 $ from below? Now $ \kappa = \sqrt{2m(V_0-E)/\hbar^2} $, so the wave oscillates faster before the barrier (because it has greater energy) and it tunnels farther into the barrier.
+
+What if $ V_0 \to \infty $? If we go back to that infinitesimal integral in \cref{eq:barrier_integral}, we no longer have a converging integral, so we no longer require the wave function to have a continuous derivate at the barrier. In this case, the wave function will vanish at the barrier.
+
+Now let's see what happens if $ E > V_0 $. Now, there is a probability that the waves are transmitted. However, we know the transmitted waves will travel from left to right, so $ D = 0 $ still. If we maintain the incident density with $ A = 1 $, we now have oscillating solutions in the positive $ x $ region. Here, the coefficients are
+\begin{equation}
+    B = \frac{k - k'}{k + k'} \qc C = \frac{2k}{k + k'}
+\end{equation}
+
+Again, let's look at the currents:
+\begin{equation}
+    J_{\text{inc}} = \abs{A}^2 \frac{\hbar k}{m} = \rho v
+\end{equation}
+\begin{equation}
+    -J_{\text{refl}} = - \abs{B}^2 \frac{\hbar k}{m} = \left( \frac{k - k
+    '}{k + k'} \right)^2 \frac{\hbar k}{m} < J_{\text{inc}}
+\end{equation}
+Let us define $ \left( \frac{k - k'}{k + k'} \right)^2 \equiv R $. The remainder of the current must be transmitted, so $ T = 1-R = \frac{4 k k'}{(k+k')^2} = \frac{k'}{k} \abs{C}^2 = \rho' v'/v_{\text{inc}} < \abs{C}^2 $. 
+\begin{equation}
+    J_{\text{trans}} = \abs{C}^2 \frac{\hbar k'}{m}
+\end{equation}
+Because $ k' < k $ with positive $ V_0 $, we see that the transmitted velocity is less than the incident velocity.
+
+\begin{note}{Exam}
+    The upcoming exam will cover the notes up till this coming Wednesday (next lecture) and the homework due this Friday.
+\end{note}
+
+\end{document}
+

@@ -1,0 +1,88 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{25}{Wednesday, March 25, 2020}{Time-Dependent Perturbation Theory: Unstable States}
+\section{Unstable States}
+\label{sec:unstable_states}
+
+So far we've been calculating probabilities to transition to another state ($ i \to n $). Now we want to talk about the probability of staying in a particular state $ (i \to i) $. Recall that at second order in perturbation theory, we found that
+\begin{equation}
+    c_n^{(2)} = \frac{\imath}{\hbar} \sum_m \frac{V_{nm} V_{mi}}{E_m - E_i} \int_0^t \left( e^{\imath \omega_{mi} t'} - e^{\imath \omega_{nm} t'} \right) \dd{t'}
+\end{equation}
+Notice this value is singular when $ E_m = E_i $, which means this formula isn't very useful to calculate probabilities of $ i \to i $. The reason for this is because we derived this formula assuming the interactions turn on instantaneously, which is never possible. Instead, let's adiabatically turn on the potential:
+\begin{equation}
+    V(t) = e^{\eta t} V
+\end{equation}
+and take the limit as $ \eta \to 0 $.
+
+\begin{align}
+    c_n^{(1)} &= - \frac{\imath}{\hbar} \lim_{t_0 \to - \infty} \int_{t_0}^t e^{\eta t'} e^{\imath \omega_{ni} t'} V_{ni} \dd{t'} \\
+    &= - \frac{\imath}{\hbar} \frac{V_{ni}}{\eta + \imath \omega_{ni}} e^{\eta t + \imath \omega_{ni} t} 
+\end{align}
+so
+\begin{equation}
+    \abs{c_n^{(1)}}^2 = \frac{1}{\hbar^2} \frac{\abs{V_{ni}}^2 e^{2 \eta t}}{(\eta^2 + \omega_{ni}^2)} 
+\end{equation}
+\begin{equation}
+    \lim_{\eta \to 0} \dd{t} \abs{c_n^{(1)}}^2 = \frac{2 \eta e^{2 \eta t} \abs{V_{ni}}^2}{\hbar^2 (\eta^2 + \omega_{ni}^2)}
+\end{equation}
+We would imagine this would go to $ 0 $, but in reality,
+\begin{equation}
+    \lim_{\eta \to 0} \frac{\eta}{\eta^2 + \omega_{ni}^2} = \pi \delta(\omega_{ni})
+\end{equation}
+so
+\begin{equation}
+    \lim_{\eta \to 0} \dd{t} \abs{c_n^{(1)}}^2 = \frac{2 \pi}{\hbar} \abs{V_{ni}}^2 \delta(E_n - E_i)
+\end{equation}
+Again, we regain the Fermi Golden Rule, and $ \eta $ is irrelevant using this $\eta$ derivation. Now let's examine the second-order:
+\begin{align}
+    c_n^{(2)}(t) &=\bra{n} \left( - \frac{\imath}{\hbar} \right)^2 \int_{t_0}^t \dd{t'} \int_{t_0}^{t'''} \dd{t''} V_I(t') V_I(t'')\ket{i} \\
+    &= \sum_m\bra{n} \left( - \frac{\imath}{\hbar} \right)^2 \int_{t_0}^t \dd{t'} \int_{t_0}^{t''} \dd{t''} V_I(t')\ket{m}\bra{m} \underbrace{V_I}_{= e^{\imath H_0 t} V e^{- \imath H_0 t}}(t'')\ket{i} \\
+    &= \sum_m \left( - \frac{\imath}{\hbar} \right)^2 \int_{t_0}^t \dd{t'} \int_{t_0}^{t''} \dd{t''} e^{\imath \omega_{nm} t' + \eta t'} V_{nm} \int_{t_0}^{t'} \dd{t''} e^{\imath \omega_{mi} t'' + \eta t''} V_{mi} \\
+    &= \sum_m \left( - \frac{\imath}{\hbar} \right)^2 \int_{t_0}^t \dd{t'} e^{\imath \omega_{nm} t' + \eta t'} (- \imath)(V_{nm})(V_{mi}) \frac{e^{\imath \omega_{mi} t' + \eta t'}}{(\omega_{mi} - \imath \eta)} \\
+    (n = i) &= \sum_m \left( - \frac{\imath}{\hbar} \right)^2 (- \imath) \int_{t_0}^t \dd{t'} \frac{e^{2 \eta t'}}{(\omega_{mi} - \imath \eta)} \\
+    &= \left( \frac{\imath}{\hbar^2} \right) \int_{t_0}^t \frac{e^{2 \eta t'} \abs{V_{ii}}^2}{(- \imath \eta)} \dd{t'} + \frac{\imath}{\hbar^2} \int_{t_0}^t \sum_{m \neq i} \frac{e^{2 \eta t'} \abs{V_{im}}^2}{(\omega_{mi} - \imath \eta)} \dd{t'} \\
+    c_i(t) &= 1 - \frac{\imath}{\hbar} \frac{V_{ii}}{\eta} e^{\eta t} - \left( - \frac{\imath}{\hbar} \right)^2 \frac{\abs{V_{ii}}^2 e^{2 \eta t}}{2 \eta^2} + \frac{\imath}{\hbar^2} \sum_{m \neq i} \frac{\abs{V_{im}}^2 e^{2 \eta t}}{(2 \eta)(\omega_{mi} - \imath \eta)}
+\end{align}
+We want to know about the stability of this state, so let's take the time derivative:
+\begin{align}
+    \dot{c_i(t)} &= - \frac{\imath}{\hbar} V_{ii} + \frac{1}{\hbar^2} \abs{V_{ii}} + \frac{\imath}{\hbar^2} \sum_{m \neq i} \frac{\abs{V_{im}}^2}{(\omega_{mi} - \imath \eta)} \\
+    \frac{\dot{c_i}}{c_i} &= \frac{- \frac{\imath}{\hbar} V_{ii} + \frac{1}{\hbar^2} \abs{V_{ii}} + \frac{\imath}{\hbar^2} \sum_{m \neq i} \frac{\abs{V_{im}}^2}{(\omega_{mi} - \imath \eta)}}{\left( 1- \frac{\imath}{\hbar^2} \frac{V_{ii}}{\eta} \right)} \\
+    &= - \frac{\imath}{\hbar} V_{ii} + \frac{\imath}{\hbar} \sum_{m \neq i} \frac{\abs{V_{im}}^2}{(\omega_{mi} - \imath \eta)}
+\end{align}
+so
+\begin{equation}
+    c_i(t) = e^{- \imath \Delta_i t / \hbar}
+\end{equation}
+where
+\begin{equation}
+    \Delta = V_{ii} + \frac{\imath}{\hbar} \sum_{i \neq m} \frac{\abs{V_{im}}^2}{(\omega_{mi} - \imath \eta)} = \underbrace{V_{ii}}_{\Delta^{(1)}} - \underbrace{\frac{\imath}{\hbar} \sum_{m \neq i} \frac{\abs{V_{im}}^2}{(\omega_i - \omega_m + \imath \eta)}}_{\Delta^{(2)}}
+\end{equation}
+so to first order, $ \Delta \to \Delta E_i = \mel{i}{V}{i} $ and we obtain the typical result
+\begin{equation}
+    c_i(t) = e^{- \frac{\Delta E_i t}{\hbar}}
+\end{equation}
+
+What happens with the second-order term?
+\begin{align}
+    \Delta^{(2)} &= \sum_{m \neq i} \frac{\abs{V_{im}}^2}{(E_i - E_m + \imath \eta)} \\
+    &= \sum_{m \neq i} \Pr(\frac{\abs{V_{im}}^2}{E_i -E_m}) - \imath \pi \delta(E_i - E_m) \abs{V_{im}}^2
+\end{align}
+where here, by $ \Pr( \cdot) $ we mean the principal part:
+\begin{equation}
+    \Pr(f(x)) = \lim_{\delta \to 0} \int_{- \infty}^{\delta} f(x) 
+\end{equation}
+
+<<Ira scrolls around too fast and my internet lags him and allows him to draw at superhuman speed for short bursts. I will finish this when the lectures are available online>>
+
+\begin{equation}
+    \abs{c_i}^2 = e^{2 \Delta_I t / \hbar} = e^{- \Gamma t / \hbar}
+\end{equation}
+where $ \Gamma $ is the width of the state:
+\begin{equation}
+    \tau = \frac{\hbar}{\Gamma}
+\end{equation}
+
+What this is telling us is if we have some initial state and $ \Delta $ has an imaginary part, we will see spontaneous emission from this state down to a lower state.
+
+If we have a particle, even a fundamental particle, the mass of the particle has some uncertainty because of the uncertainty in the energy, $ \Delta E \tau = 0 $.
+\end{document}

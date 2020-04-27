@@ -1,0 +1,84 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{39}{Monday, April 27, 2020}{The Sommerfeld Expansion}
+
+At the end of the last class, we wanted to evaluate
+\begin{equation}
+    I_N = \int \dd{\epsilon} g(\epsilon) \mathcal{F}_{+}(\epsilon - \mu)
+\end{equation}
+ 
+\begin{itemize}
+    \item The first assumption we will make is $ \lim_{\epsilon \to - \infty} g(\epsilon) = 0 $ so that there are no states below the ground state.
+    \item The second we will make is that $ g(\epsilon) \propto \epsilon^{\alpha} $ as $ \epsilon \to \infty $.
+    \item The third is that $ g(\epsilon) $ is sufficiently smooth at $ \epsilon = \epsilon_F $.
+    \item Finally, we will define $ G(\epsilon) = \int_{- \infty}^{\infty} \dd{\epsilon'} g(\epsilon')  $.
+\end{itemize}
+
+Now consider first for a fixed $ \mu $ and $ \tilde{f}(x) = \frac{1}{e^x + 1} $:
+\begin{align}
+    I &= \int \dd{\epsilon} G'(\epsilon) \tilde{\mathcal{F}}\left(\frac{\epsilon - \mu}{k_B T}\right) \\
+    &= - \int \dd{\epsilon} G(\epsilon) \tilde{\mathcal{F}}'\left( \frac{\epsilon - \mu}{k_B T} \right) \frac{1}{k_B T} \\
+    &= - \dd{x} \underbrace{G(\mu + k_B T x)}_{G(\mu) + x k_B T G'(\mu) + \frac{1}{2}(x k_B T)^2 G''(\mu)} \tilde{\mathcal{F}}'(x) \qquad x \equiv \frac{\epsilon - \mu}{k_B T} \\
+    &= - G(\mu) \int \underbrace{\dd{x} \tilde{\mathcal{F}}'(x)}_{-1} - k_B T G'(\mu) \int \underbrace{\dd{x} x \tilde{\mathcal{F}}'(x)}_{0} - \frac{1}{2} (k_B T)^2 G''(\mu) \underbrace{\int \dd{x} x^2 \tilde{\mathcal{F}}'(x)}_{- \pi^2 / 3} + \ldots \\
+    &= G(\mu) + \frac{\pi^2}{6} (k_B T)^2 G''(\mu) + \order{T^4}
+\end{align}
+
+We can think of this as a low-$ T $ expansion of the FD-distribution at fixed $ \mu $:
+\begin{equation}
+    \mathcal{F}_+(\epsilon - \mu) = \Theta(\mu - \epsilon) - \frac{\pi^2}{6} (k_B T)^2 \delta'(\epsilon - \mu) + \order{T^4}
+\end{equation}
+
+Let's apply this. Suppose $ W(\epsilon) = \int_{- \infty}^{\epsilon} \dd{\epsilon'} D(\epsilon') $:
+\begin{align}
+    N &= \int_{- \infty}^{\infty} \dd{\epsilon} D(\epsilon) \mathcal{F}_+(\epsilon - \mu) = W(\mu) + \frac{\pi^2}{6} (k_B T)^2 W''(\mu) + \order{T^4}
+\end{align}
+Now we ``just'' need to solve this for $ \mu(N) $. This is terribly hard, but here's a nice solution. We are going to write $ \mu $ as a series expansion in $ k_B T $, insert this into the right-hand side, and then expand again for small $ k_B T $!\ Finally, we compare coefficients of $ (k_B T)^n $.
+\begin{equation}
+    \mu = \epsilon_F + \mu_1 k_B T + \mu_2(k_B T)^2 + \cdots
+\end{equation}
+\begin{align}
+    N &= W(\epsilon_F + \mu_1 k_B T + \mu_2 (k_B T)^2 + \ldots) + \frac{\pi^2}{6} (k_B T)^2 W''(\epsilon_F + \mu_1 k_B T + \mu_2 (k_B T)^2 + \ldots) + \ldots \\
+    &= W(\epsilon_F) + W'(\epsilon_F) \left( \mu_1 k_B T + \mu_2 (k_B T)^2 + \ldots \right) + \frac{1}{2} W''(\epsilon_F) \left( \mu_1 k_B T + \mu_2(k_B T)^2 + \ldots \right)^2 + \ldots \\
+    &+ \frac{\pi^2}{6} (k_B T)^2 \left[ W''(\epsilon_F) + W'''(\epsilon_F) \left( \mu_1 k_B T + \mu_2 (k_B T)^2 + \ldots \right) + \ldots \right] \\
+    &= \underbrace{W(\epsilon_F)}_{N} + k_B T \underbrace{\left[ W'(\epsilon_F) \mu_1 \right]}_{\mu_1 = 0} + (k_B T)^2 \underbrace{\left[ W'(\epsilon_F) \mu_2 + \frac{1}{2} W''(\epsilon_F) \mu_1^2 + \frac{\pi^2}{6} W''(\epsilon_F) \right]}_{\mu_2 = - \frac{\pi^2}{6} \frac{W''(\epsilon_F)}{W'(\epsilon_F)} = - \frac{\pi^2}{6} \frac{D'(\epsilon_F)}{D(\epsilon_F)}} + \ldots \\
+    \implies \mu(T,N) &= \epsilon_F - \frac{\pi^2}{6} (k_B T^2) \frac{D'(\epsilon_F)}{D(\epsilon_F)} + \ldots
+\end{align}
+We can insist this is our expression for $ \mathcal{F}_+(\epsilon - \mu) $:
+\begin{align}
+    \mathcal{F}_+(\epsilon - \mu) &= \Theta\left( \epsilon_F - \frac{\pi^2}{6} (k_B T)^2 \frac{D'}{D} + \cdots - \epsilon \right) - \frac{\pi^2}{6} (k_B T)^2 \delta'\left( \epsilon - \epsilon_F + \frac{\pi^2}{6} (k_B T)^2 \frac{D'}{D} + \cdots \right) + \order{T^4} \\
+    &= \Theta(\epsilon_F) + \Theta'(\epsilon_F) \left( - \frac{\pi^2}{6} (k_B T)^2 \frac{D'}{D} + \ldots \right) +\ldots - \frac{\pi^2}{6} (k_B T)^2 (\epsilon - \epsilon_F)+ \ldots \\
+    &= \Theta(\epsilon_F - \mu) - \frac{\pi^2}{6} (k_B T)^2 \left[ \frac{D'(\epsilon_F)}{D(\epsilon_F)} \delta(\epsilon - \epsilon_F) + \delta'(\epsilon - \epsilon_F) \right] + \ldots
+\end{align}
+
+We can use this expansion in our potential expression:
+\begin{align}
+    \Omega(T, \mu) &= - \int \dd{\epsilon} W(\epsilon \mathcal{F}_+(\epsilon - \mu)) \\
+    &= - \int_{- \infty}^{\mu} \dd{\epsilon'} W(\epsilon') - \frac{\pi^2}{6} (k_B T)^2 D(\mu) + \order{T^4}
+\end{align}
+\begin{align}
+    F(T,N) &= \max_{\mu} \left\{ \Omega(T, \mu) - \mu N \right\} = \Omega(T, \mu(T, N)) \\
+    &= - \int_{- \infty}^{\mu} \dd{\epsilon'} W(\epsilon') - \frac{\pi^2}{6} (k_B T)^2 D(\mu) + N \mu \\
+    &= - \int_{- \infty}^{\epsilon_F - \frac{\pi^2}{6}(k_B T)^2 \frac{D'}{D} \ldots} \dd{\epsilon} W(\epsilon) - \frac{\pi^2}{6} (k_B T)^2 D(\epsilon_F) + N \left( \epsilon_F - \frac{\pi^2}{6} (k_B T)^2 \frac{D'}{D} \ldots \right) \ldots\\
+    &= - \int_{- \infty}^{\epsilon_F} \dd{\epsilon} W(\epsilon) - \left( - \frac{\pi^2}{6} (k_B T)^2 \frac{D'}{D} \right) W(\epsilon_F) - \frac{\pi^2}{6} (k_B T)^2 D(\epsilon_F) - N \epsilon_F - \frac{\pi^2}{6} (k_B T)^2 \frac{D'}{D} N + \ldots \\
+    &= - \int_{- \infty}^{\epsilon_F} \dd{\epsilon} \int_{- \infty}^{\epsilon} \dd{\epsilon'} D(\epsilon') - \frac{\pi^2}{6} (k_B T)^2 D(\epsilon_F) + N \epsilon_F + \ldots \\
+    &= - \int_{- \infty}^{\epsilon_F} \dd{\epsilon'} \int_{\epsilon'}^{\epsilon_F} D(\epsilon') + (\text{the other terms}) \\
+    &= - \int_{- \infty}^{\epsilon_F} \dd{\epsilon'} D(\epsilon') (\epsilon_F - \epsilon') + (\text{the other terms}) \\
+    &= - \epsilon_F N + U_0 + (\text{the other terms})
+\end{align}
+so
+\begin{equation}
+    F(T, N) = U_0 - \frac{\pi^2}{6} (k_B T)^2 D(\epsilon_F) + \order{T^4}
+\end{equation}
+\begin{equation}
+    S(T,N) = - \pdv{F(T,N)}{T} = \frac{\pi^2}{3} k_B^2 T D(\epsilon_F) + \order{T^3}
+\end{equation}
+\begin{equation}
+    U(T,N) = F(T,N) + TS(T,N) = U_0 + \frac{\pi^2}{6} (k_B T)^2 D(\epsilon_F) + \order{T^4}
+\end{equation}
+\begin{equation}
+    c_V(T,N) = \pdv{U}{T}= \frac{\pi^2}{3} k_B^2 T D(\epsilon_F) + \order{T^3}
+\end{equation}
+This is linear in $ T $!
+
+
+\end{document}

@@ -1,0 +1,108 @@
+\documentclass[a4paper,twoside]{article}
+\input{../../preamble.tex}
+\title{33-755 Homework 11}
+\date{Thursday, November 21, 2019}
+\begin{document}
+\maketitle
+
+\section*{Harmonic Oscillator in Thermal Equilibrium}
+The density operator for a harmonic oscillator in thermal equilibrium is
+\begin{equation}
+    \vu{\rho} = \frac{1}{Z} e^{- \frac{\vu{H}}{k_B T}},
+\end{equation}
+where
+\begin{equation}
+    \vu{H} = \frac{ \vu{P}^2}{2m} + \frac{1}{2} m \omega^2 \vu{X}^2 = \left( \vu{N} + \frac{1}{2} \right) \hbar \omega
+\end{equation}
+with $ \vu{N} = \vu{a}^\dagger \vu{a} $.
+\begin{itemize}
+    \item[(a)] Show that $ e^{\frac{ \vu{H}}{k_B T}} a e^{- \frac{ \vu{H}}{k_B T}} = a e^{- \frac{\hbar \omega}{k_B T}} $, and hence $ \ev{ \vu{a}^\dagger \vu{a}} \equiv \Tr[\vu{\rho}\vu{N}] = \ev{ \vu{a} \vu{a}^\dagger} e^{- \frac{\hbar \omega}{k_B T}} $.
+        \begin{problem}
+            Using Baker-Campbell-Hausdorff, we know that
+            \begin{equation}
+                e^{A} B e^{-A} = B + \comm{A}{B} + \frac{1}{2} \comm{A}{\comm{A}{B}} + \cdots + \frac{1}{n!} \comm{A}{\overbrace{\cdots}^{n}}
+            \end{equation}
+            so
+            \begin{equation}
+                e^{ \frac{\vu{H}}{k_B T}} \vu{a} e^{- \frac{\vu{H}}{k_B T}} = \vu{a} + \frac{1}{k_B T} \comm{ \vu{H}}{ \vu{a}} + \ldots
+            \end{equation}
+            The commutator of $ \vu{H} $ and $ \vu{a} $ is $ - \hbar \omega \vu{a} $, so each additional commutation just adds an extra power of $ - \frac{\hbar \omega}{k_BT} $:
+            \begin{equation}
+                = \vu{a} + - \frac{\hbar \omega}{k_BT} \vu{a} + \frac{1}{2} (- \frac{\hbar \omega}{k_BT})^2 \vu{a} + \cdots + \frac{1}{n!} (- \frac{\hbar \omega}{k_BT})^n \vu{a}
+            \end{equation}
+            We can factor out the operator $ \vu{a} $ and the rest is a series which sums to an exponential
+            \begin{equation}
+                = \vu{a} \sum_n \frac{(- \frac{\hbar \omega}{k_B T})^n}{n!} = \vu{a} e^{- \frac{\hbar \omega}{k_B T}}
+            \end{equation}
+        \end{problem}
+    \item[(b)] Use the commutation relation $ \comm{ \vu{a}}{ \vu{a}^\dagger} = 1 $ to show that $ \ev{ \vu{N}} = \frac{1}{e^{\frac{\hbar \omega}{k_B T}} - 1} $.
+        \begin{problem}
+            \begin{align}
+                \ev{ \vu{N}} &= \Tr( \vu{\rho} \vu{N}) = \sum_n\bra{n} \vu{\rho} \vu{N}\ket{n} = \sum_n n\bra{n} \vu{\rho}\ket{n} = \sum_n \frac{n}{Z} e^{- \frac{\hbar \omega n}{k_BT}} = \frac{1}{Z} \left( \frac{1}{1 - e^{\frac{\hbar \omega}{k_BT}}} \right) \\ &= \frac{1}{e^{\frac{\hbar \omega}{k_BT}} -1}
+            \end{align}
+        \end{problem}
+\end{itemize}
+
+\section*{Zero-Point Motion of a Harmonic Chain}
+\begin{itemize}
+    \item[(a)] Show that the expectation values of kinetic and potential energy of the harmonic oscillator obey the virial relation for quadratic potentials, $ \ev{ \vu{V}} = \ev{ \vu{K}} $ when in an energy eigenstate. Use this result to calculate the mean square displacement $ \ev{ \vu{X}^2} $ in the ground state. Show, further, that the time average expectation value $ \overline{\ev{ \vu{V}}} = \overline{\ev{ \vu{K}}} $ regardless of the quantum state.
+        \begin{problem}
+            \begin{equation}
+                \ev{ \vu{K}} = \ev{\frac{ \vu{P}^2}{2m}} = \frac{1}{2m} \left( - \frac{\hbar m \omega}{2} \right) \ev{( \vu{a}^\dagger - \vu{a} )^2}
+            \end{equation}
+            If we expand the operators in the last statement, we get two squared terms which will have no expectation value, since the eigenstates of energy are orthonormal. However, the terms $ \vu{a}^\dagger \vu{a} = \vu{N} $ and $ \vu{a} \vu{a}^\dagger = \vu{N} + 1 $ will have expectation values, so the stuff in the expectation brackets evaluates to $ - 2n $ (because of the minus sign between them in the square). Therefore
+            \begin{equation}
+                \ev{ \vu{K}} = \frac{\hbar \omega}{2} n
+            \end{equation}
+
+            Similarly,
+            \begin{equation}
+                \ev{ \vu{V}} = \frac{m \omega^2}{2} \ev{ \vu{X}^2} = \frac{m \omega^2}{2} \left( \frac{\hbar}{2 m \omega} \right) \ev{2 \vu{N}} = \frac{\hbar \omega}{2} n = \ev{ \vu{K}}
+            \end{equation}
+
+            Next, we can evaluate the mean square displacement in the ground state by noting that $ \ev{ \vu{X}^2} = \frac{2}{m \omega} \ev{ \vu{V}} = \frac{\hbar}{m \omega} n $. In the ground state, $ n = 0 $, so $ \ev{ \vu{X}^2}_{0} = 0 $.
+
+            I'm not quite sure what the time average expectation value is, so I don't know what to do for the last part of the question.
+        \end{problem}
+    \item[(b)] Consider the infinite periodic chain of coupled oscillators discussed by Cohen-Tannoudji (complement $ J_V $). Express the position of the $ j $th oscillator, $ \vu{X}_j $ in terms of the normal mode coordinates $ \vu{\Xi}(k) $, with $ k \in (- \pi / l, \pi / l) $, where $ l $ is the period of the chain.
+        \begin{problem}
+            The conversion between $ \vu{X} $ and $ \vu{\Xi} $ is like a discrete Fourier transform in one direction and a continuous transform in the other direction. In the classical example, we wrote these transforms as
+            \begin{equation}
+                x_j(t) = \frac{l}{2 \pi} \int_{- \frac{\pi}{l}}^{ \frac{\pi}{l}} \xi(k, t) e^{\imath k j l}
+            \end{equation}
+            so, following this logic, we should be able to just promote each side to a quantum operator:
+            \begin{equation}
+                \vu{X}_q = \frac{l}{2 \pi} \int_{- \frac{\pi}{l}}^{ \frac{\pi}{l}} \vu{\Xi}(k) e^{\imath q k l}
+            \end{equation}
+        \end{problem}
+    \item[(c)] Evaluate the expectation value $ \ev{\Xi(k) \Xi^\dagger(k')} $ in the ground state.
+        \begin{problem}
+            First, we can define
+            \begin{equation}
+                \vu{\Xi}(k) = \sqrt{\frac{\hbar}{2 m \Omega(k)}} ( \vu{a}^\dagger(k) + \vu{a}(k))
+            \end{equation}
+            similar to the position operator in $ x $-space. With this in mind, the expectation value should be similar to that of $ \vu{X}^2 $:
+            \begin{equation}
+                \ev{ \vu{\Xi}(k) \vu{\Xi}^\dagger(k')} = \frac{\hbar}{2m \sqrt{\Omega(k) \Omega(k')}} \ev{ \vu{a}^\dagger(k) \vu{a}(k') + \vu{a}(k) \vu{a}^\dagger(k')}
+            \end{equation}
+            In the ground state, I'm guessing $ k = k' = 0 $, so we just get two number operator equivalents which pull out $ k $ values from $ k $ energy states, so
+            \begin{equation}
+                \ev{ \vu{\Xi}(k) \vu{\Xi}^\dagger(k')}_{k=k'=0} = \frac{\hbar}{m \Omega(0)} \eval{k}_{0} = 0
+            \end{equation}
+        \end{problem}
+    \item[(d)] Let the potential $ U $ vanish but keep $ V $ nonzero (i.e. $ \omega = 0 $ but $ \omega_1 \neq 0 $ in Cohen-Tannoudji's notation). Show that the mean square displacement $ \ev{ \vu{X}_j^2} $ of each mass $ j $ diverges in the ground state, but the mean square separation of neighboring masses $ \ev{( \vu{X}_{j+1} - \vu{X}_{j})^2} $ remains finite.
+        \begin{problem}
+            Using the results from the previous two problems, we can see that
+            \begin{equation}
+                \ev{ \vu{X}_j^2} = \frac{l^2}{4 \pi^2} \int_{- \frac{\pi}{l}}^{ \frac{\pi}{l}} \frac{\hbar^2}{m^2 \Omega^2(k)} k^2 e^{2\imath j k l}
+            \end{equation}
+            Here, $ \Omega^2(k) = 4 \omega_1^2 \sin[2](\frac{kl}{2}) $. This integral is best done with Mathematica, and it diverges.
+
+            Next, we want to look at the separation:
+            \begin{equation}
+                ( \vu{X}_{j+1} - \vu{X}_{j})^2 = \left( \frac{l}{2 \pi} \int_{- \frac{\pi}{l}}^{ \frac{\pi}{l}} \vu{\Xi}(k) \left( e^{\imath (j+1) k l} - e^{\imath j k l} \right) \right)^2
+            \end{equation}
+            I couldn't figure out how to get Mathematica to perform this integral (the only difference is the exponential term, and it outputs a whole bunch of hypergeometric-type functions, so I'd assume that means the answer is finite).
+        \end{problem}
+\end{itemize}
+\end{document}

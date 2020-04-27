@@ -1,0 +1,74 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{8}{Friday, January 31, 2020}{Derivatives of Entropy}
+
+Last time we looked into the meaning of the partial derivative of the entropy with respect to things like the energy and the volume and discovered that these partials have to be the same in cases with two connected chambers. We have another partial derivative that we didn't go over yet:
+\begin{equation}
+    \pdv{S}{N} = ?
+\end{equation}
+
+We know this for an ideal gas:
+\begin{align}
+    \pdv{S_{\text{ideal}}}{N} &= \pdv{N}\left\{ N k_B \left[ \frac{3}{2} \ln{\frac{E}{N}} + \ln{\frac{V}{N}} + X \right] \right\} \\
+    &= k_B \left[ \frac{3}{2} \ln{\frac{E}{N}} + \ln{\frac{V}{N}} + X \right] + k_B N \left[ - \frac{3}{2} \frac{1}{N} - \frac{1}{N} \right] \\
+    &= k_B \left[ \frac{3}{2} \ln{\frac{E}{N}} + \ln{\frac{V}{N}} - \frac{5}{2} + X \right]
+\end{align}
+
+So far we haven't had to worry about the $ X $, but here it doesn't go away. We don't know what it is (yet). People simply define
+\begin{equation}
+    \pdv{S(E,V,N)}{N} = - \frac{\mu}{T}
+\end{equation}
+where we define $ \mu $ as the ``chemical potential''\textemdash probably one of the worst misnomers ever made, since it sounds very related to the field of chemistry. This is the equilibrium condition when particles are allowed to move back and forth. There is energy passed between them, so $ T $ must be the same. Of course, it would be nice to understand what it is and what it does, but when we look at the expression from the ideal gas, it doesn't look nice. We will later find different language in which to discuss the chemical potential which will clarify what all of these terms mean.
+
+\begin{note}{Recap}
+    Knowing $ S(E,V,N) $ gives us all the thermodynamic information we want.
+    \begin{equation}
+        \pdv{S}{E} = \frac{1}{T} \qquad \pdv{S}{V} = \frac{P}{T} \qquad \pdv{S}{N} = - \frac{\mu}{T}
+    \end{equation}
+    Hence, this relation is called a ``fundamental relation''. In other words, the entropy as a function of energy, volume, and number of particles is a thermodynamic potential.The word ``potential'' suggests that ``good things happen'' when you differentiate.
+    \begin{itemize}
+        \item However, not every thermodynamic observable is a thermodynamic potential. For instance, $ E(T,V,N) $ does not tell us everything about the equilibrium conditions of a system. However, we will call $ E(T,V,N) $ and equation of state.
+        \item Additionally, if we have the entropy expressed in different variables, say $ S(T,V,N) $, then it is not a thermodynamic potential. The entropy itself is not a thermodynamic potential\textemdash $ S(E,V,N) $ is.
+    \end{itemize}
+\end{note}
+It seems, in our case, that we have one thermodynamic potential and three equations of state (the three partial derivatives of the thermodynamic potential). For \textit{extensive systems}, it turns out that these three equations are \textit{not} independent. What do we mean by extensive? If you were to scale up a system (make the number of particles bigger, the volume bigger, and the energy bigger). If you scale these by the same factor and the entropy stays the same, the system is extensive.
+
+\subsection{Differential of Entropy}
+\label{sub:differential_of_entropy}
+
+Let us look at the ``differential'' of the entropy. If we moved $ E $, $ V $, and/or $ N $ a bit, what happens to $ S $?
+
+\begin{equation}
+    \dd{S} = \left( \pdv{S}{E} \right)_{V,N} \dd{E} + \left( \pdv{S}{V} \right)_{E,N} \dd{V} + \left( \pdv{S}{N} \right)_{E,V} \dd{N}
+\end{equation}
+where the subscripts imply taking the derivative while keeping the other variables constant. We actually know what all of these partial derivatives are, so we can write
+\begin{align}
+    \dd{S} &= \frac{1}{T} \dd{E} + \frac{P}{T} \dd{V} - \frac{\mu}{T} \dd{N} \\
+    T \dd{S} &= \dd{E} + P \dd{V} - \mu \dd{N} \\
+\end{align}
+This can be written as
+\begin{equation}
+    \dd{E} = T \dd{S} - P \dd{V} + \mu \dd{N}
+\end{equation}
+
+We can see that $ E(S,V,N) $ is a thermodynamic potential, since its derivatives will tell us everything we want to know about the system. It would be very useful to memorize this equation. This is one of the most important equations we will be using early in this course.
+
+\section{Microstates and Macrostates}
+\label{sec:microstates_and_macrostates}
+
+\begin{itemize}
+    \item Microstates
+        \subitem Describes the microscopic configuration of a system
+        \subitem Typically probabilistic
+        \subitem $ \Pr(\{q,p\}) $
+        \subitem Realm of statistical physics
+    \item Macrostate
+        \subitem Describes the system by specifying a small number of constraints
+        \subitem $ \{E,V,N\} $
+        \subitem Realm of thermodynamics
+\end{itemize}
+
+If the state is ``pure'' (meaning the probability distribution is a $\delta$ function), then the microstate is a property of the system. However, when we go to the macrostate, we find that we have an incomplete description of the system. This loss of entropy is the origin of entropy. In physics, we are trying to go from the stuff we know in the microstate to develop the macrostate.
+
+
+\end{document}

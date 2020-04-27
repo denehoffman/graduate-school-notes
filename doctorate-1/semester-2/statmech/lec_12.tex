@@ -1,0 +1,55 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{12}{Monday, February 10, 2020}{Heat Engines, Continued}
+
+\section{Heat Engine Efficiency}
+\label{sec:heat_engine_efficiency}
+
+In the last lecture, we learned that
+\begin{equation}
+    \dbar{W} \leq \dbar{Q} 
+\end{equation}
+where $ W $ is the work done by a heat engine and $ Q $ is the heat put into the system. The inequality is not surprising, you shouldn't be able to create energy from nothing. However, the fact that these are never actually equal is not trivial. Suppose we put heat into the engine (reversibly). The entropy will increase by
+\begin{equation}
+    \dd{S} = \frac{\dbar{Q}}{T}
+\end{equation}
+When the engine runs cyclically, the entropy must also return to its original state. There's nothing wrong with entropy decreasing, it just will not happen spontaneously. The only way to do this is to remove heat from the engine (so that $ \dbar{Q} $ is negative). We have to subtract the exact same amount of heat from the engine that we put in to make the entropy return to its starting point, so there is no heat left over to do work. However, there is another factor which we can change (the temperature) which will allow us to remove a different amount of heat. If we get rid of heat at a lower temperature, there will still be heat left over to do work.
+
+We put heat into the engine at temperature $ T_H $ and remove heat at temperature $ T_C $. In the best case scenario,
+\begin{equation}
+    \dbar{W} = \dbar{Q_H} + \dbar{Q_C}
+\end{equation}
+Again, be cautious with the sign conventions. $ \dbar{Q_C} $ is negative, since it is heat being removed from the system.
+
+Over one cycle,
+\begin{equation}
+    0 = \dd{S} = \frac{\dbar{Q_H}}{T_H} + \frac{\dbar{Q_C}}{T_C}
+\end{equation}
+The first equality holds because we run the system cyclically. The second inequality holds because we run the system reversibly. Therefore,
+\begin{equation}
+    \dbar{Q_C} = - \frac{T_C}{T_H} \dbar{Q_H}
+\end{equation}
+so
+\begin{equation}
+    \dbar{W} = \dbar{Q_H} - \frac{T_C}{T_H} \dbar{Q_H} = \dbar{Q_H} \left( 1 - \frac{T_C}{T_H} \right)
+\end{equation}
+Therefore, the efficiency of the engine (bang for our buck in very scientific terms) is
+\begin{equation}\label{eq:carnot_eff}
+    \eta \colon = \frac{\dbar{W}}{\dbar{Q_H}} = 1 - \frac{T_C}{T_H}\tag{Carnot Efficiency}
+\end{equation}
+This is the maximal efficiency of an engine that runs cyclically and reversibly. Notice we made no assumptions about the process or the mechanics of the engine. We only used the facts that the entropy cannot be different at the end of a cycle and the process must be reversible. Typically, these efficiencies tend to be on the order of $ 30-40\% $. Since we run the engine reversibly, we can actually imagine reversing it. This would mean we input work and use it to take heat out of the cold reservoir and put it into the hot reservoir. This is not something heat will do spontaneously. If you care about the cold reservoir, you can make a refrigerator. If you care about the hot reservoir, you can make a heat pump. In both cases, we can now define something called an efficiency ratio. For the refrigerator,
+\begin{equation}
+    \varepsilon_R = \frac{\dbar{Q_C}}{-\dbar{W}} = \frac{T_C}{T_H - T_C}
+\end{equation}
+This ratio \textit{can be} bigger than $ 1 $!\ For a heat pump,
+\begin{equation}
+    \varepsilon_{HP} = \frac{-\dbar{Q_C}}{-\dbar{W}} = \frac{1}{\eta} > 1
+\end{equation}
+Heat pumps are more than $ 100\% $ efficient!
+
+\section{Thermodynamic Potentials}
+\label{sec:thermodynamic_potentials}
+
+We know that $ S(U,V,N) $ contains ``all'' the thermodynamic information we care about. However, its natural variables are not always convenient. Can we express the information content of $ S(U,V,N) $ via a different function which depends on more convenient variables?
+
+\end{document}

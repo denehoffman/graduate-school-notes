@@ -1,0 +1,60 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{17}{Wed Sep 25 2019}{Multiple Detectors}
+
+\section{Multiple Detectors on a Beam Splitter}%
+\label{sec:multiple_detectors_on_a_beam_splitter}
+
+Suppose we have detectors $C$ between $1c$ and $2c$ on a beam splitter path, $\hat{c}$ between $2c$ and $3c$, and $\hat{D}$ between $2d$ and $3d$. $\ket{1c,C^0}\to\ket{2c,C^*}$, etc. Our evolution of states is:
+
+\begin{equation}
+    \ket{\psi_0} = \ket{0a}
+\end{equation}
+\begin{equation}
+    \ket{\psi_1} = \frac{1}{\sqrt{2}} \left( \ket{1cC^0\hat{C}^0\hat{D}^0} + \ket{1dC^0\hat{C}^0\hat{D}^0} \right) 
+\end{equation}
+\begin{equation}
+    \ket{\psi_2} = \frac{1}{\sqrt{2}} \left( \ket{2cC^*\hat{C}^0\hat{D}^0} + \ket{2dC^0\hat{C}^0\hat{D}^0} \right) 
+\end{equation}
+\begin{equation}
+    \ket{\psi_3} = \frac{1}{\sqrt{1}} \left( \ket{3cC^*\hat{C}^*\hat{D}^0} + \ket{3dC^0\hat{C}^0\hat{D}^*} \right) 
+\end{equation}
+
+Let's define a family of histories $F$:
+\begin{equation}
+    Y^c = [\psi_0]\odot[1cC^0\hat{C}^0\hat{D}^0]\odot[2cC^*\hat{C}^0\hat{D}^0]\odot[3cC^*\hat{C}^*\hat{D}^0]
+\end{equation}
+\begin{equation}
+    Y^d = [\psi_0]\odot[1dC^0\hat{C}^0\hat{D}^0]\odot[2dC^0\hat{C}^0\hat{D}^0]\odot[3dC^0\hat{C}^0\hat{D}^*]
+\end{equation}
+These are the only nonzero chainkets in this family.
+\begin{equation}
+    Pr([1c]_1\mid C_2^*) = 1
+\end{equation}
+\begin{equation}
+    Pr([1d]_1\mid C_2^0) = 1
+\end{equation}
+\begin{equation}
+    Pr([2d]_2\mid C_2^0) = 1
+\end{equation}
+\begin{equation}
+    Pr(D_3^*\mid C_2^0) = 1
+\end{equation}
+
+\subsection{Wave Function Collapse}%
+\label{sub:wave_function_collapse}
+
+How would this look if we interpreted it as a wave function collapsing?
+
+\begin{equation}
+    \ket{\psi_0}\xrightarrow{T}\ket{\psi_1}\xrightarrow{\text{collapse}}\begin{cases}
+        \ket{2cC_2^*\hat{C}_2^0 \hat{D}_2^0} &\text{if }C_2^*\\
+        \ket{2dC_2^0\hat{C}_2^0 \hat{D}_2^0} &\text{if }C_2^0
+    \end{cases}\xrightarrow{T}\begin{cases}
+    \ket{3cC_3^*\hat{C}_3^*\hat{D}_3^0} &\text{Probability } =1\\
+    \ket{3dC_3^0\hat{C}_3^0\hat{D}_3^*} &\text{Probability } =1
+    \end{cases}
+\end{equation}
+The wave function ``collapses'' before the second state because of the $C$ detector. However, if that detector is turned off, does that wave function still collapse? We know the state of that detector even if it's turned off!
+
+\end{document}

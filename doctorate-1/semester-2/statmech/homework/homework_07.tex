@@ -1,0 +1,206 @@
+\documentclass[a4paper,twoside]{article}
+\input{../../preamble.tex}
+\title{33-765 Homework 6}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section*{24. Examples of Simple Thermodynamic Identities}
+Rewrite the following thermodynamic derivatives only using the ``standard'' derivatives $ \alpha $, $ \kappa_T $, $ c_P $, and $ c_V $ (and possibly factors, such as $ T $ or $ P $, or numbers, such as $ 2 $ or $ \pi $) occur:
+\begin{itemize}
+    \item[1.] $ \left( \pdv{T}{P} \right)_{S,N} = ? $
+        \begin{problem}
+            \begin{align}
+                \left( \pdv{T}{P} \right)_{S,N} &\sim \pdv{(T,S)}{(P,S)} \\
+                &= \pdv{(T,S)}{(T,P)} \pdv{(T,P)}{(P,S)} \\
+                &= -\pdv{(T,S)}{(T,P)} \pdv{(P,T)}{(P,S)} \\
+                &= - \left( \pdv{S}{P} \right)_{T} \left( \pdv{T}{S} \right)_{P} \\
+                &= - \left( \pdv{S}{P} \right)_{T} \frac{T}{N c_p} \\
+                &= - \pdv{(S,T)}{(P,V)} \pdv{(P,V)}{(P,T)} \frac{T}{N c_p} \\
+                &= \pdv{(P,V)}{(P,T)} \frac{T}{N c_p} \\
+                &= \left( \pdv{V}{T} \right)_{P} \frac{T}{N c_p} \\
+                &= \frac{V \alpha T}{N c_p}
+            \end{align}
+        \end{problem}
+    \item[2.] $ \left( \pdv{F}{S} \right)_{T,N} = ? $
+        \begin{problem}
+            \begin{align}
+                \left( \pdv{F}{S} \right)_{T,N} &\sim \pdv{(F,T)}{(S,T)} \\
+                &= \pdv{(F,T)}{(V,T)} \pdv{(V,T)}{(S,T)} \\
+                &= \left( \pdv{F}{V} \right)_{T} \pdv{(V,T)}{(S,T)} \\
+                &= - P \pdv{(V,T)}{(S,T)} \\
+                &= - P \pdv{(V,T)}{(V,P)} \pdv{(V,P)}{(S,T)} \\
+                &= - P \left( \pdv{T}{P} \right)_{V} \\
+                &= - P \frac{\kappa_T}{\alpha} 
+            \end{align}
+        \end{problem}
+\end{itemize}
+
+\section*{25. Maxwell Relations and Jacobians in Tedious Disguise}
+\begin{itemize}
+    \item[1.] Prove the first $ T \dd{S} $ equation: $ T \dd{S} = N c_V \dd{T} + \frac{\alpha T}{\kappa_T} \dd{V} $.
+        \begin{problem}
+            \begin{align}
+                \dd{S} &= \eval{\pdv{S}{T}}_{V} \dd{T} + \eval{\pdv{S}{V}}_{T} \dd{V} \\
+                &=  \frac{N c_V}{T} \dd{T} + \pdv{(S,T)}{(V,T)} \dd{V} \\
+                &= \frac{Nc_V}{T} \dd{T} + \pdv{(S,T)}{\bm{(P,T)}} \pdv{\bm{(P,T)}}{(V,T)} \dd{V} \\
+                &= \frac{Nc_V}{T} \dd{T} + \pdv{(S,T)}{(P,T)} \frac{1}{\left( \pdv{V}{P} \right)_T} \dd{V} \\
+                &= \frac{N c_V}{T} \dd{T} - \pdv{(S,T)}{(P,T)} \frac{1}{V \kappa_T} \dd{V} \\
+                &= \frac{N c_V}{T} \dd{T} - \frac{1}{V \kappa_T} \underbrace{\pdv{(S,T)}{\bm{(P,V)}}}_{-1} \underbrace{\pdv{\bm{(P,V)}}{(P,T)}}_{V \alpha} \dd{V} \\
+                &= \frac{N c_V}{T} \dd{T} + \frac{\alpha}{\kappa_T} \dd{V} \\
+                T \dd{S} &= N c_V \dd{T} + \frac{\alpha T}{\kappa_T} \dd{V} 
+            \end{align}
+        \end{problem}
+    \item[2.] Prove the second $ T \dd{S} $ equation: $ T \dd{S} = N c_p \dd{T} - \alpha TV \dd{P} $.
+        \begin{problem}
+            \begin{align}
+                \dd{S} &= \eval{\pdv{S}{T}}_{P} \dd{T} + \eval{\pdv{S}{P}}_{T} \dd{P} \\
+                &= \frac{N c_P}{T} \dd{T} + \pdv{(S,T)}{(P,T)} \dd{P} \\
+                &= \frac{N c_P}{T} \dd{T} + \alpha V \underbrace{\pdv{(P,T)}{(P,V)}}_{\frac{1}{\alpha V}} \pdv{(S,T)}{(P,T)} \dd{P} \\
+                &= \frac{N c_P}{T} \dd{T} + \underbrace{\alpha V \pdv{(S,T)}{(P,V)}}_{-1} \dd{P} \\
+                &= \frac{N c_P}{T} \dd{T} - \alpha V \dd{P} \\
+                T \dd{S} &= N c_P \dd{T} - \alpha TV \dd{P} 
+            \end{align} 
+        \end{problem}
+\end{itemize}
+
+\section*{26. ``A pearl of theoretical physics'' \ldots}
+\ldots that's what H.A. Lorentz called Boltzmann's following brilliant insight. Consider some mystery system, of which we only know that it is extensive, the chemical potential vanishes, and it satisfies the equation of state $ PV = \frac{1}{3} U $.
+\begin{itemize}
+    \item[1.] Explain why in such a situation we must have $ U(T,V) = V u(T) $.
+        \begin{problem}
+            If the system is extensive, the differential of $ U $ must be homogeneous and first-order. There is only one extensive variable in the equation of state, so the energy must scale linearly with that variable, $ V $.
+        \end{problem}
+    \item[2.] Express the entropy as a function of temperature and volume. (This will involve $ u(T) $, which you need not eliminate.)
+        \begin{problem}
+            Because the system is extensive, we can use the equation
+            \begin{equation}
+                U = TS - PV
+            \end{equation}
+            so
+            \begin{align}
+                TS &= PV + U \\
+                S &= \frac{PV}{T} + \frac{U}{T} \\
+                &= \frac{V \frac{U}{3V}}{T} + \frac{U}{T} \\
+                &= \frac{V \frac{Vu(T)}{3V}}{T} + \frac{Vu(T)}{T} \\
+                &= \frac{1}{T} \left( \frac{V u(T)}{3} + V u(T) \right) \\
+                &= \frac{4}{3} \frac{V u(T)}{T} 
+            \end{align}
+        \end{problem}
+    \item[3.] Find a differential equation for $ u(T) $ by pondering over the temperature dependence of the pressure.
+        \begin{problem}
+            \begin{equation}
+                u'(T) = 3 \pdv{P}{T} = 3 \pdv{S}{V} = 3 \left[ \frac{4}{3} \frac{u(T)}{T} \right] = 4 \frac{u(T)}{T}
+            \end{equation}
+        \end{problem}
+    \item[4.] Solve the differential equation and thus predict how the energy density and the entropy depend on the temperature.
+        \begin{problem}
+            \begin{align}
+                u'(T) &= 4 \frac{u(T)}{T} \\
+                \dv{u}{T} &= 4 \frac{u}{T} \\
+                \frac{\dd{u}}{u} &= \frac{4 \dd{T}}{T} \\
+                \ln(u) &= 4\ln(T) + \ln(c) \\
+                u &= e^{\ln\left( T^4 \right) + \ln(c)} \\
+                u &= cT^4 \\
+                &\implies u \propto T^4 \qand S \propto \frac{u}{T} \propto T^3
+            \end{align}
+        \end{problem}
+\end{itemize}
+
+
+\section*{27. Relation Between the Isothermal and the Adiabatic Compressibilities}
+In analogy to the well-known relation between the isobaric and the isochoric heat capacities, $ c_P $ and $ c_V $, derive the following very similar formula for the isothermal and adiabatic compressibilities, $ \kappa_T $ and $ \kappa_S $:
+\begin{equation}
+    \kappa_T - \kappa_S = \frac{TV \alpha^2}{N c_p}
+\end{equation}
+
+\begin{problem}
+    Let's start with the definition of $ \kappa_T $:
+    \begin{equation}
+        \kappa_T = - \frac{1}{V} \left( \pdv{V}{P} \right)_T = - \frac{1}{V} \pdv{(V,T)}{(P,T)}
+    \end{equation}
+    Next, we'll expand this in a vain attempt to get a $ c_P $ on one side (this was the first time I did it, and while it worked out, there's probably a faster way to get this result):
+    \begin{align}
+        \kappa_T &= - \frac{1}{V} \pdv{(V,T)}{(P,T)} \\
+        &= - \frac{1}{V} \pdv{(V,T)}{\bm{(P,S)}} \pdv{\bm{(P,S)}}{(P,T)} \\
+        &= - \frac{1}{V} \pdv{(V,T)}{(P,S)}\left( \pdv{S}{T} \right)_P \\
+        &= - \frac{1}{V} \pdv{(V,T)}{(P,S)} \frac{N c_P}{T}
+    \end{align}
+    While this seems to give us terms which are the reciprocal of what we want right now, it does eventually work out. As we did with the heat capacities, we will expand the remaining Jacobian into its determinant form:
+    \begin{align}
+        \kappa_T &= - \frac{N c_P}{TV} \left[ \left( \pdv{V}{P} \right)_S \left( \pdv{T}{S} \right)_P - \left( \pdv{T}{P} \right)_S \left( \pdv{V}{S} \right)_P \right] \\
+        &= - \frac{N c_P}{TV} \left[ \left( -V \kappa_S \right) \left( \frac{1}{\left( \pdv{S}{T} \right)_P}\right) - \left( \pdv{T}{P} \right)_S \left( \pdv{V}{S} \right)_P \right] \\
+        &= - \frac{Nc_P}{TV} \left[ \left( -V \kappa_S \right) \left( \frac{T}{Nc_P} \right) - \left( \pdv{T}{P} \right)_S \left( \pdv{V}{S} \right)_P \right] \\
+        &= \kappa_S + \frac{N c_P}{VT} \left( \pdv{T}{P} \right)_S \left( \pdv{V}{S} \right)_P
+    \end{align}
+    It now seems reasonable to move $ \kappa_S $ to the other side. I'm going to need some $ \alpha $'s here, and I also need some factors $ c_P $ to move it to the denominator:
+    \begin{align}
+        \kappa_T - \kappa_S &= \frac{Nc_p}{TV} \pdv{(T,S)}{(P,S)} \pdv{(V,P)}{(S,P)} \\
+        &= \frac{Nc_p}{TV} \left[ \pdv{(T,S)}{\bm{(P,T)}} \pdv{\bm{(P,T)}}{(P,S)} \right] \left[ \pdv{(V,P)}{\bm{(T,P)}} \pdv{\bm{(T,P)}}{(S,P)} \right] \\
+        &= \frac{Nc_P}{TV} \left[ \pdv{(T,S)}{(P,T)} \frac{T}{Nc_p} \right] \left[ (V \alpha) \left( \frac{T}{Nc_p} \right) \right] \\
+        &= \frac{T\alpha}{N c_p} \pdv{(T,S)}{(P,V)} \\
+        &= \frac{T \alpha}{N c_p} \underbrace{\pdv{(T,S)}{\bm{(P,V)}}}_{1} \underbrace{\pdv{\bm{(P,V)}}{(P,T)}}_{V \alpha} \\
+        \kappa_T - \kappa_S &= \frac{TV \alpha^2}{N c_P} 
+    \end{align}
+\end{problem}
+
+\section*{28. Adiabatic Compression}
+\begin{itemize}
+    \item[1.] Show that, quite generally, $ \frac{\kappa_T}{\kappa_S} = \frac{c_P}{c_V} =\colon \gamma $, where $ \gamma $ is called the adiabatic index.
+        \begin{problem}
+            \begin{equation}
+                \frac{\kappa_T}{\kappa_S} = \frac{\left( \pdv{V}{P} \right)_T}{\left( \pdv{V}{P} \right)_S} = \pdv{\color{red}(V,T)\color{black}}{(P,T)} \pdv{(P,S)}{\color{red}(V,S)\color{black}} = \pdv{\color{red}(V,T)\color{black}}{\color{red}(V,S)\color{black}} \pdv{(P,S)}{(P,T)} = \frac{\left( \pdv{S}{T} \right)_P}{\left( \pdv{S}{T} \right)_V} = \frac{c_P}{c_V}
+            \end{equation}
+        \end{problem}
+    \item[2.] Calculate $ \kappa_T $, $ c_V $, $ c_P $, and $ \gamma $ for the monoatomic ideal gas.
+        \begin{problem}
+            We begin with the equation of state for the ideal gas:
+            \begin{equation}
+                PV = N k_B T
+            \end{equation}
+            \begin{align}
+                \kappa_T &= - \frac{1}{V} \left( \pdv{V}{P} \right)_{T,N} \\
+                &= - \frac{1}{V} \left( - \frac{Nk_B T}{P^2} \right) \\
+                \kappa_T &= \frac{N k_B T}{VP^2} = \frac{1}{P}
+            \end{align}
+            At constant volume, $ \dd{U} = T \dd{S} $ so
+            \begin{align}
+                c_V &= \frac{T}{N} \left( \pdv{S}{T} \right)_{V,N} \\
+                &= \frac{T}{N} \frac{1}{T} \left( \pdv{U}{T} \right)_{V,N}  \\
+                &= \frac{1}{N} \left( \frac{3}{2} N k_B \right) \\
+                &= \frac{3}{2} k_B
+            \end{align}
+            Next, $ c_P = \frac{TV \alpha^2}{N \kappa_T} + c_V $, so
+            \begin{equation}
+                c_P = \frac{TV \alpha^2}{N} P + \frac{3}{2} k_B = \frac{T V P \alpha^2}{N} + \frac{3}{2} k_B = k_B + \frac{3}{2} k_B = \frac{5}{2} k_B
+            \end{equation}
+            since, for an ideal gas, $ \alpha = \frac{1}{T} $.
+
+            Finally, $ \gamma = \frac{c_P}{c_V} $, so
+            \begin{equation}
+                \gamma = \frac{5}{3}
+            \end{equation}
+        \end{problem}
+    \item[3.] Show that for adiabatic (constant entropy) compression of an ideal gas we get $ P \propto V^{- \gamma} $.
+        \begin{problem}
+            \begin{equation}
+                - \frac{1}{V} \left( \pdv{V}{P} \right)_{S,N} = \kappa_S = \frac{\kappa_T}{\gamma} = \frac{1}{\gamma P}
+            \end{equation}
+            so
+            \begin{equation}
+                - \gamma \frac{\dd{V}}{V} = \frac{\dd{P}}{P}
+            \end{equation}
+            Solving this, we get
+            \begin{equation}
+                - \gamma \ln(V) = \ln(P) + \ln(c)
+            \end{equation}
+            so
+            \begin{equation}
+                P = c V^{- \gamma} \qor P \propto V^{- \gamma}
+            \end{equation}
+        \end{problem}
+\end{itemize}
+
+
+
+\end{document}

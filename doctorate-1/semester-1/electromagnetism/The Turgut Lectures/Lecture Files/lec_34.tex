@@ -1,0 +1,81 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{34}{Monday, November 04, 2019}{More on Jefimenko's Formulation}
+
+\begin{equation}
+    \vec{E} = \frac{1}{4 \pi \epsilon_0} \int \dd[3]{x'} \left\{ \frac{ \hat{R}}{R^2} [\rho( \vec{x}', t')]_{\text{ret}} + \frac{ \hat{R}}{cR} \partial_t [\rho( \vec{x}', t')]_{\text{ret}} - \frac{1}{c^2} \frac{1}{R} \partial_t [ \vec{J}(\vec{x}',t')]_{\text{ret}} \right\}
+\end{equation}
+\begin{equation}
+    \vec{B} = \frac{\mu_0}{4 \pi} \int \dd[3]{x'} \left\{ [ \vec{J}( \vec{x}', t')]_{\text{ret}} \times \frac{ \hat{R}}{R^2} + \partial_t [ \vec{J}( \vec{x}', t')]_{\text{ret}} \times \frac{ \hat{R}}{cR} \right\}
+\end{equation}
+For a point source, $ \rho(\vec{x},t) = q \delta(\vec{x}-\vec{r}(t)) $ and $ \vec{J}(\vec{x},t) = q\vec{v} \delta(\vec{x}-\vec{r}(t)) $. Here, we define $ t' $ by
+\begin{equation}
+    t' = t - \frac{\abs{ \vec{x} - \vec{r}(t')}}{c}
+\end{equation}
+which is intrinsically hard to solve. Therefore, the $\delta$-functions will look like:
+\begin{equation}
+    \delta( \vec{x}' - \vec{r}(t')) = \delta \left( \vec{x}' - \vec{r}\left( t - \frac{\abs{ \vec{x} - \vec{x}'}}{c} \right) \right)
+\end{equation}
+If we make a local orthogonal transformation such that $ \hat{y}_1' \parallel \vec{v} $. We need to factor in the Jacobian in these integrals, which should be of unit magnitude.
+\begin{equation}
+    \text{Jacobian} = \left[ \pdv{\tilde{x}}{x} \right]^{-1}
+\end{equation}
+\begin{equation}
+    \pdv{x'_i} \left[ x'_i - r_i \left( t - \frac{\abs{\vec{x}-\vec{x}}}{c} \right) \right] = \delta_{ij} - \pdv{r_j}{t'} \left[ \pdv{x'^i}\left( t - \frac{\abs{\vec{x}-\vec{x}}}{c} \right) \right] = \delta_{ij} - \pdv{r_j}{t'}\eval_{\text{ret}} \frac{x_i - x'_i}{\abs{\vec{x}-\vec{x}}}
+\end{equation}
+Essentially this is like the identity matrix times a tensor. We can show that $ \det(I + a \otimes b) = 1 + \vec{a} \cdot \vec{b} $.
+\begin{equation}
+    \text{Jacobian} \sim \left( \abs{
+        \begin{bmatrix}
+            1 - \pdv{\vec{r}}{t'}\eval_{\text{ret}} \cdot \frac{\hat{R}}{R} & 0 & 0\\ 0 & 1 & 0\\ 0 & 0 & 1
+    \end{bmatrix}} \right)^{-1} 
+\end{equation}
+I believe there are factors alongside the identity, but he chose not to write them out. Apparently you find that the Jacobian is
+\begin{equation}
+    \abs{J} = \frac{1}{\left[ 1 - \vec{v} \cdot \frac{ \hat{R}}{R} \right]_{\text{ret}}} = \frac{1}{ \kappa(v)}
+\end{equation}
+so we have
+\begin{equation}
+    \vec{E} = \frac{q}{4 \pi \epsilon_0} \left\{ \frac{ \hat{R}}{R^2}\eval_{\text{ret}} \frac{1}{\kappa(v)\eval_{\text{ret}}} + \frac{1}{c} \partial_{t'} \frac{ \hat{R}}{\kappa(v) R}\eval_{\text{ret}} - \frac{1}{c^2} \partial_t \left[ \frac{ \vec{v}(t')}{R} \right]_{\text{ret}} \right\}
+\end{equation}
+and
+\begin{equation}
+    \vec{B} = \frac{q \mu_0}{4 \pi} \left\{ \frac{ \vec{v} \times \hat{R}}{\kappa(v) R^2}\eval_{\text{ret}} + \frac{1}{c} \partial_t \left[ \frac{ \vec{v} \times \hat{R}}{\kappa(v) R} \right]_{\text{ret}} \right\}
+\end{equation}
+Feynmann wrote it in a simplified way:
+\begin{equation}
+    \vec{E} = \frac{q}{4 \pi \epsilon_0} \left( \left[ \frac{ \hat{R}}{R^2} \right]_{\text{ret}} + \frac{\left[ R \right]_{\text{ret}}}{c} \partial_t \left[ \frac{ \hat{R}}{R^2} \right]_{\text{ret}} + \frac{1}{c^2} \partial^2_t [ \hat{R}]_{\text{ret}} \right)
+\end{equation}
+Heaviside wrote out a nice form for the $ \vec{B} $-field:
+\begin{equation}
+    \vec{B} = \frac{\mu_0 q}{4 \pi} \left\{ \left[ \frac{ \vec{v} \times \hat{R}}{\kappa(v) R^2} \right]_{\text{ret}} + \frac{1}{c [R]_{\text{ret}}} \partial_t \left[ \frac{ \vec{v} \times \hat{R}}{\kappa(v)} \right]_{\text{ret}} \right\}
+\end{equation}
+
+
+\section{Energy Transfer}
+\label{sec:energy_transfer}
+\begin{equation}
+    \dv{E_{\text{mech}}}{t} = \int \vec{J} \cdot \vec{E} \dd[3]{x}
+\end{equation}
+Note that $ \curl{ \vec{H}} = \vec{J} + \partial_t \vec{D} $
+\begin{equation}
+    \div{( \vec{E} \times \vec{H})} \implies \partial_i[\epsilon_{ijk} E_j H_k] = \epsilon_{ijk} \partial_i E_j H_k + E_j \epsilon_{ijk} \partial_i H_k
+\end{equation}
+so
+\begin{align}
+    \dv{E}{t} &= \int (\curl{ \vec{H}}) \cdot \vec{E} + \partial_t \vec{D} \cdot \vec{E} \dd[3]{x} = - \int \div{( \vec{E} \times \vec{H})} + \vec{H} (\curl{ \vec{E}})- \partial_t \vec{D} \cdot \vec{E} \dd[3]{x}\\
+    &= - \int \div{ \vec{E} \times \vec{H}} \dd[3]{x} - \int \left( \partial_t \vec{B} \cdot \vec{H} + \partial_t \vec{B} \cdot \vec{H} \right) \dd[3]{x}
+\end{align}
+Now we have to start making assumptions and approximations, since in general, media are not nice and linear. If we say that the medium is linear, has no dispersion or loss, and assuming $ \partial_t E \sim 0 $ and $ \partial_t B $ implies static expressions are recovered, then $ \vec{H} \sim \frac{1}{\mu} \vec{B} $ and $ \vec{D} \sim \epsilon \vec{E} $. Now we can say that the energy density is found from
+\begin{equation}
+    \dv{E_{\text{mech}}}{t}+ \partial_t \frac{1}{2} \int (\epsilon E^2)+ \frac{1}{\mu} B^2 \dd[3]{x} = - \oint \vec{S} \cdot \hat{n} \dd{a}
+\end{equation}
+where
+\begin{equation}
+    \vec{S} = \frac{1}{\mu} \vec{E} \times \vec{B}
+\end{equation}
+is the Poynting Vector. We will see that even with small amounts of dispersion and loss, we get a completely different set of equations. To eliminate the assumptions entirely, a complete thermodynamic evaluation must be made.
+
+
+
+\end{document}

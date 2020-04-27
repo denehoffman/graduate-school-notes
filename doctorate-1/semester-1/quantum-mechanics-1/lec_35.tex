@@ -1,0 +1,94 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{35}{Friday, November 08, 2019}{Harmonic Oscillators, Continued}
+
+Let's return to the raising and lowering operator solution to the problem. Recall that
+\begin{equation}
+    \vu{H} = \frac{\vu{P}^2}{2m} + \frac{1}{2} m \omega^2 \vu{X}^2
+\end{equation}
+where
+\begin{equation}
+    \vu{X} = \sqrt{\frac{\hbar}{m \omega}} \frac{1}{\sqrt{2}} (\vu{a}^\dagger + \vu{a})
+\end{equation}
+and
+\begin{equation}
+    \vu{P} = \sqrt{m \hbar \omega} \frac{\imath}{\sqrt{2}} (\vu{a}^\dagger - \vu{a})
+\end{equation}
+where $ \comm{\vu{a}}{ \vu{a}^\dagger} = 1 $. We defined the number operator as $ \vu{N} = \vu{a}^\dagger \vu{a} $ such that $ \vu{N}\ket{\varphi_n} = n\ket{\varphi_n} $.
+
+We can build all the eigenstates by starting with the ground state and applying the raising operator:
+\begin{equation}
+    \ket{\varphi_n} = \frac{(\vu{a}^\dagger)^n}{\sqrt{n!}}\ket{\varphi_0}
+\end{equation}
+We can show that $ \ev{X}{\varphi_n} = \ev{P}{\varphi_n} = 0 $.
+
+Let's represent an arbitrary wave function as an expansion around eigenstates of the number operator:
+\begin{equation}
+    \ket{\psi(0)} = \sum_n c_n(0)\ket{n}
+\end{equation}
+such that
+\begin{equation}
+    \ket{\psi(t)} = \sum_n c_n(0) e^{- \imath E_n t / \hbar}\ket{\psi_n}
+\end{equation}
+
+In general,
+\begin{equation}
+    \ev{A}_t = \ev{A}{\psi(t)} = \sum_{mn} c_m^* c_n e^{\imath (E_m - E_n)t / \hbar} A_{mn}
+\end{equation}
+where we can define $ \omega_{mn} = (E_m - E_n) / \hbar $ as the Bohr frequencies. Here, $ A_{mn} = \mel{\psi_m}{A}{\psi_n} $.
+
+Let's look at what this means for the expectation value of the position.
+\begin{equation}
+    X_{mn} = \sqrt{\frac{\hbar}{2 m \omega}} \mel{\varphi_m}{( \vu{a}^\dagger + \vu{a})}{\varphi_n} = \sqrt{\frac{\hbar}{2m \omega}} \begin{cases} \sqrt{m} & m = n+1 \\ \sqrt{n} & m = n-1 \end{cases}
+\end{equation}
+so
+\begin{equation}
+    \ev{\vu{X}} \sim e^{\pm \imath \omega t}
+\end{equation}
+
+Let's now use Ehrenfest's theorem to see how the expectation values change in time:
+\begin{equation}
+    \dv{t} \ev{\vu{X}} = \dv{t}x = \frac{1}{\imath \hbar} \ev{\comm{ \vu{X}}{ \vu{H}}} = \frac{1}{m} \ev{ \vu{P}}
+\end{equation}
+and
+\begin{equation}
+    \dv{t} \ev{ \vu{P}} = \dv{t}p = \frac{1}{\imath \hbar} \ev{\comm{ \vu{P}}{ \vu{H}}} = - \ev{ \vu{V}'(x)} = -m \omega^2 \ev{ \vu{X}}
+\end{equation}
+so
+\begin{equation}
+    \dot{x} = \frac{p}{m} \qand \dot{p} = -m \omega^2 x
+\end{equation}
+
+Now lets look at the RMS position:
+
+\begin{equation}
+    (\Delta \vu{X})^2 \equiv \ev{ \vu{X}^2} - \cancelto{0}{\ev{ \vu{X}}^2}
+\end{equation}
+where
+\begin{equation}
+    \vu{X}^2 = \frac{\hbar}{2m \omega} \left( \cancel{(\vu{a}^\dagger)^2} + \overbrace{ \vu{a}^\dagger \vu{a}}^{ \vu{N}} + \overbrace{ \vu{a} \vu{a}^\dagger}^{ \vu{N} + 1} + \cancel{\vu{a}^2} \right)
+\end{equation}
+where the raising and lowering operators have no expectation value because the eigenstates of $ \vu{N} $ are orthogonal. Therefore,
+\begin{equation}
+    (\Delta \vu{X})^2 = \frac{\hbar}{m \omega} \left( n + \frac{1}{2} \right)
+\end{equation}
+
+We can also show that
+\begin{equation}
+    \ev{ \vu{V}} = \frac{1}{2} \left( n + \frac{1}{2} \right) \hbar \omega = \frac{1}{2} E_n
+\end{equation}
+when we are in an energy eigenstate, and
+\begin{equation}
+    \ev{ \vu{K}} = \frac{1}{2} E_n = \ev{ \vu{V}}
+\end{equation}
+which is expected. This is the quantum virial theorem.
+
+\begin{note}
+    How do physicists actually produce band structure diagrams? One way is with ``tight-binding'' models, where $ \vu{H} = -t \sum_n (\op{n}{n+1} + \op{n+1}{n}) $. Solutions for this will be of the form $\ket{\psi} = \sum_n e^{\imath k n}\ket{n} $. This particular example would be a model for s-orbitals, and you could do similar things for other orbitals, adding all of the properties of the system to develop the band structure.
+
+    Another model is the ``nearly free electron'' model. Solutions here are derived from quantum mechanical perturbation theory. You start with a Hamiltonian whose solutions you know (like a harmonic oscillator) and add a potential which you don't know. You then take solutions to the known Hamiltonian and let the potential act on them. You end up mixing together the different eigenstates of the unperturbed Hamiltonian in order to see the states of the perturbed Hamiltonian.
+
+    Finally, you could use ``density functional theory'' to model all of the parts of the system using a complicated Hamiltonian which depends on a spatially varying electron density, act it on an electron to find a particular electron energy, and do this for all the electrons: $ \vu{H} [\rho(x)] \psi_i = E_i \psi_i $ where $ \rho(x) = \sum_i \abs{\psi_i(x)}^2 $.
+\end{note}
+
+\end{document}

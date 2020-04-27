@@ -1,0 +1,101 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{38}{Monday, April 27, 2020}{Properties of Many-Body Systems}
+
+\section{Coulomb Gas}
+\label{sec:coulomb_gas}
+
+In the last lecture we were discussing negatively charged Fermions in a positively charged background. We can write the classical Hamiltonian as
+\begin{equation}
+    H = \sum_{i=1}^{\infty} \frac{p_i^2}{2m} + \frac{e^2}{2} \sum_{i \neq j} \frac{e^{- \mu \abs{x_i - x_j}}}{\abs{x_i - x_j}} + \frac{e^2}{2} \int \dd[3]{x,x'} \frac{\rho(x) \rho(x')}{\abs{x - x'}} e^{- \mu \abs{x - x'}} - e^2 \sum_i \int \dd[3]{x} \rho(x) \frac{e^{- \mu\abs{x - x_i}}}{\abs{x_i - x}}
+\end{equation}
+The terms in order are the free particle kinetic energy, the pairwise interaction, the self-interaction of the background, and the interaction of the background with the electrons:
+\begin{equation}
+    H = H_{\text{KE}} + H_{\text{Coulomb}} + H_{\text{Background}} + H_{\text{Background\textemdash Electrons}}
+\end{equation}
+Since $ \rho(x) $ is uniform, we can say $ \rho(x) = \frac{N}{V} $ where $ N $ is both the number of electrons and the number of positive background charges, since we will assume the system is electrically neutral. In the end, we will take $ \mu \to 0 $ as we discussed in the last class.
+\begin{align}
+    H_{\text{bg}} &= \frac{e^2}{2} \int \dd[3]{x,x'} \left( \frac{N}{V} \right)^2 \frac{e^{- \mu \abs{x-x'}}}{\abs{x - x'}} \\
+    &= \frac{e^2}{2} \left( \frac{N}{V} \right)^2 V \int \frac{e^{- \mu r}}{r} (4 \pi)r^2 \dd{r} \\
+    &= \frac{e^2}{2} \left( \frac{N^2}{V} \right) (4 \pi) \int_0^{\infty} e^{- \mu r} r \dd{r} \\
+    &= (\ldots) (- \partial_{\mu} \int_0^{\infty} e^{- \mu r} \dd{r}) \\
+    &= \frac{e^2}{2} \frac{N^2}{V} \frac{4 \pi}{\mu^2}
+\end{align}
+\begin{align}
+    H_{\text{bg\textemdash e}} &= - e^2 \sum_i \int \dd[3]{x} \frac{\rho(x) e^{- \mu \abs{x - x_i}}}{\abs{x - x_i}} \\
+    &= - e^2 \frac{N}{V} \sum_i \int \frac{e^{- \mu \abs{x - x_i}}}{\abs{x - x_i}} \dd[3]{x} \\
+    &= - e^2 \frac{N}{V} \underbrace{\sum_i}_{N} \int_0^{\infty} 4 \pi r e^{- \mu r} \\
+    &= - \frac{e^2 N^2}{V} \frac{4 \pi}{\mu^2}
+\end{align}
+so
+\begin{equation}
+    H = H_{\text{KE}} + H_{\text{C}} - \frac{e^2 N^2}{2V} \left( \frac{4 \pi}{\mu^2} \right)
+\end{equation}
+Now we will quantize in the Fock space. This is often called second-quantization. What basis should we quantize in (momentum, energy, position)? Obviously we want to choose the simplest one. We can treat the Coulomb interaction as a perturbation and treat $ H_{\text{KE}} $ as leading order (we will have to justify this later), so we can choose the momentum basis:
+\begin{equation}
+    H_{\text{KE}} = \sum_{k^2} a_k^\dagger a_k \frac{\hbar^2 k^2}{2m}
+\end{equation}
+\begin{equation}
+    H_{\text{C}} = \frac{e^2}{2} \sum_{i \neq j} \frac{e^{- \mu \abs{x_i - x_j}}}{\abs{x_i - x_j}}
+\end{equation}
+Last time we showed that we can write pairwise interactions as
+\begin{equation}
+    V = \sum_{i \neq j} N_i N_j \frac{1}{2} V_{ij} + \sum_i \frac{1}{2} V_{ii} N_i (N_i - 1) = \frac{1}{2} \sum_{ij} a_i^\dagger a_j^\dagger a_i a_j
+\end{equation}
+On the homework, we'll show that
+\begin{equation}
+    V = \frac{1}{2} \sum_{k_1 \lambda_1} \cdots \sum_{k_4 \lambda_4}\bra{k_1 \lambda 1, k_2 \lambda_2} V\ket{k_3 \lambda_3, k_4 \lambda_4} = \frac{e^2}{2V} \sum_{k_1 \lambda_1 \ldots k_4 \lambda_4} \delta_{k_1 + k_2, k_3 + k_4} \frac{4 \pi}{q^2 + \mu^2} a^\dagger_{k_1 \lambda_1} \cdots a^\dagger_{k_4 \lambda_4} a_{k_1 \lambda_1} \cdots a_{k_4 \lambda_4}
+\end{equation}
+where $ q = k_1 - k_3 $. This is just momentum conservation and represents a Feynman diagram:
+\begin{equation}
+    \Diagram{\vertexlabel^{k_1} & & \vertexlabel^{k_3} \\
+        fdA& fuA \\
+        & fv \\
+    fuA & fdA \\
+\vertexlabel_{k_2} & & \vertexlabel_{k_4}}
+\end{equation}
+
+Therefore
+\begin{equation}
+    H = \sum_k a^\dagger_k a_k \frac{\hbar^2 k^2}{2m} + \frac{2^2}{2V} \sum_{k_i \lambda_i} (\cdots) - \frac{e^2 N^2}{2V} \left( \frac{4 \pi}{\mu^2} \right)
+\end{equation}
+Let's solve this when $ q = 0 $ (no momentum is exchanged) or $ k_1 = k_3 = k $ and $ k_2 = k_4 = q $:
+The interaction term is now
+\begin{align}
+    H_{\text{C}} &= \frac{e^2}{2V} \sum_{k,p} \sum_{\lambda_1, \lambda_2} a^\dagger_{k, \lambda_1} a^\dagger_{p, \lambda_2} a_{p, \lambda 3} a_{k, \lambda_4} \\
+    &= \frac{e^2}{2V} \sum \sum \left[ N_{\lambda_1}(k) N_{\lambda_2}(p) - N_{\lambda_1}(k) \delta_{\lambda_1, \lambda_2} \right] \\
+    &= \frac{4 \pi}{\mu^2} \frac{e^2}{2V} \left[ N^2 - N \right] \\
+\end{align}
+Due to the $ q=0 $ interaction, $ \frac{E}{N} = \frac{4 \pi e^2}{\mu^2 (2V)} $, and this exactly cancels the other divergent $ \mu $ term. We will then remove the forward scattering term:
+\begin{equation}
+    H = \sum_{\lambda} \sum_{k} a^\dagger_{\lambda k} a_{\lambda k} \frac{\hbar^2 k^2}{2m} + 4 \pi \frac{e^2}{2} \sum_{q \neq 0} \sum_{\lambda_i} a_{k_1,lambda_1}^\dagger a_{k_2, \lambda_2} a_{k_3, \lambda_3}^\dagger a_{k_4, \lambda_4} \frac{\delta_{k_1 + k_2, k_3 + k_4}}{q^2}
+\end{equation}
+where the sum over $ q = 0 $ is the same as a sum over $ k_1 \neq k_3 $. Let's try to calculate the ground-state energy. We refer to the first term in this Hamiltonian as the one-particle operator or ``free'' operator and the second term the two-particle operator. It's easy to find the ground state for the first part, and then we can treat the Coulomb interaction as a perturbation. When can we do this? Counter-intuitively, the denser the gas is, the less important the Coulomb interaction becomes!\ Define $ r_0 $ as the typical inter-particle spacing. The potential energy will therefore go like $ \text{PE} \sim \frac{e^2}{r_0} $. However, think about the kinetic energy: $ \text{KE} \sim \frac{p^2}{2m} $. By the uncertainty principle, $ px \sim \hbar $, so $ p \sim \frac{\hbar}{x} \sim \frac{\hbar}{r_0} $. Then $ \text{KE} \sim \frac{\hbar^2}{2m r_0^2} $!\ As we force particles into smaller and smaller regions, the uncertainty of $ p $ grows, which cases the kinetic energy to get smaller (much faster than the potential energy grows). If we want $ \text{KE} >> \text{PE} $, we need $ \frac{\hbar^2}{2m r_0^2} >> \frac{e^2}{r_0} $ or $ r_0 << \frac{\hbar^2}{2 m e^2} = \frac{a_0}{2} $, so we expect our approximation to hold when
+\begin{equation}
+    \frac{r_0}{a_0} \equiv r_s << 1
+\end{equation}
+At leading order,
+\begin{equation}
+    (H_0 = H_{\text{KE}})\ket{\Omega} \equiv E_0\ket{\Omega}
+\end{equation}
+the ground state is just filling up the Fermi sea, where we will call the highest energy state $ E_F = \frac{\hbar^2 k_F^2}{2m} $. The leading-order result is
+\begin{equation}
+    N = \sum_{k, \lambda} \Theta(k_F - k) = \sum_{\lambda}  \frac{1}{(2 \pi)^3}\int \dd[3]{k} V \Theta(k - k_F) = (2V)(4 \pi) \frac{1}{(2 \pi)^3} \int_0^{k_F} k^2 \dd{k} = \frac{V}{3 \pi^2} k_F^3
+\end{equation}
+so
+\begin{equation}
+    K_F = \left[ \frac{3 \pi N}{V} \right]^{1/3}
+\end{equation}
+Therefore
+\begin{equation}
+    E_0 = \underbrace{2}_{\text{spin}} \int^{k_F} \frac{V \dd[3]{k}}{(2 \pi)^3} \frac{\hbar^2 k^2}{2m} = \frac{V \hbar^2}{2m\pi^2} \frac{k_F^5}{5}
+\end{equation}
+or
+\begin{equation}
+    E_0 = \frac{e^2}{2 a_0} N \frac{3}{5} \left[ \frac{a_0 \pi}{4} \right]^{2/3} \frac{1}{r_s^2}
+\end{equation}
+This is divergent as $ r_s \to 0 $, which is true, since the momentum should diverge as we compress the system. We should hope that our first-order correction fixes this.
+
+
+
+\end{document}

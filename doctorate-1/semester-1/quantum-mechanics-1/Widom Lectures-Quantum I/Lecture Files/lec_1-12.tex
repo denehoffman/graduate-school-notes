@@ -1,0 +1,1296 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\chapter{Quantum Mechanics Essentials}
+\lecture{1-12}{Monday, August 26, 2019}{Review of Quantum Mechanics}
+\section{Hilbert Space and Phase Space}
+\label{sec:hilbert_space_and_phase_space}
+
+For a 1-D system, phase space has two variables, position $x$ and ``conjugate'' momentum $p$. For a particle at $(x_0, p_0)$ at $t_0$ the position in phase space evolves to a different position ($x_1, p_1$) at $t_1$. Position and momentum here are real numbers, and the evolution is continuous and deterministic.
+
+For a quantum system, we use a Hilbert space. We will use the Hilbert space of a spin-1/2 particle, generally thought of as a two level system. The spin is thought of as a vector, and we will let this vector be aligned along the $z$ axis. The Hilbert space is two dimensional, and the x-axis refers to $\ket{z+}$ while the y-axis refers to $\ket{z-}$, which are vectors pointing in the + and - $z$-directions. Regardless of the position along the +z axis, the particle has its spin in the +z position. All the states along that line, except for the origin, refer to particles with +z polarization. We can use a coefficient $\alpha$ to refer to the position along this axis, and all the +z polarized particles belong to the set ${\alpha_+\ket{z+}}$. Likewise, $\alpha_-\ket{z-}$ can take us along the z-axis.
+
+In QM, we can have states which are off-axis, they have attributes of
+both properties. Let's call one such state $\ket{\psi_0}$. The set
+of equivalent vectors is a line in Hilbert space! It will evolve
+continuously in time to a state $\ket{\psi_1}$. Suppose
+$\ket{\psi_1}$ is perpendicular to $\ket{\psi_0}$. This state is
+completely different from the original, it shares no attributes with the
+original like the two z-states. Such states are orthogonal.
+
+The Hilbert space is a complex vector space:
+
+\begin{itemize}
+\item
+  $c\ket{\psi}\in \mathcal{H}$
+\item
+  $\ket{\psi} + \ket{\phi}\in\mathcal{H}$
+\item
+  Inner product: ket notation
+
+  \begin{itemize}
+  \item
+    ket vectors are elements of the Hilbert space:
+    $\ket{\psi}\in\mathcal{H}$
+  \item
+    bra vectors are elements of the adjoint/dual space:
+    $\bra{\psi}\in\mathcal{H}^\dagger$
+  \item
+    $\bra{\psi}\equiv\left(\ket{\psi}\right)^\dagger$
+  \item
+    $\bra{\psi}\colon\ket{\phi}\to c\in \mathbb{C}$
+  \item
+    $\bra{\psi}\colon\ket{\psi}\to \bra{\psi}\ket{\psi} = ||\psi||^2$,
+    the squared norm of the vector
+  \end{itemize}
+\end{itemize}
+
+\begin{equation}
+\ket{\psi} = a_+\ket{z+} + a_-\ket{z-}
+\end{equation}
+
+\begin{equation}
+\ket{\phi} = b_+\ket{z+} + b_-\ket{z-}
+\end{equation}
+
+\begin{equation}
+\bra{\psi} = \bra{ z+}a_+^* + \bra{ z-}a_-^*
+\end{equation}
+
+$\bra{\psi}\ket{\psi} = |a_+|^2 + |a_-|^2$ because
+\begin{equation}
+\bra{ z+}\ket{z-} = 0
+\end{equation}
+
+\begin{equation}
+\bra{\psi}\phi\rangle= a_+^*b_+ + a_-^*b_- = \langle\phi\ket{\psi}^*
+\end{equation}
+
+\section{Operators}
+\label{sec:operators}
+
+\begin{equation}
+A\colon\mathcal{H}\to\mathcal{H}
+\end{equation}
+
+\begin{equation}
+A\colon\ket{\psi}\to\ket{\phi}\equiv\ket{A\psi}
+\end{equation}
+
+It is sufficient to make a list of what operators do to orthogonal
+elements, which will be equivalent to the complete set of all possible
+inner products.
+
+\subsection{Matrix Element}
+\label{sub:matrix_element}
+
+\begin{equation}
+\bra{ \chi}A\ket{\psi} = \bra{\chi}A\psi\rangle = \langle\chi\ket{\phi}
+\end{equation}
+($A$ does not operate on $\chi$)
+
+The adjoint operator $A^\dagger$:
+
+\begin{equation}
+    A^\dagger\colon\bra{\chi}\to\bra{\chi\ket{A^\dagger\equiv(A}\chi})^\dagger
+\end{equation}
+
+\begin{equation}
+\bra{\chi}A^\dagger\psi\rangle = (\bra{\chi\ket{A^\dagger)}\ket{\psi} = (\ket{A\chi})^\dagger|\psi} = (\bra{\psi}A\ket{\chi})^* = \bra{\psi}\ket{A\chi}^*
+\end{equation}
+
+We will (almost always) talk about ``Normal'' Operators. Say $N$ is a
+normal operator:
+
+\begin{equation}
+N^\dagger N = NN^\dagger
+\end{equation}
+
+Hermitian operators are normal: $H = H^\dagger$ \textemdash\ associated with
+physical properties, eigenvalues are real
+
+Unitary operators are normal: $U^\dagger U = UU^\dagger = I$, the
+identity\textemdash\ these are associated with time evolution of quantum systems.
+Their eigenvalues have unit magnitude, time evolution will keep states
+on the unit circle.
+
+\emph{Note: the unit complex ``circle'' is a 4-D sphere called the Bloch
+sphere}
+
+\begin{itemize}
+\item $N\ket{\psi} = \lambda\ket{\psi}\Rightarrow\bra{\psi}N^\dagger=\lambda^*\ket{\psi}$
+    \subitem $\ket{|(N-\lambda I)|u}||^2 = 0 =\bra{ u}(N^\dagger - \lambda^* I)(N-\lambda I)\ket{u} = ||\bra{ u}(N^\dagger - \lambda^* I)||^2$
+\item $N\ket{u_i} = \lambda_i\ket{u_i}$ and $N\ket{u_j} = \lambda_j\ket{u_j}$. Then $\lambda_i\neq\lambda_j\Rightarrow\bra{ u_i}\ket{ u_j} = 0$
+    \subitem
+        \begin{align}
+            \bra{u_i} N\ket{ u_j} &= \lambda_j\bra{ u_i}\ket{u_j}\\
+            &= (\bra{u_i}N)\ket{u_j}\\
+            &= \lambda_i\bra{ u_i}\ket{u_j}
+        \end{align}
+\item $H$ (a Hermitian operator) has real eigenvalues
+\item Eigenvalues of $U$ (a Unitary operator) have unit magnitude
+    \subitem $(\bra{u} U^\dagger)(U\ket{u}) = \lambda^*\lambda\bra{u}\ket{u} = \bra{u} \ket{ u }$ since $U^\dagger U = I$
+\end{itemize}
+
+
+
+\section{Projectors}
+\label{sec:projectors}
+
+Projectors are operators which project any state to the specified
+projection subspace. In general, a projector $P = P^2$ can be defined
+using the inner product of two states:
+
+\begin{equation}
+\bra{\psi}\phi\rangle\ket{\psi} = \ket{\psi}\bra{\psi}\phi\rangle = P_\psi\ket{\phi}
+\end{equation}
+if $\ket{\psi}$ is normalized (in general,
+$P_\psi = \frac{\ket{\psi}\bra{\psi}}{\langle\psi\ket{\psi}}$).
+
+The dimension of the subspace onto which the state is being projected is
+the dimension of the projector, and $\dim P = \text{Tr }P$, the trace
+of the projector matrix (called a dyad).
+
+\begin{quote}
+Note: In the textbook, the projector of a given state is often denoted
+by $[\psi]$.
+\end{quote}
+
+Say we are defining the usual spin-1/2 system on the basis $z+$ and
+$z-$. The projectors onto those states are:
+
+\begin{equation}
+[z+] = \begin{bmatrix}1&0\\0&0\end{bmatrix}
+\end{equation}
+
+and
+
+\begin{equation}
+[z-] = \begin{bmatrix}0&0\\0&1\end{bmatrix}
+\end{equation}
+
+Note that trace of both of these projectors is equal to $1$, meaning
+the projected subspaces are one-dimensional.
+
+Suppose we had a Normal operator $A$ with eigenvectors denoted by
+$\alpha_i$ and eigenvalues $a_i$.
+
+$A\ket{\alpha_i} = a_i\ket{\alpha_i}$.
+
+We can define a projector for each eigenvector (assuming they are not
+degenerate/have different eigenvalues):
+
+\begin{equation}
+P_i = \ket{\alpha_i}\bra{\alpha_i}
+\end{equation}
+
+If $\bra{\alpha_i}\ket{\alpha_j} = \delta_{ij}$,
+$P_iP_j = \delta_{ij}P_i$.
+
+\section{Spectral Decomposition}
+\label{sec:spectral_decomposition}
+
+For any operator, we can find a decomposition based on the sum of
+projectors multiplied by the corresponding eigenvalues:
+
+\begin{equation}
+A = \sum_i a_iP_i
+\end{equation}
+
+\section{Physical Variables and Properties}
+\label{sec:physical_variables_and_properties}
+
+In \emph{Classical} phase space, we can have properties like the energy
+$H(\gamma)$ at some point $\gamma$ in phase space. We can also make
+claims like $H(\phi) < E_0$ ($\phi$ has this ``property''). Physical
+properties in phase space are subsets of the phase space.
+
+In the $Quantum$ Hilbert space, we say that physical properties are
+\textbf{\emph{linear}} subspaces of $\mathcal{H}$. $S_z$ has value
+$+\frac{\hbar}{2}$ for
+$\{\ket{\psi}\mid\ket{\psi} = c\ket{z+}\},\quad c\neq 0$.
+
+
+
+\section{Review of Properties}
+\label{sec:review_of_properties}
+
+\emph{Classical}: ``The energy is less than x'' is a subset of the phase
+space. In particular, it's the set of points in phase space such that
+the property is true. Alternatively, we could define a function $P$
+for a property $\mathcal{P}$. This ``indicator'' function is defined as:
+
+\begin{equation}
+    P(\gamma) =
+    \begin{cases}
+        1 & \mathcal{P}\text{ is true}\\
+        0 & \mathcal{P}\text{ is false}
+    \end{cases}
+\end{equation}
+
+\emph{Quantum}: A property $\mathcal{P}$ is a linear subspace of the
+Hilbert space. Algebraically, we can also define:
+
+\begin{equation}
+    \mathcal{P} = \{\ket{\psi}\in\mathcal{H}\mid P_\mathcal{P}\ket{\psi}=\ket{\psi}\}
+\end{equation}
+
+Here, the projector acts like an indicator function, since if the system
+does not have the property, the projector will return zero.
+
+\begin{equation}
+    I = P_{z+} + P_{z-}
+\end{equation}
+
+\subsection{Logical Reasoning}
+\label{sub:logical_reasoning}
+
+Classical:
+
+\begin{tabular}{@{}llll@{}}
+\toprule
+Operation & Set & Algebraic & $\mathcal{P}$ Example\\
+\midrule
+$\mathcal{P}$ & $\mathcal{P}\subset\Gamma$ & $P(\gamma)$ & $H(\gamma) < E_0$\\
+\midrule
+Negation $\neg\mathcal{P}$ & $\mathcal{P}^C = \Gamma - \mathcal{P}$ & $P^C = 1-P(\gamma)$ & $H(\gamma) \geq E_0$\\
+\midrule
+Conjunction $\mathcal{P}\wedge\mathcal{Q}$ & $\mathcal{P}\cap\mathcal{Q}$ & $P(\gamma)Q(\gamma)$ & $((H\gamma) < E_0)\wedge(x<0)$\\
+\midrule
+Disjunction $\mathcal{P}\vee\mathcal{Q}$ & $\mathcal{P}\cup\mathcal{Q}$ & $P(\gamma)+Q(\gamma)-P(\gamma)Q(\gamma)$ & $((H\gamma) < E_0)\vee(x<0)$\\
+\bottomrule
+\end{tabular}
+
+Identities:
+
+\begin{itemize}
+\item
+  $\neg(\mathcal{P}\cap\mathcal{Q}) = (\neg\mathcal{P}\cup\neg\mathcal{Q})$
+\item
+  $\neg(\mathcal{P}\cup\mathcal{Q}) = (\neg\mathcal{P}\cap\neg\mathcal{Q})$
+\item
+  $\mathcal{P}\cup(\mathcal{Q}\cap\mathcal{R}) = (\mathcal{P}\cup\mathcal{Q})\cap(\mathcal{P}\cup\mathcal{R})$
+\item
+  $\mathcal{P}\cap(\mathcal{Q}\cup\mathcal{R}) = (\mathcal{P}\cap\mathcal{Q})\cup(\mathcal{P}\cap\mathcal{R})$
+\end{itemize}
+
+This set of rules constitutes a ``boolean algebra.''
+
+Quantum:
+
+\begin{tabular}{@{}llll@{}}
+\toprule
+Operation & Set & Algebraic & Example\\
+\midrule
+$\mathcal{P}$ & $\mathcal{P}\subset\mathcal{H}$ & $P\colon\mathcal{H}\to\mathcal{P}$ & $S_x = +\frac{\hbar}{2}$\\
+\midrule
+Negation $\neg\mathcal{P}$ & $\mathcal{P}^\perp = \{\ket{\psi}\mid P\ket{\psi}=\ket{0}\} $ & $I-P$ & $S_x = -\frac{\hbar}{2}$\\
+\midrule
+Conjunction $\mathcal{P}\wedge\mathcal{Q}$ & ??? & $PQ$ or $QP$ (commutation?) & $(S_x = +\frac{\hbar}{2})\wedge(S_z = +\frac{\hbar}{2})$ is undefined\\
+\midrule
+Disjunction $\mathcal{P}\vee\mathcal{Q}$ & ??? & $P+Q-PQ$ or $P+Q-QP$ & $(S_x = +\frac{\hbar}{2})\vee(S_x = -\frac{\hbar}{2})$\\
+\bottomrule
+\end{tabular}
+
+
+
+\hypertarget{header-n160}{%
+\paragraph{Conditional Probabilities and the Born
+Rule}\label{header-n160}}
+
+Conditional probability: $0\leq \Pr(\mathcal{P}\mid\psi)\leq 1$ is the
+probability that the state is in the subspace $P$. If
+$\ket{\psi}\in\mathcal{P}\rightarrow \Pr = 1$ and
+$\ket{\psi}\in\neg\mathcal{P} = \mathcal{P}^\perp\rightarrow \Pr = 0$.
+Intermediate states (linear combinations of property states) could have
+a value between 0 and 1. For example, the probability for a particle in
+the state $\ket{x+}$ to have the property $\ket{z+}$ is
+$\frac{1}{2}$.
+
+Suppose $\bra{\psi}\ket{\psi} = 1$. The Born rule states that
+$\Pr(\mathcal{P}\mid\psi) = \ket{|P|\psi}||^2 = \bra{\psi}P^\dagger P\ket{\psi} = \bra{\psi}P\ket{\psi}$.
+
+\section{Density Operator (Matrix)}
+\label{sec:density_operator_(matrix)}
+
+
+\subsection{Pure State:}
+\label{sub:pure_state:}
+
+$\ket{\psi}\rightarrow [\psi]=\ket{\psi}\bra{\psi} = \rho$.
+
+\begin{equation}
+\Pr(\mathcal{P}\mid\rho) = \bra{\psi}P\ket{\psi}
+\end{equation}
+
+Insert identities on either side of $P$:
+
+\begin{equation}
+\Pr(\mathcal{P}\mid\rho) = \bra{\psi}(\sum_m\ket{m}\bra{m})P(\sum_n\ket{n}\bra{n})\ket{\psi} = \sum_{mn}\bra{\psi}\ket{m}\bra{m}P\ket{n}\bra{n}\ket{\psi}
+\end{equation}
+
+The outermost brakets are just complex numbers, so we can move them
+around. Also,
+$\bra{ n}\psi\rangle\langle\psi\ket{m} = \bra{ n}\rho\ket{m}$:
+
+\begin{equation}
+\Pr(\mathcal{P}|\rho) =\sum_n\sum_m\rho_{nm}P_{mn} = \sum_n(\rho P)_{nn} = Tr(\rho P)
+\end{equation}
+
+\begin{ex}
+\begin{equation}
+\ket{\psi} = \ket{x+} = \frac{1}{\sqrt{2}}(\ket{z+} + \ket{z-})
+\end{equation}
+
+\begin{equation}
+\rho = \frac{1}{2}(\ket{z+}\bra{ z+} + \dots)
+\end{equation}
+
+In $z\pm$ basis,
+\begin{equation}
+\rho = \frac{1}{2}\begin{bmatrix}1&1\\1&1\end{bmatrix}
+\end{equation}
+
+In $x\pm$ basis, $\rho = \begin{bmatrix}1&0\\0&0\end{bmatrix}$
+\end{ex}
+
+\subsection{Mixed State}
+\label{sub:mixed_state}
+
+For example, take a state which is $75\%$ $\ket{x+}$ and $25\%$
+$\ket{x-}$:
+
+\begin{equation}
+\frac{3}{4}\rho_{x+} + \frac{1}{4}\rho_{x-} = \rho = \begin{bmatrix}\frac{1}{2}&\frac{1}{4}\\\frac{1}{4}&\frac{1}{2}\end{bmatrix}
+\end{equation}
+in the $z$ basis
+($\rho = \begin{bmatrix}\frac{3}{4}&0\\0&\frac{1}{4}\end{bmatrix}$ in
+the $x$ basis)
+
+\begin{equation}
+\Pr([z+]\mid\rho) = Tr(\rho[z+]) = Tr(\begin{bmatrix}\frac{1}{2}&\frac{1}{4}\\\frac{1}{4}&\frac{1}{2}\end{bmatrix}\begin{bmatrix}1&0\\0&0\end{bmatrix}) = \frac{1}{2}
+\end{equation}
+
+\begin{equation}
+\Pr([x+]\mid\rho) = Tr(\rho[x+]) = Tr(\begin{bmatrix}\frac{3}{4}&0\\0&\frac{1}{4}\end{bmatrix}\begin{bmatrix}1&0\\0&0\end{bmatrix}) = \frac{3}{4}
+\end{equation}
+
+In a pure state, $Tr(\rho) = 1$ and $Tr(\rho^2) = Tr(\rho) = 1$
+since the density matrix for a pure state is a projector onto that
+state.
+
+In a general density matrix, $Tr(\rho) = 1$, but $\rho^2\neq\rho$,
+so $Tr(\rho^2) = Tr(\sum_j  p_j P_j \sum_k p_k P_k) = \sum_j p_j^2$,
+so $\sum_j p_j^2 < 1$ unless $p_j = \delta_{jk}$. The trace of the
+density matrix squared is always non-zero in finite-dimension Hilbert
+spaces (could be zero in a maximally-mixed infinite-dimensional space).
+
+\section{Average Value of an Observable}
+\label{sec:average_value_of_an_observable}
+
+
+\begin{equation}
+A = \sum_a a P_a
+\end{equation}
+
+For a state $\ket{\psi}$, the expectation value of the operator
+$A$ is
+$\bra{ A\rangle_\psi = \sum_a a \Pr(A = a\mid\psi) = \sum_a a }\ket{P_a|\psi}||^2 = \sum_a a\bra{\psi}P_a\ket{\psi} = \bra{\psi}A\ket{\psi}$.
+
+\begin{ex}
+
+For a pure state $\rho = \ket{\psi}\bra{\psi}$,
+
+\begin{equation}
+\bra{ A\rangle_\rho = \langle\psi}A\ket{\psi} = Tr(\rho A)
+\end{equation}
+
+For a mixed state
+$\rho = \sum_j p_j P_j,\quad P_j \ket{\psi_j}\bra{\psi_j}$,
+
+\begin{equation}
+\langle A\rangle_\rho = \sum_j p_j\langle A\rangle_{\psi_j} = \sum_j p_j Tr(P_j A) = Tr(\rho A)
+\end{equation}
+\end{ex}
+
+
+
+\subsection{Classical Composite}
+\label{sub:classical_composite}
+
+
+\begin{equation}
+    (x,p)\in\Gamma \qc \dim(\Gamma) = 2
+\end{equation}
+
+\begin{equation}
+(x_a, p_a)\in\Gamma_a
+\end{equation}
+
+\begin{equation}
+(x_b,p_b)\in\Gamma_b
+\end{equation}
+
+$(x_ax_b,p_ap_b)\in\Gamma_a\times\Gamma_b$, so
+\begin{equation}
+\dim(\Gamma_a\times\Gamma_b) = \dim\Gamma_a+\dim\Gamma_b
+\end{equation}
+
+\subsection{Quantum Composite}
+\label{sub:quantum_composite}
+
+
+\begin{equation}
+\mathcal{H}_a,\mathcal{H}_b\to\mathcal{H}_{ab}=\mathcal{H}_a\otimes\mathcal{H}_b
+\end{equation}
+
+\begin{equation}
+\ket{a}\in\mathcal{H}_a,\ \ket{b}\in\mathcal{H}_b\rightarrow\ket{a}\otimes\ket{b}\in\mathcal{H}_{ab}
+\end{equation}
+(Product State)
+
+\begin{equation}
+\dim{\mathcal{H}_a\otimes\mathcal{H}_b} = \dim{\mathcal{H}_a}\cdot\dim{\mathcal{H}_b}
+\end{equation}
+
+For a basis $\{\ket{a_j}\}$ and $\{\ket{b_k}\}$ for
+$\mathcal{H}_a$ and $\mathcal{H}_b$, we can choose a basis
+$\{\ket{a_j}\otimes\ket{b_k}\}$ for $\mathcal{H}_{ab}$. To
+simplify notation,
+$\ket{a_j}\otimes\ket{b_k} = \ket{j}_a\otimes\ket{k}_b = \ket{j}_a\ket{k}_b = \ket{jk}$.
+
+For a system with two spin-1/2 particles, the standard basis is
+$\{\ket{++},\ket{+-},\ket{-+},\ket{--}\}$.
+
+\section{Spinor Particle}
+\label{sec:spinor_particle}
+
+
+Spinors are used to describe particles with position and spin.
+
+Position: $\psi(\vec{r}) = \bra{\vec{r}}\ket{\psi}$
+
+Spin: $\alpha\ket{+} + \beta\ket{-}$
+
+Product state: $(\alpha\ket{+}+\beta\ket{-})\cdot\psi(\vec{r})$
+
+General state is a sum of product states:
+\begin{equation}
+\ket{\omega}=\sum_j(\alpha_j\ket{+}+\beta_j\ket{-})\psi_j(\vec{r}) = \begin{bmatrix}\omega_+(r)\\\omega_-(r)\end{bmatrix}
+\end{equation}
+
+$\omega_+(\vec{r})=\bra{\vec{r}+}\ket{\omega}$ and $\omega_-(\vec{r}) = \bra{\vec{r}-}\ket{\omega}$, so
+
+\begin{equation}
+\omega_+(\vec{r}) = \sum_j\alpha_j\psi_j(\vec{r})
+\end{equation}
+
+\begin{equation}
+\omega_-(\vec{r}) = \sum_j\beta_j\psi_j(\vec{r})
+\end{equation}
+
+\section{Toy Models}
+\label{sec:toy_models}
+
+
+\begin{ex}
+
+    Say we have a 1D line upon which a particle can move, and suppose this
+is a discrete space, where the position is given by $m=0,1,2,3$ (in
+solid state this is a tight-binding model). $\dim(\mathcal{H}_m) = 4$
+since there are four possible place the particle can be.
+
+Add a detector with two states, $n=0$ and $n=1$. If the detector
+finds a particle in the detector space, it is in state $1$, otherwise
+\begin{equation}
+    n=0 \qc \dim(\mathcal{H}_n) = 2
+\end{equation}
+
+For the combined particle + detector space,
+$\dim(\mathcal{H}_{mn}) = 8$.
+\end{ex}
+\begin{ex}
+Eight positions, four for spin up and four for spin down. A particle
+with spin has $dim = 8$ also.
+\end{ex}
+\begin{ex}
+Suppose we have four possible positions in the $x$-direction and two
+in the $y$-direction. This is a particle in 2D. There are eight
+possible positions for the particle, so the dimension of the product
+space is $8$.
+
+All of these spaces are isomorphic.
+\end{ex}
+\begin{note}{Notation}
+\begin{equation}
+\ket{\psi}\in\mathcal{H}_{mn}
+\end{equation}
+
+\begin{equation}
+\psi_n(m) = \bra{ mn}\ket{\psi}
+\end{equation}
+\end{note}
+
+\section{Entangled States}
+\label{sec:entangled_states}
+
+We know that any $\ket{\psi}\in\mathcal{H}_{ab}$ can be expanded in
+a basis $\{\ket{j}_a\otimes\ket{k}_b\}$:
+
+$\ket{\psi}=\sum_{jk}\Psi_{jk}\ket{jk}$ where $\Psi$ is just the
+coefficient of the basis.
+
+\begin{equation}
+\Psi = (\dim\mathcal{H}_a)\times(\dim\mathcal{H}_b)
+\end{equation}
+
+The ``rank'' of an array is the number of independent rows which is
+equivalent to the number of independent columns.
+
+\subsection{Rank = 1}
+\label{sub:rank_=_1}
+
+
+$\exists\ \ket{a}\in\mathcal{H}_a,\ \ket{b}\in\mathcal{H}_b$ such
+that $\ket{\psi}=\ket{a}\otimes\ket{b}$
+
+This is a product state
+
+\subsection{Rank \textgreater{} 1}
+\label{sub:rank_gt_1}
+
+There is no such state. This is an entangled state.
+
+$\ket{a} = \alpha_+\ket{+}_a+\alpha_-\ket{-}_a$,
+\begin{equation}
+\ket{b} = \beta_+\ket{+}_b+\beta_-\ket{-}_b
+\end{equation}
+
+\begin{equation}
+\ket{\psi} = \ket{a}\otimes\ket{b} = \alpha_+\beta_+\ket{++} + \alpha_+\beta_-\ket{+-}+\alpha_-\beta_+\ket{-+} + \alpha_-\beta_-\ket{--}
+\end{equation}
+
+Here, $\Psi_{++} = \alpha_+\beta_+$, $\Psi_{+-} = \alpha_+\beta_-$,
+etc.
+
+Note,
+$\Psi_{++}\Psi_{--} = \alpha_+\beta_+\alpha_-\beta_- = \Psi_{-+}\Psi_{+-}$,
+so $\det{\Psi} = 0$. If the determinant vanishes, the state is a
+product state, otherwise it is an entangled state. For example,
+
+$\ket{\psi_0} = \frac{1}{\sqrt{2}}(\ket{+-}-\ket{-+})$ (EPR
+State)
+
+$\Psi_{++} = \Psi_{--} = 0$ while
+$\Psi_{+-} = \frac{1}{\sqrt{2}} = -\Psi_{-+}$ so
+$\det{\Psi} = \frac{1}{2}$.
+
+
+
+\section{Tensor Product Spaces}
+\label{sec:tensor_product_spaces}
+
+
+\subsection{Review}
+\label{sub:review}
+
+\begin{equation}
+\ket{\psi} = \ket{a}\otimes\ket{b} = \ket{ab}\in\mathcal{H}_{ab}=\mathcal{H}_a\otimes\mathcal{H}_b
+\end{equation}
+
+\begin{equation}
+(\ket{a}\otimes\ket{b})^\dagger = \bra{ ab}\in\mathcal{H}_{ab}^\dagger=\mathcal{H}_a^\dagger\otimes\mathcal{H}_b^\dagger
+\end{equation}
+
+\begin{equation}
+\ket{\psi'} = \ket{a'}\otimes\ket{b'}
+\end{equation}
+
+\begin{equation}
+\bra{\psi}\psi'\rangle = \bra{ a\ket{a'}\cdot\langle b}\ket{b'}
+\end{equation}
+
+Suppose we have an operator $A$ acting in $\mathcal{H}_a$ and $B$
+acting in $\mathcal{H}_b$. Then $A\otimes B$ acts on states in
+$\mathcal{H}_{ab}$. In this case, the tensor product is equivalent to
+$\sum_{jk}A_j\otimes B_k$.
+
+We can also have products of tensor products of operators:
+
+$(A\otimes B)(A'\otimes B') = (AA')\otimes(BB')$. Additionally
+$(A\otimes I_b)(I_a\otimes B) = A\otimes B$.
+
+\begin{ex}
+    Spin in a two-particle space
+
+$A=[z+]_a = \ket{+}_a\bra{+}_a$,
+$I_b = \ket{+}_b\bra{ + }_b + \ket{-}_b\bra{ -}_b$.
+
+\begin{equation}
+(A\otimes I_b) = \ket{++}_{ab}\bra{ ++}_{ab} + \ket{+-}_{ab}\bra{ +-}_{ab} = [z_a+]
+\end{equation}
+
+You can check that this is in fact an operator by squaring it.
+\end{ex}
+
+
+
+\section{Recitation}
+\label{sec:recitation}
+
+$\ket{\psi_0} = \frac{1}{\sqrt{2}}(\ket{+-}-\ket{-+})$ ``EPR
+State''
+
+\begin{equation}
+[\psi_0] = \frac{1}{2}([++]+[--]+\ket{+-}\bra{ -+}-\ket{-+}\bra{ +-})
+\end{equation}
+
+\begin{equation}
+[z_a+]\equiv[z+]_a\otimes I_b = [++] + \ket{+-}\bra{ -+}
+\end{equation}
+
+\begin{equation}
+[\psi_0][z_a+]=\frac{1}{2}(\ket{+-}\bra{ +-} - \ket{+-}\bra{ -+})
+\end{equation}
+
+\begin{equation}
+[z_a+][\psi_0] = \frac{1}{2}(\ket{+-}\bra{ +-} - \ket{-+}\bra{ +-})
+\end{equation}
+
+What can we say about this system? Are the spins the same?
+
+\begin{equation}
+P = [++] + [--]
+\end{equation}
+
+\begin{equation}
+Q = [+-] + [-+]
+\end{equation}
+
+$P[\psi_0] = [\psi_0]P = 0$ implies the spins are not the same.
+
+Let's work with the ``GHZ'' state, a state of three particles.
+
+\begin{equation}
+\ket{\phi} = \ket{(z_1+)(z_2+)(z_3+)} - \ket{(z_1-)(z_2-)(z_3-)}
+\end{equation}
+
+Define $\sigma_x = \frac{2}{\hbar}S_x$ such that
+$\sigma_x\ket{x+} = \ket{x+}$, and
+$\sigma_x\ket{x-} = -\ket{x-}$. It can also be shown that:
+
+\begin{equation}
+\sigma_x\ket{z+} = \ket{z-}
+\end{equation}
+
+and
+
+$\sigma_y\ket{z-} = -\imath\ket{z+}$, and
+\begin{equation}
+\sigma_y\ket{z+} = \imath\ket{z-}
+\end{equation}
+
+Define $X_1 = \sigma_x^1\sigma_y^2\sigma_y^2$,
+$X_2 =\sigma_y^1\sigma_x^2\sigma_y^3$, and
+$X_3 = \sigma_y^1\sigma_y^2\sigma_x^3$.
+
+$X_1\ket{z+z+z+} = \imath^2\ket{z-z-z-} = -\ket{z-z-z-}$.
+
+The GHZ state is an eigenstate of $X_1$, $X_2$ and $X_3$. Suppose
+we measure $S_x^1$, yielding $\pm 1$. Likewise, we could measure
+other components of other particles.
+
+$X_1\ket{\phi} = \ket{\phi} \Rightarrow m_x^1m_y^2m_y^2 = +1$ (and
+similar for other the other two operators). Additionally, we can take
+the product of these three results to claim $m_x^1m_x^2m_x^3 = +1$. We
+claim this is an eigenvalue of an operator called
+$X_{123}=\sigma_x^1\sigma_x^2\sigma_x^3$. The associated eigenvalue is
+$-1 = m_x^1m_x^2m_x^3 = +1$. The error is trying to apply the three
+operators at the same time. We cannot simultaneously attribute x and y
+values of the spin of a particle. We can measure them, but we can't
+claim they are preexisting ``real'' quantities.
+
+
+\chapter{The Schr\"odinger Equation}
+
+\section{The Unitary Time-Development Operator}
+\label{sec:the_unitary_time-development_operator}
+
+Classical Phase Space: Given an initial condition, $\vec{F}=m\vec{a}$ implies the system evolves along some unique path which does not cross any other path. $\gamma(t)$ is uniquely determined by its initial state $\gamma(0)$.
+
+$\frac{d}{dt}\vec{\gamma}(t) = \bar{J}\frac{\partial H}{\partial\vec{\gamma}}$, where $\bar{J} = \begin{bmatrix}0&1\\-1&0\end{bmatrix}$.
+
+Quantum Hilbert Space: Let $\ket{\psi_t}$ represent a state a time $t$ after some initial state $\ket{\psi_0}$.
+
+$\imath\hbar\frac{\partial}{\partial t}\ket{\psi_t} = H\ket{\psi_t} $ for a Hamiltonian $H$.
+
+\begin{equation}
+\frac{d}{dt}\bra{\phi_t}\psi_t\rangle = \langle\phi_t\ket{\frac{d}{dt}\psi_t} + \left(\frac{d}{dt}\bra{\phi_t}\right)\ket{\psi_t} = 0
+\end{equation}
+
+because
+\begin{equation}
+\frac{d}{dt}\bra{\phi_t} = \left(\frac{d}{dt}\ket{\phi_t}\right)^\dagger = \left(-\frac{\imath}{\hbar}H\ket{\phi_t}\right)^\dagger
+\end{equation}
+and
+$\ket{\frac{d}{dt}\psi_t} = \left(-\frac{\imath}{\hbar}H\ket{\psi_t}\right)$.
+This implies the inner product is invariant under time evolution given
+the same Hamiltonian. This also implies
+$\frac{d}{dt}\ket{\!||\psi_t}|\!| = \frac{d}{dt}\bra{\psi}\ket{\psi} = 0$.
+This is an analog of the Classical Liouville theorem involving
+preservation of phase space volume with time evolution.
+
+Consider a mapping $T$ (the time-evolution operator) which takes a
+state from an earlier time to a later time. This mapping should be
+independent of initial condition, mapping the entire Hilbert space to
+itself. Additionally, it should be linear to maintain completeness.
+
+$\ket{\psi_t} = T(t,t')\ket{\psi_{t'}}$ for any state.
+\begin{equation}
+    \bra{\phi_t}\ket{\psi_t} = \bra{\phi_{t'}}T^\dagger(t,t')T(t,t')\ket{\psi_{t'}}
+\end{equation}
+takes both the ket and bra vector from $t'\to t$. The inner product
+tells us that this is equal to $\bra{\phi_{t'}}\ket{\psi_{t'}}$,
+and this holds for any pair of vectors. This tells us that
+$T^\dagger T = I$, so $T$ must be a unitary operator.
+
+Say we knew how the system evolves from $t'\to t$, and we knew how
+things evolved from $t''\to t'$ (here $t>t'>t''$). We can compose
+these operators to figure out how to get from $t''\to t$.
+
+\begin{note}{N.B.}
+The Hamiltonian could be time-dependent, so the time evolution
+operator at later times might be different than the operator at earlier
+times (for example, a magnetic field switched on at a later time).
+\end{note}
+
+\begin{equation}
+T(t,t')T(t',t'') = T(t,t'')
+\end{equation}
+
+Also, if we look at the adjoint, $T^\dagger(t,t') = T^{-1}(t,t')$. If
+we say that $T$ is a map from earlier times to later times, and we
+know the map is one-to-one, then
+$T^\dagger(t,t') = T^{-1}(t,t') = T(t',t)$.
+
+Additionally, $T(t,t)=I$
+
+\begin{note}{Note}
+For a general unitary operator $U$, we can introduce an orthonormal
+basis $\{\ket{b_j}\}$. We can find the matrix elements from
+$\bra{ b_j}U\ket{b_k} = U_{jk}$ and
+$U = \sum_{jk}\ket{b_j} U_jk\bra{ b_k}$. Additionally,
+$UU^\dagger = U^\dagger U = I$. This tells us that the rows and
+columns of $U$ form a set of orthonormal vectors.
+
+For a general 2x2 unitary matrix,
+$U=\begin{bmatrix}\alpha&\beta\\-\beta^*&\alpha^*\end{bmatrix}$ where
+$|\alpha|^2 + |\beta|^2 = 1$. There could have been other choices
+which preserve orthogonality, but that could violate normalization
+(unless our choice had unitary magnitude). Therefore, $U$ is unique up
+to a phase,
+$U=e^{\imath\phi}\begin{bmatrix}\alpha&\beta\\-\beta^*&\alpha^*\end{bmatrix}$.
+In general, we can represent $U$ as
+$U=e^{\imath K}= I + \imath K + \sum_{n=1}^\infty\frac{1}{n!}\imath^nK^n $,
+where $K^\dagger = K$ is also unitary.
+\end{note}
+
+$\imath\hbar\frac{d}{dt}\ket{\psi_t} = \imath\hbar\frac{d}{dt}T(t,t')\ket{\psi_{t'}} = H\ket{\psi_t} = HT(t,t')\ket{\psi_{t'}}$.
+Therefore
+
+$\imath\hbar\frac{\partial}{\partial t}T(t,t') = HT(t,t')$. This is a
+first-order linear differential equation, so there is an exact formal
+solution. It can be evaluated if $H$ is time dependent, but let's
+focus on the special case where it isn't.
+
+$\frac{1}{T}\frac{\partial T}{\partial t} = -\frac{\imath}{\hbar}H = \frac{\partial}{\partial t}\ln T$,
+
+where $S=\ln T\Rightarrow e^S = T$. If $H$ is time-independent,
+
+$\ln T = \frac{-\imath}{\hbar}H\cdot(t-t')$, imposing the initial
+condition where $T(t,t) = I$. Therefore,
+$T(t,t') = T(t-t') = e^{-\frac{\imath}{\hbar}H\cdot(t-t')}$.
+
+Suppose we knew the eigenvectors and eigenvalues of the Hamiltonian. We
+could then take the spectral decomposition of the Hamiltonian,
+
+$H = \sum_j E_j P_j$, where $P_j = \ket{\psi_j}\bra{\psi_j}$.
+
+$H^2 = \sum_{jk}E_jE_kP_jP_k = \sum_{jk}E_jE_k\delta_{jk}P_j$, so
+
+$T(t-t') = \sum_j e^{-\frac{\imath}{\hbar}E_j\cdot(t-t')}P_j$.
+\begin{equation}
+e^{-\frac{\imath}{\hbar}H\cdot(t-t')}\ket{\psi_j} = (I-\frac{\imath}{\hbar}H\cdot(t-t')-\frac{1}{2}\frac{1}{\hbar^2}H^2\cdot(t-t')^2+\cdots)\ket{\psi_j} = (I-\frac{\imath}{\hbar}E_j\cdot(t-t') - \cdots)\ket{\psi_j}
+\end{equation}
+
+\section{Multi-time Born Rule}
+\label{sec:multi-time_born_rule}
+
+
+$\Pr(P_t\mid \ket{\psi_{t'}}) = \Pr(P_t\mid \ket{\psi_t})$ where
+$\ket{\psi_t} = T(t-t')\ket{\psi_t'}$. This is equivalent to
+$\ket{|P_tT(t,t')|\psi_t'}||^2$.
+
+\begin{note}{N.B.}
+\begin{equation}
+\Pr(\ket{\psi_t}\mid \ket{\psi_{t'}}) = ||\bra{\psi_t}T(t,t')\ket{\psi_{t'}}||^2 = ||\bra{\psi_t}\ket{\psi_{t'}}||^2 = 1
+\end{equation}
+assuming we are working with normalized vectors. This is a demonstration
+of the determinism of time-evolution.
+\end{note}
+
+
+
+\subsection{Bloch Sphere}
+\label{sub:bloch_sphere}
+
+\begin{quote}
+``A handy way to relate ket vectors in Hilbert space to spin orientations
+in physical space''
+
+- Dr. Widom
+\end{quote}
+
+General spin-$\frac{1}{2}$:
+\begin{equation}
+\ket{\psi} = \alpha\ket{z+} + \beta\ket{z-}
+\end{equation}
+
+Normalize: $|\alpha|^2+|\beta|^2 = 1$
+
+We can use a phase choice: $\alpha\geq 0$
+
+This gives us another way to write the general ket vector:
+\begin{equation}
+\ket{\psi} = \cos\frac{\theta}{2}\ket{z+} + \sin\frac{\theta}{2}e^{\imath\phi}\ket{z-}
+\end{equation}
+with $0\leq\theta\leq\pi,\ 0\leq\phi\leq2\pi$. Define
+$\cos\theta = z_c$, $\sin\theta\cos\phi = x_c$, and
+$\sin\theta\sin\phi = y_c$. If we do this,
+$|\alpha|^2+|\beta|^2 = x_c^2+y_c^2+z_c^2 = 1$, so we can represent
+spin vectors as locations on a sphere (the Bloch sphere).
+
+The vector $\ket{z+}$ sits at the top of the sphere and $\ket{z-}$ on the bottom. $\ket{x\pm}$ and $\ket{y\pm}$ similarly sit on their corresponding axes.
+
+$\bra{ z-}\ket{z+} = 0$, but on the Bloch sphere, these points are
+not perpendicular.
+
+\subsection{Pauli Matrices}
+\label{sub:pauli_matrices}
+
+
+$S_x = \frac{\hbar}{2}\sigma_x$, where $\sigma_x$ is now a
+dimensionless spin operator, called a Pauli matrix.
+
+$S_x\ket{x\pm} = \pm\frac{\hbar}{2}\ket{x\pm}$, so
+$\sigma_x\ket{x\pm}=\pm\ket{x\pm}$, therefore
+
+$\sigma_x = \left(\begin{matrix}0&1\\1&0\end{matrix}\right)$,
+$\sigma_y = \left(\begin{matrix}0&-\imath\\\imath&0\end{matrix}\right)$,
+and $\sigma_z = \left(\begin{matrix}1&0\\0&-1\end{matrix}\right)$.
+
+The Pauli matrices with the identity form a basis of any $2\times2$
+matrix. If we choose
+$M=a_0 I + a_X\sigma_x + a_y\sigma_y + a_z\sigma_z$, we find that
+$M=\left(\begin{matrix}a_0+a_z&a_x-\imath a_y\\a_x+\imath a_y&a_0-a_z\end{matrix}\right) = a_0 I + \vec{a}\cdot\vec{\sigma}$.
+
+\section{Hermitian Matrices}
+\label{sec:hermitian_matrices}
+
+
+\begin{equation}
+M^\dagger = M\implies a_j\in\mathbb{R}
+\end{equation}
+
+Let us define
+$\hat{n} = (\sin\theta\cos\phi,\sin\theta\sin\phi,\cos\theta)$, so
+$S_n\equiv\hat{n}\cdot\vec{S} = \frac{\hbar}{2}\hat{n}\cdot\vec{\sigma} = \frac{\hbar}{2}\left(\begin{matrix}\cos\theta&\sin\theta e^{-\imath\phi}\\\sin\theta e^{\imath\phi}&-\cos\theta\end{matrix}\right)$.
+
+You can apply trig identities to show that
+$S_n\ket{\hat{n}\pm} = \pm\frac{\hbar}{2}\ket{\hat{n}\pm}$.
+
+\subsection{Other Useful Facts}
+\label{sub:other_useful_facts}
+
+
+$\sigma_x^2 = \sigma_y^2 = \sigma_z^2 = I$, and
+$\sigma_j\sigma_k = \imath\epsilon_{jul}\sigma_l$. We can also
+exponentiate the matrices:
+
+$e^{\imath\theta\hat{n}\cdot\vec{\sigma}} = I + \imath\theta\hat{n}\cdot\vec{\sigma}+\frac{1}{2}(\imath\theta)^2(\hat{n}\cdot\vec{\sigma})^2+\cdots = I\cos\theta + \imath\hat{n}\cdot\vec{\sigma}\sin\theta$.
+This is a generalization of the De Moivre formula to the space of
+operators.
+
+\section{Density Operator}
+\label{sec:density_operator}
+
+\begin{equation}
+Tr\rho = 1
+\end{equation}
+
+For pure states, $Tr\rho^2 = 1$, and for mixed states, it is $<1$.
+
+General spin-$\frac{1}{2}$:
+
+\begin{equation}
+\rho = \frac{1}{2}(I+\rho_x\sigma_x+\rho_y\sigma_y+\rho_z\sigma_z)
+\end{equation}
+
+The trace of this must be less than or equal to $1$ if we want it to
+be a density matrix.
+
+$\langle S_x\rangle = \frac{\hbar}{2}Tr(\rho\sigma_x) = \frac{\hbar}{2}\frac{1}{2}2\rho_x = \frac{\hbar}{2}\rho_x$,
+so $\langle\vec{S}\rangle = \frac{\hbar}{2}\vec{\rho}$
+
+Is $\rho$ a pure or mixed state?
+
+\begin{equation}
+Tr\rho^2 = Tr\frac{1}{4}(I^2+\rho_xI\sigma_x+\rho_yI\sigma_y+\rho_zI\sigma_z + \rho_x\sigma_xI + \rho_x^2\sigma_x^2 + \cdots)
+\end{equation}
+
+This is just $\frac{1}{2}(1+\rho_x^2+\rho_y^2+\rho_z^2)\leq 1$.
+
+If a single $\rho_j = 1$, the others are zero, so you would have a
+pure state. On the other hand, if multiple $\rho_j$ are nonzero, this
+would be a mixed state. Pure states are on the surface of the Bloch
+sphere, whereas mixed states are points in its interior.
+
+
+
+\subsubsection{Spin-1/2 in a Constant Magnetic
+Field}
+
+\begin{equation}
+\vec{B} = B\hat{n}
+\end{equation}
+
+\begin{equation}
+H=-\vec{\mu}\cdot\vec{B}
+\end{equation}
+
+\begin{equation}
+\vec{\mu}=\gamma\vec{S} = \frac{1}{2}\hbar\gamma\vec{\sigma}
+\end{equation}
+
+Define Armor frequency $\omega = -\gamma B$
+
+Let $\vec{B} = B\hat{z}$:
+
+\begin{equation}
+H = \frac{1}{2}\hbar\omega\sigma_z = \frac{1}{2}\hbar\omega\begin{bmatrix}1&0\\0&-1\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+T(t) = e^{-\imath t H/\hbar} = \begin{bmatrix}e^{-\imath t\omega/2}&0\\0&e^{\imath t\omega/2}\end{bmatrix}
+\end{equation}
+
+Let's start with the state
+$\ket{\psi_0} = \begin{pmatrix}1\\\beta\end{pmatrix}$. Acting with
+the time operator, we see that
+$\ket{\psi_t} = e^{-\imath\omega t/2}\begin{pmatrix}1\\\beta e^{\imath\omega t}\end{pmatrix}$.
+We can see that the spin-up component stays constant in time relative to
+the phase, but the other component rotates around the Bloch sphere at
+the Larmor frequency.
+
+Take an arbitrary magnetic field in direction $\hat{n}$. Now
+$T(t) = e^{\imath\hat{n}\cdot\vec{\sigma}\omega t/2} = \cos\frac{\omega t}{2} I-\imath\sin\frac{\omega t}{2}\hat{n}\cdot\vec{\sigma}$.
+
+Now suppose $\hat{n}=\hat{y}$, and
+$\sigma_y = \begin{bmatrix}0&-\imath\\\imath&0\end{bmatrix}$, so
+$T(t) = \begin{bmatrix}\cos\frac{\omega t}{2}&-\sin\frac{\omega t}{2}\\\sin\frac{\omega t}{2}&\cos\frac{\omega t}{2}\end{bmatrix}$.
+Starting in the state $\ket{\psi_0} = \ket{z+}$, we find
+$\ket{\psi_t} = \begin{pmatrix}\cos\frac{\omega t}{2}\\\sin\frac{\omega t}{2}\end{pmatrix}$.
+Let's calculate
+$\Pr([z+]_t\mid\ket{\psi_t}) = \bra{\psi_t}z+\rangle\langle z+\ket{\psi_t} = \cos^2\frac{\omega t}{2}$.
+We can also see that
+$\Pr([x+]_t\mid\ket{\psi_t}) = \frac{1}{2}\cos\frac{\omega t}{2}\sin\frac{\omega t}{2}$.
+The spin projection is rotating around the $\hat{y}$ axis at the
+Larmor frequency.
+
+
+
+\hypertarget{header-n365}{%
+\subsubsection{Generalization of Time-Dependent Spin
+Hamiltonian}\label{header-n365}}
+
+\begin{equation}
+H=\frac{1}{2}\hbar\vec{\omega}(t)\cdot\vec{\sigma}
+\end{equation}
+
+\begin{equation}
+\vec{\omega}(t) = \omega(t)\hat{n}(t)
+\end{equation}
+
+\begin{equation}
+T(t+\Delta t, t)\approx e^{-\imath(\omega(t)\hat{n}(t)\cdot\vec{\sigma}/2)\Delta t}
+\end{equation}
+
+If $|\vec{\omega}|$ is constant and $\hat{n}$ rotates around a fixed
+axis at a fixed rate, we can find the exact solution. For instance, we
+could have
+$\vec{\omega}(t) = \omega_z\hat{z} + \omega_{p}(\cos(\omega_r t)\hat{x} + \sin(\omega_r t)\hat{y})$.
+In NMR, $\omega_z$ is related to the large polarizing magnet while
+$\omega_p$ is related to the RF pulse.
+
+Let us now look at this in a co-rotating coordinate system.
+
+\begin{equation}
+\ket{\psi} = \sum_j\bra{ b_j } \psi\rangle\ket{b_j} = \sum_j \ket{b_j}\bra{ b_j})\ket{\psi}
+\end{equation}
+
+\begin{equation}
+\{\ket{b_j}\}\to\{\ket{\bar{b}_j}\}
+\end{equation}
+
+\begin{equation}
+\bra{\bar{b}_k}\psi\rangle = \langle\bar{b}_k\sum_j\ket{b_j}\bra{ b_j}\psi\rangle = \sum_j U_{kj}\langle b_j\ket{\psi}
+\end{equation}
+
+For our system, suppose
+
+\begin{equation}
+\ket{\psi}\to\ket{\bar{\psi}} = S(t)\ket{\psi}
+\end{equation}
+
+so
+
+\begin{equation}
+\imath\frac{d}{dt}\ket{\bar{\psi}} = \imath\dot{S}\ket{\psi} + S\imath\frac{d}{dt}\ket{\psi} = \imath\dot{S}S^\dagger\ket{\bar{\psi}} + SHS^\dagger\ket{\bar{\psi}}
+\end{equation}
+
+is the equation of motion in our rotating coordinate system. We can
+re-characterize this as the combination of two Hamiltonians,
+$\bar{H}_1 = \imath\dot{S}S^\dagger$ and
+$\bar{H}_0 = SH_0S^\dagger$. Our old Hamiltonian was
+
+\begin{equation}
+H_0 = \frac{1}{2}\omega_z\sigma_z + \frac{1}{2}\omega_p\begin{pmatrix}0&\cos\omega_rt-\imath\sin\omega_rt\\\cos\omega_rt+\imath\sin\omega_rt&0\end{pmatrix}
+\end{equation}
+
+\begin{equation}
+S(t) = \begin{pmatrix}e^{\imath\omega_rt/2}&0\\0&e^{-\imath\omega_rt/2}\end{pmatrix}
+\end{equation}
+
+$\bar{H}_1 = -\frac{1}{2}\omega_r\sigma_z$ and
+\begin{equation}
+\bar{H}_0 = \frac{1}{2}\omega_z\sigma_z+\frac{1}{2}\omega_p\sigma_x
+\end{equation}
+
+The net result
+\begin{equation}
+\bar{H} = \bar{H}_0 + \bar{H}_1 = \frac{1}{2}(\omega_z-\omega_r)\sigma_z + \frac{1}{2}\omega_p\sigma_x
+\end{equation}
+
+This is time-independent so we can use our solution from earlier. Note
+that if $\omega_z = \omega_r$, the effective field in the
+$z$-direction can be eliminated, meaning that if we match the
+frequency of our RF signal to the effect of the large super-conducting
+magnet, we can cancel its effect. Now the states will progress in the
+order
+\begin{equation}
+\ket{\bar{z}+}\to\ket{\bar{y}-}\to\ket{\bar{z}-}\to\ket{\bar{y}+}\to-\ket{\bar{z}+}
+\end{equation}
+where we pick up a phase after one complete rotation. The first motion
+is a ``$\pi/2$ pulse'', where the characteristic time scale is
+$t=\frac{\pi}{2}\frac{1}{\omega_p}$. If we start with the state
+$\ket{\bar{z}+} = \begin{pmatrix}1\\0\end{pmatrix}$, we can write
+the other states as column vectors,
+$\ket{\bar{y}-} = \frac{1}{\sqrt{2}}\begin{pmatrix}1\\-\imath\end{pmatrix}$,
+$\ket{\bar{z}-} = \begin{pmatrix}1\\-\imath\end{pmatrix}$,
+$\ket{\bar{y}+} = \frac{1}{\sqrt{2}}\begin{pmatrix}-1\\-\imath\end{pmatrix}$.
+The motion from $\ket{\bar{z}+}\to\ket{\bar{z}-}$ is a ``$\pi$
+pulse'' with characteristic time scale $t=\frac{\pi}{\omega_p}$. The
+time evolution operator is
+$T=e^{-\imath\frac{1}{2}\omega_p t\sigma_x}$.
+
+This was in the ``on resonance'' condition, where $\omega_r = \omega_z$.
+In the ``off resonance'' condition, let's call the distance off of the
+resonant condition $\delta = \omega_z - \omega_r$.
+
+Now,
+\begin{equation}
+H=\frac{1}{2}\delta\sigma_z + \frac{1}{2}\omega_p\sigma_x = \frac{1}{2}\begin{pmatrix}\delta&\omega_p\\\omega_p&-\delta\end{pmatrix}
+\end{equation}
+
+Eigenstates and eigenvalues are:
+
+\begin{equation}
+\ket{\phi} = (\cdots)\begin{pmatrix}\delta\pm\sqrt{\delta^2+\omega_p^2}\\-\omega_p\end{pmatrix}
+\end{equation}
+
+\begin{equation}
+\lambda = \pm\frac{1}{2}\Omega = \pm\frac{1}{2}\sqrt{\delta^2+\omega_p^2}
+\end{equation}
+
+\begin{equation}
+\bar{T} = e^{-\imath\bar{H}t} = e^{\imath\Omega t/2}\ket{\phi_+}\bra{\phi_+} + e^{\imath\Omega t/2}\ket{\phi_-}\bra{\phi_-}
+\end{equation}
+
+\begin{equation}
+\Pr([z-]_t) = \ket{\!|[\bar{z}-]_t\bar{T}(t)|\bar{z}+}_0|\!|^2
+\end{equation}
+
+So the maximum probability of being flipped into the $\ket{z-}$
+state decreases the further off-resonance you are.
+
+
+
+\subsection{Sample Spaces}
+\label{sub:sample_spaces}
+
+Take some space of samples $\mathcal{S}$ with samples
+$s\in\mathcal{S}$ with probability $p_s$ of occurring. For some
+random variable on the samples $V(s)$, we can find the average value
+of the outcome as
+
+$\ev{V} = \sum_s p_s V(s)$.
+
+For some indicator $E(s)$, we are defining a subspace of the sample
+space (all the dice rolls that turn up even, for example). The
+probability of getting a state with that particular indicator is
+
+$\Pr(E) = \sum_{s\in E}p_s$.
+
+Say we have two random variables $V(s)$ and $W(s)$. We can now talk
+about joint probabilities. For instance, let's create two events, $E$
+is the event where $V=v$ and $F$ is the event where $W=w$:
+
+$\Pr(V=v,W=w) = \sum_{s\in E\cap F}p_s = \ev{EF}$.
+
+\begin{ex}
+    Fair 6-sided Die
+
+\begin{equation}
+\mathcal{S} = \{1,2,3,4,5,6\} \qc p_s=\frac{1}{6}
+\end{equation}
+
+$V(s)=$ ``parity''
+
+\begin{equation}
+W(s) = (s-3)^2
+\end{equation}
+
+\begin{longtable}[]{@{}llllll@{}}
+\toprule
+v\textbackslash w & $w=0$ & $w=1$ & $w=4$ & $w=9$ &
+TOTALS\tabularnewline
+\midrule
+\endhead
+$v=$ even & 0 & 2/6 & 0 & 1/6 & 1/2\tabularnewline
+$v=$ odd & 1/6 & 0 & 2/6 & 0 & 1/2\tabularnewline
+TOTALS & 1/6 & 2/6 & 2/6 & 1/6 & 1\tabularnewline
+\bottomrule
+\end{longtable}
+
+Marginal probabilities: If you start with the joint probabilities for
+many variables and sum over all the probabilities for one of them, you
+get the marginal probability (the probabilities in the ``TOTALS'' rows and
+columns).
+\end{ex}
+
+\section{Conditional Probability}
+\label{sec:conditional_probability}
+
+$\Pr(A\mid B) = \Pr(A,B)/\Pr(B)$ reads as ``the probability of A given
+B''
+
+\subsection{Examples}
+\label{sub:examples}
+
+\begin{equation}
+\Pr(v=\text{odd}\mid w=4)=\Pr(\text{odd},4)/\Pr(4) = \frac{1}{3}/\frac{1}{3} = 1
+\end{equation}
+
+\begin{equation}
+\Pr(w=4\mid v=\text{odd})=\Pr(4,\text{odd})/\Pr(\text{odd}) = \frac{2}{6}/\frac{1}{2} = \frac{4}{6}
+\end{equation}
+
+\section{Statistical Independence}
+\label{sec:statistical_independence}
+
+If we have a joint probability of two events,
+
+\begin{equation}
+\Pr(A,B) = \Pr(A)\cdot \Pr(B)
+\end{equation}
+
+and
+
+$\Pr(\neg A,B) = \Pr(\neg A)\cdot \Pr(B)$ etc.
+
+are conditions which must be met for the events to be statistically
+independent.
+
+\begin{ex}
+
+\begin{equation}
+\Pr(s=1\text{ or }6, s=\text{even}) = \sum_{s\in\{1,6\}\cap\{2,4,6\}} p_s = p_6 = \frac{1}{6}
+\end{equation}
+
+\begin{equation}
+\Pr(s=1\text{ or }6) = \frac{2}{6}
+\end{equation}
+
+\begin{equation}
+\Pr(s=\text{even}) = \frac{3}{6}
+\end{equation}
+
+We can continue through the other conditions to show that these events
+are independent. However, if we had the probability of rolling $2$ or
+$6$ instead of $1$ or $6$, we would find that these conditions are
+not satisfied, since all $2$ and $6$ rolls will also be even rolls.
+\end{ex}
+
+\section{Quantum Statistics}
+\label{sec:quantum_statistics}
+
+
+We want this to be the same as the Classical case. However, there must
+be some differences (for instance, non-commuting operators). Our method
+to avoid these difficulties is called the ``single framework rule''.
+Suppose $V=v_1P_1+v_2P_2+v_3P_3$ and $W=w_1P_1+w_2Q_2+w_3Q_3$. Let's
+imagine $P_2Q_2\neq Q_2P_2$ and $P_3Q_3\neq Q_3P_3$. If we were to
+talk about values of $V$ and $W$, we are forbidden from making
+statements about joint probabilities for all values of the operators.
+However, some statements can still be made. For example, if we took, as
+our sample space, $\mathcal{P} = \{P_1,I-P_1\}$ (note
+$I-P_1 = P_2+P_3=Q_2+Q_3$) we can say things like $\Pr(v_1,w_1)$,
+$\Pr(v_1,\neg w_1)$, etc. as long as we only talk about things in
+commuting subspaces.
+
+Can we say that $\neg(V=v_1)=(V=v_2)\text{ or }(V=v_3)$? No, we cannot
+interpret this in such a way if we include $W$ in our space of
+operators.
+
+\section{Sequences of Outcomes}
+\label{sec:sequences_of_outcomes}
+
+
+Suppose we have a sequence of values $\{s_0,s_1,\cdots s_f\}$ in a
+particular order. We can write this as a vector $\vec{s}$ if we want.
+\begin{equation}
+\vec{s}\in\mathcal{S}\times\mathcal{S}\times\cdots\times\mathcal{S} = S^f
+\end{equation}
+is a cartesian product. We could use different sample spaces if we want.
+We require $0\leq \Pr(\vec{S})\leq 1$ and
+$\sum_{\vec{s}}\Pr(\vec{s}) = 1$.
+
+We can also calculate marginal probabilities
+\begin{equation}
+Pr_j(s_j) = \sum_{s_0,s_1\cdots s_{j-1}}\sum_{s_j+1\cdots}\Pr(s_0 s_1\cdots s_{j-1}s_js_{j+1}\cdots s_f)
+\end{equation}
+
+These can tell us about any particular instance, but they won't tell us
+anything about correlations.
+
+\section{Markov Process}
+\label{sec:markov_process}
+
+This occurs when $s_{j+1}$ is correlated with $s_j$ but not
+$s_{j-i}$ where $i>0$. In this case,
+$\Pr(s_0,s_1) = \Pr(s_1\mid s_0)\Pr(s_0)$,
+$\Pr(s_0,s_1,s_2) = \Pr(s_2\mid s_1)\Pr(s_0,s_1)$. This is sometimes true
+in general cases but it is always true in Markov processes.
+
+
+
+\end{document}

@@ -1,0 +1,79 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{18}{Mon Sep 30 2019}{Image Method in Mediums, Continued}
+\section{Image Method in Mediums, Continued}
+\label{sec:image_method_in_mediums}
+
+From last time, we had, from the continuity of the potential
+\begin{equation}
+    q + q' = \frac{\epsilon_1}{\epsilon_2} q''
+\end{equation}
+and from continuity of $ D $:
+\begin{equation}
+    \eval{- \epsilon_2 \pdv{\Phi}{z}}_{z \to 0^-} = \eval{- \epsilon_2 \pdv{\Phi}{z}}_{z \to 0^+} \implies q'' = q - q' 
+\end{equation}
+Therefore,
+\begin{equation}
+    q' = - \frac{\epsilon_2 - \epsilon_1}{\epsilon_{1} + \epsilon_{2}} q
+\end{equation}
+and
+\begin{equation}
+    q'' = \frac{2 \epsilon_{2}}{ \epsilon_{1} + \epsilon_{2}} q
+\end{equation}
+In this sense, conductors can be thought of as dielectrics with $ \epsilon \to \infty $ limits. If we take the plane to be normal to $ \hat{z} $ with region $ \epsilon_{1} $ in the positive direction, we find that
+\begin{align}
+    \vec{P}_{2} \cdot \hat{n}_{12} + \vec{P}_{2} \cdot \hat{n}_{21} &= \vec{P}_{2} \cdot \hat{z} - \vec{P}_{1} \cdot \hat{z}\\
+    &= \underbrace{\epsilon_{2} \vec{E}_{2} \cdot \hat{z} - \epsilon_{1} \vec{E}_{1} \cdot \hat{z}}_{=0 \qsince \vec{D} \qq{is continuous}} + \epsilon_0 [ \vec{E}_{1} \cdot \hat{z} - \vec{E}_{2} \cdot \hat{z} ]
+\end{align}
+so
+\begin{equation}
+    \sigma_{\text{excess}} = \frac{1}{2 \pi} \frac{\epsilon_0}{\epsilon_1} \left[ \frac{\epsilon_1 - \epsilon_2}{\epsilon_1 + \epsilon_2} \right] \frac{qd}{[\rho^2 + d^2 ]^{3/2}}
+\end{equation}
+
+\subsection{Energy Considerations in Dielectrics}
+\label{sub:energy_considerations_in_dielectrics}
+For a number of dielectrics in a space,
+\begin{equation}
+    \var{W} = \int_{\Omega} \var{\rho_{\text{free}}} \cdot \Phi \dd[3]{x} = \int_{\Omega} \div{(\var{\vec{D}}}\Phi  \dd[3]{x} = \underbrace{\sum_{k=1}^{N} \oint_{\Sigma_{k} \Phi \var{ \vec{D}}} \cdot \dd{ \vec{a}}}_{=0} + \int_{\Omega} \vec{E} \cdot \var{ \vec{D}} \dd[3]{x}
+\end{equation}
+so
+\begin{equation}
+    \var{W} = \int_{\Omega} E_i \epsilon_{ij}(x) \var{E_j} \dd[3]{x}
+\end{equation}
+or
+\begin{equation}
+    W = \frac{1}{2} \int_{\Omega} \epsilon_{ij} E_{i} E_{j} \dd[3]{x}
+\end{equation}
+In our special case for homogeneous dielectrics,
+\begin{equation}
+    W = \frac{1}{2} \int \epsilon E^2 \dd[3]{x}
+\end{equation}
+In the no dielectric case, we have $ \frac{1}{2} \int \dd[3]{x} \vec{E}_0 \cdot \vec{D}_0 $. When a dielectric is inserted, we can look at the change in energy, or
+\begin{align}
+    \Delta W &= \frac{1}{2} \int \vec{E} \cdot \vec{D} \dd[3]{x} - \frac{1}{2} \int \vec{E}_0 \cdot \vec{D}_0 \dd[3]{x}\\
+    &= \frac{1}{2} \left[ \int \vec{E} \cdot \vec{D}_0 \dd[3]{x} - \int \vec{E}_0 \cdot \vec{D} \dd[3]{x} + \int (\vec{E} + \vec{E}_0) \cdot ( \vec{D} - \vec{D}_0)  \dd[3]{x} \right]
+\end{align}
+The final term here is
+\begin{align}
+    \int (\vec{E} + \vec{E}_0) \cdot ( \vec{D} - \vec{D}_0)  \dd[3]{x} &= - \int \grad{(\Phi + \Phi_0 )} \cdot ( \vec{D} - \vec{D}_0 ) \dd[3]{x}\\
+    &= \underbrace{- \int \div{[( \vec{D} - \vec{D}_0)(\Phi + \Phi_0 )]} \dd[3]{x}}_{- \left\{ \sum_{k} \oint_{\Sigma_k} \vec{D} (\Phi + \Phi_0) \dd{ \vec{a}} - \oint_{\Sigma_k} \vec{D}_0 (\Phi + \Phi_0) \dd{ \vec{a}} \right\} = 0}\\ &+ \underbrace{\int [\overbrace{\grad{ \vec{D}}}^{\rho_{\text{free}}} - \overbrace{\grad{ \vec{D}_0}}^{\rho_{\text{free}}}](\Phi + \Phi_0) \dd[3]{x}}_{=0}\\ &= 0
+\end{align}
+so
+\begin{equation}
+    \Delta W = - \frac{1}{2} \int \vec{P} \cdot \vec{E}_0 \dd[3]{x}
+\end{equation}
+Again, the field will be $ \vec{E}_0 $ if there were no dielectrics.
+
+We can find the force due to this dielectric:
+\begin{equation}
+    F_i = \eval{- \pdv{W}{\xi^i}}_{Q_k = \qq{fixed}}
+\end{equation}
+where $ \vec{\xi} $ is some displacement of the dielectric.
+
+We also know that $ W = \frac{1}{2} \int \rho \Phi $ so
+\begin{equation}
+    \var{W} = \frac{1}{2} \int \left( \var{\rho} \Phi + \rho \var{\Phi} \right) \dd[3]{x} = \int \var{\rho} \Phi \dd[3]{x}
+\end{equation}
+so if you have batteries keeping the dielectrics at constant potential, they will do some work on the system $ \sum_{k} \var{Q_{k}} \Phi_{k} $ which will have to be accounted for.
+
+\end{document}

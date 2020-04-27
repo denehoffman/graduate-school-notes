@@ -1,0 +1,137 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{10}{Wednesday, February 05, 2020}{The Hydrogen Atom, Continued}
+Let's talk about units really quickly
+\begin{equation}
+    H = \frac{\va{p}^2}{2 \mu} - \frac{e^2}{r}
+\end{equation}
+where $ e^2 $ has units of $ \text{length} \vdot \text{energy} $. Last time we showed that both angular momentum and the Runge-Lenz vector commute with the Hamiltonian, and from these vectors, we developed two new vectors, $ \va{T} $ and $ \va{S} $ and found they both have $\text{SU}(2)$ symmetry, so the symmetry group is $ \text{SU}(2) \otimes \text{SU}(2) $. We would now expect the degeneracy to be $ (2t+1)(2s+1) $, but we can show that $ \va{T}^2 = \va{S}^2 $ so $ t = s $. Therefore, the true degeneracy is $ (2t+1)^2 = n^2 $.
+
+Notice that we haven't said anything about the Schr\"odinger equation yet, but we will be able to use these symmetries to determine the energy levels of hydrogen. We can do some clever rearranging to show that
+\begin{equation}
+    4 \va{T}^2 = - \hbar^2 - \frac{m e^4}{2E}
+\end{equation}
+since
+\begin{equation}
+    \va{T}^2 = \frac{1}{4} \left[ \va{L}^2 + \tilde{\va{A}}^2 \right]
+\end{equation}
+where
+\begin{equation}
+    \tilde{\va{A}} = \sqrt{\frac{-m}{2E}} \va{A}
+\end{equation}
+\begin{equation}
+    \va{A}^2 = e^4 + \frac{2H}{m} (\va{L}^2 + \hbar^2)
+\end{equation}
+The first equation can then be shown by expanding
+\begin{equation}
+    \va{T}^2 = \frac{1}{4} \left[ \va{L}^2 - \frac{m}{2 E} \va{A}^2 \right]
+\end{equation}
+Then, using our knowledge of the degeneracies, we know that
+\begin{equation}
+    \va{T}^2\ket{t} = t(t+1) \hbar^2\ket{t}
+\end{equation}
+or
+\begin{align}
+    \frac{m e^4}{2E} &= (4t(t+1) + 1) \hbar^2 \\
+    \implies E &= \frac{m e^4}{2 \hbar^2 n^2} \qquad n^2 = (2t+1)^2
+\end{align}
+
+\section{The Hydrogen Wave Function}
+\label{sec:the_hydrogen_wave_function}
+
+We know that the wave function should transform as a representation of $\text{SU}(2)$ so it has to be proportional to $ Y_{lm}(\theta, \varphi) $. Therefore, just from group theory, we know that the wave function must take the form
+\begin{equation}
+    \psi_{k,l} = Y_{lm}(\theta, \varphi) R_{kl}(r)
+\end{equation}
+(recall that we showed the energy does not depend on $ m $, but rather $ m $ introduces a degeneracy)
+
+We can write the Hamiltonian in spherical coordinates as
+\begin{equation}
+    H = - \frac{\hbar^2}{2 \mu} \frac{1}{r} \pdv[2]{r}r + \frac{1}{2 \mu r^2} \va{L}^2 + V(r)
+\end{equation}
+Using the ansatz wave function, we know that
+\begin{equation}
+    H R_{k,l}(r) = \left[ - \frac{\hbar}{2 \mu} \frac{1}{r} \pdv[2]{r} r + \frac{\hbar^2 l (l+1)}{2 \mu r^2} + V(r) \right]
+\end{equation}
+Recall that
+\begin{equation}
+    \mu = \frac{m_e m_p}{(m_e + m_p)}
+\end{equation}
+but
+\begin{equation}
+    m_p \sim 1\giga\electronvolt \qquad m_e \sim 0.5\mega\electronvolt
+\end{equation}
+so
+\begin{equation}
+    \mu \sim m_p \equiv m
+\end{equation}
+from here on out.
+
+In principle, $ E $ does not depend on $ l $\textemdash we showed that the Runge-Lenz vector conservation makes the energy only dependent on one quantum number. However, for the sake of the argument, let's pretend $ l $ still matters here:
+\begin{equation}
+    H R_{kl} = E R_{kl}
+\end{equation}
+Let's now define
+\begin{equation}
+    R_{kl} = \frac{U_{kl}}{r}
+\end{equation}
+such that
+\begin{equation}
+    - \frac{\hbar^2}{2m} \frac{1}{r} U''_{kl} + \frac{\hbar^2 l(l+1)}{2mr^3} U_{kl} - \frac{e^2}{r^2} U_{kl} = \frac{U_{kl}}{r}
+\end{equation}
+we do this because $ V = - \frac{e_e e_p}{r} = - \frac{e^2}{r} $. The reason these charges are the same has to do with quantum field theory and quark confinement. Let's divide out an $ \frac{1}{r} $ everywhere to get
+\begin{equation}
+    - \frac{\hbar^2}{2 m} U'' + \left[ \frac{\hbar^2 l(l+1)}{2mr^2} - \frac{e^2}{r} \right] U = E_{kl} U
+\end{equation}
+At this point, it is useful to talk about dimensionful quantities:
+\begin{align}
+    [e^2] &= \text{energy} \vdot \text{length} \\
+    [\hbar] &= \text{energy} \vdot \text{time} \\
+    [m] &= \frac{\text{energy} \vdot \text{time}^2}{\text{length}^2}
+\end{align}
+It might be useful to define a new length scale:
+\begin{equation}
+    [a_0] \equiv \left[ \frac{\hbar^2}{me^2} \right] = [\text{length}]
+\end{equation}
+This is the only way to form length out of these variables, and we will find out that the average radius for the ground state orbits is exactly equal to this value. We will call this length scale the ``Bohr radius''. We could have also known that $ e^2 $ had to be in the denominator, because as $ e^2 $ gets bigger, this radius should get smaller. We can also form a typical energy scale:
+\begin{equation}
+    E_0 = \frac{e^4 m}{2\hbar^2} 
+\end{equation}
+Put a $ 2 $ in the denominator (we technically don't know this is true from dimensional analysis, but we already know what the energy levels of Hydrogen are) and call this the ``Rydberg constant''. Let's work in our new scaled system with $ \rho = \frac{r}{a_0} $
+\begin{equation}
+    - \frac{\hbar^2}{2m} \frac{1}{a_0^2} \dv[2]{\rho} U + \left[ \frac{\hbar^2 l(l+1)}{2m a_0^2 \rho^2} - \frac{e^2}{a_0 \rho} \right] U = E_0 U
+\end{equation}
+or
+\begin{equation}
+    \left[ \dv[2]{\rho} - \frac{l(l+1)}{\rho^2} + \frac{2}{\rho} - \lambda_{kl}^2 \right] U_{kl} = 0
+\end{equation}
+where $ \lambda_{kl} = \left[ - \frac{E_{kl}}{E_0} \right]^{1/2} $. Solving this differential equation is hard, and we're going to solve it by guessing. When $ \rho \to \infty $,
+\begin{equation}
+    (U'' - \lambda_{kl}^2 U) = 0
+\end{equation}
+so
+\begin{equation}
+    U \overbrace{\sim}^{\rho \to \infty} e^{- \lambda_{kl} \rho}
+\end{equation}
+This inspired guess is a series solution:
+\begin{equation}
+    U = e^{- \lambda_{lm} \rho} \overbrace{\left( \sum_{q=0} C_q \rho^q \right) \rho^S}^{y} \qquad (s>0)
+\end{equation}
+Now we plug this guess into our original differential equation. This gives a relationship between the $ C $ factors and a constraint that $ S = l+1 $ and the series must terminate (since in theory if it didn't, the power series could overcome the exponential and make the wave function non-normalizable):
+\begin{equation}
+    C_q \left[ q (q + 2l + 1) \right] = 2 C_{q-1} \left[ \lambda_{kl} (q+l) - 1 \right]
+\end{equation}
+\begin{equation}
+    \exists q \equiv \hat{k} \qq{such that} \lambda_{kl} (\hat{k} + l) = 1
+\end{equation}
+so
+\begin{equation}
+    y_{kl} = \sum_{q=0}^{\hat{k}} \left[ C_q \rho^q \right] q^{l+1} 
+\end{equation}
+and
+\begin{equation}
+    \lambda_{k+l} = \frac{1}{\hat{k} + l} \in \Z
+\end{equation}
+which we will define as $ \lambda_{n} = \frac{1}{n} $.
+
+\end{document}

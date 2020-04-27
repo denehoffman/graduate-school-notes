@@ -1,0 +1,120 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{47}{Monday, December 02, 2019}{Review of Radiation}
+
+Suppose
+\begin{equation}
+    \mqty( \va{H} \\ \va{E} ) = \mqty( \va{H}_{\omega} \\ \va{E}_{\omega} ) e^{- \imath \omega t}
+\end{equation}
+Then, Maxwell's equations become
+\begin{equation}
+    \curl{ \va{H}} = \epsilon_0 \pdv{ \va{E}}{t}
+\end{equation}
+\begin{equation}
+    \curl{ \va{E}} = - \mu_0 \pdv{t} \va{H}
+\end{equation}
+If we define $ Z_0 = \sqrt{\frac{\mu_0}{\epsilon_0}} $,
+\begin{equation}
+    \va{E}_{\omega} = \frac{\imath Z_0}{k} \curl{ \va{H}_{\omega}}
+\end{equation}
+and
+\begin{equation}
+    \va{H}_{\omega} = - \frac{\imath}{Z_0 k} \curl{ \va{E}_{\omega}}
+\end{equation}
+where $ k = \frac{\omega}{c} $.
+
+Recall that we want fields which satisfy the Helmholtz equation in spherical coordinates:
+\begin{equation}
+    \left( \laplacian + k^2 \right) \mqty( \va{E}_{\omega} \\ \va{H}_{\omega}) = \va{0}
+\end{equation}
+since both fields have no divergence in the radiation zone. We can solve this by realizing that the angular momentum operator, $ \va{\mathbb{L}} = \frac{1}{\imath} \va{x} \cross \grad $, commutes with the Laplacian, so if $ \psi $ is a solution to the Helmholtz equation, so is $ \va{\mathbb{L}} \psi $. Using this, we found that the general solutions to these fields is
+\begin{equation}
+    \va{E}_{\omega} = \va{\mathbb{L}} \psi + \frac{\imath Z_0}{k} \curl{ \va{\mathbb{L}} \chi}
+\end{equation}
+and
+\begin{equation}
+    \va{H}_{\omega} = - \frac{\imath}{Z_0 k} \curl{ \va{\mathbb{L}} \psi} + \va{\mathbb{L}} \chi
+\end{equation}
+
+Next, we found general solutions to the spherical Helmholtz equation using the spherical Bessel functions:
+\begin{equation}
+    \psi = \sum_{l,m} \left[ a_{lm} h_{l}^{(1)}(kr) + b_{lm} h_{l}^{(2)}(kr) \right] Y_{lm}(\Omega)
+\end{equation}
+since the Hankel functions look like outgoing/incoming waves (1/2) in the $ kr >> 1 $ regime.
+
+Now we want to act the angular momentum operator on this function. Since it is a spherical operator, it only acts on the $ Y_{lm} $ part, so
+\begin{equation}
+    \va{\mathbb{L}} \psi = \sum_{l,m} f_{lm}(kr) \frac{ \va{\mathbb{L}} Y_{lm}}{\sqrt{l(l+1)}}
+\end{equation}
+where we are just scaling by $ \sqrt{l(l+1)} $. We recognize these as the vector spherical harmonics:
+\begin{equation}
+    \frac{ \va{\mathbb{L}} Y_{lm}}{\sqrt{l(l+1)}} = \mathbb{X}_{lm}
+\end{equation}
+
+These make an orthonormal basis:
+\begin{equation}
+    \int \va{\mathbb{X}}^*_{l'm'} \vdot \va{\mathbb{X}}_{lm} \dd{\Omega} = \delta_{ll'} \delta_{mm'}
+\end{equation}
+
+Jackson scales the general fields by $ Z_0 $:
+\begin{equation}
+    \va{E}_{\omega} = Z_0 \left( \underbrace{\va{\mathbb{L}} \psi}_{g_{lm}} + \frac{\imath}{k} \curl{ \va{\mathbb{L}} \chi} \right)
+\end{equation}
+\begin{equation}
+    \va{H}_{\omega} = - \frac{\imath}{k} \curl{ \va{\mathbb{L}} \psi} + \underbrace{\va{\mathbb{L}} \chi}_{f_{lm}}
+\end{equation}
+
+If we now expand in terms of the vector spherical harmonics, we find
+\begin{equation}
+    \va{E}_{\omega} = Z_0 \sum_{l,m} \left( g_{lm}(kr) \va{\mathbb{X}}_{lm} + \frac{\imath}{k} \curl{ (f_{lm}(kr) \va{\mathbb{X}}_{lm})} \right)
+\end{equation}
+\begin{equation}
+    \va{H}_{\omega} = Z_0 \sum_{l,m} \left( f_{lm}(kr) \va{\mathbb{X}}_{lm} - \frac{\imath}{k} \curl{ (g_{lm}(kr) \va{\mathbb{X}}_{lm})} \right)
+\end{equation}
+We should emphasize that these are exact representations, we have not made any approximations yet. Also, $ f $ and $ g $ are switched with respect to the earlier lecture where this derivation was first done.
+
+Notice that $ \va{x} \vdot \va{\mathbb{L}} \psi = 0 $ for any $ \psi $, so
+\begin{equation}
+    \va{x} \vdot \va{E}_{\omega} = Z_0 \sum_{l,m} \frac{\imath}{k} \va{x} \vdot \curl{(f_{lm}(kr) \va{\mathbb{X}}_{lm})} = - \frac{Z_0}{k} \sum_{l,m} \va{\mathbb{L}}(f_{lm}(kr) \mathbb{X}_{lm})
+\end{equation}
+The angular momentum operator commutes with the radial part of the dot product, so this becomes
+\begin{equation}
+    \va{x} \vdot \va{E}_{\omega} = - \frac{Z_0}{k} \sum_{l,m} f_{lm}(kr) \va{\mathbb{L}} \vdot \va{\mathbb{X}}_{lm} = - \frac{Z_0}{k} \sum_{l,m} \sqrt{l(l+1)} Y_{lm} f_{lm}(kr) 
+\end{equation}
+If we want to find $ f_{lm}(kr) $ we need to decompose $ \va{x} \vdot \va{E}_{\omega} $ into spherical harmonics:
+\begin{equation}
+    f_{lm}(kr) = - \frac{k}{Z_0 \sqrt{l(l+1)}} \int Y_{lm}^* \left( \va{x} \vdot \va{E}_{\omega} \right) \dd{\Omega}
+\end{equation}
+
+For radiation problems, we would typically have these functions be $ a_{E}(l,m) h_{l}^{(1)}(kr) = f_{lm}(kr) $. We can do the same derivation to find the $ \va{H}_{\omega} $ field:
+\begin{equation}
+    g_{lm}(kr) = \frac{k}{\sqrt{l(l+1)}} \int Y_{lm}^* \left( \va{x} \vdot \va{H}_{\omega} \right) \dd{\Omega}
+\end{equation}
+where, for radiation, $ g_{lm}(kr) = a_{M}(l,m) h_{l}^{(1)}(kr) $. These $ a $ factors are the electric and magnetic multipoles.
+
+In the radiation zone, using
+\begin{equation}
+    \curl{ \va{\mathbb{L}}} = \imath \left[ \va{x} \laplacian - \grad{(1 + \va{x} \vdot \grad)} \right]
+\end{equation}
+we found that
+\begin{equation}
+    \curl{(f_{lm}(kr) \va{\mathbb{X}}_{lm})}
+\end{equation}
+only has a contribution from the factor of $ e^{\imath kr} $ from the Hankel functions in the far-field limit, so we find terms like
+\begin{equation}
+    (- \imath)^{l+1} \frac{e^{\imath kr}}{kr} \vu{n} \cross \va{\mathbb{X}}_{lm}
+\end{equation}
+
+In the radiation zone, the terms simplify to
+\begin{equation}
+    \va{H}_{\omega} \to (- \imath)^{l+1} \frac{e^{\imath kr}}{kr} \sum_{l,m} \left[ a_E(l,m) \va{\mathbb{X}}_{lm} + a_M(l,m) \vu{n} \cross \va{\mathbb{X}}_{lm} \right]
+\end{equation}
+and
+\begin{equation}
+    \va{E}_{\omega} = Z_0 \va{H}_{\omega} \cross \vu{n}
+\end{equation}
+where $ \vu{n} = \frac{\va{x}}{r} $.
+
+
+
+\end{document}

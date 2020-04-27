@@ -1,0 +1,149 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{50}{Friday, December 06, 2019}{Relativity}
+
+\section{Relativity}
+\label{sec:relativity}
+
+
+The theory of relativity is formulated on the fact/observation that light moves at a finite speed an that speed is the same for all observers. We define a four-position as the regular position with an additional component $ x^0 = ct $. By this definition,
+\begin{equation}
+    (x^0)sr - \va{x} \vdot \va{x} = 0 = \dd{s^2}
+\end{equation}
+for light.
+
+In general, $ \dd{x^{\mu}} = \pdv{x^{\mu}}{x'^{\nu}} \dd{x'^{\nu}} $. If we transform $ \dd{s^2} \mapsto a( \va{v}) \dd{s^2} $ under some shift to another inertial frame, we find that $ \dd{s^2} \mapsto a(\abs{ \va{v}}) \dd{s^2} $ and $ a(\abs{ \va{v}_1}) a(\abs{ \va{v}_2}) \dd{s^2} = a(\abs{ \va{v}_1 + \va{v}_2}) \dd{s^2} $ so $ a(\abs{ \va{v}} \to 0) = 1 $, which implies $ \dd{s^2} $ is an invariant under Lorentz transformations.
+
+We can write
+\begin{equation}
+    \dd{s^2} = \dd{x^{\mu}} \dd{x^{\nu}} \eta_{\mu \nu}
+\end{equation}
+where
+\begin{equation}
+    \eta_{\mu \nu} = \mqty(\dmat{1,-1,-1,-1})
+\end{equation}
+is the Minkowski metric. This defines the Lorentz group $ SO(3) $ since $ \Lambda^{\mu}_{\nu} \Lambda^{\sigma}_{\lambda} \eta_{\mu \sigma} = \eta_{\nu \lambda} $.
+
+We can also show that the most general linear transformation which preserves $ \dd{s^2} $ is
+\begin{equation}
+    \mqty[x'^0 \\ x'^1] = \mqty[\cosh(x) & - \sinh(x) \\ -\sinh(x) & \cosh(x)] \mqty[x^0 \\ x^1] 
+\end{equation}
+so that
+\begin{equation}
+    - \frac{v}{c} = \dv{x'^1}{x'^0} = - \tanh(x)
+\end{equation}
+which gives us the transformations
+\begin{equation}
+    x'^0 = \gamma(x^0 - vx^1)
+\end{equation}
+\begin{equation}
+    x'^1 = \gamma(x^1 - vx^0)
+\end{equation}
+where
+\begin{equation}
+    \gamma = \frac{1}{\sqrt{1-v^2}}
+\end{equation}
+
+How do we connect this to electrodynamics? Let's introduce a 4-vector source
+\begin{equation}
+    J^{\mu} = (c \rho, \va{J})
+\end{equation}
+4-vectors are geometric objects which transform like $ \dd{x^{\mu}} $ under Lorentz transforms:
+\begin{equation}
+    a'^{\mu} = \Lambda^{\mu}_{\lambda} a^{\lambda}
+\end{equation}
+
+We can write the 4-velocity as $ u^{\mu} = \dv{x^{\mu}}{\tau} $ where $ c \dd{\tau} = \dd{s} $ is the proper time. In any other frame, $ \dd{\tau} = \sqrt{1 - \frac{v^2}{c^2}} \dd{t} $. We can also define the 4-momentum $ p^{\mu} = m u^{\mu} $. As it turns out, we can write moving charges as
+\begin{equation}
+    \rho = \sum q_i \delta( \va{x} - \va{v}_i(t))
+\end{equation}
+and
+\begin{equation}
+    \va{J} = \sum q \va{v}_i \delta( \va{x} - \va{v}_i(t))
+\end{equation}
+
+Recall the charge conservation law
+\begin{equation}
+    \pdv{\rho}{t} + \div{ \va{J}} = 0
+\end{equation}
+or
+\begin{equation}
+    \partial_{\mu} J^{\mu} = 0
+\end{equation}
+
+We can also write a 4-potential
+\begin{equation}
+    A^{\mu} = \left( \frac{\Phi}{c}, \va{A} \right)
+\end{equation}
+which implies that the Lorentz gauge which we used is actually just
+\begin{equation}
+    \partial_{\mu} A^{\mu} = 0
+\end{equation}
+
+Recall that using this, we found the wave equations
+\begin{equation}
+    \laplacian{ \va{A}} - \frac{1}{c^2} \partial_t \va{A} = - \mu_0 \va{J}
+\end{equation}
+and
+\begin{equation}
+    \laplacian{\Phi} - \frac{1}{c^2} \partial_t \Phi = - \frac{\rho}{\epsilon_0}
+\end{equation}
+
+This wave operator is really
+\begin{equation}
+    \laplacian - \frac{1}{c^2} \partial_t^2 = \partial_{\mu} \partial^{\mu} = \square
+\end{equation}
+where
+\begin{equation}
+    \partial_{\mu} \equiv \pdv{x^{\mu}}
+\end{equation}
+so
+\begin{equation}
+    \square A^{\nu} = - \mu_0 J^{\nu}
+\end{equation}
+
+If we define $ F_{\mu \nu} \equiv \partial_{\mu} A_{\nu} - \partial_{\nu} A_{\mu} $ and recall that to raise and lower indices, we use
+\begin{equation}
+    A_{\mu} \equiv \eta_{\mu \nu} A^{\nu}
+\end{equation}
+
+$ F_{\mu \nu} $ is a 2-tensor ($ F'^{\mu \nu} = \Lambda^{\mu}_{\lambda} \Lambda^{\nu}_{\sigma} F^{\lambda \sigma} $). We can show that
+\begin{equation}
+    F^{0i} = E^{i}
+\end{equation}
+and
+\begin{equation}
+    \epsilon_{kij} F^{ij} = B_{k}
+\end{equation}
+
+Using this 2-tensor, we can show that Maxwell's equations are simply
+\begin{equation}
+    \partial_{\mu} F^{\mu \lambda} = \mu_0 J^{\lambda}
+\end{equation}
+
+We can define the dual of this tensor as
+\begin{equation}
+    \ast F^{\mu \lambda} = \frac{1}{2} \epsilon^{\mu \lambda \sigma \alpha} F_{\sigma \alpha}
+\end{equation}
+then
+\begin{equation}
+    \partial_{\mu} \ast F^{\mu \lambda} = 0
+\end{equation}
+which describes the fact that the magnetic field has no sources.
+
+If we write
+\begin{equation}
+    A^{\nu} = - \mu_0 (\square^{-1}) J^{\nu}
+\end{equation}
+we can show that the inverse of the d'Alambertian is
+\begin{equation}
+    \square^{-1} = \frac{\delta\left( t-t'- \frac{\abs{ \va{x} - \va{x}'}}{c} \right)}{\abs{ \va{x} - \va{x}'}} = \Theta(x^0 - x'^0) \delta( (x-x')^2)
+\end{equation}
+
+Finally, the Lorentz force is defined as
+\begin{equation}
+    m \dv{u^{\mu}}{\tau} = q F^{\mu \nu} u_{\nu}
+\end{equation}
+
+
+\end{document}

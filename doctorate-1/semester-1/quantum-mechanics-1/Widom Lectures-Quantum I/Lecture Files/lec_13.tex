@@ -1,0 +1,136 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\chapter{Multiple Time Histories}
+\lecture{13}{Wednesday, September 18, 2019}{Introduction to Consistent Histories}
+
+Classical Case:
+\begin{equation}
+\mathscr{S}_0,\mathscr{S}_1,\cdots,\mathscr{S}_f
+\end{equation}
+\begin{equation}
+  \vec{s} = (s_0,s_1,\cdots,s_f)\in \mathscr{S}_0\times\mathscr{S}_1\times\cdots\times\mathscr{S}_f=\tilde{\mathscr{S}}
+\end{equation}
+The dimension of the total space is just the dimensions of each time step added together.
+
+In Quantum, we have
+\begin{equation}
+  \tilde{\mathscr{H}}=\mathscr{H}_0\odot\mathscr{H}_1\odot\cdots\odot\mathscr{H}_f
+\end{equation}
+with a basis
+\begin{equation}
+  \{\ket{\alpha_i}\odot\ket{\beta_j}\odot\cdots\odot\ket{\omega_k}\}
+\end{equation}
+for $\alpha_i$ at time $t_0$, $\beta_j$ at $t_1$, etc.
+We can form a ``history''
+\begin{equation}
+  Y = \sum_{ij\cdots k} c_{ij\cdots k}\ket{\alpha_i}\odot\ket{\beta_j}\odot\cdots\odot\ket{\omega_k}
+\end{equation}
+We can also have a product history for multiple states:
+\begin{equation}
+  Y^{\vec{\alpha}} = P_0^{\alpha_0}\odot P_1^{\alpha_1}\odot\cdots\odot P_f^{\alpha_f}
+\end{equation}
+This means we have some certain property $\alpha_0$ at time $0$, another at time $1$, etc.
+
+The histories are mutually exclusive.
+\begin{equation}
+  Y^{\vec{\alpha}}Y^{\vec{\beta}} = \delta_{\vec{\alpha}\vec{\beta}}Y^{\vec{\alpha}}
+\end{equation}
+where the $\delta$ vanishes if the vectors are different at any instant in time (any component is different).
+\begin{equation}
+  \sum_{\vec{\alpha}} Y^{\vec{\alpha}} = \tilde{I} = I_0\odot I_1\odot\cdots\odot I_f
+\end{equation}
+\begin{ex}
+    Product Space
+\begin{align}
+  &Y_1 = [z+]_0\odot[x+]_1\\
+  &Y_2 = [z+]_0\odot[x-]_1\\
+  &Y_3 = [z-]_0\odot[x+]_1\\
+  &Y_4 = [z-]_0\odot[x-]_1
+\end{align}
+Check mutual exclusivity: For the first two, at time $0$, we get $[z+][z+]$ which is okay, but at time $1$, we have $[x+][x-]$, which means the whole product vanishes.
+\begin{equation}
+  Y_1+Y_2 = [z+]_0\odot I_1
+\end{equation}
+\begin{equation}
+  Y_3+Y_4 = [z-]_0\odot I_1
+\end{equation}
+and
+\begin{equation}
+  Y_1+Y_2+Y_3+Y_4 = I_0\odot I_1 = \tilde{I}
+\end{equation}
+\end{ex}
+\begin{ex}
+    Non-Product Space
+\begin{align}
+  &Y_1 = [z+]_0\odot[x+]_1\\
+  &Y_2 = [z+]_0\odot[x-]_1\\
+  &Y_3 = [z-]_0\odot[y+]_1\\
+  &Y_4 = [z-]_0\odot[y-]_1
+\end{align}
+This forms a complete and orthonormal set of histories.
+\end{ex}
+\begin{ex}
+    Specified Initial Condition
+Suppose we specify that we are initially in state $\ket{\psi_0}$:
+\begin{equation}
+  \ket{\psi_0}\implies I_0 = [\psi_0] + (I_0 - [\psi_0])
+\end{equation}
+\begin{equation}
+  Y^{\vec{\alpha}} = [\psi_0]\odot P_1^{\alpha_1}\odot\cdots\odot P_f^{\alpha_f}
+\end{equation}
+\begin{equation}
+  Z = (I-[\psi_0])\odot I_1\odot\cdots\odot I_f
+\end{equation}
+\end{ex}
+Single Time Born Rule:
+\begin{equation}
+  Pr(P_0^{\alpha_0}\mid\psi_0)= |P_0^\alpha\ket{\psi_0}|^2 = \ev{P_0^{\alpha_0}}{\psi_0}
+\end{equation}
+Time Evolution
+\begin{align}
+    \ket{\psi_1} &= T_{10}\ket{\psi_0}\\
+    Pr(P_1^{\alpha_1}\mid\psi_0) &= Pr(P_1^{\alpha_1}\mid\psi_1)\\
+    &= \ev{P_1^{\alpha_1}}{\psi_1} = \ev{T_{01}P_1^{\alpha_1}T_{10}}{\psi_0}
+\end{align}
+\subsection{Two-time history family}
+\begin{equation}
+  Y^k = [\psi_0]\odot[\phi_1^k]
+\end{equation}
+means we start in the state $\psi_0$ and end up in the state $\phi_1^k$. We can now discuss the probability of ending up in that state.
+\begin{equation}
+  Z = (I-0 - [\psi_0])\odot I_1
+\end{equation}
+\begin{align}
+    Pr(Y^k) &= Pr(\phi_1^k\mid\psi_0)\\
+    &=\ev{T_{01}\color{red}\op{\phi_1^k}\color{black}T_{10}}{\psi_0}\\
+    &= |\bra{\phi_1^k}T_{10}\ket{\phi_0}|^2 = |\braket{\phi_1^k}{\psi_1}|^1
+\end{align}
+Check $\sum_k Pr(Y^k) + Pr(Z) = 1$
+
+
+\begin{ex}
+    Spin-$ \frac{1}{2} $ in $\vec{B} = B\hat{z}$
+\begin{equation}
+  T(t) = \begin{bmatrix}
+    e^{\imath\omega t/2}&0\\0&e^{-\imath\omega t/2}
+  \end{bmatrix}
+\end{equation}
+\begin{equation}
+  Y^+ = [x+]_0\odot[x+]_1
+\end{equation}
+\begin{equation}
+  Y^- = [x+]_0\odot[x-]_1
+\end{equation}
+\begin{equation}
+  Z = [x-]_0\odot I_1
+\end{equation}
+\begin{equation}
+  Pr(Y^+) = \cos^2(\omega t/2)
+\end{equation}
+\begin{equation}
+  Pr(Y^-) = \sin^2(\omega t/2)
+\end{equation}
+
+The Born rule here allows us to talk about probabilities without invoking the notion of measurement. We are not thinking about collapsing wavefunctions. There is no notion of it in this formulation.
+\end{ex}
+\end{document}

@@ -1,0 +1,12 @@
+PWD /Users/nathanielhoffman/Documents/university/doctorate-1/semester-1
+INPUT /usr/local/texlive/2017/texmf.cnf
+INPUT /usr/local/texlive/2017/texmf-dist/web2c/texmf.cnf
+INPUT /usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt
+INPUT /Users/nathanielhoffman/Documents/university/doctorate-1/semester-1/preamble.tex
+OUTPUT /Users/nathanielhoffman/Documents/university/doctorate-1/semester-1/preamble.log
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/psnfss/ot1phv.fd
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/psnfss/ot1phv.fd
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/helvetic/phvb7t.tfm
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/helvetic/phvr7t.tfm
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmsl10.tfm

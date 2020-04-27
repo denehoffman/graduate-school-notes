@@ -1,0 +1,139 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{14}{Friday, February 14, 2020}{Addition of Angular Momentum, Continued}
+
+Recall our original motivation:
+\begin{equation}
+    \va{L} \vdot \va{S} = \frac{1}{2} \left( \va{J}^2 - \va{L}^2 - \va{S}^2 \right)
+\end{equation}
+We decided to start with the simplest example, which is to just add two spins (rather than spin and angular momentum). We start by trying to figure out the maximum total spin, which for two spin-$ \frac{1}{2} $ particles is $ \pm \left(\frac{1}{2} + \frac{1}{2} \right) = \pm 1 $. We are starting in the basis of $ \va{S}_1^2, \va{S}_2^2, S_{1z}, S_{2z} $ and trying to get into the basis $ \va{S}^2_{\text{tot}} = \va{S}^2, \va{S}_1^2, \va{S}_2^2, S_{1z} + S_{2z} = S_z $. We decided that the maximum spin is
+\begin{equation}
+    (S^2)= \hbar^2 1(1+1)
+\end{equation}
+such that the highest state in this basis is $\ket{1,1} $:
+\begin{equation}
+    \ket{1,1} =\ket{++}
+\end{equation}
+
+We then use the lowing operators to get the other states. Just to be clear, in the original basis, we don't really care about $ \va{S}^2_{1,2} $ because it's the same for all basis elements. We label our basis by $\ket{S_{1z}, S_{2z}} =\ket{\pm,\pm} $. In the addition state, we are representing our states by $\ket{S, S_z} $.
+
+We then showed that the lowering operator $ S_- = (S_{1-} + S_{2-}) $ acting on the $\ket{1,1} $ state gives us
+\begin{equation}
+    \ket{1,0} = \frac{1}{\sqrt{2}} \left[\ket{+-} +\ket{-+} \right]
+\end{equation}
+
+Now let's act on this state with the lowering operator on the $\ket{1,0} $ state:
+\begin{equation}
+    S_-\ket{S, S_z} = \hbar \sqrt{(S+S_z)(S - S_z + 1)}\ket{S, S_z-1}
+\end{equation}
+
+\begin{align}
+    S_-\ket{1,0} &= (S_{1-} + S_{2-}) \frac{1}{\sqrt{2}} \left[\ket{+-} +\ket{-+} \right] \\
+    \sqrt{1+1}\ket{1,-1} = \frac{1}{\sqrt{2}} \left[\ket{--} +\ket{--} \right]
+\end{align}
+so
+\begin{equation}
+    \ket{1,-1} =\ket{--}
+\end{equation}
+
+We know there must be one more state, since there are four states in the original basis. We know that this state should be labeled $\ket{0,0} $, and we can find it by ensuring it's orthogonal to all of the other states. The total spin must be $ 0 $, so
+\begin{equation}
+    \ket{0,0} = a\ket{+-} + b\ket{-+}
+\end{equation}
+since these are the only states with zero total spin.
+\begin{equation}
+    \bra{0,0}\ket{1,0} = 0 \implies a = -b
+\end{equation}
+so
+\begin{equation}
+    \ket{0,0} = N\left[\ket{+-} -\ket{-+} \right]
+\end{equation}
+and by convention,
+\begin{equation}
+    \ket{0,0} = \frac{1}{\sqrt{2}} \left[\ket{+-} -\ket{-+} \right]
+\end{equation}
+
+Now we have our four states in two different bases. The groupings of these states form irreducible representations. The original basis is reducible, since a general rotation will mix all four states. However, a rotation cannot change the total angular momentum, so there is one three-dimensional irreducible representation comprised of the states $\ket{1,1},\ket{1,0},\ket{1,-1} $ but the state $\ket{0,0} $ is invariant under rotations and forms a one-dimensional irreducible representation:
+\begin{equation}
+    e^{\imath \va{S} \vdot \vu{n} \theta}\ket{0,0} =\ket{0,0}
+\end{equation}
+This state is called the ``singlet'' state and the other three are called the ``triplet'' states for obvious reasons. In this basis, every rotation matrix will look like
+\begin{equation}
+    \mqty(\dmat{A_{3 \times 3}, B_{1 \times 1}})
+\end{equation}
+
+Mathematically, we write this relationship as
+\begin{equation}
+    \frac{1}{2} \otimes \frac{1}{2} = 1 \oplus 0
+\end{equation}
+The tensor product part means that
+\begin{equation}
+    R(\theta) [ \chi_i \chi_j] = (R(\theta) \chi_i)(R(\theta) \chi_j)
+\end{equation}
+
+The action on a tensor sum acts like the block-diagonal operator in a different basis. Let's now consider a more general case. Suppose we want to add a general $ \va{J}_1 $ and $ \va{J}_2 $. We would expect that
+\begin{equation}
+    J_{\text{max}} = J_1 + J_2 \qquad J_{\text{min}} = J_1 - J_2
+\end{equation}
+and we have two different bases:
+\begin{equation}\label{eq:basis_a}
+    \va{J}^2_1, J_{1z}, \va{J}^2_2, J_{2z} \tag{(a)}
+\end{equation}
+and
+\begin{equation}\label{eq:basis_b}
+    \va{J}^2, \va{J}_1^2, \va{J}_2^2, J_z \tag{(b)}
+\end{equation}
+
+We want to find coefficients $ C_{J,J_z} $ such that
+\begin{equation}
+    \ket{J_1, J_2, J_{1z}, J_{2z}} = \sum_{J, J_z} C_{J, J_z}\ket{J, J_z, J_1, J_2}
+\end{equation}
+or equivalently
+\begin{equation}
+    \ket{J, J_z, J_1, J_2} = \sum_{J_{1z}, J_{2z}} C_{J_{1z}, J_{2z}}\ket{J_1, J_2, J_{1z}, J_{2z}}
+\end{equation}
+
+In Sakurai's notation, we use $ M \equiv J_z $ and $ m_{1,2} \equiv J_{(1,2)z} $. The coefficients $ C_{m_1, m_2} $ are known as the Clebsch-Gordon coefficients. In general,
+
+\begin{equation}
+    \ket{J,M; J_1, J_2} = \sum_{m_1, m_2}\ket{J_1, J_2, m_1, m_2}\bra{J_1, J_2, m_1, m_2}\ket{J,M;J_1,J_2}
+\end{equation}
+so
+\begin{equation}
+    C_{m_1, m_2} =\bra{J_1, J_2; m_1, m_2}\ket{J,M,J_1, J_2} \equiv\bra{m_1, m_2}\ket{J,M}
+\end{equation}
+
+In our group-theory notation,
+\begin{equation}
+    J_1 \otimes J_2 = (J_1 + J_2) \oplus (J_1 + J_2 - 1) \oplus \cdots \oplus (J_1 - J_2)
+\end{equation}
+The total number of states should be equal on both sides. On the left-hand side, we have $ J_1 \otimes J_2 $, and in $ J_1 $ there are $ 2J_1 + 1 $ states (same for $ J_2 $) so there are $ (2J_1 + 1)(2 J_2 + 1) $ total states. On the right-hand side, we have $ \sum_{J=J_{\text{min}}}^{J_{\text{max}}} (2J+1) $ or
+\begin{equation}
+    \sum_{J=J_1 - J_2}^{J_1 + J_2} (2J+1) = \sum_{J=0}^{J_1 + J_2} (2J+1)- \sum_{J=0}^{J_1 - J_2} (2J + 1)
+\end{equation}
+In general, a sum
+\begin{equation}
+    \sum_{n=0}^{a} n = \frac{1}{2} a(a+1)
+\end{equation}
+Using (Gauss') result, we have
+\begin{equation}
+    2 \left[ \frac{1}{2} (J_1 + J_2)(J_1 + J_2 + 1) \right]+ (J_1 + J_2 + 1) - \left[ 2 \left[ \frac{1}{2}(J_1 - J_2)(J_1 - J_2 + 1) \right] + (J_1 - J_2 + 1)\right] = (2 J_1 + 1)(2 J_2 + 1)
+\end{equation}
+which agrees with the first result.
+
+From our previous example with spin, we know that
+\begin{equation}
+    \ket{0,0} = \frac{1}{\sqrt{2}} \left[\ket{+-} -\ket{-+} \right]
+\end{equation}
+so
+\begin{equation}
+    C_{\frac{1}{2}, - \frac{1}{2}} = \frac{1}{\sqrt{2}}
+\end{equation}
+and
+\begin{equation}
+    C_{-\frac{1}{2}, \frac{1}{2}} = -\frac{1}{\sqrt{2}} 
+\end{equation}
+
+
+
+\end{document}

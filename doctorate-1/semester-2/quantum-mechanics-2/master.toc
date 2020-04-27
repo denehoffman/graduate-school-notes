@@ -1,0 +1,17 @@
+\providecommand \autonum@processReference [2]{}
+\select@language {english}
+\contentsline {section}{\numberline {0.1}Symmetries}{2}{section.0.1}
+\contentsline {subsection}{\numberline {0.1.1}Mathematical Formalism}{3}{subsection.0.1.1}
+\contentsline {subsection}{\numberline {0.1.2}Action of a Group on an Operator}{4}{subsection.0.1.2}
+\contentsline {subsection}{\numberline {0.1.3}Abelian Groups}{5}{subsection.0.1.3}
+\contentsline {subsection}{\numberline {0.1.4}Representations of the Rotation Group}{5}{subsection.0.1.4}
+\contentsline {section}{\numberline {0.2}Conservation Laws}{7}{section.0.2}
+\contentsline {section}{\numberline {0.3}Conservation Laws in Quantum Mechanics}{10}{section.0.3}
+\contentsline {section}{\numberline {0.4}Degeneracy}{13}{section.0.4}
+\contentsline {subsection}{\numberline {0.4.1}Matrix Representation}{15}{subsection.0.4.1}
+\contentsline {subsection}{\numberline {0.4.2}Representations of Rotation Matrices}{15}{subsection.0.4.2}
+\contentsline {subsection}{\numberline {0.4.3}Irreducible Representations}{16}{subsection.0.4.3}
+\contentsline {subsection}{\numberline {0.4.4}Euler Angles}{16}{subsection.0.4.4}
+\contentsline {section}{\numberline {0.5}Orbital Angular Momentum}{17}{section.0.5}
+\contentsline {section}{\numberline {0.6}The Hydrogen Atom}{18}{section.0.6}
+\contentsline {section}{\numberline {0.7}The Hydrogen Wave Function}{23}{section.0.7}

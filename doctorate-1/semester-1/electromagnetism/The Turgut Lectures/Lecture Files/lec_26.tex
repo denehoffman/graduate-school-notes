@@ -1,0 +1,82 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{26}{Monday, October 14, 2019}{Spinning Charged Sphere, continued}
+\begin{ex}
+    From the last lecture, $ \vec{J} = \sigma \omega a \sin(\theta) \delta(r-a) \hat{\varphi} $ and we are using $ \vec{B} = - \grad{\Phi_M} $ with the boundary conditions $ B_n^{(I)}-B_n^{(II)} = 0 $ and $ B^{(II)}_{\theta} - B^{(I)}_{\theta = \mu_0 K_{\varphi}} = \mu_0 \sigma a \omega \sin(\theta) $.
+    \begin{equation}
+        A_l = - \frac{l+1}{l} \frac{B_l}{a^{2l+1}}
+    \end{equation}
+    This was from the first boundary condition. Next,
+    \begin{align}
+        \sum_l\left[-\frac{1}{a} \pdv{\theta} \frac{B_l}{a^{l+1}} P_l(\cos(\theta)) + \frac{1}{a} \pdv{\theta}a^{l} A_l P_l(\cos(\theta))\right] &= \mu_0 \sigma \omega a \sin(\theta)\\
+        \sum_l\left[-\frac{B_l}{a^{l+1}} \frac{1}{\sin(\theta)} \pdv{\theta}P_l(\cos(\theta)) + a^l A_l \frac{1}{\sin(\theta)} \pdv{\theta}  P_l(\cos(\theta))\right] &= \mu_0 \sigma \omega a^2\\
+        \sum_l\left[+\frac{B_l}{a^{l+1}} \dv{(\cos(\theta))}P_l(\cos(\theta)) - a^l A_l \dv{(\cos(\theta))}P_l(\cos(\theta))\right] &= \mu_0 \sigma \omega a^2\\
+        \sum_l\left[\frac{B_l}{a^{l+1}} \dv{x}P_l + \frac{l+1}{l} \frac{B_l}{a^{l+1}} \dv{x}P_l\right] &= \mu_0 \sigma \omega a^2\\
+        \sum_l\left[\frac{2l+1}{l} \frac{B_l}{a^{l+1}} \dv{x}P_l\right] &= \mu_0 \sigma \omega a^2
+    \end{align}
+    There is no $ x $ dependence on the right side, and the only way to make that true on the left side is for $ l = 1 $. Therefore
+    \begin{equation}
+        B_1 = \frac{\mu_0 \sigma \omega a^4}{3}
+    \end{equation}
+    so
+    \begin{equation}
+        \Phi_M =
+        \begin{cases}
+            \frac{\mu_0 \sigma \omega a^4}{3} \frac{\cos(\theta)}{r^2} & r > a\\
+            \frac{2\mu_0 \sigma \omega a^4}{3} r \cos(\theta) & r < a
+        \end{cases}
+    \end{equation}
+    so
+    \begin{equation}
+        \vec{B} = \frac{\mu_0}{4 \pi} \left[ \frac{8 \pi}{3} a^3 \sigma \omega \right] \hat{z} \qif r<a
+    \end{equation}
+    is constant inside the sphere. Outside the sphere the field, the field looks like a dipole field.
+\end{ex}
+
+\section{Materials with Magnetic Properties}
+\label{sec:materials_with_magnetic_properties}
+
+\begin{table}
+    \centering
+    \begin{tabular}{c c c}
+        Paramagnetic & Diamagnetic & Ferromagnetic\\
+        \hline\hline
+        $ - \vec{m} \cdot \vec{B} \iff k_B T $ & Langevin Model & Heisenberg Model:\\
+        &&$ \mathbb{H} = -J \sum_{\expval{ij}} \vec{\delta}_i \vec{\delta}_j \rightarrow $\\
+        &&Ising Model in the Classical limit
+    \end{tabular}
+    \caption{Three Different Types of Materials}
+    \label{tab:three_different_types_of_materials}
+\end{table}
+
+In the macroscopic limit, we average out the microscopic distribution:
+\begin{equation}
+    \vec{A} = \frac{\mu_0}{4 \pi} \int \frac{ \vec{J}_{\text{free}( \vec{x}')}}{\abs{ \vec{x} - \vec{x}'}} \dd[3]{x} + \frac{\mu_0}{4 \pi} \int \frac{ \vec{M}( \vec{x}') \times ( \vec{x} - \vec{x}')}{\abs{ \vec{x} - \vec{x}'}^3} \dd[3]{x}
+\end{equation}
+The second term here is basically
+\begin{equation}
+    \vec{M}( \vec{x}') \times \div{\frac{1}{\abs{ \vec{x} - \vec{x}'}}} \to -\curl{\left[ \vec{M}( \vec{x}') \frac{1}{\abs{ \vec{x} - \vec{x}'}} \right]}
+\end{equation}
+so the integration gives us
+\begin{equation}
+    - \int \curl{ \vec{M}( \vec{x}') \frac{1}{\abs{ \vec{x} - \vec{x}'}}} \dd[3]{x'} + \int \frac{\curl{ \vec{M}}}{\abs{ \vec{x} - \vec{x}'}} \dd[3]{x'}
+\end{equation}
+so
+\begin{equation}
+    \vec{A}_{\text{matter}} = \frac{\mu_0}{4 \pi} \left\{ \oint \frac{ \hat{n} \times \vec{M}}{\abs{ \vec{x} - \vec{x}'}} \dd{a'} + \int \frac{\curl{ \vec{M}}}{\abs{ \vec{x} - \vec{x}'}}  \dd[3]{x'} \right\}
+\end{equation}
+From this we can find that the material description is reduced to
+\begin{equation}
+    \vec{J}_{\text{matter}} = \curl{ \vec{M}},
+\end{equation}
+an effective medium current, and
+\begin{equation}
+    \vec{K}_{\text{matter}} = \hat{n} \times \vec{M},
+\end{equation}
+an effective surface current. From here, we modify Maxwell's equations to
+\begin{equation}
+    \curl{ \vec{B}} = \mu_0 \vec{J}_{\text{free}} + \mu_0 \curl{ \vec{M}}
+\end{equation}
+just like we did with the electric field (where $ P_{\text{bound}} = - \div{ \vec{P}} $ and $ \sigma_{\text{bound}} = \vec{P} \cdot \hat{n} $).
+    
+\end{document}

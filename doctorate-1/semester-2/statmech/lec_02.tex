@@ -1,0 +1,176 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{2}{Monday, January 13, 2020}{}
+
+\section{Expectation Values of Functions of Random Variables}
+\label{sec:expectation_values_of_functions_of_random_variables}
+
+If we have a function $ F(A) $ on a random variable,
+\begin{align}
+    \ev{F} &= \sum_f f \Pr_{F}(f) \\
+    &= \sum_f f \sum_a \delta_{f,F(a)} \Pr_{A}(a) \\
+    &= \sum_a \Pr_{A}(a) \underbrace{\sum_f f \delta_{f,F(a)}}_{F(a)} \\
+    &= \sum_a F(a) \Pr_{A}(a)
+\end{align}
+
+Therefore, we can calculate the expectation value of $ F $ using either the probability distribution of the function itself or by using the probability distribution of the random variable.
+
+\subsection{Moments}
+\label{sub:moments}
+
+The $ n $-th moment is defined as
+\begin{equation}
+    \ev{F^n} = \sum_f f^n \Pr_{F}(f) = \sum_a [F(a)]^n \Pr_{A}(a)
+\end{equation}
+
+We can then define ``centered'' moments as
+\begin{equation}
+    \ev{(F - \ev{F})^n} = \cdots
+\end{equation}
+
+The most important of these is the variance, the second centered moment:
+\begin{equation}
+    \sigma^2_F = \ev{(F - \ev{F})^2} = \ev{F^2 - 2 F \ev{F} + \ev{F}^2}
+\end{equation}
+
+Notice that $ \ev{F}^2 $ is just a number, so we already know its expectation value. Again, recall that expectation values are linear so we can also remove the $ 2 \ev{F} $ factor:
+\begin{equation}
+    \sigma^2_F = \ev{F^2} - \ev{F}^2
+\end{equation}
+
+From the original definition, it is obvious that the variance is strictly non-negative. If the variance vanishes, the random variable never deviates from its expectation value, so it is not random. We can define the square root of the variance as the standard deviation of $ F $: $ \sigma_F $. It's slightly nicer than the variance because it has the same units as the random variable, but often the square root makes it difficult to work with.
+
+\begin{definition}[Covariance]
+    \begin{equation}
+        \Cov(A,B) = \ev{AB} - \ev{A} \ev{B}
+    \end{equation}
+\end{definition}
+
+For a single variable, $ \sigma^2_A = \Cov(A,A) $.
+
+\begin{definition}[Correlation Coefficient]
+    \begin{equation}
+        c_{A,B} = \frac{\Cov(A,B)}{\sigma_A \sigma_B}
+    \end{equation}
+\end{definition}
+
+This coefficient is dimensionless and invariant under linear transformations of the random variables:
+\begin{equation}
+    A \mapsto a_0 + a_1 A \qand B \mapsto b_0 + b_1 B \implies c_{A,B} \mapsto c_{A,B}
+\end{equation}
+
+Additionally,
+\begin{equation}
+    -1 \leq c_{A,B} \leq +1
+\end{equation}
+
+\begin{definition}[Correlation]
+    If the covariance vanishes, we say that the variables are uncorrelated.
+
+    Independence implies non-correlation, but non-correlation does not imply independence.
+
+    The proof of the forward direction is a result of the joint probabilities factoring to allow the covariance to cancel to zero. The disproof of the opposite direction can be made by clever counterexample. Correlation is a measure of linear dependence, but two random variables can be non-linearly dependent.
+\end{definition}
+
+\subsection{Sums of Random Variables}
+\label{sub:sums_of_random_variables}
+
+\begin{equation}
+    S = \sum_{j=1}^{N} F_j
+\end{equation}
+
+\begin{equation}
+    \ev{S} = \sum_{j=1}^{N} \ev{F_j}
+\end{equation}
+
+\begin{align}
+    \sigma^2_S &= \ev{S^2} - \ev{S}^2 \\
+    &= \ev{\sum_{j=1}^{N} F_j \sum_{k=1}^{N} F_k} - \ev{\sum_{j=1}^{N} F_j} \ev{\sum_{k=1}^{N} F_k}
+    &= \sum_{j,k} \left(\ev{F_j F_k} - \ev{F_j} \ev{F_k}\right)
+    &= \sum_{j,k} \Cov(F_j, F_k)
+\end{align}
+
+If all $ \{F_j\} $ are uncorrelated, then $ \Cov(F_j, F_k) = \delta_{jk} \sigma_{F_j}^2 $. In this special case,
+\begin{equation}
+    \sigma^2_S = \sum_{j,k} \delta_{jk} \sigma_{F_j}^2 = \sum_j \sigma_{F_j}^2
+\end{equation}
+
+Let's now look at the special case where all of the random variables is independent and each has an identical probability distribution. For example, if we roll a bunch of identical dice, the results are all statistically independent, but the probabilities are the same.
+
+\begin{equation}
+    \ev{F_j} = \mu
+\end{equation}
+Define
+\begin{equation}
+    \sigma^2_{F_j} = \sigma^2
+\end{equation}
+\begin{equation}
+    \ev{S} = N \mu
+\end{equation}
+so
+\begin{equation}
+    \sigma^2_S = N \sigma^2 \implies \sigma_S = \sqrt{N} \sigma
+\end{equation}
+
+This also implies that
+\begin{equation}
+    \frac{\sigma_S}{\ev{S}} = \frac{1}{\sqrt{N}} \frac{\sigma}{\mu}
+\end{equation}
+
+Let's look at an even more special case, where each random variable has a binomial distribution. In this case, each $ F_j $ corresponds to $ N $ individual success/fail experiments where $ p $ is the probability of success. In other words, there are two possible values with probabilities $ p $ and $ 1 - p $. Call the success outcome $ 1 $ and failure $ 0 $ such that $ \Pr(1) = p $ and $ \Pr(0) = 1 - p $.
+
+\begin{equation}
+    S = \sum_{j=1}^{N} = F_j
+\end{equation}
+so
+\begin{equation}
+    \ev{S} = N \ev{F_j} = N(1 \cdot p + 0 \cdot (1-p)) = Np
+\end{equation}
+\begin{equation}
+    \sigma^2_S = N \sigma^2_{F_j} = N \cdot \left( \ev{F_j^2} - \ev{F_j}^2 \right) = Np(1-p)
+\end{equation}
+so
+\begin{equation}
+    \frac{\sigma_S}{\ev{S}} = \frac{1}{\sqrt{N}} \vdot \sqrt{\frac{1-p}{p}}
+\end{equation}
+
+As $ N $ gets bigger, the sum gets less random!
+
+We can work out the exact probability distribution:
+\begin{equation}\label{eq:binomial_distribution}
+    \Pr(S,N;p) = \binom{N}{S} p^S(1-p)^{N-S}\tag{Binomial Distribution}
+\end{equation}
+where
+\begin{equation}
+    \binom{N}{S} = \frac{N!}{S!(N-S)!}
+\end{equation}
+
+Let's make sure this distribution is normalized. We can do this using the binomial theory:
+\begin{equation}
+    (x+y)^n = \sum_{k=0}^{n} \binom{n}{k} x^k y^{n-k}
+\end{equation}
+so
+\begin{equation}
+    \sum_{S=0}^{N} \Pr(S,N;p) = \sum_{S=0}^{N} \binom{N}{S} p^S(1-p)^{N-S} = \left[ p + (1-p)\right]^n = 1
+\end{equation}
+
+\begin{definition}[Stirling's Approximation for Factorials]
+    \begin{align}
+        \ln{N!} &= \ln{(1 \cdot 2 \cdot 3 \cdot \cdots \cdot N)} \\
+        &= \ln{1} + \ln{2} + \ldots + \ln{N} \\
+        &= \sum_{n=1}^{N} \ln{n} \\
+        &\approx \int_{1}^{N} \dd{n} \ln{n} = N \ln{N} - N + 1 \approx N \ln{N} - N
+    \end{align}
+    if $ N $ is large.
+\end{definition}
+
+
+
+
+
+
+
+
+
+
+\end{document}

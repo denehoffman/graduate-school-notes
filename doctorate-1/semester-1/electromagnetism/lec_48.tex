@@ -1,0 +1,140 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{48}{Monday, December 02, 2019}{Radiation Review, Continued}
+
+Putting everything from the last few lectures together, we can write the frequency decomposed elements of the fields in the radiation zone ($ kr>>1 $) as
+\begin{equation}
+    \va{H}_{\omega} \mapsto (- \imath)^{l+1} \frac{e^{\imath kr}}{kr} \sum_{l,m} \left[ a_E(l,m) \va{\mathbb{X}}_{lm} + a_M(l,m) \vu{n} \cross \va{\mathbb{X}}_{lm} \right]
+\end{equation}
+and
+\begin{equation}
+    \va{E}_{\omega} \mapsto Z_0 \va{H}_{\omega} \cross \vu{n}
+\end{equation}
+where $ \vu{n} = \frac{ \va{x}}{r} $.
+
+If we now have this expansion in the radiation zone, how do we find the radiated power in some solid angle far away?
+
+\begin{equation}
+    \dv{P_{\omega}}{\Omega} = r^2 \vu{n} \frac{1}{2} \left( \va{E}_{\omega} \cross \va{H}^*_{\omega} \right)
+\end{equation}
+where it is implied that we are taking the real part of this expression (which often turns out to be real anyway).
+
+Therefore,
+\begin{align}
+    \dv{P_{\omega}}{\Omega} = \frac{Z_0}{k^2} \frac{1}{2} \hat{n} \vdot \sum_{l,m,l',m'} &\left[ a_E(l,m) \va{\mathbb{X}}_{lm} + a_M(l,m) \vu{n} \cross \va{\mathbb{X}}_{lm} \right] \\
+    &\cross \left( \left[ a_E^*(l',m') \va{\mathbb{X}}^*_{l'm'} + a_M^*(l',m') \vu{n} \cross \va{\mathbb{X}}^*_{l'm'} \right] \cross \vu{n} \right)
+\end{align}
+
+This is not exactly the most appealing form for this equation. We can rewrite
+\begin{equation}
+    \vu{n} \vdot \left[ \left( \va{H}_{\omega} \cross \vu{n} \right) \cross \va{H}_{\omega}^* \right]= \va{H}_{\omega} \vdot \va{H}_{\omega}^*
+\end{equation}
+
+Doing this will still give us double summations, but we can integrate this expression over the sphere. To do this, the following identity is useful:
+\begin{lemma}
+    \begin{equation}
+        \va{\mathbb{X}}_{l'm'}^* \vdot \left( \vu{n} \cross \va{\mathbb{X}}_{lm} \right) \dd{\Omega} = 0
+    \end{equation}
+\end{lemma}
+Therefore,
+\begin{align}
+    P_{\omega} = \frac{1}{2} \frac{Z_0}{k^2} \sum_{l,m,l',m'} \int \dd{\Omega} &[ a_E^* a_E \va{\mathbb{X}}_{lm}^* \va{\mathbb{X}}_{l'm'} \\ 
+        &+ \left( a_E^* a_M + a_M a_E^* \right) \va{\mathbb{X}}_{lm}^* \vdot \left( \vu{n} \cross \va{\mathbb{X}}_{l'm'} \right) \\
+    &+ a_M^* a_M^* \left( \vu{n} \cross \va{\mathbb{X}}_{lm} \right) \vdot \left( \vu{n} \cross \va{\mathbb{X}}_{l'm'}^* \right) ]
+\end{align}
+
+The integral over the first term reduces to $\delta$-functions, the middle term vanishes, and the final term also reduces to $\delta$-functions, so
+\begin{equation}
+    P_{\omega} = \frac{1}{2} \frac{Z_0}{k^2} \sum_{l,m} \left[ \abs{a_E(l,m)}^2 + \abs{a_M(l,m)}^2 \right]
+\end{equation}
+
+Recall Maxwell's equations in this region:
+\begin{equation}
+    \div{ \va{E}_{\omega}} = \frac{\rho_{\omega}}{\epsilon_0}
+\end{equation}
+\begin{equation}
+    \curl{ \va{H}_{\omega}} = \va{J}_{\omega} - \epsilon_0 \imath \omega \va{E}_{\omega}
+\end{equation}
+\begin{equation}
+    \curl{ \va{E}_{\omega}} - \imath k Z_0 \va{H}_{\omega} = \va{0}
+\end{equation}
+\begin{equation}
+    \curl{ \va{H}_{\omega}} + \frac{\imath k}{Z_0} \va{E}_{\omega} = \va{J}_{\omega}
+\end{equation}
+since
+\begin{equation}
+    \div{ \va{J}_{\omega}} = \imath \omega \rho_{\omega}
+\end{equation}
+Therefore we can write
+\begin{equation}
+    \div{ \va{E}_{\omega}} = - \frac{1}{\imath \omega \epsilon_0} \div{ \va{J}_{\omega}} \implies \div{\underbrace{ \va{E}_{\omega} + \frac{1}{\imath \omega \epsilon_0} \va{J}_{\omega}}_{ \va{E}_{\omega}'}} = \va{0}
+\end{equation}
+where
+\begin{equation}
+    \div{ \va{E}_{\omega}'} = \va{0} = \div{ \va{H}_{\omega}}
+\end{equation}
+
+Therefore, we find that
+\begin{equation}
+    \curl{ \va{H}_{\omega}} = \frac{\imath k}{Z_0} \left[ \va{E}_{\omega}' - \frac{\imath Z_0}{k} \va{J}_{\omega} \right] = \va{J}_{\omega}
+\end{equation}
+so
+\begin{equation}
+    \curl{ \va{H}_{\omega}} + \frac{\imath k}{Z_0} \va{E}_{\omega}' = \va{0}
+\end{equation}
+and
+\begin{equation}
+    \curl{ \va{E}_{\omega}'} - \imath k Z_0 \va{H}_{\omega} = \frac{\imath Z_0}{k} \curl{ \va{J}_{\omega}}
+\end{equation}
+
+Why are we doing this? We want to be able to determine $ a_M $ and $ a_E $ from the source components. If we take the curl of the previous equations, we find
+\begin{equation}
+    - \laplacian{ \va{H}_{\omega}} + \frac{\imath k}{Z_0} \left[ \imath k Z_0 \va{H}_{\omega} + \frac{\imath Z_0}{k} \curl{ J Vec_{\omega}} \right] = \va{0}
+\end{equation}
+or
+\begin{equation}
+    \left( \laplacian + k^2 \right) \va{H}_{\omega} = - \curl{ \va{J}_{\omega}}
+\end{equation}
+
+From the other equation, we find
+\begin{equation}
+    \left( \laplacian + k^2 \right) \va{E}_{\omega}' = - \frac{\imath Z_0}{k} \curl{(\curl{ \va{J}_{\omega}})}
+\end{equation}
+
+Observe that
+\begin{lemma}
+    \begin{equation}
+        \laplacian{( \va{x} \vdot \va{F})} = 2 \div{ \va{F}} + (\laplacian{ \va{F}}) \vdot \va{x} 
+    \end{equation}
+\end{lemma}
+If we apply this to our fields, which are divergence free, we find that
+\begin{equation}
+    (\laplacian + k^2)( \va{x} \vdot \va{H}_{\omega}) = - \va{x} \vdot \curl{ \va{J}_{\omega}}
+\end{equation}
+and
+\begin{equation}
+    (\laplacian + k^2)( \va{x} \vdot \va{E}_{\omega}') = - \frac{\imath Z_0}{k} \va{x} \vdot \left( \curl{(\curl{ \va{J}_{\omega}})} \right)
+\end{equation}
+
+We can rewrite the second equation as
+\begin{equation}
+    (\laplacian + k^2)( \va{x} \vdot \va{E}'_{\omega}) = \frac{Z_0}{k} \va{\mathbb{L}} \vdot (\curl{ \va{J}_{\omega}})
+\end{equation}
+
+We can solve these equations:
+\begin{equation}
+    \va{x} \vdot \va{H}_{\omega} = \frac{1}{4 \pi} \int \frac{e^{\imath k \abs{ \va{x} - \va{x}'}}}{\abs{ \va{x} - \va{x}'}}
+\end{equation}
+which we can expand as
+\begin{equation}
+    \sum_{l,m} (\imath k) j_l(kr') h_l^{(1)}(kr) Y_{lm}(\Omega) Y_{l'm'}^*(\Omega')
+\end{equation}
+so
+\begin{equation}
+    \va{x} \vdot \va{H}_{\omega} = \sum_{l,m} (\imath k) \int j_l(kr') Y_{lm}^*(\Omega') [- \imath \va{\mathbb{L}} \vdot \va{J}_{\omega}] ( \va{x}') \dd[3]{x'} h_l^{(1)}(kr) Y_{lm}(\Omega) 
+\end{equation}
+and
+\begin{equation}
+    Z_0 a_E(l,m) h_l^{(1)}(kr) = - \frac{k}{\sqrt{l(l+1)}} \int Y_{lm}^*(\Omega') ( \va{x} \vdot \va{E}_{\omega}) \dd{\Omega}
+\end{equation}
+\end{document}

@@ -1,0 +1,178 @@
+\documentclass[a4paper,twoside]{article}
+\input{../../preamble.tex}
+\title{33-765 Homework 10}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section*{35. Equivalent Characterizations of Pure Quantum States}
+If we have a normalized state vector $\ket{\psi} \in \mathcal{H} $, then the quantum state $ W =\ket{\psi}\bra{\psi} $ is pure, and it is obvious that $ W = W^2 $. Prove that the converse is also true: If a quantum state satisfies $ W = W^2 $, then there exists a vector $\ket{\psi} $ such that $ W =\ket{\psi}\bra{\psi} $.
+\begin{problem}
+    If $ W $ is a quantum state, we can surely expand it in eigenstates:
+    \begin{equation}
+        W = \sum_i p_i\ket{\psi_i}\bra{\psi_i}
+    \end{equation}
+    Since $ W = W^2 $,
+    \begin{equation}
+        W^2 = \sum_{ij} p_i p_j\ket{\psi_i}\bra{\psi_i}\ket{\psi_j}\bra{\psi_j} = \sum_{ij} p_i p_j\ket{\psi_i}\bra{\psi_j} \delta_{ij} = \sum_{i} p_i^2\ket{\psi_i}\bra{\psi_i}
+    \end{equation}
+    so
+    \begin{equation}
+        p_i = p_i^2
+    \end{equation}
+    or $ p_i = 1 \qor 0 $. We require $ \sum_i p_i = 1 $ for normalization, so at most one of the $ p_i $ can be $ 1 $ while the others must be zero, so the state can be represented by a single eigenvector.
+\end{problem}
+
+\section*{36. Equivalent Characterizations of Eigenstates}
+If a quantum state $ W $ is an eigenstate of an observable $ A $, then measurements of $ A $ in that state are sharp: $ \sigma_A^2 = \ev{A^2} - \ev{A}^2 = 0 $. But the converse also holds: $ \sigma^2_A = 0 \implies AW = \alpha W $ for some $ \alpha \in \R $. Prove this in the special case where $ W $ is a pure state!
+\begin{problem}
+    The Cauchy-Schwarz inequality states that
+    \begin{equation}
+        \abs{\bra{u}\ket{v}}^2 \leq\bra{u}\ket{u}\bra{v}\ket{v}
+    \end{equation}
+    The equality condition means that the vectors are linearly dependent, or $ u = \lambda v $. For our vectors, we have
+    \begin{align}
+        \abs{\bra{\psi} A\ket{\psi}}^2 &\leq\bra{\psi}\ket{\psi}\bra{\psi} A^\dagger A\ket{\psi} \\
+        \ev{A}^2 &\leq \ev{A^2}
+    \end{align}
+    From our assumption that $ \sigma^2_A = 0 $, we know that this must be an equality, but that also implies that the vectors are linearly dependent:
+    \begin{equation}
+        A\ket{\psi} = \lambda\ket{\psi}
+    \end{equation}
+    or equivalently
+    \begin{equation}
+        A\ket{\psi}\bra{\psi} = \lambda\ket{\psi}\bra{\psi}
+    \end{equation}
+\end{problem}
+
+\section*{37. Quantum Fluctuations Can Only Increase the Free Energy}
+Consider the quantum mechanical one-particle Hamiltonian $ H(P,Q) = \frac{P^2}{2m} + V(Q) $ and its classical analogue. In this problem, we want to prove the folowing inequality between the quantum and the classical free energy for this system:
+\begin{equation}
+    F_{\text{classical}} \leq F_{\text{quantum}}.
+\end{equation}
+You will need to use the Golden-Thompson inequality, which states that for two self-adjoint operators $ A $ and $ B $ which might not commute, $ \Tr e^{A+B} \leq \Tr(e^{A e^{B}}) $. 
+\begin{problem}
+    \begin{align}
+        Z_{\text{QM}} = \Tr \left[ e^{- \beta \left( \frac{P^2}{2m} + V(Q) \right)} \right] &\leq \Tr \left[ e^{- \beta \frac{P^2}{2m}} e^{- \beta V(Q)} \right] \\
+        &\leq \int \dd{q}\bra{q} e^{- \beta \frac{P^2}{2m}} e^{- \beta V(Q)}\ket{q} \\
+        &\leq \int \dd{q} \int \dd{p}\bra{q} e^{- \beta \frac{P^2}{2m}}\ket{p}\bra{p} e^{- \beta V(Q)}\bra{q} \\
+        &\leq \int \dd{q} \int \dd{p} e^{- \beta \frac{p^2}{2m}} e^{- \beta V(q)} \frac{1}{\sqrt{h}} e^{\imath pq / \hbar} e^{- \imath pq / \hbar} \\
+        &\leq \frac{1}{h} \int \dd{q} \int \dd{p} e^{- \beta \frac{p^2}{2m}} e^{- \beta V(q)} \\
+        Z_{\text{QM}} &\leq Z_{\text{CM}}
+    \end{align}
+    Therefore, $ \ln(Z_{\text{QM}}) \leq \ln(Z_{\text{CM}}) $ so $ - F_{\text{QM}} \leq - F_{\text{CM}} $ or $ F_{\text{QM}} \geq F_{\text{CM}} $.
+\end{problem}
+
+\section*{38. A System of Spin-1 Particles on a Lattice}
+Consider a macroscopic crystal with a spin-1 quantum mechanical moment located on each of $ N $ atoms. Assume further that we can represent the energy eigenvalues of the system with a Hamiltonian of the following form:
+\begin{equation}
+    H = B \sum_{n=1}^{N} \sigma_n + D \sum_{n=1}^{N} \sigma^2_n,
+\end{equation}
+where the $ \sigma_n $ can independently take values in $ \{-1, 0, +1\} $ and $ B $ and $ D $ are constants representing an external magnetic field and an internal ``crystal field'' respectively. The entire system is in contact with a heat bath at temperature $ T $.
+\begin{itemize}
+    \item[1.] Calculate the canonical partition function and the free energy of this system.
+        \begin{problem}
+            We can factorize over each particle, so $ Z = N e^{- \beta H} $. I'll then divide this up into exponentials where $ \sigma_n $ is equal to each of its respective values:
+            \begin{align}
+                Z &= N e^{- \beta \left( B \sum_n \sigma_n + D \sum_n \sigma^2_n \right)} \\
+                &= N \prod_{n=1}^{N} e^{- \beta (B \sigma_n + D \sigma_n^2)} \\
+                &= \left( e^{- \beta \underbrace{(-B + D)}_{\sigma_n = -1}} + e^{- \beta \underbrace{(0)}_{\sigma_n = 0}} + e^{- \beta \underbrace{(B + D)}_{\sigma_n = 1}} \right)^{N} \\
+                &= \left( \left( e^{\beta B} + e^{\beta B} \right) e^{- \beta D} + 1 \right)^N \\
+                Z &= \left( 2 \cosh(\beta B) e^{- \beta D} + 1 \right)^N
+            \end{align}
+            so
+            \begin{equation}
+                F = - k_B T \ln(\left[ 2 \cosh(\beta B) e^{- \beta D} + 1 \right]^N)
+            \end{equation}
+        \end{problem}
+    \item[2.] Calculate the magnetization per spin, $ m = \frac{1}{N} \ev{\sum_{n=1}^{N} \sigma_n} $, and plot $ m(B) $ for selected values of $ \beta D $.
+        \begin{problem}
+            I don't understand what I'm supposed to do here.
+        \end{problem}
+\end{itemize}
+
+\section*{39. Polylogarithms}
+The quantum grand potential of ideal Bose and Fermi gases can be expressed analytically via special functions called polylogarithms. The polylogarithm is defined as follows:
+\begin{equation}
+    L_{\nu}(z) = \frac{1}{\Gamma(\nu)} \int_0^{\infty} \dd{t} \frac{t^{\nu - 1}}{z^{-1} e^{t} - 1} \qquad z < 1, \quad \nu > 0.
+\end{equation}
+Prove that the polylogarithm has the following properties:
+\begin{itemize}
+    \item[1.] For $ \nu > 1 $, we can rewrite it as $ L_{\nu}(z) = - \frac{1}{\Gamma(\nu - 1)} \int_0^{\infty} \dd{t} t^{\nu -2} \ln(1-ze^{-t}) $.
+        \begin{problem}
+            \begin{equation}
+                L_{\nu}(z) = \frac{1}{\Gamma(\nu)} \int_0^{\infty}  \underbrace{t^{\nu - 1}}_{u} \underbrace{(z^{-1} e^{t} - 1) \dd{t}}_{\dd{v}}
+            \end{equation}
+            \begin{equation}
+                v = \ln(1 - z e^{-t})
+            \end{equation}
+            \begin{equation}
+                \dd{u} = (\nu - 1) t^{\nu - 2} \dd{t}
+            \end{equation}
+            so
+            \begin{align}
+                L_{\nu}(z) &= \frac{1}{\Gamma(\nu)} \left[ \cancelto{0}{\eval{t^{\nu - 1} \ln(1 - z e^{- t})}_{0}^{\infty}} - \int (\nu - 1)t^{\nu - 2} \ln(1 - z e^{- t}) \dd{t} \right] \\
+                &= - \underbrace{\frac{(\nu - 1)}{\Gamma(\nu)}}_{\frac{1}{\Gamma(\nu - 1)}} \int_0^{\infty} \dd{t} t^{\nu - 2} \ln(1-z e^{-t})
+            \end{align}
+        \end{problem}
+    \item[2.] $ z \dv{z} L_{\nu + 1}(z) = L_{\nu}(z) $.
+        \begin{problem}
+            \begin{align}
+                z \dd{z} L_{\nu + 1}(z) &= - \frac{z}{\Gamma(\nu)} \int_{0}^{\infty} \dd{t} \dv{z} t^{\nu - 1} \ln(1 - z e^{-t}) \\
+                &= - \frac{z}{\Gamma(\nu)} \int_0^{\infty} \dd{t} t^{\nu - 1} \frac{1}{1 - z e^{-t}} e^{-t} \\
+                &= \frac{z}{\Gamma(\nu)} \int_0^{\infty} \dd{t} t^{\nu - 1} \frac{1}{e^t - z} \\
+                &= \frac{1}{\Gamma(\nu)} \int_0^{\infty} \dd{t} t^{\nu - 1} \frac{1}{z^{-1} e^{t} - 1}
+            \end{align}
+        \end{problem}
+    \item[3.] For $ \abs{z} \leq 1 $ we also have $ L_{\nu}(z) = \sum_{n=1}^{\infty} \frac{z^n}{n^{\nu}} $.
+        \begin{problem}
+            \begin{align}
+                L_{\nu}(z) &= \frac{1}{\Gamma(\nu)} \int_0^{\infty} \dd{t} t^{\nu - 1} \left( \frac{1}{\frac{e^t}{z} \left( 1 - \frac{z}{e^t} \right)} \right) \\
+                &= \frac{1}{\Gamma(\nu)} \int_0^{\infty} \dd{t} t^{\nu - 1} \frac{z}{e^t} \left( \frac{1}{1 - \frac{z}{e^t}} \right) \\
+                &= \frac{1}{\Gamma(\nu)} \int_0^{\infty} \dd{t} t^{\nu - 1} \sum_{n=1}^{\infty} \left( \frac{z}{e^t} \right)^n \\
+                &= \frac{1}{\Gamma(\nu)} \sum_{n=1}^{\infty} z^n \int_0^{\infty} e^{-nt} t^{\nu - 1} \dd{t} \\
+                &= \frac{1}{\Gamma(\nu)} \sum_{n=1}^{\infty} z^n \frac{\Gamma(\nu)}{n^{\nu}} \\
+                &= \sum_{n=1}^{\infty} \frac{z^n}{n^{\nu}}
+            \end{align}
+        \end{problem}
+    \item[4.] $ \dv{z}L_{\nu}(z) > 0 $ and $ \dv{\nu}L_{\nu}(z) < 0 $.
+        \begin{problem}
+            \begin{equation}
+                \dv{z}L_{\nu}(z) = \dv{z} \sum_n \frac{z^n}{n^{\nu}} = \sum_{n} \frac{z^{n - 1}}{n^{\nu - 1}}
+            \end{equation}
+            Both the numerator and denominator are positive as long as $ z > 0 $.
+            \begin{equation}
+                \dv{\nu}L_{\nu}(z) = \sum_n \left( - \frac{z^n}{n^{\nu}} \ln(n) \right)
+            \end{equation}
+            Again, every term is positive (aside from the explicit negative sign), which makes the entire thing negative.
+        \end{problem}
+    \item[5.] $ L_{\nu}(0) = 0 $, $ L_{\nu}(1) = \zeta(\nu) $, $ L_0(x) = \frac{x}{1-x} $, and $ L_1(x) = - \ln(1-x) $.
+        \begin{problem}
+            \begin{equation}
+                L_{\nu}(0) = \sum_n \frac{0^n}{n^{\nu}} = \sum_n 0 = 0
+            \end{equation}
+            \begin{equation}
+                L_{\nu}(1) = \sum_n \frac{1}{n^{\nu}} = \zeta(\nu)
+            \end{equation}
+            This is just how the Riemann zeta function is defined.
+            \begin{equation}
+                L_0(x) = \sum_n \frac{x^n}{n^0} = \sum_n x^n = \frac{x}{1 - x}
+            \end{equation}
+            This is by the properties of a geometric series.
+            \begin{equation}
+                L_1(x) = \sum_n \frac{x^n}{n}
+            \end{equation}
+            The Taylor series for $ \ln(z) $ is
+            \begin{equation}
+                \ln(z) = \sum_n \frac{(-1)^{n-1}}{n} z^n
+            \end{equation}
+            so
+            \begin{equation}
+                -\ln(1-x) = - \sum_n \frac{(-1)^{n-1}}{n} (1-x)^n = - \sum_n \frac{(-1)^{n-1}}{n} \left( \sum_{k=0}^{n} \binom{n}{k} 1^{n-k} (-x)^k \right) = \sum_n \frac{x^n}{n}
+            \end{equation}
+            since the binomial coefficient with $ (-1)^k $ will cancel out $ (-1)^{n-1} $ in the outside summation.
+        \end{problem}
+\end{itemize}
+
+
+\end{document}

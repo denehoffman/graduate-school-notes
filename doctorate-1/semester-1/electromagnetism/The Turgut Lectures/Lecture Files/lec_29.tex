@@ -1,0 +1,97 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{29}{Wednesday, October 23, 2019}{Faraday's Law}
+
+Again, for a surface $ \Sigma $ with boundary $ \Gamma $,
+\begin{equation}
+    - \dv{t} \int_{\Sigma} \vec{B} \cdot \hat{n} \dd{a} = \mathscr{E}
+\end{equation}
+where $ \mathscr{E} $ is the electromotive force, the net energy gain after a unit charge moves around the loop. In the rest frame of the loop $ \Gamma $, the $ \vec{E} $-field does the work, so
+\begin{equation}
+    \mathscr{E} = \oint_{\Gamma} \vec{E}' \cdot \dd{\vec{l}}
+\end{equation}
+
+If we fix the loop, we can bring the time derivative inside the integral, so
+\begin{equation}
+    \oint_{\Gamma} \vec{E} \cdot \dd{\vec{l}} = - \int_{\Sigma} \pdv{ \vec{B}}{t} \cdot\dd{ \vec{a}}
+\end{equation}
+where $ \vec{E}' = \vec{E} $ for a fixed loop. By Stokes theorem,
+\begin{equation}
+    \int_{\Sigma} \curl{\vec{E}} \cdot \dd{\vec{a}} + \int_{\Sigma} \pdv{ \vec{B}}{t} \cdot\dd{ \vec{a}} = 0
+\end{equation}
+so
+\begin{equation}
+    \curl{\vec{E}} = - \pdv{\vec{B}}{t}
+\end{equation}
+
+\begin{note}{Digression}
+    \begin{equation}
+        \vec{B} = \curl{\vec{A}}
+    \end{equation}
+    now implies that
+    \begin{equation}
+        \curl{\left( \vec{E} + \pdv{\vec{A}}{t} \right)} = 0
+    \end{equation}
+    or
+    \begin{equation}
+        \vec{E} = - \grad{\Phi} - \pdv{\vec{A}}{t}
+    \end{equation}
+\end{note}
+
+What happens if the loop does move? Let's assume rigid motion (no deformation of the loop itself, just translation in space). Suppose the loop moves with velocity $ \vec{v} $ and $ \vec{B} $ is constant in time but could vary in space. If we imagine connecting a surface $ \Sigma_0 $ and $ \Sigma_{dt} $, we can find the flux:
+\begin{equation}
+    \int_{\Sigma_0} \vec{B} \cdot \dd{ \vec{a}} + \int_{- \Sigma_{dt}} \vec{B} \cdot \dd{ \vec{a}} + \int_{\text{sides}} \vec{B} \cdot \dd{ \vec{a}} = 0
+\end{equation}
+since there is no divergence of the $ \vec{B} $ field. The flux through the opposite orientation can be found by just negating the middle integral. $ \vec{v} \times \dd{ \vec{l}} = \dd{ \vec{a}} $ on the sides, so
+\begin{equation}
+    \int_{\Sigma_{dt}} \vec{B} - \int_{\Sigma_0} \vec{B} = \oint_{\Gamma} ( \vec{v} \times \dd{ \vec{l}}) \cdot \vec{B} dt
+\end{equation}
+so
+\begin{equation}
+    \mathscr{E} = - \oint_{\Gamma} ( \vec{v} \times \dd{ \vec{l}}) \cdot \vec{B} = \oint_{\Gamma} ( \vec{v} \times \vec{B} ) \cdot \dd{ \vec{l}}
+\end{equation}
+Notice how similar this is to the magnetic force on the charges. Technically, the motion of the charges includes a drift velocity along the loop in addition to the motion of the loop itself, but because that velocity is parallel to $ \dd{ \vec{l}} $, its contribution is zero. By relating this equation to our loop frame, we find that, non-relativistically,
+\begin{equation}
+    \vec{E}' = \vec{v} \times \vec{B}
+\end{equation}
+so
+\begin{equation}
+    \vec{E}' = \vec{E} + \vec{v} \times \vec{B}
+\end{equation}
+This is the general formulation for changing reference frames in electromagnetism (for $ v << c $). This is how we ``make'' magnetic fields do work. If the charges are constrained, like on a loop, we can move them and use a magnetic field to do work on them.
+
+\section{Energy Stored in Magnetic Fields}
+\label{sec:energy_stored_in_magnetic_fields}
+
+Let's look at a loop $ \Gamma $ upon which we are establishing a current. As we increase the flux, there will be a back-emf generated due to the loop's own magnetic field.
+\begin{equation}
+    \dv{W}{t}= -I \cdot \dv{\mathcal{F}}{t}
+\end{equation}
+where $ \mathcal{F} $ is the flux. Therefore
+\begin{equation}
+    \dd W = I \dd \mathcal{F}
+\end{equation}
+We lose the minus sign because this is the back-emf, so the current for it is going in the opposite direction. If we suppose the flux contains some geometric factor $ L $  (self-inductance) $ \mathcal{F} = L \cdot I $,
+\begin{equation}
+    \dd W = I L \dd I
+\end{equation}
+so
+\begin{equation}
+    W = \frac{1}{2} L I^2
+\end{equation}
+
+Now let's generalize to some current density $ \vec{J} $ with $ \div{ \vec{J}} = 0 $. Imagine we perform this adiabatically, such that $ \pdv{\rho}{t} \approx 0 $. If we look at a small cross-section $ \dd{ \vec{\sigma}} $, we have $ \underbrace{\vec{J} \cdot \dd{ \vec{\sigma}}}_{\dd{I}}\underbrace{\int_{S} \delta \vec{B} \cdot \dd{ \vec{a}}}_{\delta \mathcal{F}} $ where $ S $ is the area of the cross-section, so
+\begin{equation}
+    \delta (\dd{W})= \dd{I} \int_S \delta \vec{B} \cdot \dd{ \vec{a}} = \dd{I} \int_S \curl{\delta \vec{A}} \cdot \dd{ \vec{a}} = \dd{I} \oint_{\Gamma}\delta \vec{A} \cdot \dd{ \vec{l}}
+\end{equation}
+so
+\begin{equation}
+    \delta(\dd{W}) = \oint \delta \vec{A} \cdot \dd{ \vec{I}} \dd{l} = \oint \delta \vec{A} \cdot \vec{J} \dd{\sigma} \dd{l}
+\end{equation}
+If we sum over all of these segmented loops (all $ \dd{\sigma} \dd{l} $), we say that this becomes a volume integral over the region.
+\begin{equation}
+    \delta W = \int_{\Omega} \vec{J} \cdot \delta \vec{A} \dd[3]{x}
+\end{equation}
+
+
+\end{document}

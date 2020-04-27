@@ -1,0 +1,97 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{26}{Friday, March 27, 2020}{The Classical Limit}
+
+Recall the differences between classical and quantum mechanics. In classical mechanics, we work in phase space rather than the quantum Hilbert space, and states are points in phase space rather than rays in Hilbert space. The classical Hamiltonian equations can be written in terms of Poisson brackets:
+
+\begin{equation}
+    \dot{x} = \pb{x}{H} \qquad \dot{p} = \pb{p}{H}
+\end{equation}
+where
+\begin{equation}
+    \pb{A}{B} = \pdv{A}{x} \pdv{B}{p} - \pdv{A}{p} \pdv{B}{x}
+\end{equation}
+with $ A(p,x) $ and $ B(p,x) $ and $ \pb{x}{p} = 1 $.
+
+We compare this with quantum mechanics, where the equations of motion are defined by the commutator rather than the Poisson bracket and we can use the Schr\"odinger equation to say how states evolve.
+
+Classically, any function of $ x $ and $ p $ is an observable, but in quantum we know that observables are Hermitian operators. Of course, in classical, it makes sense to know $ x $ and $ p $ at the same time, but in quantum, our observables are statistical:
+\begin{equation}
+    \ev{O} = \int \psi^*(x) O^\dagger \dd{x}
+\end{equation}
+
+Given a quantum system, we should be able to get the classical result as $ \hbar \to 0 $ while turning our quantum Hamiltonian into a classical Hamiltonian by converting the operators into classical variables. Notice that doing this the other way there is an ambiguity. If $ H = f(p,x) $, we need to convert to a function of operators, but how do we know which ordering to use (since the variables commute in classical mechanics). However, given a quantum system, we can uniquely determine the classical limit (just not the other way around).
+
+
+To understand the classical limit of a quantum system, we can think back to the idea of the wave-particle duality of quantum mechanics. A wave function like $ \psi(x) $ behaves like a wave. We can define $ \rho = \abs{\psi}^2 $ as the probability density, and if this is propagating like a wave, we know that there should probably be some conservation rule to prevent the distribution from going to zero or diverging:
+
+\begin{equation}
+    \pdv{\rho}{t} - \div{\va{J}} = 0
+\end{equation}
+where $ \va{J} $ is the probability current.
+
+\begin{equation}
+    \imath \hbar \pdv{\rho}{t} = \imath \hbar \left[ \left( \pdv{\psi^*}{t} \right) \psi + \psi^* \left( \pdv{\psi}{t} \right) \right] = \left[ (- H \psi^*) \psi + \psi^* H \psi \right]
+\end{equation}
+Using $ V = V^* $, we can write this as
+\begin{align}
+    \imath \hbar \pdv{\rho}{t} &= - \left( \frac{- nabla^2}{2m} \psi^* \right) \psi + \psi^* \left( - \frac{nabla^2}{2m} \right) \psi \\
+    &= \frac{\va{nabla}}{2m} \vdot \left[ \psi^* \grad{\psi} - (\grad{\psi^*}) \psi \right]
+\end{align}
+so
+\begin{equation}
+    \va{J} = \frac{\hbar}{2 \imath m} \left[ \psi^* (\grad{\psi}) - (\grad{\psi^*}) \psi \right] = \frac{\hbar}{m} \Im\left[ \psi^* \grad{\psi} \right] 
+\end{equation}
+
+We can put any wave function into the form
+\begin{equation}
+    \psi(x,t) = \sqrt{\rho(x, t)} e^{\imath S(x,t) / \hbar}
+\end{equation}
+where $ \rho \in \R^+ $ and $ S \in \R $. In terms of this parameterization,
+\begin{equation}
+    \va{J} = \frac{\rho}{m} \grad{S}
+\end{equation}
+
+Thinking in this way, we want to find the classical limit of wave mechanics. There are two distinct ways to do this, geometric optics and wave optics. Here we are thinking about the canonical electromagnetic waves. Geometric optics correspond to particle-like behavior (reflection, refraction) while wave optics correspond to wavelike behavior (interference, diffraction). The wave optics description already contains the wavelike behavior of a quantum state, so we want to find the geometric optics limit. In the case where the wavelength is much smaller than the thing it's interacting with, it scatters like a ray. We expect the classical limit of quantum mechanics to behave the same way when the de Broglie wavelength is much less than the gradient of some potential the state is interacting with.
+
+We can solve the classical equations of motion by finding a change of variables $ (p,q) \to (P,Q) $ such that $ Q $ is a cyclic variable\textemdash $ H $ does not depend on it. This is useful because then the equations will read
+\begin{equation}
+    \dot{P} = 0 \qquad \dot{Q} = P
+\end{equation}
+so $ P = P_0 $ and $ Q = P_0 t + Q_0 $.
+
+If you find such a coordinate transform, you can easily solve the system for some initial conditions. Let's consider a trivial example:
+
+\begin{ex}
+    \begin{equation}
+        H = \frac{\va{p}^2}{2m} + V(\va{x}^2)
+    \end{equation}
+    If we change variables to $ \{r, \theta, \varphi\} $, $ \theta $ and $ \varphi $ are cyclic, so we know that $ \theta = \omega t + \theta_0 $ and similar for $ \varphi $, since $ V(\va{x}^2) = V(r) $.
+\end{ex}
+
+More generally, we would like to transform coordinates from $ Q_i = Q_i(q_i,p_i,t) $, $ P_i = P_i(q_i, p_i, t) $ in a restricted way to preserve the form of Hamilton's equations. In other words, we want the equations of motion in the new system to be
+\begin{equation}
+    \dot{Q} = \pdv{H'}{P} \qquad \dot{P} = \pdv{H'}{Q}
+\end{equation}
+which is just the Poisson bracket formulation with $ \pdv{Q}{Q}= \pdv{P}{P}= 1 $. Such transformations are called canonical.
+
+<<I just missed another big thing, sorry>>
+
+\begin{equation}
+    p \dot{q} - H = P\dot{Q} - H' + \dv{t}F
+\end{equation}
+$ F $ is called the generating function the transformation. $ F = F(q,Q,p,P,t) $, but for now let's choose $ F(q,Q,t) $:
+\begin{equation}
+    p\dot{q} - H = P\dot{Q} - H' + \pdv{F}{t} + \pdv{F}{q}\dot{q} + \pdv{F}{Q} \dot{Q}
+\end{equation}
+since $ q $ and $ Q $ are independent variables, we can equate the like parts on either side of the equation to find that
+\begin{equation}
+    \pdv{F}{q} = p \qquad P = - \pdv{F}{Q}
+\end{equation}
+and
+\begin{equation}
+    H = H' - \pdv{F}{t}
+\end{equation}
+
+
+\end{document}

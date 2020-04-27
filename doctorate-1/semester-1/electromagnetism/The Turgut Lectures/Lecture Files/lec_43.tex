@@ -1,0 +1,155 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{43}{Monday, November 25, 2019}{The Helmholtz Equation in Spherical Coordinates}
+
+In the previous lecture, we were able to write the fields in the radiation zone in a form which utilized the magnetic dipole and multipole moments:
+\begin{equation}
+    \va{E}_{\omega}^{\text{dipole}} = - \frac{Z_0 k^2}{4 \pi} ( \vu{n} \cross \va{m}_{\omega}) \frac{e^{\imath kr}}{r}
+\end{equation}
+\begin{equation}
+    \va{B}_{\omega}^{\text{multipole}} = - \frac{\imath c k^3}{8 \pi} \frac{1}{3} \left[ \vu{n} \cross \va{Q} [ \vu{n}] \right] \frac{e^{\imath kr}}{r}
+\end{equation}
+
+We can calculate the differential power as it relates to the solid angle by
+\begin{equation}
+    \dv{P}{\Omega} = \left( \frac{1}{2 \mu_0} \va{E}_{\omega} \cross \va{B}_{\omega} \right) \vdot \vu{n} r^2
+\end{equation}
+so
+\begin{align}
+    P &\propto \int \left[ ( \vu{n} \cross \va{m}_{\omega}) \cross ( \vu{n} \cross \va{Q}^*) \right] \vdot \vu{n} \dd{\Omega} \\
+    &\propto \int \va{m}_{\omega} \vdot ( \vu{n} \cross \va{Q}^*) \dd{\Omega} \\
+    &\propto \int \left[ m_i \epsilon_{ijk} n_j Q_{kl} n_l \right] \dd{\Omega} \\
+    &\propto m_i \epsilon_{ijk} Q^*_{kl} \delta_{jl} = 0
+\end{align}
+since
+\begin{equation}
+    \int n_j n_l \dd{\Omega} = \frac{4 \pi}{3} \delta_{jl}
+\end{equation}
+and $ \delta $ is completely symmetric while $ \epsilon $ is completely antisymmetric.
+
+\section{Helmholtz Equation in Spherical Coordinates}
+\label{sec:helmholtz_equation_in_spherical_coordinates}
+
+The Helmholtz equation
+\begin{equation}
+    \left( \laplacian + k^2 \right) \psi = 0
+\end{equation}
+can be written in spherical coordinates as
+\begin{equation}
+    \frac{1}{r^2} \partial_r r^2 \partial_r + \left( k^2 - \frac{l(l+1)}{r^2} \right) f_{lm} = 0
+\end{equation}
+where
+\begin{equation}
+    \psi = \sum_{lm} f_{lm}(r) Y_{lm}(\Omega)
+\end{equation}
+
+Assuming spherical symmetry, $ f_{lm} \to f_l $, and we can write $ f_l = \frac{u_l}{\sqrt{r}} $ and solve for $ u_l(r) $ to simplify this equation:
+\begin{equation}
+    \left[ \partial_r^2 + \frac{1}{r} \partial_r + \left( k^2 - \frac{\left( l + \frac{1}{2} \right)^2}{r^2} \right) \right] u_l(r) = 0
+\end{equation}
+
+This is very similar to the Bessel equation, and the solutions for $ u_l $ are known as the spherical Bessel functions:
+\begin{equation}
+    j_l(x) = \sqrt{\frac{\pi}{2x}} J_{l + \frac{1}{2}}(x)
+\end{equation}
+which is regular at $ x = 0 $,
+\begin{equation}
+    n_l(x) = \sqrt{\frac{\pi}{2x}} N_{l + \frac{1}{2}}(x)
+\end{equation}
+which is singular at $ x = 0 $, and
+\begin{equation}
+    h_l^{(1,2)} = j_l(x) \pm \imath n_l(x)
+\end{equation}
+
+These functions have the following recursion relations and expansions:
+
+\begin{equation}
+    j_l(x) = (-x)^l \left[ \frac{1}{x} \partial_x \right]^l \left( \frac{\sin(x)}{x} \right)
+\end{equation}
+\begin{equation}
+    n_l(x) = -(-x)^l \left[ \frac{1}{x} \partial_x \right]^l \left( \frac{\cos(x)}{x} \right)
+\end{equation}
+
+As $ x \to 0 $ (or $ x << 1 $),
+\begin{equation}
+    j_l(x) \mapsto \frac{x^l}{(2l + 1)!!} \left[ 1 - \frac{x^2}{2(2l + 3)} + \cdots \right]
+\end{equation}
+\begin{equation}
+    n_l(x) \mapsto \frac{-(2l-1)!!}{x^{l+1}} \left[ 1 - \frac{x^2}{2(1-2l)} + \cdots \right]
+\end{equation}
+
+As $ x \to \infty $ (or $ x >> 1 $),
+\begin{equation}
+    j_l(x) \mapsto \frac{1}{x} \sin(x - \frac{l \pi}{2})
+\end{equation}
+\begin{equation}
+    n_l(x) \mapsto - \frac{1}{x} \cos(x - \frac{l \pi}{2}) 
+\end{equation}
+and
+\begin{equation}
+    h_l^{(1)} \mapsto (- \imath)^{l+1} \frac{e^{\imath x}}{x}
+\end{equation}
+
+This last equation is the kind of outgoing wave behavior which we want in a radiative solution.
+
+Additionally, for all $ j_l,\ n_l,\ h_l = z_l $,
+\begin{equation}
+    \frac{2l+1}{x} z_l(x) = z_{l-1}(x) + z_{l+1}(x)
+\end{equation}
+and
+\begin{equation}
+    \dv{x}\left[ x z_l(x) \right] = x z_{l-1}(x) - l z_l(x) 
+\end{equation}
+
+Finally, the Wronskian for the spherical Bessel functions is
+\begin{equation}
+    W\left[ j_l, n_l \right] = \frac{1}{\imath} W\left[ j_l, h_l^{(1)} \right] = \frac{1}{x^2}
+\end{equation}
+
+\begin{note}{Quote}
+    ``Almost everything you can imagine is a thing you cannot write''
+
+    - Turgut, on solutions to equations
+\end{note}
+\begin{note}{Quote}
+    ``The world of functions is very wild and crazy''
+    
+    - Turgut, also on solutions to equations
+\end{note}
+
+\section{Green's Function for the Spherical Helmholtz Equation}
+\label{sec:green's_function_for_the_spherical_helmholtz_equation}
+
+\begin{equation}
+    (\laplacian + k^2) G( \va{x}, \va{x}') = - \delta( \va{x} - \va{x}') \mapsto \frac{e^{\imath k \abs{ \va{x} - \va{x}'}}}{\abs{ \va{x} - \va{x}'}} = \frac{\delta(r-r')}{r^2} \underbrace{\delta(\Omega - \Omega')}_{\sum_{lm} Y_{lm}^*(\Omega') Y_{lm}(\Omega)}
+\end{equation}
+
+Note the missing $ 4 \pi $ in front of the $ \delta $-function. This is just a scaling factor and only slightly effects how the Green's function is applied.
+
+We can therefore write the Green's function as
+\begin{equation}
+    G( \va{x}, \va{x}') = \sum_{lm} g_l(r,r') Y_{lm}(\Omega) Y_{lm}^*(\Omega')
+\end{equation}
+
+If we integrate the differential equation for $ g_l $ around $ r' $, we find that
+
+\begin{equation}
+    \int_{r'- \epsilon}^{r' + \epsilon} \dd{r} \left[ \frac{1}{r^2} \partial_r r^2 \partial_r g_l \right] = - \int_{r' - \epsilon}^{r' + \epsilon} \frac{\delta(r-r')}{r^2} \dd{r'}
+\end{equation}
+so
+\begin{equation}
+    \eval{\dv{g_l}{r}}_{r' + \epsilon} - \eval{\dv{g_l}{r}}_{r' - \epsilon} = - \frac{1}{r'^2}
+\end{equation}
+so
+\begin{equation}
+    g_l(r,r') = A_l j_l(kr_<) h_l^{(1)}(kr_>)
+\end{equation}
+since we want regular behavior at $ 0 $ and oscillatory behavior at $ \infty $. We can use the Wronskian to determine the factor $ A_l $:
+\begin{equation}
+    G( \va{x}, \va{x}') = (\imath k)j_l(kr_<) h_l^{(1)}(kr_>) Y_{lm}(\Omega) Y_{lm}^*(\Omega')
+\end{equation}
+
+
+
+
+\end{document}

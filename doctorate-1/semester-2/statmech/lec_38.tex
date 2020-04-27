@@ -1,0 +1,93 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{38}{Friday, April 24, 2020}{The Ideal Fermi Gas}
+
+\section{The Ideal Fermi Gas}
+\label{sec:the_ideal_fermi_gas}
+
+For high temperatures, $ f_+(\epsilon - \mu) $ is asymptotic to $ e^{= \beta (\epsilon - \mu)} $. At low temperature, it is asymptotic to $ 1 - e^{\beta (\epsilon - \mu)} $. At $ \epsilon = \mu $, it has a slope of $ - \frac{1}{4} \beta $ and the distribution function equals $ 1/2 $. Now let's see how we can learn some facts about this distribution.
+
+\begin{equation}
+    N = \sum_{\alpha} \ev{n_{\alpha}} = \sum_{\alpha} \frac{1}{e^{\beta (\epsilon_{\alpha} - \mu)} + 1} = \int \dd{\epsilon} \frac{D(\epsilon)}{e^{\beta (\epsilon = \mu)} + 1}
+\end{equation}
+\begin{equation}
+    U = \sum_{\alpha} \epsilon_{\alpha} \ev{n_{\alpha}} \sum_{\alpha} \frac{\epsilon_{\alpha}}{e^{\beta (\epsilon_{\alpha} - \mu)} + 1} = \int \dd{\epsilon} \frac{\epsilon D(\epsilon)}{e^{\beta (\epsilon = \mu)} + 1}
+\end{equation}
+
+We can additionally define the Fermi energy:
+\begin{equation}
+    \epsilon_{F} \equiv \lim_{T \to 0} \mu(T,N)
+\end{equation}
+Note that this is not the point where the distribution is $ 1/2 $, that point is $ \mu $. Instead, the Fermi energy lies halfway between the highest occupied state and the lowest unoccupied state.
+
+Observe that
+\begin{equation}
+    \frac{1}{1+x} + \frac{1}{1 + \frac{1}{x}} = 1
+\end{equation}
+This implies
+\begin{equation}
+    \frac{1}{e^{\beta (\epsilon - \mu)} + 1} = 1 - \frac{1}{e^{- \beta (\epsilon - \mu)} + 1}
+\end{equation}
+
+Let's imagine a two-state system with energies $ E_1 = \epsilon $ and $ E_0 = 0 $. We can easily calculate
+\begin{align}
+    N &= \frac{1}{e^{\beta (E_0 - \mu)} + 1} + \frac{1}{e^{\beta (E_1 - \mu)} + 1}\\
+    &= \frac{1}{e^{- \beta \mu} + 1} + \frac{1}{e^{\beta (\epsilon - \mu)} + 1} \\
+    &= 1 - \frac{1}{e^{\beta \mu} + 1} + \frac{1}{e^{\beta(\epsilon - \mu) + 1}}
+\end{align}
+Say we have one particle in the system. Then
+\begin{equation}
+    \frac{1}{e^{\beta \mu} + 1} = \frac{1}{e^{\beta (\epsilon - \mu)} + 1}
+\end{equation}
+or
+\begin{equation}
+    \beta \mu = \beta (\epsilon - \mu) \implies \mu = \frac{\epsilon}{2}
+\end{equation}
+
+Now imagine a continuous spectrum of energies:
+
+\begin{equation}
+    D(\epsilon) = (2s+1)\left( \frac{\sqrt{2 \pi m}}{h} \right)^d \frac{V}{\Gamma \left( \frac{d}{2} \right)} \epsilon^{\frac{d}{2} - 1}
+\end{equation}
+We can calculate the number of particles by taking $ T=0 $ and integrating up to the Fermi energy (let's also say these are spin-$ \frac{1}{2} $ particles).
+\begin{equation}
+    N = \int_0^{\epsilon_F} \dd{\epsilon} 2 (\cdots) \epsilon^{\frac{d}{2} - 1} = 2\left(\underbrace{ \frac{\sqrt{2 \pi m \epsilon_F}}{h}}_{k_B T_F = \epsilon_F} \right)^d \frac{V}{\Gamma \left( \frac{d}{2} + 1 \right)}
+\end{equation}
+In three dimensions,
+\begin{equation}
+    N = 2 \left( \frac{\sqrt{2 \pi m \epsilon_F}}{h} \right)^3 \frac{V}{\frac{3}{4} \sqrt{\pi}} = \frac{V}{3 \pi^2} \left( \frac{2m}{\hbar} \right)^{3/2} \epsilon_F^{3/2}
+\end{equation}
+where
+\begin{equation}
+    \epsilon_F = \frac{\hbar^2}{2m} (3 \pi^2 \underbrace{n}_{N/V})^{2/3}
+\end{equation}
+Also, at $ T = 0 $,
+\begin{align}
+    U &= \int_0^{\epsilon_F} \dd{\epsilon} \epsilon D(\epsilon) \\
+    &= \int_0^{\epsilon_F} \dd{\epsilon} 2 \left( \frac{\sqrt{2 \pi m}}{h} \right)^d \frac{V}{\Gamma \left( \frac{d}{2} \right)} \epsilon^{d/2} \\
+    &= 2\left( \frac{\sqrt{2 \pi m}}{h} \right)^d \frac{V}{\Gamma \left( \frac{d}{2} \right)\left( \frac{d}{2} + 1 \right)} \epsilon^{\frac{d}{2} + 1}
+\end{align}
+Therefore
+\begin{equation}
+    \frac{U}{N} = \frac{d}{d+2} \epsilon_F = \begin{cases} \frac{3}{5} \epsilon_F & d=3\\ \frac{1}{2} \epsilon_F & d=2 \\ \frac{1}{3} \epsilon_F & d=1 \end{cases}
+\end{equation}
+Also recall that we found $ U = \frac{d}{2} PV $, so we can now calculate the pressure (again, at $ T=0 $):
+\begin{equation}
+    P = \frac{2}{d} \frac{U}{V} = 2 \left( \frac{\sqrt{2 \pi m}}{h} \right)^d \frac{\epsilon_F^{\frac{d}{2} + 1}}{\Gamma \left( \frac{d}{2} \right)\left( \frac{d}{2} + 1 \right)}
+\end{equation}
+We also worked out that $ \epsilon_F \propto n^{2/d} $ so $ P \propto \epsilon_F^{d/2+1} \propto n^{1+2/d} \propto V^{-\left( 1+ \frac{2}{d} \right)} $.This pressure is called the Fermi pressure, and what's amazing is that it's nonzero at $ T=0 $, unlike the regular ideal gas. We can also calculate $ \kappa_T = - \frac{1}{V} \eval{\pdv{V}{P}}_{T} $ or equivalently, the isothermal bulk modulus
+\begin{align}
+    K &= - V \eval{\pdv{P}{V}}_{T} = - V\left( -1 - \frac{2}{d} \right) \frac{P}{V} = \left( 1 + \frac{2}{d} \right)P = \left( 1 + \frac{2}{d} \right) \frac{PV}{N} \frac{N}{V} \\
+    &= \left( 1 + \frac{2}{d} \right) \frac{\frac{2}{d} U}{N} \frac{N}{V} \\
+    &= \left( 1 + \frac{2}{d} \right) \frac{2}{d} \frac{d}{d + 2} \epsilon_F \frac{N}{V} \\
+    &= \frac{2}{d} \epsilon_F \frac{N}{V}
+\end{align}
+This says that the bulk modulus of an ideal Fermi gas at $ T = 0 $ is equal to $ 2/d $ times the Fermi energy divided by the volume per particle.
+
+
+For small $ T $, the thermodynamics is determined by $ D(\epsilon) $ in the vicinity of $ \epsilon_F $. Generally, we want to calculate
+\begin{equation}
+    I = \int \dd{\epsilon} g(\epsilon) f_+(\epsilon - \mu)
+\end{equation}
+The answer is the Sommerfeld Expansion, developed by Arnold Sommerfeld, and we will discuss this in the next lecture.
+\end{document}

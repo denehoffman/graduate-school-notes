@@ -1,0 +1,102 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{08}{Friday, January 31, 2020}{Utilizing Symmetries}
+
+\section{The Hydrogen Atom}
+\label{sec:the_hydrogen_atom}
+
+We've found that symmetries can tell us many things about our system, particularly degeneracies and conserved quantities. The Hamiltonian for the hydrogen atom can be written as
+\begin{equation}
+    H = \sum_{i=1}^{2} \frac{p_i^2}{2 m_i} + V(\abs{\va{r}_1 - \va{r}_2})
+\end{equation}
+This is a very general form of an interaction between two particles ($ i = 1, 2 $) where the potential just depends on the distance between the particles. Let's list the symmetries of this system
+
+\begin{tabular}{@{}cc@{}} \toprule
+    Symmetry & Invariant \\
+    \midrule
+    $\text{SU}(2)$ or $\text{SO}(3)$ & $ \va{L} $ \\
+    Time translation & $ H $ \\
+    Parity & ? (discrete transformations don't have a conserved charge) \\
+    Translations & $ \va{p}_1 + \va{p}_2 = \va{p}_{\text{total}} $ \\
+    Galilean Boosts ($ \va{r} \to \va{r} - \va{\beta} t $) & $ \va{R}_{\text{com}}  = \frac{m_1 \va{r}_1 + m_2 \va{r}_2}{m_1 + m_2} $ \\
+    \bottomrule
+\end{tabular}
+
+The normalization on the center of mass position makes the math easier later and doesn't change the conserved property.
+
+\begin{note}{Galilean Boosts}
+    \begin{equation}
+        L = \sum_{i=1}^{2} \frac{1}{2} m_i \va{v}_i^2 - V(\abs{\va{r}_1 - \va{r}_2})
+    \end{equation}
+    \begin{equation}
+        L \to \sum_{i=1}^{2} \frac{1}{2} m_i(\va{v}_i - \va{\beta})^2 - V(\abs{\va{r}_1 - \va{r}_2})
+    \end{equation}
+    so
+    \begin{equation}
+        \delta L = - \sum_{i=1}^{2} m_i \va{v}_i \vdot \va{\beta} = - \sum_{i=1}^{2} m_i \va{\beta} \vdot \dv{t}(\va{r}_i)
+    \end{equation}
+    This is just a total time derivative, which we showed on the homework leaves the action invariant:
+    \begin{equation}
+        \delta S = \int \dd{t} \left(- \sum_{i=1}^{2} m_i \va{\beta} \vdot \dv{t}(\va{r}_i) \right)
+    \end{equation}
+    Noether's theorem tells us that
+    \begin{equation}
+        \delta S = \int \sum \dv{t}\left( \fdv{L}{\dot{\va{r}}_i} \delta \va{r}_i \right) = - \int \sum m_i \va{\beta} \vdot \dv{t}(\va{r}_i)
+    \end{equation}
+    \begin{equation}
+        \dv{t}\left[ \fdv{L}{\dot{\va{r}}_i} \delta \va{r}_i + m_i(\va{r}_i \vdot \va{\beta}) \right] = 0
+    \end{equation}
+    so the conserved quantity(s) are
+    \begin{equation}
+        0 = \dv{t}\left[ m_i \dot{\va{r}}_i(- \va{\beta} t) + m_i(\va{r}_i \vdot \va{\beta}) \right] = \dv{t} \left[ -m_i \dot{\va{r}}_i t + m_i \va{r}_i \right] \vdot \va{\beta}
+    \end{equation}
+    so we can define
+    \begin{equation}
+        \va{k} = m_i \va{r}_i - \va{p} t
+    \end{equation}
+    as the conserved constant of motion. Since $ \va{p} $ is conserved, we can say that if $ p_i = 0 $, then $ m_1 \va{r}_1 + m_2 \va{r}_2 $ is a constant. This is the position of the center of mass, so invariance under Galilean boosts implies that the center of mass is conserved. In other words, we can boost to the center of mass frame of a hydrogen atom and the spectrum will remain the same.
+
+    Additionally, $ \va{K} $ should generate boosts.
+    \begin{equation}
+        \comm{\va{\beta} \vdot \va{K}}{\va{r}_i} = \va{\beta} \comm{\left( m_a \va{r}_a - \va{p} t \right)}{\va{r}_i}
+    \end{equation}
+    Write this with indices on everything. Raised indices refer to the vector ($ \vu{x}, \vu{y}, \vu{z} $) while lowered indices refer to the particle number ($ 1, 2 $). The $ m_a \va{r}_a $ term goes away because it commutes with $ \va{r}_i $, and we can reverse the commutator to reverse the sign on $ \va{p} $:
+    \begin{align}
+        \comm{\va{\beta} \vdot \va{K}}{\va{r}_i} &= \beta^A \comm{r_i^A}{(p_1^A + p_2^A)t} \\
+        &= \beta^A t \left( \comm{r_1^A}{p_1^A + p_2^A} \right) \\
+        \delta \va{r}_i &= \va{\beta} t \left( \imath \hbar \delta_{i1} + \imath \hbar \delta_{i2} \right)
+    \end{align}
+    Recall that the infinitesimal transformation is
+    \begin{equation}
+        e^{\imath \va{\beta} \vdot \va{K} / \hbar} \approx 1 + \imath \va{\beta} \vdot \va{K}
+    \end{equation}
+    so technically we should be computing
+    \begin{equation}
+        \comm{ \frac{\imath}{\hbar} \va{\beta} \vdot \va{K}}{\va{r}_i} = \delta \va{r}_i = - \beta t(\delta_{i1} + \delta_{i2})
+    \end{equation}
+    This gives us the correct sign and form ($ \va{r} = \va{r} - \va{\beta} t $). When we change this to a quantum operator, we have
+    \begin{equation}
+        U(\va{\beta}) = e^{\frac{\imath}{\hbar} \va{\beta} \vdot \va{K}}
+    \end{equation}
+    How does this act on the $ \va{r} $ operator?
+    \begin{equation}
+        U^\dagger(\beta) \va{r} U(\beta) = \va{r} - \va{\beta} t + \order{\beta^2} \approx \left( 1 + \frac{\imath}{\hbar} \va{K} \vdot \va{\beta} \right) \va{r} \left( 1 - \frac{\imath}{\hbar} \va{K} \vdot \va{\beta} \right) = \va{r} + \frac{\imath}{\hbar} \comm{\va{K} \vdot \va{\beta}}{\va{r}}
+    \end{equation}
+\end{note}
+
+Since the center of momentum position is invariant, it might be good to work in those coordinates. Let's also define $ \va{r} = \va{r}_1 - \va{r}_2 $:
+\begin{equation}
+    \sum_{i=1}^{2} \frac{1}{m_i \dot{\va{r}}_1^2} = \frac{1}{2} M \dot{\va{r}}_{\text{com}}^2 + \frac{1}{2} \mu \dot{\va{r}}^2
+\end{equation}
+where
+\begin{equation}
+    \mu = \frac{m_1 m_2}{m_1 + m_2} 
+\end{equation}
+and $ M = m_1 + m_2 $. Therefore, the Hamiltonian becomes
+\begin{equation}
+    H = \cancelto{0}{\frac{\va{p}^2_{\text{com}}}{2M}} + \frac{\va{p}^2}{2 \mu} - V(\va{r})
+\end{equation}
+where $ \va{p} = \mu \dot{\va{r}} $. We have changed a 2-body problem into a 1-body problem using this symmetry.
+
+
+\end{document}

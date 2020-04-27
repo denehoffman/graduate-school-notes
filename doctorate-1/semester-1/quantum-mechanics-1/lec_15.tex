@@ -1,0 +1,104 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{15}{Fri Sep 20 2019}{History Sample Space}
+\section{Consistent Histories}%
+\label{sec:consistent_histories}
+
+\begin{align}
+    Y^1&=[z+]\odot[x+]\odot[z+]\\
+    Y^2&=[z+]\odot[x+]\odot[z-]\\
+    Y^3&=[z+]\odot[x-]\odot[z+]\\
+    Y^4&=[z+]\odot[x-]\odot[z-]\\
+    Z&=[z-]\odot I\odot I
+.\end{align}
+
+\begin{definition}
+    The \textbf{History Sample Space} of a group of histories is $Y^{\vec{\gamma}} = Y^{\vec{\alpha}} + Y^{\vec{\beta}}$, where $Y^{\vec{\alpha}}Y^{\vec{\beta}} = 0$.
+\end{definition}
+
+Because of this second condition, $\ket{\vec{\gamma}} = \ket{\vec{\alpha}} + \ket{\vec{\beta}}$, and $Pr(\vec{\gamma}) = Pr(\vec{\alpha})+Pr(\vec{\beta}) $, but when we actually compute $ \Pr( \vec{\gamma} ) $, we find that $ \Pr( \vec{\gamma}) = \ip{\vec{\gamma}} = \ip{\vec{\alpha}} + \ip{\vec{\beta}} + \ip{\vec{\alpha}}{\vec{\beta}} + \ip{\vec{\beta}}{\vec{\alpha}}$. It seems like our Generalized Born Rule has failed, due to these last two cross-terms! How can we get around this? If we require ``consistency'', the Rule still works. Consistency is simply demanding that these inner products are zero:
+
+\begin{definition}
+    A History Sample Space is \textbf{consistent} if
+
+    $\ip{\vec{\alpha}}{\vec{\beta}} = 0$, $\forall \vec{\alpha}\neq \vec{\beta}$.
+\end{definition}
+
+With these dynamics, the chainket for history $1$ is $\ket{Y^1} = \frac{1}{2}\ket{z+}$:
+\begin{equation}
+    \ket{Y^1} = \op{z+} I \op{x+} I \ket{z+} 
+\end{equation}
+
+\begin{equation}
+    \ip{Y^1}{Y^3} = \frac{1}{2}\ip{z+}=\frac{1}{2}\neq 0
+\end{equation}
+Ergo, these histories are not consistent.
+
+Let's imagine a system in a magnetic field $\vec{B} = B \hat{y}$:
+\begin{equation}
+    T\colon\ket{z+}\to\ket{x+}\to\ket{z-}\to\ket{x-}\to -\ket{z+}
+\end{equation}
+Under this dynamic(s)?, we find $\ket{Y^1}=\ket{Y^3}=\ket{Y^4} = 0$, $\ket{Y^2} = \ket{z-}$, so these histories are consistent in the dynamics of a constant magnetic field.
+
+\section{Beam Splitter}%
+\label{sec:beam_splitte}
+
+We will again use a discrete toy model space. Say we have three branches on a beam splitter, the branch $a$ incoming, $c$ outgoing perpendicular to $a$, and $d$ outgoing parallel to $a$. We will call states in $a$ $\{\ldots, -2a,-1a,0a\}$ going toward the beam splitter from left to right. Similarly, $\{1c,2c,3c, \ldots\}$ and $\{1d,2d,3d, \ldots\} $ go away from the beam splitter from left to right.
+
+Our basis is $\mathcal{B} = \{\ket{mz} z\in a, c,d,m\in\Z\} $
+\begin{equation}
+    T= S\implies S\ket{mz} = \ket{(m+1)z}
+\end{equation}
+\begin{equation}
+    S\ket{0a} = \frac{1}{\sqrt{2} }\left( \ket{1c} + \ket{1d} \right) 
+\end{equation}
+For consistency, we also require a $b$ branch with states labeled $\{\ldots,-2b,-1b,0b\} $ going parallel to $c$ moving towards the beam splitter from left to right.
+\begin{equation}
+    S\ket{0b} = \frac{1}{\sqrt{2} }\left( -\ket{1c} + \ket{1d} \right) 
+\end{equation}
+
+Our histories are then
+\begin{equation}
+    [0a]\odot \{[1c],[1d]\}\odot \{[2c],[2d]\} 
+\end{equation}
+
+\begin{equation}
+    t=0,\ \ket{\psi_0} = \ket{0a}
+\end{equation}
+\begin{equation}
+    t = 1,\ \ket{\psi_1} = \frac{1}{\sqrt{2} }\left( \ket{1c}+\ket{1d} \right) 
+\end{equation}
+\begin{equation}
+    t=2,\ \ket{\psi_2} = \frac{1}{\sqrt{2} }\left( \ket{2c}+\ket{2d} \right) 
+\end{equation}
+
+\begin{equation}
+    \ket{(0a,1c,2c)} = \frac{1}{\sqrt{2} }\ket{2c}
+\end{equation}
+\begin{equation}
+    \ket{(0a,1d,2d)} = \frac{1}{\sqrt{2}}\ket{2d}
+\end{equation}
+
+\begin{equation}
+    Pr([1c]_1,[2c]_2 \mid [0a]_0) = \frac{1}{2} = Pr([1d]_1,[2d]_2 \mid [0a]_0)
+\end{equation}
+
+Additionally, we can calculate marginal probabilities from these:
+\begin{equation}
+    Pr([1c]_1 \mid [0a]_0) = \frac{1}{2} = Pr([2c]_2 \mid [0a]_0)
+\end{equation}
+
+\begin{equation}
+    Pr([1c]_1\mid [2c]_2) = \frac{Pr([1c]_1,[2c]_2)}{Pr([2c]_2)} = 1
+\end{equation}
+
+\begin{equation}
+    Pr([2c]_2\mid[1d]_1) = 0
+\end{equation}
+because that chainket would vanish:
+\begin{equation}
+    \ket{(0a,1d,2c)} =[2c]_2T_{21}[1d]_1T_{10}\ket{0a} = 0
+\end{equation}
+
+In the coming lecture, we will introduce a measurement device on the $c$-branch, called $ \hat{c}$. This device sits in the path and has two states, $0\hat{c}$ and $1\hat{c}$. Now our Hilbert space will have a basis $\{\ket{mz \hat{c}}\} $, so the whole space will be $\mathcal{H} = \mathcal{H}_p \otimes \mathcal{H}_d$, the product of the particle and detector spaces. Now our time evolution operator becomes $T = SR$, $R=I\otimes I$ except $R\ket{2c, 0\hat{c}} = \ket{2c,1\hat{c}}$, switching the measurement device from the ``ready'' state to the ``triggered'' state. Acting $R$ on a triggered state resets it to the ready state.
+\end{document}

@@ -1,0 +1,118 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{6}{Monday, January 27, 2020}{Angular Momentum}
+
+Last time we were talking about representations of rotations, either the $\text{SO}(3)$ or $\text{SU}(2)$ groups. We decided to label our representations using a Casimir operator (for vector operators, we use $ J^2 $), and we chose our basis to diagonalize $ J_z $. We then defined raising and lowering operators
+\begin{equation}
+    J_{\pm} = J_x \pm \imath J_y
+\end{equation}
+such that
+\begin{equation}
+    J^2\ket{ab} = a \hbar^2\ket{ab}
+\end{equation}
+\begin{equation}
+    J_z\ket{ab} = b \hbar\ket{ab}
+\end{equation}
+and
+\begin{equation}
+    J_{\pm}\ket{ab} \propto\ket{a, \pm b}
+\end{equation}
+
+Now we want to determine the allowed values of $ b $. Consider $ J^2 - J_z^2 = J_x^2 + J_y^2 $:
+\begin{equation}
+    J^2 - J_z^2 = \frac{1}{2} \left[ J_+ J_- + J_- J_+ \right]
+\end{equation}
+Recall that $ J_{\pm}^\dagger = J_{\mp} $, so
+\begin{equation}
+    J^2 - J_z^2 = \frac{1}{2} \left[ J_+ J_+^\dagger + J_- J_-^\dagger \right]
+\end{equation}
+Since $ \ev{OO^\dagger}{\psi} \geq 0 $ (because $ \norm{O\ket{\psi}}^2 \geq 0 $),
+\begin{equation}
+    (J^2 - J_z^2) \geq 0 \implies (a - b^2) \geq 0 \implies \abs{b} \leq \abs{a}
+\end{equation}
+
+Next, we will solve for $ b_{\text{max}} $ and $ b_{\text{min}} $:
+\begin{equation}
+    J_- J_+\ket{b_{\text{max}}} = 0
+\end{equation}
+since $ J_+\ket{b_{\text{max}}} = J_-\ket{b_{\text{min}}} = 0 $.
+\begin{equation}
+    J_- J_+ = J_x^2 + J_y^2 + \imath \comm{J_x}{J_y} = J_x^2 + J_y^2 - \hbar J_z
+\end{equation}
+Therefore, we can rewrite this as
+\begin{equation}
+    J_- J_+ = J^2 - J_z^2 - \hbar J_z
+\end{equation}
+Let's now operate this on the $ b_{\text{max}} $ state:
+\begin{equation}
+    0 = (J^2 - J_z^2 - \hbar J_z)\ket{a b_{\text{max}}} = (\hbar^2)\left[ a - b^2_{\text{max}} - b_{\text{max}} \right]\ket{ab_{\text{max}}} \implies a = b_{\text{max}}(b_{\text{max}} + 1)
+\end{equation}
+We can do a similar calculation for $ b_{\text{min}} $ with $ J_+J_- $ to show that $ a = b_{\text{min}} (b_{\text{min}} - 1) $. Finally, we can equate the $ a $ terms to show that
+\begin{equation}
+    b_{\text{max}} (b_{\text{max}} + 1) = b_{\text{min}} (b_{\text{min}} - 1) \implies b_{\text{max}} = - b_{\text{min}}
+\end{equation}
+
+The only way for this to be true is for $ b_{\text{max}} \in \frac{\Z}{2} $. Therefore, the number of states in a representation is $ d = (2 b_{\text{max}} + 1) $. If $ b_{\text{max}} $ is a half-integer, this corresponds to representations of $\text{SU}(2)$, whereas integer $ b_{\text{max}} $ give representations of $\text{SO}(3)$. $ d=2 $ are not ``faithful'' (one-to-one) representations of $\text{SO}(3)$, but they are faithful representations of $\text{SU}(2)$.
+
+\subsection{Matrix Representation}
+\label{sub:matrix_representation}
+
+If we consider
+\begin{equation}
+    \bra{j'm'} J^2\ket{jm} =\bra{j'm'}\ket{jm} \hbar^2 j(j+1) = \delta_{jj'} \delta_{mm'} \hbar^2 j(j+1)
+\end{equation}
+so
+\begin{equation}
+    J^2 = \mathbb{I} \vdot \hbar^2 j(j+1)
+\end{equation}
+Next, consider
+\begin{equation}
+    \bra{j'm'} J_z\ket{jm} = \delta_{jj'} \delta_{mm'} m \hbar
+\end{equation}
+so $ J_z $ is also diagonal:
+\begin{equation}
+    J_z = \mqty[\dmat{m,m-1,m-2,\ddots,-m}]
+\end{equation}
+Finally, consider the ladder operators:
+\begin{equation}
+    \abs{J_{\pm}}\ket{jm} = c_{\pm} \abs{\ket{j,m\pm1}}^2
+\end{equation}
+so
+\begin{equation}
+    \abs{c_{\pm}}^2 =\bra{jm} J_{\mp} J_{\pm}\ket{jm}
+\end{equation}
+For the $ c_+ $ case,
+\begin{equation}
+    \abs{c_+}^2 =\bra{jm} \underbrace{J_x^2 + J_y^2}_{J^2 - J_z^2} - \hbar J_z\ket{jm} = \hbar^2 \left[ j(j+1) - \underbrace{m(m+1)}_{m^2 - m} \right]
+\end{equation}
+In general, we often write this constant with a phase:
+\begin{equation}
+    \abs{c_{\pm}}^2 = \hbar e^{\imath \varphi} \left[ (j\mp m)(j\pm m+1) \right]^{\frac{1}{2}}
+\end{equation}
+so
+\begin{equation}
+    \bra{j'm'} J_{\pm}\ket{jm} = \hbar \delta_{jj'} \delta_{m',m+1} \left[ (j\mp 1)(j \pm m + 1) \right]^{\frac{1}{2}}
+\end{equation}
+
+\subsection{Representations of Rotation Matrices}
+\label{sub:representations_of_rotation_matrices}
+
+\begin{equation}
+    U(\vu{n}, \theta) = e^{- \imath \vu{n} \vdot \va{J} \theta}
+\end{equation}
+We can write the general matrix elements as
+\begin{equation}
+    \bra{j'm'} e^{- \imath \vu{n} \vdot \va{J} \theta}\ket{jm} = D^{(j)}_{mm'}(\vu{n}, \theta)
+\end{equation}
+These are known as the Wigner functions. The representations are labeled by $ j $, so $ j' $ doesn't really matter here, it just specifies the dimensionality of the matrix.
+
+\subsection{Irreducible Representations}
+\label{sub:irreducible_representations}
+
+There are two types of representations, reducible and irreducible. An irreducible representation has no invariant subspaces. This means that there is no way to write it in block-diagonal form:
+\begin{equation}
+    \mqty[\dmat{A_{n \times n}, B_{m \times m}, \ddots, Z_{l \times l}}]
+\end{equation}
+
+
+\end{document}

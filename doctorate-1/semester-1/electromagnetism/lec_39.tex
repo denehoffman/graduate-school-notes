@@ -1,0 +1,129 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{39}{Wednesday, November 13, 2019}{The Eikonal Approximation}
+
+From last lecture, we supposed that $ \epsilon \to \epsilon( \va{x}) $ and $ \abs{\lambda \grad{\epsilon}} << \epsilon $, so
+\begin{equation}
+    \laplacian{ \va{H}} + \mu_0 \omega^2 \epsilon( \va{x}) \va{H} = 0
+\end{equation}
+and
+\begin{equation}
+    \laplacian{ \va{E}} + \mu_0 \omega \epsilon( \va{x}) \va{E} = 0
+\end{equation}
+
+We can rewrite $ \omega \mu_0 \epsilon_0 \omega \frac{\epsilon( \va{x})}{\epsilon_0} = \frac{\omega^2}{c^2} n^2( \va{x}) $. If $ n( \va{x}) $ were a constant, we would imagine that $ \va{E} \sim e^{\imath \va{k} \vdot \va{x}} $ where $ k^2 = \frac{\omega^2 n^2}{c^2} $ and $ \vu{k} \vdot \va{x} \sim S( \va{x}) \implies \va{E} \sim e^{\imath \frac{\omega}{c} S( \va{x})} $.
+Therefore,
+\begin{equation}
+    \div{\left[ (\grad{S}) \imath \frac{\omega}{c} e^{\imath \frac{\omega}{c} S} \right]} + \frac{n^2(x) \omega^2}{c^2} e^{\imath \frac{\omega}{c} S} = 0
+\end{equation}
+so
+\begin{equation}
+    \left[ \laplacian{S} \imath \frac{\omega}{c} + (\grad{S})^2 \left( \imath \frac{\omega}{c} \right)^2 + \frac{n^2(x) \omega}{c^2} \right] e^{\imath \frac{\omega}{c} S} = 0
+\end{equation}
+(where we take $ \laplacian{S} << (\grad{S})^2 \frac{\omega}{c} $). This implies
+\begin{equation}
+    (\grad{S})^2 = n^2( \va{x})
+\end{equation}
+or
+\begin{equation}
+    \grad{S} = n( \va{x}) \hat{k}(x)
+\end{equation}
+
+$ S( \va{x}) $ are basically constant-phase surfaces, so locally it looks like we have plane waves. This kind of makes sense, because if we are slowly changing the index of refraction, locally it is constant, which means there are plane wave solutions.
+
+Imagine a ray going through one of these constant surfaces. It starts at $ \va{r}_0 $, and we can parameterize it by the length of the ray.
+\begin{equation}
+    \dv{ \va{r}}{s} = \vu{k}( \va{r}(s))
+\end{equation}
+where $ s $ is the length of the ray, so
+\begin{equation}
+    n( \va{r}(s)) \dv{ \va{r}}{s} = \vu{k} n( \va{r}) = \grad{S}
+\end{equation}
+
+Next, take the derivative of both sides
+\begin{align}
+    \dv{s}\left[ n( \va{r}(s)) \dv{ \va{r}}{s} \right] &= \grad{\dv{S}{s}} \\ &= \grad{\left[ \grad{S} \cdot \dv{ \va{r}}{s} \right]}
+\end{align}
+and
+\begin{equation}
+    n( \va{x}) \vu{k}(x) \vdot \vu{k}(x) = n( \va{r}(s))
+\end{equation}
+From this, we get a differential equation for the ray:
+\begin{equation}
+    \dv{s}\left[ n( \va{r}(s)) \dv{ \va{r}}{s} \right] = \grad\eval_{\text{ray}} n( \va{r}(s))
+\end{equation}
+
+\begin{ex}
+    Suppose we have a medium whose index of refraction varies in the $ \vu{x} $ direction. Moreover, suppose it decreases as $ \abs{x} $ increases. Suppose we have a ray which starts at $ x = 0 $ and has some angle $ \theta(s) $ from the $ \vu{z} $-axis at a point $ s $ along its length. Equivalently we could use $ \theta(x) $. Our equation of motion tells us
+    \begin{equation}
+        \dv{s}\left[ n(x) \dv{x}{s} \right] = \dv{n}{s}
+    \end{equation}
+    and
+    \begin{equation}
+        \dv{s}\left[ n(x) \underbrace{\dv{z}{s}}_{\cos(\theta(x))} \right] = \dv{n}{z} = 0
+    \end{equation}
+    since $ \dd{s} = \sqrt{\dd{x}^2 + \dd{y}^2} $.
+
+    This tells us that there is a conserved quantity: $ n(x) \cos(\theta(x)) = n(x_0) \cos(\theta(x_0)) $. This is pretty neat (it's kind of the continuous version of Snell's Law. We could have used sine functions if we had formulated the problem differently). It means if $ n(x) $ decreases, $ \cos(\theta(x)) $ must increase to conserve the quantity, but there is an upper bound on the cosine. By having this slowly varying $ n(x) $, we can basically confine the angle of the wave such that it will never leave a certain region. This is not quite the same thing as total internal reflection, since there is no discontinuous boundary, and therefore no evanescent waves or losses, which makes it ideal for optical fibers. Then again, it is difficult and expensive to make materials like this, and this is only an approximation, so there will technically be small losses no matter what. If the initial angle is larger than a particular value, the ray will not turn around in time (given a finitely large radius of the fiber) and the ray will it a hard boundary. This is the acceptance angle of the fiber.
+
+    We can write $ x $ as a function of $ z $. Previously, the right-hand side of the differential equation was the gradient along the ray. If we use this parameterization, $ \dv{z} n(x(z)) $ no longer vanishes.
+    \begin{equation}
+        n(x) \dv{z}{s} = n_0 = n(x) \dv{z}{x} \dv{x}{s}
+    \end{equation}
+    so
+    \begin{equation}
+        \dv{x}{s} = \frac{n_0}{n(x)} \dv{x}{z}
+    \end{equation}
+    Therefore, plugging this into our differential equation gives us
+    \begin{equation}
+        n_0^2 \dv[2]{x}{z} = n(x) \dv{n(x)}{x} = n(x) \dv{n(x)}{z} \dv{z}{x}
+    \end{equation}
+    so
+    \begin{equation}
+        n_0 \dv{x}{z} \dv[2]{x}{z} = \frac{1}{2} \dv{z}n^2(x(z))
+    \end{equation}
+    or
+    \begin{equation}
+        n_0^2 \dv{z} \frac{1}{2} \left( \dv{x}{z} \right)^2 = \frac{1}{2} \dv{z} n^2(x(z))
+    \end{equation}
+    Solving this, we have
+    \begin{equation}
+        z(x) = n_0 \int_0^x \frac{\dd{x}}{\sqrt{n^2(x) - n_0^2}}
+    \end{equation}
+    where $ n(x_0) = n_0 $.
+    
+    Note that this is also in Jackson.
+\end{ex}
+
+\section{Wave Guides}
+\label{sec:wave_guides}
+
+Suppose we have some perfect metal tube with constant cross-section in the $ xy $-plane. By perfect metal, we mean $ \sigma \to \infty $. Inside, $ \va{B} = 0 $ and $ \va{E} = 0 $. Across the boundary, $ B_n $ and $ \va{E}_t $ are continuous.
+
+Let's suppose the electric field is a function in the $ xy $-plane and propagates in the $ z $-direction:
+\begin{equation}
+    \begin{cases}\va{E}\\\va{B}\end{cases} = \begin{cases}\va{E}(x,y)\\\va{B}(x,y)\end{cases} e^{\imath (kz- \omega t)}
+\end{equation}
+\begin{equation}
+    \curl{ \va{E}} = - \partial_t \va{B} \quad \div{ \va{E}} = 0 \quad \div{ \va{B}} = 0
+\end{equation}
+In non-dispersive homogeneous materials,
+\begin{equation}
+    \curl{ \va{H}} = \partial_t \va{D}
+\end{equation}
+so
+\begin{equation}
+    \curl{ \va{B}} = \mu \epsilon \partial_t \va{E}
+\end{equation}
+so
+\begin{equation}
+    \curl{ \va{E}} = \imath \omega \va{B}
+\end{equation}
+and
+\begin{equation}
+    \curl{ \va{B}} = -\imath \omega \mu \epsilon \va{E}
+\end{equation}
+In order to satisfy the boundary conditions, we cant have fields which are only in the $ x $ and $ y $-directions, and we will see in the next lecture that this means waves are guided along this material.
+
+
+\end{document}

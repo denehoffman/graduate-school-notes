@@ -1,0 +1,99 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\chapter{Position and Momentum}
+\lecture{21}{Mon Oct 7 2019}{Uncountable Basis Sets}
+
+$ l^2 $ (Review)
+\begin{itemize}
+    \item Countable Basis: $ \{\ket{m} \qc m \in \mathbb{Z}\} $
+    \item Orthonormality: $ \bra{m} \ket{m'} = \delta_{mm'} $
+    \item Completeness: $ I = \sum_{m} \ket{m} \bra{m} $ 
+    \item For any $ \ket{\psi} \in \mathcal{H} $, $ \ket{\psi} = \sum_{m} \ket{m} \bra{m} \ket{\psi} $ 
+    \item $ \ket{\psi} = \sum_{m} C_m \ket{m} $
+\end{itemize}
+
+$ L^2 [a,b] $ 
+\begin{itemize}
+    \item Uncountable Basis: $ \{\ket{x} \qc x \in [a, b]\} $ 
+    \item Completeness: $ I = \int_{a}^{b} \dd{x} \op{x} $
+    \item Component: $ \varphi(x) = \bra{x} \ket{\varphi} $
+    \item $ \varphi(x) = \bra{x} \int_a^b \dd{x'} \underbrace{ \ket{x'} \bra{x'} }_{\delta(x-x')} \ket{\varphi} $
+    \item $ \bra{\chi} \ket{\varphi} = \int_a^b \dd{x} \chi^* (x) \varphi(x) $
+    \item $ \norm{\varphi}^2 = \int_a^b \dd{x} \abs{\varphi(x)}^2 < \infty $
+\end{itemize}
+
+$ L^2 (\mathbb{R}) $
+\begin{itemize}
+    \item Seperability:
+        \subitem Fourier basis of $ L^2 [a,b] $
+        $ \{\varphi_n(x) = \frac{1}{\sqrt{b-a}} e^{\imath 2 \pi n x / (b-a)}\} $
+        Any $\varphi$ can be written as a sum of basis elements with coefficients $ c_n = \bra{n} \ket{\varphi} = \frac{1}{\sqrt{b-a}} \int \dd{x} e^{-\imath 2 \pi n x / (b-a)} $
+    \item $ \norm{\varphi - \sum_n C_n \varphi_n}^2 = 0 $
+\end{itemize}
+
+Operators:
+\begin{equation}
+    A\colon \ket{\varphi} \in \mathcal{H} \to A \ket{\varphi} \overbrace{\in}^{?}\mathcal{H}
+\end{equation}
+Typically, operators in uncountable bases will map to elements outside the basis:
+\begin{ex}
+    \begin{equation}
+        \ket{\varphi} \in \mathcal{H}
+    \end{equation}
+    \begin{equation}
+        \sum_{n=1}^{\infty} \abs{C_n}^2 < \infty
+    \end{equation}
+    \begin{equation}
+        \sum_{n=1}^{\infty} \abs{n C_n}^2 \qq{diverges}
+    \end{equation}
+\end{ex}
+For a bounded space, $ (X \varphi)(x) = \bra{x} X \ket{\varphi} = x \varphi (x) $, $ L^2 [0,1] $ ( $ X $ is the position operator). However, if we look at an unbounded space,
+\begin{equation}
+    (x \dv{x} \varphi )(x) = x \varphi'(x)
+\end{equation}
+Many functions will have an unbounded result, particularly any discontinuous $ \varphi $.
+
+The idea that operators can map outside of the basis becomes a problem when we want to find eigensystems. The eigenvectors of an operator might not be in the original Hilbert space. To solve this, we will look at ``pseudoeigenvectors'':
+
+\section{Pseudoeigenvectors}
+\label{sec:pseudoeigenvectors}
+
+\begin{equation}
+    A = X \qc \varphi_a(x) = \delta(x-a)
+\end{equation}
+\begin{equation}
+    (X \varphi_a)(x) = x \varphi_a(x) = x \delta(x-a) = a \delta(x-a)
+\end{equation}
+\begin{equation}
+    \bra{\varphi_b} \ket{\varphi_a} = \int \dd{x} \delta(x-a) \delta(x-b) = \delta(a-b)
+\end{equation}
+
+\begin{equation}
+    A = -\imath \dv{x}
+\end{equation}
+\begin{equation}
+    \varphi_k(x) = \frac{1}{\sqrt{2 \pi}} e^{\imath kx}
+\end{equation}
+\begin{equation}
+    A \varphi_k(x) = k \varphi_k(x)
+\end{equation}
+\begin{equation}
+    \bra{\varphi_k} \ket{\varphi_{k'}} = \frac{1}{2 \pi} \int_{- \infty}^{\infty} e^{\imath k x} e^{\imath k' x} \dd{x} = \delta(k - k')
+\end{equation}
+
+For any $ \ket{\psi} \in \mathcal{H} $,
+\begin{equation}
+    \bra{x} \ket{\psi} = \psi(x) = \int \dd{k} \tilde{\psi}_k e^{\imath k x}
+\end{equation}
+
+\subsection{Spectral Decomposition in Uncountable Spaces}
+\label{sub:spectral_decomposition_in_uncountable_spaces}
+
+\begin{equation}
+    I = \sum_n \op{n} + \int \dd{\nu} \op{\nu}
+\end{equation}
+\begin{equation}
+    A = \sum_n \ket{n} a \bra{n} + \int \dd{\nu} \ket{\nu} a(\nu) \bra{\nu}
+\end{equation}
+
+\end{document}

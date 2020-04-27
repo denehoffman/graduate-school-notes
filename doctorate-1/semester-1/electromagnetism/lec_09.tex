@@ -1,0 +1,97 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{9}{Mon Sep 9 2019}{More on $Y_{lm}$ Functions}
+
+\begin{note}{N.B.}
+I will be using $L$ for $\mathbb{L}$ from here onward.
+\end{note}
+
+If we don't have the full range of the spherical angles, we actually have to solve the original $\nabla^2$ differential equations and can't use $L$ and $L^2$ or the $Y_{lm}$ functions.
+
+\begin{equation}
+    Y_{lm}(\theta,\phi) = \sqrt{\frac{2l+1}{4\pi}\frac{(l-m)!}{(l+m)!}}P_l^m(\cos\theta)e^{\imath m\phi}
+\end{equation}
+where
+\begin{equation}
+    P_l^m(x) = \frac{(-1)^m}{2^l l!}(1-x^2)^{m/2}\frac{d^{l+m}}{dx^{l+m}}(x^2-1)^l.
+\end{equation}
+
+Orthogonality tells us:
+\begin{equation}
+    \int Y_{lm}^*(\theta,\phi)Y_{l'm'}(\theta,\phi)d\Omega = \delta_{ll'}\delta_{mm'}
+\end{equation}
+
+The spectral decomposition tells us:
+\begin{equation}
+    \sum_{lm} Y_{lm}(\theta,\phi)Y_{lm}^*(\theta',\phi') = \delta(\phi-\phi')\delta(\cos\theta-\cos\theta')
+\end{equation}
+
+since $\delta(f(x)) = \frac{1}{f'(x_0)}\delta(x-x_0)$.
+
+\begin{note}{N.B.}
+In EM, we write $Y_{lm}$ such that
+$Y_{lm}(\theta,\phi) = (-1)^m Y_{l,-m}^*(\theta,\phi)$.
+\end{note}
+
+For general spherical solutions,
+
+$\Phi = \sum g_{lm}(r)Y_{lm}(\theta,\phi)$ or
+\begin{equation}
+    \frac{1}{r^2}\partial_r r^2\partial_r g - \frac{l(l+1)}{r^2} = 0
+\end{equation}
+
+so $r^2\partial_r^2 g + 2r\partial_r g - l(l+1)g = 0$.
+
+Suppose $g = r^\lambda$:
+\begin{equation}
+    [\lambda(\lambda-1)+2\lambda - l(l+1)]r^\lambda = 0
+\end{equation}
+so $\lambda = l\text{ or } -(l+1)$
+
+Therefore, the general solution in spherical systems (which use the periodicity in both $\phi$ and $\theta$) is:
+
+\begin{equation}
+    \Phi = \sum_{l=0}^\infty \sum_{m=-l}^l [A_l r^l + B_l r^{-(l+1)}]Y_{lm}(\theta,\phi).
+\end{equation}
+
+\subsection{Systems with $\phi$-independence}%
+\label{sub:systems_with_phi_independence}
+
+If we have an axis of symmetry, set the z-axis as the axis of symmetry. Therefore solutions should be independent of the angle around the z-axis ($\phi$).
+
+This means $Y_{lm}\to Y_{l0}$ so $P_l^m\to P_l(x) = \frac{1}{2^l l!}\frac{d^l}{dx^l}(x^2-1)^l$, which are not normalized for ``historical reasons''. The differential equation then becomes:
+
+\begin{equation}
+    \frac{d}{dx}(1-x^2)\frac{d}{dx}P_l + l(l+1)P_l = 0,\ x\in[-1,1].
+\end{equation}
+
+\begin{remark}
+There are other solutions
+$Q_l(x)=\frac{1}{2}P_l(x)\ln\left[\frac{1-x}{1+x}\right]+R_l(x)$ where $R_l$ is a polynomial of degree $l-1$.
+\end{remark}
+
+Additionally $\int_{-1}^1 P_l(x)P_{l'}(x)dx = \frac{2l+1}{2}d_{ll'}$
+
+Jackson notes some ``easy'' relations from Rodriguez's formula:
+
+\begin{enumerate}
+\item $\frac{d}{dx}P_{l+1}-\frac{d}{dx}P_{l-1}-(2l+1)P_l = 0$
+\item $(l+1)P_{l+1} - (2l+1)xP_l + lP_{l-1} = 0$
+\item $P_{2k}(0) = \frac{(2k-1)!!}{2^k k!}(-1)^k$
+\end{enumerate}
+
+It can be shown that:
+
+\begin{equation}
+    \frac{1}{|\vec{x}-\vec{x}'|} = \begin{cases}\sum \frac{1}{r^{l+1}} A_l P_l(\cos\gamma)& r>r'\\\sum r^l B_l P_l(\cos\gamma)& r<r'\\\end{cases}
+\end{equation}
+
+where $\gamma$ is the angle between the vectors.
+
+Equivalently,
+
+\begin{equation}
+    \frac{1}{|\vec{x}-\vec{x}'|} = \sum_{l=0}^\infty \frac{r_<^l}{r_>^{l+1}}P_l(\cos\gamma)
+\end{equation}
+where $r_<$ and $r_>$ correspond to the smaller and larger vector.
+\end{document}

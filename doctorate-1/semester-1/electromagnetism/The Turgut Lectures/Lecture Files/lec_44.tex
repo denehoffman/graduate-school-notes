@@ -1,0 +1,119 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{44}{Friday, November 22, 2019}{}
+
+The total radiation energy/second is the famous Rayleigh scattering result, the leading order dipole term:
+\begin{equation}
+    P = \frac{c^2 Z_0 k^4}{12 \pi} \abs{ \va{p}_{\omega}}^2
+\end{equation}
+Recall that
+\begin{equation}
+    Z_0 = \sqrt{\frac{\mu_0}{\epsilon_0}}
+\end{equation}
+and
+\begin{equation}
+    \dv{P}{\Omega} = \frac{k^4 Z_0}{32 \pi^2} \abs{ \vu{n} \cross ( \vu{n} \cross \va{m}_{\omega})}^2
+\end{equation}
+
+The next order term of the power is
+\begin{equation}
+    P = \frac{Z_0 k^4}{12 \pi} \abs{ \va{m}_{\omega}}^2
+\end{equation}
+
+Note that $ \frac{\abs{ \va{m}_{\omega}}}{\abs{ \va{p}_{\omega}}} \sim \omega d $ so $ \frac{1}{c^2} \frac{\abs{m_{\omega}^2}}{\abs{p_{\omega}}^2} \sim \frac{\omega^2 d^2}{c^2} \sim (kd)^2 $.
+
+Recall $ \va{A}_{\omega} = \frac{\mu_0}{4 \pi} \frac{e^{\imath kr}}{r} \int \dd[3]{x'} \imath k (\text{sym} + \text{antisym}) $ where we are concerned with the symmetric part of $ x' \vdot J $,
+\begin{equation}
+    \frac{1}{2} \left[ x_i' J_j(x') + x_j' J_i(x') \right]
+\end{equation}
+We found previously that the antisymmetric part was proportional to $ \va{m}_{\omega} $. We will see later that there is a better expansion, and our method here is not that sophisticated.
+\begin{align}
+    0 = \int_{\Omega} \partial_j \left[ x_i J_j \right] \dd[3]{x} &= \int \left( \delta_{jk} x_i J_i + x_k \delta_{ij} J_j + x_k x_i \partial_j J_j \right) \\
+    &= \int \left( x_i J_k + x_k J_i \right) + x_k x_i \partial_j J_j \\
+    \frac{1}{2} \int_{\Omega} \left( x_i J_k + x_k J_i \right) \dd[3]{x} = -\imath \omega \int x_k x_i \rho \rho_{\omega} \dd[3]{x}
+\end{align}
+since
+\begin{equation}
+    \div{ \va{J}} = - \pdv{\rho}{t} = - (- \imath \omega) \rho_{\omega}
+\end{equation}
+
+Therefore
+\begin{equation}
+    \va{A}_{\omega} = \frac{\mu_0}{4 \pi} \frac{e^{\imath kr} }{r} \int \dd[3]{x'} (\imath k)(- \imath \omega) \frac{1}{2} (\vu{n} \vdot \va{x}') \va{x}' \rho_{\omega}
+\end{equation}
+
+Recall $ \va{B}_{\omega} = \curl{ \va{A}_{\omega}} $ and $ \va{E}_{\omega} = \frac{\imath c}{k} \curl{ \va{B}_{\omega}} $. We are only operating on the exponential over $ r $ term in the front of $ \va{A}_{\omega} $, so $ \va{B}_{\omega} = -\frac{\mu_0}{8 \pi} \left[ \int \dd[3]{x'}\cdots \right] \cross \left( \grad{e^{\imath kr}} \right) \frac{1}{r} $. To leading order, this gives us
+
+\begin{equation}
+    \va{B}_{\omega} \approx -\frac{\mu_0 k \omega}{8 \pi} \left\{ \left[ \int \dd[3]{x'}( \vu{n} \vdot \va{x}') \va{x}' \rho_{\omega} \right] \cross (\imath k) \vu{n} \right\} \frac{e^{\imath kr}}{r}
+\end{equation}
+Inside the integral, we can write
+\begin{equation}
+    n_i \left[x'_i x'_j - \frac{1}{3} \delta_{ij} r'^2 \right] = (n_i x'_i)x'_j - n_j r'^2
+\end{equation}
+and
+\begin{equation}
+    \vu{n} \vdot [ \vb{Q} ] = ( \vu{n} \vdot \va{x}') \va{x}' - \frac{1}{3} r'^2 \vu{n}
+\end{equation}
+so
+\begin{equation}
+    \vu{n} \vdot [ \vb{Q} ] \cross \vu{n} = ( \vu{n} \vdot \va{x}') \va{x}' \cross \vu{n}
+\end{equation}
+where
+\begin{equation}
+    Q_{ij} = \int \left[ 3 x_i x_j - \delta_{ij} x^2 \right] \dd[3]{x}
+\end{equation}
+which is symmetric in $ i $ and $ j $. Therefore, if we define $ \va{Q}[ \vu{n} ]_i \equiv Q_{ij} \vu{n}_j $,
+\begin{equation}
+    \frac{1}{\mu_0} \va{B} = \frac{\omega k^2 \imath}{8 \pi} \frac{1}{3} \frac{e^{\imath kr}}{r} \va{Q} [ \vu{n}] \cross \vu{n} = 0 \imath\frac{c k^3}{24 \pi} \left[ \vu{n} \cross \va{Q} [ \vu{n}] \right] \frac{e^{\imath kr}}{r} 
+\end{equation}
+where we recognize $ \va{Q} $ as a contraction of the electric multipole tensor. Now we can take the curl to find the electric field, where (rewriting using $ \frac{\va{B}_{\omega}}{\mu_0} $),
+\begin{equation}
+    \va{E}_{\omega} = \frac{\imath Z_0}{k} \curl{ \va{H}_{\omega}}
+\end{equation}
+so
+\begin{equation}
+    \va{E}_{\omega} = \frac{\imath Z_0}{k} (-1)\left( - \imath \frac{c k^3}{24 \pi} \right) \left[ \vu{n} \cross \va{Q}( \vu{n}) \right] \cross \left( \grad{e^{\imath kr}} \right) \frac{1}{r} = - \frac{\imath c Z_0 k^3}{24 \pi}\left( \left[ \vu{n} \cross \va{Q}( \vu{n}) \right] \cross \vu{n}\right) \frac{e^{\imath kr}}{r}
+\end{equation}
+
+Now we can write down $ \dv{P}{\Omega} $:
+\begin{equation}
+    \dv{P}{\Omega} = \frac{1}{2 \mu} \va{E}_{\omega} \cross \va{B}_{\omega}^* \vdot \vu{n} r^2
+\end{equation}
+since we are averaging over time. The final dot product is because we want to see the actual scaled power far away in the solid angle. If you write this down, you find
+\begin{equation}
+    \dv{P}{\Omega} = \frac{c^2 Z_0 k^6}{24 \times 24 \times 2 \pi^2} \vu{n} \vdot \left[ \left(\left[ \vu{n} \cross \va{Q}( \vu{n}) \right] \cross \vu{n}\right) \cross \left( \vu{n} \cross \va{Q}^*( \vu{n}) \right) \right]
+\end{equation}
+we can use the triple product identity to rewrite this as
+\begin{equation}
+    \frac{c^2 Z_0 k^6}{1152 \pi^2} \abs{\left( \vu{n} \cross \va{Q}( \vu{n}) \right) \cross \vu{n}}^2 
+\end{equation}
+
+Clearly this must be a smaller term than the leading terms. To find the full power, we must now integrate over $ \dd{\Omega} $.
+
+\begin{equation}
+    P^{(quad)} = \frac{c^2 Z_0 k^6}{1152 \pi^2} \int_{S^2} \left[ \left( \vu{n} \cross \va{Q}( \vu{n}) \right) \cross \vu{n} \right] \vdot \left( \left[ \va{Q}( \vu{n}) \cross \vu{n} \right] \cross \vu{n} \right)^* \dd[2]{\Omega}
+\end{equation}
+We expand $ \left[ \left( \vu{n} ( \vu{n} \vdot \va{Q}) \right) - \va{Q} \vu{n} \vu{n} \right] \vdot \left[ \vu{n} (\vu{n} \vdot \va{Q}^*) - \va{Q}^* \vu{n} \vu{n} \right] = ( \vu{n} \vdot \va{Q}) ( \vu{n} \vdot \va{Q}^*)- \va{Q} \vdot \va{Q}^* $.
+This is
+\begin{equation}
+    \int n_{\alpha} Q_{\alpha \beta} n_{\beta} n_{\gamma} Q^*_{\gamma \delta} n_{\delta} \dd[2]{\Omega} = \int \dd[2]{\Omega} \left[ Q_{\alpha bet a} \vu{n}_{\beta} Q_{\alpha \lambda} \vu{n}_{\lambda} \right]
+\end{equation}
+These are rotationally invariant integrals, by symmetry, so
+\begin{equation}
+    \int \dd[2]{\Omega} \vu{n}_{\beta} \vu{n}_{\lambda} = \lambda^{(1)} \delta_{\alpha \beta}
+\end{equation}
+To find the constant, we contract over $ \beta = \lambda $, which means that $ \lambda^{(1)} = \frac{4 \pi}{3} $. The other integral is
+\begin{equation}
+    \int \dd[2]{\Omega} \vu{n}_{\alpha} \vu{n}_{\beta} \vu{n}_{\gamma} \vu{n}_{\delta} = \lambda^{(2)} \left[ \delta_{\alpha \beta} \delta_{\gamma \delta} + \delta_{\alpha \gamma} \delta_{\beta \delta} + \delta_{\alpha \delta} \delta_{\gamma \beta} \right]
+\end{equation}
+Contracting over $ \alpha = \beta $, we get
+\begin{equation}
+    \int \dd[2]{\Omega} \vu{n}_{\gamma} \vu{n}_{\delta} = \lambda^{(2)} \left[ 5 \delta_{\gamma \delta} \right]
+\end{equation}
+so $ \lambda^{(2)} = \frac{4 \pi}{15} $. Therefore, using both integrals, we can write down our answer. Remember that the $ \vb{Q} $ tensor is traceless:
+\begin{equation}
+    P = \frac{c^2 Z_0 k^6}{1440 \pi} \left[ Q_{\alpha \beta} Q^*_{\alpha \beta} \right]
+\end{equation}
+
+\end{document}

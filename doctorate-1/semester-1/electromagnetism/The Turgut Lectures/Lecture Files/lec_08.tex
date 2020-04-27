@@ -1,0 +1,95 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{8}{Mon Sep 9 2019}{Review}
+
+The general solutions, again, are:
+
+\begin{equation}
+   \nu\neq0\quad[a_\nu\rho^\nu+b_\nu\rho^{-\nu}]\sin(\nu\phi\alpha_\nu)
+\end{equation}
+
+\begin{equation}
+   \nu = 0\quad[a_0+b_0\ln\rho][A_0+B_0\rho]
+\end{equation}
+
+In the case where the potential on both planes is $V_0$, $\alpha_\nu = 0$, and from the periodicity of the $\nu\neq 0$ condition, we can say $\nu = \frac{m\pi}{\beta}$. This discretizes $\nu$:
+
+\begin{equation}
+   \Phi = V_0 + \sum_{m=1}^\infty[a_m\rho^{\frac{m\pi}{\beta}}+b_m\rho^{-{\frac{m\pi}{\beta}}}]\sin({\frac{m\pi}{\beta}}\phi)
+\end{equation}
+
+There is another unspecified parameter which concerns what happens really far away and really up close. Let's assume we only want a solution which is finite at the vertex. Only the $a_m$ terms will remain finite here:
+
+\begin{equation}
+   \Phi = V_0 + \sum_{m=1}^\infty a_m\rho^{\frac{m\pi}{\beta}}\sin({\frac{m\pi}{\beta}}\phi)
+\end{equation}
+
+What does the vector field look like?
+
+\begin{equation}
+    \vec{E} = -\nabla\Phi = -\partial_\rho\Phi\hat{\rho}-\frac{1}{\rho}\partial_\rho\Phi\hat{\phi} = -a_m\rho^{\frac{m\pi}{\beta}-1}\sin(\frac{m\pi}{\beta}\phi)\hat{\rho} - \sum a_m \frac{m\pi}{\beta} \rho^{\frac{m\pi}{\beta}-1}\cos(\frac{m\pi}{\beta}\phi)\hat{\phi}
+\end{equation}
+
+Suppose $\beta > \pi$. This implies $E\propto\rho^{\frac{\pi}{\beta}-1}$ as $\rho\to 0^+$, so the field diverges in the corner if the corner is a sharp edge.
+
+\section{Spherical Coordinates}%
+\label{sec:spherical_coordinates}
+
+\begin{equation}
+   \nabla^2 = \frac{1}{r^2}\partial_r(r^2\partial_r)+\frac{1}{r^2\sin\theta}\partial_\theta(\sin\theta\partial_\theta)+\frac{1}{r^2\sin^2\theta}\partial_\phi^2
+\end{equation}
+
+Let us look at this from another perspective, an angular moment operator:
+
+\begin{equation}
+   \vec{\mathbb{L}} = \vec{x}\cross(-\imath\vec{\nabla})
+\end{equation}
+
+\begin{equation}
+    \vec{x}\cdot\vec{\mathbb{L}} = 0
+\end{equation}
+
+\begin{equation}
+    \mathbb{L}_l = (-\imath)\epsilon_{lmn}x_m\partial_n
+\end{equation}
+
+\begin{equation}
+    -\mathbb{L}^2 = r^2\nabla^2 - \partial_r r^2 \partial_r
+\end{equation}
+
+Now we can see that
+
+\begin{equation}
+    \nabla^2 = \frac{1}{r^2}\partial_r r^2\partial_r - \frac{\mathbb{L}^2}{r^2}
+\end{equation}
+
+If we are dealing with completely spherical boundaries, we need the full range of $\phi$ and $\theta$.
+
+If we say $\hbar = 1$, this is the same as the angular momentum operator from quantum:
+
+\begin{equation}
+    [\mathbb{L}^2, f(r)] = 0
+\end{equation}
+
+\begin{equation}
+    [\mathbb{L}^2,\mathbb{L}_z] = 0
+\end{equation}
+
+\begin{equation}
+    [\mathbb{L}_z, f(r)] = 0
+\end{equation}
+
+\begin{equation}
+    \mathbb{L}^2|lm\rangle = l(l+1)|lm\rangle
+\end{equation}
+
+\begin{equation}
+    \mathbb{L}_z|lm\rangle = m|lm\rangle
+\end{equation}
+
+where
+
+\begin{equation}
+    \langle\theta,\phi|lm\rangle = Y_{lm}(\theta,\phi)
+\end{equation}
+\end{document}

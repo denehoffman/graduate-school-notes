@@ -1,0 +1,104 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{2}{Mon Aug 26 2019}{Electrostatics}
+\section{The Electric Field}%
+\label{sec:the_electric_field}
+
+Start with the first equation:
+\begin{equation}
+    \nabla\cdot\vec{E} = \frac{\rho}{\epsilon_0}
+\end{equation}
+
+Assume there is no $\vec{B}$ field, or at least $\vec{B}$ is not changing in time (electrostatics). Also, $\vec{E}$ won't change with time, and there will be no currents, so the only equations left are the first one and the equation corresponding to the magnetic source ($\nabla\cdot\vec{B} = 0$), as well as $\nabla\times\vec{E} = 0$.
+
+\subsection{Integral Form}%
+\label{sub:integral_form}
+
+For a stationary surface $\Sigma$ with charges inside, the divergence equation says that:
+\begin{equation}
+    \int_V (\nabla\cdot\vec{E})dv = \frac{Q_\text{enclosed}}{\epsilon_0} = \oint_\Sigma\vec{E}\cdot d\vec{a}
+\end{equation}
+
+Consider a stationary point charge $q$. Take a spherical shell around the charge ($S^2$ sphere) of radius $r$ with outward normal vector $\hat{r}$. By symmetry, $\vec{E} = E(r)\hat{r}$ since the curl is zero. Gauss's law tells us
+\begin{equation}
+    \oint\vec{E}\cdot d\vec{a} = E(r)\oint_{S^2}\hat{r}\cdot d\vec{a} = E(r)4\pi r^2 = \frac{q}{\epsilon_0}.
+\end{equation}
+
+Therefore, $\vec{E} = \frac{q}{4\pi\epsilon_0 r^2}\hat{r}$ when $q$ is at the center of the sphere.
+\begin{equation}
+    \vec{E}(\vec{x}) = \frac{q}{4\pi\epsilon_0|\vec{x}-\vec{x}'|^2}\cdot\left[\frac{\vec{x}-\vec{x}'}{|\vec{x}-\vec{x}'|}\right] = \frac{q}{4\pi\epsilon_0|\vec{x}-\vec{x}'|^3}\cdot\left[\vec{x}-\vec{x}'\right]
+\end{equation} for an arbitrary position. Here, $\vec{x}'$ is the vector pointing from the origin to the charge and $\vec{x}$ is the vector pointing to the position of observation.
+
+In general:
+\begin{equation}
+    \vec{E} = \int_\Omega\frac{\rho(\vec{x}')dv'}{4\pi\epsilon_0|\vec{x}-\vec{x}'|^3}\cdot\left[\vec{x}-\vec{x}'\right]
+\end{equation} for some charge distribution in a volume $\Omega$.
+
+Let's look at $-\nabla\left[\frac{1}{|\vec{x}-\vec{x}'|}\right]$. If you were to expand out the denominator and take the gradient, you would get
+\begin{equation}
+    -\frac{1}{2}\frac{1}{\text{something}^{3/2}}2(x_i - x_i')\hat{e}_i
+\end{equation}
+so
+\begin{equation}
+    -\nabla\left[\frac{1}{|\vec{x}-\vec{x}'|}\right] = \frac{\vec{x} - \vec{x}'}{|\vec{x}-\vec{x}'|^3}.
+\end{equation}
+
+Therefore, we can use
+\begin{equation}
+    \vec{E}(\vec{x}) = -\nabla\left[\frac{1}{4\pi\epsilon_0}\int\frac{\rho(\vec{x}')dv'}{|\vec{x} - \vec{x}'|}\right],
+\end{equation}
+where the piece in the brackets is a scalar, called the scalar potential (only when there are no boundaries around). If $\vec{E}=-\nabla\Phi$ then $\nabla\times\vec{E}=\vec{0}$. Boundaries would mean some materials exist in the problem, so the properties of these materials will complicate the problem.
+
+\begin{remark}
+    \begin{equation}
+        \nabla\cdot\frac{\vec{r}}{r^3} \Rightarrow \partial_i\frac{x_i}{r^3} = \frac{3}{r^3}-3\frac{x_i}{r^4}\frac{x_i}{r} = \frac{3}{r^3} - \frac{3r^2}{r^5} = 0.
+    \end{equation}
+However, this is not exactly true. It is true as long as $r\neq 0$. However, if it is, these derivatives are not justified.
+\end{remark}
+
+\begin{equation}
+  \int_{S^3}\frac{\vec{r}}{r^3}dv = \oint_{S^2}\frac{\vec{r}}{r^3}\hat{r}d\vec{a} = 4\pi. 
+\end{equation}
+Therefore,
+\begin{equation}
+    \nabla\cdot\frac{\vec{r}}{r^3} = 4\pi\delta(\vec{r}).
+\end{equation}
+
+This is very useful, as we can show that,
+\begin{equation}
+    \nabla\frac{q(\vec{x}-\vec{x}')}{4\pi\epsilon_0|\vec{x}-\vec{x}'|^3} = \frac{1}{\epsilon_0}q\delta(\vec{x}-\vec{x}').
+\end{equation}
+
+Say we have a charge in an electric field moving from point $A$ to point $B$. The change in kinetic energy is the integral of the work done, or
+\begin{equation}
+    \Delta(\text{KE}) = -\int_A^Bq\vec{E}\cdot d\vec{r}\Rightarrow \frac{1}{2}mv_B^2 + q\Phi(\vec{x}_B) = \frac{1}{2}mv_A^2 + q\Phi(\vec{x}_A)
+\end{equation}
+
+\subsection{Ideal Conductors}%
+\label{sub:ideal_conductors}
+
+They are ``ideal'' meaning they have a sufficient number of charges such that in static equilibrium, $\vec{E} = \vec{0}$ inside an ideal conductor. This automatically means $\rho=0$ inside\textemdash\ there is only surface charge $\sigma$ on an ideal conductor. The electric field is zero inside, and $\vec{E}\parallel\vec{n}$ outside (perpendicular to the surface). $\vec{E} = -\nabla\Phi$ is perpendicular to $\Phi$-constant surfaces. This implies $\Phi$ is constant on the surface of the conductor. $\vec{E} = 0$ on the inside implies conductors are equipotential regions.
+
+On the surface, to calculate anything, we take a small Gaussian pillbox with a thickness $\delta\to0$ across the boundary. The electric field will therefore be outwardly perpendicular to the surface (away from the conductor): $\vec{E} = \frac{\sigma}{\epsilon_0}\hat{n}_+$.
+
+Let us formulate a problem in an electrostatic system in the presence of a conductor. Either you put charges inside conductors or you put the conductors at certain potentials. Pretend we can keep the conductors at a certain constant potential with an ``idealized'' cable connected to a battery. We could also put charges on them, such that the total charge on a conductor is, say, $Q$. Maybe we'd have some $\rho$ outside and ask what the potential is at a given point in space. Every vector field can be decomposed into a pure curl and pure gradient part. If we knew the surface charge distributions on all the conductors, we could write down the solution easily:
+
+\begin{equation}
+    \Phi(\vec{x}) = \frac{1}{4\pi\epsilon_0}\int\frac{\rho(\vec{x}')d^3x'}{|\vec{x}-\vec{x}'|} + \sum_i\oint_{\Sigma_i}\frac{\sigma_i(\vec{x}')da'}{4\pi\epsilon_0|\vec{x}-\vec{x}'|}.
+\end{equation}
+
+However, we don't know the $\sigma_i$s. we can write down some equation $\epsilon_0[-\nabla\Phi\hat{n}] = \sigma$, or
+
+\begin{equation}
+    \Phi(\vec{x}) = \frac{1}{4\pi\epsilon_0}\int\frac{\rho(\vec{x}')d^3x'}{|\vec{x}-\vec{x}'|} + \sum_i\oint_{\Sigma_i}\frac{[-\nabla\Phi](\vec{x}')da'}{4\pi|\vec{x}-\vec{x}'|}.
+\end{equation}
+
+This is not the most practical way to solve the problem. Typically, you turn this ``integral'' equation into a ``differential'' equation:
+
+\begin{equation}
+    \nabla\cdot\vec{E} = \frac{\rho}{\epsilon_0}=\nabla\cdot[-\nabla\Phi] = \nabla^2\Phi
+\end{equation}
+
+Either $\Phi$ is given on the boundaries (Dirichlet Problem for the Poisson Equation), or $\partial_t\Phi$ is given (Neumann Problem).
+
+\end{document}

@@ -1,0 +1,104 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{49}{Wednesday, December 04, 2019}{Radiation, Continued}
+
+Recall the source-free solutions (away from the source):
+\begin{equation}
+    \va{E}_{\omega} = Z_0 \left( \va{\mathbb{L}} \psi + \frac{\imath}{k} \curl{ \va{\mathbb{L}} \chi} \right)
+\end{equation}
+\begin{equation}
+    \va{H}_{\omega} = \va{\mathbb{L}} \chi - \frac{\imath}{k} \curl{ \va{\mathbb{L}} \psi}
+\end{equation}
+
+We want to connect these to the region where the source is present. Recall that last time, we expanded
+\begin{equation}
+    \va{x} \vdot \va{H}_{\omega} = \sum_{l,m} \frac{1}{k} \sqrt{l(l+1)} Y_{lm} h_l^{(1)}(kr) a_M(l,m) 
+\end{equation}
+and
+\begin{equation}
+    \va{x} \vdot \va{E}_{\omega} = \sum_{l,m} - \frac{Z_0}{k} \sqrt{l(l+1)} Y_{lm} h_l^{(1)}(kr) a_E(l,m)
+\end{equation}
+
+When we looked at the solutions for the source term last time, we found that
+\begin{equation}
+    \va{x} \vdot \va{H}_{\omega} = \left[ \imath (\imath k) \int j_l(kr') Y_{lm}(\Omega') ( \va{\mathbb{L}} \vdot \va{J}_{\omega})( \va{x}') \dd[3]{x'} \right] h_l^{(1)}(kr) Y_{lm}(\Omega)
+\end{equation}
+and a similar expression for $ \va{E}_{\omega} $. We then find that
+
+\begin{equation}
+    a_E(l,m) = \frac{\imath k}{\sqrt{l(l+1)}} \int j_l(kr) Y_{lm}^*(\Omega) \left( \va{\mathbb{L}} \vdot \curl{ \va{J}_{\omega}} \right) \dd[3]{x}
+\end{equation}
+\begin{equation}
+    a_M(l,m) = - \frac{k^2}{\sqrt{l(l+1)}} \int j_l(kr) Y_{lm}^*(\Omega) \left( \va{\mathbb{L}} \vdot \va{J}_{\omega} \right) \dd[3]{x}
+\end{equation}
+
+Recall that
+\begin{equation}
+    P_{\omega} = \frac{Z_0}{k^2} \sum_{l,m} \left( \abs{a_m}^2 + \abs{a_E}^2 \right)
+\end{equation}
+so we can now find the power radiated by any source. We have not made any approximations yet, and these equations work as long as we are not inside the source region. The next stage is to try to make connections with other things we already know. We can take limits of the Hankel functions and expand them as exponentials. We shouldn't expand the spherical Bessel functions inside the integral unless we assume $ kr << 1 $. Recall the expansions:
+\begin{equation}
+    j_l(kr) \mapsto \frac{(kr)^l}{(2l+1)!!} \left[ 1 - \cdots \right]
+\end{equation}
+when $ kr << 1 $. If the wavelength is much greater than the length scale of the source (low frequencies), we can use this approximation.
+
+Examine the term in $ a_M $:
+\begin{equation}
+    \va{\mathbb{L}}\vdot \va{J}_{\omega} = \imath \div{( \va{x} \cross \va{J}_{\omega})}
+\end{equation}
+Recall
+\begin{equation}
+    \va{m} = \frac{1}{2} \int ( \va{x} \cross \va{J}) \dd[3]{x}
+\end{equation}
+
+Additionally,
+\begin{equation}
+    \va{\mathbb{L}} \vdot \left( \curl{ \va{J}_{\omega}}  \right) = \imath \laplacian{( \va{x} \vdot \va{J}_{\omega})} - \frac{\imath}{r} \partial_r \left( r^2 \div{ \va{J}_{\omega}} \right)
+\end{equation}
+
+Now we can write
+\begin{equation}
+    a_M(l,m) = \frac{k^2}{\imath \sqrt{l(l+1)}} \int Y_{lm}^*(\Omega) j_l(kr) \div{( \va{x} \cross \va{J}_{\omega})} \dd[3]{x}
+\end{equation}
+
+The other coefficient is not as simple, as there will be a derivative with respect to $ r $, so we need to do some integration by parts to make it in a nice form.
+
+\begin{equation}
+    a_E(l,m) = \frac{\imath k}{\sqrt{l(l+1)}} \int j_l(kr) Y_{lm}^*(\Omega) \left\{ \imath \laplacian{( \va{x} \vdot \va{J}_{\omega})} - \frac{\imath}{r} \partial_r (r^2 \imath \omega \rho_{\omega}) \right\} \dd[3]{x}
+\end{equation}
+
+We then integrate by parts, using the fact that $ \omega = ck $ and $ \dd[3]{x} = r^2 \dd{r} \dd{\Omega} $:
+\begin{equation}
+    a_E(l,m) = \frac{ck^2}{\sqrt{l(l+1)}} \int Y_{lm}^* \partial_r(r j_l(kr)) \rho_{\omega} \dd[3]{x} + \frac{k^3}{\sqrt{l(l+1)}} \int Y_{lm}^*(\Omega) j_l(kr) ( \va{r} \vdot \va{J}_{\omega}) \dd[3]{x}
+\end{equation}
+
+Again, these expressions are still exact. We have yet to make any approximations. Now we will expand the spherical Bessel functions and make some approximations to see what we get. Recall that
+\begin{equation}
+    \dv{x} \left[ x j_l(x) \right] = x j_{l-1}(x) - l j_l(x)
+\end{equation}
+so
+\begin{equation}
+    \dv{(kr)}\left[ kr j_l(kr) \right] = \frac{(kr)(kr)^{l-1}}{[2(l-1)+1]!!} - \frac{l(kr)^{l}}{(2l+1)!!} = \frac{(l+1)}{(2l+1)!!} (kr)^{l}
+\end{equation}
+
+\begin{note}{Quote}
+    ``They turned out to be more real than the Real numbers''
+    - Turgut, on the imaginary numbers
+\end{note}
+
+When $ \frac{d}{\lambda} << 1 $, we find
+\begin{equation}
+    a_E(l,m) \mapsto \frac{ck^{l+2}}{\imath (2l+1)!!} \sqrt{\frac{l+1}{l}} \int \underbrace{r^l Y_{lm}^* \rho_{\omega}}_{Q_{lm}} \dd[3]{x}
+\end{equation}
+where we are ignoring the term that goes like $ k^3 $. We can also expand the magnetic term:
+
+\begin{equation}
+    a_M(l,m) \mapsto \frac{k^{3+l}}{\sqrt{l(l+1)} (2l+1)!!} \int r^l Y_{lm}^*( \va{r} \vdot \va{J}_{\omega}) \dd[3]{x}
+\end{equation}
+
+This assumes that the source is completely specified; $ \va{J}_{\omega} $ is known. Of course, in a real scenario, the radiation field will effect the conductor itself, and in practice there are almost no self-contained solutions. In almost all problems, you must assume a current distribution.
+
+
+
+
+\end{document}

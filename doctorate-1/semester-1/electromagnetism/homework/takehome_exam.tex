@@ -1,0 +1,271 @@
+\documentclass[a4paper,twoside]{article}
+\input{../../preamble.tex}
+\title{33-761 Take-Home Exam}
+\date{\today}
+\begin{document}
+\maketitle
+
+\begin{itemize}
+    \item[1.] Consider a permanently magnetized sphere with constant magnetization $ \va{M} $ and total charge $ Q $ which is uniformly distributed on its surface by some coating. Calculate the magnetic field and the electric field everywhere. Suppose that we gradually reduce the permanent magnetization to zero (for example by heating). If the sphere is of radius $ a $ and mass $ M $ (and homogeneous composition) find the resulting angular velocity of the sphere by calculating and integrating explicitly the torque on the charge under the assumption that mass $ M $ is large and hence the sphere does not rotate fast for simplicity. Verify explicitly that the total angular moment is conserved. Next, use angular momentum conservation to calculate the resulting angular velocity and however this time do not neglect the effect of rotation of the sphere.
+        \begin{problem}
+            Let the magnetization be in the $ + \vu{z} $-direction, so $ \va{M} = M \vu{z} $. First, we can calculate the electric field through Gauss's law. Since the charge $ Q $ is distributed uniformly on the surface of the sphere, there will be no electric field inside:
+            \begin{equation}
+                \va{E}_{\text{inside}} = 0
+            \end{equation}
+            Outside, the electric field will resemble a point charge:
+            \begin{equation}
+                \va{E}_{\text{outside}} = \frac{Q}{4 \pi \epsilon_0} \frac{ \va{r}}{r^2}
+            \end{equation}
+            As for the $ \va{B} $ field, we can use the symmetry to reduce the problem to a scalar potential. Note that $ \sigma_{M} = \vu{n} \vdot \va{M} = M \cos(\theta) $, so
+            \begin{equation}
+                \Phi_{M} = \frac{M a^2}{4 \pi} \int \dd{\Omega'} \frac{\cos(\theta')}{\abs{ \va{x} - \va{x}'}}
+            \end{equation}
+            We can expand the denominator as
+            \begin{equation}
+                \frac{1}{\abs{ \va{x} - \va{x}'}} = \sum_{l=0}^{\infty} \frac{r_<^l}{r_>^{l+1}} P_l(\cos(\gamma))
+            \end{equation}
+            because of the azimuthal symmetry. Because the scalar potential already has a $ \cos(\theta') $ in it, only the $ l = 1 $ term will survive the integral, so
+            \begin{equation}
+                \Phi_{M} = \frac{1}{3} M a^2 \frac{r_<}{r_>^2} \cos(\theta) 
+            \end{equation}
+            \begin{equation}
+                \va{H} = - \grad{\Phi_{M}}
+            \end{equation}
+            so
+            \begin{equation}
+                \va{H}_{\text{inside}} = - \grad{\frac{1}{3} M \underbrace{ \va{r} \cos(\theta)}_{ \vu{z}}} = - \frac{1}{3} M \vu{z}
+            \end{equation}
+            By definition,
+            \begin{equation}
+                \va{B}_{\text{inside}} = \mu_0 ( \va{H} + \va{M} ) = \mu_0 \frac{2}{3} M \vu{z}
+            \end{equation}
+            For the field outside, we get
+            \begin{equation}
+                \va{H}_{\text{outside}} = - \grad{\left( \frac{1}{3} M \frac{a^3}{r^2} \cos(\theta) \right)}
+            \end{equation}
+            Calculating the gradient in spherical coordinates, we find
+            \begin{equation}
+                B_{\text{outside}} = \mu_0 M \left( 1 - \frac{2}{3} \frac{a^3}{r^3} \right) \left( \cos(\theta) \vu{r} - \sin(\theta) \vu{\theta} \right) = \mu_0 M \left( 1 - \frac{2}{3} \frac{a^3}{r^3} \right) \vu{z}
+            \end{equation}
+            The torque on the charge will be
+            \begin{equation}
+                \va{\tau} = \partial_t \left( \va{x} \cross \va{g} \right)
+            \end{equation}
+            where $ \va{g} = \epsilon \va{E} \cross \va{B} $. Inside, this will be zero, since there is no electric field. Outside, we can take the spherical cross product to find
+            \begin{equation}
+                \va{g} = \frac{MQ \mu_0 \sin(\theta)}{4 \pi} \left( \frac{a^3}{2 r^5} - \frac{1}{r^2} \right) \vu{\varphi}
+            \end{equation}
+            By symmetry, the torque must be in the $ \vu{z} $-direction, and the only thing that depends on $ t $ is $ M(t) $. Additionally, we need to evaluate the torque where the charges are, so $ r \to a $:
+            \begin{equation}
+                \va{\tau}(\theta) = - M'(t) \frac{Q \mu_0}{4 \pi} \sin(\theta) \left( \frac{1}{2 a^2} \right) \vu{z}
+            \end{equation}
+            I don't really understand the two scenarios which the question asks me to solve, but I'm assuming in the first we think of the mass of the sphere as large so the sphere itself doesn't really spin. For angular momentum to be conserved, the momentum contained in the field must be imparted to the charged particles themselves, where the torque is the time derivative of the angular momentum. In this case, if the particles themselves can't move, I don't know how to interpret the problem. However, if the sphere is allowed to spin, we can integrate over the surface to find the total angular momentum before demagnetization and use conservation of angular momentum to set it equal to the total angular momentum when $ M = 0 $:
+            \begin{equation}
+                L_{\text{field}} = \oint_S \va{x} \cross \va{g} \dd{\Omega} = \int_0^{\pi} \dd{\theta} \sin[2](\theta) \int_0^{2 \pi} \dd{\varphi} \frac{M Q \mu_0}{8 \pi}
+            \end{equation}
+            Note the Jacobian is $ a^2 \sin(\theta) $. This evaluates to
+            \begin{equation}
+                L_{\text{field}} = \frac{MQ \mu_0 pi}{8}
+            \end{equation}
+            I don't believe that I have done all of this right, since there is no dependence on the size of the sphere. I recognize that this is probably incorrect (in the limit where the radius goes to zero, the changing magnetization should not impart any angular momentum).
+            The angular momentum of a spinning sphere is
+            \begin{equation}
+                L_{\text{sphere}} = I \omega = \frac{2}{5} ma^2 \omega
+            \end{equation}
+            so the resulting angular velocity is
+            \begin{equation}
+                \omega = \frac{5}{2ma^2} \frac{MQ \mu_0 \pi}{8} = \frac{5}{16} \frac{\mu_0 \pi MQ}{m a^2}
+            \end{equation}
+            where I am using $ m $ rather than $ M $ to denote the mass since I already used $ M $ for the strength of the magnetization. In the limit where $ m \to \infty $, the angular velocity goes to $ 0 $ as expected. If we fix the mass and make the sphere grow large, the angular velocity also decreases, as expected, so maybe I was correct with my previous lack of $ r $-dependence in the field momentum.
+        \end{problem}
+\pagebreak
+    \item[2.] Consider the inhomogeneous wave equation for $ \psi $,
+        \begin{equation}
+            \laplacian{\psi} - \frac{1}{v^2} \pdv[2]{\psi}{t} = -f
+        \end{equation}
+        defined over a bounded domain $ \Omega $ with boundary condition $ \eval{\psi}_{\partial \Omega} = 0 $ where $ \partial \Omega $ denotes the boundary of the domain and $ -f $ represents the source (forced small oscillations of a two dimensional membrane with fixed boundary can be modelled by an equation of this type). Assume that we have
+        the initial conditions $ \psi( \va{x}, 0) = 0 $ and $ \pdv{\psi}{t}( \va{x}, 0) = 0 $ so we have no initial disturbance in the system. We know that there is a complete basis of eigenfunctions for the (minus) Laplacian on $ \Omega $, which has only positive spectra (why?):
+        \begin{equation}
+            - \laplacian{\varphi_{\lambda}} = \lambda^2 \varphi_{\lambda}
+        \end{equation}
+        Use this basis to prove that the forced oscillations can be formally represented in an operator approach,
+        \begin{equation}
+            \ket{\psi(t)} = \int_0^t v \dd{t'} \frac{\sin([- \laplacian]^{1/2} v (t-t'))}{[-\laplacian]^{1/2}}\ket{f(t')},
+        \end{equation}
+        where we use the ket representation of vectors; $\bra{ \va{x}}\ket{\psi(t)} = \psi( \va{x}, t) $ and similarly for $ f $. Recall that (as we learn in quantum mechanics) a (sufficiently nice) function of a given operator can be defined via the spectral theorem:
+        \begin{equation}
+            f([-\nabla]) = \sum_{\lambda} f(\lambda)\ket{\varphi_{\lambda}}\bra{\varphi_{\lambda}},
+        \end{equation}
+        as long as $ f(\lambda) $ is well-defined.
+        \begin{problem}
+            Let's first define $\ket{\psi_{\lambda}} =\ket{\varphi}_{\lambda}\bra{\varphi_{\lambda}\ket{\psi}} $. Next, if we rewrite the inhomogeneous wave equation in Dirac notation, we find
+            \begin{equation}
+                \bra{ \va{x}} \laplacian \ket{\psi(t)} - \frac{1}{v^2}\bra{ \va{x}} \partial_t^2\ket{\psi(t)} = -\bra{ \va{x}}\ket{f(t)} 
+            \end{equation}
+            Next, we can insert identities $ \sum_{\lambda} \op{\varphi_{\lambda}} $ everywhere (and remove the $\bra{x} $'s):
+            \begin{equation}
+                \sum_{\lambda} \laplacian\ket{\varphi_{\lambda}}\bra{\varphi_{\lambda}}\ket{\psi} - \frac{1}{v^2}\partial_t^2 \ket{\varphi_{\lambda}}\bra{\varphi_{\lambda}}\ket{\psi} = -\ket{f}
+            \end{equation}
+            Using the eigenfunction evaluation, this means
+            \begin{equation}
+                \sum_{\lambda} - \lambda^2\ket{\psi_{\lambda}} - \frac{1}{v^2} \partial_t^2\ket{\psi_{\lambda}} = -\ket{f}
+            \end{equation}
+            so we can now write a new differential equation in this basis without $ x $-derivatives. Let's call the summed vectors $ \sum_{\lambda}\ket{\psi_{\lambda}} =\ket{\xi} $. If we act $\bra{x} $ over both sides, we get
+            \begin{equation}
+                - \lambda^2 \xi( \va{x}, t) - \frac{1}{v^2} \partial_t^2 \xi( \va{x}, t) = - f( \va{x}, t)
+            \end{equation}
+            We can solve this equation (Mathematica can solve this equation)
+            \begin{equation}
+                \xi( \va{x}, t) = \int_0^t \frac{\sin(\lambda v (t-t'))}{\lambda} v f( \va{x}, t') v \dd{t'}
+            \end{equation}
+            Changing back to the $ \psi $ basis just involves changing every $ \lambda^2 $ into a $ - \laplacian $. To do this, we can just rewrite $ \lambda = \sqrt{\lambda^2} $, and the result of the transformation is
+            \begin{equation}
+                \ket{\psi(t)} = \int_0^t v \dd{t'} \frac{\sin([- \laplacian]^{1/2} v (t-t'))}{[-\laplacian]^{1/2}}\ket{f(t')}
+            \end{equation}.
+    \end{problem}
+    \item[3.] Show that the retarded solutions we found for the potentials $ \va{A} $ and $ \Phi $ indeed satisfy the Lorenz gauge condition
+        \begin{equation}
+            \div{ \va{A}} + \frac{1}{c} \pdv{\Phi}{t} = 0.
+        \end{equation}
+        \begin{problem}
+            The potentials we had were:
+            \begin{equation}
+                \Phi = \frac{1}{4 \pi \epsilon_0} \int \dd[3]{x'} \frac{[\rho( \va{x},t')]_{\text{ret}}}{\abs{ \va{x} - \va{x}'}}
+            \end{equation}
+            and
+            \begin{equation}
+                \va{A} = \frac{\mu_0}{4 \pi} \int \dd[3]{x'} \frac{[ \va{J}( \va{x},t')]_{\text{ret}}}{\abs{ \va{x} - \va{x}'}}
+            \end{equation}
+            Define $ R = \abs{ \va{x} - \va{x}'} $. Now we essentially want to show that $ \div{ \va{J}} = - \pdv{\rho}{t} $ when evaluated at the retarded time. Since $ \va{J} $ is dependent on $ \va{x}' $ in both variables,
+            \begin{equation}
+                \div{ \frac{ \va{J}}{R}} = \frac{1}{R} (\div{ \va{J}}) + \va{J} \vdot \left( \grad{\frac{1}{R}} \right)
+            \end{equation}
+            and similarly
+            \begin{equation}
+                \nabla' \vdot \frac{ \va{J}}{R} = \frac{1}{R} (\nabla' \vdot \va{J}) + \va{J} \vdot \left( \grad'{\frac{1}{R}} \right)
+            \end{equation}
+            Both of these expressions are just from the product rule. Additionally,
+            \begin{equation}
+                \grad'{\frac{1}{R}} = - \grad{\frac{1}{R}} 
+            \end{equation}
+            because $ \va{R} = \va{x} - \va{x}' $. Therefore
+            \begin{equation}
+                \div{ \frac{\va{J}}{R}} = \frac{1}{R} \div{ \va{J}} - \va{J} \vdot \grad'{\frac{1}{R}} = \frac{1}{R} \div{ \va{J}} - \nabla' \vdot \left( \frac{ \va{J}}{R} \right) + \frac{1}{R} \nabla' \vdot \va{J}
+            \end{equation}
+            Next, because of the implicit dependence on $ \va{x} $ through $ t_r $,
+            \begin{equation}
+                \div{ \va{J}} = \pdv{ \va{J}}{t_r} \pdv{t_r}{ \va{x}} = - \frac{1}{c} \pdv{ \va{J}}{t_r} \vdot \grad{R}
+            \end{equation}
+            There is also an explicit dependence on $ \va{x}' $, so
+            \begin{equation}
+                \nabla' \vdot \va{J} = \pdv{ \va{J}}{ \va{x}'} + \pdv{ \va{J}}{t_r} \pdv{t_r}{ \va{x}'} = - \pdv{\rho( \va{x}', t_r)}{t} - \frac{1}{c} \pdv{ \va{J}}{t_r} \vdot \grad'{R}
+            \end{equation}
+            by conservation of charge ($ \div{ \va{J}} + \pdv{\rho}{t} = 0 $). Combining these equations, we find
+            \begin{align}
+                \div{\frac{ \va{J}}{R}} &= \frac{1}{R} \div{ \va{J}} - \nabla' \vdot \frac{ \va{J}}{R} + \frac{1}{R} \nabla' \vdot \va{J} \\
+                &= \frac{1}{R} \left( - \frac{1}{c} \pdv{ \va{J}}{t_r} \vdot \grad{R} \right) - \nabla' \vdot \frac{ \va{J}}{R} + \frac{1}{R} \left( - \pdv{\rho}{t} - \frac{1}{c} \pdv{ \va{J}}{t_r} \vdot \grad'{R} \right) \\
+                &= - \frac{1}{R} \pdv{\rho}{t} - \nabla' \vdot \frac{ \va{J}}{R}
+            \end{align}
+            Finally, we apply this to the vector potential:
+            \begin{align}
+                \div{ \va{A}} &= \frac{1}{c} \int \div{\frac{ \va{J}}{R}} \dd{t'} \\
+                &= \frac{1}{c} \int - \frac{1}{R} \pdv{\rho}{t} \dd{t'} - \frac{1}{c} \int \nabla' \vdot \frac{ \va{J}}{R} \dd{t'} \\
+                &= - \frac{1}{c} \pdv{\Phi}{t} - \frac{1}{c} \oint \frac{ \va{J}}{R} \vdot \dd{a'}
+            \end{align}
+            Since the last integral is evaluated on a surface at infinity, and we assume there are no currents at infinity, it vanishes, leaving the Lorenz gauge condition.
+        \end{problem}
+    \item[4.] (This is part of Problem $ 6.2 $ in Jackson) In class we derived the Jefimenko form of the $ \va{E} $ field and did the volume integral for a point charge $ q $ moving in a specified trajectory $ \va{r}(t) $  (finding the scale factor $ \kappa $), hence we have
+        \begin{equation}
+            \va{E} = \frac{q}{4 \pi \epsilon_0} \left( \left[ \frac{ \vu{R}}{\kappa R^2} \right]_{\text{ret}} + \frac{1}{c} \pdv{t} \left[ \frac{ \vu{R}}{\kappa R} \right]_{\text{ret}} - \frac{1}{c^2} \pdv{t} \left[ \frac{ \va{v}}{\kappa R} \right]_{\text{ret}} \right).
+        \end{equation}
+        Show that this expression can be turned into the Feynman form:
+        \begin{equation}
+            \va{E} = \frac{q}{4 \pi \epsilon_0} \left( \left[ \frac{ \vu{R}}{R^2} \right]_{\text{ret}} + \frac{\left[ R \right]_{\text{ret}}}{c} \pdv{t}\left[ \frac{ \vu{R}}{R^2} \right]_{\text{ret}} + \frac{1}{c^2} \pdv[2]{t} \left[ \vu{R} \right]_{\text{ret}} \right).
+        \end{equation}
+        \begin{problem}
+            First, note that $ \kappa \equiv 1 - \va{v} \vdot \hat{R} $. Note that $ \kappa = \dv{t'} (t' - (t - R(t')/c)) $ by this definition, so $ [\kappa]_{\text{ret}} = \dv{t}{t_r} $. Therefore, $ \left[ \frac{1}{\kappa} \right] = \dv{t_r}{t} = \left[ 1 - \frac{1}{c} \dv{t} R \right] $. Likewise, $ \va{v} = \dv{t} \va{r} $ so $ [ \va{v} ]_{\text{ret}} = \dv{t_r} \va{r}(t_r) = - \dv{t_r} R(t_r) \vu{R}(t_r) = - [\kappa]_{\text{ret}} \dv{t} \left[ R \vu{R} \right]_{\text{ret}} $. Using these evaluations for $ \va{v} $ and $ \kappa $, we can expand $ \va{E} $ as
+            \begin{align}
+                \va{E} &= \frac{q}{4 \pi \epsilon_0} \left( \left[ \frac{ \vu{R}}{R^2} \left( 1 - \frac{1}{c} \dv{t}R \right) \right]_{\text{ret}} + \frac{1}{c} \dv{t}\left[ \frac{\vu{R}}{R} \left( 1 - \frac{1}{c} \dv{t}R \right) \right]_{\text{ret}} + \frac{1}{c} \dv{t} \left[ \frac{1}{cR} \dv{t} R \vu{R} \right] \right) \\
+                &= \frac{q}{4 \pi \epsilon_0} \left( \left[ \frac{ \vu{R}}{R^2} \right]_{\text{ret}} - \left( \frac{1}{c} \left[ \frac{\vu{R}}{R^2} \dv{t} R + \dv{t} \frac{\vu{R}}{R} \right]_{\text{ret}} \right) + \frac{1}{c^2} \left( \dv[2]{t} [\vu{R}]_{\text{ret}} + \dv{t} \left[ \frac{\vu{R}}{R} \dv{t} R\right]_{\text{ret}} - \dv[2]{t} [R]_{\text{ret}}  \right) \right) \\
+                &= \frac{q}{4 \pi \epsilon_0} \left( \left[ \frac{\vu{R}}{R^2} \right]_{\text{ret}} + \frac{[R]_{\text{ret}}}{c} \dv{t}\left[ \frac{\vu{R}}{R^2} \right]_{\text{ret}} + \frac{1}{c^2} \dv[2]{t} [ \vu{R} ]_{\text{ret}} \right)
+            \end{align}
+            In the last step, first note that inside the retarded time evaluations, we can pull $ \va{R} $ through time derivatives. I have been a bit lazy in my notation, and in all cases, the time derivatives inside these evaluations should technically be with respect to $ t' $, I think. I'm pretty sure the cancellation then comes from a product rule between the 2nd, 3rd, and 5th terms, but I'm not sure how to get rid of the final term.
+        \end{problem}
+    \item[5.] Electromagnetic waves moving in the atmosphere can be modelled as waves moving in a three dimensional (half-)space with a $ z \geq 0 $ dependent dielectric constant $ \epsilon $ which also has a dispersive nature (so depends on $ \omega $). For this purpose let us consider a plasma type model,
+        \begin{equation}
+            \frac{\epsilon(z, \omega)}{\epsilon_0} = 1 - \frac{N(z) e^2}{m \epsilon_0 \omega^2}
+        \end{equation}
+        where the density $ N(z) $  is a slowly varying function. Suppose we look for plane wave solutions moving along the horizontal directions and polarized also in the horizontal directions, so we propose,
+        \begin{equation}
+            \va{E} = E_{y}(z, \omega) e^{\imath (kx - \omega t)} \vu{y}.
+        \end{equation}
+        Show that the equation we find for $ E_y $ (using the Maxwell equations) is
+        \begin{equation}
+            \pdv[2]{E_y}{z} + [\mu_0 \omega^2 \epsilon(z, \omega) - k^2] E_y(z, \omega) = 0.
+        \end{equation}
+        Study the solutions of this equation under the assumption that $ N(z) $ is a slowly varying function. Note that this equation looks like the Schr\"odinger equation of quantum mechanics, this means we can use the WKB approximation to search for solutions. Find them in the two possible regimes (do not try to connect the solutions in different regimes).
+        \begin{problem}
+            First, we need to show the form of the differential equation. To do this, we start with Maxwell's equations:
+            \begin{equation}
+                \curl{ \va{B}} = \mu \epsilon \partial_t \va{E}
+            \end{equation}
+            \begin{equation}
+                \curl{ \va{E}} = - \partial_t \va{B}
+            \end{equation}
+            and we assume neither field diverges since there are no free charges or magnetic monopoles in the problem. Next, take the curl of the curl of $ \va{E} $:
+            \begin{align}
+                \curl{\curl{ \va{E}}} &= - \partial_t(\curl{ \va{B}}) \\
+                \grad{\div{ \va{E}}} - \laplacian{ \va{E}} &= - \partial_t^2 \mu \epsilon \va{E} \\
+                - \laplacian{ \va{E}} &= - \partial_t^2 \mu_0 \epsilon(z, \omega) \va{E} \\
+                &= - \mu_0 \epsilon(z, \omega) (- \imath \omega)^2 \va{E} \\
+                - \dv[2]{E_y}{z} - k^2 E_y &= \mu_0 \epsilon(z, \omega) \omega^2 E_y
+            \end{align}
+            Next, let's put this equation in WKB form, where the leading order derivative is multiplied by some small constant. In this case, I divide out $ k^2 $ and assume that we are only looking at large wavenumbers (relative to the scale of the atmosphere). Our new differential equation is:
+            \begin{equation}
+                \frac{1}{k^2} \partial_z^2 E_y = Q(z) E_y
+            \end{equation}
+            where $ Q(z) = 1 - \frac{\mu_0}{k^2} \omega^2 \epsilon(z, \omega) $. Now we suppose that
+            \begin{equation}
+                E_y(z) = e^{\frac{1}{\delta} \sum_{n=0}^{\infty} \delta^n S_n(x)}
+            \end{equation}
+            for some small constant $ \delta $. Inserting this into the differential equation, we find
+            \begin{equation}
+                \frac{1}{k^2} \left[ \frac{1}{\delta^2} \left( \sum_{n=0}^{\infty} \delta^n S'_n \right)^2 + \frac{1}{\delta} \sum_{n=0}^{\infty} \delta^n S''_n \right] = Q(z)
+            \end{equation}
+            To leading order, this means
+            \begin{equation}
+                \frac{1}{k^2 \delta^2} (S'_0)^2 + \frac{2}{k^2 \delta} S'_0 S'_1 + \frac{1}{k^2 \delta} S''_0 = Q(z)
+            \end{equation}
+            In the limit where $ \delta \to 0 $, we know that $ Q(z) $ is nonzero, so $ \delta \propto \frac{1}{k} $. If we set them equal to each other, we can then compare powers on either side of the equation. The zeroth power gives us
+            \begin{equation}
+                (S'_0)^2 = Q(x),
+            \end{equation}
+            the Eikonal equation, which the solution
+            \begin{equation}
+                S_0(x) = \pm \int_{z_0}^{z} \sqrt{Q(z')} \dd{z'}
+            \end{equation}
+            The next power of $ \epsilon $ gives us
+            \begin{equation}
+                2 S'_0 S'_1 + S''_0 = 0
+            \end{equation}
+            which has the solution
+            \begin{equation}
+                S_1(z) = - \frac{1}{4} \ln{Q(z)} + C
+            \end{equation}
+            for some arbitrary constant $ C $ which depends on initial conditions (we aren't given any). Now we can give the approximate WKB solution as a linear combination of these two solutions:
+            \begin{equation}
+                E_y(z, \omega) \approx C_1 (Q(z))^{-1/4} e^{\frac{1}{k} \int_{z_0}^{z}\sqrt{Q(z') \dd{z'} }} + C_2 (Q(z))^{-1/4} e^{-\frac{1}{k} \int_{z_0}^{z}\sqrt{Q(z') \dd{z'} }}
+            \end{equation}
+            The two regions we are concerned with are on either side of $ Q(z) = 0 $, which will give either oscillating or decaying solutions from the square root in the exponential. Recall we defined
+            \begin{equation}
+                Q(z) = 1 - \frac{\mu_0}{k^2} \omega^2 \epsilon(z, \omega)
+            \end{equation}
+            Inserting the plasma model, we can see that $ Q(z) < 0 $ when
+            \begin{equation}
+                N(z) < \frac{\epsilon_0^2 m \omega^2}{c^2} - \frac{\epsilon m k^2}{\mu e^2}
+            \end{equation}
+            (and $ Q(z) > 0 $ in the other case). $ Q(z) < 0 $ leads to an $ \imath $ in the exponent from the square root, which means those solutions will oscillate, while the $ Q(z) > 0 $ solutions will decay.
+        \end{problem}
+\end{itemize}
+
+\end{document}

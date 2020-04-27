@@ -1,0 +1,67 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{30}{Friday, November 01, 2019}{Scattering Continued}
+Recall the solutions for a square well:
+\begin{equation}
+    \varphi = \begin{cases}
+    A e^{\imath k x} + B e^{-\imath k x} & x < -a/2\\
+    C e^{\imath k' x} + D e^{-\imath k' x} & -a/2 < x < a/2\\
+    F e^{imath k x} + G e^{-\imath k x} & a/2 < x
+\end{cases}
+\end{equation}
+If we imagine there is some matrix $ M $ such that
+\begin{equation}
+    \begin{bmatrix}
+        A\\B
+    \end{bmatrix}
+    = M 
+    \begin{bmatrix}
+        F\\G
+    \end{bmatrix}
+\end{equation}
+then the $ M_{11} $ element is
+\begin{equation}
+    M_{11} = e^{\imath k a} \left[ \cos(k'a) - \imath \frac{k^2 + k'^2}{2kk'} \sin(k'a) \right]
+\end{equation}
+
+For transmission, $ G = 0 $ so $ T = \frac{1}{\abs{M_{11}}^2} $, for $ E>0 $.
+
+For bound states, $ -V_0 < E < 0 $, $ k' = \sqrt{V_0 + E} $, $ \kappa = \sqrt{- E} $ , and $ A = G = 0 $, so
+\begin{equation}
+    \begin{bmatrix}
+        0\\B
+    \end{bmatrix}
+    = M 
+    \begin{bmatrix}
+        F\\0
+    \end{bmatrix}
+\end{equation}
+so $ M_{11} = 0 $, meaning $ T $ diverges.
+
+Let's look at resonances now. The bound states occur at certain energies. For a given depth of the potential well, there will be a certain number of bound states. Let's try to count how many bound states there are. We could imagine adjusting the depth of the potential well, and as it got deeper there would be more bound states, but as we made the well shallower, we would lose states. How do we lose a state? While decreasing the depth, the topmost state will be pushed up closer and closer to the top of the well to the point where the energy will be $ E = 0 $. Let's examine those states. As $ E \to 0 $, $ \kappa \to 0 $, so the wave function will propagate infinitely far into the Classically forbidden region. The solution for this is
+\begin{equation}
+    \tan\left( \frac{k' a}{2} \right) = \frac{\kappa}{k'} = 0
+\end{equation}
+Recall that this was our even-state relation from when we solved this earlier. The odd states use $ \cot $ and the sign on the right side is flipped. The even sates occur when $ k' = \frac{2 \pi n}{2a} $ and the odd states occur at $ k' = \frac{2n + 1 \pi}{2a} $, so in general $ k' = l \frac{\pi}{a} $. We know that $ k' = \sqrt{V_0} $, so the bound state $ l $ has zero energy when $ V_l = l^2 \frac{\pi^2}{a^2} $. These are the special potential depths where a $ E = 0 $ state exists. There are $ l + 1 $ bound states total including the $ E = 0 $ state.
+
+Let's now back off a bit so the bound state reappears. Set $ V_0 = V_l + \delta $, $ \delta \gtrsim 0 $. The highest $ E_n \lesssim 0 $, $ \to 0^- $ as $ \delta \to 0^+ $.
+
+Now set $ V_0 = V_l + \delta $, $ \delta \lesssim 0 $. Let's look at the lowest scattering resonance.
+\begin{equation}
+    T = \frac{1}{1 + B^2 \sin^2(k'a)}
+\end{equation}
+where $ k = \sqrt{V_0 + E} = \sqrt{l^2 \frac{\pi^2}{a^2} + \delta + E} $. We see that the resonance occurs at $ k' = l \frac{\pi}{a} $, or when $ E = - \delta \gtrsim 0 $. $ E \to 0^+ $ as $ \delta \to 0^- $. The transmission coefficient of the traveling wave goes to $ 1 $ as $ \delta \to 0 $. In the moment this happens, the wave number in the forbidden region goes from imaginary to real.
+
+Let's now look at the same problem, but instead of a well, let's use a square step potential:
+\begin{equation}
+    E = \begin{cases} 0 & x<-a/2\\ +V_0 & -a/2<x</a2 \\ 0 a/2 < x  \end{cases}
+\end{equation}
+Let's look at the case of tunneling. The wave function when $ E < V_0 $ will now be oscillating in the outside regions and decaying in the Classically forbidden region. $ k' \to \imath \kappa $ where $ \kappa = \sqrt{V_0 - E} $. Now, $ T = \frac{1}{1 + B^2 \sinh^2(\kappa a)} $. Lets imagine that we are sufficiently far below the top of the barrier such that $ \kappa a >> 1 $. In this case, $ \sinh(x) = \frac{e^x + e^{-x}}{2} \sim \frac{1}{2} e^{x} $, so $ T\approx e^{-2\kappa a} $. If we look at the ratio of the amplitude of the wave function on either side of the step, that ratio must be about $ e^{- \kappa a} $, since the amplitude is exponentially decaying in that regime. In the other direction, as the energy approaches the top of the well, $ \kappa \to 0 $ so tunneling becomes easier.
+
+We can extend this discussion to barriers of arbitrary shape. Let's focus on barriers which vanish at $ \pm\infty $. We can approximate such a barrier into a collection of square barriers with width $ \Delta x $, $ 0 \cdots x \cdots x_{N+1} $, and the transmission coefficient for $ T(x_1, x_1+ \Delta x) = e^{-2 \kappa(x_1) \Delta x} $. Therefore,
+\begin{equation}
+    T(x_1, x_{N+1}) \approx \prod_{i=1}^{N} T(x_i, x_i + \Delta x) = e^{-2 \Delta x \sum_{i} \kappa(x_i)} \approx e^{-2 \int_{x_1}^{x_{N+1}} \kappa(x) \dd{x}} 
+\end{equation}
+This is the ``WKB'' or ``semiclassical'' approximation. We can use this to model things like nuclear decay, where there is some potential barrier $ V(r) $ caused by the nucleus which a particle has to tunnel through to decay. Another example is a scanning-tunneling microscope (STM). These work by measuring the tunneling current between a sharp metal tip and a potential below the surface you want to measure.
+
+\end{document}

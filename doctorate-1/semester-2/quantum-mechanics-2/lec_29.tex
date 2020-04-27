@@ -1,0 +1,115 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{29}{Friday, April 03, 2020}{The Path Integral}
+
+When we last left off, we were discussing the propagator
+\begin{equation}
+    k(x_f, t_f; x_i, t_i) = \sum_n u_n(x_f) u_n^*(x_i) e^{- \imath E_n \Delta t / \hbar}
+\end{equation}
+We did this by starting with $\bra{x_f t_f}\ket{x_i t_i} $ and inserting a complete set f states. Notice the boundary condition, where $ t_i \to t_f $ gives us
+\begin{equation}
+    k(x_f, t_f; x_i, t_i) = \delta(x_i - x_f)
+\end{equation}
+Physically, this is just saying that the probability of moving from $ x_i $ to $ x_f $ instantaneously is zero unless they're the same. If we consider
+\begin{equation}
+    \int \dd{x} \lim_{x' \to x} \sum_n e^{-E_n t/ \hbar}\bra{x}\ket{n}\bra{n}\ket{x'} = \sum_n e^{- \imath E_n t / \hbar} \equiv G(t)
+\end{equation}
+
+If we take $ t \to - \imath \tau $, then
+\begin{equation}
+    G(- \imath \tau) = \sum_n e^{- \tau E_n / \hbar} \sim \sum_n e^{- \beta H}
+\end{equation}
+
+There seems to be some connection between quantum mechanics in real time and statistical mechanics in imaginary time. Last time we were working through calculating the propagator for a free particle.
+\begin{align}
+    k(x,x'; \delta t) &= \int \frac{\dd{p}}{2 \pi}\bra{x}\ket{p}\bra{p}\ket{x'} e^{- \frac{\imath p^2 \delta t}{2m \hbar}} \\
+    &= \int \frac{\dd{p}}{2 \pi} e^{\imath p (x-x')/ \hbar} e^{- \frac{\imath p^2 \Delta t}{2m \hbar}} \\
+    &= \sqrt{\frac{m}{2 \pi \imath \hbar \Delta t}} e^{\frac{\imath m (x-x')^2}{2 \hbar \Delta t}}
+\end{align}
+
+\subsection{The Propagator as a Green's Function of the Wave Equation}
+\label{sub:the_propagator_as_a_green's_function_of_the_wave_equation}
+
+If we have some differential operator $ O $ where $ O \varphi(x) = J(x) $. We can solve this by calculating the Green's function, which is defined as
+\begin{equation}
+    O G(x,x') = \delta(x'-x)
+\end{equation}
+Once we have this,
+\begin{equation}
+    O [\varphi(x) = \int \dd{x'} G(x-x') J(x')] = \int \dd{x'} \delta(x-x') J(x') = J(x)
+\end{equation}
+
+The Schr\"odinger equation can be written as
+\begin{equation}
+    \left( \imath \hbar \pdv{t} - H_0 \right)\ket{\psi} = V\ket{\psi}
+\end{equation}
+where $ H = H_0 + V $. The Green's function is the propagator, so we want to find
+\begin{equation}
+    \left( \imath \hbar \pdv{t} - H_0 \right) k(\va{x}_i, t_i ; \va{x}_f, t_f) = \delta^3(x vece - \va{x} ') \delta(t_i - \delta_f)
+\end{equation}
+which would mean that
+\begin{equation}
+    \psi(x,t) = \int \dd[3]{x'} k(x,x'; \Delta t) V
+\end{equation}
+Now if we operate with the differential operator, we see that the Schr\"odinger equation is satisfied. We can find $ k $ by solving the equation with the $\delta$ function, and the easiest way to do this is in momentum space, where the equation we want to solve is
+\begin{equation}
+    \left( \hbar \omega - \frac{\va{p}^2}{2m} \right) K(\va{p}, \omega) = \frac{1}{(2 \pi)^4}
+\end{equation}
+so
+\begin{equation}
+    k(\va{p}, \omega) = \frac{1}{(2 \pi)^4} \frac{1}{\left( \hbar \omega - \frac{\va{p}^2}{2m} \right)}
+\end{equation}
+
+However, this equation has a pole in it, so the inverse Fourier transform is not well-defined. We have to do this in a careful way:
+\begin{equation}
+    k(x_f - x_i; t_f - t_i) = \int \frac{\dd[3]{p} \dd{\omega}}{(2 \pi)^4} \frac{e^{\imath \frac{\va{p} \vdot \Delta x}{\hbar} - \imath \omega \Delta t}}{\hbar \omega - \frac{\va{p}^2}{2m} \pm \imath \epsilon}
+\end{equation}
+We need to integrate around the pole in either the lower half-plane or the upper half=plane. If $ t_f < t_i $, the probability should be zero, so if $ \Delta t < 0 $, $ k = 0 $ to preserve causality. By the Jordan curve theorem, we want to close in the lower half-plane.
+\begin{equation}
+    k = - \frac{2 \pi i}{(2 \pi)^4} \int \dd[3]{p} e^{\frac{\imath \va{p} \vdot \Delta \va{x}}{\hbar} + \frac{\imath \va{p}^2}{2m \hbar} \Delta t}
+\end{equation}
+which gives us the same result as when we calculated the free-particle propagator before.
+
+\subsection{The Path Integral}
+\label{sub:the_path_integral}
+
+Dirac said that the probability amplitude should be related to the integral of the Lagrangian due to the time difference:
+\begin{equation}
+    \bra{x_f, t_f}\ket{x_i, t_i} \sim e^{\imath \int L \dd{t}}
+\end{equation}
+We can do this by breaking up the path in $ x-t $ space into many infinitesimal steps:
+\begin{equation}
+    \bra{x_f, t_f} \int \dd[3]{x}\ket{x, t_f - \epsilon}\bra{x, t_f - \epsilon} \cdots\ket{x_i, t_i}
+\end{equation}
+or
+\begin{equation}
+    \bra{x_f, t_f}\ket{x_i t_i} = \lim_{n \to \infty} \int \dd[3]{x_1} \cdots \dd[3]{x_n}\bra{x_1, t_f}\ket{x_1, t_f - \epsilon}\bra{x_1, t_f - \epsilon}\ket{x_2, t_2 - 2 \epsilon} \cdots 
+\end{equation}
+where $ n \epsilon = t_f - t_i $. Each one of these steps can be written as
+\begin{equation}
+    \bra{x_m}\ket{x_{m+1}} - \frac{\imath \epsilon}{\hbar}\bra{x_m} H\ket{x_{m+1}}
+\end{equation}
+We know that
+\begin{equation}
+    \bra{x_m} f(x)\ket{x_{m+1}} = f(x_m) \delta(x_m - x_{m+1}) \equiv \frac{f(x_m + x_{m+1})}{2} \int \frac{\dd{p}}{(2 \pi) \hbar} e^{\frac{\imath p (x_m - x_{m+1})}{\hbar}}
+\end{equation}
+If we do this as a function of $ p $, we get
+\begin{equation}
+    \bra{x_m} f(p)\ket{x_{m+1}} = \int \frac{\dd{p}}{2 \pi \hbar} f(p) e^{\imath p(x_m - x_{m+1}) / \hbar}
+\end{equation}
+so that
+\begin{equation}
+    \bra{x_m + 1} e^{- \imath \epsilon H / \hbar}\ket{x_m} = \int \frac{\dd{p}}{2 \pi \hbar} e^{- \imath \epsilon H \left( \frac{x_m - x_{m+1}}{2}, p \right)}
+\end{equation}
+We then have to repeat this over an over for each small step:
+\begin{equation}
+    \left[\prod_{k=1}^{N} \int \dd{x_k} \frac{\dd{p_k}}{2 \pi \hbar}\right] e^{\imath \sum_k p_k(x_{k +1} - x_k) - \imath \epsilon H \left( \frac{x_{k+1} - x_{k}}{2}, p_k \right)}
+\end{equation}
+In the limit as $ N \to \infty $, $ \epsilon \to 0 $ and $ N \epsilon = t_f - t_i $, we can write this as
+\begin{equation}
+    \int D x(t) D p(t) e^{\imath \int_{t_i}^{t_f} p\dot{x} - H} =\bra{x_f, t_f}\ket{x_i, t_i}
+\end{equation}
+as long as $ x(t_i) = x_i $ and $ x(t_f) = x_f $. This is what's known as a functional integral. We are integrating over all possible functions of time (that's what $ D x(t) $ refers to, rather than $ \dd{x} $). You can recognize the exponential as the Lagrangian.
+
+
+\end{document}

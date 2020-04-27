@@ -1,0 +1,194 @@
+\documentclass[a4paper,twoside]{article}
+\input{../../preamble.tex}
+\title{33-756 Homework 11}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section*{1. Propagator for SHO}
+\begin{itemize}
+    \item[(a)] Call the classical solution about which we expand $ x_{cl}(t) $ and show that
+        \begin{equation}
+            \bra{x_f t_f}\ket{x_i t_i} = \hat{N} e^{\frac{\imath}{\hbar} S_{cl}} \int Dx(t) e^{\frac{\imath}{\hbar} \frac{1}{2} x(t) S'' x(t)}
+        \end{equation}
+        where
+        \begin{equation}
+            S'' = -m\left( \partial_t^2 + \omega^2 \right)
+        \end{equation}
+        \begin{problem}
+            We vary the classical path by some perturbation $ \delta x $ and Taylor expand to second order:
+            \begin{equation}
+                S[x_{cl} + \delta x] = S_{cl}[x_{cl}] + \frac{1}{2} \delta^2S + \order{\delta x^3}
+            \end{equation}
+            The first-order term is zero, since we expect the classical path to minimize the action, thus making the first derivative vanish. We now need to compute the second-variance of the action:
+            \begin{align}
+                \delta^2 S[x, \dot{x}] &= \int \dd{t} \left( \frac{1}{2} m \delta^2(\dot{x}^2) - \frac{1}{2} m \omega^2 \delta^2(x^2) \right) \\
+                &= \int \dd{t} m \left[ (\delta \dot{x})^2 - \omega^2(\delta x)^2 \right] \\
+                &= \int \dd{t} m \left[\delta \dot{x} \dv{t} \delta x - \omega^2 (\delta x)^2\right] \\
+                &= \cancelto{0}{\eval{\delta \dot{x} \delta x}_{\Delta t}} - \int \dd{t} m \left[ \delta x \delta\ddot{x} + \omega^2 (\delta x)^2 \right] \\
+                &= \int \dd{t} \delta x \left( -m\left[ \partial_t^2 + \omega^2 \right] \right) \delta x
+            \end{align}
+            Here, $ S'' $ is an integral operator, but when we discretize time, it becomes a matrix operator over a vector of $ x $ split up over time.
+        \end{problem}
+    \item[(b)] Show that the matrix form of $ S'' $ is given by
+        \begin{equation}
+            \sigma = \frac{m}{2 \imath \epsilon \hbar} \mqty(2 & -1 & 0 & 0 &\cdots\\-1 & 2 & -1 & 0 & \cdots\\0 & -1 & 2 & -1 & \ddots\\ \vdots & \ddots & \ddots & \ddots & \ddots) + \frac{\imath m \epsilon \omega^2}{2 \hbar} \mathbb{I}^{N \times N}
+        \end{equation}
+        \begin{problem}
+            We can write a discrete formula for the second derivative as
+            \begin{equation}
+                f''(x) = \lim_{\epsilon \to 0} \frac{1}{\epsilon} \left( f(x + \sqrt{\epsilon}) - 2 f(x) + f(x- \sqrt{\epsilon}) \right)
+            \end{equation}
+            or
+            \begin{equation}
+                x \partial_t^2 x = \sum_{i=t_i}^{t_f} \frac{1}{\epsilon} \left( x_{i-1}^2 -2 x_{i}^2 + x_{i+1}^2 \right)
+            \end{equation}
+            In matrix form, the second derivative can therefore be written as
+            \begin{equation}
+                \frac{1}{\epsilon} \mqty(\ddots & \ddots & \ddots & \ddots & \ddots & \vdots & \vdots & \vdots\\ \cdots & 0 & 1 & -2 & 1 & 0 & \cdots & \cdots \\ \cdots & \cdots & 0 & 1 & -2 & 1 & 0 & \cdots \\ \vdots & \vdots & \vdots & \ddots & \ddots & \ddots & \ddots & \ddots)
+            \end{equation}
+            The negative sign can be accounted for in the fact that $ \imath $ is in the denominator of the solution. For the second term, it is simple to see that
+            \begin{equation}
+                x^2 = \epsilon \mqty(\dmat{\ddots,1,1,1,\ddots}) x(t)^2
+            \end{equation}
+            will give us the proper discrete sum of time slices.
+        \end{problem}
+    \item[(c)] Evaluate
+        \begin{equation}
+            \det\left( \frac{m}{2 \pi \imath \hbar} (- \partial^2_t - \omega^2) \right)
+        \end{equation}
+        by defining the operator $ O \equiv (-\partial_t^2 - \omega^2) $ and finding the eigenfunctions and eigenvalues defined via
+        \begin{equation}
+            O \varphi_n(t) = \lambda_n \varphi_n(t)
+        \end{equation}
+        where $ \varphi(0) = \varphi(T) = 0 $ and $ T = t_f - t_i $. Show that the determinant is given by
+        \begin{equation}
+            \det(O) = \prod_{i=1}^{N} \left( \frac{\pi^2 n^2}{T^2} - \omega^2 \right)
+        \end{equation}
+        \begin{problem}
+            The eigenfunctions of $ O $ are
+            \begin{equation}
+                \varphi_n(t) = \sin\left( \frac{\pi n t}{T} \right)
+            \end{equation}
+            which makes the eigenvalues
+            \begin{equation}
+                \lambda_n = \frac{\pi^2 n^2}{T^2} - \omega^2
+            \end{equation}
+            The determinant can be alternatively defined as the product of the eigenvalues, so
+            \begin{equation}
+                \det(O) = \prod_{i=1}^{N} \lambda_n = \prod_{i=1}^{N} \left( \frac{\pi^2n^2}{T^2} - \omega^2 \right)
+            \end{equation}
+        \end{problem}
+    \item[(d)] Show that
+        \begin{equation}
+            \hat{N} = \sqrt{\frac{m}{2 \pi \imath \hbar T}} \det\left[ - \frac{m}{2 \pi \imath \hbar} \partial_t^2 \right]^{1/2}
+        \end{equation}
+        \begin{problem}
+            If we go back to (a) with $ \omega = 0 $, we have the propagator for a free path with $ S'' = - m \partial_t^2 $
+            \begin{align}
+                \bra{x_f t_f}\ket{x_i t_i} &= \vu{N} e^{\imath S_{cl} / \hbar} \int Dx e^{\frac{\imath}{\hbar} \frac{1}{2} x S'' x} \\
+                &= \vu{N} e^{\imath S_{cl} / \hbar} \sqrt{\frac{1}{\det\left( - \frac{m}{2 \pi \imath \hbar} \partial_t^2 \right)}}
+            \end{align}
+            Sakurai says this should be
+            \begin{equation}
+                \bra{x_f t_f}\ket{x_i t_i} = \sqrt{\frac{m}{2 \pi \imath \hbar (t_f - t_i)}} \exp\left[ \frac{\imath m(x_f - x_i)^2}{2 \hbar (t_f - t_i)} \right] = \sqrt{\frac{m}{2 \pi \imath \hbar T}} e^{\frac{\imath}{\hbar} \left( \eval{\frac{1}{2} m \dot{x}^2}_{x_i(t_i)}^{x_f(t_f)} \right)} = \sqrt{\frac{m}{2 \pi \imath \hbar T}} e^{\frac{\imath}{\hbar} S_{cl}}
+            \end{equation}
+            Setting these equations equal to each other and solving for $ \hat{N} $, we find that:
+            \begin{equation}
+                \hat{N} = \sqrt{\frac{m}{2 \pi \imath \hbar T}} \det\left[ - \frac{m}{2 \pi \imath \hbar} \partial_t^2 \right]^{1/2}
+            \end{equation}
+        \end{problem}
+    \item[(e)] Using the result from the last problem, show that
+        \begin{equation}
+            \bra{x_f t_f}\ket{x_i t_i} = \sqrt{\det \left( \frac{- \partial_t^2}{- \partial_t^2 - \omega^2} \right)} e^{\frac{\imath}{\hbar} S_{cl}} \sqrt{\frac{m}{2 \pi \imath \hbar T}}
+        \end{equation}
+        \begin{problem}
+            \begin{align}
+                \bra{x_f t_f}\ket{x_i t_i} &= \hat{N} e^{\imath S_{cl} / \hbar} \int Dx e^{\frac{\imath}{2 \hbar} xS''x} \\
+                &= \sqrt{\frac{m}{2 \pi \imath \hbar T}} \sqrt{\det\left( - \frac{m}{2 \pi \imath \hbar} \partial_t^2 \right)} e^{\imath S_{cl} / \hbar} \sqrt{\frac{1}{\det\left( \frac{m}{2 \pi \imath \hbar} (- \partial_t^2 - \omega^2) \right)}} \\
+                &= \sqrt{\det \left( \frac{- \partial_t^2}{- \partial_t^2 - \omega^2} \right)} e^{\frac{\imath}{\hbar} S_{cl}} \sqrt{\frac{m}{2 \pi \imath \hbar T}}
+            \end{align}
+        \end{problem}
+    \item[(f)] Now use $ \det(A/B) = \det(A)/\det(B) $ to show that
+        \begin{equation}
+            \bra{x_f t_f}\ket{x_i t_i} = \prod_{n=1}^{\infty} \left( 1 - \frac{\omega^2 T^2}{\pi^2 n^2} \right)^{-1/2} e^{\imath S_{cl} / \hbar} \sqrt{\frac{m}{2 \pi \imath \hbar T}}
+        \end{equation}
+        We already know the determinant in the denominator, so we only have to calculate the numerator. This is the same as the denominator when $ \omega = 0 $, so
+        \begin{equation}
+            \frac{\det(-\partial_t^2)}{\det(-\partial_t^2 - \omega^2)} = \frac{\prod \frac{\pi^2 n^2}{T^2}}{\prod \left( \frac{\pi^2 n^2}{T^2} - \omega^2 \right)} = \prod \frac{\frac{\pi^2 n^2}{T^2}}{\frac{\pi^2 n^2}{T^2} - \omega^2} = \prod \left( \frac{1}{1 - \frac{\omega^2 T^2}{\pi^2 n^2}} \right)
+        \end{equation}
+        While before, this product was $ \prod_{i=1}^{N} $, we now take $ N \to \infty $ to remove the time-discretization.
+    \item[(g)] Using the representation
+        \begin{equation}
+            \prod_{n=1}^{\infty}\left( 1 - \frac{x^2}{\pi^2 n^2} \right) = \frac{\sin(x)}{x} 
+        \end{equation}
+        show that we have derived, via the saddle point approximation, the propagator for the SHO given in Sakurai (2.6.18).
+        \begin{problem}
+            We can simply take $ x = (\omega T) $ to get
+            \begin{equation}
+                \bra{x_f t_f}\ket{x_i t_i} = \sqrt{\frac{(\omega T)}{\sin(\omega T)}} e^{\imath S_{cl} / \hbar} \sqrt{\frac{m}{2 \pi \imath \hbar T}} = \sqrt{\frac{m \omega}{2 \pi \imath \hbar \sin(\omega (t_f - t_i))}} e^{\imath S_{cl} / \hbar}
+            \end{equation}
+            which is exactly the equation given in Sakurai, where
+            \begin{equation}
+                S_{cl} = \frac{m \omega}{2 \sin(\omega (t_f - t_i))}\left[ (x_f^2 + x_i^2) \cos(\omega(t_f - t_i)) - 2 x_f x_i\right]
+            \end{equation}
+        \end{problem}
+\end{itemize}
+
+\section*{2. Problem 7.3 of Sakurai}
+It is obvious that two nonidentical spin-1 particles with no orbital angular momenta (that is, s-states for both) can form $ J = 0 $, $ J = 1 $, and $ J = 2 $. Suppose, however, that the two particles are identical. What restrictions do we get?
+\begin{problem}
+    These are integer-spin particles so they must obey Bose statistics. Therefore, the states must be symmetric. However, we know from our analysis of addition of angular momentum that the highest $ J $-state is symmetric and the symmetry alternates as we lower $ J $. Therefore, the $ J = 2 $ states will be symmetric, the $ J = 1 $ states will be antisymmetric and the $ J = 0 $ state will be symmetric. There is no orbital angular momentum, and if the particles are identical, the spin state is clearly symmetric. Therefore, the $ J=1 $ representation will cause the overall state to be antisymmetric, which is not allowed for Bosons, so only the $ J=2 $ and $ J=0 $ states are allowed.
+\end{problem}
+
+\section*{3. Problem 7.6 of Sakurai}
+Consider three weakly interacting, identical spin-1 particles.
+\begin{itemize}
+    \item[(a)] Suppose the space part of the state vector is known to be symmetrical under interchange of any pair. Using notation $\ket{+}\ket{0}\ket{+} $ for particle 1 in $ m_s = +1 $, particle 2 in $ m_s = 0 $, particle 3 in $ m_s = +1 $, and so on, construct the normalized spin states in the following three cases:
+        \subitem[(i)] All three of them in $\ket{+} $.
+        \begin{problem}
+            The only possible state here is $\ket{+}\ket{+}\ket{+} $, which is the highest possible angular momentum state, $\ket{j,m} =\ket{3,3} $.
+        \end{problem}
+        \subitem[(ii)] Two of them in $\ket{+} $, one in $\ket{0} $.
+        \begin{problem}
+            We can symmetrically permute a state with one $\ket{0} $ particle as:
+            \begin{equation}
+                \frac{1}{\sqrt{3}} \left[\ket{0}\ket{+}\ket{+} +\ket{+}\ket{0}\ket{0} +\ket{+}\ket{+}\ket{0} \right]
+            \end{equation}
+            $ S_z\ket{\psi} = 2 \hbar\ket{\psi} $ so $ m = 2 $, and because $ S_- $ and $ S^2 $ commute, $ S^2 S_-\ket{+}\ket{+}\ket{+} = S^2\ket{\psi} = S_- S^2\ket{+}\ket{+}\ket{+} = 12 \hbar^2\ket{\psi}$, $\ket{\alpha} =\ket{3,2} $.
+        \end{problem}
+        \subitem[(iii)] All three in different spin states.
+        \begin{problem}
+            There are now six different combinations:
+            \begin{equation}
+                \ket{\psi} = \frac{1}{\sqrt{6}} \left[\ket{+}\ket{0}\ket{-} +\ket{-}\ket{+}\ket{0} +\ket{0}\ket{-}\ket{+} +\ket{0}\ket{+}\ket{-} +\ket{-}\ket{0}\ket{+} +\ket{+}\ket{-}\ket{0} \right]
+            \end{equation}
+            For each state in this sum, $ m = 0 $, but $\ket{\psi} $ is not an eigenstate of $ S^2 $ so we can't write it in $\ket{j,m} $ notation.
+        \end{problem}
+        What is the total spin in each case?
+        \begin{problem}
+            I've done this in the subsections of each problem. For (a) and (b), $ J = 3 $, but for (c), the wave function is not an eigenstate of the total spin operator.
+        \end{problem}
+    \item[(b)] Attempt to do the same problem when the space part is antisymmetrical under interchange of any particle.
+        \begin{problem}
+            For antisymmetric states, it is impossible to construct states where any two particles have the same spin, so we can't even do parts (i) and (ii) above. For (iii), we can construct the following state:
+            \begin{equation}
+                \ket{\psi} = \frac{1}{\sqrt{6}} \left[\ket{+}\ket{0}\ket{-} +\ket{-}\ket{+}\ket{0} +\ket{0}\ket{-}\ket{+} - \left(\ket{0}\ket{+}\ket{-} +\ket{-}\ket{0}\ket{+} +\ket{+}\ket{-}\ket{0} \right) \right]
+            \end{equation}
+            The first three terms are cyclic permutations of the three particles and the last three terms are cyclic permutations with the opposite parity. $ S_z\ket{\psi} = 0 $ so $ m = 0 $. To find the total angular momentum, we need to compute $ S^2\ket{\psi} $:
+            \begin{align}
+                S^2 &= S_1^2 + S_2^2 + S_3^2 \\
+                &+ S_{1+} S_{2-} + S_{1-} S_{2+} \\
+                &+ S_{1+} S_{3-} + S_{1-} S_{3+} \\
+                &+ S_{2+} S_{3-} + S_{2-} S_{3+} \\
+                &+ 2 (S_{1z} S_{2z} + S_{2z} S_{3z} + S_{1z} S_{3z})
+            \end{align}
+            so
+            \begin{align}
+                S^2\ket{\psi} &= 3(2 \hbar^2) - 4 \hbar^2 + 2(- \hbar^2 )\ket{\psi} = 0
+            \end{align}
+            so $\ket{\psi} =\ket{0,0} $.
+        \end{problem}
+\end{itemize}
+
+\end{document}

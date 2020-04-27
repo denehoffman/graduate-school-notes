@@ -1,0 +1,120 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{36}{Monday, April 20, 2020}{}
+
+In the last lecture, we worked out that
+\begin{equation}
+    N(\mu) = \int \dd{\epsilon} \frac{D(\epsilon)}{e^{\beta(\epsilon - \mu) \pm 1}}
+\end{equation}
+for Fermions and Bosons. This equation is often used to find $ \mu $ as a function of $ N $. This is useful if we with to re-express things as a function of $ N $, since we lost this control when we moved to the grand canonical ensemble.
+
+
+What is the average energy? To do this, note that
+\begin{align}
+    \pdv{\beta} \ln(1\pm e^{- \beta(\epsilon - \mu)}) &= \frac{\pm e^{- \beta(\epsilon - \mu)}}{1 \pm e^{- \beta(\epsilon - \mu)}} (-(\epsilon - \mu)) \\
+    &= \mp f_{\pm}(\epsilon - \mu) (\epsilon - \mu) \\
+    & \implies \epsilon f_{\pm}(\epsilon - \mu) = \mp \pdv{\beta} \ln(1 \pm e^{- \beta(\epsilon - \mu)}) + \mu f_{\pm}(\epsilon - \mu)
+\end{align}
+\begin{align}
+    E = \ev{H} &= \sum_{\alpha} \epsilon_{\alpha} \ev{n_{\alpha}} \\
+    &= \int \dd{\epsilon} D(\epsilon) \epsilon f_{\pm}(\epsilon - \mu) \\
+    &= \int \dd{\epsilon} D(\epsilon) \left[ \mp \pdv{\beta} \ln(1 \pm e^{- \beta(\epsilon - \mu)}) + \mu f_{\pm}(\epsilon - \mu) \right] \\
+    &= \underbrace{\pdv{\beta \Omega}{\beta}}_{E - \mu N} - \mu \underbrace{\pdv{\Omega}{\mu}}_{-N} \\
+\end{align}
+
+\section{Density of States for Free Particles in a Cubic Box}
+\label{sec:density_of_states_for_free_particles_in_a_cubic_box}
+
+In general, we can do this for a box with volume $ V = L^d $ for any dimension $ d $. We know that the energy levels should be
+\begin{equation}
+    \frac{\hbar^2 k^2}{2m} = \frac{\hbar^2}{2m} \left( \frac{\pi}{L} \va{n} \right)^2 \qquad \va{n} \in \N_0^d - \{\va{0}\}
+\end{equation}
+Therefore,
+\begin{align}
+    D(\epsilon) &= \int_{\R_+^d} \dd[d]{n} \delta\left( \epsilon - \frac{\hbar^2 \pi^2}{2mL^2} \va{n}^2 \right) \\
+    &= \frac{1}{2^d} \int_{\R^d} \delta\left( \epsilon - \frac{\hbar^2 \pi^2}{2mL^2} \va{n}^2 \right) \\
+    y^2 = \frac{\hbar^2 \pi^2}{2mL^2} n^2 &\qquad \dd{y} = \frac{\pi \hbar}{\sqrt{2mL^2}} \dd{n} \\
+    D(\epsilon) &= \frac{1}{2^d} \int \dd[d]{y} \left( \frac{\sqrt{2m} L}{\pi \hbar} \right)^d \delta(\epsilon - y^2) \\
+    &= \frac{1}{2^d} \left( \frac{\sqrt{2m}}{\pi \hbar} \right)^d V \int_0^{\infty} \dd{y} A_d y^{d-1} \delta(\epsilon - y^2) \\
+    x = y^2 &\qquad \dd{y} = \frac{1}{2 \sqrt{x}} \dd{x} \\
+    D(\epsilon) &= \frac{1}{2^d} \left( \frac{\sqrt{2m}}{\pi \hbar} \right)^d V \int_0^{\infty} \frac{\dd{x}}{2 \sqrt{x}} A_d x^{\frac{d - 1}{2}} \delta(\epsilon - x) \\
+    &= \frac{1}{2} \frac{(2m)^{d/2}}{h^d} V A_d \epsilon^{d/2 - 1}
+\end{align}
+Recall that the surface area of a $ d $-sphere is
+\begin{equation}
+    A_d = \frac{2 \pi^{d/2}}{\Gamma\left( \frac{d}{2} \right)}
+\end{equation}
+so
+\begin{equation}
+    D(\epsilon) = \left( \frac{\sqrt{2 \pi m}}{h} \right)^d \frac{V}{\Gamma \left( \frac{d}{2} \right)} \epsilon^{\frac{d}{2}-1}
+\end{equation}
+This expression does not include any mention of spin, which may be important later.
+
+
+\subsection{The Equation of Clapeyron}
+\label{sub:the_equation_of_clapeyron}
+
+Recall that $ D(\epsilon) = c_d \epsilon^{d/2 - 1} $. Because of this, we can write
+\begin{equation}
+    D(\epsilon) = \frac{2}{d} \left[ \dv{\epsilon}(\epsilon D(\epsilon)) \right]
+\end{equation}
+
+\begin{equation}
+    PV = - \Omega = \pm k_B T \int_0^{\infty} \dd{\epsilon} D(\epsilon) \ln(1 \pm e^{- \beta (\epsilon - \mu)}) 
+\end{equation}
+Now we ware going to insert this weird rewriting of $ D(\epsilon) $:
+\begin{align}
+    PV &= \pm k_B T \frac{2}{d} \int_0^{\infty} \dd{\epsilon} \dv{\epsilon}(\epsilon D(\epsilon)) \ln(1 \pm e^{- \beta (\epsilon - \mu)}) \\
+    &= \mp k_B T \frac{2}{d} \int_{0}^{\infty} \dd{\epsilon} \epsilon D(\epsilon) \frac{\mp \beta e^{- \beta (\epsilon - \mu)}}{1 \pm e^{- \beta(\epsilon - \mu)}} \\
+    &= \frac{2}{d} \int \dd{\epsilon} \epsilon D(\epsilon) f_{\pm}(\epsilon - \mu) \\
+    &= \frac{2}{d} E
+\end{align}
+so
+\begin{equation}
+    E = \frac{d}{2} PV
+\end{equation}
+This is incredible, since this is exactly the classical result, but we derived it using quantum statistics.
+
+
+\subsection{Grand Potential of a Free Ideal Quantum Gas}
+\label{sub:grand_potential_of_a_free_ideal_quantum_gas}
+
+\begin{equation}
+    \Omega(T,V, \mu) = \mp k_B T \int_0^{\infty} \dd{\epsilon} D(\epsilon) \ln(1 \pm e^{- \beta(\epsilon - \mu)})
+\end{equation}
+Define
+\begin{equation}
+    z\equiv e^{\beta \mu}
+\end{equation}
+as the ``fugacity'' and
+\begin{equation}
+    D(\epsilon) = (2s+1) \left( \frac{\sqrt{2 \pi m}}{h} \right)^d \frac{V}{\Gamma \left( \frac{d}{2} \right)} \epsilon^{d/2-1}
+\end{equation}
+including the spin degeneracy.
+\begin{align}
+    \Omega &= \mp k_B T (2s+1)\left( \frac{\sqrt{2 \pi m}}{h} \right)^d \frac{V}{\Gamma \left( \frac{d}{2} \right)} \int \dd{\epsilon} \epsilon^{\frac{d}{2} - 1} \ln(1 \pm z e^{- \beta \epsilon}) \\
+    &\left( t = \beta \epsilon \qquad \dd{t} = \beta \dd{\epsilon} \right)\\
+    \Omega &= \mp k_B T (2s+1) \left( \frac{\sqrt{2 \pi m k_B T}}{h} \right)^d V \underbrace{\frac{1}{\Gamma \left( \frac{d}{2} \right)} \int_0^{\infty} \dd{t} t^{\frac{d}{2} - 1} \ln(1 \pm z e^{- t})}_{-L_{\frac{d}{2} - 1} (\mp z)}
+\end{align}
+where $ L_{\nu}(z) $ is a polylogarithm.
+\begin{equation}
+    \Omega(T, V, \mu) = \pm k_B T(2s+1) \frac{V}{\lambda_{\text{th}}^d} L_{\frac{d}{2}+1}(\mp Z)
+\end{equation}
+
+Now we can use some of the properties of the polylog:
+\begin{equation}
+    \frac{PV}{k_B T} = - \beta \Omega = \mp (2s+1) \frac{V}{\lambda_{\text{th}}^d} L_{\frac{d}{2} + 1}(\mp z)
+\end{equation}
+and
+\begin{equation}
+    N = - \pdv{\Omega}{\mu} = z \pdv{z}(- \beta \Omega) = \mp (2s+1) \frac{V}{\lambda_{\text{th}}^d} L_{\frac{d}{2}}(\mp z)
+\end{equation}
+These two equations can be seen as a parametric representation of the thermal equation of state (with $ z $ being the parameter). If we take the ratio of these equations, we find that
+\begin{equation}
+    \frac{PV}{Nk_B T} = \frac{L_{\frac{d}{2} + 1}(\mp z)}{L_{\frac{d}{2}}(\mp z)} = \begin{cases} \geq 1 & \text{Fermions} \\ = 1 & \text{Boltzmann (Classical)} \\ \leq 1 & \text{Bosons} \end{cases}
+\end{equation}
+
+In the case of Fermi/Bose statistics, we find an additional repulsions/attraction between particles which is not present in the classical case.
+
+
+\end{document}

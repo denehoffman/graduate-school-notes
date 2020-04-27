@@ -1,0 +1,51 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{4}{Friday, January 17, 2020}{Ideal Gasses}
+
+From last lecture, we had a box of gas divided into two volumes ($ A $ and $ B $). We decided that the probability of finding a given particle in volume $ A $ was
+\begin{equation}
+    p = \frac{V_A}{V}
+\end{equation}
+
+How do we know this? We should be able to somehow calculate this, since we know the Hamiltonian of the system and the equations of motion. Recall that last time we called this the ``equal a priori'' assumption. Proving these basic ideas from first principles is incredibly difficult, but they follow experimental results very well.
+
+After assuming the equal a priori probability for all particles (after assuming a microstate), we can now calculate the probability of finding $ N_A $ particles in compartment $ A $:
+\begin{equation}
+    \Pr(N_A\mid N) = \binom{N}{N_A} p^{N_A} (1-p)^{N-N_A} = \binom{N}{N_A} \left( \frac{V_A}{V} \right)^{N_A} \left( 1 - \frac{V_A}{V} \right)^{N - N_A} = \binom{N}{N_A} \left(\frac{ V_A}{V} \right)^{N_A} \left(\frac{ V_B}{V} \right)^{N_B}
+\end{equation}
+We have $ N $ trials, and for each trial we have a probability $ p $ that they will make it over to $ A $.
+\begin{equation}
+    \ev{N_A} = N \frac{V_A}{V} \propto N
+\end{equation}
+\begin{equation}
+    \sigma_{N_A} = \sqrt{N \frac{V_A}{V} \frac{V_B}{V}} \propto \sqrt{N}
+\end{equation}
+since the distribution is binomial. Note that $ \frac{\sigma_{N_A}}{\ev{N_A}} \propto \frac{1}{\sqrt{N}} $.
+
+Note that with an Avogadro number of particles, the fluctuations are on the order of trillions. However, relatively speaking, they order on trillionths ($\frac{ 1}{\sqrt{N}} $). That insight led Boltzmann to suggest that the observed \textit{macrostate} is simply the most probable one. If you were to ask how many particles are observed on the left-hand side, Boltzmann would say you just need to maximize $ \Pr(N_A\mid N) $ (we would find, unsurprisingly, the expectation value that we just calculated).
+
+Define an object $ \Omega_q(N, V) = \frac{V^N}{N!} $. We can now rewrite our probability as
+\begin{equation}
+    \Pr(N_A\mid N) = \frac{\Omega_q(N_A, V_A) \Omega_q(N_B, V_B)}{\Omega_q(N, V)}
+\end{equation}
+Maximizing this probability is the same as maximizing the logarithm of the probability (since the logarithm is monotonic):
+\begin{equation}
+    \ln{\Pr(N_A\mid N)} = \ln{\Omega_q(N_A,V_A)} + \ln{\Omega_q(N_B,V_B)} - \ln{\Omega_q(N,V)}
+\end{equation}
+Let's redefine this logarithm:
+\begin{equation}
+    S_q(N,V) = k [\ln{\Omega_q(N,V) } + XN]
+\end{equation}
+$ k $ and $ X $ are just there to account for things we will encounter later, the maximizations still stay the same. Maximizing $ \ln{\Pr} $ subject to $ N_A + N_B = N $ and our other constraints is equivalent to maximizing
+\begin{equation}
+    S_{q,\text{tot}}(N_A, N_B,\cdots) = k \ln{\Pr(N_A,N)} + S_q(N,V) = S_q(N_A, V_A) + S_q(N_B, V_B)
+\end{equation}
+This is just a rewriting of the logarithms of the $ \Omega_q $'s above. $ S_q(N, V) \propto N $, and similarly with $ S_q(N_A,V_A) $ and $ S_q(N_B,V_B) $. How big is $ k \log{\Pr(N_A,N)} $? The probability distribution has to be normalized\textemdash the area under our binomial distribution must be $ 1 $. We know its width is $ \sqrt{N} $, so the height of our distribution has to be $ \propto \frac{1}{\sqrt{N}} $. Therefore, the logarithm is proportional to $ \ln{N} $, which is incredibly smaller than $ N $. In other words, all the physics happens in the $ S_q $'s. From our maximizing argument, we need to maximize $ S_q(N_A,V_A) + S_q(N_B, V_B) \approx S_q(N,V) $.
+
+\begin{equation}
+    S_q(N,V) = k\left[ \ln{\frac{V^N}{N!}} + XN \right] = k\left[ N \ln{V} - N \ln{N} + N + XN \right] = kN\left[ \ln{\frac{V}{N}} + 1 + X \right]
+\end{equation}
+
+
+
+\end{document}

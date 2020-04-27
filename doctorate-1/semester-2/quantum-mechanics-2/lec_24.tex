@@ -1,0 +1,99 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{24}{Monday, March 23, 2020}{Time-Dependent Perturbation Theory, Continued}
+
+Let's look at how Fermi's Golden Rule changes under a harmonically oscillating potential (rather than a step function).
+
+\begin{equation}
+    V = V e^{\imath \omega t} + V^\dagger e^{- \imath \omega t}
+\end{equation}
+
+\begin{equation}
+    c_n^{(1)} = \frac{1}{\imath \hbar} \int_0^t \left( V_{ni} e^{\imath \omega t'} + V_{ni}^\dagger e^{- \imath \omega t'} \right) \dd{t'}
+\end{equation}
+
+Recall that our electromagnetic interactions have the form
+\begin{align}
+    H &= \frac{(\va{p} - e/c \va{A})^2}{2m} + e \Phi(x) \\
+    &= \frac{\va{p}^2}{2m} - \frac{e}{2mc} \left( \va{A} \vdot \va{p} + \va{p} \vdot \va{A} \right) + \order{A^2} + e \Phi(x)
+\end{align}
+
+Recall we have the freedom to choose our gauge, so let's use the Coulomb gauge:
+\begin{equation}
+    \div{\va{A}} = 0
+\end{equation}
+so
+\begin{equation}
+    \va{p} \vdot \va{A} = ()
+\end{equation}
+<<<STUFF FUCKING MISSING HERE>>>
+
+Let's write $ \va{A} = 2 A_0 \va{\epsilon} \cos(\frac{\omega}{c} (\vu{n} \vdot \va{x}) - \omega t) $ where $ \va{\epsilon} $ is the polarization and $ \vu{n} $ is the direction of motion. By Maxwell's equations, $ \vu{n} \vdot \va{\epsilon} = 0 $.
+\begin{align}
+    A_{\mu} = (\Phi, \va{A}) = (0, \epsilon_x, \epsilon_y, 0)
+\end{align}
+for a wave propagating in the $ \vu{z} $ direction. We can write our interaction Hamiltonian as
+\begin{equation}
+    H_I = - \frac{e}{mc} A_0 \va{p} \vdot \va{\epsilon} \left[ e^{\imath (\ldots) + e^{- \imath (\ldots)}} \right]
+\end{equation}
+Now we employ Fermi's golden rule:
+\begin{equation}
+    \Gamma_{i \to n} = \frac{2 \pi}{\hbar} \frac{e^2}{m^2 c^2} \abs{A_0}^2 \abs{\mel{n}{e^{\imath (\ldots)}}{i}}^2 \delta(E_n - E_i - \hbar \omega)
+\end{equation}
+where we include $ \hbar \omega $ because we are now absorbing one quantum of light. We need to figure out how to calculate this matrix element (there's a similar problem in the homework). First, let's find the absorptive cross-section, the energy absorbed per unit time divided by the flux. Recall that the energy density is
+\begin{equation}
+    U \equiv \frac{1}{2} \left[ \frac{\va{E}^2}{8 \pi} + \frac{\va{B}^2}{8 \pi} \right] = \frac{1}{2 \pi} \frac{\omega^2}{c} \abs{A_0}^2
+\end{equation}
+The energy flux is just $ cU $, so
+\begin{equation}
+    \sigma_{\text{abs}} = \frac{(\hbar \omega) \frac{2 \pi}{\hbar} \left( \frac{e^2}{m^2 c^2} \right) \abs{\mel{n}{e^{\imath (\ldots)}}{i}}^2 \abs{A_0}^2}{\frac{1}{2 \pi} \frac{\omega^2}{c^2} \abs{A_0}^2} \delta(E_i + \hbar \omega - E_n)
+\end{equation}
+Now we can use the multipole approximation:
+\begin{equation}
+    \mel{n}{e^{\imath \left( \underbrace{\vu{n} \vdot \vec{x} \frac{\omega}{c}}_{\frac{\vu{n} \vdot \va{x}}{\lambda}} - \omega t \right)}}{i}
+\end{equation}
+We can expand around $ \lambda $:
+\begin{equation}
+    e^{\imath \left( \vu{n} \vdot \va{x} \frac{\omega}{c} \right)} \approx 1 + \imath \vu{n} \vdot \va{x} \frac{\omega}{c} + \cdots
+\end{equation}
+so
+\begin{equation}
+    \sigma_{\text{abs}} = \left( \frac{e^2}{\hbar c} \right) \frac{4 \pi^2 \hbar}{m^2 \omega} \abs{\mel{n}{\va{\epsilon} \vdot \va{p}}{i}}^2 \delta(E_{\text{in}} - E_{\text{out}})
+\end{equation}
+If we take the polarization to be along the $ x $-axis (while $ \vu{n} $ is along the $ \vu{z} $ direction), we get the matrix element $ \mel{n}{p_x}{i} $. Recall there is no monopole moment for the Hydrogen atom, but why don't we see the dipole moment as the leading order term? What is this momentum element? Notice that
+\begin{equation}
+    \comm{H}{x} = - \frac{\imath \hbar \va{p}}{m}
+\end{equation}
+so we can rewrite
+\begin{equation}
+    \mel{n}{p_x}{i} = \frac{m}{\imath \hbar} \mel{n}{\comm{x}{H_0}}{i} = \frac{m}{\imath \hbar} (E_i - E_n) \mel{n}{x}{i} = \imath m \omega_{ni} \mel{n}{x}{i}
+\end{equation}
+which looks more like the expected dipole operator. Now let's look at this in terms of the $\ket{l,m} $ basis. Recall in this basis, the selection rules for $\bra{l'm'} x\ket{lm} $ make $ m' = m \pm 1 $ since $ x $ is an operator with $ l = 1 $ and $ \Delta l = 0, \pm 1 $ by a parity argument.
+
+\begin{equation}
+    \sigma_{\text{abs}} = 4 \pi \alpha \omega_{ni} \abs{\mel{n}{x}{i}}^2 \delta(\omega - \omega_{ni})
+\end{equation}
+This is interesting, because every time $ \omega = \omega_{ni} $, the cross-section diverges. Physically, there are effects which smear out this $\delta$-function, and in particular you can approximate the function as a Lorentzian
+\begin{equation}
+    \delta(\omega - \omega_{ni}) = \lim_{\gamma \to 0} \left( \frac{\gamma}{2 \pi} \right) \frac{1}{\left( (\omega - \omega_{ni})^2 + \frac{\gamma^2}{4} \right)}
+\end{equation}
+
+Physically, this is due to collisional broadening. When you do this experiment, you'd have to scatter light off of a cloud of hydrogen gas, and those atoms are all moving, so the relative energy of the photon depends on which particle you're looking at. Therefore, you will see some distribution with the width proportional to the temperature. The other source of this is the finite lifetime of the states, which we will discuss in the next lecture. When you integrate over $ \sigma $, you get the total absorption cross section:
+\begin{equation}
+    f_{ni} = \frac{2m \omega_{ni}}{\hbar} \abs{\mel{n}{x}{i}}
+\end{equation}
+\begin{align}\label{eq:trk_sum_rule}
+    \sum_n f_{ni} &= \sum_n \frac{2m \omega_{ni}}{\hbar} \abs{\mel{n}{x}{i}}^2 = \sum_n \frac{1}{2} \left( \frac{2 m}{\hbar} \right) \left[ \mel{n}{\comm{H_0}{x}}{i} \mel{i}{x}{n} + \text{Hermitian conjugate} \right] \\
+    &= \sum_n \frac{1}{2} \left( \frac{2m}{\hbar} \right) \left[ \mel{i}{x}{n} \mel{n}{- \frac{\imath \hbar}{m} p_x}{i} + \text{h.c.} \right] \\
+    &= \frac{m}{\hbar} \left[ \mel{i}{xp}{i} \left( - \frac{\imath \hbar}{m} + \text{h.c.} \right) \right] \\
+    &= \mel{i}{\comm{x}{p}}{i} = 1\tag{Thomas-Reiche-Kuhn Sum Rule}
+\end{align}
+which is an incredible result (which has roots in probability conservation).
+\begin{equation}
+    \int_{\text{abs}}^{\text{tot}}(\omega) \dd{\omega} = 2 \pi^2 c \frac{e^2}{m c^2}
+\end{equation}
+
+
+
+
+\end{document}

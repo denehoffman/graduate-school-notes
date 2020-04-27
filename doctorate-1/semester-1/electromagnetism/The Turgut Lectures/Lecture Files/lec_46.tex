@@ -1,0 +1,101 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{46}{Monday, November 25, 2019}{The Helmholtz Equation in Spherical Coordinates}
+
+From last lecture, we showed that
+\begin{equation}
+    \frac{e^{\imath k \abs{ \va{x} - \va{x}'}}}{\abs{ \va{x} - \va{x}'}} = \sum_{l,m} (\imath k) j_l(k r_<) h_l^{(1)}(k r_>) Y_{lm}(\Omega) Y_{lm}^*(\Omega')
+\end{equation}
+
+Recall that our vector potential was
+\begin{equation}
+    \va{A}_{\omega} = \frac{\mu_0}{4 \pi} \int \frac{e^{\imath k \abs{ \va{x} - \va{x}'}}}{\abs{ \va{x} - \va{x}'}} \va{J}_{\omega}( \va{x}') \dd[3]{x'}
+\end{equation}
+so in the far field, we can expand this as
+\begin{equation}
+    \va{A}_{\omega} = \frac{\mu_0 \imath k}{4 \pi} \left[ \int j_l(kr') Y_{lm}^*(\Omega') \va{J}_{\omega}( \va{x}') \dd[3]{x'} \right] h_l^{(1)}(kr) Y_{lm}(\Omega)
+\end{equation}
+
+Of course, we can expand the spherical Bessel functions, but in general it won't decouple the equation nicely. We can expand $ h^{(1)} $ in the radiation zone ($ \frac{r}{\lambda} >> 1 $), but this doesn't solve any problems on the inside of the integral, because of the vector components of $ \va{J}_{\omega} $.
+
+Instead, we have to find another (not so obvious) expansion. If we are away from the source region, the equations which we are solving are technically source-less:
+\begin{equation}
+    \left( \laplacian + k^2 \right) \mqty( \va{E}_{\omega} \\ \va{H}_{\omega} ) = 0
+\end{equation}
+
+Let's take a step back and solve the Helmholtz equation in this region, away from the source: $ (\laplacian + k^2) \psi = 0 $. We want a vector solution, not a scalar. Note that $ \va{\mathbb{L}} = \frac{1}{\imath} \va{x} \cross \grad $ commutes with the Laplacian because the Laplacian is a scalar operator. This tells you that if you had a scalar solution, that solution would also satisfy
+\begin{equation}
+    (\laplacian + k^2) \va{\mathbb{L}} \psi = \va{0}
+\end{equation}
+and $ \div{ \va{\mathbb{L}} \psi} = 0 $.
+
+Also note that, through a few substitutions, $ \va{H}_{\omega} = - \frac{\imath}{kZ_0} \curl{ \va{E}_{\omega}} $, so if
+\begin{equation}
+    \va{E}_{\omega} = \va{\mathbb{L}} \psi
+\end{equation}
+then
+\begin{equation}
+    \va{H}_{\omega} = - \frac{\imath}{kZ_0} \curl{ \va{\mathbb{L}} \psi}
+\end{equation}
+
+We could also do this the other way around, where
+\begin{equation}
+    \va{H}_{\omega} = \va{\mathbb{L}} \chi
+\end{equation}
+so
+\begin{equation}
+    \curl{ \va{H}_{\omega}} = \epsilon_0 (- \imath \omega) \va{E}_{\omega}
+\end{equation}
+so
+\begin{equation}
+    \va{E}_{\omega} = \frac{\imath}{k} Z_0 \curl{ \va{H}_{\omega}}
+\end{equation}
+or
+\begin{equation}
+    \va{E}_{\omega} = \frac{\imath}{k} Z_0 \curl{ \va{\mathbb{L}} \chi}
+\end{equation}
+
+The addition of these solutions is indeed the general solution:
+\begin{equation}
+    \va{E}_{\omega} = \frac{\imath}{k} Z_0 \curl{ \va{\mathbb{L}} \chi} + \va{\mathbb{L}} \psi
+\end{equation}
+and
+\begin{equation}
+    \va{E}_{\omega} = \va{\mathbb{L}} \chi - \frac{\imath}{kZ_0} \curl{ \va{\mathbb{L}} \psi}
+\end{equation}
+
+Solutions to the source-less Helmholtz equation can be expanded as
+\begin{equation}
+    \psi = \sum \underbrace{\left[ A_{lm}^{(1)} h_{l}^{(1)}(kr) + A_{lm}^{(2)} h_l^{(2)}(kr) \right]}_{f_{lm}} Y_{lm}(\Omega)
+\end{equation}
+and
+\begin{equation}
+    \chi = \sum \underbrace{\left[ B_{lm}^{(1)} h_{l}^{(1)}(kr) + B_{lm}^{(2)} h_l^{(2)}(kr) \right]}_{g_{lm}} Y_{lm}(\Omega)
+\end{equation}
+so
+\begin{equation}
+    \va{E}_{\omega} = \sum_{lm} \left[ f_{lm}(kr) \underbrace{\va{\mathbb{L}} Y_{lm}}_{\sim \va{\mathbb{L}}_{lm}} + \frac{\imath Z_0}{k} \curl{(g_{lm}(kr) \va{\mathbb{X}}_{lm})} \right]
+\end{equation}
+where $ \va{\mathbb{X}}_{lm} = \frac{1}{\sqrt{l(l+1)}} \va{\mathbb{L}} Y_{lm} $ are the vector spherical harmonics, and
+\begin{equation}
+    \va{H}_{\omega} = \sum_{lm} \left[ - \frac{\imath}{k Z_0} \curl{(f_{lm}(kr) \va{\mathbb{X}}_{lm})} + g_{lm}(kr) \va{\mathbb{X}}_{lm} \right]
+\end{equation}
+
+If we only want outgoing solutions, we can just look at the $ h^{(1)} $ terms and expand them as $ (- \imath)^{l+1} \frac{e^{\imath kr}}{kr} $. In practice, we only do this to the $ \va{H} $ field and then use Maxwell's equations to get the $ \va{E} $ field. Suppose we absorb $ Z_0 $ into $ f_{lm} $ in the equation for $ \va{H}_{\omega} $:
+\begin{equation}
+    \va{E}_{\omega} = \sum_{lm} \left[ f_{lm}(kr) \va{\mathbb{X}}_{lm} + \frac{\imath}{k} \curl{(g_{lm} \va{\mathbb{X}}_{lm})} \right]
+\end{equation}
+and
+\begin{equation}
+    \va{H}_{\omega} = \sum_{lm} \left[ - \frac{\imath}{k} \curl{(f_{lm}(kr) \va{\mathbb{X}}_{lm})} + g_{lm} \va{\mathbb{X}}_{lm} \right]
+\end{equation}
+
+Recall that we showed (on a homework) that
+\begin{equation}
+    \imath \curl{ \va{L}} = \va{x} \laplacian - \curl{[1+ \va{x} \vdot \grad]}
+\end{equation}
+
+
+
+
+\end{document}

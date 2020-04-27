@@ -1,0 +1,125 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{28}{Wednesday, April 01, 2020}{The W.K.B. Approximation}
+The idea we are using is a coordinate transform that makes the Hamiltonian zero, such that the coordinates are constants of motion. We write the Hamilton-Jacobi equation as
+\begin{equation}
+    H\left( q, \pdv{S}{q} \right) + \pdv{S}{t} = 0
+\end{equation}
+We showed how to find $ S $ for the trivial Harmonic oscillator. Then we linked this to quantum by writing our wave function as
+\begin{equation}
+    \psi = \sqrt{\rho} e^{\imath S / \hbar}
+\end{equation}
+Now we are going to explore the W.K.B Approximation. If $ H $ is a constant, we can make the ansatz
+\begin{equation}
+    S = W - Et
+\end{equation}
+where $ W $ is Hamilton's principle function. If we write out the Hamilton-Jacobi equation, we now get
+\begin{equation}
+    \frac{1}{2m} \left( \pdv{W}{q} \right)^2 + V(q) = E
+\end{equation}
+where we used the fact that $ p = \pdv{S}{q} = \pdv{W}{q} $. Now we can simply solve for $ W $:
+\begin{equation}
+    W = \int \sqrt{(E- V(q))(2m)} \dd{q}
+\end{equation}
+Let's see if we can use this to find our wave function. Remember that
+\begin{equation}
+    \psi = \sqrt{\rho} e^{\imath S / \hbar} = \sqrt{\rho} e^{\imath W / \hbar + \imath Et / \hbar}
+\end{equation}
+If this is an eigenstate of energy, $ \pdv{\rho}{t} = 0 $ and by conservation of probability, $ \pdv{\rho}{t} + \div{\va{j}} = 0 $, so
+\begin{equation}
+    \div{(\psi^* \grad{\psi})} = 0 = \div{(\rho \grad{S})}
+\end{equation}
+so
+\begin{equation}
+    \rho \pdv{W}{q} = \rho \sqrt{2m(E-V(q))} = \text{const}
+\end{equation}
+so
+\begin{equation}
+    \rho \sim \frac{1}{\sqrt{2m(E-V(q))}}
+\end{equation}
+Therefore, our wave function, up to normalization, is
+\begin{equation}
+    \psi \sim \frac{1}{(E-V(q))^{1/4}} e^{\frac{\imath}{\hbar} \int \dd{q'} \sqrt{2m(E-V(q))}} e^{- \imath Et / \hbar}
+\end{equation}
+This is the W.K.B. Approximation. Where is it valid? Recall that when we plugged our wave function into the Schr\"odinger equation and dropped higher-order $ \hbar $ terms, we found that
+\begin{equation}
+    \hbar \abs{\dv[2]{W}{q}} << \abs{\dv{W}{q}}^2
+\end{equation}
+tells us when the W.K.B Approximation is valid (when we can take $ \hbar \to 0 $). If we put our expression for $ W $ in here, we find
+\begin{equation}
+    W = \int \dd{q'} \sqrt{2m(E-V(q'))}
+\end{equation}
+\begin{equation}
+    \dv{W}{q} = \sqrt{2m(E-V(q))}
+\end{equation}
+\begin{equation}
+    \dv[2]{W}{q} = \frac{m \dv{V}{q}}{\sqrt{2m(E-V(q))}}
+\end{equation}
+so the validity criteria becomes
+\begin{equation}
+    \frac{\hbar}{\sqrt{2m(E-V(q))}} << \frac{2(E-V(x))}{\dv{V}{x}} 
+\end{equation}
+or
+\begin{equation}
+    \frac{\dv{V}{q}}{2(E-V(q))} << \sqrt{2m(E-V(q))} / \hbar
+\end{equation}
+The wavelength is $ \frac{p}{\hbar} = \frac{1}{\lambda} $ we say that $ p(q) = \sqrt{2m (E-V(q))} $ in the classical limit (since $ E-V $ is the kinetic energy), so the criteria which must be met to use the W.K.B. Approximation is
+\begin{equation}
+    \frac{1}{\lambda} >> \frac{\dv{V}{q}}{(\text{KE})}
+\end{equation}
+
+
+Suppose we wanted to calculate some bound-state energies using this approximation. We have a slight problem when $ E \sim V(x_i) $, we call $ x_i $ the turning points. If we think of this as a classical problem, these turning points are where the particle turns around in the harmonic oscillator, but in quantum, we know that there is a nonzero probability of the particle escaping the potential when it reaches this reason. Our approximation will not work here, but we know that the wave function should decay exponentially when it is below the potential, while we should have an oscillating solution inside the potential. To do this, we solve the system outside and inside using W.K.B., but we have to switch the sign inside the square root (since outside the potential well we want $ V - E $ not $ E - V $). We then match these solutions at the turning points. We find an interesting property:
+\begin{equation}\label{eq:bohr-sommerfeld-quantization}
+    h\left( n+ \frac{1}{2} \right) = \int_{x_1}^{x_2} \left[ 2m (E-V(q)) \right]^{1/2} \dd{q}\qquad n \in \Z \tag{Bohr-Sommerfeld Quantization}
+\end{equation}
+where $ h = 2 \pi \hbar $. This turns out to only be valid for large $ n $ because that is where the potential is much larger than the wavelength (this was originally derived using the idea that the orbits of electrons were quantized by how many wavelengths it takes to match the ends up for a particular orbit). Consider the following potential:
+\begin{equation}
+    V(x) = A \abs{x}
+\end{equation}
+First, let's find the turning points. This is where $ E = \pm A \abs{x} $. Therefore, the Bohr-Sommerfeld quantization tells us
+\begin{equation}
+    \left( n + \frac{1}{2} \right) h = \int_{-E/A}^{E/A} \sqrt{E-A \abs{x}} \dd{x} = 2 \int_0^{E/A} \sqrt{E - Ax} \dd{x}
+\end{equation}
+so
+\begin{equation}
+    E_n = \left[ \frac{A}{\sqrt{2m} \frac{3}{4} \left( n+ \frac{1}{2} h \right)} \right]^{2/3}
+\end{equation}
+
+This can be solved exactly, and the eigenfunctions are Airy functions. It works to four significant digits for $ n \geq 3 $, which is incredibly well for an approximation (this is not necessarily the case for more generic models).
+
+We will re-derive the semi-classical approximation when we cover the path integral formulation, and it will show us why the ansatz of the wave function had the form it did.
+
+\section{The Path Integral Formulation}
+\label{sec:the_path_integral_formulation}
+
+The path integral formulation is an alternative interpretation of quantum mechanics which lets us do some calculations with great ease (but of course makes other problems harder). One important component is the propagator, which we know as the time evolution operator: $ U(x_1, t_1; x_2, t_2) $. We know that the time evolution of a state can be written
+\begin{equation}
+    \ket{\psi(t)} = \sum_n e^{- \imath E_n t / \hbar}\ket{n}\bra{n}\ket{\psi(0)}
+\end{equation}
+If we project to the $ x $ basis, we find
+\begin{equation}
+    \bra{x}\ket{\psi(t)} = \sum_n u_n(x) e^{- \imath E_n t / \hbar} c_n
+\end{equation}
+where $ c_n = \int \dd[3]{x'}\bra{n}\ket{x'}\bra{x'}\ket{\psi(0)} $ and $ u_n(x) =\bra{x}\ket{n} $. We can write this as
+\begin{equation}
+    \psi(t,x) = \int \dd[3]{x'} u_n(x) u_n^*(x') \psi(x', t=0) e^{- \imath E_n t / \hbar} \equiv \int \dd[3]{x'} K(x,x',t,t') \psi(x',t=0)
+\end{equation}
+where
+\begin{equation}
+    k(x,x';t,t') \equiv \sum_n u_n(x) u_n^*(x') e^{- \imath E_n (t-t') / \hbar}
+\end{equation}
+is the propagator (although we usually set $ t'=0 $). Notice that if $ t \to 0 $, then $ K(x,x';t,t') \to \delta^n(\va{x} - \va{x}') $ (for however many dimensions $ n $ we are working with). What's interesting about this propagator is that it contains all the information we need about the energy eigenstates. Let's take the Fourier transform of $ K $ where we set $ x' = x $ and I will abbreviate $ t'=0 $ by not writing it:
+\begin{align}
+    \int \dd{t} e^{\imath \omega t} K(x,x;t) \dd{x} &= \int \dd{t} e^{\imath \omega t} \sum_n u_n(x) u_n^*(x) e^{- \imath E_n t / \hbar} \\
+    &= \int \dd{t} \sum_n \dd{x}\bra{n}\ket{x}\bra{x}\ket{n} e^{- \imath \left( \frac{E_n t}{\hbar} - \omega t \right)} \\
+    &= \sum_n \int \dd{t} e^{- \imath \left( \frac{E_n t}{\hbar} - \omega t \right)} \\
+    &= \sum_n(2 \pi) \delta \left( \frac{E_n}{\hbar} - \omega \right)
+\end{align}
+so knowing the propagator pretty much solves the system exactly. Let's calculate the propagator for a free particle:
+
+\begin{equation}
+    K(x,x';t) = \int \dd{p} \frac{1}{2 \pi \hbar} e^{\imath px / \hbar} e^{- \imath p x' / \hbar} e^{- \imath \frac{p^2}{2m} t / \hbar} = \sqrt{\frac{m}{2 \pi \imath \hbar t}} e^{\frac{\imath m (x-x')^2}{2 \hbar t}}
+\end{equation}
+
+\end{document}

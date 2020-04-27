@@ -1,0 +1,101 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{22}{Wed Oct 9 2019}{Infinite Dimension Hilbert Spaces, Continued}
+Recall the position basis $ \{\ket{x}\} $ and the position operator $ X \ket{x} = x \ket{x} $. We are going to use these to represent an arbitrary function on the real line:
+\begin{equation}
+    \ket{\varphi} = \int \dd{x} \varphi(x) \ket{x}
+\end{equation}
+or
+\begin{equation}
+    \varphi(x) = \bra{x} \ket{\varphi}
+\end{equation}
+
+Let us now introduce a translation operator $ U $. There could be many different transformations, so we will label ours $ U(\alpha) $ such that $ U(\alpha) \ket{x} = \ket{x + \alpha} $. We have chosen to symbolize this with a capital ``U'' because we suspect it's unitary. Unitary transformations transform orthonormal bases to orthonormal bases. $ \{\ket{x}\} $ is orthonormal, and the operator maps to states $ \{\ket{x + \alpha}\} = \{\ket{x}\}$.
+
+Let us translate the state $ \ket{\varphi} $ from above. We want to evaluate some $ \varphi(x) $ so we put the bra for the $ x $ states on each side. This shows that $ U\colon \varphi(x) \to \varphi(x - \alpha) $:
+\begin{align}
+    \color{blue}{\bra{x}}\color{black} U(\alpha) \ket{\varphi} &= \color{blue}{\bra{x}}\color{black} \int \dd{x'} \varphi(x') \ket{x'+alpha}\\
+    &= \int \dd{x'} \varphi(x') \delta(x-(x' + \alpha))\\
+    &= \varphi(x - \alpha)
+\end{align}
+
+What if we want to translate an operator? We say that $ A\colon \ket{\varphi} \to \ket{\chi} = A \ket{\varphi} $. We want the following to happen
+\begin{align}
+    A'\colon U \ket{\varphi} \to U \ket{\chi} = U A \ket{\varphi} 
+\end{align}
+We know for a fact (from one line above) that $ A' \colon U\ket{\varphi} \to A'U \ket{\varphi} $. These must be equal, so
+\begin{equation}
+    A' = U A U^\dagger
+\end{equation}
+
+Now let us consider ``infinitesimal'' transformation. We consider a small $ \delta $ such that $ U(\delta) $ can be written as some Taylor series:
+\begin{align}
+    U(\delta)&\approx U(0) + \delta \pdv{U(\alpha)}{\alpha}\eval_{\alpha = 0}\\
+    &= I - \imath \delta T
+\end{align}
+where
+\begin{equation}
+    T\equiv \imath \pdv{U}{alppha}\eval_{\alpha = 0}
+\end{equation}
+Additionally,
+\begin{equation}
+    U^\dagger = I + \imath\delta T^\dagger + \cdots
+\end{equation}
+Together
+\begin{equation}
+    U U^\dagger = I = I + \imath \delta (T^\dagger - T) + \order{\delta^2}
+\end{equation}
+This order of $\delta$ must vanish, so $ T = T^\dagger $, or $ T $ is hermitian.
+
+Let us combine a finite and an infinitesimal transformation:
+\begin{equation}
+    U(\alpha + \delta) = U(\delta) U(\alpha) = (I-\imath\delta T)U(\alpha)
+\end{equation}
+Therefore,
+\begin{equation}
+    \pdv{U}{\alpha} = -\imath T U(\alpha)
+\end{equation}
+We can solve this:
+\begin{equation}
+    U(\alpha) = e^{-\imath\alpha T}
+\end{equation}
+
+Now consider the infinitesimal operator acting on an arbitrary function
+\begin{equation}
+    U(\delta) \varphi(x) = \varphi(x - \delta)\approx \varphi(x) - \delta \varphi'(x)
+\end{equation}
+so
+\begin{equation}
+    T = -\imath \dv{x}
+\end{equation}
+so in general,
+\begin{equation}
+    U(\alpha) = e^{- \alpha \dv{x}}
+\end{equation}
+We say that the derivative is the ``generator'' for the transformation group. This can be brought into three dimensions. Define $ \vec{P} = -\imath\hbar\nabla $ such that $ E^{-\imath \vec{\alpha} \cdot \vec{P} / \hbar} $.
+\begin{align}
+    X \xrightarrow{U} X' \implies X' &= (I-\imath\delta P/\hbar)X(I+\imath\delta P/\hbar)\\
+    &= X + (\imath\delta/\hbar)(XP-PX) + \order{\delta^2}\\
+    = X - \delta I \implies [X,P] \equiv XP-PX = \imath\hbar I
+\end{align}
+or by components,
+\begin{equation}
+    [ \vec{R}_j, \vec{P}_k ] = \imath\hbar I \delta_{jk}
+\end{equation}
+
+\begin{theorem}
+    Ehrenfest Theorem:
+    Property $ A = A(t) $ in $ \ket{\varphi(t)} $. We want to look at
+    \begin{equation}
+        \expval{A}_{\varphi}(t) = \bra{\varphi(t)} A(t) \ket{\varphi(t)}
+    \end{equation}
+    \begin{equation}
+        \dv{t} \bra{\varphi} A \ket{\varphi} = \left( \dv{t} \bra{\varphi} \right)A \ket{\varphi} + \bra{\varphi} \dv{t}A \ket{\varphi} + \bra{\varphi} A \dv{t} \ket{\varphi}
+    \end{equation}
+    This is equivalent to
+    \begin{equation}
+        \frac{1}{\imath\hbar} \bra{\varphi} [A, H] \ket{\varphi} + \bra{\varphi} \dv{t}A \ket{\varphi}
+    \end{equation}
+\end{theorem}
+
+\end{document}

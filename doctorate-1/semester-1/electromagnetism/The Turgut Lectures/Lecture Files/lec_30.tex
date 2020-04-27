@@ -1,0 +1,100 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{30}{Monday, October 28, 2019}{Energy Calculations for Current Densities, Continued}
+
+Recall from last lecture we claimed that
+\begin{align}
+    \delta W &= \int \vec{J} \cdot \delta \vec{A} \dd{l} \dd{\sigma}\\
+    &= \int_{\Omega} \vec{J} \cdot \delta \vec{A} \dd[3]{x} \\
+    &= \int_{\Omega} (\curl{ \vec{H}}) \cdot \delta \vec{A} \dd[3]{x}\\
+    &= \underbrace{\int_{\omega} \div{ \vec{H} \times \delta \vec{A}} \dd[3]{x}}_{\int_{\Sigma} \cancelto{0}{\vec{H}} \times \delta \vec{A} \cdot \dd{ \vec{a}}} + \int_{\Omega} \vec{H} \cdot \underbrace{(\curl{\delta \vec{A}})}_{\delta \vec{B}} \dd[3]{x} \\
+    &= \int_{\Omega} \vec{H} \cdot \delta \vec{B} \dd[3]{x}
+\end{align}
+If $ \vec{H} = \frac{1}{\mu} \vec{B} $, this simplifies (if the material is linear):
+\begin{equation}
+    \delta W = \frac{1}{2} \delta \int_{\Omega} \vec{H} \cdot \vec{B} \dd[3]{x}
+\end{equation}
+so
+\begin{equation}
+    W = \cancelto{0}{W_0} + \frac{1}{2\mu} \int_{\Omega} B^2 \dd[3]{x} 
+\end{equation}
+An application of this is, if you insert a linear material into an existing magnetic field,
+\begin{equation}
+    \Delta W = \frac{1}{2} \int_{\Omega} \vec{H} \cdot \vec{B} \dd[3]{x} - \frac{1}{2} \int_{\Omega} \vec{H}_0 \cdot \vec{B}_0 \dd[3]{x}
+\end{equation}
+where the second term is the existing energy in the field. Recall that for the similar problem with dielectrics, we have
+\begin{equation}
+    \Delta W = - \frac{1}{2} \int_{\Omega} \vec{P} \cdot \vec{E}_0 \dd[3]{x}
+\end{equation}
+By the same kinds of tricks we used to find this, we see that for magnetic fields,
+\begin{equation}
+    \Delta W = \frac{1}{2} \int_{\Omega} \vec{M} \cdot \vec{B}_0 \dd[3]{x}
+\end{equation}
+Recall that to find the calculation for the electric work, we had to keep the charges fixed. For this scenario, we have to keep the currents fixed. If the currents were allowed to run, introducing the magnetic field would reduce the currents. This means that there is an extra work done by the source of the magnetic field to maintain $ \vec{B}_0 $. You could also do this calculation by finding the forces using the induced currents $ \vec{J}_{M} = \curl{ \vec{M} } $ and $ \vec{K}_{M} = \vec{M} \times \hat{n} $, and you will get the same answer, but sometimes these currents are hard to calculate.
+
+\section{Self-Inductance}
+\label{sec:self_inductance}
+
+Recall for a loop in a magnetic field,
+\begin{equation}
+    \mathscr{E} = - \dv{\Phi}{t}
+\end{equation}
+for flux
+\begin{equation}
+    \Phi = \int_{\Sigma} \vec{B} \cdot \dd{ \vec{a}}
+\end{equation}
+If the current in the wire is $ I $, the self-inductance $ L $  of the wire is
+\begin{equation}
+    \mathscr{E} = L \dv{I}{t}
+\end{equation}
+
+Now suppose we have multiple loops. We can now find the mutual inductance. The influence of the $ i $th loop on the $ j $th loop is
+\begin{equation}
+    \mathscr{E}_i = -M_{ij} \dv{I_j}{t}
+\end{equation}
+If we are building current $ I_i $ in the presence of nothing,
+\begin{equation}
+    \underbrace{\mathscr{E}_i^{\text{ext}} \underbrace{I_i \dd{t}}_{\dd{Q_i}}}_{\dd{W_i^{\text{ext}}}}  = L_i \dv{I_i}{t}I_i \dd{t}
+\end{equation}
+so
+\begin{equation}
+    W = \frac{1}{2} L_i I_i^2
+\end{equation}
+However, with another loop, there is an additional factor on the right side:
+\begin{equation}
+    \dd{W_i} = L_i I_i \dd{I_i} + M_{ji} \dv{I_i}{t}\underbrace{I_j dt}_{\dd{Q_j}}
+\end{equation}
+As we increase the current in loop $ i $, we have to do work to ensure the loop $ j $ maintains its current. After you sum over all such contributions, you find that
+\begin{equation}
+    W = \sum_{i=1}^{N} \frac{1}{2} L_i I_i^2 + \sum_{i<j} M_{ij} I_i I_j
+\end{equation}
+Additionally, we could switch the labels on the loops, which should give the same formula. This gives us, non-trivially, that $ M_{ij} = M_{ji} $. This is how transformers work, the ratios of the loops can be used to change the ratios of the voltages on either side. We send power over high-voltage lines because there is lower current, which means less power is dissipated over the wire ($ P = I^2 R $). The power ($ VI $) is fixed, so increasing $ V $ decreases $ I $.
+
+\section{Effect of Magnetic Fields in Conductors}
+\label{sec:effect_of_magnetic_fields_in_conductors}
+
+In a static case, there is no effect. However, if you have time dependent magnetic fields, you will create eddy currents. Suppose we have no free currents, only the response to the magnetic field: $ \vec{J} = \sigma \vec{E} $. The magnetic field changing will create an electric field. Recall
+\begin{equation}
+    \curl{ \vec{E}} = -\partial_t \vec{B}
+\end{equation}
+and
+\begin{equation}
+    \curl{ \vec{B}} = \mu \vec{J}_C = \mu \sigma \vec{E} 
+\end{equation}
+The curl of the second equation is
+\begin{equation}
+    \underbrace{\curl{ \curl{ B ve}}}_{\cancelto{0}{\grad{\div{ \vec{B}}}} - \laplacian{ \vec{B}}} = \mu \curl{ \vec{J}_C} = \mu \sigma (-\partial_t \vec{B})
+\end{equation}
+so
+\begin{equation}
+    \laplacian{ \vec{B}} = \mu \sigma \partial_t \vec{B}
+\end{equation}
+Let's look at the boundary of the material. Recall that $ B_\perp $ is continuous across a boundary and $ H_\parallel $ is continuous if there are no surface currents. We suppose there are only volume currents induced by the magnetic field. Say we have a $ \vec{B} = B_3(z,t) $ and our material exists in the area $ z > 0 $. Suppose at $ z=0 $, $ B_0(t) = \Re[B_0 e^{\imath\omega t}] $. The time dependence of these equations must be the same, so we assume $ B_3(z,t) =\Re[B_3(z) e^{\imath \omega t}] $ 
+\begin{equation}
+    \partial_z^2 B_3(z,t) = \imath \mu \omega \sigma B_3
+\end{equation}
+
+
+
+
+\end{document}

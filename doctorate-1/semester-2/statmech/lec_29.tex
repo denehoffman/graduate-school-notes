@@ -1,0 +1,84 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{29}{Friday, April 03, 2020}{}
+
+\begin{theorem}[Spectral Theorem for a General Quantum State]
+    Suppose we have a quantum state $ W $ with $ W kt \psi_n = p_n\ket{\psi_n} $ and $\bra{\psi_n}\ket{\psi_m} = \delta_{nm} $ and $ \sum_n\ket{\psi_n}\bra{\psi_n} = 1 $. This means that $ \{\ket{\psi_n}\} $ is an eigenbasis of the Hilbert space to the state $ W $. This means we can write
+    \begin{equation}
+        W = \sum_n p_n\ket{\psi_n}\bra{\psi_n}
+    \end{equation}
+    where $ 0 \leq p_n \leq 1 $ and $ \sum_n p_n = 1 $, which follows from $ \Tr(W) = 1 $.
+\end{theorem}
+
+In this framework, what do we mean by expectation value?
+\begin{align}
+    \ev{A} = \Tr(WA) &= \Tr(\sum_n p_n\ket{\psi_n}\bra{\psi_n} A) \\
+    &= \sum_n p_n \Tr(\ket{\psi_n}\bra{\psi_n} A) \\
+    &= \sum_n p_n \sum_m\bra{\psi_m}\ket{\psi_n}\bra{\psi_n} A\ket{\psi_m} \\
+    &= \sum_n p_n \underbrace{\mel{\psi_n}{A}{\psi_n}}_{\text{objective indeterminacy}}
+\end{align}
+The term objective indeterminacy is something that is new in quantum mechanics. The value of this matrix element causes the result to not necessarily be deterministic. The $ p_n $ give subjective ignorance, a sense that we have not measured the state carefully enough. This is because the original state that we worked with is not pure.
+
+
+The entropy of a state is a measure of our subjective ignorance plus, in quantum mechanics, the objective indeterminacy. Classicaly, the entropy is bounded by $ - \infty \leq S \leq k_B \ln(\int_{\Gamma} \frac{\dd{p} \dd{q}}{h}) = + \infty $ if $ \Gamma = \R^2 $. In quantum mechanics, however, $ 0 \leq S \leq k_B \ln(\text{dim} \mathcal{H}) = + \infty $ if $ \mathcal{H} = L^2(\R) $. The interesting thing is that the entropy cannot get arbitrarily small, it's bounded below by $ 0 $. This looks a lot like it has something to do with the third law of thermodynamics. For quantum mechanics, we can prove this:
+\begin{equation}
+    W \ln(W) = \sum_n p_n \ln(p_n)\ket{\psi_n}\bra{\psi_n}
+\end{equation}
+This implies
+\begin{equation}
+    S = - k_B \Tr(W \ln(W)) = - k_B \sum_n p_n \ln(p_n)
+\end{equation}
+If we have maximal knowledge about the system, then we have minimal entropy. Maximal knowledge means that $ p_n = \delta_{n,n_0} $ (we know the system is exactly in one pure state). This makes $ S = 0 $ since $ 1 \ln(1) = 0 \ln(0) = 0 $. Conversely, if we have minimal knowledge, we have maximal entropy. In that case, $ p_n = \frac{1}{N} $ where $ N = \text{dim} \mathcal{H} $. If so, then
+\begin{equation}
+    S = - k_B \sum_{n=1}^{N} \frac{1}{N} \ln(\frac{1}{N}) = - k_B \ln(\frac{1}{N}) = k_B \ln(N) = k_B \ln(\text{dim} \mathcal{H})
+\end{equation}
+which is infinite if the Hilbert space square-integrable over the reals.
+
+
+\section{The Quantum Canonical Ensemble}
+\label{sec:the_quantum_canonical_ensemble}
+
+By analogy with the classical case, we can reasonably guess that the quantum canonical state is given by
+\begin{equation}
+    W = \frac{1}{Z} e^{= \beta H}
+\end{equation}
+Note that this is an operator, since $ H $ is an operator. The partition function must be
+\begin{equation}
+    Z = \Tr(e^{- \beta H})
+\end{equation}
+
+Since $ H $ is self-adjoint (and hopefully compact) its eigenvalues are real and its eigenvectors form an orthonormal basis of Hilbert space:
+\begin{equation}
+    H\ket{n} = E_n\ket{n}
+\end{equation}
+such that $\ket{n} $ is an energy eigenvector. This corresponds to a pure energy eigenstate $\ket{n}\bra{n} $ with the corresponding eigenvalue $ E_n $. The fact that this basis is orthonormal means $\bra{n}\ket{m} = \delta_{nm} $ and $ H = \sum_n E_n\ket{n}\bra{n} $. This is the spectral theorem for (compact) operators.
+
+
+Since the canonical state is a function of $ H $, it is diagonal in the same basis as $ H $. Therefore,
+\begin{align}
+    Z = \Tr(e^{- \beta H}) &= \sum_n\bra{n} e^{- \beta H}\ket{n} \\
+    &= \sum_n\bra{n} e^{- \beta E_n}\ket{n} \\
+    &= \sum_n e^{- \beta E_n}
+\end{align}
+
+It could happen that the Hamiltonian is degenerate. If we have degenerate eigenstates of $ H $, we can (if we want) sum over the energy levels, but then we need to explicitly multiply back the degeneracy:
+\begin{equation}
+    Z = \sum_n e^{- \beta E_n} = \sum_l \Omega(l) e^{- \beta E_l}
+\end{equation}
+where $ l $ is an energy level and $ \Omega(l) $ is the degeneracy of the level.
+
+\subsection{Thermal Averages}
+\label{sub:thermal_averages}
+
+\begin{equation}
+    \ev{A} = \ev{A,W} = \Tr(AW) = \sum_n\bra{n} AW\ket{n}
+\end{equation}
+where $\ket{n} $ is the energy eigenbasis and $ W $ is the canoical state. Then we get that
+\begin{align}
+    \ev{A} &= \sum_n\bra{n} A e^{- \beta E_n} \frac{1}{Z}\ket{n} \\
+    &= \sum_n p_n \mel{n}{A}{n}
+\end{align}
+The matrix element is agains a measure of objective indeterminacy while the $ p_n $ factors are a measure of subjective ignorance.
+
+
+\end{document}

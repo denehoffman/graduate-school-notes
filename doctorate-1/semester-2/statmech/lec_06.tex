@@ -1,0 +1,135 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{6}{Friday, January 24, 2020}{}
+
+From last lecture, we showed
+\begin{equation}
+    \Pr_{A}(E_A) = \frac{\Omega_E (E_A, N_A) \Omega_E(E_B, N_B)}{\Omega_N(E,N)}
+\end{equation}
+where
+\begin{equation}
+    \Omega_E(E,N) = \frac{3N \pi^{3N/2}}{\left( \frac{3N}{2} \right)!} m(2mE)^{\frac{3N-2}{2}}
+\end{equation}
+Since $ E_A + E_B = E $, we can rewrite this as
+\begin{equation}
+    \Pr_{A}(E_A) = CE_A^{\frac{3N_A - 2}{2}} (E - E_A)^{\frac{3N_B-2}{2}}
+\end{equation}
+
+\begin{note}{Excursion}
+    Take a Gaussian distribution:
+    \begin{equation}
+        p(x) = \frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(x- \mu)^2}{2 \sigma^2}}
+    \end{equation}
+    The natural logarithm of this distribution is
+    \begin{equation}
+        \ln{p(x)} = \ln{\frac{1}{\sqrt{2 \pi \sigma^2}}} - \frac{(x - \mu)^2}{2 \sigma^2}
+    \end{equation}
+    Notice now that
+    \begin{equation}
+        \pdv{\ln{p(x)}}{x} = - \frac{x - \mu}{\sigma^2}
+    \end{equation}
+    and
+    \begin{equation}
+        \pdv[2]{\ln{p(x)}}{x} = - \frac{1}{\sigma^2}
+    \end{equation}
+    So for things that look close to Gaussian, we can find the mean and standard deviation by taking derivatives of the natural logarithm of the distribution.
+\end{note}
+
+Our probability distribution is very close to a Gaussian thanks to the Central Limit Theorem, which we demonstrated on the homework.
+\begin{equation}
+    \ln{\Pr_{A}(E_A)} = C + \frac{3N_A-2}{2} \ln(E_A) + \frac{3N_B-2}{2} \ln(E-E_A)
+\end{equation}
+and
+\begin{equation}
+    \dv{\ln{\Pr_{A}(E_A)}}{E_A} = \frac{3N_A - 2}{2} \frac{1}{E_A} - \frac{3N_B - 2}{2} \frac{1}{E - E_A} = 0
+\end{equation}
+implies
+\begin{equation}
+    E_{A,\text{max}} = E \frac{3N_A - 2}{3N-4} \approx E \frac{N_A}{N}
+\end{equation}
+or
+\begin{equation}
+    \frac{E_{A, \text{max}}}{N_A} = \frac{E}{N} = \frac{E_{B, \text{max}}}{N_B}
+\end{equation}
+Taking the second derivative
+\begin{equation}
+    \pdv[2]{\ln{\Pr_{A}(E_A)}}{E_A} = \frac{3N_A - 2}{2} \frac{-1}{E_A^2} - \frac{3N_B - 2}{2} \frac{1}{(E-E_A)^2}
+\end{equation}
+so
+\begin{equation}
+    \sigma^2_{E_A} = \frac{2}{3} \frac{E^2_{A, \text{max}}}{N} \frac{N_B}{N_A} = \frac{2}{3} \left( \frac{E}{N} \right)^2 \frac{N_B}{N_A} N
+\end{equation}
+so $ \sigma_{E_A} \propto \sqrt{N} $. 
+
+Let's now define
+\begin{equation}
+    S_{E, \alpha} = k \ln(\Omega_E(E_{\alpha}, N_{\alpha}))
+\end{equation}
+such that
+\begin{equation}
+    S_{E, \text{total}}(E_A,N_A) = k \underbrace{\ln{\overbrace{\Pr_{A}(E_A)}^{\sim \frac{1}{\sqrt{N}}}}}_{\sim\ln{N}}  + \underbrace{S_E(E,N)}_{\sim E} = \underbrace{S_E(E_A,N_A)}_{\sim E_A} + \underbrace{S_E(E_B,N_B)}_{\sim E_B}
+\end{equation}
+since the distribution $ \Pr_{A}(E_A) $ has a standard deviation $ \sim \sqrt{N} $, the height of the distribution must be $ \sim \frac{1}{\sqrt{N}} $.
+So we can say that
+\begin{equation}
+    S_E(E,N) = kN \left[ \frac{3}{2} \ln{\frac{E}{N}} + \text{const} \right]
+\end{equation}
+by the Striling approximation.
+
+Recall that, for ideal gasses,
+\begin{equation}
+    \Pr(\{q,p\}) = \Pr_{q}(\{q\}) \Pr_{p}(\{p\})
+\end{equation}
+we just showed that to maximize this, we should maximize $ \ln{\Pr} $:
+\begin{equation}
+    k \ln{\Pr(E_A, V_A, N_A)} = k \ln{\Pr(N_A, V_A)} + k \ln{\Pr(E_A, N_A)} = S_q(N_A, V_A) + S_E(E_A, N_A)
+\end{equation}
+so
+\begin{equation}
+    S(E,V,N) = k \left[ \ln{\frac{V^N}{N!}} + \ln{\frac{E^{\frac{3N}{2}}}{\left( \frac{3N}{2} \right)!}} + x \right] \overbrace{\approx}^{\text{Stirling}} kN \left[ \ln{\frac{V}{N}} + \frac{3}{2} \ln{\frac{E}{N}} + x \right]
+\end{equation}
+where we will find that this constant $ x $ (labeled as just $ \text{const} $ in the derivation above) is in fact
+\begin{equation}
+    x = \frac{3}{2} \ln{\frac{4 \pi m}{3 h^2}} + \frac{5}{2}
+\end{equation}
+where $ h $ is Planck's constant!\ How does that get in there? We have been doing all these calculations classically so far, but we will see later how quantum mechanics comes into this calculation.
+
+\section{Equilibrium Conditions}
+\label{sec:equilibrium_conditions}
+
+We've been saying that the most likely thing to happen in a system is what does happen, per Boltzmann. If we start out in a system that is not in the most likely state, this statement means that it will eventually trend towards the most likely state, which can be calculated by maximizing the entropy which we have just defined. Let's start with the energy. We start with a system and we want to know where it is going to end up:
+
+\begin{equation}
+    0 = \pdv{E_A}\left[S_A(E_A,V_A,N_A) + S_B(E_B,V_B,N_B)\right]
+\end{equation}
+since technically $ E_B = E - E_A $ so we can differentiate with respect to $ E_A $ since $ E_B $ is implicitly dependent on it.
+\begin{equation}
+    0 = \dv{E_A}S_A(E_A,V_A,N_A) + \dv{E_B} S_B(E_B, V_B, N_B) \pdv{E_A} E_B
+\end{equation}
+so
+\begin{equation}\label{eq:energy_equilibrium_condition}
+    \pdv{S_A}{E_A} = \pdv{S_B}{E_B}\tag{Energy Equilibrium Condition}
+\end{equation}
+This equation must hold \textit{only if} the system can move energy from one chamber to the other.
+
+A similar condition must hold for particles:
+\begin{equation}\label{eq:particle_equilibrium_condition}
+    \pdv{S_A}{N_A} = \pdv{S_B}{N_B}\tag{Particle Equilibrium Condition}
+\end{equation}
+Again, this only has to hold if the particles can move from one chamber to the other.
+
+There is a third condition, which concerns the volume. We haven't discussed this yet, but imagine the wall separating the chambers can slide back and forth. If it can, it will do so until
+\begin{equation}\label{eq:volume_equilibrium_condition}
+    \pdv{S_A}{V_A} = \pdv{S_B}{V_B}\tag{Volume Equilibrium Condition}
+\end{equation}
+
+Often, more than one of these transmissions can occur. In general, when particles can move back and forth, they will carry energy, so the particle and energy equilibrium conditions must both be satisfied.
+
+\section{Distinguishable Particles}
+\label{sec:distinguishable_particles}
+
+Nothing in the classical laws of physics prevent the particles from being distinguishable. When we list the microstate, we are artificially distinguishing the particles by calling all of the momenta $ p_1, p_2 \cdots $ and the positions $ q_1, q_2 \cdots $. We have to then divide out all of the permutations, since exchanging identical particles will keep the energy the same, so we don't want to double-count all of the microstates under exchanges (dividing by some fancy factorials). We could also choose to not distinguish the particles from the start and do the derivation again, and we should get the same equations for everything. Some books don't get this ``correctly'' and the difference is known as the Gibbs paradox.
+
+Now imagine we have particles that have the exact same interactions, but some of them are actually different, like some particles are hydrogen and others are neon. If we separate these particles into chambers of just hydrogen and just neon and poke a hole between the chambers, someone looking at the difference between particles would say that the entropy has increased, since the particle species will mix. However, someone who isn't looking at the difference would say that the entropy remains the same. The entropy depends on how you choose to distinguish your particles.
+
+\end{document}

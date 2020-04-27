@@ -1,0 +1,76 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{25}{Monday, October 14, 2019}{Free Particle Motion}
+The behavior of a particle in a potential is described by
+\begin{equation}
+    H = \frac{P^2}{2m} + V(x)
+\end{equation}
+In free motion, $ V(x) \to 0 $, so our states are eigenstates of the momentum states:
+\begin{equation}
+    P \ket{p} = p \ket{p}
+\end{equation}
+and
+\begin{equation}
+    H \ket{p} = \underbrace{\frac{P^2}{2m}}_{E(p)} \ket{p}
+\end{equation}
+If we want to see the time evolution, we use the Schr\"odinger equation:
+\begin{equation}
+    \imath\hbar\pdv{t} \ket{\varphi} = H \ket{\varphi}
+\end{equation}
+\begin{equation}
+    \ket{p}(t) = e^{-\imath E(p) t / \hbar} \ket{p} (t=0)
+\end{equation}
+We can also look at the state in terms of a wave packet:
+\begin{equation}
+    \ket{\varphi} = \int \dd{p} \tilde{\varphi}(p) \ket{p}
+\end{equation}
+\begin{equation}
+    \varphi (x) = \bra{x} \ket{\varphi} = \frac{1}{\sqrt{2 \pi \hbar}} \int \dd{p}\tilde{\varphi}(p) e^{\imath px/\hbar}
+\end{equation}
+\begin{equation}
+    \varphi(x,t) = \frac{1}{\sqrt{2 \pi \hbar}} \int \dd{p} \tilde{\varphi}(p,t=0)e^{\imath(px-E(p)t)/\hbar}
+\end{equation}
+Let's write the momentum as $ p = \hbar k $ such that $ k $ is the wave number. We will also rescale $ E = \hbar\omega $, where $ \omega = \omega(k) $. Finally, we will define $ \sqrt{\hbar} \tilde{\varphi}(\hbar k) \equiv A(k) $. Finally, we have
+\begin{equation}
+    \varphi (x,t) = \frac{1}{2 \pi} \int \dd{k} A(k) e^{\imath(kx-\omega t)}
+\end{equation}
+If the phase is zero, $ x(t) = \underbrace{\frac{\omega}{k}}_{v_p} t $ where $ v_p $ is the phase velocity. Let's construct a wave packet by making $ A(k) $ a Gaussian about $ \bar{k} $. In real space, this means that $ x(t) $ is a wave of a frequency $ \bar{k} $ with a Gaussian envelope. The wave inside the envelope moves at the phase velocity, but the envelope itself will move at $ v_g $, the group velocity. To see what this means, let's imagine $ A(k) $ is two $\delta$ functions, $ \delta(\bar{k} + \delta k) + \delta(\bar{k}) - \delta k $. Now the Fourier transform is relatively simple. We will expand $ \omega(\bar{k}+\delta k) \approx \omega(\bar{k}) + \delta k \eval{\dv{\omega}{k}}_{\bar{k}} = \bar{\omega}+\delta\omega $:
+\begin{align}
+    \varphi(x,t) &= \frac{1}{2} e^{\imath[(\bar{k} + \delta k)x-(\bar{\omega}+\delta\omega)t]} + \frac{1}{2} e^{\imath[(\bar{k} - \delta k)x-(\bar{\omega}-\delta\omega)t]}\\
+    &= e^{\imath(\bar{k}x-\bar{\omega}t} \cos(\delta k x - \delta\omega t)
+\end{align}
+The crests of the wave (the exponential) move at phase velocity $ v_p = \omega/k $. However, the envelope (the cosine) moves at the group velocity $ v_g \equiv \eval{\dv{\omega}{k}}_{\bar{k}} $.
+
+Recall that $ \omega = E/\hbar =\frac{\hbar k^2}{2 m} $ is nonlinear in $ k $. Therefore, $ v_p = \frac{\hbar k}{2m} $ and $ v_g = \frac{\hbar k}{m} $. Notice that in general, these are not the same number. The fact that $ v_p = v_p(k) $ will lead to a spreading of the group, which we call ``wave packet spreading.'' Note that we are talking about particles with mass. For massive particles, there is this phenomenon of dispersion $ \omega(k) $. Massive particles have nontrivial dispersion relations.
+
+Recall from last week that
+\begin{equation}
+    (\Delta X)^2 = \expval{X^2}-\expval{X}^2
+\end{equation}
+and Ehrenfest's theorem:
+\begin{equation}
+    \dv{t}\expval{A} = \frac{1}{\imath\hbar} \expval{[A,H]}
+\end{equation}
+
+If $ H = \frac{P^2}{2m} $, $ [X,P^2] = 2\imath\hbar P $. Also, $ [X^2, P^2] = 2\imath\hbar\{X,P\} $ and $ [\{X,P\},P^2] = 4 \imath\hbar P^2 $.
+\begin{equation}
+    \dv{\expval{X}}{t} = \frac{\expval{P}}{m} = v_0 \implies \expval{X} = v_0 t + \expval{X}_0
+\end{equation}
+\begin{equation}
+    \dv{\expval{X^2}}{t} = \frac{\expval{\{X,P\}}}{m} \implies \dv[2]{\expval{X^2}}{t} = \frac{1}{\imath\hbar m} \expval{[\{X,P\},H]} = \frac{2\expval{P^2}}{m^2}
+\end{equation}
+Therefore
+\begin{equation}
+    \dv{\expval{X^2}}{t}= \frac{2\expval{P^2}_0 t}{m^2} + \xi_0
+\end{equation}
+where $ \xi_0 \equiv \eval{\dv{\expval{X^2}}{t}}_{t=0} \propto 2 v_0 x_0 $ in the classical limit.
+\begin{equation}
+    \expval{X^2} = \frac{\expval{P^2} t^2}{m^2} + \xi_0 t + \expval{X^2}_0
+\end{equation}
+Finally we can write
+\begin{equation}
+    (\Delta X)^2 = (\Delta v)_0^2 t^2 + 2 \Delta (v_0x_0) + (\Delta X)_0^2
+\end{equation}
+Taking the square root, we can get $ \Delta X $, which is like the width of the wave packet as a function of time. It rests on diagonal asymptotes with slope $ \pm(\Delta v)_0 $, and it intersects $ t = 0 $ at $ (\Delta X)_0 $. The initial slope at $ t = 0 $ is proportional to $ \xi_0 $.
+
+\end{document}

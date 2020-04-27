@@ -1,0 +1,86 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\chapter{Angular Momentum}
+\lecture{40}{Monday, November 18, 2019}{Angular Momentum}
+
+In Classical mechanics, we know that the orbital angular momentum is $ \va{L} = \va{r} \cross \va{p} $. We can examine components of this using the cross product and cyclic permutations ($ L_x = y p_z - z p_y $).
+
+In Quantum mechanics, we promote position and momentum to operators. $ L_x $ contains two terms and so does $ L_y $ so any commutator will contain four terms:
+\begin{equation}
+    \comm{ \vu{L}_x}{ \vu{L}_y} = \comm{ \vu{Y} \vu{P}_z - \vu{Z} \vu{P}_y}{ \vu{Z} \vu{P}_x - \vu{X} \vu{P}_z} = \underbrace{\comm{ \vu{Y} \vu{P}_z}{ \vu{Z} \vu{P}_x}}_{ \vu{Y} \comm{ \vu{P}_z}{ \vu{Z}} \vu{P}_x} + \underbrace{\comm{ \vu{Z} \vu{P}_y}{ \vu{X} \vu{P}_z}}_{ \vu{X} \comm{ \vu{Z}}{ \vu{P}_z} \vu{P} u y} = - \imath \hbar \vu{Y} \vu{P}_x + \imath \hbar \vu{X} \vu{P}_y = \imath \hbar \vu{L}_z
+\end{equation}
+
+This is the orbital angular momentum for a single particle, but we might have many particles. Let's call total angular momentum $ \va{L} = \sum_{i=1}^{N} \vu{L}^{(i)} $. We can also have the total angular momentum, which includes the spin: $ \va{J} = \va{L} + \va{S} $.
+
+Additionally, $ \comm{ \vu{J}_x}{ \vu{J}_y} = \imath \hbar \vu{J}_z $ (along with the other cyclic permutations).
+
+There is another operator we want to look at:
+
+\begin{equation}
+    \vu{J}^2 = \va{J} \vdot \va{J} = \vu{J}_x^2 + \vu{J}_y^2 + \vu{J}_z^2
+\end{equation}
+
+This total angular momentum squared has interesting commutation relations:
+
+\begin{equation}
+    \comm{ \vu{J}^2}{ \vu{J}_x} = \comm{ \vu{J}_y^2}{ \vu{J}_x} + \comm{ \vu{J}_z^2}{ \vu{J}_x} = 0 
+\end{equation}
+
+We see that $ \vu{J}^2 $ commutes with $ \vu{J}_x $, and it can be shown that it commutes with the other two components also. We are looking for a complete commuting set of observables (CCSO). Customarily, we choose this to be $ \{ \vu{J}_z, \vu{J}^2\} $ (because 20th century physicists love Jay-Z according to Dr. Widom).
+
+Let's define
+\begin{equation}
+    \vu{J}_{\pm} = \vu{J}_x \pm \imath \vu{J}_y
+\end{equation}
+such that we can redefine
+\begin{equation}
+    \vu{J}^2 = \frac{1}{2} ( \vu{J}_+ \vu{J}_- + \vu{J}_- \vu{J}_+) + \vu{J}_z^2
+\end{equation}
+
+We can show that
+\begin{equation}
+    \comm{ \vu{J}_z}{ \vu{J}_{\pm}} = \pm \hbar \vu{J}_{\pm},
+\end{equation}
+\begin{equation}
+    \comm{ \vu{J}_+}{ \vu{J}_-} = 2 \hbar \vu{J}_z, 
+\end{equation}
+and
+\begin{equation}
+    \comm{ \vu{J}^2}{ \vu{J}_{\pm}} = 0
+\end{equation}
+
+Let's now talk about the eigenstates of angular momentum. Since $ \ev{ \vu{J}^2}{\psi} \geq 0 $, we know that its eigenvalues must be non-negative. Note that $ \vu{J} $ is Hermitian, so the eigenvalues are real, therefore squaring them will result in non-negative numbers.
+
+Let's call the eigenstates $\ket{j} $ and say that they have eigenvalue $ j(j+1) \hbar^2 $:
+\begin{equation}
+    \vu{J}^2\ket{j} \equiv j(j+1) \hbar^2\ket{j}
+\end{equation}
+Similarly, we can define the eigenstates of $ \vu{J}_z $:
+\begin{equation}
+    \vu{J}_z\ket{m} = m \hbar\ket{m}
+\end{equation}
+
+Note that $ j $ and $ m $ do not need to be (and rarely are) integers.
+
+We will label shared eigenstates of $ \{ \vu{J}^2, \vu{J}_z\} $ as $\ket{kjm} $, where we include $ k $ in case there's some extra degeneracy for which we need to distinguish states.
+
+Some facts about these eigenstates:
+\begin{itemize}
+    \item $ -j \leq m \leq j $
+        Proof: $ 0 \leq \abs{ \vu{J}_+\ket{jm}}^2 =\bra{jm} \vu{J}_- \vu{J}_+\ket{jm} =\bra{jm} \left( \vu{J}^2 - \vu{J}^2_z - \hbar \vu{J}_z \right)\ket{jm} $. Next, we can evaluate each of these operators acting on the state:
+        \begin{equation}
+            0 \leq (j(j+1) - m^2 - m) \hbar^2
+        \end{equation}
+        so $ m \leq j $. If we do the same trick starting with $ \vu{J}_- $ we will find the other half of the inequality.
+    \item $ j \geq 0 $
+        ($ \vu{J}^2 \geq 0 $)
+    \item $ m = \pm j $ iff $ \vu{J}_{\pm}\ket{jm} = 0 $.
+        \begin{equation}
+            \abs{ \vu{J}_{\pm}\ket{jm}}^2 = \pm(j(j+1) - m(m+1)) \hbar^2 = 0
+        \end{equation}
+    \item If $ m \lessgtr -j $ then $ \vu{J}_z ( \vu{J}_{\pm}\ket{jm}) = (m\pm1) \hbar ( \vu{J}_{\pm}\ket{jm}) $ and $ \vu{J}^2 ( \vu{J}_{\pm}\ket{jm}) = j(j+1) \hbar^2 ( \vu{J}_{\pm}\ket{jm}) $, so $ \vu{J}_{\pm} $ acts like a raising/lowering operator for $ m $ but leaves $ j $ unchanged.
+    \item $ j \in \Z / 2 $ (is a half-integer or integer)
+        Proof: Consider lowering the state $\ket{jm} $ $ p $ times using $ \vu{J}_- $, we would find that $ -j \leq m - p \leq - j + 1 $ where $ p $ is an integer. Recall that if $ m = -j $, lowering it will give us zero. $ m - p - 1 $ can't be less than $ -j $. We could also end up exactly at $ -j $, and if we tried to lower it again we would get $ 0 $. Therefore $ \exists p \in \Z $ such that $ m - p = -j $. We can also say that $ \exists q \in \Z $ such that $ m + q = +j $ using the raising process. We can take these two assertions and subtract them, which would give $ p + q = 2j \in \Z $.
+\end{itemize}
+
+\end{document}

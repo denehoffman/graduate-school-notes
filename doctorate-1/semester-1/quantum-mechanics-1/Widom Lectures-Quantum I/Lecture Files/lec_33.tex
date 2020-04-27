@@ -1,0 +1,86 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\chapter{The Harmonic Oscillator}
+\lecture{33}{Wednesday, November 06, 2019}{Harmonic Oscillator}
+
+If our potential is $ V = \frac{1}{2} k x^2 $, we can write our Hamiltonian as
+\begin{equation}
+    \vb{H} = \frac{\vb{P}^2}{2m} + \frac{1}{2} k \vb{X}^2 = \frac{\vb{P}^2}{2m} + \frac{1}{2} m \omega^2 \vb{X}^2
+\end{equation}
+where $ \omega = \sqrt{\frac{k}{m}} $. We expect the eigenfunctions should have definite parity, since $ \comm{\vb{H}}{\vb{\Pi}} = 0 $ so $ \vb{\Pi} \ket{\varphi} = \pm \ket{\varphi} $. We also know $ \comm{\vb{X}}{\vb{P}} = \imath \hbar $ and $ \vb{H} \ket{\varphi} = E \ket{\varphi} $. If we were to imagine differentiating the Schr\"odinger equation from $ - \infty $, only a few miraculous values of $ E $ will solve this equation so that it vanishes at $ + \infty $. We can make live a bit easier by getting rid of every quantity with physical dimensions. Let's introduce $ \vu{X} = \sqrt{\frac{m \omega}{\hbar}}\vb{X} $ and $ \vu{P} = \sqrt{\frac{1}{m \hbar \omega}} \vb{P} $ such that $ \comm{\vu{X}}{\vu{P}} = \imath $. Therefore
+\begin{equation}
+    \vu{H} = \frac{1}{\hbar \omega} \vb{H} = \frac{1}{2} \left( \vu{P}^2 + \vu{X}^2 \right)
+\end{equation}
+We solve this by introducing two new operators, called ``raising'' and ``lowering'' operators:
+\begin{align}
+    \vb{a} \equiv \frac{1}{\sqrt{2}} \left( \vu{X} + \imath\vu{P} \right) & \vb{a}^\dagger = \frac{1}{\sqrt{2}} \left( \vu{X} - \imath\vu{P} \right)
+\end{align}
+so $ \comm{\vb{a}}{\vb{a}^\dagger} = 1 $ and we define $ \vb{N} = \vb{a}^\dagger\vb{a} = \frac{1}{2} \left( \vu{P}^2 + \vu{X}^2 - 1 \right) $. Therefore
+\begin{equation}
+    \vu{H} = \vb{a}^\dagger\vb{a} + \frac{1}{2} = \vb{N} + \frac{1}{2}
+\end{equation}
+so $ \comm{\vb{H}}{\vb{N}} = 0 $.
+\begin{equation}
+    \vb{N} \ket{\varphi_{\nu}^{(i)}} = \nu \ket{\varphi_{\nu}^{(i)}}
+\end{equation}
+and
+\begin{equation}
+    \vu{H} \ket{\varphi_{\nu}^{(i)}} = \left( \nu + \frac{1}{2} \right) \ket{\varphi_{\nu}^{(i)}}
+\end{equation}
+where $ (i) $ is an additional degree of freedom that we will find is not important.
+\paragraph{$ \nu \geq 0 $}
+\begin{equation}
+    \nu = \nu \ip{\varphi_{\nu}} = \bra{\varphi_{\nu}} \vb{N} \ket{\varphi_{\nu}} = \left( \bra{\varphi_{\nu}} \vb{a}^\dagger \right) \left( \vb{a} \ket{\varphi \nu} \right) = \norm{\vb{a} \ket{\varphi_{\nu}}}^2 \geq 0
+\end{equation}
+\paragraph{$ \nu = 0 $}
+\begin{equation}
+    \implies \vb{a} \ket{\varphi \nu} = 0
+\end{equation}
+\paragraph{$ \nu > 0 $}
+\begin{equation}
+    \implies \vb{N}\vb{a} \ket{\varphi_{\nu}} = (\nu - 1)\vb{a} \ket{\varphi_{\nu}}
+\end{equation}
+This is because $ \comm{\vb{N}}{\vb{a}} = -\vb{a} $, so $ \vb{N}\left( \vb{a} \ket{\varphi_{\nu}} \right) = \vb{a}\vb{N} \ket{\varphi_{\nu}} - \vb{a} \ket{\varphi_{\nu}} = (\nu - 1)\vb{a} \ket{\varphi_{\nu}} $.
+\paragraph{$ \vb{a}^\dagger \ket{\varphi_{\nu}} \neq 0 $}
+\paragraph{$ \vb{N}\vb{a}^\dagger \ket{\varphi_{\nu}} = (\nu + 1)\vb{a}^\dagger \ket{\varphi_{\nu}} $}
+\paragraph{$ \nu $ is a non-negative integer}
+Assume $ n < \nu < n + 1 $. $ \vb{a}^{n+1} \ket{\varphi_{\nu}} = 0 $, therefore $ \nu - (n + 1) = 0 $ so $ \nu \in \Z $.
+\paragraph{$ \ket{\varphi_{\nu}} $ is non-degenerate}
+\subparagraph{$ \ket{\varphi_0} $}
+Lowering this state must give us zero, so
+\begin{equation}
+    \vb{a} \ket{\varphi_0} = 0 = \frac{1}{\sqrt{2}} \left( \vu{X} + \imath\vu{P} \right) \ket{\varphi_0}
+\end{equation}
+In $ x $-space,
+\begin{equation}
+    \left( x + \dv{x} \right) \varphi_0(x) = 0 \implies \varphi_0(x) = C_0 e^{-\frac{x^2}{2}} 
+\end{equation}
+\subparagraph{$ \ket{\varphi_{n}} $ non-degenerate implies $ \ket{\varphi_{n+1}} $ is non-degenerate}
+
+\begin{align}
+    \vb{a}^\dagger [ \vb{a} \ket{\varphi_{n+1}^{(i)}} &= C^{(i)} \ket{\varphi_{n}} ] \\
+    \vb{N} \ket{\varphi_{n+1}^{(i)}} &= (n+1) \ket{\varphi_{n+1}^{(i)}} = C^{(i)} \vb{a}^\dagger \ket{\varphi_{n}} \\
+    \ket{\varphi_{n+1}^{(i)}} &= \frac{C^{(i)}}{n+1} \vb{a}^\dagger \ket{\varphi_{n}}
+\end{align}
+
+\subsection{Eigenfunctions of the Harmonic Oscillator}
+\label{sub:eigenfunctions of the harmonic oscillator}
+We start by normalizing the ground state wave function:
+\begin{equation}
+    \varphi_0(x) = \frac{1}{\sqrt[4]{\pi}} e^{- \frac{x^2}{2}}
+\end{equation}
+The other eigenfunctions can be found by raising the ground state:
+\begin{equation}
+    \ket{\varphi_{n}} = \frac{1}{\sqrt{n!}} (\vb{a}^\dagger)^n \ket{\varphi_0}
+\end{equation}
+so
+\begin{equation}
+    \varphi_{1}(x) = \sqrt[4]{\frac{4}{\pi}} x e^{- \frac{x^2}{2}}
+\end{equation}
+and
+\begin{equation}
+    \varphi_{2}(x) = \sqrt[4]{\frac{1}{4 \pi}} \left[ 2 x^2 - 1 \right] e^{- \frac{x^2}{2}}
+\end{equation}
+where the polynomials in front of the exponential are the Hermite polynomials $ H_n(x) $. The energy levels are evenly spaced by $ \hbar \omega $ (so that the energy difference between the energy of the ground state is $ \hbar \omega $ away from the first state, and the same with the first and second state). The space between the ground state and the $ x $-axis is $ \frac{1}{2} \hbar \omega $, so the energy eigenvalues are $ \hbar \omega (n + \frac{1}{2}) $.
+
+\end{document}

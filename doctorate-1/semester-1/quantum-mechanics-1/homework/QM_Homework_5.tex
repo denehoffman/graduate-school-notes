@@ -1,0 +1,125 @@
+\documentclass[a4paper,twoside]{article}
+\input{../../preamble.tex}
+\title{33-755 Homework 5}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section*{1. Bell States and Teleportation}
+
+Suppose Alice and Bob share the fully-entangled state $ \ket{B^1} $, and Alice is to teleport an unknown state $ \ket{\psi} $ to Bob by measuring her half (b) of the entangled state along with $ \ket{\psi} $.
+
+\begin{itemize}
+    \item[(a)] Assume that $ \ket{\psi} = \alpha \ket{0} + \beta \ket{1} \in \mathcal{H}_{a} $. Express the state $ \ket{\Psi} \equiv \ket{\psi} \otimes \ket{B^1} \in \mathcal{H}_{a} \otimes \mathcal{H}_{b} \otimes \mathcal{H}_{c} $, using the tensor product basis.
+        \begin{tcolorbox}[breakable]
+            \begin{align}
+                \ket{\Psi} &= \ket{\psi} \otimes \ket{B^1}\\
+                &= \alpha \ket{0} + \beta \ket{1} \otimes \frac{1}{\sqrt{2}} ( \ket{01} + \ket{10})\\
+                &= \frac{1}{\sqrt{2}} [\alpha \ket{001} + \alpha \ket{010} + \beta \ket{101} + \beta \ket{110}]
+            \end{align}
+        \end{tcolorbox}
+    \item[(b)] The same state can be expressed in the basis of Bell states $ \{B^k\} $ on $ \mathcal{H}_{a} \otimes \mathcal{H}_{b} $ as
+        \begin{equation}
+            \ket{\Psi} = \frac{1}{2} \sum_{k=0}^{3} B^k \otimes V_k \ket{\psi} 
+        \end{equation}
+        where $ \{V_k\} $ is a set of unitary maps from $ \mathcal{H}_{a} $ to $ \mathcal{H}_{c} $ (i.e. $ V_k \ket{\psi} \in \mathcal{H}_{c} $). Express $ V_k \ket{\psi} $ in the basis $ \{\ket{0}, \ket{1}\} $ of $ \mathcal{H}_{c} $, for $ k = 0,1,2,3 $.
+        \begin{tcolorbox}[breakable]
+            Note that there are two ways to express $ \ket{\Psi} $ on a basis of the Bell states:
+            \begin{equation}
+                \ket{\Psi} = (\ket{B^0} \otimes \beta \ket{0} + \alpha \ket{1}) + (\ket{B^1} \otimes \alpha \ket{0} + \beta \ket{1})
+            \end{equation}
+            and a second one using the antisymmetric states:
+            \begin{equation}
+                \ket{\Psi} = (\ket{B^2} \otimes - \beta \ket{0} + \alpha \ket{1}) + (\ket{B^3} \otimes \alpha \ket{0} - \beta \ket{1})
+            \end{equation}
+            Adding these together will give us twice the total state $ \ket{\Psi} $, which is where the $ \frac{1}{2} $ in the formula comes from:
+            \begin{equation}
+                \begin{split}
+                \ket{\Psi} =& \frac{1}{2} \left[ (\ket{B^0} \otimes \beta \ket{0} + \alpha \ket{1}) + (\ket{B^1} \otimes \alpha \ket{0} + \beta \ket{1})\right.\\
+                &+ \left.(\ket{B^2} \otimes - \beta \ket{0} + \alpha \ket{1}) + (\ket{B^3} \otimes \alpha \ket{0} - \beta \ket{1}) \right]
+                \end{split}
+            \end{equation}
+            By equating the right halves of the product spaces to $ V_k \ket{\psi} $, we find:
+            \begin{align}
+                V_0 \ket{\psi} = V_0 (\alpha \ket{0} + \beta \ket{1}) &= \beta \ket{0} + \alpha \ket{1} \\
+                & \implies V_0 = 
+                \begin{bmatrix}
+                    0&1\\
+                    1&0
+                \end{bmatrix}\\
+                V_1 \ket{\psi} &= \alpha \ket{0} + \beta \ket{1} \\
+                & \implies V_1 = 
+                \begin{bmatrix}
+                    1&0\\
+                    0&1
+                \end{bmatrix}\\
+                V_2 \ket{\psi} &= - \beta \ket{0} + \alpha \ket{1} \\
+                & \implies V_2 = 
+                \begin{bmatrix}
+                    0&-1\\
+                    1&0
+                \end{bmatrix}\\
+                V_3 \ket{\psi} &= \alpha \ket{0} - \beta \ket{1} \\
+                & \implies V_3 = 
+                \begin{bmatrix}
+                    1&0\\
+                    0&-1
+                \end{bmatrix}\\
+            \end{align}
+        \end{tcolorbox}
+    \item[(c)] Alice measures the combination of $ \ket{\psi} $ and $ b $, in the basis of Bell states on $ \mathcal{H}_{a} \otimes \mathcal{H}_{b} $ mentioned above, yielding a specific outcome $ k (0 \leq k \leq 3 ) $. She then e-mails the result $ k $ to Bob, who must apply the unitary operator $ U_k $ to his half (c) of the original entangled state $ \ket{B^1} $ in order to complete the teleportation process. What are these operators $ U_k $?
+        \begin{tcolorbox}[breakable]
+            When Alice measures her state and sends the result, she, in effect, puts the system into the state described above. Bob's particle is now in the state $ V_k \ket{\psi} $, so he needs to perform the inverse of $ V_k $ to retrieve Alice's message state $ \ket{\psi} $. Because the matrices are unitary, the inverse is just the transpose:
+            \begin{align}
+                U_0 &= 
+                \begin{bmatrix}
+                    0&1\\
+                    1&0
+                \end{bmatrix}\\
+                U_1 &= 
+                \begin{bmatrix}
+                    1&0\\
+                    0&1
+                \end{bmatrix}\\
+                U_2 &= 
+                \begin{bmatrix}
+                    0&1\\
+                    -1&0
+                \end{bmatrix}\\
+                U_3 &= 
+                \begin{bmatrix}
+                    1&0\\
+                    0&-1
+                \end{bmatrix}
+            \end{align}
+        \end{tcolorbox}
+    \item[(d)] Check your result by transmitting the basis state $ \ket{\psi} = \ket{0} $. Show that whatever bell state $ k $ Alice measures on her pair of bits in $ \mathcal{H}_{a} \otimes \mathcal{H}_{b} $, Bob will obtain $ \ket{0} \in \mathcal{H}_{c} $ after applying $ U_k $ to $ \ket{c} $.
+        \begin{tcolorbox}[breakable]
+            Alice will be sent a particle in a superposition of $ \ket{0} $ and $ \ket{1} $. The total state will therefore be
+            \begin{equation}
+                \ket{\Psi} = \ket{0} \otimes \frac{1}{\sqrt{2}} (\ket{01} + \ket{10}) = \frac{1}{\sqrt{2}} (\ket{001} + \ket{010})
+            \end{equation}
+            When she measures the first two particles (the ones she actually has) she will get, with equal likelihood, $ \ket{00} $ or $ \ket{01} $. We can rewrite this state in terms of the Bell state expansion above:
+            \begin{equation}
+                \ket{\Psi} = \frac{1}{2} [\ket{B^0} \otimes \ket{1} + \ket{B^1} \otimes \ket{0} + \ket{B^2} \otimes \ket{1} + \ket{B^3} \otimes \ket{0}]
+            \end{equation}
+            Therefore, if she measures $ \ket{00} $, she can tell Bob either $ k = 0 $ or $ k = 2 $, since she could be in either of those Bell states. Regardless of her choice, Bob will be able to perform the operator $ U_0 $ or $ U_2 $ on his particle, which must now be in the $ \ket{1} $ state, and this operation will give him the original $ \ket{0} $ state. Similarly, if she measures $ \ket{01} $, she can tell him $ k = 1 $ or $ k = 3 $ and he will be able to use those operators on his particle, which must be in the $ \ket{0} $ state, to get $ \ket{0} $.
+        \end{tcolorbox}
+
+\end{itemize}
+\section*{2. Infinite Dimensional Commutation Relation}
+Let two operators A and B satisfy the commutation relation $ [B,A] = \imath I $. Explain why the Hilbert space must be infinite dimensional.
+\begin{tcolorbox}[breakable]
+    Suppose these operators acted on a finite Hilbert space of dimension $ n $. We would then know that
+    \begin{equation}
+        \Tr (AB) = \Tr (BA)
+    \end{equation}
+    so
+    \begin{equation}
+        \Tr ([B,A]) = \Tr (BA-AB) = \Tr (BA) - \Tr (AB) = 0
+    \end{equation}
+    However, $ \Tr (\imath I) = n\imath $ for an $ n $-dimensional space, so the space cannot have a finite dimension. In an infinite dimensional space, the operators need not have a finite trace, and therefore the trace of the commutator is meaningless ($ \Tr (AB) \to \infty \implies \Tr ([B,A]) = \infty - \infty $ is undefined), so it is perfectly reasonable to have $ [B,A] = \imath I $.
+\end{tcolorbox}
+
+
+\end{document}

@@ -1,0 +1,126 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{27}{Monday, October 21, 2019}{Magnetic Materials}
+
+From the electrons in a magnetic material, we get magnetic dipoles $ \vec{m} = g \mu_{B} \vec{S} $. Naively, we can think of this as some electron rotating at radius $ r $, such that the current is $ \frac{e}{\frac{2 \pi r}{v}} \pi r^2 = m = \frac{e}{2}rv = \frac{e}{2m_e} \overbrace{m_e vr}^{L} $. Therefore, $ \vec{m} = \frac{e}{2m_e} \vec{S} $. The spin is $ S = \frac{1}{2} $, but $ g_e \approx 2 $, so the dipole moment is actually not just a trivial electron orbiting, and the actual corrections to the gyromagnetic constant come from QFT.
+
+Let us introduce a macroscopic volume density of magnetic dipoles $ \vec{M} $. Recall that we typically find higher order terms in magnetic dipoles are negligible.
+\begin{equation}
+    \vec{A} = \frac{\mu_0}{4 \pi} \int \dd[3]{x'} \frac{ \vec{J}_{\text{free}}( \vec{x}')}{\abs{ \vec{x} - \vec{x}'}}+ \frac{\mu_0}{4 \pi} \int \dd[3]{x'} \frac{ \vec{M}( \vec{x}') \times ( \vec{x} - \vec{x}')}{\abs{ \vec{x} - \vec{x}'}^3}
+\end{equation}
+Let us rewrite this second term using our usual trick:
+\begin{equation}
+    = \frac{\mu_0}{4 \pi}\left\{ \int - \curl{\left[ \frac{ \vec{M}( \vec{x}')}{\abs{ \vec{x} - \vec{x}'}} \right]} \dd[3]{x'} + \int \frac{\curl{ \vec{M}( \vec{x}')}}{\abs{ \vec{x} - \vec{x}'}} \dd[3]{x'} \right\}
+\end{equation}
+Using the divergence theorem relations, this first term is equal to
+\begin{equation}
+    \oint \frac{ \vec{M}( \vec{x}') \times \hat{n}'}{\abs{ \vec{x} - \vec{x}'}} \dd{a'}
+\end{equation}
+so \textit{effectively}:
+\begin{equation}
+    \vec{J}_{M} = \curl{ \vec{M}}
+\end{equation}
+and
+\begin{equation}
+    \vec{K}_{M} = \vec{M} \times \hat{n}
+\end{equation}
+
+Now let us rewrite these in a differential form:
+\begin{equation}
+    \curl{ \vec{B}} = \mu_0 \vec{J}_{\text{free}} + \mu_0 \curl{ \vec{M}}
+\end{equation}
+and of course
+\begin{equation}
+    \div{ \vec{B}} = 0
+\end{equation}
+\begin{note}{Pro Tip}
+    Again, if you find one of these ``magnetic monopoles'' you will be eternally famous.
+\end{note}
+This first equation is usually rewritten as
+\begin{equation}
+    \curl{\underbrace{\left( \frac{1}{\mu_0} \vec{B} - \vec{M} \right)}_{\vec{H}}} = \vec{J}_{\text{free}}
+\end{equation}
+
+What is $ \vec{M} $? How do we link $ \vec{M} $ to $ \vec{B} $. The usual approach is to write $ \vec{H} $ as a function of $ \vec{B} $ or vice-versa. For ferromagnets, there is a ``saturation point'' where an externally applied $ \vec{H} $ will no longer create more $ \vec{B} $. Reducing the applied magnetic field will result in hysteresis. Physically, this is because we are aligning all of the spin moments of the ferromagnet, and when we then reduce the applied field, they are in a lower energy state than the disordered state they started in, so they won't return to the same ground state, but rather to a lower energy state. If we include temperature, this gets more complicated, but one result is that magnetization cannot exist above the Curie temperature because the dipoles are moving around more with increasing temperature, and at some point, there is no way for the material to maintain the orderly orientation of the magnetic dipoles.
+
+In linear materials,
+\begin{equation}
+    \frac{1}{\mu_0} \vec{B} - \vec{M}[ \vec{B}] = \frac{1}{\mu} \vec{B} = \vec{H}
+\end{equation}
+since $ \vec{M}[ \vec{B} ] $ is generated linearly by $ \vec{B} $. Here, we define $\mu$ as the magnetic permeability. It can be inhomogeneous, and/or non-isotropic, but these solutions get very complicated very fast.
+\begin{equation}
+    \vec{H} = \frac{1}{\mu} \vec{B} \qand \div{ \vec{B}} = 0 \qand \vec{B} = \curl{ \vec{A}} \implies \curl{ \vec{H}} = \vec{J}_{\text{free}} - \curl{\left( \frac{1}{\mu} \curl{ \vec{A}} \right)}
+\end{equation}
+
+Remember that $ A $ is not uniquely defined, and is invariant up to the gradient of some constant field $ \chi $:
+\begin{equation}
+    \vec{A}' = \vec{A} + \div{\chi}
+\end{equation}
+\begin{equation}
+    \vec{B} = \curl{\vec{A}'} = \curl{\vec{A}} + \cancelto{0}{\curl{\div{\chi}}}
+\end{equation}
+
+We will choose a gauge where $ \div{\vec{A}} = 0 $. If we have constant $ \mu $,
+\begin{equation}
+    \frac{1}{\mu} \curl{(\curl{ \vec{A}})} = \vec{J}_{\text{free}} = \frac{1}{\mu}\left[\cancelto{0}{\grad{\div{ \vec{A}}}} - \laplacian{ \vec{A}} \right]
+\end{equation}
+so
+\begin{equation}
+    \laplacian{ \vec{A}} = -\mu \vec{J}_{\text{free}}
+\end{equation}
+
+Now let us examine our boundary conditions. Using the Gaussian pillbox,
+\begin{equation}
+    B_n^{(I)} - B_n^{(II)} = 0
+\end{equation}
+
+If we have a free surface current,
+\begin{equation}
+    H_t^{(I)} - H_t^{(II)} = \vec{K} \cdot ( \hat{t} \times \hat{n} )
+\end{equation}
+where $ \hat{t} $ is orthogonal to the current and the normal. This is sometimes written
+\begin{equation}
+    (H_t^{(I)} - H_t^{(II)} ) \times \hat{n} = \vec{K}
+\end{equation}
+
+Let's examine a special case: $ J_{\text{free}} = 0  $. Now $ \curl{ \vec{H}} = 0 $. We could now claim
+\begin{equation}
+    \vec{H} = - \grad{\Phi_{M}}
+\end{equation}
+We must be careful here, since $ \Phi_{M} $ is usually not single-valued over all space.
+\begin{equation}
+    \vec{B} = \vec{H} + \mu_0 \vec{M} \implies \div{ \vec{B}} = 0 = \div{(- \grad{\Phi_M})} + \mu_0 \div{ \vec{M}}
+\end{equation}
+or
+\begin{equation}
+    0 = - \laplacian{\Phi_M} + \mu_0 \div{ \vec{M}}
+\end{equation}
+so
+\begin{equation}
+    \laplacian{\Phi_M} = - \mu_0 \underbrace{(- \div{ \vec{M}})}_{\text{source}}
+\end{equation}
+We would now think that
+\begin{equation}
+    \Phi_M = \frac{\mu_0}{4 \pi} \int_\Omega \frac{(- \div{ \vec{M}}}{\abs{ \vec{x} - \vec{x}'}} \dd[3]{x'}
+\end{equation}
+However, we must also have a surface correction:
+\begin{equation}
+    \Phi_M = \frac{\mu_0}{4 \pi} \int_\Omega \frac{(- \div{ \vec{M}}}{\abs{ \vec{x} - \vec{x}'}} \dd[3]{x'} + \frac{\mu_0}{4 \pi} \oint_\Sigma \frac{ \vec{M}( \vec{x}') \cdot \hat{n}'}{\abs{ \vec{x} - \vec{x}'}} \dd[3]{x'} 
+\end{equation}
+The justification for this is that the volume integral over $ - \div{ \vec{M}} $ must equal the surface integral of $ \vec{M} \cdot \hat{n} $, but increasing the volume of our integrating surface will not change the integral, since we only integrate over nonzero $ \vec{M} $, but it will increase the surface integral. Without this correction, the field would appear as a monopole from far away.
+
+For linear materials, $ \vec{H} = \frac{1}{\mu} \vec{B} $ and $ \curl{ \vec{H} } = 0 $ ($ \vec{J}_{\text{free}} =0$), so
+\begin{equation}
+    \vec{H} = - \grad{\Phi_M} \implies \vec{B} = \mu \vec{H}
+\end{equation}
+\begin{equation}
+    \div{ \vec{B}} = - \div{\mu \grad{\Phi_m}} = 0
+\end{equation}
+
+The philosophy is, if we have no free current, we can make our field scalar. Despite the similarity to the electric dipole correction, these are not connected. We can still solve this field as a scalar potential if there is an applied magnetic field. What kinds of problems will we try to solve? This afternoon, we will look at the following:
+\begin{itemize}
+    \item $ \vec{M} = M_0 \hat{z} $ on a ball of radius $ a $
+    \item Shell of inner radius $ a $ and outer radius $ b $ made of a linear material inserted into a uniform $ \vec{B} $ field. We will show that the magnetic field nearly vanishes inside $ a $.
+\end{itemize}
+
+\end{document}

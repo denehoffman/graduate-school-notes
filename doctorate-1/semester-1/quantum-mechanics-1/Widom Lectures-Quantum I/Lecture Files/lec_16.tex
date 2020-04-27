@@ -1,0 +1,78 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{16}{Mon Sep 23 2019}{Measurement Devices}
+\section{Beam Splitter Example, Continued}%
+\label{sec:beam_splitter_example_continued}
+
+From before, we have a four-port system with a shift operator $S$ which takes $\ket{mz}$ to $\ket{(m+1)z}$. It takes branch $a$ to a superposition of branches $c$ and $d$: $S\ket{0a} = \frac{1}{\sqrt{2}}\left( \ket{1c}+\ket{1d} \right) $. We also have a detector operator $R$ which adds another dimension to the Hilbert space. $R\ket{2c,n\hat{c}} = \ket{2c,(1-n)\hat{c}}$. Therefore, the time evolution operator is $T=SR$ and $\ket{\psi_0}\xrightarrow{T}\ket{\psi_1} = \frac{1}{\sqrt{2}}\left( \ket{1c,0\hat{c}}+\ket{1d,0\hat{c}} \right)\xrightarrow{T}\ket{\psi_2} = \frac{1}{\sqrt{2}}\left(\ket{ 2c,02c,0\hat{c}} + \ket{2d,0\hat{c}} \right)\xrightarrow{T}\ket{\psi_3} = \frac{1}{\sqrt{2}}\left(\ket{3c,1\hat{c}}+\ket{3d,0\hat{c}} \right)$.
+
+We can think of the family of histories as a subset of $\{[mz,n\hat{c}]\}$:
+\begin{equation}
+    Y^c = [\psi_0]_0\odot[1c,0\hat{c}]_c\odot[2c,0\hat{c}]_c\odot[3c,1\hat{c}]
+\end{equation}
+We claim the chainket for this is nonzero. If we were to apply the projector $[3c,0\hat{c}]$ instead, it would vanish.
+\begin{equation}
+    \ket{Y^c} = [3c,1\hat{c}]T_{32}[2c,0\hat{c}]T_{21}[1c,0\hat{c}]T_{09}\ket{\psi_0} = \frac{1}{\sqrt{2}}\ket{3c,1\hat{c}}
+\end{equation}
+There's another history with a non-vanishing chainket:
+\begin{equation}
+    Y^d = [\psi_0]_0\odot[1d,0\hat{c}]_1\odot[2d,0\hat{c}]_2\odot[3d,0\hat{c}]_3
+\end{equation}
+
+\begin{equation}
+    Pr([1\hat{c}]_3\mid[2c]_2) = Pr(Y^c) / Pr(Y^c) = 1
+\end{equation}
+We could also ask
+\begin{equation}
+    Pr([2c]_2\mid[1\hat{c}]_3) = 1
+\end{equation}
+
+\subsection{Measurement of Spin-$ \frac{1}{2}$}%
+\label{sub:measurement_of_}
+
+A Stern-Gerlach apparatus allow us to split a beam of electrons (or any spin-$ \frac{1}{2}$ particle) into two branches, one for each spin. Let's imagine we start in position $w$, go to $w'$ right before the apparatus, $w+$ after the detector in the spin-up branch, and $w-$ after the detector in the spin-down branch. We also have a screen behind the apparatus, so when the electron passes through the device, we can see which branch it went through, but the electron state is destroyed.
+\begin{equation}
+    \ket{z+,w}\to\ket{z+,w'}\to\ket{z+,w_+}
+\end{equation}
+and
+\begin{equation}
+    \ket{z-,w}\to\ket{z-,w'}\to\ket{z-,w_-}
+\end{equation}
+Suppose we started in the $x+$ state:
+\begin{equation}
+    \ket{psi_0} = \ket{x+,w}=\frac{1}{\sqrt{2}}(\ket{z+,w}+\ket{z-,w})
+\end{equation}
+\begin{equation}
+    \ket{x+,w}\to\ket{x+,w'}\to \frac{1}{\sqrt{2}}\left( \ket{z+,w+} + \ket{z-,w_0} \right) 
+\end{equation}
+The unitary history is
+\begin{equation}
+    U = [\psi_0]_0\odot[\psi_1]_1\odot[\psi_2]_2
+\end{equation}
+What can we ``discuss'' in this unitary history? What makes sense within our framework?
+\begin{itemize}
+    \item $[I_s\otimes w+]$
+    \item $[I_s\otimes w-]$
+\end{itemize}
+where $I_s$ is the local spin operator. These topics are incompatible with the unitary history because $[\psi_2][I_s\otimes w+]\neq [I_s\otimes w+][\psi_2]$ (remember, $\psi_0$ is the $x$-polarized spin state).
+Let's then imagine a new family of histories for this state:
+\begin{equation}
+    [\psi_0]_0\odot[\psi_1]_1\odot\begin{cases}
+        [z+,w+]_2 \\ [z-,w-]_2
+    \end{cases}
+\end{equation}
+along with $I-[psi_1]_1$ and $I-[\psi_0]_0$, to complete the history.
+Now surely, while we measure the state on the screen, it must have been measured in the Stern-Gerlach apparatus itself, so we believe we are detecting the state of the particle at time $1$. We need a ``new'' new family of histories:
+\begin{equation}
+    [\psi_0]\odot\begin{cases}
+        [z+,w']_1\odot[z+,w+]_2\leftarrow Y_+ \\ [z-,w']_1\odot[z-,w-]_2\leftarrow Y_-
+    \end{cases}
+\end{equation}
+Now we can ask about some probabilities:
+\begin{equation}
+    Pr([z+]_1\mid[w+]_2) = Pr(Y_+) / Pr(Y_+) = 1
+\end{equation}
+\begin{equation}
+    Pr([z-]_1\mid[w+]_2) = 1
+\end{equation}
+\end{document}

@@ -1,0 +1,113 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{25}{Monday, October 14, 2019}{}
+Recall
+\begin{equation}
+    \curl{B} = \mu_0 \vec{J}
+\end{equation}
+and we used this last lecture to show that
+\begin{equation}
+    \laplacian{ \vec{B}} = - \mu_0 \curl{ \vec{J}}
+\end{equation}
+which we solved to find
+\begin{equation}
+    \vec{B} = \frac{\mu_0}{4 \pi} \int \frac{( \curl{ \vec{J}'})}{\abs{ \vec{x} - \vec{x}'}} \dd[3]{x'}
+\end{equation}
+We also did the same formulation with $ \vec{x} \cdot \vec{B} $:
+\begin{equation}
+    \laplacian{ \vec{x} \cdot \vec{B}} = - \mu_0 \vec{x} \cdot \curl{ \vec{J}}
+\end{equation}
+\begin{equation}
+    \vec{x} \cdot \vec{B} = \frac{\mu_0}{4 \pi} \int \frac{(\vec{x}' \cdot \curl{ \vec{J}'})}{\abs{ \vec{x} - \vec{x}'}} \dd[3]{x'}
+\end{equation}
+
+\begin{equation}
+    \frac{1}{\abs{ \vec{x} - \vec{x}'}} = \sum_{l,m} \frac{4 \pi}{2l+1} Y_{lm}^*(\Omega') Y_{lm}(\Omega)
+\end{equation}
+If we assume
+\begin{equation}
+    \vec{B} = - \grad{\Phi_{M}}
+\end{equation}
+we found
+\begin{equation}
+    \vec{x} \cdot \grad{\Phi_M} = r \dv{r} \Phi_m
+\end{equation}
+so
+\begin{equation}
+    \Phi_{m} = \sum_{l,m} \frac{4\pi}{2l+1} \sqrt{\frac{l}{l+1}} \frac{1}{\sqrt{(l+1)l}} \left[ \int r'^l(\vec{\mathbb{L}}Y_{lm}^*) \cdot \vec{J} \dd{\Omega'} r'^2 \dd{r'} \right] \frac{Y_{lm}(\Omega)}{r^{l+1}}
+\end{equation}
+where
+\begin{equation}
+    \frac{1}{\sqrt{l(l+1)}} \vec{\mathbb{L}} Y_{lm} = \vec{\mathbb{X}}_{lm}
+\end{equation}
+are the vector spherical harmonics.
+\begin{align}
+    \int \vec{\mathbb{X}}_{lm}^* \cdot \vec{\mathbb{X}}_{l'm'} \dd{\Omega} &= \int Y_{lm}^* \vec{\mathbb{L}} \cdot \vec{\mathbb{L}} Y_{l'm'} \dd{\Omega} \frac{1}{\sqrt{l(l+1)l'(l'+1)}}\\
+    &= \frac{l(l+1)}{l(l+1)} \delta_{ll'} \delta_{mm'} = \delta_{ll'} \delta_{mm'}
+\end{align}
+so the vector spherical harmonics are an orthonormal basis. Our expansion is now
+\begin{equation}
+    \Phi_{M} = \sum_{l,m} \frac{4 \pi}{2l+!}\imath \sqrt{\frac{l}{l+1}} \left[ \int r'^l r'^2 \dd{r'} \dd{\Omega'} \vec{\mathbb{X}}^*_{lm} \cdot \vec{J}( \vec{x}') \right] \frac{Y_{lm}(\Omega)}{r^{l+1}}
+\end{equation}
+The idea is, we want to turn this into an expansion for $ \vec{A} $, the vector potential for the magnetic field. We want something like $ \curl{ \vec{A}} $ since $ \vec{B} = - \grad{\Phi_M} = \curl{ \vec{A}} $. We use the following identity:
+\begin{equation}
+    \curl{ \vec{\mathbb{L}}} = -\imath \vec{x} \nabla^2 + \imath \grad{(1+ \vec{x} \cdot \nabla)}
+\end{equation}
+In spherical coordinates, $ \vec{x} \cdot \nabla = r \dv{r} $. Additionally recall that,
+\begin{equation}
+    \laplacian{\left( \frac{Y_{lm}}{r^{l+1}} \right)} = 0
+\end{equation}
+Let us then write
+\begin{equation}
+    \curl{ \vec{\mathbb{L}}} \left( \frac{Y_{lm}}{r^{l+1}} \right) = -\imath \vec{x} \cancelto{0}{\laplacian{\left( \frac{Y_{lm}}{r^{l+1}} \right)}} + \underbrace{\imath \div{\left[ 1+ r \dv{r} \right] \left( \frac{Y_{lm}}{r^{l+1}} \right)}}_{(1-l-1) \frac{1}{r^{l+1}} Y_{lm}}
+\end{equation}
+Therefore
+\begin{equation}
+    \curl{\left[ \frac{1}{l\imath} \right] \vec{\mathbb{L}} \left( \frac{Y_{lm}}{r^{l+1}} \right)} = - \div{\left( \frac{Y_{lm}}{r^{l+1}} \right)}
+\end{equation}
+Using this, we see that
+\begin{equation}
+    - \grad{\Phi_M} = - \nabla \sum_{l,m} B_{lm} \frac{Y_{lm}}{r^{l+1}} = \sum_{l,m} B_{lm}\left( -\nabla \frac{Y_{lm}}{r^{l+1}} \right) = \sum_{l,m} B_{lm}\left[ \frac{1}{\imath l} \curl{ \vec{\mathbb{L}}} \frac{Y_{lm}}{r^{l+1}}  \right]
+\end{equation}
+Therefore, we see that
+\begin{equation}
+    \curl{\sum_{l,m} \left[ \frac{B_{lm}}{\imath l} \frac{ \vec{\mathbb{L}} Y_{lm}}{r^{l+1}} \right]} = \curl{ \vec{A}}
+\end{equation}
+\begin{align}
+    \vec{B} &= \curl{\left[ \sum_{l,m} \frac{4 \pi}{2l + 1} \frac{\imath}{\imath l} \sqrt{\frac{l}{l+1}} \left( \int \dd[3]{x'} r'^l \vec{\mathbb{X}}^* \cdot \vec{J} \right) \frac{ \vec{\mathbb{L}} Y_{lm}}{r^{l+1}} \right]}\\
+    &= \curl{\left[ \sum_{l,m} \frac{4 \pi}{2l+1} \left( \int \dd[3]{x'} r'^l \vec{\mathbb{X}}^*_{lm} \cdot \vec{J} \right) \frac{ \vec{\mathbb{X}}_{lm}}{r^{l+1}} \right]}
+\end{align}
+Therefore, the true multipole expansion for the vector potential is
+\begin{equation}
+    \vec{A} = \left[ \sum_{l,m} \frac{4 \pi}{2l+1} \left( \int \dd[3]{x'} r'^l \vec{\mathbb{X}}^*_{lm} \cdot \vec{J} \right) \frac{ \vec{\mathbb{X}}_{lm}}{r^{l+1}} \right]
+\end{equation}
+
+\begin{ex}
+    Let us have an example of using $ \Phi_M $. It can be useful in some situations and is not just an operational trick. This is the homework problem for a rotating sphere. We have a charged sphere rotating with angular velocity $ \omega $ with a surface current density $ \vec{J} = \sigma \omega a \sin(\theta) \hat{\varphi} \delta(r-a) $. We want to find the $ B $ field. The homework is to solve for $ \vec{A} $. However, there are two regions that are free from currents, the inside of the sphere and the outside. $ \Phi_M $ works when there are no currents, so we could just glue these regions together using $ \Phi_M $. Recall that on the surface, the normal component of $ B $ in the two regions should be equal and continuous because $ \div{ \vec{B}} = 0 $. If we had a surface current, the tangential components must jump by the surface current (not a volume current) across the boundary.
+
+    In the outside region,
+    \begin{equation}
+        \div{ \vec{B}} = 0 \implies \laplacian{\Phi_M} = 0
+    \end{equation}
+    \begin{equation}
+        \Phi_M = \begin{cases}
+            \sum A_l r^l P_l(\cos(\theta)) & r<a\\
+            \sum \frac{B_l}{r^{l+1}} P_l(\cos(\theta)) & r>a
+        \end{cases}
+    \end{equation}
+    additionally, the continuity of the field across the boundary implies
+    \begin{equation}
+        \eval{- \pdv{\Phi_M}{r}}_{r \to a^- = r \to a^+} \implies A_l = - \frac{l+1}{l} \frac{B_l}{a^{2l+1}}
+    \end{equation}
+    Our other boundary condition tells us
+    \begin{equation}
+        B_\theta^{\text{outside}} - B_\theta^{\text{inside}} = k_{\varphi} = \sigma a \omega \sin(\theta)
+    \end{equation}
+    so
+    \begin{equation}
+        - \frac{1}{r} \eval{\pdv{\Phi_M}{\theta}}_{r \to a^+} + \frac{1}{r} \eval{\pdv{\Phi_M}{r}}_{r \to a^-} = \sigma a \omega \sin(\theta)
+    \end{equation}
+\end{ex}
+
+
+\end{document}

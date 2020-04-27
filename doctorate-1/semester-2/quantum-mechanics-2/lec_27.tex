@@ -1,0 +1,86 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{27}{Monday, March 30, 2020}{Canonical Transformations}
+<<missed the first part of the lecture>>
+
+Consider a generating functional which is now a function of $ q $ and $ P $: $ F(q,P) $. We want to choose $ F $ such that $ H' = 0 $. If this is true,
+\begin{align}
+    p\dot{q} - H &= P\dot{Q} - H + \dv{F}{t} = - \dot{P}Q-H' + \dv{F}{t} \\
+    &= - \dot{P}Q-H' + \pdv{F}{t} + \pdv{F}{q}\dot{q} + \pdv{F}{P}\dot{P}
+\end{align}
+so we get that
+\begin{equation}
+    Q = \pdv{F}{P} \qquad p = \pdv{F}{q}
+\end{equation}
+and
+\begin{equation}
+    -H = -H' + \pdv{F}{t}
+\end{equation}
+We want $ H' = 0 $, so
+\begin{equation}
+    \pdv{F}{t} + H = 0
+\end{equation}
+If we then convert $ p $, we get
+\begin{equation}
+    H(q,p) = H(q, \pdv{F}{q})
+\end{equation}
+so
+\begin{equation}
+    \pdv{F(q,P)}{t} _ H(q, \pdv{F}{q}) = 0
+\end{equation}
+or
+\begin{equation}\label{eq:hamilton_jacobi}
+    \pdv{F(q, \alpha, t)}{t} + H(q, \pdv{F}{q}) = 0\tag{Hamilton-Jacobi Equation}
+\end{equation}
+Often we write $ F \equiv S $ and call it Hamilton's principal function. More generally,
+\begin{equation}
+    H(q_1,\cdots,q_n, \pdv{S}{q_1},\cdots, \pdv{S}{q_n}, t) + \pdv{S}{t} = 0
+\end{equation}
+
+\begin{ex}
+    Let's do an example with a simple harmonic oscillator:
+    \begin{equation}
+        H = \frac{p^2}{2m} + \frac{1}{2} m \omega^2 q^2
+    \end{equation}
+    By our Hamilton-Jacobi Equation, we have
+    \begin{equation}
+        0 = \frac{1}{m} \left( \pdv{S}{q} \right)^2 + \frac{1}{2} m \omega^2 q^2 + \pdv{S}{t}
+    \end{equation}
+    We can make an ansatz $ S \equiv w - \alpha t $ where $ W $ is called the characteristic function. We can now solve for this $ W $:
+    \begin{equation}
+        W = \sqrt{2m \alpha} \int \dd{q} \left[ 1- \frac{m \omega^2 q^2}{2 \alpha} \right]^{1/2}
+    \end{equation}
+    We can make $ Q = \pdv{S}{\alpha} = \beta \sqrt{\frac{2m}{\alpha}} \int \dd{q} \frac{1}{\left[ 1- \frac{m \omega^2 q^2}{2 \alpha} \right]^{1/2}} $, so
+    \begin{equation}
+        \beta = \sqrt{\frac{2m}{\alpha}} \int \dd{q} \frac{1}{\left[ 1 - \frac{m \omega^2 q^2}{2 \alpha} \right]^{1/2}}
+    \end{equation}
+    and
+    \begin{equation}
+        t + \beta = \frac{1}{\omega} \sin^{-1} \left[q\sqrt{\frac{2 \alpha}{m \omega^2}}\right]
+    \end{equation}
+    or
+    \begin{equation}
+        q = \frac{1}{\omega} \sin^{-1} (\omega t + \beta) \sqrt{\frac{2 \alpha}{m \omega^2}}
+    \end{equation}
+\end{ex}
+
+Remember that we started with the assumption that
+\begin{equation}
+    \psi = \sqrt{\rho} e^{\imath S / \hbar}
+\end{equation}
+If we plug this into the Schr\"odinger equation, we find
+\begin{equation}
+    - \frac{\hbar^2}{2m} \left[ \laplacian{\sqrt{\rho}} + \frac{2 \imath}{\hbar} (\grad{\sqrt{\rho}}) \vdot (\grad{\sqrt{\rho}})- \frac{1}{\hbar^2} \sqrt{\rho} (\grad{S})^2 + \frac{\imath}{\hbar} \sqrt{\rho} \laplacian{S}\right] + \sqrt{\rho} V = \imath \hbar \left[ \pdv{\sqrt{\rho}}{t} + \frac{1}{\hbar} \sqrt{\rho} \pdv{S}{t} \right]
+\end{equation}
+Let's keep only the leading order terms in $ \hbar $, since we want to take $ \hbar \to 0 $:
+\begin{equation}
+    \frac{\sqrt{q}}{2m} (\grad{S})^2 + \sqrt{\rho} V = \imath \sqrt{\rho} \pdv{S}{t}
+\end{equation}
+or
+\begin{equation}
+    \frac{(\grad{S})^2}{2m} + V - \imath \pdv{S}{t} = 0
+\end{equation}
+The solutions to this equation are ``wave functions'' in the semi-classical limit as $ \hbar \to 0 $. What this says is that the length of the wave function should be much less than the scale of the potential. This is often referred to as the WKB approximation.
+
+
+\end{document}

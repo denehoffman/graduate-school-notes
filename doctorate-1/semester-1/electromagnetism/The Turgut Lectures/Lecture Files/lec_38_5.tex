@@ -1,0 +1,96 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{38.5}{Monday, November 11, 2019}{The Hidden Lecture}
+
+This lecture was originally mislabeled as ``lec\_3'' and was supposed to be lecture 39. As a result, it was not compiled in the original notes, hence the name.
+
+Recall we had the following expression for work in an electric system:
+\begin{equation}
+    \int \va{J} \vdot \va{E} \dd[3]{x}
+\end{equation}
+and we were trying to relate it to the change in time of some electromagnetic energy and some mechanical term
+\begin{equation}
+    \mapsto \dv{t} U_{\text{EM}} - \int \div{ \va{S}}
+\end{equation}
+where the first term is
+\begin{equation}
+    - \int \left( \va{E} \vdot \partial_t \va{D} + \va{H} \vdot \partial_t \va{B} \right) \dd[3]{x}
+\end{equation}
+such that
+\begin{equation}
+    \partial_t \left[ u_{\text{mech}} + u_{\text{EM}} \right] = - \div{ \va{S}}
+\end{equation}
+Suppose the electric field can be expanded as
+\begin{equation}
+    \va{E}(x,t) = \int \va{E}(x, \omega) e^{- \imath \omega t} \dd{\omega} \overbrace{\mapsto}^{*} \int_{- \infty}^{\infty} \va{E}^*( \va{x}, \omega) e^{\imath \omega t} \dd{\omega} = \int_{- \infty}^{\infty} \va{E}^*( \va{x}, - \omega) e^{- \imath \omega t}
+\end{equation}
+
+Assuming we have a peak around $ \omega_0 $, we can write $ \va{E} \vdot \partial_t \va{D} $ as
+\begin{equation}
+    \int E^*( \va{x}, \omega') e^{\imath \omega' t} [- \imath \omega \epsilon(\omega)] \vdot \va{E}( \va{x}, \omega) e^{- \imath \omega t} \dd{\omega} \dd{\omega'} \dd[3]{x} = \int \va{E}^*( \va{x}, - \omega) e^{- \imath \omega t} [ \imath \omega' \epsilon(- \omega')] e^{\imath \omega' t} \dd{\omega} \dd{\omega'} \dd[3]{x}
+\end{equation}
+Brillouin, a student of Sommerfeld, used the equality of these expressions to rewrite it as
+\begin{equation}
+    = \frac{1}{2} \va{E}^*( \va{x}, \omega) [- \imath \omega \epsilon(\omega) + \imath \omega' \epsilon^*(\omega')] \va{E}( \va{x}, \omega) e^{- \imath (\omega - \omega')t} \dd{\omega} \dd{\omega'} \dd[3]{x}
+\end{equation}
+We then write the second term in the square brackets as an approximation
+\begin{equation}
+    \imath \omega' \epsilon^*(\omega') \approx \imath \omega \epsilon^*(\omega) + \imath (\omega' - \omega) \dv{\omega}[\omega \epsilon(\omega)]
+\end{equation}
+We can combine the first term of this expression with the first term in the square brackets to get $ 2 \omega \Im[\epsilon(\omega)] $. The remaining term is approximately
+\begin{equation}
+    \imath (\omega' - \omega) \dv{\omega}[\omega \epsilon(\omega)] \approx \dv{\omega}[\omega \epsilon(\omega)]+ \dv{\omega'}[\omega' \epsilon^*(\omega')] \approx \eval{\dv{\omega [\omega \Re[\epsilon(\omega)]]}}_{\omega_0}
+\end{equation}
+All together, we have
+\begin{equation}
+    - \int 2 \omega_0 \Im[\epsilon(\omega_0)] \int \va{E}^*( \va{x}, \omega) e^{- \imath (\omega - \omega')t} \dd{\omega} \dd{\omega'} \dd[3]{x}
+\end{equation}
+We must also factor in the part with the time derivative
+\begin{equation}
+    - \int 2 \omega_0 \Im[\epsilon(\omega_0)] \ev{ \va{E}^2}_{\omega_0} \dd[3]{x} - \pdv{t}int \dv{\omega}[\omega \Re[\epsilon \omega]] \ev{ \va{E}^2}_{\omega_0}
+\end{equation}
+assuming the electric field is some oscillation with a slowly varying amplitude.
+
+We can do the same for the momentum
+\begin{equation}
+    \dv{t}P_{\text{mech}} = - \pdv{t} \int \left[ \eval{\dv{\omega}[\omega \Re[\epsilon(\omega)]}_{\omega_0} \ev{ \va{E}^2}_{\omega_0} + \eval{\dv{\omega}[\omega \Re[\mu(\epsilon)]]}_{\omega_0} \ev{ \va{H}^2}_{\omega_0} \right] \dd[3]{x}
+\end{equation}
+This evaluates to
+\begin{equation}
+    - \int \left[ 2 \omega_0 \Im[\epsilon(\omega_0)] \ev{ \va{E}^2}_{\omega_0} + 2 \omega_0 \Im[\mu(\epsilon_0)] \ev{ \va{H}^2}_{\omega_0} \dd[3]{x}\right] - \int \div{ \va{S}} \dd[3]{x} = \dv{t}(U_{\text{mech}} + U_{\text{EM}})
+\end{equation}
+The first term is dissipation and the second part is escaping energy.
+
+
+\section{Inhomogeneous Media}
+\label{sec:inhomogeneous_media}
+
+What if we had a medium for which $ \lambda \abs{\grad{\epsilon}} << \epsilon $ and $ \epsilon(\va{x}) $ is a function of position. We now have
+\begin{equation}
+    \curl{ \va{H}} = \mu_0 \epsilon(x) (- \imath \omega) \va{E}( \va{x}, \omega)
+\end{equation}
+and
+\begin{equation}
+    \curl{ \va{E}} = \imath \omega \va{B} = \imath \omega \va{H}
+\end{equation}
+As we seem to always do with these sorts of equations, take the curl of the curl:
+\begin{equation}
+    \curl{\curl{ \va{H}}} = \curl{\left( \epsilon ( \imath \omega) \va{E} \right)} =  \epsilon( \va{x}) (- \imath \omega) \curl{ \va{E}} - \imath \omega \mu_0 \left( \div{\epsilon} \cross \va{E} \right)
+\end{equation}
+The second term is small if we assume the permittivity changes slowly in space.
+\begin{equation}
+    \cancelto{0}{\grad{\div{ \va{H}}}} - \laplacian{ \va{H}} = \mu_0 \omega^2 \epsilon( \va{x}) \va{H}
+\end{equation}
+
+We can do the same thing with the electric field, except that the divergence of this field is not zero, but it's approximately zero, again because the permittivity changes slowly.
+
+\begin{equation}
+    \laplacian{ \va{E}} + \omega^2 \mu_0 \epsilon( \va{x}) \va{E}( \va{x}, \omega) = 0
+\end{equation}
+and
+\begin{equation}
+    \laplacian{ \va{H}} + \omega^2 \mu_0 \epsilon( \va{x}) \va{H}( \va{x}, \omega) = 0
+\end{equation}
+
+Alternatively we could write the factors in front of the field as $ \omega^2 \mu_0 \epsilon( \va{x}) = \frac{n^2}{c^2} $.
+\end{document}

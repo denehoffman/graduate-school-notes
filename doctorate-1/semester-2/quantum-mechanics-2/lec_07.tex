@@ -1,0 +1,166 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{7}{Wednesday, January 29, 2020}{Representations of $\text{SU}(2)$}
+
+From last lecture, we were examining the (irreducible) representations of $\text{SU}(2)$. We found that $ -(2j+1) \leq m \leq (2j+1) $ and that the dimensionality of any representation of this form is
+\begin{equation}
+    \text{dim}(R) = 2j+1 \quad j \in \frac{\Z}{2}
+\end{equation}
+\begin{equation}
+    J^2\ket{jm} = \hbar^2 j(j+1)\ket{jm}
+\end{equation}
+\begin{equation}
+    J_z\ket{jm} = \hbar m\ket{jm}j
+\end{equation}
+and
+\begin{equation}
+    J_{\pm}\ket{m} = c_{\pm}\ket{m \pm 1}
+\end{equation}
+where
+\begin{equation}
+    c_{\pm} = \hbar \sqrt{(j \pm m)(j\pm m + 1)}
+\end{equation}
+
+Consider the $ 3 $-dimensional representation $ (j = 1) $. We can write down the matrix elements of any given group element:
+\begin{equation}
+    \bra{m'} J_x\ket{m} =\bra{m'} \frac{1}{2} (J_+ + J_-)\ket{m} = c \delta_{m',m+1} + c' \delta_{m',m-1}
+\end{equation}
+
+We also discussed the unitary operator which comes from exponentiating the group elements and defined these as the Wigner matrices:
+\begin{equation}
+    U(\vu{n}, \theta) = e^{- \imath \frac{\vu{n} \vdot \va{J}}{\hbar} \theta}
+\end{equation}
+\begin{equation}
+    \bra{jm} U(\vu{n}, \theta)\ket{jm'} = D^{(j)}_{mm'}(\vu{n}, \theta)
+\end{equation}
+We also showed that
+\begin{equation}
+    D^{(j)}_{m'm}\ket{jm} =\ket{jm'}
+\end{equation}
+so
+\begin{equation}
+    J^2\ket{jm'} = J^2 D_{m'm}\ket{jm} = D^{(j)}_{m'm} \hbar^2 j(j+1)\ket{jm} = \hbar^2 j(j+1) D^{(j)}_{m'm}\ket{jm} = \hbar^2 j(j+1)\ket{jm'}
+\end{equation}
+The Wigner matrices form an irreducible representation of $\text{SU}(2)$:
+\begin{equation}
+    D^{(j)}_{mm'}(R_1) D^{(j)}_{m'm''}(R_2) = D^{(j)}_{mm''}(R_1 R_2)
+\end{equation}
+
+\subsection{Euler Angles}
+\label{sub:euler_angles}
+
+Any rotation can be written as a sum of rotations about three axes. By convention, we call the magnitudes of the rotations $(\alpha, \beta, \gamma) $, where the rotations are over the axes $ \vu{z} $, $ \vu{y} $, and $ \vu{z} $ again in that order. We can write the Wigner matrices in terms of Euler angles:
+\begin{equation}
+    D^{(j)}_{m'm}(\alpha, \beta, \gamma) =\bra{m'} e^{- \imath \alpha J_z / \hbar} e^{- \imath \beta J_y / \hbar} e^{- \imath \gamma J_z / \hbar}\ket{m} = e^{- \imath (\alpha m' + \gamma m)} \underbrace{\bra{m'} e^{- \imath \beta J_y / \hbar}\ket{m}}_{d^{j}_{m'm}(\beta)}
+\end{equation}
+
+\section{Orbital Angular Momentum}
+\label{sec:orbital_angular_momentum}
+
+Let's now look at the observable $ \va{L} $. We can carry some similar terms over from the discussion of $ \va{J} $. Eigenstates will be written as
+\begin{equation}
+    \ket{lm} \quad -(2l+1) \leq m \leq 2l+1
+\end{equation}
+\begin{equation}
+    \vu{n} \equiv \vu{n}(\theta, \varphi)
+\end{equation}
+We want to write our eigenvectors in terms of the axis of rotation $ \vu{n} $:
+\begin{equation}
+    \bra{\vu{n}} L_z\ket{lm} = \hbar m\bra{\vu{n}}\ket{lm}
+\end{equation}
+Define
+\begin{equation}
+    F_{l,m}(\theta, \varphi) =\bra{\vu{n}}\ket{lm}
+\end{equation}
+Consider
+\begin{align}
+    \bra{\vu{n}} R_z(\delta \varphi)\ket{lm} &\overbrace{\to}^{\varphi \to 0}\bra{\vu{n}} \left( I - \imath \frac{L_z}{\hbar} \delta \varphi \right)\ket{lm}\\
+    &=\bra{\vu{n}}\ket{lm} - \imath \frac{\delta \varphi L}{\hbar}\bra{\vu{n}} L_z\ket{lm} \\
+    \bra{\theta, \varphi} R_z(\delta \varphi)\ket{lm} &= \\
+    \bra{\theta, \varphi + \delta \varphi} \approx\bra{\theta, \varphi} - \pdv{\varphi}\bra{\theta, \varphi} \delta \varphi &= 
+\end{align}
+Therefore
+\begin{align}
+    \bra{\vu{n}}\ket{lm} - \imath \frac{\delta \varphi}{\hbar}\bra{\vu{n}} L_z\ket{lm} &=\bra{\vu{n}}\ket{lm} - \delta \varphi \pdv{\varphi}\bra{\vu{n}}\ket{lm} \\
+    \bra{\vu{n}} L_z\ket{lm} = \hbar m\bra{\vu{n}}\ket{lm} &= - \imath \hbar \pdv{\varphi}\bra{\vu{n}}\ket{lm}
+\end{align}
+The solutions to this differential equation are the spherical harmonics:
+\begin{equation}
+    F_{lm} \to Y_{lm}(\theta, \varphi) \implies - \imath \hbar \pdv{\varphi} Y_{lm}(\theta, \varphi) = \hbar m Y_{lm}(\theta, \varphi)
+\end{equation}
+
+However, this only clears up the $\varphi$ dependence. Now we need to figure out how $ \theta $ works:
+\begin{equation}
+    L^2 Y_{lm} = \hbar^2 l(l+!) Y_{lm}
+\end{equation}
+We can write
+\begin{equation}
+    L_x = - \imath \hbar \left[ - \sin(\varphi) \pdv{\theta} - \cot(\theta) \cos(\varphi) \pdv{\varphi} \right]
+\end{equation}
+and
+\begin{equation}
+    L_y = - \imath \hbar \left[ \cos(\varphi) \pdv{\theta} - \cot(\theta) \sin(\varphi) \pdv{\varphi} \right]
+\end{equation}
+so
+\begin{equation}
+    L^2 = \left[ - \frac{1}{\sin(\theta)} \pdv{\theta} \left( \sin(\theta) \pdv{\theta} \right)- \frac{1}{\sin[2](\theta)} \pdv[2]{\varphi} \right]
+\end{equation}
+
+In certain cases, the Wigner matrices are actually equivalent to the spherical harmonics. Consider $\ket{\vu{n}} = D(R)\ket{\vu{z}} $. If we use our Euler rotation convention, the $ \gamma $ rotation is about $ \vu{z} $, but we are acting on $\ket{\vu{z}} $, so this rotation does nothing:
+\begin{equation}
+    D(R)\ket{\vu{z}} = D(\alpha = \varphi, \beta = \theta, 0)\ket{\vu{z}}
+\end{equation}
+
+Let's insert the identity:
+\begin{equation}
+    \ket{\vu{n}} = \sum_{lm} D(R)\ket{lm}\bra{lm}\ket{\vu{z}}
+\end{equation}
+Next, project onto $\ket{l'm'} $:
+\begin{equation}
+    \bra{l'm'}\ket{\vu{n}} = \sum_{lm}\bra{l'm'} D(R)\ket{lm}\bra{lm}\ket{\vu{z}}
+\end{equation}
+Rotation matrices don't change the length of the vector, so
+\begin{align}
+    \bra{l'm'}\ket{\vu{n}} &= \sum_{m}\bra{lm'} D(R)\ket{lm}\bra{lm}\ket{\vu{z}} \\
+    &= \sum_m D^{(l)}_{m'm}(R)\underbrace{\bra{lm}\ket{\vu{z}}}_{Y^*_{lm}(\theta = 0, \varphi)}
+\end{align}
+\begin{note}{Note}
+    \begin{equation}
+        e^{\imath L_z \varphi}\ket{\vu{z}} =\ket{\vu{z}} \implies L_z\ket{\vu{z}} = 0 \qand L_Z\ket{m=0} = 0
+    \end{equation}
+\end{note}
+Therefore
+\begin{equation}
+    \bra{lm'}\ket{\vu{n}} = D^{(l)}_{m'0}(R) Y^*_{l0}(\theta = 0, \varphi) = Y^*_{lm'}(\theta, \varphi)
+\end{equation}
+We already know the $ \varphi $-dependence:
+\begin{note}{Aside}
+    The professor is not implying anything by raising the $ l $-index (no Condon-Shortley phase)
+\end{note}
+\begin{equation}
+    L_z Y^l_{m} = \hbar m Y^l_{m} = - \imath \hbar \pdv{\varphi} Y^l_m \implies Y^l_m \sim e^{\imath m \varphi} F(\theta) 
+\end{equation}
+Therefore
+\begin{equation}
+    Y^*_{l0}(\theta = 0, \varphi) = Y^*_{l0}(\theta = 0, \varphi = 0) = \text{const.} 
+\end{equation}
+since all the $\varphi$-dependence only happens when $ m \neq 0 $.
+
+For homework, we will show that
+\begin{equation}
+    Y_0^l(0,0) = \sqrt{\frac{2l+1}{4 \pi}}
+\end{equation}
+
+Finally, this means that
+\begin{equation}
+    Y^*_{lm'}(\theta , \varphi) = D_{m'0}(\alpha = \varphi, \beta = \theta, \gamma = 0) \sqrt{\frac{2l+1}{4 \pi}} 
+\end{equation}
+
+We have found that
+\begin{equation}
+    D^{(l)}_{m'0}(\varphi, \theta, 0) = \sqrt{\frac{4 \pi}{2l+1}} Y^*_{lm'}(\theta, \varphi)
+\end{equation}
+
+
+
+\end{document}

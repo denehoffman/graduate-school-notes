@@ -1,0 +1,137 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{3}{Wed Aug 28 2019}{The Laplace Equation}
+\section{Uniqueness of Solutions}%
+\label{sec:uniqueness_of_solutions}
+
+
+Last time, we ended with the problem $\nabla^2\phi = -\frac{\rho}{\epsilon_0} (+\text{ boundary conditions})$. Say we had a solution for $\phi$; how do we know the solution is unique? Mathematically, we can prove such a solution always must exist, but the proof is beyond the scope of the course. From a physical perspective, it obviously has to exist (there must be a potential defined at every point in space). However, we can prove that there is only one unique solution using one of Green's identities:
+\begin{equation}
+    \int_\Omega\nabla\cdot(U\nabla U)d^3x = \oint_\Sigma U\nabla U\cdot d\vec{a}
+\end{equation}
+
+Suppose we have two solutions for the potential, called $\phi_1$ and $\phi_2$, and we will say the difference in the solutions is $U = \phi_1 - \phi_2$. As stated above, we will either be given $\phi\bigg|_\Sigma$ or $\frac{\partial\phi}{\partial n}\bigg|_\Sigma$, depending on the kind of problem. Our solution must differ on these boundaries, so either
+\begin{equation}
+    \phi_1\bigg|_\Sigma - \phi_2\bigg|_\Sigma = 0 = U\bigg|_\Sigma
+\end{equation}
+or
+\begin{equation}
+    \frac{\partial\phi_1}{\partial n}\bigg|_\Sigma - \frac{\partial\phi_2}{\partial n}\bigg|_\Sigma = 0 = \nabla U\bigg|_\Sigma.
+\end{equation}
+
+The second part of the identity then becomes $0$, since one of the two terms must be zero. Now we can evaluate the first part (note that we can't just set the stuff inside the parentheses to zero, since we aren't evaluating on the boundary $\Sigma$, but rather on the surface $\Omega$ as a whole:
+\begin{equation}
+    \int_\Omega \nabla\cdot(U\nabla U)d^3x = 0 = \int_\Omega [(\nabla U)^2 + (U\nabla^2 U)]d^3x
+\end{equation}
+
+$\nabla^2 U = 0$ since $U$ satisfies the Laplace equation subject to either of these boundary conditions. Therefore,
+\begin{equation}
+    0 = \int_\Omega (\nabla U)^2 d^3x\Rightarrow\nabla U = 0.
+\end{equation}
+Therefore, $\phi_1$ and $\phi_2$ can only differ by a constant value.
+
+\section{Solving the Laplace Equation}%
+\label{sec:solving_the_laplace_equation}
+
+\begin{note}{Note:}
+    What follows is not the notes from class, but rather the same explanation from Jackson's textbook.
+\end{note}
+
+If our problems always involved localized discrete charges or completely continuous charge distributions with no boundaries, we could simply use
+\begin{equation}
+    \Phi(x) = \frac{1}{4\pi\epsilon_0}\int\frac{\rho(x')}{|x-x'|}d^3x'
+\end{equation}
+
+as a convenient solution. However, when we have boundaries separating regions with and without charge, we almost always have to use Green's theorem (unless the problem is extremely simple). The Green's theorems/identities follow from the divergence theorem:
+
+\begin{equation}
+    \int_V\nabla\cdot\vec{A}d^3x = \oint_S\vec{A}\cdot\vec{n} da
+\end{equation}
+
+This applies to any ``well-behaved'' vector field $\vec{A}$ inside a volume $V$ bounded by the closed surface $S$. Suppose $\vec{A} = \phi\nabla\psi$, where $\phi$ and $\psi$ are two arbitrary scalar fields. From some vector math, we can show that:
+
+\begin{equation}
+    \nabla\cdot(\phi\nabla\psi) = \phi\nabla^2\psi + \nabla\phi\cdot\nabla\psi
+\end{equation}
+
+and
+
+\begin{equation}
+    \phi\nabla\psi\cdot\vec{n} = \phi\frac{\partial\psi}{\partial n}
+\end{equation}
+
+where $\frac{\partial}{\partial n}$ is derivative at the surface directed outward normal from $V$. By substituting this into the divergence theorem, we obtain
+\begin{definition}
+    \textbf{Green's First Identity}:
+
+    \begin{equation}
+        \int_V (\phi\nabla^2\psi + \nabla\phi\cdot\nabla\psi)d^3x = \oint_S\phi\frac{\partial\psi}{\partial n}da
+    \end{equation}
+
+\end{definition}
+
+If we now switch $\phi$ with $\psi$, write the identity down again, and subtract it the identity that is not interchanged, the $\nabla\psi\cdot\nabla\phi$ terms cancel, and we get
+\begin{definition}
+    \textbf{Green's Second Identity (A.K.A. Green's Theorem):}
+
+    \begin{equation}
+        \int_V(\phi\nabla^2\psi - \psi\nabla^2\phi)d^3x = \oint_S\left[\phi\frac{\partial\psi}{\partial n}-\psi\frac{\partial\phi}{\partial n}\right]da
+    \end{equation}
+
+\end{definition}
+
+When we solve for different potentials, the main process will involve Green's Theorem. We will take some ``magic'' $\psi$, which we will name $G(x,x')$ (a Green's Function), and we will relabel $\phi=\Phi$ (our scalar potential). We will also use the fact that $\nabla^2\Phi = -\rho/\epsilon_0$.
+
+Green's functions are a class of functions satisfying the equation
+
+\begin{equation}
+    \nabla'^2 G(x,x') = -4\pi\delta(x-x'),
+\end{equation}
+
+where the $\nabla'$ acts on the primed variable. One such function is $G = \frac{1}{|\vec{x}-\vec{x}'|}$, the potential of a unit point source. In general, Green's functions are of the form
+
+\begin{equation}
+    G(\vec{x},\vec{x}') = \frac{1}{|\vec{x}-\vec{x}'|} + F(\vec{x},\vec{x}')
+\end{equation}
+    
+where $F$ satisfies the Laplace equation inside the volume: $\nabla'^2 F(x,x') = 0$.
+
+If we were to solve Green's Second Identity for the potential using one of these Green's functions for $\psi$ and $\phi = \Phi$, the potential, we would obtain:
+
+\begin{equation}
+    \Phi(x) = \frac{1}{4\pi\epsilon_0}\int_V\rho(x')G(x,x')d^3x' + \frac{1}{4\pi}\oint_S\left[G(x,x')\frac{\partial\Phi}{\partial n'} - \Phi(x')\frac{\partial G(x,x')}{\partial n'}\right]da'
+\end{equation}
+
+Examine the part with the surface integral. For \textbf{Dirichlet boundary conditions} ($\Phi$ is given on the surface), we can demand that $G_D(x,x') = 0$ for $x'$ on the surface $S$. This will reduce the above equation to:
+
+\begin{equation}
+    \Phi(x) = \frac{1}{4\pi\epsilon_0}\int_V\rho(x')G_D(x,x')d^3x' - \frac{1}{4\pi}\oint_S\Phi(x')\frac{\partial G_D(x,x')}{\partial n'}da'
+\end{equation}
+
+Additionally, for Dirichlet boundary conditions, $G_D(x,x') = G_D(x',x)$. This is an observation of symmetry between observation and source points. The Green's function is a potential due to a unit point source, so switching which coordinate corresponds to the source and the observer does not change its value. For Neumann boundary conditions, symmetric functions can exist, although they aren't automatically symmetric and need a separate requirement to have this symmetry imposed. This is outside the scope of the class.
+
+In the case of \textbf{Neumann boundary conditions}, we might think we can set $\frac{\partial G_N}{\partial n'}(x,x') = 0$ for $x'$ on $S$, but if we apply Gauss's theorem, we can see that the surface integral does not vanish, in fact,
+
+\begin{equation}
+    \oint_S\frac{\partial G}{\partial n'}da' = -4\pi
+\end{equation}
+
+The simplest allowable boundary condition on $G_N$ is
+
+\begin{equation}
+    \frac{\partial G_N}{\partial n'}(x,x') = -\frac{4\pi}{\text{Area}(S)}
+\end{equation}
+
+which reduces the solution to:
+
+\begin{equation}
+    \Phi(x) = \langle\Phi\rangle_S + \frac{1}{4\pi\epsilon_0}\int_V\rho(x')G_N(x,x')d^3x' + \frac{1}{4\pi}\oint_S G_N(x,x')\frac{\partial\Phi}{\partial n'}da'
+\end{equation}
+
+where $\langle\Phi\rangle_S$ is the average value of the potential over the whole surface.
+
+\begin{note}{Note:}
+We have not solved any actual potentials yet, simply derived tools for solving them called Green's functions.
+\end{note}
+
+\end{document}

@@ -1,0 +1,83 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{38}{Monday, November 11, 2019}{The Kramers-Kr\"onig Relations}
+
+Recall from last lecture that, since the real part of $ \epsilon(\omega) $ is an even function and the imaginary part is odd, we find the Kramers-Kr\"onig relations:
+\begin{equation}
+    \Re[\frac{\epsilon(\omega)}{\epsilon_0}] - 1 = \frac{1}{\pi} \pv{\int_{- \infty}^{\infty} \frac{\Im[\frac{\epsilon(\omega')}{\epsilon_0}]}{\omega' - \omega} \dd{\omega'}}
+\end{equation}
+\begin{equation}
+    \Im[\frac{\epsilon(\omega)}{\epsilon_0}] = - \frac{1}{\pi} \pv{\int_{- \infty}^{\infty} \frac{\Re[\frac{\epsilon(\omega')}{\epsilon_0} - 1]}{\omega' - \omega} \dd{\omega'}}
+\end{equation}
+
+By splitting this into separate integrals at $ 0 $, we can show that these are equivalent to
+\begin{equation}
+    \Re[\frac{\epsilon(\omega)}{\epsilon_0}] - 1 = \frac{2}{\pi} \pv{\int_{0}^{\infty} \frac{\omega' \Im[\epsilon(\omega')]}{\omega'^2 - \omega^2} \dd{\omega'}}
+\end{equation}
+and
+\begin{equation}
+    \Im[\frac{\epsilon(\omega)}{\epsilon_0}] = - \frac{2 \omega}{\pi} \pv{\int_0^{\infty} \frac{\Re[\frac{\epsilon(\omega')}{\epsilon_0} - 1]}{\omega'^2 - \omega^2} \dd{\omega'}}
+\end{equation}
+
+\subsection{Region of Transparency}
+\label{sub:region_of_transparency}
+
+If $ \Im[\epsilon(\omega)] \approx 0 $ over a range $ [\omega_1, \omega_2] $, such that $ n(\omega) \sim \sqrt{\epsilon_R(\omega)} $ and $ n_I(\omega) \approx 0 $ in the region of transparency. What does this imply? In the Kramers-Kr\"onig relations, we know that
+\begin{equation}
+    \Re[\frac{\epsilon(\omega)}{\epsilon_0} - 1] \simeq \frac{2}{\pi\epsilon_0} \pv{\int_0^{\omega_1} \frac{\omega' \Im[\epsilon(\omega')]}{\omega'^2 - \omega^2} \dd{\omega'}} \frac{2}{\pi\epsilon_sn}\pv{\int_{\omega_2}^{\inf} \frac{\omega' \Im[\epsilon(\omega')]}{\omega'^2 - \omega^2} \dd{\omega'}}
+\end{equation}
+
+These are convergent integrals, and we therefore don't actually need the principle values because $ \omega' $ never comes near $ \omega $. This allows us to take the derivatives of these expressions.
+
+\begin{equation}
+    \dv{\omega} \Re[\frac{\epsilon(\omega)}{\epsilon_0} - 1] = \frac{2}{\pi\epsilon_0} \int_0^{\omega_1} \frac{\omega\omega'\Im[\epsilon(\omega')]}{(\omega'^2 - \omega^2)^2} \dd{\omega'} + \frac{2}{\pi\epsilon_0} \int_{\omega_2}^{\infty} \frac{\omega\omega'\Im[\epsilon(\omega')]}{(\omega'^2 - \omega^2)^2} \dd{\omega'} > 0
+\end{equation}
+We know that $ n^2(\omega) \simeq \Re[\epsilon(\omega)] $ so
+\begin{equation}
+    2 n(\omega) \dv{\omega}n \simeq \dv{\omega}\Re[\epsilon(\omega)] > 0
+\end{equation}
+so
+\begin{equation}
+    \dv{n}{\omega} > 0
+\end{equation}
+Therefore, the sky is blue because of causality (neat).
+
+\section{Transmission of Waves and Propagation in an Arbitrary Region of Frequency}
+\label{sec:transmission_of_waves_and_propagation_in_an_arbitrary_region_of_frequency}
+
+Suppose we have an $ x = 0 $ boundary and a material to the right with $ n(\omega) $ and vacuum to the left. We send a signal to the left, which hits the boundary at $ t = 0 $. We want to describe what happens after this.
+
+\begin{equation}
+    u(x,t) = \int_{- \infty}^{\infty} \left[ A(\omega) e^{\imath k x - \imath \omega t} + B(\omega) e^{- \imath k x - \imath \omega t} \right] \frac{\dd{\omega}}{2 \pi}
+\end{equation}
+in the $ x \leq 0 $ region and
+\begin{equation}
+    u(x,t) = \int_{- \infty}^{\infty} F(\omega) e^{\imath k(\omega) x - \imath \omega t} \frac{\dd{\omega}}{2 \pi}
+\end{equation}
+inside the material. These functions are real, and we can use time reversal symmetry (taking the complex conjugate) to find a relation between $ A $ and $ B $:
+\begin{gather}
+    A^*(- \omega) = B(\omega) \\
+    B^*(- \omega) = A(\omega)
+\end{gather}
+
+Suppose we know what the incoming wave looks like, so we therefore know what $ u(0, t) $ and $ \eval{\pdv{u}{x}}_{x=0}(t) $, so
+\begin{equation}
+    \left\{ \begin{cases} A(\omega) \\ B(\omega) \end{cases} \right\} = \frac{1}{2} \int_{- \infty}^{\infty} \left[ u(0,t) \pm \frac{c}{\imath \omega} \eval{\pdv{u}{x}}_{x=0} \right] e^{\imath \omega t}
+\end{equation}
+
+The wave function and its time derivative must be continuous across the boundary, so
+\begin{equation}
+    F(\omega) = \frac{2}{1 + n(\omega)} A(\omega)
+\end{equation}
+
+\begin{note}{Note}
+    We won't prove the following, but it turns out that $ \abs{n(\omega)} \to 1 $ as $ \abs{\omega} \to \infty $ in the upper-half-plane. Also, $ \epsilon_R(\omega) $ is never negative or zero if we assume $ \epsilon_I(\omega) \geq 0 $.
+\end{note}
+
+This implies the following interesting thing. $ n^2(\omega) = \epsilon(\omega) \mu_0 $, but if $ \epsilon $ cuts the negative axis somewhere, the square root will not be uniquely defined (the square root has a branch cut along the negative real line). Therefore, if $ \epsilon $ is always well-defined and never cuts this region, $ n(\omega) $ becomes an analytic function when $ \omega $ is in the upper-half-plane. From this, we know that $ F(\omega) $ is analytic since $ A(\omega) $ is analytic in the upper-half-plane because $ u(x,t) $ is real. Therefore, the integral which defines $ u(x,t) $ in the material can be written as a contour integral which evaluates to $ 0 $ minus the half-circle at infinity, so 
+\begin{equation}
+    \int_{- \infty}^{\infty} F(\omega) \mapsto \landupint \frac{2}{1 + n(\omega)} A(\omega) e^{\imath \left( \frac{\omega x}{c} - \omega t \right)\left( \frac{x}{c} - t \right)} > 0
+\end{equation}
+so $ x \leq ct $. Even though we can't use the group velocity here, we still see that the speed of propagation doesn't exceed $ c $.
+
+\end{document}

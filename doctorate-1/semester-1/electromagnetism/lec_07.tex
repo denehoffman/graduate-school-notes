@@ -1,0 +1,73 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{7}{Fri Sep 6 2019}{Sturm-Liouville Problems with Periodic Functions}
+The other case where Sturm-Liouville still works is when the function is periodic.
+
+\begin{ex}
+    Periodic Functions:
+Suppose $\mathcal{D} = -\frac{d^2}{dx^2}$. The spectrum here is $\mathcal{D}\sin\frac{n\pi x}{a} = \frac{n\pi^2}{a^2}\sin\frac{n\pi x}{a}$. $f_n\equiv\sqrt{\frac{2}{a}}\sin\frac{n\pi x}{a}$ for odd functions which are periodic on $[-a,a]$.
+
+If you let the intervals become $(-\infty,+\infty)$, operators like $\imath\frac{d}{dx}\to \frac{e^{\imath k x}}{\sqrt{2\pi}},\ k\in\mathbb{R}$. The eigenvalues are no longer discrete, but $\frac{1}{2\pi}\int_{-\infty}^\infty e^{-\imath kx}e^{\imath k'x}dx = \delta(k-k')$ still (a generalized orthonormality condition). Also, $\frac{1}{2\pi}\int dk e^{\imath k (x-x')} = \delta(x-x')$ as a generalized completeness theorem.
+\end{ex}
+
+\section{Cylindrical Symmetry}%
+\label{sec:cylindrical_symmetry}
+
+Take concentric cylinders with inner radius $R_1$, outer radius $R_2$, and given potentials on the edges of each cylinder. We will use cylindrical coordinates $(\rho,\phi,z)$. First, we will deal with the 2D version in which $\Phi$ has no $z$-dependence. In the example in Jackson, we have two large conducting sheets joined at an angle $\beta$ at an insulated corner. To find the solution inside the wedge, given the potentials on each sheet, we can also use cylindrical coordinates.
+
+What is the Laplacian for cylindrical coordinates?
+
+$ds^2 = d\rho^2+\rho^2d\phi^2+dz^2$ or $d\vec{x}=d\rho\hat{\rho} + \rho d\phi\hat{\phi}+dz\hat{z}$.
+
+\begin{equation}
+   \nabla\Phi\cdot d\vec{x} = d\Phi = \partial_\rho\Phi d\rho +\cdots
+\end{equation}
+
+\begin{equation}
+   \nabla\Phi = [\frac{\partial\Phi}{\partial\rho}\hat{\rho} + \frac{1}{\rho}\frac{\partial\Phi}{\partial\phi}\hat{\phi}+\frac{\partial\Phi}{\partial z}\hat{z}]\cdot d\vec{x}
+\end{equation}
+
+We can use this to find the Laplacian:
+
+$\int(\nabla\Phi)^2d^3x = -\int\Phi\nabla^2\Phi d^3x$. The volume element is $\rho d\rho d\phi dz$. We can solve this by integrating by parts. The Laplacian is therefore
+
+\begin{equation}
+   \nabla^2 = \frac{1}{\rho}\frac{\partial}{\partial\rho}\rho\frac{\partial}{\partial\rho} + \frac{1}{\rho^2}\frac{\partial^2}{\partial\phi^2}+\frac{\partial^2}{\partial z^2}.
+\end{equation}
+
+If you have $z$-dependence, you have to use Bessel functions. Let's avoid that for now. With no $z$-dependence, we have,
+
+\begin{equation} \frac{1}{\rho}\frac{\partial}{\partial\rho}\rho\frac{\partial}{\partial\rho}\Phi + \frac{1}{\rho^2}\frac{\partial^2}{\partial\phi^2}\Phi = 0
+\end{equation}, assuming no inside charge.
+
+Assume separation of variables, $\Phi = R(\rho)\Psi(\phi)$. Now we have
+
+\begin{equation}
+     \frac{1}{R}\frac{1}{\rho}\frac{d}{d\rho}\rho\frac{d}{d\rho} R + \frac{1}{\rho^2}\frac{1}{\Psi}\frac{d^2}{d\phi^2}\Psi = 0\Rightarrow\frac{1}{R}\left(\rho\frac{d}{d\rho}\right)\left(\rho\frac{d}{d\rho}\right)R + \frac{1}{\Psi}\frac{d^2}{d\phi^2}\Psi = 0 = +\nu^2 -\nu^2
+\end{equation}
+(they must be constants because we can vary $\phi$ and $\rho$ independently but they still add up to 0).
+
+\begin{equation}
+   \Psi_\nu = A_\nu\sin\nu\phi+B_\nu\cos\nu\phi
+\end{equation}
+
+\begin{equation}
+   R_nu = a_\nu\rho^\nu + b_\nu\rho^{-\nu}
+\end{equation}
+
+If $\nu = 0$, the logarithm also solves the original equation; $R_0 = a_0 + b_0\ln\rho$. We can't have a logarithm of a dimension-full thing, so the $a_0$ must also have some dimensional log term to divide it out.
+
+The general solution by superposition can be written:
+
+\begin{equation}
+   \Phi = (A_0+B_0\phi)(a_0+b_0\ln\rho)+\int d\nu(a_\nu\rho^\nu + b_\nu\rho^{-\nu})(\sin(\nu\phi+\alpha_\nu))
+\end{equation}
+
+In the angle problem, we restrict $\Phi\bigg|_{\phi=0} = V_0$, so $\alpha_\nu = 0$, $b_0 = 0$, and $b_\nu = 0$ (if we assume finite fields at $\rho=0$). With $\Phi\bigg|_{\phi = \beta} = V_0$, we can say $A_0 = V_0$, $B_0=0$. $\sin\nu\beta = 0$ would mean that killing the term at the boundary requires a discrete $\nu = \frac{m\pi}{\beta}$. Therefore
+
+\begin{equation}
+   \Phi = V_0+\sum_{m=1}^\infty a_m\rho^{\frac{m\pi}{\beta}}\sin\left(\frac{m\pi}{\beta}+\phi\right).
+\end{equation}
+
+However, the power term is infinite as $m\to\infty$.
+\end{document}

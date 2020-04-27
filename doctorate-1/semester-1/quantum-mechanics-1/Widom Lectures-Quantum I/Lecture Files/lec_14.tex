@@ -1,0 +1,89 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{14}{Fri Sep 20 2019}{Compatible Properties in Histories}
+We don't want to make the mistake of discussing incompatible properties. To do this with histories, we start with some family of histories $\{Y^\alpha\} $ and we require $Y^\alpha Y^\beta = Y^\beta Y^\alpha$, $\forall\alpha\beta$. This is a complete family of histories, so $\sum_{\vec{\alpha}} Y^{\vec{\alpha}} = \tilde{I}$. Therefore, \textbf{logical negation} is $\neg Y^{\vec{\alpha}} = \tilde{I}-Y^{\vec{\alpha}}$.
+\begin{ex}
+    Coin toss: $\{(H,H), (H,T), (T,H), (T,T)\} $. The negation of $(H,H)$ is $\neg(H,H) = \{(H,T),(T,H),(T,T)\} $
+\end{ex}
+\begin{ex}
+    \begin{equation}
+        \neg [z+] \odot [x+] = [z-]\odot [x+] + [z+]\odot [x-] + [z-]\odot [x-]
+    \end{equation}
+\end{ex}
+We can also have \textbf{conjunction}, $Y \wedge Y' = YY'$.
+\begin{ex}
+    \begin{equation}
+        Y=[z+]_0\odot I_1
+    \end{equation}
+    \begin{equation}
+        Y' = I_0\odot [x+]_1
+    \end{equation}
+    \begin{equation}
+        YY' = [z+]\odot [x+]
+    \end{equation}
+\end{ex}
+Additionally, \textbf{disjunction} is defined by $Y\vee Y' = Y+Y' - YY'$.
+
+\section{Chainket}%
+\label{sec:chainket_}
+
+If we start in a pure state, we can define a product history
+\begin{equation}
+    Y^{\vec{\alpha}} = [\psi_0]\odot P_1^{\alpha_1}\odot\ldots\odot P_f^{\alpha_f}\in\tilde{\mathcal{H}}
+\end{equation}
+\begin{definition}
+    A \textbf{chainket} is defined by
+    \begin{equation}
+        \ket{\vec{\alpha}} =P_f^{\alpha_f} T_{f,f-1}\ldots T_{21}P_1^{\alpha_1}T_{10}\ket{\psi_0}
+    \end{equation}
+\end{definition}
+\begin{theorem}
+    Generalized Born Rule:
+    \begin{equation}
+        Pr(\vec{\alpha}) = \ip{\vec{\alpha}}
+    \end{equation}
+\end{theorem}
+Is it correct? Let's check some cases.
+\subsection{Two-Time History}%
+\label{sub:two_time_history}
+
+\begin{equation}
+    Y^k = [\psi_0]\odot[\phi_1^k]
+\end{equation}
+All of our states start at $\ket{\psi_0}$, so we need to define a complete set of histories by adding all the things that don't start there:
+\begin{equation}
+    Z = (I-[\psi_0])\odot I_1
+\end{equation}
+The chainket for this state is
+\begin{equation}
+    \ket{k} = [\phi_1^k]T_{10}\ket{\psi_0}
+\end{equation}
+\begin{equation}
+    \ip{k} = \color{green}\bra{\psi_0} T_{01}\color{blue}\op{\phi_1^k}\color{green}T_{10}\ket{\psi_0}\color{black} = |\ip{\phi_1^k}{\psi_1}|^2 = Pr([\phi_1^k]\mid\psi_0)
+\end{equation}
+\begin{note}{N.B.}
+    \begin{equation}
+        |\ip{\phi_1^k}{\psi_1}|^2 = \ip{\phi_1^k}{\psi_1}\ip{\psi_1}{\phi_1^k} = \bra{\psi_1}(\phi_1^k)^2\ket{\psi_1} = \bra{\psi_1}[\phi_1^k]\ket{\psi_1} 
+    \end{equation}
+\end{note}
+\subsection{Unitary History}%
+\label{sub:unitary_history}
+
+\begin{equation}
+    \ket{\psi_0}\to\ket{\psi_1} = T_{10}\ket{\psi_0}\to\ket{\psi_2} = T_{21}\ket{\psi_1} = T_{20}\ket{\psi_0}
+\end{equation}
+\begin{equation}
+    U = \color{purple}[\psi_0]\odot\color{blue}[\psi_1]\odot\color{green}[\psi_2]\color{black}
+\end{equation}
+\begin{equation}
+    \ket{U} = \color{green}\op{\psi_2}\color{black}T_{21}\color{blue}\op{\psi_1}\color{black}T_{10}\color{purple}{\ket{\psi_0}}\color{black}
+\end{equation}
+There's another way of thinking about this:
+\begin{equation}
+    \ket{U} = \ket{\psi_2}\color{red}\cancelto{\bra{\psi_1}}{\bra{\psi_2}T_{21}}\color{black}\ket{\psi_1}\color{yellow}\cancelto{\bra{\psi_0}}{\bra{\psi_1}T_{10}}\color{black}{\ket{\psi_0}}\color{black}
+\end{equation}
+so
+\begin{equation}
+    Pr(U) = \ip{U} = \ip{\psi_2} = 1
+\end{equation}
+\end{document}

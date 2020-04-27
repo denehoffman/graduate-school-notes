@@ -1,0 +1,113 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{14}{Friday, February 14, 2020}{Legendre Transformations}
+
+Recall from last lecture that we defined the Legendre transformation:
+\begin{align}\label{eq:legendre_transform}
+    g(p) &= \min_x \left\{ f(x) - xp \right\}\tag{Legendre Transformation} \\
+    f(x)  &= \max_p \left\{ g(p) + px \right\}\tag{Inverse Legendre Transformation}
+\end{align}
+where
+\begin{gather}
+    f'(x) = p \qor \dd{f} = p \dd{x} \\
+    g'(p) = -x \qor \dd{g} = -x \dd{p}
+\end{gather}
+The plus and minus in the transform and its inverse can be switched with no effect to the validity of the transformation.
+
+\section{Helmholtz Free Energy}
+\label{sec:helmholtz_free_energy}
+
+We start with the entropy $ S(U,V,N) $ which we know is monotonically increasing in $ U $ since $ \pdv{S}{U} = \frac{1}{T} $. We know it's also concave in $ U $. We can solve this for $ U(S,V,N) $ (we don't care about $ V $ and $ N $ right now, they're just coming along for the ride). The same information is contained in both equations, so this is still a thermodynamic potential.
+\begin{equation}
+    \dd{U} = \underbrace{T}_{\left( \pdv{U}{S} \right)_{V,N}} \dd{S} \underbrace{- P}_{\left( \pdv{U}{V} \right)_{S,N}} \dd{V} + \underbrace{\mu}_{\left( \pdv{U}{N} \right)_{S,V}} \dd{N}
+\end{equation}
+Because $ S(U) $ is concave, $ U(S) $ is convex (and still monotonically increasing). $ S $ is an awkward variable. Let's change it to $ T = \left( \pdv{U}{S} \right)_{V,N} $. We can do this with a Legendre transform:
+\begin{equation}\label{eq:helmholtz_free_energy}
+    F(T,V,N) = \min_S \left\{ U(S,V,N) - TS \right\}\tag{Helmholtz Free Energy}
+\end{equation}
+This function $ F $ is the Helmholtz free energy. We could choose either a minus or plus sign, but minus is conventionally used. In order to turn $ T \dd{S} $ into $ -S \dd{T} $, we need a minus sign. Say we would like to calculate $ \dd{F} $:
+\begin{align}
+    \dd{F} &= \dd{\left( U-TS \right)} \\
+    &= \dd{U} - \left( T \dd{S} + S \dd{T} \right) \\
+    &= T \dd{S} - P \dd{V} + \mu \dd{N} - T \dd{S} - S \dd{T} \\
+    &= - S \dd{T} - P \dd{V} + \mu \dd{N}
+\end{align}
+If we had chosen a $ + $ here, the $ T \dd{S} $ terms would not have canceled nicely. This will turn out differently for other situations. With this function, we now have some additional definitions for the entropy, pressure, and chemical potential:
+\begin{equation}
+    -S = \left( \pdv{F}{T} \right)_{V,N} \qquad -P = \left( \pdv{F}{V} \right)_{T,N} \qquad \mu = \left( \pdv{F}{N} \right)_{T,V}
+\end{equation}
+Notice that we now have a function $ S(T,V,N) $, which is \textit{not} a thermic potential.
+
+Consider a system at constant $ T $ and $ N $ such that $ \dd{T} = \dd{N} = 0 $:
+\begin{equation}
+    \dd{F} = -P \dd{V} = \dbar{W}
+\end{equation}
+The maximum amount of work that can be extracted from a system at fixed $ T $ and $ N $ is equal to the free energy difference between the initial and final states. Note the distinction between the energy and free energy. If you let a system do work and want to see how much work was done, you can't just use the difference in energies $ \Delta U $, you have to use the difference in the Helmholtz free energies $ \Delta F $. We can do this by replacing other variables other than $ S $ with $ T $.
+
+\section{Enthalpy}
+\label{sec:enthalpy}
+Instead of replacing $ S $ with $ T $, replace $ V $ with $ P $. The result is called the enthalpy:
+\begin{equation}\label{eq:enthalpy}
+    H(S,P,N) = \min_V \left\{ U(S,V,N) + PV \right\}\tag{Enthalpy}
+\end{equation}
+We need the transformation to have a different sign because $ \dd{U} $ has a $ -P \dd{V} $ term.
+\begin{equation}
+    \dd{H} = T \dd{S} + V \dd{P} + \mu \dd{N}
+\end{equation}
+\begin{equation}
+    T = \left( \pdv{H}{S} \right)_{P,N} \qquad V = \left( \pdv{H}{P} \right)_{S,N} \qquad \mu = \left( \pdv{H}{N} \right)_{S,P}
+\end{equation}
+
+Let's look at a system with constant $ P $ and $ N $ (imagine a liquid in a test tube, if the tube is open, the pressure is just $ 1\text{atm} $ and the number of particles is not changing):
+\begin{equation}
+    \dd{H} = T \dd{S} = \dbar{Q}
+\end{equation}
+The change in heat under these conditions is the change in enthalpy.
+
+\section{Gibbs Free Energy (Free Enthalpy)}
+\label{sec:gibbs_free_energy_(free_enthalpy)}
+
+What if we exchanged both $ S $ for $ T $ and $ V $ for $ P $?
+\begin{equation}\label{eq:gibbs_free_energy}
+    G(T,P,N) = \min_{S,V} \left\{ U(S,V,N) - TS + PV \right\}\tag{Gibbs Free Energy}
+\end{equation}
+\begin{equation}
+    \dd{G} = - S \dd{T} + V \dd{P} + \mu \dd{N}
+\end{equation}
+\begin{equation}
+    -S = \left( \pdv{G}{T} \right)_{P,N} \qquad V = \left( \pdv{G}{P} \right)_{T,V} \qquad \mu = \left( \pdv{G}{N} \right)_{T,P}
+\end{equation}
+For a system with constant $ T $ and $ P $,
+\begin{equation}
+    \dd{G} = \mu \dd{N}
+\end{equation}
+The change in the Gibbs free energy when adding one particle is the chemical potential.
+
+\section{Grand Potential}
+\label{sec:grand_potential}
+
+Now let's exchange $ S $ for $ T $ and $ N $ for $ \mu $:
+\begin{equation}\label{eq:grand_potential}
+    \Omega(T,V,mu) = \min_{S,N} \left\{ U(S,V,N) - TS - \mu N \right\}\tag{Grand Potential}
+\end{equation}
+\begin{equation}
+    \dd{\Omega} = - S \dd{T} - P \dd{V} - N \dd{\mu}
+\end{equation}
+\begin{equation}
+    -S = \left( \pdv{\Omega}{T} \right)_{V, \mu} \qquad -P = \left( \pdv{\Omega}{V} \right)_{T, \mu} \qquad -N = \left( \pdv{\Omega}{\mu} \right)_{T,V}
+\end{equation}
+This potential is useful when the number of particles is not fixed, and turns out to be very helpful in quantum statistics.
+
+\begin{note}{One Final Trick}
+    The expressions
+    \begin{equation}
+        \min_{S,\ldots} \left\{ U(S,V,N) - TS \pm \cdots \right\}
+    \end{equation}
+    and
+    \begin{equation}
+        \min_{U,\ldots} \left\{ U - TS(U,V,N) \pm \cdots \right\}
+    \end{equation}
+    are equivalent!\ We are just running over the same set of $ U $, $ V $, and $ N $, but labeling $ U $ and $ S $ differently.
+\end{note}
+
+\end{document}

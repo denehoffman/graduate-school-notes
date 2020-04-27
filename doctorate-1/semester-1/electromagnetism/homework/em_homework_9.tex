@@ -1,0 +1,210 @@
+\documentclass[a4paper,twoside]{article}
+\input{../../preamble.tex}
+\title{33-761 Homework 9}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section{Coaxial Cable}
+\begin{itemize}
+    \item[(a)] Consider a coaxial cable with uniform cylindrical cross section. Assume that the inner thin cylinder has radius $ a $ and the outer one has radius $ b $. Current $ I $ goes through one and returns from the other. Calculate the self-inductance $ L $ per unit length of this cable. In a similar way we can calculate the capacitance $ C $ per unit length, then verify the formula $ CL = \epsilon_0 \mu_0 $.
+        \begin{problem}
+            Using an Ampereian loop, we can find the magnetic field inside the coaxial cable to be $ \vec{B} = \frac{\mu_0 I}{2 \pi r} \hat{\varphi} $. Now let's imagine taking a rectangle which goes from the inside to the outside conductors with length $ \dd{l} $ in the direction of the cable. The magnetic flux through such a rectangle would give us the flux per unit length. Because the flux is given by
+            \begin{equation}
+                \Phi = \int \vec{B} \cdot \dd{\vec{a}}
+            \end{equation}
+            and $ a = r \dd{l} $ (which we integrate from $ a $ to $ b $ to get the full flux), the integral becomes
+            \begin{equation}
+                \Phi = \int_{a}^{b} B(r) \dd{r} = \frac{\mu_0 I}{2 \pi} \ln(\frac{b}{a})
+            \end{equation}
+            The inductance is defined as $ \frac{\Phi}{I} $ so
+            \begin{equation}
+                L = \frac{\mu_0}{2 \pi} \ln(\frac{b}{a})
+            \end{equation}
+            For the capacitance, we first find the electric field between the two conductors, which is just $ \vec{E} = \frac{\lambda}{2 \pi \epsilon_0 r} \hat{r} $ from the usual Gauss's law, assuming the Gaussian surface contains charge $ \lambda $ per unit length. Therefore, the change in voltage is just the integral
+            \begin{equation}
+                \Delta V = \int_{a}^{b} E(r) \dd{r} = \frac{\lambda}{2 \pi \epsilon_0} \ln(\frac{b}{a})
+            \end{equation}
+            The capacitance is defined as $ \frac{\lambda}{\Delta V} $ so
+            \begin{equation}
+                C = \frac{2 \pi \epsilon_0}{\ln(\frac{b}{a})}
+            \end{equation}
+            so
+            \begin{equation}
+                CL = \mu_0 \epsilon_0
+            \end{equation}
+        \end{problem}
+    \item[(b)] Assume that the coaxial cable has an arbitrary cross section, show that we can verify the relation $ CL = \epsilon_0 \mu_0 $ in this case as well, even though we cannot compute them explicitly.
+        \begin{problem}
+            I'll work backwards from the last problem:
+            \begin{equation}
+                CL = \frac{\lambda}{\Delta V} \frac{\Phi}{I} = \frac{\lambda}{I} \frac{\int \vec{B} \cdot \dd{ \vec{a}_1}}{\int \vec{E} \cdot \dd{ \vec{a}_2}}
+            \end{equation}
+            Where $ a_1 $ is a surface which is perpendicular to the conductors and $ a_2 $ is a surface which is parallel to the conductors. We can no longer use cylindrical symmetry to pull out factors of $ 2 \pi $, but in general an integral over the $ B $-field should be proportional to the enclosed current times $ \mu_0 $  and the integrating over the same path over the $ E $-field should give the enclosed charge (per unit length) divided by $ \epsilon_0 $:
+            \begin{equation}
+                CL = \frac{\lambda}{I} \frac{I}{\lambda} \mu_0 \epsilon_0 \frac{\iint \vec{b} \dd{\gamma} \cdot \dd{ \vec{a}_1}}{\iint \vec{e} \dd{\gamma } \cdot \dd{ \vec{a}_2}} = \mu_0 \epsilon_0
+            \end{equation}
+            Here $ \vec{b} $ and $ \vec{e} $ are functions of position and should depend on the path $ \gamma $ in the same way, making this fraction equal to $ 1 $.
+        \end{problem}
+\end{itemize}
+
+\section{Jackson 5.21}
+Note that the terms of the form $ \int \dd[3]{x} \vec{M} \cdot \vec{M} $ are constant and can be ignored.
+
+A magnetostatic field is due entirely to a localized distribution of permanent magnetization.
+\begin{itemize}
+    \item[(a)] Show that
+        \begin{equation}
+            \int \vec{B} \cdot \vec{H} \dd[3]{x} = 0
+        \end{equation}
+        provided the integral is taken over all space.
+        \begin{problem}
+            Because of the first condition, we can safely assume there are no free currents, so $ \curl{ \vec{H}} = 0 $. Next, we expand the magnetic field in terms of the vector potential:
+            \begin{align}
+                \int \vec{B} \cdot \vec{H} \dd[3]{x} &= \int (\curl{ \vec{A}}) \cdot \vec{H} \dd[3]{x} \\
+                &= \int \div( \vec{A} \times \vec{H}) \dd[3]{x} + \int A \cdot \underbrace{(\curl{ \vec{H}})}_{= 0} \dd[3]{x} \\
+                &= \int_{S(\infty)} ( \vec{A} \times \vec{H}) \dd{ \vec{a}} = 0
+            \end{align}
+            by divergence theorem. If the first integral was over all space, the surface is a surface at infinity, and since the magnetization is local, $ H $ must vanish at infinity.
+        \end{problem}
+    \item[(b)] From the potential energy (5.72) of a dipole in an external field, show that for a continuous distribution of permanent magnetization the magnetostatic energy can be written
+        \begin{equation}
+            W = \frac{\mu_0}{2} \int \vec{H} \cdot \vec{H} \dd[3]{x} = - \frac{\mu_0}{2} \int \vec{M} \cdot \vec{H} \dd[3]{x}
+        \end{equation}
+        apart from an additive constant, which is independent of the orientation or position of the various constituent magnetized bodies.
+        \begin{problem}
+            The energy from a single dipole in an external magnetic field is $ W = - \vec{m} \cdot \vec{B} $. If one dipole is brought into the presence of another, we know the dipole moments will interact with the magnetic fields generated by the other dipoles, so for finite dipoles, $ W = - \frac{1}{2} \sum_{i \neq j} \vec{m}_i \cdot \vec{B}_j $, where the $ \frac{1}{2} $ avoids double counting the energy of dipole $ a $ in magnetic field $ b $ and dipole $ b $ in magnetic field $ a $. For a continuous distribution of magnetization, this becomes an integral over infinitesimal magnetic moments:
+            \begin{equation}
+                W = - \frac{1}{2} \int \vec{B} \cdot \dd{ \vec{m}}
+            \end{equation}
+            Integrating over these dipoles is the same as integrating the magnetization over space:
+            \begin{equation}
+                W = - \frac{1}{2} \int \vec{M} \cdot \vec{B} \dd[3]{x}
+            \end{equation}
+            We can expand the magnetic field as $ \vec{B} = \mu_0 ( \vec{M} + \vec{H}) $:
+            \begin{equation}
+                W = - \frac{\mu_0}{2} \int \vec{M} \cdot \vec{M} \dd[3]{x} - \frac{\mu_0}{2} \int \vec{M} \cdot \vec{H} \dd[3]{x}
+            \end{equation}
+            We ignore the first term since it is just an additive constant and does not depend on the distribution:
+            \begin{equation}
+                W = - \frac{\mu_0}{2} \int \vec{M} \cdot \vec{H} \dd[3]{x}
+            \end{equation}
+            Expanding $ \vec{M} $ as $ \vec{M} = \frac{1}{\mu_0} \vec{B} - \vec{H} $ we find
+            \begin{equation}
+                W = - \frac{1}{2} \int \vec{B} \cdot \vec{H} \dd[3]{x} + \frac{\mu_0}{2} \int \vec{H} \cdot \vec{H} \dd[3]{x}
+            \end{equation}
+            We showed in (a) that the first term is zero so
+            \begin{equation}
+                W = \frac{\mu_0}{2} \int \vec{H} \cdot \vec{H} \dd[3]{x}
+            \end{equation}
+            as long as there are no free currents.
+        \end{problem}
+\end{itemize}
+
+\section{Jackson 5.23 (a) and (b) only}
+Two identical circular loops of radius $ a $ are initially located a distance $ R $ apart on a common axis perpendicular to their planes.
+\begin{itemize}
+    \item[(a)] From the expression $ W_{12} = \int \dd[3]{x} \vec{J}_1 \cdot \vec{A}_2 $ and the result for $ A_{\phi} $ from Problem 5.10b, show that the mutual inductance of the loops is
+        \begin{equation}
+            M_{12} = \mu_0 \pi a^2 \int_{0}^{\infty} \dd{k} e^{-kR} J_1^2(ka)
+        \end{equation}
+        \begin{problem}
+           We are given the potential of a current loop of radius $ a $ as
+           \begin{equation}
+               A_{\phi}(\rho, z) = \frac{\mu_0 I a}{2} \int_{0}^{\infty} \dd{k} e^{-k \abs{z}} J_1(ka)J_1(k \rho)
+           \end{equation}
+           We also know that
+           \begin{equation}
+               W = \frac{1}{2} \sum_{i=1}^{N} L_i I_i^2 + \sum_{i=1}^{N} \sum_{j>i}^{N} M_{ij} I_i I_j
+           \end{equation}
+           so
+           \begin{equation}
+               W_{12} = M_{12} I_1 I_2
+           \end{equation}
+           or
+           \begin{equation}
+               M_{12} = \frac{W_{12}}{I_1 I_2}
+           \end{equation}
+           Using our formula for $ W_{12} $, we know that the current is proportional to $ I $ and is always in the radial direction, so
+           \begin{equation}
+               W_{12} = \int_{0}^{2 \pi} a \dd{\phi} I_1 A_{\phi}(a, R) = \mu_0 \pi a^2 \int_{0}^{\infty} \dd{k} e^{-kR} J_1^2(ka)
+           \end{equation}
+        \end{problem}
+    \item[(b)] Show that for $ R > 2a $, $ M_{12} $ has the expansion,
+        \begin{equation}
+            M_{12} = \frac{\mu_0 \pi a}{2} \left[ \left( \frac{a}{R} \right)^3 - 3 \left( \frac{a}{R} \right)^5 + \frac{75}{8} \left( \frac{a}{R} \right)^7 + \cdots \right]
+        \end{equation}
+        \begin{problem}
+            We are basically just assuming $ a $ is small, so we can expand around $ ka $ in the integral. If we expand $ J_1^2(ka) $ as a Taylor series about $ 0 $, we find that the first few terms are
+            \begin{equation}
+                J_1^2(ka) = \frac{(ka)^2}{4} - \frac{(ka)^4}{16} + \frac{5(ka)^6}{768} - \cdots
+            \end{equation}
+            so the integral becomes
+            \begin{equation}
+                M_{12} = \mu_0 \pi a^2 \left[ \int_{0}^{\infty} \dd{k} e^{-kR} \left( \frac{a^2}{4} k^2 - \frac{a^4}{16} k^4 + \frac{5 a^6}{768} k^6 - \cdots  \right) \right]
+            \end{equation}
+            Integrals from $ 0 $ to $ \infty $ of exponentials multiplied by polynomials are well defined, and evaluating this expression gives
+            \begin{equation}
+                M_{12} = \mu_0 \pi a^2 \frac{1}{2} \left[\frac{a^2}{R^3} - \frac{3 a^4}{R^5} + \frac{75}{8} \frac{a^6}{R^7} - \cdots  \right]
+            \end{equation}
+            Distributing an $ a $ gives the desired answer.
+        \end{problem}
+\end{itemize}
+
+\section{Jackson Section 5.18 Part B}
+Go through the details of Section 5.18 part B of Jackson and verify the answer given at equation (5.176). This is a self-study exercise, it is nice to work it out and see how the field gradually decreases in the sample.
+\begin{problem}
+    We begin by defining the current density to be $ J_y = H_0[\delta(z+a) - \delta(z-a)] $. Suppose $ H_x(z,t) = \int_{0}^{\infty} e^{-pt} \overline{h}(p,z) \dd{p} $. Plugging this into the diffusion equation, $ \laplacian{ \vec{H}} = \mu \sigma \partial_t \vec{H} $ gives us just the $ z $-derivative, so we have
+    \begin{equation}
+        \int_{0}^{\infty} \partial^2_z e^{-pt} \overline{h}(p,z) \dd{p} + \int_{0}^{\infty} \underbrace{\mu \sigma p}_{k^2} e^{-pt} \overline{h}(p,z) \dd{p} = 0
+    \end{equation}
+    This means $ \overline{h} $ satisfies the equation
+    \begin{equation}
+        \partial_z^2 \overline{h} + k^2 \overline{h} = 0
+    \end{equation}
+    since $ t=0 \implies e^{-pt} = 1 $ and the integrands follow the above equation.
+
+    Symmetry apparently suggests $ \overline{h} \propto \cos(kz) $, so
+    \begin{equation}
+        H_x(z, t) = \int_{0}^{\infty} e^{- \frac{k^2}{\mu \sigma} t} h(k) \cos(kz) \dd{k} 
+    \end{equation}
+    By the Laplace transform of the initial current distribution, we have
+    \begin{equation}
+        \int_{0}^{\infty} h(k) \cos(kz) \dd{k} = H_0(\Theta(z+a) - \Theta(z-a))
+    \end{equation}
+    We can split the cosine on the left side into two exponentials:
+    \begin{equation}
+        \int_{0}^{\infty} h(k) \cos(kz) \dd{k} = \int_{0}^{\infty} h(k) \frac{1}{2} e^{-\imath kz} \dd{k} + \int_{0}^{\infty} h(k) \frac{1}{2} e^{\imath kz} \dd{k} = \int_{- \infty}^{\infty} h(k) e^{\imath kz} \dd{k}
+    \end{equation}
+    This only works assuming $ h(k) $ is even about zero. It probably is, since Jackson says so and also because we defined $ k $ to be $ k^2 = \mu \sigma p $ so changing the sign of $ k $ shouldn't mess with the constant determined by initial conditions.
+
+    Next, let's look at the right side. By definition, the Heaviside functions really look like
+    \begin{equation}
+        H_0(\Theta(z+a) - \Theta(z-a)) = H_0 \left[ \int_{- \infty}^{z+a} \delta(s) \dd{s} - \int_{- \infty}^{z-a} \delta(s) \dd{s} \right] = H_0 \int_{-a}^{a} \delta(s) \dd{s}
+    \end{equation}
+    so we can invert the Fourier transform (don't forget the $ 2 \pi $ factor) to get
+    \begin{equation}
+        h(k) = \frac{2 H_0}{2 \pi} \int_{-a}^{a} e^{-\imath k z} \dd{z} = \frac{2 H_0}{\pi k} \sin(ka)
+    \end{equation}
+    Plugging this back into the original equation for $ H_x $ we get
+    \begin{equation}
+        H_x(z,t) = \int_{0}^{\infty} e^{- \frac{k^2}{\mu \sigma} t} \left( \frac{2 H_0}{\pi k} \right) \sin(ka) \cos(ka) \dd{k} = \frac{2 H_0}{\pi} \int_{0}^{\infty} e^{- \nu t \kappa^2} \frac{\sin(\kappa)}{\kappa} \cos(\frac{z}{a} \kappa) \dd{\kappa}
+    \end{equation}
+    making the substitutions $ \kappa = ka $, $ \dd{\kappa} = a \dd{k} $, and $ \nu = \frac{1}{\mu \sigma a^2} $.
+
+    Next, we are told to evaluate this integral using
+    \begin{equation}
+        \Phi(\xi) = \frac{2}{\pi} \int_{0}^{\infty} e^{- \frac{x^2}{4 \xi^2}} \frac{\sin(x)}{x} \dd{x}
+    \end{equation}
+    If I split up the cosine as previously, it gives the nice factor of $ \frac{1}{2} $ that is required to get this problem in the correct form, but unfortunately puts an interesting exponent into the problem. Now I have
+    \begin{equation}
+        e^{- \nu t \kappa^2 \pm \imath \frac{z}{a} \kappa}
+    \end{equation}
+    inside the integral but working backwards from the answer, I can't see how this is supposed to be equal to
+    \begin{equation}
+        e^{- \frac{1}{2} \left( \nu t \left( 1 \pm \frac{z}{a} \right)^{-2} \right) \kappa^2}
+    \end{equation}
+    It must be true because Jackson deems it so, but unfortunately I can't figure out why.
+\end{problem}
+
+\end{document}

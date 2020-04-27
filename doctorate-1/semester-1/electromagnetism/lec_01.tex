@@ -1,0 +1,94 @@
+\documentclass[twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{1}{Mon Aug 26 2019}{Electrodynamics}
+
+\section{Microscopic Theory}%
+\label{sec:microscopic_theory}
+
+Basic objects: $\vec{E}$ and $\vec{B}$ fields with some source called Charge. Charge is a \textit{locally conserved} quantity, meaning we will have some macroscopic current $\vec{J}$ and volume density $\rho$, and sometimes a surface density $\sigma$. Local conservation means that for a volume $V$ with a current flowing out of it $\vec{J}$, and this volume has an orientable surface with an outward normal $\hat{n}$. The amount of charge leaking out is: \[
+    \oint \vec{J}\cdot \hat{n} da = - \frac{dQ}{dt}
+.\] where $Q = \int_V\rho d^3x$. Therefore, conservation means \[
+-\frac{d}{dt}\int_V\rho d^3x = \oint \vec{J}\cdot \hat{n}da = \int\nabla \cdot \vec{J}d^3x
+.\] so
+\begin{equation}
+    \int_V \left( \frac{\partial\rho}{\partial t}+\nabla \cdot \vec{J} \right)dv = 0.
+\end{equation}
+\begin{itemize}
+    \item $\frac{\partial\rho}{\partial t} + \nabla \cdot \vec{J} = 0$
+    \item Charge cannot ``magically'' appear and disappear, it must be moved by a current.
+\end{itemize}
+
+These densities and currents are all macroscopic. We know that charge cannot be divided into arbitrarily small pieces, since electrons exist. SI units are the Coulomb, and even for macroscopic purposes, it's rather big. The electron charge in these units are $\|e\|\approx 1.6\times 10^{-19}\coulomb$. Macroscopically, you don't have to think in terms of units of charge, since a single Coulomb will have $10^{19}$  particles in it.
+
+In a vacuum, the Maxwell Equations relating these fields to their sources are:
+\begin{enumerate}
+    \item $\nabla\cdot \vec{E} = \frac{\rho}{\epsilon_0}$, ($\epsilon_0 = \frac{10^{7}}{4\pi c^2}\farad\per\meter$)
+    \item $\nabla \cdot \vec{B} = 0$ (no monopoles/source for the magnetic field, \textit{probably})
+    \item $\nabla \times \vec{E} = -\frac{\partial \vec{B}}{\partial t}$
+    \item $ \nabla \times \vec{B} = \mu_0 \vec{J} + \mu_0\epsilon_0 \frac{\partial \vec{E}}{\partial t}$, ($\mu_0 = 4\pi 10^{-7}\henry\per\meter$)
+\end{enumerate}
+\begin{note}{Pro Tip}
+    Discover magnetic charges for a free Nobel Prize
+\end{note}
+Additionally, this contains the connection between electrodynamics and light:
+\begin{equation}
+    \mu_0\epsilon_0 = \frac{1}{c^2}
+\end{equation}
+The Maxwell Equations imply local charge conservation. As long as there are no materials, the charges are like point charges.
+
+\section{``Idealized'' Point Charges}%
+\label{sec:_idealized_point_charges_}
+We can understand a charge density to be
+\begin{equation}
+    \rho(\vec{x}) = \sum_i q_i\delta(\vec{x}-\vec{r}_i(t))
+\end{equation}
+\begin{remark}
+    \begin{equation}
+        \delta(\vec{x}-\vec{x}' = \delta(x-x')\delta(y-y')\delta(z-z')
+    \end{equation}
+    and
+    \begin{equation}
+        \int_{\vec{a}\in V} f(\vec{x})\delta(\vec{x}-\vec{a})d^3x = f(\vec{a})
+    \end{equation}
+    and
+    \begin{equation}
+        \int_{\vec{a}\not\in V}f(\vec{x})\delta(\vec{x}-\vec{a})d^3x = 0
+    \end{equation}
+\end{remark}
+Jackson notes that in this theory, we stay in the classical regime. Quantum is important if we deal with extremely strong fields, high energies, or short distances (on the order of a few Angstroms). If we go to large fields and short distances, we may need corrections. In this case, non-linearities appear which are not noticeable in ordinary electrodynamics.
+
+In the ordinary macroscopic case for a large number of ``photons'', a $1\milli\volt\per\meter$ field strength radio wave has a photon flux around $10^{12}\text{photons}\per\centi\meter^2\second$. How do these fields interact with charges?
+
+\begin{equation}
+    \vec{F} = q\left( \vec{E}+\vec{v}\times \vec{B} \right)
+\end{equation}
+
+This cannot be obtained from Maxwell's Equations. The self-interaction problem is difficult to solve in classical electrodynamics, and it will generally be ignored in this class.
+
+\section{Materials (Continuous Media)}%
+\label{sec:materials_c}
+
+Microscopic dynamics of atoms of the medium are too complicated, so we find an approximate description. We take averages over a small volume element (and also short time scales).
+
+$ \vec{E}\mapsto \vec{P}$ (average dipole moment density of the medium)
+$\rho_b = -\nabla \cdot \vec{P}$ for surface charges $\sigma_b = \vec{P}\cdot \hat{n}$
+Similarly,
+$\vec{B}\mapsto \vec{M}$ (average magnetic dipole density of the medium)
+$\vec{J}=\nabla \times \vec{M}$ for surface currents (and volume currents) $\vec{k}=\vec{M}\times \hat{n}$
+
+It turns out, generally $\vec{P}=\vec{P}\left[ \vec{E},\vec{B} \right] $, where the brackets denote these are in general functionals; they could be nonlinear, could have time delays, etc. Similarly, $\vec{M}=\vec{M}\left[ \vec{E},\vec{B} \right] $. If you know these things, you can write down a set of consistent tensor equations. For linear media:
+
+\begin{equation}
+    P_\alpha = \epsilon_{\alpha\beta}E_\beta
+\end{equation}
+For isotropic, homogeneous media, this does not depend on position.
+
+In media, Maxwell's Equations are modified to:
+\begin{enumerate}
+    \item  $\nabla \cdot \vec{E} = \frac{\rho_\text{free}}{\epsilon_0}+\frac{\rho_\text{bound}}{\epsilon_0}\implies\nabla \cdot \left[ \epsilon_0 \vec{E} + \vec{P} \right] = \nabla \cdot \vec{D} = \rho_\text{free} $
+    \item $\vec{H} = \frac{1}{\mu_0} \vec{B} - \vec{M}$, so $ \nabla \times \vec{H} = \vec{J}_\text{free}\left[ \vec{E},\vec{B} \right]+ \frac{\partial \vec{D}}{\partial t} $
+    \item $\nabla \times \vec{E} = - \frac{\partial \vec{B}}{\partial t}$
+    \item $ \nabla \cdot \vec{B} = 0$
+\end{enumerate}
+Things like time-lag are responsible for wavelength dependence.
+\end{document}

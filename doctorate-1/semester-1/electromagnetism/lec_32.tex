@@ -1,0 +1,173 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{32}{Wednesday, October 30, 2019}{Light}
+\section{Light and Propagating Fields}
+\label{sec:light_and_propagating_fields}
+Currently, Maxwell's equations look like this:
+\begin{align}
+    \div{ \vec{D}} &= \rho\\
+    \div{ \vec{B}} &= 0\\
+    \curl{ \vec{E}} &= -\partial_t \vec{B}\\
+    (\curl{ \vec{H}} &= \vec{J})^*
+\end{align}
+This last equation is incomplete!
+
+By current conservation (taking the divergence of the last equation),
+\begin{equation}
+    \partial_t\rho + \div{ \vec{J}} = 0
+\end{equation}
+However, from the first equation, $ \partial_t \rho = \div{\partial_t \vec{D}} $. Therefore, we must have
+\begin{equation}
+    \curl{ \vec{H}} = \vec{J} + \partial_t \vec{D}
+\end{equation}
+
+In free space,
+\begin{align}
+    \div{ \vec{E}} &= \rho / \epsilon_0\\
+    \div{ \vec{B}} &= 0\\
+    \curl{ \vec{E}} &= -\partial_t \vec{B}\\
+    \curl{ \vec{B}} &= \mu_0 \vec{J} + \mu_0 \epsilon_0 \partial_t \vec{E}
+\end{align}
+
+Suppose there is no source in a region $ \Omega $. Now
+\begin{equation}
+    \curl{ \vec{E}} = -\partial_t \vec{B}
+\end{equation}
+and
+\begin{equation}
+    \curl{ \vec{B}} = \mu_0 \epsilon_0 \partial_t \vec{E}
+\end{equation}
+and $ \div{ \vec{E}} = \div{ \vec{B}} = 0 $. Seemingly by coincidence, $ \mu_0 \epsilon_0 = \frac{1}{c^2} $!
+
+\begin{equation}
+    \curl{\curl{ \vec{E}}} = -\partial_t(\curl{ \vec{B}}) = -\partial_t c^{-2}\partial_t \vec{E} = \grad{\cancelto{0}{\div{ \vec{E}}}} - \laplacian{ \vec{E}}
+\end{equation}
+so
+\begin{equation}
+    \laplacian{ \vec{E}} - \frac{1}{c^2} \partial_t^2 \vec{E} = 0
+\end{equation}
+and
+\begin{equation}
+    \laplacian{ \vec{B}} - \frac{1}{c^2} \partial_t^2 \vec{B} = 0
+\end{equation}
+which are both wave equations, which have solutions $ \varphi = f(x-ct) + g(x+ct) $. These are called plane waves because the strength of the field in a given plane is constant.
+
+Let's look for solutions like
+\begin{equation}
+    \vec{E} = \Re\left\{ \vec{E}_0 e^{\imath \vec{k} \cdot \vec{r} - \imath\omega t} \right\}
+\end{equation}
+Plugging this into our formula, we find
+\begin{align}
+    \laplacian{ \vec{E}} = -k^2 \vec{E}
+\end{align}
+and
+\begin{equation}
+    \partial_t^2 \vec{E} = (-\imath\omega)^2 \vec{E}
+\end{equation}
+so as long as the solution is nonzero,
+\begin{equation}
+    k = \frac{\omega}{c}
+\end{equation}
+
+The curl acting on plane waves is just like $ \imath \vec{k} \times $:
+\begin{equation}
+    \imath \vec{k} \times \vec{E} = -\partial_t \vec{B}
+\end{equation}
+so
+\begin{equation}
+    \vec{B}_0 = \frac{ \vec{k} \times \vec{E}_0}{\omega}
+\end{equation}
+so the electric and magnetic fields are always perpendicular.
+
+This is the free wave solution, and adding a source will obviously complicate things. For sources, we have
+\begin{equation}
+    \vec{E} = - \grad{\Phi} - \partial_t \vec{A}
+\end{equation}
+and
+\begin{equation}
+    \curl{ \vec{B}} = \mu_0 \vec{J} + \frac{1}{c^2} \partial_t \vec{E}
+\end{equation}
+so
+\begin{equation}
+    \curl{(\curl{ \vec{A}})} = \mu_0 \vec{J} + \frac{1}{c^2} \left( - \div{\partial_t\Phi} - \partial_t^2 \vec{A} \right)
+\end{equation}
+If we write the left-hand side as
+\begin{equation}
+    \grad{(\div{ \vec{A}})} - \laplacian{ \vec{A}}
+\end{equation}
+we get
+\begin{equation}
+    \grad{(\div{ \vec{A}})} - \laplacian{ \vec{A}} = \mu_0 \vec{J} - \div{\frac{1}{c^2} \partial_t \Phi} - \frac{1}{c^2} \partial_t^2 \vec{A}
+\end{equation}
+We want to keep the parts that look like a wave equation on one side:
+\begin{equation}
+    \grad{(\div{ \vec{A}} + \frac{1}{c^2} \partial_t \Phi)} - \mu_0 \vec{J} = \laplacian{ \vec{A}} - \frac{1}{c^2} \partial_t^2 \vec{A}
+\end{equation}
+Recall we have some freedom in defining our potentials (Gauge freedom):
+\begin{equation}
+    \curl{ \vec{A} + \grad{\chi}} = \curl{ \vec{A}}
+\end{equation}
+and
+\begin{equation}
+    - \grad{\Phi - \partial_t\chi} - \partial_t ( \vec{A} + \grad{\chi}) = - \grad{\Phi} - \partial_t \vec{A}
+\end{equation}
+so
+\begin{equation}
+    \vec{A} \mapsto \vec{A} + \grad{\chi}
+\end{equation}
+and
+\begin{equation}
+    \Phi \mapsto \Phi + \partial_t \chi
+\end{equation}
+
+We would like our final equation to be
+\begin{equation}
+    \laplacian{ \vec{A}} - \frac{1}{c^2} \partial_t^2 \vec{A} = -\mu_0 \vec{J}
+\end{equation}
+so let the gauge be
+\begin{equation}
+    \div{ \vec{A}} + \frac{1}{c^2} \partial_t \Phi = 0
+\end{equation}
+Doing the same process with the divergence of the electric field, we get that
+\begin{equation}
+    - \laplacian{\Phi} - \partial_t \div{ \vec{A}} = \rho/\epsilon_0
+\end{equation}
+Using our gauge,
+\begin{equation}
+    - \laplacian{\Phi} - \frac{1}{c^2}\partial_t^2 \Phi = \rho/\epsilon_0
+\end{equation}
+
+What are the solutions for these equations? If we have
+\begin{equation}
+    \laplacian{\Phi} - \frac{1}{c^2} \partial_t^2 \Phi = f( \vec{x}, t)
+\end{equation}
+then we are looking for a Green's function with
+\begin{equation}
+    \laplacian{G( \vec{x},t; \vec{x}', t')} - \frac{1}{c^2} \partial_t^2 G = -4 \pi \delta( \vec{x} - \vec{x}') \delta(t-t')
+\end{equation}
+so
+\begin{equation}
+    G = \int_{- \infty}^{\infty} G( \vec{x} - \vec{x}'; \omega)e^{\imath\omega(t-t')} \frac{1}{2 \pi} \dd{\omega}
+\end{equation}
+so
+\begin{equation}
+    \laplacian{G(x-x';\omega} + \frac{\omega^2}{c^2} G = -4 \pi \delta(x-x')
+\end{equation}
+Therefore
+\begin{equation}
+    (\laplacian + k^2)G(x-x';\omega) = -4 \pi \delta(x-x')
+\end{equation}
+This is the operator for the Helmholtz equation.
+
+This equation can be solved by
+\begin{equation}
+    G(x-x'l\omega) = \frac{e^{\pm\imath k \abs{x-x'}}}{\abs{x - x'}}
+\end{equation}
+Note that I stopped using vector arrows on $ x $ but they are vectors in general.
+Therefore
+\begin{equation}
+    G(x-x',t-t')^{\pm} = \int e^{\pm\imath k \abs{x-x'} - \imath \omega (t-t')} \frac{1}{\abs{x-x'}} \frac{1}{2 \pi} \dd{\omega} = \frac{1}{2 \pi} \frac{\delta(t-t'\pm \frac{\abs{x-x'}}{c})}{\abs{x-x'}}
+\end{equation}
+These solutions must vanish at infinity, so they actually don't describe plane waves. The choice of $ \pm $ concerns causality, and the $ - $ case is the one where the past effects the future.
+
+\end{document}

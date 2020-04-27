@@ -1,0 +1,114 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{36}{Wednesday, April 22, 2020}{The Helium Atom}
+
+\section{The Helium Atom}
+\label{sec:the_helium_atom}
+
+The helium atom has $ Z = 2 $, so we can write down the Hamiltonian as
+\begin{equation}
+    H = \sum \frac{p_i^2}{2m} - \frac{2e^2}{r_1} - \frac{2 e^2}{r_2} + \frac{e^2}{r_{12}}
+\end{equation}
+where $ r_1 $ and $ r_2 $ are the distances to each electron and $ r_{12} $ is the distance between electrons. The last term here is the repulsion between electrons, and we can write the wave function to leading order (in the $\ket{nlm} $ basis) as
+\begin{equation}
+    \ket{\psi} =\ket{100} \cross\ket{100} \cross \underbrace{\chi_{\text{singlet}}}_{\frac{1}{\sqrt{2}} \left[\ket{\uparrow\downarrow} -\ket{\downarrow\uparrow} \right]}
+\end{equation}
+
+Additionally, the ground state energy will be $ E = 8 E_0 = -108.8\electronvolt$ where $ E_0 = -13.6\electronvolt $. Experimentally, we find that it is actually $ -78.8\electronvolt $, so we're off by around $ 20\% $. However, there's no reason to suspect that leading order is much larger than the next-order calculation (there's no reason why the repulsion term should be small). Let's now do first-order perturbation theory to see if we can get closer:
+\begin{align}
+    \Delta E &= \ket{100} \frac{e^2}{r_{12}}\ket{100} \\
+    &=\ket{100} \frac{e^2}{\abs{\va{r}_1 - \va{r}_2}}\ket{100} = e^2 \int \frac{\dd[3]{r_1} \dd[3]{r_2} \varphi_{100}(r_1) \varphi_{100}(r_2)}{\sqrt{r_1^2 + r_2^2 - 2r_1 r_2 \cos(\theta)}}
+\end{align}
+Recall that
+\begin{equation}
+    \psi_{100}(r_1) \varphi_{100}(r_2)  = \frac{Z^3}{\pi a_0^3} e^{- Z (r_1 + r_2) / a_0}
+\end{equation}
+We can write
+\begin{equation}
+    \left[ r_1^2 + r_2^2 - 2 r_1 r_2 \cos(\theta) \right]^{-1/2} = \sum \frac{r_<^l}{r_>^{l+1}} P_l(\cos(\theta))
+\end{equation}
+The $ r $-integral isn't that tricky, but we need to figure out the $ \theta $ integral. We can rewrite
+\begin{equation}
+    P_l(\cos(\theta)) = \sum_m Y_{lm}(\theta_1, \varphi_1) Y_{lm}(\theta_2, \varphi_2) \left[ \frac{4 \pi}{2l+1} \right]
+\end{equation}
+Remember that $ P_l $ and $ Y_{lm} $ are related by an overall coefficient with $ m=0 $, so we can write
+\begin{equation}
+    P_l(\cos(\theta)) = \bra{\vu{n}_2}\ket{l,m=0} \frac{2l+1}{4 \pi}
+\end{equation}
+Now the integral over $ \theta $ becomes easy, since the angular part of $ \varphi_{100} $ is $ Y_{00} = \frac{1}{\sqrt{4 \pi}} $. The angular part will be
+\begin{equation}
+    \sum_m \int \dd{\Omega_1} \dd{\Omega_2} Y_{lm}(\Omega_1) Y_{00}(\Omega_1) Y^*_{lm}(\Omega_2) Y_{00}(\Omega_2)
+\end{equation}
+However, we know that
+\begin{equation}
+    \int \dd{\Omega} Y_{lm} = 4 \pi \delta_{l,0} \delta_{m,0}
+\end{equation}
+so this integral becomes trivial. Doing the integrals, we find that
+\begin{equation}
+    \Delta E = \frac{5}{2} \left( \frac{e^2}{2 a_0} \right)
+\end{equation}
+so our corrected energy is 
+\begin{equation}
+    E = - 74.8\electronvolt
+\end{equation}
+which is much closer to the experimental value. Why does this work so well? No clue.
+
+
+\subsection{Excited States of Helium}
+\label{sub:excited_states_of_helium}
+
+The first excited state will have one electron in the ground state and the other in an excited state. The wave function is no longer constrained to the singlet state because the electrons have different quantum numbers.
+\begin{equation}
+    E = E_{1s} + E_{\nless} + \Delta E
+\end{equation}
+\begin{equation}
+    \ket{\psi} = \varphi_{100}(x_1) \varphi_{nlm}(x_2) \pm \varphi_{100}(x_2) \varphi_{nlm}(x_1)
+\end{equation}
+where $ + $ gives the wave function for the $ \chi_{\text{singlet}} $ state (orthohelium) and $ - $ gives the wave function for the $ \chi_{\text{triplet}} $ state (parahelium).Recall that in the symmetric spatial wave function, fermions can sit on top of each other (so the repulsion term will be larger), and the singlet spin state is antisymmetric so it must be spatially symmetric, so the singlet state has a higher energy than the triplet state.
+
+
+\section{Multi-Particle Systems}
+\label{sec:multi-particle_systems}
+
+It turns out that when you get large numbers of particles interacting, you get all kinds of neat effects, like superconductivity, the quantum Hall effect, and ferromagnets. Suppose we have $ N $ particles:
+\begin{equation}
+    \ket{\psi} =\ket{k_1}\ket{k_2}\cdots\ket{k_i} \cdots\ket{k_j} \cdots\ket{k_N}
+\end{equation}
+where $ k_i $ label eigenvalues of some observable.
+\begin{equation}
+    P_{ij}\ket{\psi} = \pm\ket{k_1}\ket{k_2} \cdots\ket{k_j} \cdots\ket{k_i} \cdots\ket{k_N}
+\end{equation}
+
+For example, consider three particles:
+\begin{equation}
+    \ket{\psi} = \frac{1}{\sqrt{6}} \left[\ket{k_1}\ket{k_2}\ket{k_3} \pm (213) + (231) \pm (321) + (312) \pm (132) \right]
+\end{equation}
+This is an eigenstate of $ P_{12} $, $ P_{13} $, and $ P_{23} $ with eigenvalues $ \pm 1 $. If two states are identical ($ k_2 = k_3 $), $\ket{\psi} = 0 $ for Fermions (this is the Pauli principle), and
+\begin{equation}
+    \ket{\psi} = \frac{1}{\sqrt{3}} \left[\ket{k_1}\ket{k_2}\ket{k_2} + (212) + (221) \right]
+\end{equation}
+for Bosons. In general, this normalization factor is $ \frac{\sqrt{N_1!} \sqrt{N_2!} \sqrt{N_2!}}{\sqrt{N!}} $ if $ k_2 = k_3 $, so
+\begin{equation}
+    \ket{\psi} = \sum_{\sigma} \frac{\ket{k_{\sigma(1)} \cdots\ket{k_{\sigma(N)}}}}{\sqrt{N_1! \cdots N_N!}}
+\end{equation}
+and for Fermions
+\begin{equation}
+    \ket{\psi} = \frac{1}{\sqrt{N!}} \sum_{\sigma} (-1)^{\text{parity}}\ket{k_1 \cdots k_N}
+\end{equation}
+
+\subsection{Fock States}
+\label{sub:fock_states}
+
+Rather than drag around all these symmetrization factors, we instead turn to Fock states where we relabel $\ket{k_1 \cdots k_n} $ as $\ket{n_1 n_2 \cdots} $ where $ n_i $ is the number of particles in state $ i $. For instance, $\ket{k_1, k_1, k_2} =\ket{21}  $. Recall the raising and lowering operators. Let's introduce the notation $ a_i^\dagger $ such that this creates a particle in the state $ k_i $. Therefore, we can generate the Fock states as
+\begin{equation}
+    a_i^\dagger\ket{0} =\ket{1,0\cdots} \equiv\ket{k_i}
+\end{equation}
+and generate other states like
+\begin{equation}
+    a_{i=1}^\dagger a_{j=2}^\dagger\ket{0} =\ket{1,1,0\cdots} \equiv \ket{k_1}\ket{k_2}
+\end{equation}
+
+We also must define the lowering operator $ a_1\ket{1,0,0\cdots} =\ket{0,0,0\cdots} $ and $ a_1\ket{0\cdots} = 0 $. The nice part about this system is that statistics are automatic. If we create a two-particle system, $ a_i^\dagger a_j^\dagger\ket{0} $, then the choice that $ \comm{a_i^\dagger}{a_j^\dagger} = 0 $, the state is automatically symmetric, whereas the choice that $ \pb{a_i^\dagger}{a_j^\dagger} = 0 $ generates antisymmetric states.
+
+
+\end{document}

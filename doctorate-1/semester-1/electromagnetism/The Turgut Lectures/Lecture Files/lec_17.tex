@@ -1,0 +1,156 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{17}{Mon Sep. 30 2019}{Dielectrics}
+\section{Dielectrics}
+\label{sec:dielectrics}
+
+
+In isotropic and homogeneous materials, we said that
+\begin{equation}
+    \vec{P} = \epsilon_0 \chi \vec{E}
+\end{equation}
+so
+\begin{equation}
+    \vec{D} = \epsilon_0 \vec{E} + \vec{P}
+\end{equation}
+and
+\begin{equation}
+    \div{ \vec{D}} = \rho_{\text{free}}
+\end{equation}
+Of course, we also must satisfy
+\begin{equation}
+    \curl{ \vec{E}} = \vec{0} \implies \vec{E} = - \grad{\Phi}
+\end{equation}
+so
+\begin{equation}
+    \vec{D} = \underbrace{(\epsilon_0 + \epsilon_0 \chi )}_{\epsilon} \vec{E}
+\end{equation}
+so
+\begin{equation}
+    \epsilon \laplacian{\Phi} = - \rho_{\text{free}}
+\end{equation}
+In more general cases,
+\begin{equation}
+    D_i = \epsilon_{ij} (x) E_j
+\end{equation}
+so
+\begin{equation}
+    \partial_i (\epsilon_{ij} (x) \partial_j \Phi ) = - \rho_{\text{free}}
+\end{equation}
+which is in general pretty hard to solve.
+
+If we recall our boundary conditions:
+
+
+\begin{equation}
+    \vec{E}_{t} \qq{is continuous across a boundary}
+\end{equation}
+and
+\begin{equation}
+    \vec{D}_{n} \qq{is continuous}
+\end{equation}
+
+\begin{ex}
+    For a dielectric ($ \epsilon \neq 0 $  sphere inserted into a uniform electric field),
+    \begin{equation}
+        \vec{E}_0 = E_0 \hat{z}
+    \end{equation}
+    There are no free charges and symmetry around $z$
+    \begin{equation}
+        \Phi_{\text{in}} = \sum_{l=0}^{\infty} A_l r^l P_l( \cos(\theta) )
+    \end{equation}
+    The potential cannot go to zero at infinity, since there is an electric field there, so
+    \begin{equation}
+        \Phi_{\text{out}} = -E_0 z + B_0 + \sum_{l=0}^{\infty} C_l r^{-(l+1)} P_l( \cos(\theta) )
+    \end{equation}
+    We can set $B_0 = 0$ because the potential is invariant up to a constant. We know that $\Phi$ must be continuous across the $r = a $ boundary, so
+    \begin{equation}
+        \Phi(a)_{\text{out}} = - E_0 a \underbrace{P_1( \cos(\theta) )}_{ \cos(\theta) } + \sum_{l=0}^{\infty} C_l a^{-(l+1)} P_l( \cos(\theta) )
+    \end{equation}
+    so for $l = 1 $
+    \begin{equation}
+        A_1 = -E_0 + \frac{C_1}{a^3}
+    \end{equation}
+    and for $l \neq 1 $
+    \begin{equation}
+        A_l = \frac{C_l}{a^{2l+1}}
+    \end{equation}
+    We know that $D = \epsilon E$ and we know the inside and outside permittivity, so to maintain continuity,
+    \begin{equation}
+        \eval{(- \epsilon \grad{\Phi} ) \cdot \hat{n}}_{r \to a^-} = \eval{(- \epsilon_0 \grad{\Phi} ) \cdot \hat{n}}_{r \to a^+}
+    \end{equation}
+    or
+    \begin{equation}
+        \eval{- \epsilon \pdv{\Phi_{\text{in}}}{r}}_{r = a} = \eval{- \epsilon_0 \pdv{\Phi_{\text{out}}}{r}}_{r - a}
+    \end{equation}
+    so
+    \begin{equation}
+        \epsilon E_0 P_1(\cos(\theta)) - \epsilon \sum_{l=0}^{\infty} [ -(l+1) a^{-(l+2)} C_l P_l(\cos(\theta) ) = - \epsilon_0 \sum_{l=0}^{\infty} l A_l a^{l-1} P_l(\cos(\theta) )
+    \end{equation}
+    so when $l \neq 1$:
+    \begin{equation}
+        \epsilon (l+1) C_l a^{-(l+2)} = - \epsilon_0 l A_l a^{l-1}
+    \end{equation}
+    and when $l = 1$:
+    \begin{equation}
+        \epsilon E_0 + \epsilon (1+l) a^{-3}C_1 = - \epsilon_0 A_1
+    \end{equation}
+    From this and the previous boundary condition, we see that all of the $l \neq 1 $ terms are $0$, and solving between the remaining $l = 1 $ terms, we see that
+    \begin{equation}
+        A_1 = - \frac{3 \epsilon_0}{\epsilon + 2 \epsilon_0} E_0
+    \end{equation}
+    and
+    \begin{equation}
+        C_1 = \frac{\epsilon - \epsilon_0}{\epsilon + 2 \epsilon_0} a^3 E_0
+    \end{equation}
+    so
+    \begin{equation}
+        \Phi_{\text{in}} = - \frac{3 \epsilon_0}{\epsilon + 2 \epsilon_0} E_0 r \cos(\theta)
+    \end{equation}
+    and
+    \begin{equation}
+        \Phi_{\text{out}} = -E_0 r \cos(\theta) + \frac{\epsilon - \epsilon_0}{\epsilon + 2 \epsilon_0} \frac{a^3 E_0}{r^2} \cos(\theta)
+    \end{equation}
+    Taking the proper derivatives, we see that
+    \begin{equation}
+        \vec{E}_{\text{in}} = \frac{3 \epsilon_0 E_0}{\epsilon + 2 \epsilon_0} \hat{z}
+    \end{equation}
+    and if we say that
+    \begin{equation}
+        \vec{p} = (4 \pi a^3 ) \left( \frac{\epsilon - \epsilon_0}{\epsilon + 2 \epsilon_0}\right) \epsilon_0 E_0 \hat{z}
+    \end{equation}
+    \begin{equation}
+        \vec{E}_{\text{out}} = E_0 \hat{z} + \frac{1}{4 \pi \epsilon_0} \left[ \frac{3( \vec{p} \cdot \hat{r} ) \hat{r} - \vec{p}}{r^3} \right]
+    \end{equation}
+    We see here that the field inside is a reduction of the constant field outside, and the field outside has been amplified by the inclusion of the dielectric (unless the material is ``active''), $ \epsilon > \epsilon_0 $. It is also clear here that $ \vec{P} = \vec{D} - \epsilon_0 \vec{E} $.
+\end{ex}
+
+\begin{note}{Quote}
+    ``What do we want to do with this example? Of course, we don't want to do anything with it - minimum action principle.''
+\end{note}
+
+\begin{ex}
+    Imagine two media which meet at a straight boundary. On the left side, we have $ \epsilon_2 $ and on the right we have $ \epsilon_1 $. Imagine placing a charge $ q $ a distance $ d $ from the boundary. We know that maintaining the boundary condition on the interface (the Green's function must vanish)  must create some sort of image charge at $ -d $. On the right side, $ z > 0 $,
+    \begin{equation}
+        \Phi = \frac{q}{4 \pi \epsilon_1 \sqrt{\rho^2 + (z-d)^2}} + \frac{q'}{4 \pi \epsilon_1 \sqrt{\rho^2 + (z+d)^2}}
+    \end{equation}
+    and on the other side,
+    \begin{equation}
+        \Phi = \frac{1}{r \pi \epsilon_2} \frac{q''}{\sqrt{\rho^2 + (z-d)^2}}
+    \end{equation}
+    where $ q'' $ is some ``blurred'' charge seen from the left side of the boundary. However, since $ \Phi $ is continuous across the boundary, we know that
+    \begin{equation}
+        \frac{q}{4 \pi \epsilon_1 \cancel{\sqrt{\rho^2 + d^2}}} + \frac{q'}{4 \pi \epsilon_1 \cancel{\sqrt{\rho^2 + d^2}}} = \frac{q''}{4 \pi \epsilon_2 \cancel{\sqrt{\rho^2 + d^2}}}
+    \end{equation}
+    so
+    \begin{equation}
+        q + q' = \frac{\epsilon_1}{\epsilon_2} q''
+    \end{equation}
+    By taking $ \vec{D} $ having no jump across the boundary,
+    \begin{equation}
+        q - q' = q''
+    \end{equation}
+\end{ex}
+
+
+\end{document}

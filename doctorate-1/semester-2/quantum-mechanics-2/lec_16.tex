@@ -1,0 +1,98 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{16}{Friday, February 21, 2020}{}
+
+In the $ n = 2 $ case, the $ 2s $ and (three) $ 2p $ states will split (by the Darwin and Spin-Orbit terms) into three states, labeled by total angular momentum. The $ 2p_{3/2} $ state moves up, $ 2p_{1/2} $ goes down, and $ 2s_{1/2} $ stays the same. By numerical coincidence, the Kinetic Energy correction will merge these two lowest states back together, but in general all three of the states will be shifted down below the original, unperturbed energy.
+
+These three corrections define the ``fine'' structure. The ``hyperfine'' structure has to do with interactions with the proton spin (spin-spin coupling and some spin-orbit coupling from the proton). We typically write the magnetic moment of the electron as
+\begin{equation}
+    \va{M}_e = \mu_e \va{S} \qquad \mu_e = \frac{q}{2m_e c}
+\end{equation}
+
+In terms of units, the Coulomb potential is
+\begin{equation}
+    - \frac{q^2}{4 \pi \epsilon_0 r} = \frac{e^2}{r}
+\end{equation}
+where $ \epsilon_0 $ is the vacuum electric permittivity, so $ q^2 = e^2 (4 \pi \epsilon_0) $. Interestingly,
+\begin{equation}
+    \mu_p = \frac{g_pq}{2m_p} \qquad g_p = 5.6
+\end{equation}
+This factor $ g_p $ is a result of the proton not being an elementary particle. Technically, you could also define $ g_e = 2 $, but in our definition we've absorbed this into one of our terms (really the ratio is the thing that matters). Typically we write
+\begin{equation}
+    \va{M}_p = \mu_p \va{I}
+\end{equation}
+so that we don't confuse the spin of the electron and the proton.
+
+We expect to see at least two effects from this new spin. First, there should be a similar spin-orbit correction from the proton, and additionally, there should be another term from spin-spin coupling between the two particles. Without proof, we will write down the Hamiltonian of the hyperfine structure:
+\begin{align}\label{eq:hf_structure}
+    H_{\text{HF}} = &- \frac{\mu_0}{4 \pi} \bigg[ \frac{q}{m_e \va{R}^3} \va{L} \vdot \va{M}_p\tag{(a)} \\
+        &+ \frac{1}{\va{R}^3} \left[ 3(\va{M}_e \vdot \vu{n})(\va{M}_p \vdot \vu{n})- \va{M}_p \vdot \va{M}_e \right]\tag{(b)} \\
+    &+ \frac{8 \pi}{3} \va{M}_e \vdot \va{M}_p \delta^{3}(\va{R}) \bigg]\tag{(c)}
+\end{align}
+
+The final term comes from the fact that the proton is not a point-like particle, but rather made of constituent quarks. We believe that these corrections should be on the same order as $ \alpha^4 \frac{m_e}{m_p} (m_e c^2) $. If we assume the radius goes like $ a_0 $, we can see that the first term of the Hamiltonian has dimensions like
+\begin{equation}
+    \frac{\mu_0 q \hbar^2}{m_e a_0^3} \frac{q}{m_p}
+\end{equation}
+where one $ \hbar $ comes from the $ \va{L} $ operator and the other comes from $ \va{M}_p $.
+\begin{equation}
+    \mu_0 q^2  \sim \frac{q^2}{\epsilon_0 c^2} \sim \frac{e^2}{c^2}
+\end{equation}
+so
+\begin{equation}
+    \sim \frac{e^2}{c^2} \frac{\hbar^2}{m_e m_p} \frac{1}{\left[ \frac{\hbar^2}{m_e e^2} \right]^3} = \frac{e^9}{c^2 \hbar^4} \left( \frac{m_e}{m_p} \right) m_e \frac{c^2}{c^2} = \left( \frac{e^2}{\hbar c} \right)^4 \left( \frac{m_e}{m_p} \right) m_e c^2 = \alpha^4 \frac{m_e}{m_p} m_e c^2
+\end{equation}
+
+We could go through the same exercise with the last two terms of the Hamiltonian to find the same relative dimensionality. Let's now see how the hyperfine perturbation effects the energy levels.
+
+First, let's look at the $ 1s $ state (which really has two states which are degenerate due to spin). For the $ (a) $ term, $ \va{L} \vdot \va{M}_p = 0 $ since $ l = 0 $. For the $ (b) $ term, we have $ \vu{n} \equiv \vu{r} $, the vector between the electron and proton.
+\begin{equation}
+    \Delta E_{(b)} \bra{1s} \frac{1}{r^3} \left[ 3 \va{M}_e \vdot \vu{r} \times \va{M}_p \vdot \vu{r} + \va{M}_p \vdot \va{M}_e \right]\ket{1s}
+\end{equation}
+Let's consider the spatial part:
+\begin{equation}
+    \left(\int \frac{\dd[3]{x}}{r^3} \abs{\psi_{1s}(\va{x})}^2 \left[ 3 \vu{r}_i \vu{r}_j - \delta_{ij} \right]\right) \ev{(M_e)_i (M_p)_j}
+\end{equation}
+Suppose we have an integral which is some function of $ x $ dotted into the $ z $-direction.
+\begin{equation}
+    \int \dd[3]{x} f(\va{x} \vdot \va{A}) x_i = \alpha A_i
+\end{equation}
+because we need an index on both sides, and we are integrating over $ x $ so the only thing left to put an index on is $ A $.
+For
+\begin{equation}
+    \int \dd[3]{x} f(\va{x} \vdot \va{A}) x_i x_j = \alpha \delta_{ij} + \beta A_i A_j
+\end{equation}
+because we need both indices on both sides, and the only things we have available are $ A $ and the $\delta$ function. For three indices, this gets harder, since you can include things like the Levi-Civita symbol.
+\begin{equation}
+    \int \dd[3]{x} f(\va{x} \vdot \va{A}, \va{x} \vdot \va{B}) x_i = \alpha A_i + \beta B_i
+\end{equation}
+As a final example, consider
+\begin{equation}
+    \int \dd[3]{x}f(\va{x} \vdot \va{A}, \va{x} \vdot \va{B}) x_i x_j = \alpha A_i B_j + \beta A_j B_i + \gamma \delta_{ij} + \rho A_i A_j + \sigma B_i B_j = \alpha [A_i B_j + A_j B_i] + \gamma \delta_{ij} + \rho A_i A_j + \sigma B_i B_j
+\end{equation}
+The left side is symmetric under exchange of $ i $ and $ j $, so the right hand side also must be. Symmetries have to be conserved by the equal sign. For example, If $ \va{A} = - \va{A} $, the first two terms cancel.
+
+Using this reasoning, since $ \psi_{1s}(\va{x}) $ is spherically symmetric,
+\begin{equation}
+    \int \dd[3]{x} \frac{1}{r^3} \abs{\psi_{1s}(\va{x})}^2 \left[ 3 \vu{r}_i \vu{r}_j - \delta_{ij} \right] = A \delta_{ij}
+\end{equation}
+If we then multiply both sides by $ \delta_{ij} $, we find that this integral is $ 0 $. Therefore, for the $ 1s $ state, there is no contribution from the $ (b) $ term.
+
+For the $ (c) $ term,
+\begin{equation}
+    \va{M}_e \vdot \va{M}_p \delta^3(\va{R}) \left( \frac{- \mu_0}{4 \pi} \right) \left( \frac{8 \pi}{3} \right) = - \frac{q^2 \mu_0}{3 m_e m_p} g_p \left[ \va{S} \vdot \va{I} \right]
+\end{equation}
+This is similar to the spin-orbit case, so we want to use a diagonalized basis (a basis of total spin):
+\begin{equation}
+    \left[ \va{S} \vdot \va{I} \right] = \frac{1}{2} \left[ \underbrace{(\va{S} + \va{I})^2}_{\va{J}^2} - \va{S}^2 - \va{I}^2 \right]
+\end{equation}
+From our analysis of addition of vector spaces, $ \frac{1}{2} \otimes \frac{1}{2} = 1 \oplus 0 $, so for $ s1 $, we have
+\begin{equation}
+    H_{(c)} = - \frac{\mu_0 q^2 g_p \hbar^2}{12 m_e m_p} \left[ \va{J}^2 - \frac{3}{4} \times 2 \right] \delta^3(\va{R})
+\end{equation}
+where we will have $ J = 1 $ and $ J = 0 $ splitting. The difference in the splitting corresponds to the $ 21\centi\meter $ line that is frequently used in cosmology.
+
+
+
+
+\end{document}

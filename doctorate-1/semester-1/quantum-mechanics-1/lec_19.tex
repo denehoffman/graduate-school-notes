@@ -1,0 +1,104 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{19}{Wed. Oct 2 2019}{Interference, Continued}
+\section{Interference, Cont.}
+\label{sec:interference_cont}
+
+From the same interferometer we had before (using a different labeling from Monday, we now have the channels maintaining their names the whole way through both beam splitters, with $ 0 $ before the first, $ 1 $ before the mirror, $ 2 $ after the mirror, and $ 3 $ after the last beam splitter. The phase shifters are right in front of the mirrors),
+\begin{equation}
+    S\ket{0a} = \frac{1}{\sqrt{2}} (\ket{1a} + \ket{1b})
+\end{equation}
+\begin{equation}
+    S\ket{0b} = \frac{1}{\sqrt{2}} (-\ket{1a} + \ket{1b})
+\end{equation}
+\begin{equation}
+    S\ket{1a} = e^{\imath\phi_a}\ket{2a}
+\end{equation}
+\begin{equation}
+    S\ket{1b} = e^{\imath\phi_b}\ket{2b}
+\end{equation}
+\begin{equation}
+    S\ket{2a} = \frac{1}{\sqrt{2}}(\ket{3a} + \ket{3b})
+\end{equation}
+\begin{equation}
+    S\ket{2b} = \frac{1}{\sqrt{2}} (-\ket{3a} + \ket{3b})
+\end{equation}
+\begin{equation}
+    \ket{\psi_0} = \ket{0a} \to \ket{\psi_1} = \frac{1}{\sqrt{2}} (\ket{1a} + \ket{1b}) \to \ket{\psi_2} = \frac{1}{\sqrt{2}} (e^{\imath\phi_a} \ket{2a} + e^{\imath\phi_b} \ket{2b})
+\end{equation}
+\begin{equation}
+    \ket{\psi_3} = \frac{1}{2} (e^{\imath\phi_a} - e^{\imath\phi_b} \ket{3a} + \frac{1}{2} (e^{\imath\phi_a} - e^{\imath\phi_b} \ket{3b}
+\end{equation}
+so with no detector,
+\begin{equation}
+    \Pr([3a]_3) = \bra{\psi_3}[3a] \ket{\psi_3} = \sin(\Delta/2)
+\end{equation}
+where $\Delta$ is the difference in phase.
+
+If there is a detector $ \hat{a} $ before the phase shifter on the $ a $ path,
+\begin{equation}
+    \mathcal{H} = \mathcal{H}_p \otimes \mathcal{H}_{\hat{a}} 
+\end{equation}
+\begin{equation}
+    \ket{\Psi_0} = \ket{\psi_0,0 \hat{a}} 
+\end{equation}
+\begin{equation}
+    \ket{\Psi_3} = \frac{1}{2} \left[ e^{\imath\phi_a} (\ket{3a,1 \hat{a}} + \ket{3b,1 \hat{a}} ) + e^{\imath\phi_b} (- \ket{3a,0 \hat{a}} + \ket{3b,0 \hat{a}}) \right]
+\end{equation}
+Therefore,
+\begin{equation}
+    \Pr([3a]_3 \otimes I_{\hat{a}}) = \bra{\Psi_3}[3a]_3 \otimes I_{\hat{a}} \ket{\Psi_3} = \underbrace{ \frac{1}{4} }_{(0 \hat{a})} + \underbrace{ \frac{1}{4}}_{(1 \hat{a})} = \frac{1}{2}
+\end{equation}
+Notice we lose the $ \Delta $ relationship, so detection on channel $ a $ causes a loss of the interference pattern.
+
+We can imagine a third case where there is a detector on $ a $ and $ b $ simultaneously (so we know when a particle goes through but we don't know which path):
+\begin{equation}
+    \mathcal{H} = \mathcal{H}_p \otimes \mathcal{H}_{\hat{a}}
+\end{equation}
+\begin{equation}
+    \ket{\Psi_2} = \frac{1}{\sqrt{2}} ( e^{\imath\phi_a} \ket{2a,1 \hat{a}} + e^{\imath\phi_b} \ket{2b,1 \hat{a}})
+\end{equation}
+\begin{equation}
+    \ket{\Psi_3} = e^{\imath\phi_a} (\ket{3a,1 \hat{a}} + \ket{3b,1 \hat{a}} e^{\imath\phi_b} (-\ket{3a,1 \hat{a}} + \ket{3b,1 \hat{a}} 
+\end{equation}
+\begin{equation}
+    \Pr([3a]_3) = \sin[2](\Delta/2)
+\end{equation}
+
+In a fourth case, we have two detectors, $ \hat{a} $ and $ \hat{b} $.
+\begin{equation}
+    \mathcal{H} = \mathcal{H}_p \otimes \mathcal{H}_{\hat{a}} \otimes \mathcal{H}_{\hat{b}}
+\end{equation}
+\begin{equation}
+    \ket{\Psi_3} = \frac{1}{\sqrt{2}} (e^{\imath\phi_a} \ket{2a,1 \hat{a},0 \hat{b}} + e^{\imath\phi_b} \ket{2b,0 \hat{a},1 \hat{b}})
+\end{equation}
+\begin{equation}
+    Pr([3a]_3) = \frac{1}{2}
+\end{equation}
+
+In the fifth case, we have detectors $ \hat{c} $ and $ \hat{d} $ on the $ a $ and $ b $ channels respectively \textbf{after} the second beam splitter.
+\begin{equation}
+    [\Phi_0] \odot \begin{cases} [1a]\\ [1b] \end{cases} \odot I_2 \odot I_3 \odot \begin{cases} [0 \hat{c}]\\ [1 \hat{c}] \end{cases}
+\end{equation}
+Let's label the histories $ Y^{a0},\ Y^{a1},\ Y^{b0},\ Y^{b1} $ corresponding to the branch and whether or not the detector was triggered. This family is NOT consistent. If we were to form the chainket for $ \bra{Y^{a0}} \ket{Y^{b0}} \neq 0 $. This is due to the fact that we can't tell which branch we had gone through, because the beam splitters create superpositions of the states. A particle going through either branch has some probability to exit to either detector. Any sort of $ [0 \hat{c}] $ or $ [1 \hat{d}] $ (and other) combinations in the final state of this history will result in inconsistencies.
+
+A consistent history could be
+\begin{equation}
+    [\Psi_0] \odot \begin{cases} [1a]\\ [1b] \end{cases} \odot I_2 \odot I_3 \odot \begin{cases} [ \hat{c} +]\\ [ \hat{c} -] \end{cases} 
+\end{equation}
+where
+\begin{equation}
+    \hat{c}\pm = \frac{1}{\sqrt{2}} (\ket{0 \hat{c}} \pm \ket{1 \hat{c}})
+\end{equation}
+We can show that going through one branch makes the final state $ [\hat{c}\pm] $, but from this we can't tell which path was taken.
+
+In the sixth (and final) case, we have weak detection on each channel:
+\begin{equation}
+    S \ket{1a,0 \hat{a},0 \hat{b}} = \alpha e^{\imath\phi_a} \ket{2a,1 \hat{a}, 0 \hat{b}} + \beta e^{\imath\phi_a} \ket{2a,0 \hat{a},0 \hat{b}}
+\end{equation}
+The other channel would have the same scenario, for some nonzero $\beta$ corresponding to the chance to miss a detection.
+\begin{equation}
+    \Pr([3a]_3) = \norm{\beta}^2 \sin[2](\Delta/2) + \frac{1}{2}\norm{\alpha}^2
+\end{equation}
+
+\end{document}

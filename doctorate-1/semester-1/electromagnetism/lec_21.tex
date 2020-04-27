@@ -1,0 +1,78 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{21}{Mon Oct 7 2019}{Magnetostatics, Continued}
+
+For a current moving in a circle of radius $ a $,
+\begin{equation}
+    A_y \mapsto A_{\varphi} = \frac{\mu_0 I a}{4 \pi} \int_0^{2 \pi} \dd{\varphi'} \frac{\cos(\varphi')}{\sqrt{a^2 + r^2 - 2ar \hat{x} \cdot \hat{x}'}}
+\end{equation}
+where $ \hat{x} \cdot \hat{x} = \cos(\gamma) = \sin(\theta) \cos(\varphi ')$.
+
+We expand
+\begin{equation}
+    \frac{1}{\sqrt{a^2 + r^2 - 2ar \cos(\gamma)}} = \sum_{l=0}^{\infty} \frac{r_<^l}{r_>^{l+1}} P_l(\cos(\gamma))
+\end{equation}
+
+Recall (from Jackson) that
+\begin{equation}
+    P_l( \hat{x} \cdot \hat{x}') = P_l^0(\cos(\theta)) P_l^0(\cos(\theta)) + 2 \sum_{m=1}^{\infty} \frac{(l-m)!}{(l+m)!} P_l^m(\cos(\theta)) P_l^m(0) \cos(m[\varphi - \varphi']) 
+\end{equation}
+
+\begin{equation}
+    A_{\varphi} = \frac{\mu_0 I a}{4 \pi} \int_0^{2 \pi} \dd{\varphi'} \cos(\varphi') \left[ \frac{r_<^l}{r_>^{l+1}} P_0(\cos(\theta)) P_0(0) + \sum_{l=0}^{\infty} \frac{r_<^l}{r_>^{l+1}} 2 \sum_{m=0}^{l} (\dots) \right]
+\end{equation}
+This removes all but the $ m = 1 $ term:
+\begin{equation}
+    \int_0^{2 \pi} \dd{\varphi'} \cos(\varphi') \cos(m(\varphi - \varphi')) = \delta_{ml} \pi
+\end{equation}
+\begin{equation}
+    A_{\varphi} = \frac{\mu_0 I a}{4 \pi} (2 \pi) \sum_{l=0}^{\infty} \frac{r_<^l}{r_>^{l+1}} \underbrace{ P_l^1(\cos(\theta)) P_l^1(0) \underbrace{ \frac{(l-1)!}{(l+1)!}} _{\frac{1}{l(l+1)}}}_{\frac{(-1)^{s+1}(2s-1)!!}{2^{s+1} s!(2s+2)}}
+\end{equation} where $ l = 2s + 1 $.
+
+\begin{equation}
+    A_{\varphi} = - \frac{\mu_0 I a}{2} \sum_{s=0}^{\infty} \frac{r_<^{2s+1}}{r_>^{2s+2}} \left[ \frac{(-1)^2(2s-1)!!}{2^{s+1}s!(2s+2)} P_{2s+1}^1(\cos(\theta)) \right]
+\end{equation}
+
+Now we need to figure out what $ \vec{B} $ is! We will once more rewrite this expression so that it matches what Jackson uses:
+\begin{equation}
+    A_{\varphi} = - \frac{\mu_0 I a}{4} \sum_{s=0}^{\infty} \frac{r_<^{2s+1}}{r_>^{2s+2}} \frac{(-1)^s(2s+1)!!}{2^{s+1}s!(s+1)} P_l^1(\cos(\theta))
+\end{equation}
+\begin{equation}
+    \vec{B} = \curl{\vec{A}}
+\end{equation}
+\begin{equation}
+    B_r = \frac{1}{r \sin(\theta)} \pdv{\theta}(\sin(\theta) A_{\varphi})
+\end{equation}
+\begin{equation}
+    B_{\theta} = - \frac{1}{r} \pdv{r}(r A_{\varphi})
+\end{equation}
+(this is symmetric about $\varphi$ so we don't need to calculate that component)
+
+If you plug this vector potential into these formulas, you should use the trick that
+\begin{equation}
+    \sin(\theta) = (1-x^2)^{1/2}
+\end{equation}
+for small angles, which is
+\begin{equation}
+    \dv{x}(1-x^2)^{1/2} P_l^1 = \dv{x}(1-x^2)^{1/2}(-1)(1-x^2)^{1/2}P_l = \dv{x}(1-x^2) \dv{x}P_l = l(l+1)P_l
+\end{equation}
+Finally:
+
+\begin{equation}
+    B_{\theta} = \frac{\mu_0 I a}{2r} \sum_{s=0}^{\infty}\frac{(-1)^s(2s+1)!!}{2^s s!} \frac{r_<^{2s+1}}{r_>^{2s+2}} P_{2s+1}(\cos(\theta))
+\end{equation}
+and
+\begin{equation}
+B_r = - \frac{\mu_0 I a}{4} \sum_{s=0}^{\infty} \frac{(-1)^s(2s+1)!!}{2^s(s+1)!} \begin{cases} - \frac{2s+2)}{(2s+1)} \frac{1}{a^2} \left( \frac{r}{a} \right)^{2s} & r<a \\ \frac{1}{r^3} \left( \frac{a}{r} \right)^{2s} & r>a \end{cases} P_{2s+1}^1(\cos(\theta))
+\end{equation}
+
+In retrospect, it might make more sense to write this in cylindrical coordinates. We call our current $ \vec{J} = I_0 \delta(\rho - a) \delta(z) \hat{\varphi}$.
+\begin{equation}
+    \vec{A} = \frac{\mu_0}{4 \pi} \int \vec{J}( \vec{x} ') \frac{1}{\abs{ \vec{x} - \vec{x}' }} \dd[3]{x'} 
+\end{equation}
+\begin{align}
+    \vec{A} &= \frac{\mu_0}{4 \pi} \int I_0 \delta (\rho' - a) \delta(z')[- \sin(\varphi') \hat{i} + \cos(\varphi') \hat{j} ] \rho' \dd{\rho'} \dd{\theta'} \dd{z'}\nonumber\\
+    & \times \frac{4}{\pi} \int_0^{\infty} \cos(k(z-z')) \dd{k} \left[ I_0(k \rho_<) K_0(k \rho_>) + 2 \sum_{m=1}^{\infty} I_m(k \rho_<)K_m(k \rho_>) \cos(m(\varphi - \varphi')) \right]
+\end{align}
+
+\end{document}

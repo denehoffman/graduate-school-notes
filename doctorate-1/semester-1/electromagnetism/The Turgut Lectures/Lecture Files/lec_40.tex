@@ -1,0 +1,126 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{40}{Friday, November 15, 2019}{Wave Guides}
+
+Recall our discussion last lecture on perfect conductors with constant cross-section along the $ \vu{z} $-axis. By ``perfect'' we mean $ \va{E} = \va{0} $ and $ \va{B} = \va{0} $ inside the material. In reality, even highly-conductive materials can have some fields breach the skin depth of the material, but we will ignore this for the present discussion. Recall that $ \va{E}_{tangent} $ and $ \va{B}_{\text{normal}} $ are both continuous at the boundaries of the conductor. With these boundary conditions, we can essentially say that
+\begin{equation}
+    \eval{\va{E}_{\parallel}}_{\text{surface}} = \eval{ \va{B}_n}_{\text{surface}} = \va{0}
+\end{equation}
+
+If the conductor is straight along the $ \vu{z} $-axis, the propagation along this axis is
+\begin{equation}
+    \va{E} = \va{E}(x, y) e^{\pm \imath kz - \imath \omega t}
+\end{equation}
+We will choose $ + $, which represents waves going in the positive direction, so
+\begin{equation}
+    \va{B} = \va{B}(x,y) e^{\imath k z - \imath \omega t}
+\end{equation}
+
+Inside the waveguide, $ \div{ \va{E}} = \div{ \va{B}} = \va{0} $.
+\begin{align}
+    \curl{ \va{E}} &= - \pdv{ \va{B}}{t} \\
+    \mqty| \hat{x} & \hat{y} & \hat{z} \\ \partial_x & \partial_y & \partial_z \\ E_x & E_y & E_z | = + \imath \omega \va{B}
+\end{align}
+so
+\begin{align}
+    \partial_y E_z - \imath k E_y &= \imath \omega B_x \\
+    \imath k E_x - \partial_x E_z = \imath \omega B_y \\
+    \partial_x E_y - \partial_y E_x = \imath \omega B_z
+\end{align}
+
+Similarly, $ \curl{ \va{B}} = - \epsilon \mu \pdv{ \va{E}}{t} $:
+\begin{align}
+    \partial_y B_z - \imath k B_y &= - \imath \omega \epsilon \mu E_x \\
+    \imath k B_x - \partial_x B_z &= - \imath \omega \epsilon \mu E_y \\
+    \partial_x B_y - \partial_y B_x &= - \imath \omega \epsilon \mu E_z
+\end{align}
+
+With six unknowns and six equations, we can probably solve this in terms of derivatives of the fields. If we solve this, we find (assuming $ \omega^2 \epsilon \mu \neq k^2 $)
+\begin{align}
+    E_x &= \frac{\imath}{\omega^2 \epsilon \mu - k^2} [ k \partial_x E_z + \omega \partial_y B_z] \\
+    E_y &= \frac{\imath}{\omega^2 \epsilon \mu - k^2} [k \partial_y E_z - \omega \partial_x B_z] \\
+    B_x &= \frac{\imath}{\omega^2 \epsilon \mu - k^2} [k \partial_x B_z - \omega \epsilon \mu \partial \mu x E_z] \\
+    B_y &= \frac{\imath}{\omega^2 \epsilon \mu - k^2} [k \partial_y B_z + \omega \epsilon \mu \partial_y E_z]
+\end{align}
+If we find $ E_z $ and $ B_z $, we get the other components. If $ E_z = B_z = 0 $ then this reduces to the case where $ \curl{ \va{E}} = \va{0} $ so $ \va{E} = - \grad{\psi} $ where the boundary conditions dictate that $ \psi $ is a constant, so there is no propagation.
+
+If $ E_z = 0 $ we call these modes ``TE'' or ``transverse-electric'' modes, and if $ B_z = 0 $, we call these ``TM'' or ``transverse-magnetic'' modes.
+
+By taking the curl of $ \va{E} $ twice, we find that in general
+\begin{equation}
+    (\laplacian + \omega^2 \epsilon \mu) \begin{cases} \va{E} \\ \va{B} \end{cases} = \va{0}
+\end{equation}
+However, with our boundary conditions applied, we can say
+\begin{equation}
+    (\laplacian_{\perp} - k^2 + \omega^2 \epsilon \mu) \begin{cases} \va{E} \\ \va{B} \end{cases} = \va{0}
+\end{equation}
+where the perpendicular Laplacian refers to derivatives in only the $ x $ and $ y $ coordinates. Using the relations we found between the components, we can reduce our equations to
+\begin{equation}
+    (\laplacian_{\perp} - k^2 + \omega^2 \epsilon \mu) \begin{cases} \va{E}_z \\ \va{B}_z \end{cases} = \va{0}
+\end{equation}
+
+From this, we see that $ \eval{E_z}_{\text{surface}} = 0 $ and $ \eval{ \va{B}_n}_{\text{surface}} = \va{0} $.
+
+\begin{ex}
+    Let's look at a rectangular wave guide. We must impose boundary conditions on all four surfaces (not the ones parallel to the $ x/y $-plane, just think of this as an infinite structure). Let's look for TE modes, where $ E_z = 0 $. We can write $ B_z = X(x) Y(y) $ and set the boundaries at $ x = 0, a $ and $ y = 0, b $.
+    Plugging in our definition of $ B_z $,
+    \begin{equation}
+        \frac{X''}{X} + \frac{Y''}{Y} + (\omega^2 \epsilon \mu - k^2) = 0
+    \end{equation}
+    so we can say that $ \frac{X''}{X} = - k_x^2 $ and $ \frac{Y''}{Y} = 0 k_y^2 $. Solving these, we find that
+    \begin{equation}
+        B_z = [A \sin(k_x x) + B \cos(k_x x)][C \sin(k_y y) + D \cos(k_y y)]
+    \end{equation}
+    From our component relations, we have
+    \begin{equation}
+        B_x = \frac{\imath}{\omega^2 \epsilon \mu - k^2} [k \partial_x B_z]
+    \end{equation}
+    and
+    \begin{equation}
+        B_y = \frac{\imath}{\omega^2 \epsilon \mu - k^2} [k \partial_y B_z]
+    \end{equation}
+    By the boundary condition on the normal of $ B_z $, we find that the derivatives in the equations above must be zero at the boundary, so we can show that $ k_x a = n \pi $. Using $ B_y $, we find that $ k_y b = m \pi $:
+    \begin{equation}
+        B_z = A_{mn} \cos(\frac{n \pi x}{a}) \cos(\frac{m \pi y}{b}) e^{\imath k z - \imath \omega t}
+    \end{equation}
+    Recall that we have to satisfy the condition $ - k_x^2 - k_y^2 - k^2 + \omega^2 \epsilon \mu $, or
+    \begin{equation}
+        k^2 = \omega^2 \epsilon \mu - \left( \frac{m^2 \pi^2}{a^2} + \frac{n^2 \pi^2}{b^2} \right)
+    \end{equation}
+    What this means is that there is a cutoff frequency below which no waves will propagate, if we choose $ m $ and $ n $. If you check the velocities, you find that $ v_p = \frac{\omega}{k} > \frac{1}{\sqrt{\epsilon \mu}} $ but $ v_g = \dv{\omega}{k} < \frac{1}{\sqrt{\epsilon \mu}} $, and in fact $ v_p v_g = \frac{1}{\epsilon \mu} $.
+
+    Note that the condition that we cant have $ B_z = E_z = 0 $ implies that we can't propagate waves straight into the wave guide. We actually have to bounce around along the walls to maintain a propagating wave.
+\end{ex}
+
+How can we generalize this? We can rewrite our previous equations as
+\begin{equation}
+    \va{E}_{\perp} = \frac{\imath}{\mu \epsilon \omega^2 - k^2} [k \grad_{\perp}{E_z} - \omega \hat{z} \cross \grad_{\perp}{B_z}] 
+\end{equation}
+\begin{equation}
+    \va{B}_{\perp} = \frac{\imath}{\mu \epsilon \omega^2 - k^2} [k \grad_{\perp}{B_z} - \omega \hat{z} \cross \grad_{\perp}{E_z}] 
+\end{equation}
+We can see here that if we look only at TE or TM waves, we can reduce these further. For $ E_z = 0 $,
+\begin{equation}
+    \va{B}_{\perp} = \frac{\imath k}{\mu \epsilon \omega^2 - k^2} \grad_{\perp}{B_z}
+\end{equation}
+and
+\begin{equation}
+    \va{E}_{\perp} = \frac{- \imath \omega}{\mu \epsilon \omega^2 - k^2} \hat{z} \cross \grad_{\perp}{B_z}
+\end{equation}
+and for $ B_z - 0 $,
+\begin{equation}
+    \va{E}_{\perp} = \frac{\imath k}{\mu \epsilon \omega^2 - k^2} \grad_{\perp}{E_z}
+\end{equation}
+and
+\begin{equation}
+    \va{B}_{\perp} = \frac{\imath \omega}{\mu \epsilon \omega^2 - k^2} \hat{z} \cross \grad_{\perp}{E_z}
+\end{equation}
+
+We are looking for the solutions of
+\begin{equation}
+    \left[ \laplacian_{\perp} + (\omega^2 \epsilon \mu - k^2) \right] \psi
+\end{equation}
+for either $ \eval{\psi}_{S} = 0 $ or $ \eval{\pdv{\psi}{n}}_{S} = 0 $, which we recognize as the Dirichlet and Neumann boundary conditions.
+
+
+\end{document}

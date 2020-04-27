@@ -1,0 +1,153 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{24}{Fri Oct 11 2019}{More on Position and Momentum Operators}
+
+\begin{equation}
+    \ket{\varphi} \to \bra{x} \ket{\varphi} = \varphi (x)
+\end{equation}
+\begin{equation}
+    \ket{\varphi} \to \bra{p} \ket{\varphi} = \tilde{\varphi}(p)
+\end{equation}
+
+We can see that position and momentum are Fourier conjugates:
+\begin{equation}
+    \tilde{\varphi}(p) = \bra{p} \ket{\varphi} = \bra{p}\color{blue} \int \dd{x} \op{x}\color{black} \ket{\varphi} = \frac{1}{\sqrt{2 \pi \hbar}} \int \dd{x} e^{- \imath p x / t} \varphi (x)
+\end{equation}
+and
+\begin{equation}
+    \varphi (x) = \frac{1}{\sqrt{2 \pi \hbar}} \int \dd{p} e^{\imath px/\hbar} \tilde{\varphi}(p)
+\end{equation}
+
+\begin{equation}
+    \bra{p} (P \ket{\varphi} ) = p \tilde{\varphi}(p) = P \tilde{\varphi}(p)
+\end{equation}
+\begin{equation}
+    P \varphi(x) = -\imath\hbar \pdv{x} \varphi (x)
+\end{equation}
+
+What happens when we act the position operator on the Fourier transformed function of $ p $?
+
+\begin{align}
+    X \tilde{\varphi}(p) &= \bra{p} X \ket{\varphi}\\
+    &= \bra{p} \int \dd{x} \op{x}  X \ket{\varphi}\\
+    &= \frac{1}{\sqrt{2 \pi \hbar}} \int \dd{x} x e^{-\imath p x/\hbar} \varphi (x)\\
+    &= \imath\hbar \pdv{p}\phi(p)
+\end{align}
+
+We can see that this is just like acting the momentum operator on a function of position. We could imagine doing this to the Schr\"odinger equation:
+\begin{equation}
+    \imath\hbar \pdv{t} \ket{\varphi} = \left\{ \frac{p^2}{2m} + V(X) \right\} \ket{\varphi}
+\end{equation}
+Let's project this onto $ \bra{x} $:
+\begin{align}
+    \color{blue} \ket{x} \color{black} \imath\hbar \pdv{t} \ket{\varphi} &= \left\{ \frac{p^2}{2m} + V(X) \right\} \ket{\varphi}\\
+    \imath\hbar \pdv{t} \varphi(x,t) &= - \frac{\hbar^2}{2m} \dv[2]{x} \varphi (x,t) + V(x) \varphi (x,t)
+\end{align}
+and now onto $ \bra{p} $:
+\begin{align}
+    \color{blue} \ket{p} \color{black} \imath\hbar \pdv{t} \ket{\varphi} &= \left\{ \frac{p^2}{2m} + V(X) \right\} \ket{\varphi}\\
+    \imath\hbar \pdv{t} \tilde{\varphi}(p,t) &= - \frac{\hbar^2}{2m} \tilde{\varphi}(p,t) + V\left( \imath\hbar \pdv{p} \right) \tilde{\varphi} (p,t)
+\end{align}
+What do we mean by the potential energy evaluated as a function of the derivative?
+\begin{equation}
+    V(x) = \sum_{n} V_n x^n \to \sum_{n} V_n (\imath\hbar)^n \pdv[n]{p}
+\end{equation}
+
+\section{Heisenberg Uncertainty Relation}
+\label{sec:heisenberg_uncertainty_relation}
+Suppose we have Hermitian operators $ A $ and $ B $ such that
+\begin{equation}
+    [A,B] = AB-BA \equiv \imath C
+\end{equation}
+and
+\begin{equation}
+    \left\{ A,B \right\}= AB+BA \equiv D
+\end{equation}
+
+\begin{equation}
+    \expval{A}_{\varphi} = \bra{\varphi} A \ket{\varphi}
+\end{equation}
+and
+\begin{equation}
+    \expval{A^2}_{\varphi} = \bra{\varphi} A^2 \ket{\varphi}
+\end{equation}
+We will define
+\begin{equation}
+    (\Delta A)^2 = \bra{\varphi} \underbrace{A-\expval{A}_{\varphi}}_{\tilde{A}} \ket{\varphi} = \expval{A^2}_{\varphi} - \expval{A}_{\varphi}^2
+\end{equation}
+Similarly, $ \tilde{B} = B - \expval{B}_{\varphi} $.
+
+We say that
+\begin{equation}
+    \expval{\tilde{A}} = \expval{A-\expval{A}}= \expval{A} - \expval{A} = 0
+\end{equation}
+
+\begin{theorem}
+    Schwarz Inequality:
+    \begin{equation}
+        \norm{f}^2 \norm{g}^2 \geq \abs{ \vec{f} \cdot \vec{g}} \qc  (= \iff \vec{f} \parallel \vec{g})
+    \end{equation}
+\end{theorem}
+
+Let $ \vec{f} = \tilde{A} \ket{\varphi} $ and $ \vec{g} = \tilde{B} \ket{\varphi} $. Using this inequality,
+\begin{equation}
+    (\Delta A)^2 = \norm{f}^2
+\end{equation}
+\begin{equation}
+    (\Delta B)^2 = \norm{g}^2
+\end{equation}
+\begin{equation}
+    (\Delta A)^2 (\Delta B)^2 \geq \abs{\expval{\tilde{A}\tilde{B}}_{\varphi}}^2
+\end{equation}
+where
+\begin{equation}
+    \tilde{A}\tilde{B} = \frac{\tilde{A}\tilde{B}+\tilde{B}\tilde{A}}{2} + \imath \frac{\tilde{A}\tilde{B}-\tilde{B}\tilde{A}}{2\imath} = \frac{1}{2} \tilde{D}+ \frac{1}{2} \imath C
+\end{equation}
+What is the expectation value of this?
+\begin{align}
+    \abs{\expval{\tilde{A}\tilde{B}}_{\varphi}}^2 &= \abs{\frac{1}{2} \expval{\tilde{D}} + \frac{1}{2} \imath \expval{C}}^2 = \frac{1}{4} \abs{\expval{\tilde{D}}}^2 + \frac{1}{4} \abs{\expval{C}}\\
+    & \geq \frac{1}{4} \abs{\expval{C}}^2
+\end{align}
+
+Back to the original Schwarz Inequality:
+\begin{equation}
+    (\Delta A)(\Delta B) \geq \abs{\expval{\tilde{A}\tilde{B}}} \geq \frac{1}{2} \abs{\expval{[A,B]}}
+\end{equation}
+
+To show an example, let's use $ A = X $, $ B = P $, and $ C = \hbar I $ as we have found before. This implies that
+\begin{equation}
+    \Delta X \Delta P \geq \frac{\hbar}{2}
+\end{equation}
+
+\subsection{Temporal Heisenberg Relation}
+\label{sub:temporal_heisenberg_relation}
+
+It can be shown that
+\begin{equation}
+    \Delta H \Delta \tau \geq \frac{\hbar}{2}
+\end{equation}
+
+What does it mean? Recall that in general
+\begin{equation}
+    \Delta A \Delta H \geq \frac{1}{2} \abs{\expval{[A,H]}}
+\end{equation}
+From Ehrenfest's theorem,
+\begin{equation}
+    \dv{t}\expval{A} = \frac{1}{\imath\hbar} \expval{[A,H]}
+\end{equation}
+so
+\begin{equation}
+    \Delta A \Delta H = \frac{1}{2} \hbar \dv{t}\expval{A}
+\end{equation}
+
+Therefore, if we define
+\begin{equation}
+    \Delta \tau \equiv \frac{\Delta A}{\dv{\expval{A}}{t}}
+\end{equation}
+we can say that our $ \Delta \tau $ is really referring to the timescale or lifetime of some observable rather than an uncertainty in time.
+
+\begin{ex}
+    These Energy-Time relations are very useful in particle phenomenology. Imagine a $ Z^0 $ boson that appears to have a Gaussian energy distribution centered at $ mc^2 $ with a width $ \hbar \Gamma $. We can say that the ``lifetime'' of the particle is $ \tau = \frac{1}{\Gamma} $. In reality, $ mc^2 = 91.188\giga\electronvolt $ while $ \hbar\gamma = 2.5\giga\electronvolt $
+\end{ex}
+
+\end{document}

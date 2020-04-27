@@ -1,0 +1,160 @@
+\documentclass[a4paper,twoside]{article}
+\input{../../preamble.tex}
+\title{33-765 Homework 4}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section*{12. The Origin and Limitations of Classical Error Propagation}
+Consider a collection of random variables $ \vb{X} = (X_1, X_2, \cdots, X_N) $, from which we calculate a function of interest, $ F(\vb{X}) $. Assume we know all expectation values $ \ev{X_i} $ and even all covariances $ C_{ij} \colon = \Cov(X_i, X_j) = \ev{(X_i - \ev{X_i})(X_j - \ev{X_j})} $.
+\begin{itemize}
+    \item[1.] Taylor-expand $ F $ to \textit{second order} around $ \ev{\vb{X}} $. Now take the average and show how $ \ev{F(\vb{X})} $ differs from $ F(\ev{\vb{X}}) $.
+        \begin{problem}
+            \begin{equation}
+                F(\vb{X}) \approx F(\ev{\vb{X}}) + \sum_{i=1}^{N} F'(\ev{\vb{X}})(X_i - \ev{X_i }) + \sum_{i=1}^{N} \sum_{j=1}^{N} \frac{1}{2} F''(\ev{\vb{X}})(X_i - \ev{X_i})(X_j - \ev{X_j})
+            \end{equation}
+            Therefore
+            \begin{equation}
+                \ev{F(\vb{X})} \approx F(\ev{\vb{X}}) + \frac{1}{2} F''(\ev{\vb{X}}) \sum_{i,j=1}^{N} \Cov(X_i, X_j)
+            \end{equation}
+        \end{problem}
+    \item[2.] For the special case of $ n=1 $ and a convex $ F $, show that your result is consistent with Jensen's inequality!
+        \begin{problem}
+            For $ n = 1 $, the covariance term becomes
+            \begin{equation}
+                \ev{(X_1 - \ev{X_1})^2} = \sigma^2_{X_1} \geq 0
+            \end{equation}
+            and if $ F $ is convex, $ F'' \geq 0 $ by definition, so
+            \begin{equation}
+                \ev{F(X_1)} \geq F(\ev{X_1})
+            \end{equation}
+        \end{problem}
+    \item[3.] The variance of $ F $ is given by $ \sigma_F^2 = \ev{\left[ F(\vb{X}) - \ev{F(\vb{X})} \right]^2} $. Simplify this by replacing $ F $ with its \textit{first order} Taylor expansion. Show further that if all $ X_i $ are uncorrelated, you end up with the ``standard'' formula for error propagation!
+        \begin{problem}
+            \begin{equation}
+                \sigma^2_F = \ev{\left[ F(\ev{\vb{X}}) + \sum_{i=1}^{N} F'(\ev{\vb{X}}) (X_i - \ev{X_i}) - F(\ev{\vb{X}}) \right]^2} = F'(\ev{\vb{X}})^2 \sum_{i,j=1}^{N} \Cov(X_i, X_j)
+            \end{equation}
+            If all $ X_i $ are uncorrelated, $ \Cov(X_i, X_j) = 0 \quad \forall i \neq j $. For $ i = j $, $ \Cov(X_i, X_j) = \sigma^2_{X_i} $, so we are left with
+            \begin{equation}
+                \sigma^2_F = F'(\ev{\vb{X}})^2 \sum_{i=1}^{N} \sigma^2_{X_i}
+            \end{equation}
+            which is the standard formula for error propagation.
+        \end{problem}
+\end{itemize}
+
+\section*{13. Generalized Geometric and Arithmetic Mean}
+Let $ \{x_i\}_{i=1\ldots N} $ be a set of $ N $ positive real numbers and $ \{p_i\} $ be a probability distribution. Prove the following inequality between a \textit{generalized arithmetic mean} and a \textit{generalized geometric mean}:
+\begin{equation}
+    \sum_{i=1}^{N} p_i x_i \geq \prod_{i=1}^{N} x_i^{p_i}.
+\end{equation}
+\begin{problem}
+    \begin{equation}
+        \ev{\{x_i\}} = \sum_{i=1}^{N} p_i x_i
+    \end{equation}
+    by definition, and Jensen's inequality says that
+    \begin{equation}
+        \ev{f(\{x_i\})} \geq f(\ev{\{x_i\}})
+    \end{equation}
+    for convex $ f $. The inequality will be reversed for concave $ f $, since if $ f $ is concave, $ -f $ is convex. The natural logarithm is a concave function, since $ \dv[2]{\ln{x}}{x} = - \frac{1}{x^2} \leq 0 \quad \forall x $. Therefore
+    \begin{equation}
+        \ev{\ln{\{x_i\}}} \leq \ln{\ev{\{x_i\}}}
+    \end{equation}
+    or
+    \begin{align}
+        \ln{\sum_{i=1}^{N} p_i x_i} \geq \sum_{i=1}^{N}\ln{x_i} &\geq \sum_{i=1}^{N} p_i \ln{x_i} \qquad (p_i \leq 1 \quad \forall p_i) \\
+        &= \sum_{i=1}^{N} \ln{x_i^{p_i}} \\
+        &= \ln{\prod_{i=1}^{N} x_i^{p_i}}
+    \end{align}
+    where the first line follows from the transformation theorem for discrete random variables. Exponentiating both sides gives the desired inequality.
+\end{problem}
+
+\section*{14. Pumping Gas}
+When Alice needs to go to the gas station, she always purchases gasoline for a fixed amount of money. When Bob needs to get gas, he always fills up the whole tank. Considering that gas prices fluctuate, show that these two strategies differ economically!\ Try to estimate how much better the cheaper strategy is.
+
+\begin{note}{Hint:}
+    Assume that whenever Alice or Bob go to the gas station, the ``price per mile'', $ p_i $, is a random variable with some unknown distribution. Calculate the total fuel cost of Bob after $ N $ visits to the gas station and the total number of miles Alice reaches after $ N $ visits. Then calculate the effective average price per mile after $ N $ visits for Alice and Bob. Now remember Jensen.
+\end{note}
+\begin{problem}
+    Let's first calculate the total number of miles Alice reaches after $ N $ visits. If pays the same amount of money, $ a $, each time, she will travel $ \frac{a}{p_i} $ miles on each trip or
+    \begin{equation}
+        a \sum_{i=1}^{N} \frac{1}{p_i}
+    \end{equation}
+    miles in $ N $ stops. On the other hand, Bob fills up his tank at each visit, so if he travels $ b $ miles, he will pay $ b p_i $ at each gas station, or
+    \begin{equation}
+        b \sum_{i=1}^{N} p_i
+    \end{equation}
+    dollars in $ N $ stops. Next, we want to calculate the effective average price per mile after $ N $ stops. For Alice, this value is
+    \begin{equation}
+        \frac{Na}{\sum_{i=1}^{N} \frac{a}{p_i}} = \frac{N}{\sum_{i=1}^{N} \frac{1}{p_i}}
+    \end{equation}
+    For Bob, the cost per mile is on average
+    \begin{equation}
+        \frac{\sum_{i=1}^{N} b p_i}{Nb} = \sum_{i=1}^{N} \frac{p_i}{N}
+    \end{equation}
+    Therefore, the average miles per dollar for Alice is equal to $ \ev{\frac{1}{p_i}} \geq \frac{1}{\ev{p_i}} $ since for positive values of $ p_i $ (assume they don't get paid for buying gas), $ \frac{1}{p_i} $ is concave (and Jensen's inequality holds), so the cost per mile for Alice is $ \leq \ev{p_i} $, which happens to be the cost per mile for Bob. Therefore, Alice's strategy is always better or at best, Bob matches the cost. Additionally, Alice will save money for reasons that have nothing to do with statistics and gas prices. She will typically drive on less than a full tank while Bob will usually have a mostly full tank, since he fills it up each time he stops. It is slightly more cost-effective to drive on less than a full tank because it weighs less, so even if Bob gets lucky with the prices at his gas stations, Alice still might save more money.
+\end{problem}
+
+\section*{15. Work Done by a Moving Piston\textemdash Valuable Lessons from Kinetic Theory}
+In class, we studied the pressure exerted by an ideal gas onto a hard wall within the framework of kinetic theory. Here, we want to extend these thoughts and contemplate what happens if the wall (let's now call it a ``piston'') moves against the gas.
+
+\begin{itemize}
+    \item[1.] Assume the piston moves towards the ideal gas with a constant velocity $ u $. Using kinetic theory, and contemplating the choice of a clever frame of reference, show that the pressure $ P_p $, which the gas exerts onto the piston, is given by
+        \begin{equation}
+            P_p = P \left[ (1 +\tilde{u}^2 )\left( 1 + \erf(\frac{\tilde{u}}{\sqrt{2}}) \right) + \sqrt{\frac{2}{\pi}} \tilde{u} e^{- \frac{\tilde{u}^2}{2}} \right] = P \left[ 1 + 2 \sqrt{\frac{2}{\pi}} \tilde{u} + \tilde{u}^2 + \order{\tilde{u}^3} \right],
+        \end{equation}
+        where $ P $ is the pressure of the ideal gas, $ \bar{v} = \frac{1}{\sqrt{\beta m}} $ is the root mean square velocity of the particles in one direction, and $ \tilde{u} = \frac{u}{\bar{v}} $ is the scaled piston velocity. This yucky expression comes from an integral which you can use Mathematica to solve and expand. I care \textit{much} more about you being able to \textit{explain} carefully what is the correct integral to start with.
+        \begin{problem}
+            For an ideal gas, the probability that a particle has momentum $ p $ in a particular direction is
+            \begin{equation}
+                \Pr(p) = \sqrt{\frac{\beta}{2 \pi m}} e^{- \beta \frac{p^2}{2m}}
+            \end{equation}
+            If we take a stationary box, we can calculate exchange in momentum from particles hitting a wall over a given time as
+            \begin{equation}
+                \Delta p = F \Delta t = \int_{0}^{\infty} \dd{p} \Pr(p) \times 2 p \times \frac{N}{V} \times A \times \Delta t \times \frac{p}{m}
+            \end{equation}
+            The last term is the particle velocity $ v $. The term $ \Delta t v $ is the maximum distance away a particle can be to still hit the box in time $ \Delta t $. If we multiply this by $ A $ we get the volume of particles that can hit the wall (piston), and multiplying this by $ \frac{N}{V} $ gives the number of particles which can hit the piston. They will exchange $ 2 p $ momentum when they hit, so the only thing left to figure out is the probability of a particle having that momentum. For this situation, it will be easier to work in the same frame of reference as the piston, such that the momentum in the probability distribution given above uses a shifted velocity. The velocity of the piston is $ u $, but we want our answer in terms of $ \tilde{u} $, so we actually have to shift the momentum by $ p' = p - mu = m\left( v - \frac{\tilde{u}}{\sqrt{\beta m}} \right) $. We don't have to shift the momenta outside of this part of the integral, since those just correspond to the number of particles we are dealing with, which is independent of frame of reference. The following integral will give the desired result in Mathematica:
+            \begin{equation}
+                P_p = \frac{F \Delta t}{A \Delta t} = \int_0^{\infty} \dd{p} \sqrt{\frac{\beta}{2 \pi m}} e^{- \beta \frac{\left( p - m \frac{\tilde{u}}{\sqrt{\beta m}} \right)^2}{2m}} \times \frac{2 p^2 N}{mV}
+            \end{equation}
+        \end{problem}
+    \item[2.] Calculate the rate $ \Delta E / \Delta t $ at which the piston adds energy to the gas, and show that it vanishes in the limit $ u \to 0 $.
+        \begin{problem}
+            \begin{equation}
+                \frac{\Delta E}{\Delta t} = Fu = P_p A u = PA \left[ u + 2 \sqrt{\frac{2}{\pi}} \tilde{u} u + \tilde{u}^2 u + u \order{\tilde{u}^3} \right]
+            \end{equation}
+            and $ \tilde{u} \to 0 $ as $ u \to 0 $, so $ F \to 0 $ and $ F u \to 0 $.
+        \end{problem}
+    \item[3.] We (usually) do not care \textit{how long} a piston moves, but \textit{by how much}. Calculate the total energy change that happens when a piston compresses the gas by a volume $ \Delta V $, while moving at velocity $ u $. Show that in the limit $ u \to 0 $ this reduces to the well-known expression $ \Delta E = P \Delta V $ (which\textemdash great Scott!\textemdash we have thereby revealed to be an approximation).
+        \begin{problem}
+            \begin{equation}
+                \Delta V = Au \Delta t
+            \end{equation}
+            so
+            \begin{equation}
+                \Delta E = \frac{P_p}{\Delta t} A u = P_p \Delta V
+            \end{equation}
+            As $ u \to 0 $, $ P_p \to P $ since the leading order term is $ \tilde{u}^0 $.
+        \end{problem}
+    \item[4.] If the piston performs harmonic oscillations with amplitude $ a $ and frequency $ \omega $, show that to lowest order the time-averaged rate of energy change is $ \overline{\Delta E / \Delta t} = W a \omega^2 / \sqrt{2 \pi} \bar{v} $, where $ W = P \Delta V $ is the equilibrium work done in one stroke.
+        \begin{problem}
+            \begin{equation}
+                \overline{\left( \frac{\Delta E}{\Delta t} \right)} = \frac{1}{\Delta t} \int_{0}^{\frac{2 \pi}{\omega}} \dd{t} \frac{\Delta E}{\Delta t}
+            \end{equation}
+            In one cycle, $ \Delta t = \frac{2 \pi}{\omega} $ and $ u = \dot{x} = a \omega \cos(\omega t) $ where $ x = a \sin(\omega t) $:
+            \begin{equation}
+                \overline{\left( \frac{\Delta E}{\Delta t} \right)} = \frac{\omega}{2 \pi} \int_{0}^{\frac{2 \pi}{\omega}} \dd{t} AuP\left( 1+ 2 \sqrt{\frac{2}{\pi}} \frac{u}{\bar{v}} + \frac{u^2}{\bar{v}^2} \right) \frac{\omega}{2 \pi} = \frac{a^2AP\omega^2}{\bar{v}} \sqrt{\frac{2}{\pi}} 
+            \end{equation}
+            Finally, in one cycle, $ \Delta V = 2 a A $, so
+            \begin{equation}
+                \overline{\left( \frac{\Delta E}{\Delta t} \right)} = \underbrace{P \Delta V}_{W} \frac{a}{\bar{v}} \frac{\omega^2}{\sqrt{2 \pi}}
+            \end{equation}
+        \end{problem}
+    \item[5.] In real life, pistons don't ever move infinitely slowly, but then, we usually pretend that they do. Can we really? Estimate whether $ \Delta E = P \Delta V $ is a good approximation for the pistons in a car engine, which runs at about $ 3000 $ rpm!
+        \begin{problem}
+            The average stroke length of a piston is probably around $ 8\centi\meter $, and the average speed of the molecules $ \bar{v} = \sqrt{\frac{3 k_B T}{m}} $. Say $ T \approx 500\kelvin $ and the average gasoline molecule weighs $ \sim 100\times 10^{-27}\kilo\gram $ so $ \bar{v} \approx 455\frac{\meter}{\second} $. $ 3000\text{rpm} = 50\hertz $. The speed of the piston is $ u = 2a*50\hertz = 8\meter\per\second $. Our approximation is good as long as $  u << \bar{v} $, since we expanded our approximation around $ \tilde{u} $, and $ 8 < 455 $ so it's probably a pretty good approximation.
+        \end{problem}
+\end{itemize}
+
+
+
+\end{document}

@@ -1,0 +1,29 @@
+# Fdb version 3
+["latex"] 1568843676 "/Users/nathanielhoffman/Documents/university/doctorate-1/semester-1/preamble.tex" "/Users/nathanielhoffman/Documents/university/doctorate-1/semester-1/preamble.dvi" "preamble" 1568843676
+  "/Users/nathanielhoffman/Documents/university/doctorate-1/semester-1/preamble.tex" 0 -1 0 ""
+  "/usr/local/texlive/2017/texmf-dist/web2c/texmf.cnf" 1494087824 32646 eadc4ca26cdbe7105ac7c593aa8c4f72 ""
+  "/usr/local/texlive/2017/texmf-var/web2c/pdftex/latex.fmt" 1495593496 4129530 100bcec0d3b9ae9e2515b234bc2a0fc5 ""
+  "/usr/local/texlive/2017/texmf.cnf" 1495593465 577 2b71d4d888f9e5560b2e99985915a9fa ""
+  "preamble.aux" 1568843676 8 a94a2480d3289e625eea47cd1b285758 ""
+  "preamble.tex" 1568843670 6958 03a14aba6430479cae88fbbb768d6e3c ""
+  (generated)
+  "preamble.dvi"
+  "preamble.log"
+  "/Users/nathanielhoffman/Documents/university/doctorate-1/semester-1/preamble.log"
+  "/Users/nathanielhoffman/Documents/university/doctorate-1/semester-1/preamble.dvi"
+["pdflatex"] 1570856278 "/Users/nathanielhoffman/Documents/university/doctorate-1/semester-1/preamble.tex" "/Users/nathanielhoffman/Documents/university/doctorate-1/semester-1/preamble.pdf" "preamble" 1570856279
+  "/Users/nathanielhoffman/Documents/university/doctorate-1/semester-1/preamble.aux" 1568843676 8 a94a2480d3289e625eea47cd1b285758 ""
+  "/Users/nathanielhoffman/Documents/university/doctorate-1/semester-1/preamble.tex" 1570856276 8755 ea8195468502eb32f95ece13455403ea ""
+  "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
+  "/usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/helvetic/phvb7t.tfm" 1480098688 2240 eb56c13537f4d8a0bd3fafc25572b1bd ""
+  "/usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/helvetic/phvr7t.tfm" 1480098688 2520 53e01eef820ca829e42c1333c3fd02b9 ""
+  "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmsl10.tfm" 1480098701 1508 efecb4a315fe0975509670a272d75ef5 ""
+  "/usr/local/texlive/2017/texmf-dist/tex/latex/psnfss/ot1phv.fd" 1480098837 1684 0ac4554419e828cf2c810306539da167 ""
+  "/usr/local/texlive/2017/texmf-dist/web2c/texmf.cnf" 1494087824 32646 eadc4ca26cdbe7105ac7c593aa8c4f72 ""
+  "/usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt" 1495593487 4129592 0e6cfee100d68e6d96b92c0258f2ff73 ""
+  "/usr/local/texlive/2017/texmf.cnf" 1495593465 577 2b71d4d888f9e5560b2e99985915a9fa ""
+  "preamble.tex" 1570856276 8755 ea8195468502eb32f95ece13455403ea ""
+  (generated)
+  "preamble.log"
+  "/Users/nathanielhoffman/Documents/university/doctorate-1/semester-1/preamble.log"
+  "/Users/nathanielhoffman/Documents/university/doctorate-1/semester-1/preamble.pdf"

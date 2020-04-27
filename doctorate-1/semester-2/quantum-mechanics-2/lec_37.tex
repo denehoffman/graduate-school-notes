@@ -1,0 +1,99 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{37}{Friday, April 24, 2020}{Fock Space}
+
+At the end of the last lecture, we noticed that if we made the ladder operators commute, we automatically get Boson statistics, whereas anti-commutation (a Poisson bracket or alternatively, we can subscript the commutator with a $ + $ sign) gives Fermion statistics:
+\begin{equation}
+    \left[ \comm{a_i}{a_j}_{\pm} \right]^\dagger = \comm{a^\dagger_j}{a^\dagger_i}_{\pm} = 0
+\end{equation}
+\begin{equation}
+    \comm{a_i}{a_j^\dagger} = \delta_{ij}
+\end{equation}
+\begin{equation}
+    N_i = a_i^\dagger a_i
+\end{equation}
+is the number of particles in the energy eigenstate enumerated by $ i $.
+
+Let's now consider hydrogen:
+\begin{equation}
+    \ket{\psi_0} = \int \dd[3]{x} \psi_{nlm}(x) a^\dagger_x\ket{0}
+\end{equation}
+We need to normalize it:
+\begin{equation}
+    \bra{\psi_0}\ket{\psi_0} = \int \dd[3]{x} \dd[3]{x'}\bra{0} a_{x'} \psi^*(x') \psi(x) a^\dagger_x\ket{0} = \int \dd[3]{x} \dd[3]{x'} \psi^*(x') \psi^*(x) \delta^3(x-x') = \int \dd[3]{x} \abs{\psi(x)}^2 = 1
+\end{equation}
+
+\begin{equation}
+    \ket{k} = \sum_x\ket{x}\bra{x}\ket{k}
+\end{equation}
+\begin{equation}
+    a_k = \sum_x\bra{x}\ket{k} a_x
+\end{equation}
+\begin{equation}
+    \ket{\psi} = \int \dd[3]{k} \psi(k) a_k^\dagger\ket{0}
+\end{equation}
+If the system is in a box, $ k $ is discrete:
+\begin{equation}
+    \comm{a_k}{a^\dagger_p} = \delta_{p,k}
+\end{equation}
+What is the probability of of being in the $ x_0 $ state?
+\begin{align}
+    \Pr(x_0) &= \abs{\mel{0}{a_{x_0}}{\psi}}^2 \\
+    &= \abs{\mel{0}{a_{x_0} \int \dd[3]{x} \psi(x) a_x^\dagger}{0}}^2 \\
+    &= \abs{\mel{0}{\delta^3(x_0 - x)}{0}} = \abs{\psi(x_0)}^2
+\end{align}
+This checks out with what we would expect.
+
+
+Lets look at the Helium ground state (ignoring the Coulomb repulsion):
+\begin{equation}
+    \int \dd[3]{x} \dd[3]{y} \psi_{100}(x) \psi_{100}(y) a_{x\uparrow}^\dagger a_{y\downarrow}^\dagger\ket{0}
+\end{equation}
+What is the probability of finding one particle at $ x_0^1 $ and $ S_1 $ and one at $ x_2^2 $ and $ S_2 $?
+\begin{align}
+    \bra{x_{0,S_1}^1, x_{0,S_2}^2}\ket{\psi} &= \int \dd[3]{x,y}\bra{0} a_{x_{0,S_1}^1} a_{x_{0,S_2}^2 a_{x\uparrow}^\dagger a_{y\downarrow}^\dagger}\ket{0} \psi_{100}(x) \psi_{100}(y) \\
+    &= \int \left[\bra{0} a_{x_{0,S_1}^1} \delta^3 (x_0^2 - x) \delta_{S_2,\uparrow} a_{y\downarrow}^\dagger\ket{0} -\bra{0} a_{x_{0,S_1}^1} a^\dagger_{x\uparrow} a_{x_{0,S_1}^2} a_{y\downarrow}^\dagger\ket{0} \right] \dd[3]{x,y} \psi_{100}(x) \psi_{100}(y) \\
+    &= \int \dd[3]{x,y} \{[\delta^3(x_0^1 - y) \delta(x_0^2 - x) \delta_{S_2,\uparrow} \delta_{\downarrow, S_1} ] - [\delta^3(x_0^2 - y) \delta_{S_2,\downarrow} \delta^3(x_0^1 - x) \delta_{S_1,\uparrow}]\} \psi_{100}(x) \psi_{100}(y) \\
+    &= \psi_{100}(x_0^2) \psi_{100}(x_0^1) \delta_{S_2,\uparrow} \delta_{S_1,\downarrow} - \psi_{100}(x_0^1) \psi_{100}(x_0^2) \delta_{S_2, \downarrow} \delta_{S_1,\uparrow}
+\end{align}
+By choosing the proper commutation relation for the statistics of electrons, we get an anticommuting wave function as expected.
+
+\section{Operations on Fock Space}
+\label{sec:operations_on_fock_space}
+
+\begin{equation}
+    H_{\text{free}} = \sum_{\va{k}} \frac{\hbar^2 \va{k}^2}{2m} a_{\va{k}}^\dagger a_{\va{k}}
+\end{equation}
+\begin{equation}
+    \va{p} = \sum_k \hbar \va{k} a_k^\dagger a_k
+\end{equation}
+
+Some interesting properties of Bosons and Fermions are that Bosons fall into ground-state condensates while Fermions build a ``sea'' of states. How do we include interactions between the particles, which are obviously crucial? Suppose we have pairwise interactions:
+\begin{equation}
+    H = \sum_{ij} \frac{1}{2} V_{ij} N_i N_j
+\end{equation}
+where the $ 1/2 $ avoids double-counting. For electromagnetism, we have interactions of the form
+\begin{equation}
+    \frac{e^2}{\va{x}_1 - \va{x}_2} \rho(x_1) \rho(x_2) 
+\end{equation}
+where our $ N_i $'s are the charge density and $ V_{ij} $ is the fraction term. Let's consider Fermions:
+\begin{align}
+    H &= \sum_{ij} \frac{1}{2} V_{ij} a^\dagger_i a_i a^\dagger_j a_j \\
+    &= \sum_{ij} \frac{1}{2} V_{ij} \left[ -a_i^\dagger a_j^\dagger a_i a_j + a_i^\dagger a_j^\dagger \delta_{ij} \right] \\
+    &= \frac{1}{2} \sum_{i\neq j} V_{ij} N_i N_j + \frac{1}{2} \sum_i V_{ii} N_i (N_i - 1) \\
+    &= \frac{1}{2} \sum_{ij} N_i N_j - \frac{1}{2} \sum_i V_{ii} N_i
+\end{align}
+This operator has a name:
+\begin{equation}
+    \Pi_{ij} = N_i N_j - N_i \delta_{ij}
+\end{equation}
+is called the pair distribution operator. Let's apply this to the Coulomb interaction.
+\begin{equation}
+    H = \sum \frac{p_i^2}{2m} + \frac{e^2}{2} \sum_{i \neq j} \frac{e^{- \mu (x_i - x_j)}}{x_i - x_j} + \frac{e^2}{2} \int \dd[3]{x,x'} \frac{\rho(x) \rho(x') e^{- \mu(x - x')}}{\abs{x - x'}} - e^2 \int \dd[3]{x} \sum_i \frac{\rho(x)}{\abs{x - x_i}} e^{- \mu(x - x_i)}
+\end{equation}
+where the final term is an additional positive charge density (since a lot of electrons together won't make for an interesting particle, the system will blow apart).
+
+
+We will eventually take $ \mu \to 0 $. This is called a regulator. In the intermediate parts of this calculation, we will find some rather annoying divergences without it.
+
+\end{document}

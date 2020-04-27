@@ -1,0 +1,110 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{33}{Friday, November 01, 2019}{Green's Functions for the Helmholtz Equation}
+
+From last lecture,
+\begin{equation}
+    \laplacian{G} - \frac{1}{c^2} \partial_t^2 G = -4 \pi \vec{\delta(x} - \vec{x}') \delta(t - t')
+\end{equation}
+leads to
+\begin{equation}
+    \laplacian{G( \vec{x} - \vec{x}'; \omega} + k^2 G = - 4 \pi \delta( \vec{x} - \vec{x}')
+\end{equation}
+and
+\begin{equation}
+    G^{\pm} = \frac{e^{\pm \imath k \abs{ \vec{x} - \vec{x}'}}}{\abs{ \vec{x} - \vec{x}'}}
+\end{equation}
+
+Then,
+\begin{equation}
+    G = \int_{- \infty}^{\infty} \frac{e^{\pm \imath \frac{\omega}{c} \abs{ \vec{x} - \vec{x}'} - \imath\omega(t-t') }}{\abs{ \vec{x} - \vec{x}'}} \frac{1}{2 \pi} \dd{\omega} = \frac{\delta(t-t' \pm \frac{\abs{ \vec{x} - \vec{x}'}}{c})}{\abs{ \vec{x} - \vec{x}'}}
+\end{equation}
+
+Our solutions for waves with sources look like
+\begin{equation}
+    \Psi(x,t) = \Psi^{\text{inc}}(x,t) + \int G( \vec{x} - \vec{x}'; t-t') f( \vec{x}', t') \dd[3]{x'} \dd{t'}
+\end{equation}
+In practical terms, only the light-cone intersection contributes to this integral. The only sources that matter are sources which the observer can see, which are sources which happened long enough ago to propagate across a distance to reach the observation point. This is called the Huygen's principle. In two dimensions, an interesting thing occurs, and you actually need to include the interior of the light-cone in your calculation, because the information can travel slower than $ c $. For example, lightning is approximately two-dimensional, and the shock-wave it creates is approximately cylindrical, and the reason we don't hear a sharp impact is because the sound can travel at slower speeds. Apparently we are going to solve this as a homework problem.
+
+Let us write our potential using the Green's function:
+\begin{equation}
+    \Phi( \vec{x},t) = \frac{1}{4 \pi \epsilon_0} \int \dd[3]{x'} \dd{t} \frac{\delta \left[ t' - \left( t - \frac{\abs{ \vec{x} - \vec{x}'}}{c} \right) \right]}{\abs{ \vec{x} - \vec{x}'}} \rho( \vec{x}', t')
+\end{equation}
+or
+\begin{equation}
+    \Phi( \vec{x}, t) = \frac{1}{4 \pi \epsilon_0} \int \dd[3]{x'} \frac{[\rho( \vec{x}, t')]_{\text{ret}}}{\abs{ \vec{x} - \vec{x}'}}
+\end{equation}
+where we use the retarded time $ t' = t - \frac{\abs{ \vec{x} - \vec{x}'}}{c} $. For the vector potential, we can write the same thing:
+\begin{equation}
+    \vec{A}( \vec{x},t) = \frac{\mu_0}{4 \pi} \int \dd[3]{x'} \frac{[ \vec{J}( \vec{x}, t')]_{\text{ret}}}{\abs{ \vec{x} - \vec{x}'}}
+\end{equation}
+Recall that
+\begin{equation}
+    \vec{E} = - \partial_t \vec{A} - \grad{\Phi}
+\end{equation}
+and
+\begin{equation}
+    \vec{B} = \curl{ \vec{A}}
+\end{equation}
+If we wanted to find the advanced solutions, we would use $ t' = t + \frac{\abs{ \vec{x} - \vec{x}'}}{c} $.
+
+An alternative to this was popularized by Jefimenko. Suppose we are in a vacuum, so
+\begin{align}
+    \div{ \vec{E}} &= \frac{\rho}{\epsilon_0}\\
+    \div{ \vec{B}} &= 0\\
+    \curl{ \vec{B}} &= \mu_0 \vec{J} + \frac{1}{c^2} \partial_t \vec{E}\\
+    \curl{ \vec{E}} &= - \partial_t \vec{B}
+\end{align}
+
+We know that
+\begin{equation}
+    \curl{(\curl{ \vec{E}})} = \grad{\frac{\rho}{\epsilon_0}} - \laplacian{ \vec{E}} = - \partial_t (\curl{ \vec{B}}) = -\partial_t(\mu_0 \vec{J}) - \frac{1}{c^2} \partial_t^2 \vec{E}
+\end{equation}
+so
+\begin{equation}
+    \laplacian{ \vec{E}} - \frac{1}{c^2} \partial_t^2 \vec{E} = \frac{1}{\epsilon_0} \grad{\rho} + \underbrace{\mu_0}_{\frac{1}{\epsilon_0} \frac{1}{c^2}} \partial_t \vec{J}
+\end{equation}
+Similarly, for $ \vec{B} $,
+\begin{equation}
+    \laplacian{ \vec{B}} - \frac{1}{c^2} \partial_t^2 \vec{B} = - \mu_0 \curl{ \vec{J}}
+\end{equation}
+These are inhomogeneous wave equations, so we can solve them with the Green's functions. We can directly write
+\begin{equation}
+    \vec{E}( \vec{x},t) = \frac{1}{4 \pi \epsilon_0} \int \frac{\left[ - \grad'{\rho} - \frac{1}{c^2} \partial_{t'} \vec{J} \right]_{\text{ret}}}{\abs{ \vec{x} - \vec{x}'}} \dd[3]{x'}
+\end{equation}
+and
+\begin{equation}
+    \vec{B}( \vec{x}, t) = \frac{\mu_0}{4 \pi} \int \frac{\left[ \curl'{ \vec{J}} \right]_{\text{ret}}}{\abs{ \vec{x} - \vec{x}'}} \dd[3]{x'}
+\end{equation}
+
+Note that
+\begin{equation}
+    [\grad'{\rho}]_{\text{ret}} \neq \grad'{[\rho]_{\text{ret}}}
+\end{equation}
+since the derivative will either act on $ \vec{x}' $ or $ \vec{x}' $ and $ \abs{ \vec{x} - \vec{x}'} $, respectively.
+\begin{equation}
+    \grad'{[\rho]_{\text{ret}}} = \nabla'\eval_{t'} \rho + \partial_{t'} \rho\eval_{ \vec{x}'} \left[ - \nabla' \frac{\abs{ \vec{x} - \vec{x}'}}{c} \right]= \grad'{\rho} + \partial_{t'} \rho\eval_{ \vec{x}'} \frac{1}{c} \frac{ \vec{x} - \vec{x}'}{\abs{ \vec{x} - \vec{x}'}}
+\end{equation}
+Note the extra term at the end. Let's call $ \frac{ \vec{x} - \vec{x}'}{\abs{ \vec{x} - \vec{x}'}} \equiv \hat{R} $, so
+\begin{equation}
+    [\grad'{\rho}]_{\text{ret}} = \grad'{[\rho]_{\text{ret}}} - \frac{1}{c} \left[\partial_{t'} \rho\right]_{\text{ret}}\hat{R} 
+\end{equation}
+We can apply this correction everywhere, integrating by parts:
+\begin{equation}
+    \int \frac{1}{\abs{ \vec{x} - \vec{x}'}} \grad'{\rho} \dd[3]{x'} = \cancelto{0}{\int \grad'{(\cdots)}} - \int\rho\grad'{ \frac{1}{\abs{ \vec{x} - \vec{x}'}}} \dd[3]{x'}
+\end{equation}
+so
+\begin{equation}
+    \vec{E}( \vec{x},t) = \frac{1}{4 \pi \epsilon_0} \int \dd[3]{x'} \left\{\frac{[\rho]_{\text{ret}}}{\abs{ \vec{x} - \vec{x}'}^2} \frac{( \vec{x} - \vec{x}')}{\abs{ \vec{x} - \vec{x}'}} - (-1) \frac{1}{c} \left[ \partial_{t'}\rho \right]_{\text{ret}} \frac{1}{\abs{ \vec{x} - \vec{x}'}} \hat{R} - \frac{1}{c^2} \partial_t \left[ \vec{J} \right]_{\text{ret}} \frac{1}{\abs{ \vec{x} - \vec{x}'}}  \right\}
+\end{equation}
+
+The first term is like a retarded Coulomb potential. For the magnetic field we do the same
+\begin{equation}
+    \vec{B} = \frac{\mu_0}{4 \pi} \int \dd[3]{x'} \left\{ \frac{[ \vec{J}]_{\text{ret}} \times ( \vec{x} - \vec{x}')}{R^3} + \frac{[\partial_{t'}]_{\text{ret}} \times \hat{R}}{cR} \right\}
+\end{equation}
+
+These were originally found by Jefimenko (in a form that was generalized). Heaviside applied it to one of the fields and Feynman applied it to the other, the professor doesn't remember who did which part, but Feynman used this formulation in his lectures and didn't know that anyone had done it before. This is called the Heaviside-Feynman formulation.
+
+We want to apply this to a point charge. The particle can only go through a backward light-cone one time (twice would require it going faster that $ c $). Therefore there is a unique solution to $ t' = t - \frac{\abs{ \vec{x} - \vec{r}(t')}}{c} $, so $ t' \to t'(x,t) $. We will solve this next week (this is also done in Jackson).
+
+\end{document}

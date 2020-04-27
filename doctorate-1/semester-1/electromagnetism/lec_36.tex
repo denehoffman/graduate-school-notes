@@ -1,0 +1,82 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{36}{Wednesday, November 06, 2019}{Diffraction Continued}
+
+Recall from last lecture we can model optical diffraction by
+\begin{equation}
+    \frac{\epsilon(\omega)}{\epsilon_0} = 1 + \frac{N e^2}{\epsilon_0 m} \sum_{j} \frac{f_j}{\omega_{j}^2 - \omega^2 - \imath \gamma_j \omega}
+\end{equation}
+When we add an imaginary part, we find
+\begin{equation}
+    \frac{\epsilon_R(\omega) + \epsilon_I(\omega)}{\epsilon_0} = 1 + \frac{N e^2}{\epsilon_0 m} \sum_j \frac{f_j(\omega_j^2 - \omega^2)}{(\omega_j^2 - \omega^2)^2 + \gamma_j^2 \omega^2} + \imath \frac{N e^2}{\epsilon_0 m} \sum_j \frac{f_j \gamma_j \omega}{(\omega_j^2 - \omega^2)^2 + \gamma^2_j \omega^2} \sim \frac{1}{\gamma_j \omega_j} 
+\end{equation}
+
+In conductors, $ f_0 $ gives us a band. Note that
+\begin{equation}
+    \curl{\va{H}} = \sigma \va{E} + \epsilon(\omega) \partial_t \va{E}
+\end{equation}
+In the first part, the conductance is a function of $ \omega $, since the free electrons must have some delayed response, and in the second part, we get $ (- \imath \omega) \epsilon(\omega) \va{E} $.
+\begin{equation}
+    \curl{\va{H}} = (-\imath \omega) \left[ \frac{\imath \sigma(\omega)}{\omega} + \epsilon_b(\omega) \right] \va{E}
+\end{equation}
+If $ \omega_j = 0 $,
+\begin{equation}
+    \frac{N e^2}{m \epsilon_0} \frac{f_0}{- \omega^2 - \imath \gamma_0 \omega} = \frac{1}{\omega \left[ \frac{\imath N e^2 f_0}{m \epsilon_0 (\gamma_0 - \imath \omega)} \right]} 
+\end{equation}
+We see that
+\begin{equation}
+    \sigma(\omega) = \frac{N e^2 f_0}{m \epsilon_0 [\gamma_j - \imath \omega]}
+\end{equation}
+so there is a pole around $ \omega = 0 $.
+
+\subsection{Light Traveling Through a Medium}
+\label{sub:light_traveling_through_a_medium}
+
+Let's look at the electric field:
+\begin{equation}
+    \curl{\va{E}} = - \partial_t \va{B} = \imath \omega \va{B}
+\end{equation}
+\begin{equation}
+    \curl{\va{B}} = \mu(\omega) \epsilon(\omega)(-\imath \omega) \va{E}
+\end{equation}
+\begin{equation}
+    \curl(\curl{\va{B}}) = \mu(\omega) \epsilon(\omega) [- \imath \omega][\imath \omega]\va{B} = \grad(\div{\va{B}}) - \laplacian{\va{B}}
+\end{equation}
+
+These products in frequency space are convolutions in time space, thanks to the Fourier transform, so
+\begin{equation}
+    \va{D}(\va{x},t) = \va{E} + \int_{- \infty}^t \epsilon(t-t') \va{E}(\va{x}, t') \dd{t'}
+\end{equation}
+so
+\begin{equation}
+    \laplacian{\va{B}} + \mu(\omega) \epsilon(\omega) \omega^2 \va{B} = 0 = \laplacian{\va{B}} + \frac{n^2(\omega) \omega^2}{c^2} \va{B}
+\end{equation}
+so
+\begin{equation}
+    \va{B} = \va{B}_0 e^{\imath \va{k} \vdot \va{r}}
+\end{equation}
+where
+\begin{equation}
+    k^2 = \frac{n^2(\omega) \omega^2}{c^2}
+\end{equation}
+It is generally nice to think of $\omega$ as a function of $ k $ ($ \omega(k) $): $ k^2 = \frac{\omega}{\left[ \frac{c}{n(\omega)} \right]^2} $. This shows that the speed of light is modified in a medium.
+
+The electric field must now be
+\begin{equation}
+    \va{E} = \va{E}_0 e^{\imath \va{k} \vdot \va{r} - \imath \omega t} \implies \va{B}_0 = \frac{\va{k} \cross \va{E}_0}{\omega}
+\end{equation}
+
+However, there is still the anomalous relationship between $\omega$ and $ k $. It seems like the speed of the wave could exceed $ c $. To understand the meaning of $ \frac{n(\omega) \omega}{c} $, we assume a narrow band of signal $ A(k) e^{\imath \va{k} \vdot \va{x} - \imath \omega(k) t} $ heavily concentrated around some $ k_0 $ and there is some $ \omega_0 $ for which $ k_0 = \frac{n(\omega_0) \omega_0}{c} $. It's close to a plane wave, but it isn't exactly a plane wave since there is some spread in the frequency. Let's imagine this is a one-dimensional wave for simplicity.
+\begin{align}
+    \int_{- \infty}^{\infty} A(k) e^{\imath kx - \imath \omega(k) t} \dd{k} &= \int_{- \infty}^{\infty} A(k) e^{\imath kx - \imath \left[ \omega(k_0) t + \eval{\dv{\omega}{k}}_{k_0} (k - k_0)t \right]} \dd{k} \\
+    &= e^{\imath k_0 x - \imath \omega(k_0) t} \int_{- \infty}^{\infty} A(k_0 + \bar{k}) e^{\imath \left[ x - \eval{\dv{\omega}{k}}_{k_0} t \right] \bar{k}} \dd{\bar{k}}
+\end{align}
+\begin{note}{Quote}
+    ``These are like the songs of Neil Diamond. You listen to Neil Diamond and it's like the world is gone.''
+\end{note}
+$ \dv{\omega}{k} $ is the group velocity, and while we have an underlying signal with frequency $ \omega(k_0) $, we have an envelope which travels like $ A \left( x - \eval{\dv{\omega}{k}}_{k_0} t \right) $. The envelope travels at the group velocity, so even if the wave itself travels faster than $ c $ (the phase velocity), we won't actually be able to see the signal until we observe changes in amplitude or frequency, which must move at the group velocity. This can be proven more generally using causality (we might do this later in class). We are also really only looking in the ``transparency region'' where $ n_R(\omega) \gg n_I(\omega) $. In general, you would find that the fields are proportional to
+\begin{equation}
+    e^{\imath(k_R + \imath k_I) \vu{k} \vdot \va{r} - \imath \omega t}
+\end{equation}
+so you would get a term like $ e^{-k_I \vu{k} \vdot \va{r}} $ which attenuates the signal (loss). If you take the second order terms in the expansion we just did, using the method of steepest descent, you would find that the shape of the signal can change in time (to first order it doesn't). This is because some of the components move faster than others (think spin dispersion and spin echo in NMR).
+\end{document}

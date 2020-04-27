@@ -1,0 +1,154 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{12}{Fri Sep 20 2019}{Green's Functions in Cylindrical Coordinates}
+
+\section{Review}%
+\label{sec:review}
+
+\begin{equation}
+    \int_0^a J_\nu\left(x_{\nu n} \frac{\rho}{a}\right) J_\nu \left(x_{\nu m}\frac{\rho}{a}\right)\rho d\rho = \delta_{nm}\frac{a^2}{2}\left[ J_{\nu+1}(x_{\nu n}) \right]^2
+\end{equation}
+\begin{equation}
+    \sum_{n=1}^\infty J_\nu\left(x_{\nu n} \frac{\rho}{a}\right) J_\nu \left(x_{\nu n}\frac{\rho'}{a}\right) = \frac{\delta{\rho-\rho'}}{\rho}
+\end{equation}
+If we remove the boundary, eliminating conditions on $k = \frac{x_m}{a}$ as $a\to\infty$ densely fills the interval $[0,\infty)$:
+\begin{equation}
+    \int_0^\infty J_\nu\left(k\rho\right)J_\nu \left(k'\rho\right)\rho d\rho = \frac{\delta(k-k')}{k}
+\end{equation}
+\begin{equation}
+    \int_0^\infty J_\nu\left(k\rho\right)J_\nu \left(k\rho'\right)\rho d\rho = \frac{\delta(\rho-\rho')}{\rho}
+\end{equation}
+These are the Hankel transforms.
+
+\section{Writing Green's Functions}%
+\label{sec:writing_gree}
+
+Let's try to write our Green's function in terms of these integrals:
+\begin{equation}
+    \frac{1}{\abs{\vec{x}-\vec{x}'}} = G(\vec{x},\vec{x}')
+\end{equation}
+\begin{equation}
+    \nabla^2 G = -4\pi \frac{\delta(\rho-\rho')}{\rho}\delta(\phi-\phi')\delta(z-z')
+\end{equation}
+\begin{equation}
+    G(\vec{x},\vec{x}') = \sum_{m=0}^{\infty} \int_{0}^{\infty}kdk J_m(k\rho)J_m(k\rho') \frac{e^{\imath m(\phi-\phi')}}{2\pi}g_{km}(z,z')
+\end{equation}
+Recall that when we write these as separable equations, we select functions such that $R(\rho)\mapsto J_m(k\rho)$, $Q(\phi)\mapsto e^{\imath m\phi}$ and $Z(z)\mapsto Z''-k^2Z = 0$. If we pick the radial part by hand and the angular part by a periodic equation, we are forced to use this representation of $Z$. We will later see a different solution where we don't select the radial portion first. To fix the last separable part, we will need functions $g_{km}$ such that
+\begin{equation}
+    \frac{d^2}{dz^2}g_{km}(z,z') - k^2 g_{km}(z,z') = -4\pi\delta(z-z')
+\end{equation}
+We know that the solutions for these functions are
+\begin{equation}
+    g_{km} \propto e^{\pm kz}
+\end{equation}
+Let's try
+\begin{equation}
+    g_{km}(z,z') = C e^{-kz_>} e^{+kz_<}
+\end{equation}
+where, as usual,
+\begin{equation}
+    z_> = \max(z,z'),\ z_< = \min(z,z')
+\end{equation}
+If we use the ``jumping'' condition, going through $z=z'$, we find
+\begin{equation}
+    \int_{z'-\epsilon}^{z'+\epsilon}\frac{d^2}{dz^2}g_{km} - \cancelto{0}{k^2\int_{z'-\epsilon}^{z'+\epsilon} g_{km}} = -4\pi\int_{z'-\epsilon}^{z'+\epsilon} \delta(z-z')dz
+\end{equation}
+\begin{equation}
+    \frac{dg}{dz}\eval{z\to z'^+} - \frac{dg}{dz}\eval{z\to z'^-} = -4\pi
+\end{equation}
+\begin{equation}
+    C \left\{ e^{+kz'}\left( \frac{d}{dz}e^{-kz}\eval{z\to z'} \right) - \left( \frac{d}{dz}e^{-kz'}\eval{z\to z'} \right)   \right\} = -4\pi
+\end{equation}
+so
+\begin{equation}
+    C = \frac{2\pi}{k},\ g_k= \frac{2\pi}{k}e^{-kz_>}e^{+kz_<}
+\end{equation}
+Therefore,
+\begin{equation}
+    \frac{1}{|\vec{x}-\vec{x}'|} = \cancel{\frac{2\pi}{2\pi}}\sum_{m=0}^\infty \int_0^\infty \cancel{\frac{k}{k}}dk J_m(k\rho) J_m(k\rho') e^{\imath m(\phi-\phi')}e^{-k[z_> - z_<]}
+\end{equation}
+Alternatively, we can use $Z''\bm{+}k^2Z = 0$ so the Bessel equation becomes $\frac{d^2 R}{d\rho^2}+\frac{1}{\rho} \frac{dR}{d\rho} - \left(k^2 + \frac{m^2}{\rho^2}\right)R = 0$, so
+\begin{equation}
+    \nabla^2 G(\vec{x},\vec{x}') = -4\pi \frac{\delta(\rho-\rho')}{\rho} \delta(\phi-\phi') \delta(z-z')
+\end{equation}
+and
+\begin{equation}
+    \int_{-\infty}^{\infty} e^{\imath k(z-z')} \frac{dk}{2\pi} = \delta(z-z')
+\end{equation}
+Now we must use the Macdonald functions for $\rho$: $I_m(k\rho)$ and $K_m(k\rho)$:
+\begin{equation}
+    G(\vec{x},\vec{x}') = \sum_{m=0}^\infty \int_{0}^{\infty} \cos(k(z-z')) \frac{dk}{\pi} e^{\imath m(\phi-\phi')} g_{km}(\rho,\rho')
+\end{equation}
+We expect that the solution is representable by $I_m(k\rho)$ and $K_m(k\rho)$, but we know that $I_m(x)\to\infty$ as $x\to\infty$ and $K_m(x)\to\infty$ as $x\to 0^+$. Therefore we choose
+\begin{equation}
+    C_k I_m(k\rho_<) K_m(k\rho_>)
+\end{equation}
+Our original equation for the radial part was
+\begin{equation}
+    \frac{1}{\rho}\frac{d}{d\rho}\rho \frac{d}{d\rho} \equiv \frac{d^2}{d\rho^2} + \frac{1}{rho}\frac{d}{d\rho}
+\end{equation}
+Using the jump condition again,
+\begin{equation}
+    \int_{\rho'-\epsilon}^{\rho'+\epsilon}\rho d\rho \frac{1}{\rho} \frac{d}{d\rho}\left( \rho \frac{d}{d\rho} g \right) - \cancelto{0}{\int_{\rho'-\epsilon}^{\rho'+\epsilon} g} = -\int \frac{4\pi\delta(\rho-\rho')}{\rho} d\rho \rho
+\end{equation}
+so
+\begin{equation}
+    \frac{dg}{d\rho}\eval{\rho'+\epsilon} - \frac{dg}{d\rho}\eval{\rho'-\epsilon} = -\frac{4\pi}{\rho'}
+\end{equation}
+which is
+\begin{equation}
+    C[K'_m(k\rho') I_m(k\rho') - I'_m(k\rho')K_m(k\rho')] = -\frac{4\pi}{\rho'}
+\end{equation}
+where $K' = \frac{dK}{d\rho}$ and $I' = \frac{dI}{d\rho}$
+
+\begin{theorem}
+    Wronskian Theorem:
+    \begin{equation}
+        W(x) = \det \begin{pmatrix} y_1&y_2 \\ y_1' & y_2' \end{pmatrix} = y_1y_2' - y_2 y_1'
+    \end{equation}
+    \begin{equation}
+        \left( p \frac{d^2}{dx^2} + q \frac{d}{dx} + s \right)y = 0
+    \end{equation}
+    then
+    \begin{equation}
+        W' = -\frac{q}{p}W
+    \end{equation}
+    and
+    \begin{equation}
+        W(x) = W(x_0) e^{-\int \frac{q}{p}dx}
+    \end{equation}
+\end{theorem}
+
+Therefore
+\begin{equation}
+    W[K_m,I_m] = \frac{C}{x}
+\end{equation}
+since
+\begin{equation}
+    e^{-\int \frac{q}{p}} = e^{-\int \frac{dx}{x}} = \frac{1}{x}
+\end{equation}
+\begin{equation}
+    \frac{dK_m}{dx} = -\frac{1}{2}(K_{m-1}(x) + K_{m+1}(x))
+\end{equation}
+\begin{equation}
+    \frac{dI_m}{dx} = +\frac{1}{2}(I_{m-1}(x) + I_{m+1}(x))
+\end{equation}
+\begin{equation}
+    \lim_{x\to 0^+} K_\nu(x) = \frac{\Gamma(\nu)}{2}\left( \frac{2}{x} \right)^\nu
+\end{equation}
+and
+\begin{equation}
+\lim_{x\to 0^+} I_\nu(x) = \frac{1}{\Gamma(\nu+1)}\left( \frac{x}{2} \right)^\nu
+\end{equation}
+so
+\begin{equation}
+    \lim_{\rho'\to 0^+} C\left( \frac{dK_m}{d\rho}\eval{\rho'} I_m - \frac{dI_m}{d\rho}\eval{\rho'} K_m \right) = -\frac{4\pi}{\rho'}
+\end{equation}
+\begin{equation}
+    4\pi I_m(k\rho_<) K_m(k\rho_>)
+\end{equation}
+Finally,
+\begin{equation}
+    \frac{1}{|\vec{x}-\vec{x}'|} = \frac{4}{\pi}\sum_{m=0}^{\infty}\int_0^\infty dk \cos(k(z-z')) e^{\imath m(\phi-\phi')} I_m(k\rho_<)K_m(k\rho_>)
+\end{equation}
+\end{document}

@@ -1,0 +1,103 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{11}{Wed Sep 11 2019}{Spherical Symmetry, Continued}
+
+We will restrict $a\leq r\leq b$. To form the Green's Function, we put an imaginary point charge somewhere with the normalization condition of $-4\pi\rightarrow (-4\pi)\delta(\vec{x}-\vec{x}')$:
+
+$\nabla'^2 G = -4\pi\delta(\vec{x}-\vec{x}')$ which is equivalent to $\nabla^2 G$ in this case, since the Green's function is symmetric. Also, the Green's function must vanish on the boundaries.
+
+\begin{equation}
+    \nabla^2 = \frac{1}{r}\partial_r^2 r-\frac{\mathbb{L}^2}{r^2}
+\end{equation}
+
+Additionally, we can use
+\begin{equation}
+    \sum_l\sum_{-l\leq m \leq l}Y_{lm}(\theta,\phi)Y_{lm}^*(\theta',\phi') = \delta(\phi-\phi')\delta(\cos\theta-\cos\theta')
+\end{equation}.
+We can use this to write
+
+\begin{equation}
+    \delta(\vec{x}-\vec{x}') = \delta(\phi-\phi)\delta(\cos\theta-\cos\theta')\frac{\delta(r-r')}{r^2}
+\end{equation}
+
+Let's suppose
+\begin{equation}
+    G = \sum_{l,m}g_l(r,r')Y_{lm}(\theta,\phi)Y_{lm}^*(\theta',\phi')
+\end{equation}
+so
+
+\begin{equation}
+    \sum_{l,m}\left[\frac{1}{r}\frac{d^2}{dr^2}r \frac{l(l+1)}{r^2}\right]g_l(r,r')Y_{lm}Y_{lm}^* = (-4\pi)\delta(\phi-\phi')\delta(\cos\theta-\cos\theta')\frac{\delta(r-r')}{r^2}
+\end{equation}
+comes from acting the Laplacian on $G$.
+
+For $a\leq r<r'<b$ or $a<r'<r\leq b$, we have $\frac{1}{r}\frac{d^2}{dr^2}rg_l-\frac{l(l+1)}{r^2}g_l = 0$
+
+Suppose $g_l = A_l r^l + B_l r^{-(l+1)}$
+
+If $r=a$,
+
+\begin{equation}
+    A_l a^l + B_l a^{-(l+1)} = 0\implies B_l = -A_l a^{2l+1}
+\end{equation}
+
+so for $r<r'$,
+\begin{equation}
+    g_l = A_l\left[r^l - \frac{a^{2l+1}}{r^{l+1}}\right]=y^{(1)}
+\end{equation}
+
+On the other boundary, $r=b$, we get that for $r'<r$,
+\begin{equation}
+    g_l = E_l\left[\frac{1}{r^{l+1}}-\frac{r^l}{b^{2l+1}}\right] = y^{(2)}
+\end{equation}
+
+Because of the symmetric nature of the Green's function, our complete solution must be formed from these two solutions.
+
+\begin{equation}
+    g_l(r,r') = C_l\left[r^l_< - \frac{a^{2l+1}}{r^{l+1}_<}\right]\left[\frac{1}{r^{l+1}_>}-\frac{r^l_>}{b^{2l+1}}\right]
+\end{equation}
+
+where $r_<=\min(r,r')$ and $r_> = \max(r,r')$. Apparently this is related to the product space.
+
+What happens when $r=r'$?
+
+\begin{equation}
+    \int_{r'-\epsilon}^{r'+\epsilon}\frac{1}{r}\frac{d^2}{dr^2}rg_l-\frac{l(l+1)}{r^2}g_l = \int_{r'-\epsilon}^{r'+\epsilon}-4\pi\frac{\delta(r-r')}{r^2} = -4\pi\frac{1}{r'}
+\end{equation}
+
+On the right side, we assume $\frac{g_l}{r^2}\to 0$ so we are left with
+
+\begin{equation}
+    \frac{d}{dr}(rg_l)\bigg|_{r'-\epsilon}^{r'+\epsilon} = -\frac{4\pi}{r'} \frac{d}{dr}[rg_l]\bigg|_{r'+\epsilon>r'}-\frac{d}{dr}[rg_l]\bigg|_{r'-\epsilon<r'}
+\end{equation}
+
+so we are taking
+
+\begin{equation}
+    C_l\frac{d}{dr}\left(r\left[r'^l-\frac{a^{2l+1}}{r'^{l+1}}\right]\left[\frac{1}{r^{l+1}}-\frac{r^l}{b^{2l+1}}\right]\right)_{r\to r'}
+\end{equation}
+
+and similar for the case where $r'>r$. Taking the derivatives and limits will tell us what $C_l$ must be.
+
+\begin{equation}
+    C_l = \frac{4\pi}{(2l+1)\left(1-\left(\frac{a}{b}\right)^{2l+1}\right)}
+\end{equation}
+
+Finally, we can write our general spherical Green's function:
+
+\begin{equation}
+    G(r,\theta,\phi,r',\theta',\phi') = \sum_{l,m}\frac{4\pi}{(2l+1)\left(1-\left(\frac{a}{b}\right)^{2l+1}\right)}\left[r^l_< - \frac{a^{2l+1}}{r^{l+1}_<}\right]\left[\frac{1}{r^{l+1}_>}-\frac{r^l_>}{b^{2l+1}}\right]Y_{lm}(\theta,\phi)Y_{lm}^*(\theta',\phi')
+\end{equation}
+
+\begin{enumerate}
+\item As $a\to 0$ and $b\to\infty$, we get back the original
+  $G=\frac{1}{|\vec{x}-\vec{x}'|}$
+\item As $a\neq 0$ and $b\to\infty$, $G=\frac{1}{|\vec{x}-\vec{x}'|} - \frac{a/x'}{|\vec{x}-\frac{a^2}{x'^2}\vec{x}'|}$ from our method of images (this will not look the same if you just write out these limits, but it can be found through some careful algebra).
+\item As $a=0$ and $b$ is finite and say $\rho(x')=0$, we have $G=\sum \frac{4\pi}{2l+1}[r_<^l]\left[\frac{1}{r_>^{l+1}}-\frac{r_>^l}{b^{2l+1}}\right]Y_{lm}Y_{lm}^*$. As we approach the boundary, $r'>r$ 
+    \begin{equation}
+        \partial_{r'}G\bigg|_{r'\to b} = \sum\frac{4\pi}{2l+1}r^l\left[-\frac{(l+1)}{r'^{l+2}}-l\frac{r'^{l-1}}{b^{2l+1}}\right]Y_{lm}Y_{lm}^*\bigg|_{r'\to b}
+    \end{equation}. There's some more to do here but we basically get \begin{equation}
+        \Phi(\vec{x}) = \sum\frac{r^l}{b^{l+2}}Y_{lm}(\theta,\phi)\int Y_{lm}^*(\theta',\phi')V(\theta',\phi')b^2d\Omega'.
+    \end{equation}
+\end{enumerate}
+\end{document}

@@ -1,0 +1,49 @@
+\documentclass[a4paper,twoside]{article}
+\input{../preamble.tex}
+\title{Useful Equations in Electrodynamics}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section*{Green's Functions}
+\begin{equation}
+    L u(x) = f(x)
+\end{equation}
+has solutions
+\begin{equation}
+    u(x) = \int G(x,s) f(s) \dd{s}
+\end{equation}
+
+\begin{equation}
+    \int L G(x,s) f(s) \dd{s} = \int \delta(x-s) f(s) \dd{s} = f(x)
+\end{equation}
+
+Green's Identities:
+\begin{equation}
+    \int_{V} (\phi \laplacian{\psi} + \grad{\phi} \vdot \grad{\psi}) \dd[3]{x} = \oint_{S} \phi \pdv{\psi}{n} \dd{a}
+\end{equation}
+\begin{equation}
+    \int_{V} \left( \phi \laplacian{\psi} - \psi \laplacian{\phi} \right) \dd[3]{x} = \oint_{S} \left[ \phi \pdv{\psi}{n} - \psi \pdv{\phi}{n} \right] \dd{a}
+\end{equation}
+
+\begin{table}
+    \centering
+    \begin{tabular}{cc}
+        \toprule
+        $ L $ & $ G $ \\
+        \toprule
+        $ \laplacian_{\text{3D}} $ & $ \frac{1}{\abs{ \va{x} - \va{x}'}} $ \\
+        \midrule
+        $ \laplacian_{\text{3D}} + k^2 $ & $ \frac{e^{- \imath k \abs{ \va{x} - \va{x}'}}}{\abs{\va{x} - \va{x}'}} = \imath k h_0^{(2)}(k \abs{ \va{x} - \va{x}'}) $ \\
+        \midrule
+        $ \square = \frac{1}{c^2} \partial_t^2 - \laplacian_{\text{3D}} $ & $ \frac{\delta\left( t - \frac{\abs{ \va{x} - \va{x}'}}{c} \right)}{\abs{ \va{x} - \va{x}'}} $ \\
+        \bottomrule
+    \end{tabular}
+    \caption{Table of Green's Functions}
+    \label{tab:greens_functions}
+\end{table}
+
+
+
+
+\end{document}

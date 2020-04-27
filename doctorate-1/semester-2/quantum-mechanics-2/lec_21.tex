@@ -1,0 +1,67 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{21}{Wednesday, March 04, 2020}{Time Dependent Perturbation Theory}
+
+
+In the last lecture, we looked at electrostatics and expanded the action. We said that if $ \vb{A} $ varies on a scale larger than $ a_0 $, we can use the multipole expansion:
+\begin{equation}
+    A \to A(0,0) + \va{x} \vdot \va{\partial} \va{A} + \frac{1}{2} x_i x_j \partial_i \partial_j \va{A} +\cdots
+\end{equation}
+and
+\begin{equation}
+    \Phi \to \Phi(0,0) + \va{x} \vdot \va{\partial} \Phi + \frac{1}{2} x_i x_j \partial_i \partial_j \Phi
+\end{equation}
+where the second terms are the dipole terms, the third are the quadrupole, and so on. The first terms vanish in the static case, since they are just constants and the fields depend on the derivatives of these potentials. We also showed that the quadrupole moment must be traceless and symmetric, and it is in the $ 2 $ representation of $\text{SO}(3)$.
+
+\section{Time Dependent Perturbation Theory}
+\label{sec:time_dependent_perturbation_theory}
+
+\begin{equation}
+    H = H_0 + V(t)
+\end{equation}
+\begin{equation}
+    H_0\ket{n} = E_n\ket{n}
+\end{equation}
+Any arbitrary state can be decomposed in this way (in the Schr\"odinger picture, where the states, not the operators, evolve in time):
+\begin{equation}
+    \ket{\alpha, t}_S = \sum_n C_n(t) e^{- \imath E_n t / \hbar}\ket{n}
+\end{equation}
+where $ \lim_{V \to 0} C_n(t) = C_n $. This limit motivates us to define
+\begin{equation}
+    \ket{\alpha}_I = e^{\imath H_0 t / \hbar}\ket{\alpha}_S
+\end{equation}
+where the $ I $ stands for the interaction picture. Recall that in the Heisenberg picture, states are time independent and operators are time dependent, but in the interaction picture, the states evolve according to $ V = H_I $ while the operators evolve according to $ H_0 $:
+\begin{equation}
+    \imath \hbar \pdv{t}\ket{\alpha}_I = \imath \hbar \pdv{t} \left[ e^{\imath H_0 t / \hbar}\ket{\alpha}_S \right] = - H_0 e^{\imath H_0 t / \hbar}\ket{\alpha}_S + e^{\imath H_0 t / \hbar}\underbrace{\left( \imath \hbar \pdv{t}\ket{\alpha}_S \right)}_{(H_0 + V)\ket{\alpha}}
+\end{equation}
+We can use the Schr\"odinger equation on the last part:
+\begin{equation}
+    \imath \hbar \pdv{t}\ket{\alpha}_I = e^{\imath H_0 t / \hbar} \left[ -H_0 + (H_0 + V) \right]\ket{\alpha}_S = V\ket{\alpha}_I
+\end{equation}
+We could run through an analogous description of the operators in this interaction picture to find that
+\begin{equation}
+    \imath \hbar \pdv{t}O_I = \comm{O_I}{H_0}
+\end{equation}
+
+The point is that we can split up the total time evolution $ e^{\imath (H_0 + V)t/\hbar}\ket{\psi} $ into a part that acts on the state and a part that acts on the operator $ \to e^{\imath H_0 t/\hbar} \left( e^{\imath V t/\hbar}\ket{\psi}\right) $.
+
+We will now decompose the interaction picture states in terms of energy eigenstates in the interaction picture.
+\begin{equation}
+    \ket{\alpha, t}_I = \sum_n C_n(t)\ket{n, t}_I
+\end{equation}
+We want to solve for the $ C_n(t) $ factors:
+\begin{equation}
+    \imath \hbar \pdv{t}\ket{\alpha, t}_I = V_I(t)\ket{\alpha, t}_I = \imath \hbar \sum_n \dot{C}_n\ket{n, t}_I + \imath \hbar \sum_n C_n(t) \pdv{t}\ket{n, t}_I
+\end{equation}
+Now let's project this onto a particular eigenstate $\bra{m}\ket{n} = \delta_{mn} $ and insert the identity $ \sum_{m'}\ket{m'}\bra{m'} $:
+\begin{equation}
+    \imath \hbar \dot{C}_m = \sum_{m'}\bra{m} V_I(t)\ket{m'}\underbrace{\bra{m'}\ket{\alpha, t}_I}_{C_{m'}(t)}
+\end{equation}
+
+Therefore
+\begin{equation}
+    \imath \hbar \dot{C}_m = \sum_{m'}\bra{m} V_I(t)\ket{m'} C_{m'}(t)
+\end{equation}
+
+
+\end{document}

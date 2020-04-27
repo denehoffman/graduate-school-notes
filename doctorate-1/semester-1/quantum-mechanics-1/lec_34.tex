@@ -1,0 +1,99 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{34}{Friday, November 08, 2019}{The Semiclassical (WKB) Approximation}
+Start with the time-independent Schr\"odinger equation:
+\begin{equation}
+    \left[- \frac{\hbar^2}{2m} \laplacian + U(x)\right] \psi(x) = E \psi(x) 
+\end{equation}
+Let's assume solutions have the form
+\begin{equation}
+    \psi(x) = e^{\frac{\imath}{\hbar} \sigma(x)}
+\end{equation}
+such that
+\begin{equation}
+    - \frac{\imath \hbar}{2m} \laplacian{\sigma} + \frac{1}{2m} (\grad{\sigma})^2 = E - U(x) \equiv \frac{p^2(x)}{2m}
+\end{equation}
+Now lets take $ \hbar \to 0 $ and expand around $ \sigma $:
+\begin{equation}
+    \sigma = \sigma_0 + \frac{\hbar}{\imath} \sigma_1 + \cdots
+\end{equation}
+\begin{equation}
+    \sigma_0' = \pm \sqrt{2m(E-U(x))} = \pm p(x)
+\end{equation}
+and
+\begin{equation}
+    \sigma_0 = \pm \int p(x) \dd{x}
+\end{equation}
+so
+\begin{equation}
+    \psi(x) = e^{\pm\frac{\imath}{\hbar} \int p(x) \dd{x}}
+\end{equation}
+We believe this is proportional to $ e^{- \imath k x} $, a plane wave solution where $ k = k(x) = p(x) / \hbar $.
+
+If the potential is slowly varying,
+\begin{equation}
+    \hbar \sigma'' << (\sigma')^2 \implies \hbar \dv{\hbar / \sigma'}{x} << 1
+\end{equation}
+We define $ \hbar / \sigma' = \lambda(x) $, and $ \lambda = \frac{2 \pi}{k} = \frac{2 \pi \hbar}{p} = \frac{2 \pi}{\sigma'} $ so $ \dv{x} \lambda(x) << 2 \pi $.
+
+Now let's introduce the first-order $ \sigma_1 $ correction. Then we take only the terms which are first-order in $ \hbar $. There will be a second-order term, but we are only looking at the first-order correction and those terms are smaller than the ones we are looking at.
+
+\begin{equation}
+    \sigma_0'' + 2 \sigma_0' \sigma_1' = 0
+\end{equation}
+\begin{equation}
+    \sigma_1' = - \frac{\sigma_0''}{2\sigma_0'} = - \frac{p'}{2p}
+\end{equation}
+\begin{equation}
+    \sigma_1 = - \frac{1}{2} \ln{p(x)}
+\end{equation}
+so
+\begin{equation}
+    \psi(x) = \frac{1}{\sqrt{p}} \left( C_1 e^{(\frac{\imath}{\hbar}) \int p \dd{x}} + C_2 e^{-(\frac{\imath}{\hbar}) \int p \dd{x}} \right)
+\end{equation}
+
+We cannot use the WKB approximation in some region around the classical turning point because the potential will be varying too fast. However, if the function at this barrier is sufficiently smooth, we can approximate it as linear in this region and match up the wave function on either side of these areas.
+
+We will use Airy functions as solutions to the Schr\"odinger equation. See Landau and Lifshitz for a detailed derivation of this. If we do this matching, we find that $ C_1 \sim A e^{\imath \frac{\pi}{4}} $ and $ C_2 \sim A e^{-im \frac{\pi}{4}} $. In order to properly match up with this Airy function, $ \frac{C_1}{C_2} = \imath $.
+
+Suppose we are looking at the region around a point $ a $, where the classically forbidden region is to the right of $ a $:
+\begin{equation}
+    \psi_{<a}(x) = \frac{C}{\sqrt{p}} \cos(\frac{1}{\hbar} \int_a^x p(x') \dd{x'} + \frac{\pi}{4})
+\end{equation}
+If we matched at $ b $, the other turning point, we find that $ C_1 \sim A' e^{-im \frac{\pi}{4}} $ and $ C_2 \sim A' e^{\imath \frac{\pi}{4}}$ so
+\begin{equation}
+    \psi_{>b}(x) = \frac{C'}{\sqrt{p}} \cos(\frac{1}{\hbar} \int_b^x p(x') \dd{x'} - \frac{\pi}{4})
+\end{equation}
+
+We want these functions to be the same in the inside region, so either $ C = C' $ and the phases differ by $ 2 \pi m $ or $ C = -C' $ and the phases differ by $ (2m+1) \pi $. We can capture both of these at the same time by saying that
+\begin{equation}
+    C' = (-1)^n C
+\end{equation}
+and
+\begin{equation}
+    \left[ \frac{1}{\hbar} \int_b^x p \dd{x'} - \frac{\pi}{4} \right] - \left[ \frac{1}{\hbar} \int_a^x p \dd{x'} + \frac{\pi}{4} \right] = n \pi
+\end{equation}
+or
+\begin{equation}
+    \frac{1}{\hbar} \int_b^a p \dd{x'} = \left( n + \frac{1}{2} \right) \pi
+\end{equation}
+If we now add the contribution going from $ a $ to $ b $, we can integrate over the entire path $ \Gamma = a \to b \to a $:
+\begin{equation}
+    \oint_\Gamma p \dd{x} = \left( n + \frac{1}{2} \right) h
+\end{equation}
+
+The action is therefore quantized in multiples of $ h $ (Planck's constant) and we also have the ``zero point'' action $ \frac{1}{2} h $. This exists because we are confining the wave function in space, so by the Heisenburg relation, there must be some nonzero momentum.
+
+We can apply this approximation to systems other than bounded motion on a line. For instance, look at rotational motion. The action must be
+\begin{equation}
+    S = \oint L_z \dd{\varphi} = nh
+\end{equation}
+
+\subsection{Energy Level Spacing}
+\label{sub:energy_level_spacing}
+
+\begin{equation}
+    \Delta \oint p \dd{x} = 2 \pi \hbar \approx \Delta E \oint \pdv{E} p \dd{x} = \Delta E \oint \frac{\dd{x}}{v} = \Delta E T
+\end{equation}
+We can write the period as $ T = \frac{2 \pi}{\omega} $ so $ \Delta E = \hbar \omega(E) $. Again, note that this is just an approximation.
+\end{document}

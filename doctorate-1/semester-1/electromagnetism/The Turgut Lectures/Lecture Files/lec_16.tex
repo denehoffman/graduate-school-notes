@@ -1,0 +1,61 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{16}{Friday Sep 27 2019}{Electrostatics of Dielectrics}
+
+\section{Microscopic vs. Macroscopic Structure}
+\label{sec:microscopic_vs_macroscopic_structure}
+
+The micro scale is $\propto 10^{-9} \to 10^{-8}$ meters, while the macro scale is $\propto 10^{-6}$ meters. We can look in the range right between these to average out these microscopic fields. In this range, $\vec{B}_{\text{micro}}\approx \vec{0}$. Microscopic electric fields may be induced, and averaging over these can be modeled by a macroscopic dipole density $ \vec{P} ( \vec{x} )$. This is our working, unjustified assumption to be discussed further by some models. If we believe this assumption, we can write down the potential as:
+\begin{equation}
+    \Phi ( \vec{x} ) = \frac{1}{4 \pi \epsilon_{0}} \int \frac{\rho ( \vec{x}' )}{\norm{ \vec{x} - \vec{x}' }}  \dd[3]{x} + \frac{1}{4 \pi \epsilon_0} \int \frac{ \vec{p} ( \vec{x}' \cdot ( \vec{x} - \vec{x}' )}{\norm{ \vec{x} - \vec{x}'}^3} \dd[3]{x'}
+\end{equation}
+This is equivalent to
+\begin{equation}
+    \Phi ( \vec{x} ) = \frac{1}{4 \pi \epsilon_0} \int \frac{\rho ( \vec{x}' )}{\norm{ \vec{x} - \vec{x}'}} \dd[3]{x} + \frac{1}{4 \pi \epsilon_0} \int \frac{\div'{ \vec{P} (x')}}{\norm{ \vec{x} - \vec{x}'}} \dd[3]{x'} + \int_{\Omega} \frac{- \grad'{ \vec{P}}}{\norm{ \vec{x} - \vec{x}'} } \dd[3]{x'}
+\end{equation}
+The numerator of the second term here is the bound surface charge of the medium. We can think of the measured field as $ \vec{E} = \vec{E}^{\text{ext}} + \overline{\vec{E}}_{\text{micro}}$. We have a working hypothesis that $ \curl{ \vec{E}} = 0$, because the microscopic magnetic field does not change in time, so $ \vec{E} = - \div{\Phi}$. $\vec{P}$ is a function of ``local'' $ \vec{E}$ for the static case. We assume the linear term is the dominant contribution (it can be nonlinear, a simple model of permanent dipoles depends non-linearly on temperature, for example).
+\begin{equation}
+    \vec{P} = \epsilon_0 \chi
+\end{equation}
+Isotropic materials have $ \chi_{ij} = \chi \delta_{ij}$. Homogeneous materials have $ \chi ( \vec{x} ) = \chi$. We can therefore show that
+\begin{equation}
+    \rho_{\text{bound}} = - \div{ \vec{P}}
+\end{equation}
+so
+\begin{equation}
+    \div{ \vec{E}} = \frac{\rho_{\text{free}}}{\epsilon_0} - \frac{\grad{ \vec{P}}}{\epsilon_0}
+\end{equation}
+or
+\begin{equation}
+    \grad{\underbrace{(\epsilon_0 \vec{E} + \vec{P})}_{ \vec{D}}} = \rho_{\text{free}}
+\end{equation}
+If we assume $ \vec{P} = \epsilon_0 \chi \vec{E}$,
+\begin{equation}
+    D = \epsilon_0 (1 + \chi) \vec{E}
+\end{equation}
+where $ \epsilon_0 (1+ \chi) \equiv \epsilon$. This brings us the familiar Poisson equation on the potential:
+\begin{equation}
+    \epsilon \laplacian{\Phi} = - \rho
+\end{equation}
+Charge free regions still satisfy $ \laplacian{\Phi} = 0$, and we can use boundary conditions to determine solutions. 
+
+\subsection{Boundary Conditions}
+\label{subsec:boundary_conditions}
+If we take a Gaussian pillbox around a boundary, we know that $ \div{ \vec{D}} = \rho_{\text{free}}$, so
+\begin{equation}
+    ( \vec{D}_{2} - \vec{D}_{1} ) \cdot \hat{n}_{12} = 0
+\end{equation}
+Also, the normal component of $ \vec{D}$ is continuous in a linear material, since $ \vec{D} = \epsilon \vec{E}$, so
+\begin{equation}
+    \epsilon_1( \vec{E}_1 )_{n} = \epsilon_2( \vec{E} )_{n}
+\end{equation}
+Additionally, the tangential components of $ \vec{E}$ are continuous:
+\begin{equation}
+    ( \vec{E}_1 - \vec{E}_2 )_{\text{tangent}} = \vec{0}
+\end{equation}
+or
+\begin{equation}
+    ( \vec{E}_1 - \vec{E}_2) \times \hat{n}_{12} = \vec{0}
+\end{equation}
+
+\end{document}

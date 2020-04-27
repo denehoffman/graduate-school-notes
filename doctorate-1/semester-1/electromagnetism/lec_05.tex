@@ -1,0 +1,138 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{5}{Wed Sep 4 2019}{Green's Functions for Special Geometries}
+
+\section*{The Method of Images}%
+\label{sec:the_method_of_images}
+
+Suppose we have a grounded conductor along the xy-plane and a charge $q$ at position $(x',y',z')$ off of the plane. We claim the Green's function involves a charge at $-z'$ with opposite charge:
+
+\begin{equation}
+   G_D(\vec{x},\vec{x}') = \frac{1}{\sqrt(x-x')^2+(y-y')^2+(z-z')^2} - \frac{1}{\sqrt(x-x')^2+(y-y')^2+(z+z')^2}
+\end{equation}
+
+$\nabla'^2\left(\frac{1}{\sqrt(x-x')^2+(y-y')^2+(z+z')^2}\right) = 0$ so we still have $-\nabla'^2G_D=4\pi\delta(\vec{x}-\vec{x}')$.
+
+\begin{equation}
+   G_D(\vec{x},\vec{x'})\bigg|_{\Sigma = \{z'=0\mid(x,y,0)\in\mathbb{R}^3\}} = 0
+\end{equation}
+
+\section*{Solving for Potential}%
+\label{sec:solving_for_potential}
+
+When we put an actual charge $q$ at $(x',y',z')$,
+
+\begin{equation}
+   \Phi = \frac{1}{4\pi\epsilon_0}\left[\frac{q}{\sqrt(x-x')^2+(y-y')^2+(z-z')^2} - \frac{q}{\sqrt(x-x')^2+(y-y')^2+(z+z')^2}\right]
+\end{equation}
+
+Surface charge:
+\begin{equation}
+   \sigma = -\epsilon_0\frac{\partial\Phi}{\partial z}\bigg|_{z=0}
+\end{equation}
+
+\begin{note}{Note:}
+The method of images is a bit contrived, since the solution is assumed and the Green's function is then derived.
+\end{note}
+
+\section*{Grounded Sphere}%
+\label{sec:grounded_sphere}
+
+Suppose we have a grounded sphere of radius $a$ with a point charge $q$ outside.
+
+Suppose the distance from the center of the sphere to the charge is $x'$. Introduce a new point along the line joining the origin and the charge:
+
+\begin{equation}
+   y' = \frac{a^2}{x'}\hat{n}'
+\end{equation} (pointing away from the origin).
+
+Geometrically, you take the tangent from the circle to the point and project the point on the sphere where it touches onto the radial axis. We can use this as a 1-to-1 map between the inside and outside of the sphere. The sphere itself is invariant under this transformation. Alternative mappings would only work if they obey the Laplace equation!
+
+\begin{equation}
+   \Phi = \frac{q}{4\pi\epsilon_0|\vec{x}-\vec{x}'|} + \frac{q'}{4\pi\epsilon_0|\vec{x}-\frac{a^2}{x'}\hat{n}'|}.
+\end{equation}
+
+The second part follows the Laplace equation for $\vec{x}$, but it is not trivial that it also is a solution for $\vec{x}'$ for particular choice of $q$.
+
+\begin{equation}
+    \nabla^2\Phi=\frac{q}{\epsilon_0}
+\end{equation} (outside, so $|\vec{x}|\geq a$)
+
+\begin{equation}
+    \Phi\bigg|_{\Sigma = S^2\text{ with radius }a} = \frac{q}{4\pi\epsilon_0|a\hat{n}-x'\hat{n}'|}+\frac{q'}{4\pi\epsilon_0|a\hat{n}-x'\hat{n}'|}
+\end{equation}
+\begin{equation}
+    = \frac{q}{4\pi\epsilon_0\sqrt{a^2+x'^2-2ax'\hat{n}\cdot\hat{n}'}}+\frac{q'}{4\pi\epsilon_0\sqrt{a^2+\frac{a^4}{x'^2}-2a\frac{a^2}{x'}\hat{n}\cdot\hat{n}''}}
+\end{equation}
+\begin{equation}
+    = \frac{1}{4\pi\epsilon_0}\left[\frac{q}{\sqrt{a^2+x'^2-2ax'\hat{n}\cdot\hat{n}'}}+\frac{q'}{\frac{a}{x'}\sqrt{a^2+\frac{a^4}{x'^2}-2a\hat{n}\cdot\hat{n}'}}\right]
+\end{equation}
+
+On the surface,
+\begin{equation}
+    \Phi\bigg|_\Sigma = \frac{1}{4\pi\epsilon_0}\left[\frac{q}{\sqrt{\dots}} + \frac{q'\frac{x'}{a}}{\sqrt{\dots}}\right]
+\end{equation}
+
+If $q' = -q\frac{a}{x'}$, $\Phi\bigg|_\Sigma = 0$, so
+
+\begin{equation}
+    \Phi = \frac{1}{4\pi\epsilon_0}\left[\frac{q}{|\vec{x}-\vec{x}'|} -\frac{q\frac{a}{x'}}{\left|\vec{x}-\frac{a^2}{x'^2}\vec{x}'\right|}\right]
+\end{equation}
+
+\begin{equation}
+    \sigma\bigg|_\Sigma = -\epsilon\frac{\partial\Phi}{\partial r}\bigg|_{r=a}.
+\end{equation}
+If we integrate this, $\oint_{S^2}\sigma da = q'$.
+
+\begin{remark}
+We actually construct the Green's function for this problem thanks to $-\nabla'^2 G_D = 4\pi\delta(\vec{x}-\vec{x}')$, where $G_D = \frac{1}{|\vec{x}-\vec{x}'|} - \frac{\frac{a}{x'}}{\left|\vec{x}-\frac{a^2}{x'^2}\vec{x}'\right|}$
+\end{remark}
+
+\section*{Force of Attraction on Charges}%
+\label{sec:force_of_attraction_on_charges}
+
+What is the force between the sphere and the charge?
+
+\begin{equation}
+   \oint_{S^2}\frac{1}{4\pi\epsilon_0}\frac{q\sigma (a^2 d\Omega)}{|\vec{x}-\vec{x}'|^2}\frac{(\vec{x}'-\vec{x})}{|\vec{x}-\vec{x}'|} = \frac{1}{4\pi\epsilon_0}\frac{q\cdot -q\frac{a}{x'}}{|\frac{a^2}{x'^2}\vec{x'} -\vec{x'}|^2}\hat{n}'
+\end{equation}
+
+Basically the force between the surface charge $\sigma$ and point
+charge $q$ is the same as the force on $q$ due to $q'$, the image
+charge.
+
+What about a charged sphere? Suppose we have a charge $Q$ on the
+sphere. Find the grounded solution ($Q = 0$) and superimpose the
+effect. The grounded sphere has charge $q' = -\frac{q}{x'}a$, so the
+potential is now
+
+\begin{equation}
+   \frac{1}{4\pi\epsilon_0}\frac{Q+\frac{q}{x'}a}{|\vec{x}|}+\frac{1}{4\pi\epsilon_0}\left[\frac{q}{|\vec{x}-\vec{x}'|} -\frac{q\frac{a}{x'}}{\left|\vec{x}-\frac{a^2}{x'^2}\vec{x}'\right|}\right]
+\end{equation}
+
+\section*{Energy}%
+\label{sec:energy}
+
+What is the electrostatic energy of this configuration? Inside, $E=0$, but so $W=0$, but outside,
+
+\begin{equation}
+   W = \frac{1}{2}\epsilon_0\int E^2dx = \frac{1}{2}\int\rho\Phi d^3x
+\end{equation}
+
+We have to remove the infinity which comes from the $E$ field from the point charge itself. The self-energy of this charge would work if it's a continuous distribution, but the discreteness of the charge messes with the integral.
+
+\begin{note}{N.B.}
+For a charged sphere, $W=\frac{2}{5}\frac{Q^2}{4\pi\epsilon_0 R}$. When $R\to 0$, we have an obvious problem. This is inherent in classical electrodynamics. It is ``cured'' in QM, but in a complicated way.
+\end{note}
+
+\begin{equation}
+   W = \frac{1}{2}\int q\delta(\vec{x}-\vec{x}')\Phi^{\text{reduced}}(\vec{x})d^3x
+\end{equation}
+
+where
+
+\begin{equation}
+   \Phi^\text{reduced} = \frac{1}{4\pi\epsilon_0}\frac{-\frac{q}{x'}a}{\left|\vec{x}-\frac{a^2}{x'^2}\vec{x}'\right|}.
+\end{equation}
+
+\end{document}

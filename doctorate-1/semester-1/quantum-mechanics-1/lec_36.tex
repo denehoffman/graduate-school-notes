@@ -1,0 +1,85 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{36}{Monday, November 11, 2019}{Charged Harmonic Oscillator in Electric Field}
+
+\section{Charged Harmonic Oscillator in Electric Field}
+\label{sec:charged_harmonic_oscillator_in_electric_field}
+
+Let $ V(x) = \frac{1}{2} m \omega^2 x^2 $ be a harmonic oscillator and $ W(x) = - q \mathscr{E} x $ be the potential of an electric field. We are basically imagining a particle with charge $ q $ on a spring with spring constant $ k = m \omega^2 $ and an electric field of strength $ \mathscr{E} $ pulling the particle outwardly away from the spring surface. The minimum of the harmonic oscillator will be displaced. The new minimum energy will be at $ E = \frac{-q^2 \mathscr{E}^2}{2 m \omega^2} $ and the new equilibrium position will be $ x = \frac{q\mathscr{E}}{m \omega^2} $. The new Hamiltonian will be
+\begin{equation}
+    \vu{H}_{\mathscr{E}} = \frac{\vu{P}^2}{2m} + \frac{1}{2} m \omega^2 \left( \vu{X} - \frac{q\mathscr{E}}{m \omega^2} \right)^2 - \frac{q^2 \mathscr{E}^2}{2 m \omega^2}
+\end{equation}
+The eigenstates will have wave functions
+\begin{equation}
+    \psi_{n}^{\mathscr{E}}(x) = \psi_n\left( x - \frac{q\mathscr{E}}{m \omega^2} \right)
+\end{equation}
+with energy
+\begin{equation}
+    E_n^{\mathscr{E}} = \left( n + \frac{1}{2} \right) \hbar \omega - \frac{q^2 \mathscr{E}^2}{2m \omega^2}
+\end{equation}
+
+\subsection{Dielectric Susceptibility}
+\label{sub:dielectric_susceptibility}
+We can think of this system in terms of a dipole moment:
+\begin{equation}
+    \vu{D} = q \vu{X}
+\end{equation}
+The expectation of this operator is
+\begin{align}
+    \ev{\vu{D}}_{\mathscr{E}} &= q \ev{ \vu{X}}{\psi_n^{\mathscr{E}}} \\
+    &= q \int_{- \infty}^{\infty} \dd{x} x \abs{\psi_n^{\mathscr{E}}\left( x - \frac{q\mathscr{E}}{m \omega^2} \right)}^2 \\
+    &= q \int_{- \infty}^{\infty} \dd{u} \left( u + \frac{q\mathscr{E}}{m \omega^2}\right) \abs{\psi_n^{\mathscr{E}}(u)}^2 \\
+    &= \frac{q^2 \mathscr{E}}{m \omega^2}
+\end{align}
+
+The susceptibility is defined as
+\begin{equation}
+    \chi \equiv \frac{\ev{ \vu{D}}_{\mathscr{E}}}{\mathscr{E}} = \frac{q^2}{m \omega^2}
+\end{equation}
+
+\subsection{Energy Shift or Electric Energy}
+\label{sub:energy_shift_or_electric_energy}
+
+This will be the size of the electric field times the displacement:
+\begin{equation}
+    -q\mathscr{E} \cdot \delta x = \frac{-q^2 \mathscr{E}^2}{m \omega^2}
+\end{equation}
+
+\subsection{Elastic Energy}
+\label{sub:elastic_energy}
+
+The elastic energy is the energy stored in the spring, or
+\begin{equation}
+    \frac{1}{2} m \omega^2 (\delta x)^2 = \frac{q^2 \mathscr{E}^2}{2 m \omega^2}
+\end{equation}
+
+Adding these together give us $ \frac{- q^2 \mathscr{E}^2}{2 m \omega^2} $.
+
+Let's now look at this as an example of spectroscopy. We are using the Born-Oppenheimer Approximation, treating the ionic cores of atoms classically, but solving the electrons quantum mechanically. Because we are going to treat the atoms classically, we can specify their positions. Imagine a molecule composed of two atoms of different elemental species. This means there is likely some difference in electrons between them and some charge imbalance. Let's say the separation between the atoms is $ r $. Let $ r_0 $ be the preferred separation (the equilibrium position) with an energy $ -V_0 $.
+\begin{equation}
+    V_{eff}(r) \approx - V_0 + \frac{1}{2} V''(r_0)(r-r_0)^2 + \cdots
+\end{equation}
+We are approximating the potential as a parabola here, while we know that as $ r \to \infty $ the potential must really go to zero, so this shape is not useful far away from equilibrium.
+
+The molecule can rotate, vibrate, or translate, and at room temperature, translational and rotational modes will likely be excited (vibration modes will be weakly excited). As long as the vibrations of the molecule are not extreme, we will ignore rotation. Let's focus on the small vibrational modes.
+\begin{equation}
+    m \omega^2 = V''(r_0)
+\end{equation}
+\begin{equation}
+    E_n = \left( n + \frac{1}{2} \right) \hbar \omega - V_0 
+\end{equation}
+
+Let's talk about two different types of spectroscopy. The first is \underline{infrared absorption}. We imagine the molecules as a dipole with dipole moment
+\begin{equation}
+    \vu{D}(r) = d_0 + d_i(r-r_0)
+\end{equation}
+where $ d_i $ is an additional dipole moment introduced by stretching bonds during vibrations. Recall that the dipole moment is like the harmonic oscillator position variable is like a raising and lowering operator, $ \vu{D} \sim \vu{X} \sim \vu{a}^\dagger + \vu{a} $. Because of this, $ D_{n-1, n} \neq 0 $ and $ D_{n+1,n} \neq 0 $ and these elements are like $ \sim e^{\pm\imath\omega t} $. The state of the molecule can change by absorbing or emitting photons of energy $ \hbar \omega $, so there will be some absorption spectrum which we can plot as a function of $ \Omega $, the frequency of incident radiation. There will be some peak in absorption around the resonant frequency of the molecule.In order to have this effect, recall that there had to be an existing dipole $ d_0 $ to be able to activate the absorption and emission.
+
+The other popular type of molecular spectroscopy uses the \underline{Raman Effect}. This occurs if we have a homopolar molecule, where the two chemical species are identical ($ \elementsymbol{Hydrogen}^2 $ for example). Without radiation, there will be no dipole moment. Suppose we have incident radiation $ \sim \mathscr{E} e^{\pm \imath \Omega t} $ where $ \Omega >> \omega $. Therefore, $ \vu{D} = \chi(r) \mathscr{E} e^{\imath \Omega t} $. The susceptibility will be some function of $ r $. Let's let $ r = r_0 + \delta r$ and let the molecule vibrate such that $ r = r_0 + \delta \cos(\omega t) $ where $\omega$ is the resonant frequency of the molecule, so $ \vu{D}(t) = \underbrace{\vu{D}_0(t)}_{\mathscr{E}\chi_0(r_0) e^{\imath \Omega t}} + \delta (\partial_r \chi) \mathscr{E} \underbrace{e^{\pm\imath\omega t} e^{\imath \Omega t}}_{\sim e^{\imath(\Omega \pm \omega) t}} $.
+
+When we do the experiment, we will hit the molecules with radiation of a certain frequency. We should see a main peak in outgoing intensity around $ \Omega $, but we will also see two side bands (called Stokes and Anti-Stokes bands). These side bands will be displaced by $\omega$ and will tell us about the structure of the molecule.
+
+On Wednesday, we will discuss phonons and blackbody radiation.
+
+
+\end{document}

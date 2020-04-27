@@ -1,0 +1,155 @@
+\documentclass[a4paper,twoside]{article}
+\input{../../preamble.tex}
+\title{33-756 Homework 7}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section*{1. Particle in Harmonic Oscillator Subject to Time-Dependent Force}
+A particle in a harmonic oscillator potential is subject to a time-dependent force $ H = A x^2 e^{- t / \tau} $ that turns on at $ t = 0 $, where the system starts in the ground state. Find the probability of finding the system in the $ n $th excited state after a time $ t $. Assume $ t >> \tau $.
+
+\begin{problem}
+    To first-order, the probability of going from the ground state to the $ n $th excited state is
+    \begin{equation}
+        \Pr(0 \to n) = \abs{c_n^{(1)}}^2
+    \end{equation}
+    where
+    \begin{align}
+        c_n^{(1)} &= - \frac{\imath}{\hbar} \int_0^{t} A\bra{n}x^2\ket{0} e^{-t' / \tau} e^{\imath (E_n - E_0)} \dd{t'} \\
+        &= - \frac{\imath}{\hbar} A \int_0^t\bra{n} x^2\ket{0} e^{-t' / \tau} e^{\imath \hbar \omega n} \dd{t'}
+    \end{align}
+    Next, we can write $\bra{n} = \frac{1}{\sqrt{n!}}\bra{0} a^n $ and $ x^2 = \frac{\hbar}{2m \omega} (a^\dagger + a)^2 $:
+    \begin{equation}
+        c_n^{(1)} = - \frac{\imath}{\hbar} \frac{\hbar A}{2m \omega \sqrt{n!}} e^{\imath \hbar \omega n} \int_0^t\bra{0} a^n (a^\dagger + a)(a^\dagger + a)\ket{0} e^{-t' / \tau} \dd{t'}
+    \end{equation}
+    \begin{align}
+        \bra{0} a^n (a^\dagger + a)^2\ket{0} &=\bra{0} a^n ( (a^\dagger)^2 + aa^\dagger + a^\dagger a + a^2)\ket{0} \\
+        &=\bra{0} a^n (a^\dagger)^2 + a^{n+1} a^\dagger + a^n a^\dagger a + a^{n+2}\ket{0} \\
+        &=\bra{0} a^{n-2} (a a^\dagger)^2 +a^{n} (a a^\dagger) + a^n a^\dagger a _ a^{n+2}\ket{0} \\
+        &=\bra{0} a^{n-2} (N+1)^2 + a^{n} (N+1) + a^{n} N + a^{n+2}\ket{0} \\
+        &=\bra{0} a^{n-2} (N^2 + 2 N + 1) + a^n N + a^n + a^n N + a^{n+2}\ket{0} \\
+        &=\bra{n - 2} N^2 + 2N + 1\ket{0}\sqrt{(n-2)!} +\bra{n} 2N + 1\ket{0} \sqrt{n!} +\bra{n+2}\ket{0} \sqrt{(n+2)!} \\
+        &= \delta_{n-2,0} (0^2 + 2\times 0 + 1) \sqrt{(n-2)!} + \delta_{n,0} (2N +1) \sqrt{n!} + \delta_{n+2,0} \sqrt{(n+2)!} \\
+        &= \begin{cases} 1 & n = 0,2, (-2)\\ 0 & \text{otherwise} \end{cases}
+   \end{align}
+
+   We only care about transitions to excited states, so we can ignore the $ 0 $ case:
+   \begin{align}
+       c_n^{(1)} &= - \frac{\imath}{\hbar} \frac{\hbar A}{2m \omega \sqrt{n!}} e^{\imath \hbar \omega n} \int_0^t e^{-t' / \tau} \dd{t'} \\
+       &= - \frac{\imath A e^{\imath \hbar \omega 2}}{2m \omega \sqrt{2}} \tau \left( 1 - e^{-t / \tau} \right)
+   \end{align}
+   so
+   \begin{equation}
+       \Pr(0 \to n \neq 0) = \begin{cases} \frac{\abs{A}^2}{8m^2 \abs{\omega}^2} e^{-4 \hbar \Im{\omega}} \tau^2 \abs{1- e^{-t / \tau}}^2 & n = 2 \\ 0 & \text{otherwise} \end{cases}
+   \end{equation}
+\end{problem}
+
+\section*{2. A Two-Level System with Time-Dependent Potential}
+Consider a two-level system with $ E_1 < E_2 $. There is a time-dependent potential that connects the two levels as follows:
+\begin{equation}
+    V_{11} = V_{22} = 0,\qquad V_{12} = \gamma e^{\imath \omega t},\qquad \gamma e^{- \imath \omega t} \qquad (\gamma \in \R).
+\end{equation}
+At $ t = 0 $, it is known that only the lower level is populated\textemdash that is, $ c_1(0) = 1 $, $ c_2(0) = 0 $.
+\begin{itemize}
+    \item[(a)] Find $ \abs{c_1(t)}^2 $ and $ \abs{c_2(t)}^2 $ for $ t > 0 $ by \textit{exactly} solving the coupled differential equation
+        \begin{equation}
+            \imath \hbar \dot{c}_k = \sum_{n=1}^{2} V_{kn}(t) e^{\imath \omega_{kn} t} c_n,\qquad (k = 1,2).
+        \end{equation}
+        You should find Rabi's formula:
+        \begin{align}
+            \abs{c_2(t)}^2 &= \frac{\gamma^2 / \hbar^2}{\gamma^2 / \hbar^2 + (\omega - \omega_{21})^2 / 4} \sin[2](\left[ \frac{\gamma^2}{\hbar^2} + \frac{(\omega - \omega_{21})^2}{4} \right]^{1/2} t),\\
+            \abs{c_1(t)}^2 &= 1 - \abs{c_2(t)}^2.
+        \end{align}
+        \begin{problem}
+            We can write out our system of equations as
+           \begin{align}
+               \imath \hbar \dot{c}_1 &= \gamma e^{\imath \omega t} e^{\imath \omega_{12} t} c_2 = \gamma c_2 e^{\imath (\omega - \omega_{21}) t} \\
+               \imath \hbar \dot{c}_2 &= \gamma e^{- \imath \omega t} e^{\imath \omega_{21} t} c_1 = \gamma c_1 e^{-\imath (\omega - \omega_{21}) t}
+           \end{align}
+           since $ \omega_{12} = - \omega_{21} $. We can write $ \omega_0 = \omega - \omega_{21} $ and rewrite the second equation as
+           \begin{equation}
+               \frac{\imath \hbar}{\gamma} \dot{c}_2 e^{\imath \omega_0 t} = c_1
+           \end{equation}
+           Taking the derivative of both sides, we get
+           \begin{equation}
+               \dot{c_1} = \frac{\imath \hbar}{\gamma} \left( \ddot{c}_2 e^{\imath \omega_0 t} + \dot{c}_2 \imath \omega_0 e^{\imath \omega_0 t} \right)
+           \end{equation}
+           We then plug this into the first equation:
+           \begin{align}
+               - \frac{\hbar^2}{\gamma} \left( \ddot{c}_2 e^{\imath \omega_0 t} + \dot{c}_2 \imath \omega_0 e^{\imath \omega_0 t}\right) &= \gamma c_2 e^{\imath \omega_0 t} \\
+                \ddot{c_2} \hbar^2 + \dot{c}_2 \imath \hbar^2 \omega_0 + \gamma^2 c_2 &= 0
+           \end{align}
+           We want to solve this using the boundary condition that $ c_2(0) = 0 $, and doing so, we find that
+           \begin{equation}
+               c_2(t) = A \left( e^{- \imath t \left( \frac{\omega}{2} + \Omega \right)} - e^{- \imath t \left( \frac{\omega}{2} - \Omega \right)} \right)
+           \end{equation}
+           where $ \Omega = \sqrt{\frac{\gamma^2}{\hbar^2} + \frac{\omega_0^2}{4}} $. To find $ A $, we need to look at the second initial equation at $ t=0 $:
+           \begin{equation}
+               \imath \hbar \dot{c}_2(0) = \gamma c_1(0) \implies \dot{c}_2(0) = \frac{\gamma}{\imath \hbar}
+           \end{equation}
+           Taking the derivative of our solution for $ c_2(t) $ and evaluating at $ 0 $, we see that
+           \begin{equation}
+               A = \frac{\gamma}{2 \Omega \hbar}
+           \end{equation}
+           Our final answer for $ c_2(t) $ is
+           \begin{equation}
+               c_2(t) = \frac{\gamma}{2 \Omega \hbar} \left( e^{- \imath t \left( \frac{\omega}{2} + \Omega \right)} - e^{- \imath t \left( \frac{\omega}{2} - \Omega \right)} \right)
+           \end{equation}
+           Therefore,
+           \begin{equation}
+               \abs{c_2(t)}^2 = 4 \abs{A}^2 \sin[2](t \Omega) =  \frac{\gamma^2 / \hbar^2}{\gamma^2 / \hbar^2 + (\omega - \omega_{21})^2 / 4} \sin[2](\left[ \frac{\gamma^2}{\hbar^2} + \frac{(\omega - \omega_{21})^2}{4} \right]^{1/2} t)
+           \end{equation}
+           The solution for $ c_1(t) $ follows a similar yet equally boring process, and the general result is obvious from a probabilistic standpoint:
+           \begin{equation}
+               \abs{c_1(t)}^2 = 1 - \abs{c_2(t)}^2
+           \end{equation}
+       \end{problem}
+   \item[(b)] Do the same problem using time-dependent perturbation theory to lowest non-vanishing order. Compare the two approaches for small values of $ \gamma $. Treat the following two cases separately: (i) $ \omega $ very different form $ \omega_{21} $ and (ii) $ \omega $ close to $ \omega_{21} $.
+        \begin{problem}
+            The derivation with perturbation theory is actually much simpler, since, to first-order,
+            \begin{equation}
+                c_2^{(1)}(t) = - \frac{\imath}{\hbar} \int_0^t e^{\imath \omega_{21} t'} \gamma e^{- \imath \omega t'} \dd{t'} = \gamma \frac{e^{- \imath t (\omega - \omega_{21})} - 1}{\hbar (\omega - \omega_{21})} = \gamma \frac{e^{- \imath t \omega_0} - 1}{\hbar \omega_0}
+            \end{equation}
+            and
+            \begin{equation}
+                \abs{c_2^{(1)}}^2 = \frac{\gamma^2}{\hbar^2 \frac{\omega_0^2}{4}} \sin[2](\frac{\omega_0}{2} t)
+            \end{equation}
+            This solution is nearly equivalent to the exact solution for case (i), since when $ \omega $ is very different from $ \omega_{21} $, $ \omega_0 $ is large compared to $ \gamma $ so $ \Omega \to \frac{\omega_0}{2} $. When $ \omega $ is close to $ \omega_{21} $ (ii) we find that these solutions become very different, since $ \Omega \to \frac{\gamma}{\hbar} $, which is not reflected at all in the perturbation theory solution.
+        \end{problem}
+\end{itemize}
+
+\section*{3. Hydrogen Atom in Time-Dependent Potential}
+A Hydrogen atom is subject to an external potential $ V = V_0 \cos(\omega t - kz) $. The initial state is the ground state. Calculate the rate the electron is ejected into the final plane wave state at a given angle. For the final state, put the system in a finite box so that $ \psi_f(x) = L^{-3/2} e^{\imath \va{p} \vdot \va{x} / \hbar} $. Your final answer should not depend upon $ L $.
+\begin{problem}
+    From Fermi's Golden rule, we know that
+    \begin{equation}
+        w_{\text{abs}} = \frac{2 \pi}{\hbar} \left( \frac{V_0}{2} \right)^2 \abs{\mel{f}{e^{\imath k z}}{0}}^2 \delta(E_f - E_0 - \hbar \omega)
+    \end{equation}
+    where we divide $ V_0 $ by $ 2 $ because we only care about the absorption part of the cycle, and by absorption we technically mean absorption to the final (emitted) state. All we have to do is evaluate the matrix element for an arbitrary scattering angle. Using the given final state and the known ground state of Hydrogen,
+    \begin{align}
+        \mel{f}{e^{\imath k z}}{0} &= \frac{1}{\sqrt{\pi}} \left( \frac{1}{a_0 L} \right)^{3/2} \int \dd[3]{x'} e^{\imath (kz' - \va{p} \vdot \va{x}')} e^{-r'/ a_0} \\
+        &= \frac{1}{\sqrt{\pi}} \left( \frac{1}{a_0 L} \right)^{3/2} \int \dd[3]{x'} e^{\imath r' (k \cos(\theta') - (p/ \hbar) \cos(\theta'))} e^{- r'/a_0} \\
+        &= \frac{1}{\sqrt{\pi}} \left( \frac{1}{a_0 L} \right)^{3/2} 2 \pi \int_0^{\infty} \dd{r'} r'^2 e^{-r' / a_0} \int_{-1}^1 \dd{\cos(\theta')} e^{\imath r' (k - p / \hbar) \cos(\theta')} \\
+        &= \frac{1}{\sqrt{\pi}} \left( \frac{1}{a_0 L} \right)^{3/2} \frac{8 \pi a_0^3}{\left( 1 + a_0^2 \left( k - \frac{p}{\hbar} \right)^2 \right)^2} 
+    \end{align}
+    so
+    \begin{equation}
+        w_{\text{abs}} = \frac{32 a_0^3 \pi^2 V^2 \hbar^7}{L^3 \left( \hbar^2 + a_0^2 (p - k \hbar)^2 \right)^4} \delta(E_f - E_0 - \hbar \omega)
+    \end{equation}
+    Inserting the appropriate energies for the ground state of an electron in a Hydrogen atom and a particle in a box, we find
+    \begin{equation}
+        w_{\text{abs}} = \frac{32 a_0^3 \pi^2 V^2 \hbar^7}{L^3 \left( \hbar^2 + a_0^2 (p - k \hbar)^2 \right)^4} \delta\left(\frac{4 \pi^2 \hbar^2 n^2}{2m_e L} + \frac{m_e e^4}{2 \hbar^2} - \hbar \omega\right)
+    \end{equation}
+    This $\delta$-function sets
+    \begin{equation}
+        L = \frac{2n \pi \hbar^2}{\sqrt{2m \omega \hbar^3 - e^4 m^2}}
+    \end{equation}
+    so
+    \begin{equation}
+        w_{\text{abs}} = \frac{4 a_0^3 V^2 \hbar m^{3/2}}{\pi n^3} \frac{\left( 2 \omega \hbar^3 - m e^4 \right)^{3/2}}{(\hbar^2 + a_0^2 (p-k \hbar)^2)^4}
+    \end{equation}
+    I know this is not correct but I honestly don't understand the proper steps to get the correct answer.
+\end{problem}
+
+
+\end{document}

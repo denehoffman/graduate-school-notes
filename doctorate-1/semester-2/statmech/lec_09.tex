@@ -1,0 +1,63 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{9}{Monday, February 03, 2020}{Thermodynamics}
+
+\section{Equilibrium Macrostates}
+\label{sec:equilibrium_macrostates}
+
+\begin{itemize}
+    \item State of balance
+    \item Macroscopic description is constant in time
+    \item No macroscopic flux of either energy or particles
+\end{itemize}
+
+\begin{definition}[State Functions]
+    Once you have chosen the macroscopic variables that define the constraints of your system, any function of them is a function of state. Its value is fixed once you know the state. As trivial as this sounds, it will have interesting implications in the future.
+\end{definition}
+
+\subsection{Postulates of Thermodynamics}
+\label{sub:postulates_of_thermodynamics}
+
+\begin{itemize}
+    \item[1.] Equilibrium states exist
+    \item[2.] The values assumed by the extensive parameters of an isolated composite system in the absence of an internal constraint are those that maximize the entropy over the set of all constrained macroscopic states.
+        \subitem This is a statement about what equilibrium looks like. It talks about extensive parameters, which for now we will think of as ``amount of stuff'' parameters. It could be the number of particles, their momentum, or energy, but not pressure. Extensive things are things you add up to get the total, so pressure and temperature are not extensive. We are also talking about an isolated composite system, meaning that it is divided into at least two parts. The absence of constraints means you are allowing some variables to change. For instance, a compartment divided by a wall has a constraint on the number of particles in a given chamber, but removing the wall allows particles to move from one side to the other.
+        \subitem $ \implies $ Entropy exists, and it characterizes equilibrium
+    \item[3.] Additivity: The entropy of a composite system is the sum of the entropies of the subsystems.
+        \subitem Entropy is not a conserved quantity. If we start with two isolated systems with different entropies and bring them together, the equilibrium entropy is typically higher than the sum of the isolated entropies.
+    \item[4.] Monotonicity:
+        \begin{equation}
+            \pdv{S}{E} > 0 \qq{hence,} T > 0
+        \end{equation}
+        \begin{equation}
+            \pdv{S}{V} > 0 \qq{hence,} P > 0
+        \end{equation}
+    \item[5.] Analyticity: $ S(E,V,N) $ is an analytic (meromorphic) function, possibly with countably many exceptions (phase transitions).
+    \item[6.] Extensivity: $ S(\lambda E, \lambda V, \lambda N) = \lambda S(E, V, N) $. In other words, the entropy is an extensive function.
+        \subitem Consequences: Choose $ \lambda = \frac{1}{N} $ such that $ S\left( \frac{E}{N}, \frac{V}{N}, 1 \right) = \frac{1}{N} S(E, V, N) $ or $ S(E,V,N) = N S\left( \frac{E}{N}, \frac{V}{N}, 1 \right) = NS(e, v, 1) $ where $ e $ is the specific energy and $ v $ is the specific volume. This function only depends on two arguments, and we will call it the specific entropy $ s $:
+        \begin{equation}
+            S(E,V,N) = N s(e, v)
+        \end{equation}
+        As a side note, there is a counterexample to trivial extensivity in a self-gravitating system. If we put a bunch of particles together to make a massive object, they will have some gravitational energy. If we take more particles and make a bigger planet (suppose we use twice the amount of particles and it has twice the volume), the gravitational energy will be $ U = - G \frac{M^2}{R} \sim - G \frac{(\rho R^3)^2}{R} = -G \rho^2 R^5 \sim - V^{5/3} $. The energy then does not scale at the same magnitude, and this is because gravitation is not a contact force, so the energy has some dependence on scale.
+\end{itemize}
+
+\subsection{Laws of Thermodynamics}
+\label{sub:laws_of_thermodynamics}
+
+\begin{itemize}
+    \item[0:] Equilibrium is transitive
+    \item[1:] Heat is a form of energy, and energy is conserved
+    \item[2:] After the release of a constraint in a closed system, the entropy can at most go up
+    \item[3:] As $ T \to 0 $, the entropy goes towards a constant
+\end{itemize}
+
+The reason for the last law is quantum mechanics. If we took the entropy of an ideal gas as we've defined it now, we would find it violates this third law.
+
+Many of the principles of thermodynamics are written in differential form, since we want to see what happens if we tweak certain parameters in a system. Our first example is
+\begin{equation}\label{eq:first_law_of_thermo}
+    \underbrace{\dd{U}}_{\text{System energy}} = \underbrace{\dbar{Q}}_{\text{Thermal energy added to system}} + \underbrace{\dbar{W}}_{\text{Work done onto system}}\tag{First Law of Thermodynamics}
+\end{equation}
+Different sign conventions on these right-hand terms exist, so beware!\ Also, the bars on the differentials are important and we will define their meaning soon.
+
+
+\end{document}

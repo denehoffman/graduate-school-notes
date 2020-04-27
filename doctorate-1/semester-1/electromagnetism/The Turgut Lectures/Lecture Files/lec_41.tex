@@ -1,0 +1,99 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{41}{Monday, November 18, 2019}{Waveguides, Continued}
+
+Recall from last lecture that if we have a TE mode, $ E_z = 0 $ so
+\begin{equation}
+    \va{B}_\perp = \frac{\imath}{\omega^2 \mu \epsilon - k^2} [k \grad_{\perp}{B_z}]
+\end{equation}
+and for TM modes, $ B_z = 0 $:
+\begin{equation}
+    \va{E}_\perp = \frac{\imath}{\omega^2 \mu \epsilon - k^2} [k \grad_{\perp}{E_z}]
+\end{equation}
+so we find
+\begin{equation}
+    \{\va{E}_{\perp},\va{B}_{\perp}\} = \pm \frac{k}{\omega} \vu{z} \cross \{ \va{B}_{\perp}, \va{E}_{\perp}\}
+\end{equation}
+so in both cases,
+\begin{equation}
+    \left[ \laplacian_{\perp} + (\mu \epsilon \omega^2 - k^2) \right] \{ B_z, E_z\} = 0
+\end{equation}
+
+\begin{note}{Digression}
+    $ \va{S} = \frac{1}{\mu_0} \va{E} \cross \va{B} $ are real vector fields. By the usual convention, we write
+    \begin{equation}
+        \frac{1}{2} \left[ \va{E}( \va{x}, \omega) e^{- \imath \omega t} + \va{E}^*( \va{x}, \omega) e^{+ \imath \omega t} \right] \cross \frac{1}{2} \left[ \va{B}( \va{x}, \omega) e^{- \imath \omega t} + \va{B}^*( \va{x}, \omega) e^{\imath \omega t} \right]
+    \end{equation}
+    This is equal to
+    \begin{equation}
+        \frac{1}{4} \left[ \va{E} \cross \va{B} e^{-2 \imath \omega t} + \va{E}^* \cross \va{B} + \va{E} \cross \va{B}^* + \va{E}^* \cross \va{B}^* e^{2 \imath \omega t} \right]
+    \end{equation}
+    Taking the time average, we see that the first and last terms will give us zero, so
+    \begin{equation}
+        \ev{ \va{S}}_{t} = \frac{1}{2 \mu_0} \Re[ \va{E} \cross \va{B}^*]
+    \end{equation}
+    Often the averaging is implied and the symbolism is left off.
+\end{note}
+
+Therefore, if we want to calculate the flow of energy $ \va{S} $, we will use this time-averaged formula. If you actually compute the Poynting vector for these fields, (writing $ \psi $ in place of $ E_z $ or $ B_z $, depending on what kind of problem we are looking at), you find
+\begin{equation}
+    \va{S} =\frac{1}{2} \frac{\omega k}{[\mu \epsilon \omega^2 - k^2]^2} \begin{cases} \epsilon (\vu{z} \abs{\grad_{\perp}{\psi}}^2 + \imath \frac{(\mu \epsilon \omega^2 - k^2)}{k} \psi \grad_{\perp}{\psi^*}) \\ \mu (\vu{z} \abs{\grad_{\perp}{\psi}}^2 + \imath \frac{(\mu \epsilon \omega^2 - k^2)}{k} \psi \grad_{\perp}{\psi^*})  \end{cases} \quad \begin{cases} \text{TM} \\ \text{TE} \end{cases}
+\end{equation}
+and the power transmitted will be
+\begin{equation}
+    P = \int_{\mathscr{A}} \va{S} \vdot \vu{z} \dd{a} = \frac{1}{2} \frac{\omega k}{[\omega^2 \mu \epsilon - k^2]^2} \begin{cases} \epsilon \\ \mu \end{cases} \int \grad_{\perp}{\psi^*} \vdot \grad_{\perp}{\psi} \dd{a}
+\end{equation}
+The integral can be calculated as follows:
+\begin{equation}
+    = \int \div_{\perp} (\psi^* \grad_{\perp}{\psi}) - \int \psi^* \laplacian_{\perp}{\psi} = \oint \cancelto{0}{\psi^* \pdv{\psi}{n} \dd{l}} - \int \psi^* (\laplacian_{\perp}{\psi})
+\end{equation}
+
+Finally, we already had the equation $ \laplacian_{\perp}{\psi} + \left[ \mu \epsilon \omega^2 - k^2 \right] \psi = 0 $, so
+\begin{equation}
+    \va{S} = \frac{1}{2} \frac{\omega k}{\mu \epsilon \omega^2 - k} \begin{cases} \epsilon \\ \mu \end{cases} (\mu \epsilon \omega^2 - k) \int \abs{\psi}^2 \dd{a}
+\end{equation}
+so the power transmitted will be
+\begin{equation}
+    P = \frac{1}{2 \sqrt{\mu \epsilon}} \left( \frac{\omega}{\omega_{\lambda}} \right)^2 \left( 1 - \frac{\omega^2_{\lambda}}{\omega^2} \right)^{\frac{1}{2}} \begin{cases} \epsilon \\ \mu \end{cases} \int \psi^*_{\lambda} \psi_{\lambda} \dd{a}
+\end{equation}
+Therefore the energy transfer will be
+\begin{equation}
+    \frac{1}{2} \left( \frac{\omega}{\omega_{\lambda}} \right)^2 \begin{cases} \epsilon \\ \mu \end{cases} \int \psi^*_{\lambda} \psi_{\lambda} \dd{a}
+\end{equation}
+We find that the group velocity is
+\begin{equation}
+    v_g = \dd{\omega}{k} = \frac{1}{\sqrt{\mu \epsilon}} \left( 1 - \frac{\omega_{\lambda}^2}{\omega^2} \right)^{\frac{1}{2}}
+\end{equation}
+so
+\begin{equation}
+    P = v_g U
+\end{equation}
+as expected.
+Interestingly, $ v_g v_p = \frac{1}{\mu \epsilon} $ exactly, and there is a cut-off frequency below which there is no propagation of power.
+
+
+\section{Radiation}
+\label{sec:radiation}
+
+We found general solutions in the Lorenz gauge ($ \div{ \va{A}} + \frac{1}{c^2} \partial_t \Phi = 0 $) which were
+\begin{equation}
+    \va{A} = \frac{\mu_0}{4 \pi} \int \frac{ \va{J}( \va{x}', t')}{\abs{\va{x}-\va{x}'}} \delta\left( t - \left[ t' + \frac{\abs{ \va{x} - \va{x}'}}{c} \right] \right) \dd[3]{x'} \dd{t'}
+\end{equation}
+Now let's assume we have a single frequency, so
+\begin{equation}
+    \va{J}( \va{x},t) = \va{J}_{\omega}( \va{x}) e^{- \imath \omega t}
+\end{equation}
+
+Therefore,
+\begin{equation}
+    \va{A}( \va{x},t) e^{- \imath \omega t}  = \left[ \frac{\mu_0}{4 \pi} \int \va{J}_{\omega}( \va{x}') \frac{e^{\imath \frac{\omega}{c} \abs{ \va{x} - \va{x}'}}}{\abs{ \va{x} - \va{x}'}} \dd[3]{x'}\right] e^{- \imath \omega t}
+\end{equation}
+
+$ \frac{\omega}{c} = k $ in free space with no materials and no boundaries. We imagine there are some charges and currents somewhere and we want to see what they look like very far away. We have three length scales: the dimension of the source, $ d $, the emitted wavelength, $ \lambda $, and the distance of observation, $ \va{r} $. Typically, $ d << \lambda $. We define the near field as $ d << r << \lambda $, the intermediate zone as $ d << \lambda \sim r $ and the far field as $ d << \lambda << r $, where the last one is where we will look for radiation effects.
+
+When we are far enough away from the source, $ \curl{ \va{B}_{\omega}} = \mu_0 \epsilon_0 (- \imath \omega) \va{E}_{\omega} $ or $ \va{E}_{\omega} = \frac{\imath c^2}{\omega} \curl{ \va{B}_{\omega}} = \frac{\imath c}{k} \curl{ \va{B}_{\omega}} $ and $ \va{B}_{\omega} = \curl{ \va{A}_{\omega}} $.
+
+The near zone is sort of uninteresting. In this regime, $ e^{\frac{2 \pi \imath}{\lambda} \abs{r - d}} \approx 1 $, so to zeroth-order, we find that the potential in the near zone is static, so you could solve it as a static system and add perturbations and corrections from higher-order terms. In the next lecture, we will study the far zone (and see a glimpse of the intermediate zone), which we can no longer approximate as static.
+
+
+\end{document}

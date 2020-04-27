@@ -1,0 +1,128 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{17}{Monday, February 24, 2020}{Tensor Operators}
+
+\section{Tensor Operators}
+\label{sec:tensor_operators}
+
+A tensor is something which transforms like a tensor. In the same vein, it is a representation of a group. A tensor is something which has some indices, and those indices label which representation it transforms under. For example, Cartesian tensors have indices which run over the three dimensions.
+\begin{equation}
+    T\indices{_{ijk\ldots}} \qc i,j,k,\cdots \in \{0,1,2\}
+\end{equation}
+whereas a spherical tensor can be represented as
+\begin{equation}
+    T_{lm}
+\end{equation}
+This uses an irreducible representation\textemdash there are no other $ l $s or $ m $s in this tensor. Under the group $\text{SU}(2)$, such a tensor transforms as
+\begin{equation}
+    O\indices{_l^m} \to U O\indices{_l^m} U^{-1}
+\end{equation}
+in the same way that
+\begin{equation}
+    \ket{lm} \to U\ket{lm}
+\end{equation}
+
+\begin{equation}
+    O\indices{^s_l}\ket{l',m}
+\end{equation}
+transforms under the action of $ l \otimes l' $:
+\begin{equation}
+    O\indices{^s_l}\ket{l'm} \to \left[ U O\indices{^s_l} U^{-1} \right] \left[ U\ket{l'm} \right]
+\end{equation}
+We can write this in terms of Wigner rotation matrices:
+\begin{equation}
+    O\indices{^s_l}\ket{l'm} \to \left( D^l_{s,s'}(\vu{n}, \theta) O\indices{^{s'}_l} \right) \left( D^{l'}_{m,\hat{m}}\ket{l'\hat{m}} \right)
+\end{equation}
+
+To clarify, a rotation can be written as
+\begin{align}
+    e^{- \imath \va{L} \vdot \vu{n} \theta} \va{x} e^{\imath \va{L} \vdot \vu{n} \theta} &= \va{x} - \imath \va{L} \vdot \vu{n} \theta \va{x} + \va{x} \vdot (\imath \va{L} \vdot \vu{n} \theta) + \cdots \\
+    &= \va{x} - \imath [ \va{L} \vdot \vu{n} \theta ] \va{x} + \ldots
+\end{align}
+but equivalently, we already know that the net action of this is a rotation of the coordinates: $ R(\theta) x $.
+
+From our previous analysis, the reducible representation $ l \otimes l' $ breaks up into a tensor sum of irreducible representations:
+\begin{equation}
+    l \otimes l' = \abs{l+l'} \oplus \cdots \oplus \abs{l-l'}
+\end{equation}
+
+We can use our knowledge of addition of angular momentum to say something about this new state. Consider
+\begin{equation}
+    J_z [O\indices{_l^s}\ket{l'm}] = \hbar (s + m) O\indices{_l^s}\ket{l'm}
+\end{equation}
+
+This first term is a tensor product of the operator and the vector, so we know that the action will be an addition in terms of the irreducible representations labeled by $ s $ and $ m $. The fact that $ O $ is an operator rather than a state is \textit{almost} irrelevant. For the time being, it behaves in the exact same way as a state.
+
+The maximum weight state for this particular tensor product is $ O\indices{_l^l}\ket{l',l'} $. This transforms like $\ket{l,l;l',l'} \equiv\ket{l+l', l+l'} $ so,
+\begin{equation}
+    O\indices{_l^l}\ket{l',l'} = K_{J=l+l'}\ket{l + l', l + l'}
+\end{equation}
+The reason it is only proportional to this and not exactly equal can be shown by an example. Suppose we are in this maximum-weight state and there is an additional quantum number, $ \alpha $, which can be used to label the states:
+\begin{equation}
+    O\indices{_l^l}\ket{l',l'; \alpha} = K_{l+l'}\ket{l+l',l+l'}
+\end{equation}
+Now $ K $ must depend on $ \alpha $, since we arrive at the states on the right purely through group theory which doesn't take $ \alpha $ into account. The Hilbert space on the right doesn't have anything to do with $ \alpha $. We can write this in general as
+\begin{equation}
+    O\indices{_l^s}\ket{j,m; \alpha} = \sum_{J= \abs{l-j}}^{\abs{l+j}} K_J(\alpha)\ket{J,M}\underbrace{\bra{J,M}\ket{l,s;j,m}}_{\text{Clebsch-Gordan Coefficients}}
+\end{equation}
+
+Let's now project this onto a different state:
+\begin{equation}
+    \bra{j'm'; \beta} O\indices{_l^s}\ket{j,m; \alpha} = K_j\bra{j', m'}\ket{l,s;j,m}
+\end{equation}
+We require $ m' = s + m $ since $ M = s+m $ is required for the Clebsch-Gordan coefficients to be nonzero. Now what is this coefficient $ K_j $?
+
+\begin{equation}
+    K_J\ket{J,l+m} = \sum_{\beta} K_{\alpha \beta}\ket{J, l+m; \beta}
+\end{equation}
+
+Therefore, taking the above matrix element means that $ K_j $ has to know about both $ \alpha $ and $ \beta $:
+
+\begin{equation}
+    K_{\alpha \beta} =\bra{J, \beta} | O|\ket{J', \alpha}
+\end{equation}
+
+This is the standard notation for the ``reduced matrix element''. From here, we derive the Wigner-Eckart Theorem:
+\begin{equation}\label{eq:wigner_eckart_theorem}
+    \ket{J,M';\beta} O\indices{_l^s}\ket{j,m; \alpha} = \delta_{M', s+m}\bra{J,M'}\ket{j,m,l,s}\bra{J; \beta} |O_l|\ket{j; \alpha}\tag{Wigner-Eckart Theorem}
+\end{equation}
+
+
+Let's do an example that will hopefully clarify this.
+\begin{ex}
+    Suppose we go and measure the value of some matrix element in an experiment.
+    \begin{equation}
+        \ket{\frac{1}{2}, \frac{1}{2} ; \alpha} Z\ket{\frac{1}{2}, \frac{1}{2} ; \beta} = A
+    \end{equation}
+    We want to then predict the value of
+    \begin{equation}
+        \ket{\frac{1}{2}, \frac{1}{2} ; \alpha} X\ket{\frac{1}{2}, -\frac{1}{2} ; \beta} = B
+    \end{equation}
+    $ X $ transforms like $ l = 1 $ in Cartesian coordinates. Let's first write our operator in spherical coordinates, rotate it, and find the solution. The $ Z $ operator transforms like $ Y_l^{m=0} $, whereas
+    \begin{equation}
+        X = \frac{1}{\sqrt{2}} \left[ Y_{l=1}^{m=-1} - Y_{l=1}^{m=1}  \right]
+    \end{equation}
+    Only the second term will contribute:
+    \begin{equation}
+        \bra{\frac{1}{2}, \frac{1}{2} ; \alpha} X\ket{\frac{1}{2}, - \frac{1}{2} ; \beta} =\ket{\frac{1}{2}, \frac{1}{2} ; \alpha} - \frac{1}{\sqrt{2}} Y_{l=1}^{m=1}\ket{\frac{1}{2}, - \frac{1}{2} ; \beta}
+    \end{equation}
+    Technically there's also a radial component, but it's the same for $ Z $ so they will cancel. Let's now use Wigner-Eckart theorem:
+    \begin{equation}
+        \bra{\frac{1}{2}, \frac{1}{2} ; \alpha} X\ket{\frac{1}{2}, - \frac{1}{2} ; \beta} = - \frac{1}{\sqrt{2}} \ket{\frac{1}{2}, \frac{1}{2}}\ket{1, \frac{1}{2} ; 1, -\frac{1}{2}}\bra{\frac{1}{2}; \alpha}| Y_{l=1}^{m=1}|\ket{\frac{1}{2} ; \beta} 
+    \end{equation}
+    We know that
+    \begin{equation}
+        A =\bra{\frac{1}{2}, \frac{1}{2} ; \alpha} Y_1^0\ket{\frac{1}{2}, \frac{1}{2} ; \beta} =\bra{\frac{1}{2}, \frac{1}{2}}\ket{1,0; \frac{1}{2}, \frac{1}{2}}\bra{\frac{1}{2} ; \alpha} |Y_l|\ket{\frac{1}{2}; \beta} 
+    \end{equation}
+    Therefore, the ratio of the two matrix elements is
+    \begin{equation}
+        \frac{\bra{\frac{1}{2}, \frac{1}{2}; \alpha} Z\ket{\frac{1}{2}, \frac{1}{2}; \beta}}{\bra{\frac{1}{2}, \frac{1}{2}; \alpha} X\ket{\frac{1}{2}, -\frac{1}{2}; \beta}} = \frac{\ket{\frac{1}{2}, \frac{1}{2}}\ket{1,0; \frac{1}{2}, \frac{1}{2}}}{- \frac{1}{\sqrt{2}}\bra{\frac{1}{2}, \frac{1}{2}}\ket{1, \frac{1}{2} ; 1, \frac{1}{2}}} = 1
+    \end{equation}
+    so $ A = B $.
+\end{ex}
+
+
+
+
+
+\end{document}

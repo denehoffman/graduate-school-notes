@@ -1,0 +1,95 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{14}{Mon Sep 23 2019}{The Multipole Expansion}
+
+Imagine we have a region of charge with density $\rho(\vec{x})$. The potential for this can be expanded as
+\begin{equation}
+    \frac{1}{4\pi\epsilon_0}\int\rho(\vec{x}')d^3x \sum_{l=1}^{\infty} \frac{r'^l}{r^{l+1}}P_l(\cos\gamma)
+\end{equation}
+where $\cos\gamma = \hat{x}\cdot \hat{x}'$. This can be written as
+\begin{equation}
+\frac{1}{4\pi\epsilon_0}\cancelto{Q}{\left[ \int\rho(\vec{x}') d^3x' \right]} \frac{1}{r} + \frac{1}{4\pi\epsilon_0}\left[ \int\rho(\vec{x}') d^3x' \hat{x}\cdot \hat{x}' \right] \frac{r'}{r^2} + \frac{1}{4\pi\epsilon_0}\left[ \int\rho(\vec{x}') d^3x' \left( \frac{3}{2}(\hat{x}\cdot \hat{x}')^2 - \frac{1}{2} \right)   \right] \frac{r'^2}{r^3} + \ldots
+\end{equation}
+
+This is the multipole expansion. We can further simplify the first term:
+\begin{equation}
+    \frac{1}{4\pi\epsilon_0}\frac{q}{r} + \frac{1}{4\pi\epsilon_0}\frac{(\int\rho(\vec{x}')\vec{x}'d^3x')\cdot \hat{x}}{r^2} + \frac{\rho(\vec{x}')\left[ \frac{3}{2}(\vec{x}'\cdot \hat{x})^2 - r'^2\hat{x}\cdot \hat{x} \right]}{4\pi\epsilon_0r^3}
+\end{equation}
+
+This last term is the quadrupole moment:
+\begin{equation}
+    \frac{1}{4\pi\epsilon_0}\underbrace{\int d^3x'\rho(\vec{x}')\left[ \frac{3}{2}x'_i x'_j - \frac{1}{2}r'^2\delta_{ij} \right]}_{Q_{ij}} \hat{x}_i\hat{x}_j \frac{1}{r^3}
+\end{equation}
+
+Therefore, the potential can be written, in general as
+\begin{equation}
+    \Phi(\vec{x}) = \frac{1}{4\pi\epsilon_0}\frac{Q}{r}+ \frac{1}{4\pi\epsilon_0}\frac{\vec{p}\cdot \hat{x}}{r^2}+\frac{1}{4\pi\epsilon_0} \frac{\sum_{i,j} Q_{ij}\hat{x}_i \hat{x}_j}{r^3} + \frac{1}{4\pi\epsilon_0}\frac{\sum_{i,j,k}Q_{ijk}\hat{x}_i\hat{x}_j\hat{x}_k}{r^{4}}+\ldots
+\end{equation}
+
+\begin{remark}
+   \begin{equation}
+       \int\rho(\vec{x}')d^3x' [\text{homogeneous polynomial of degree } l \text{ in } x'_1,x'_2,x'_3]
+   \end{equation}
+   where the polynomial can be expanded in terms of $P_l(\hat{x}\cdot \hat{x}')$. This ``Q'' is traceless. Therefore there are $2l+1$ degrees of freedom per multipole moment.
+\end{remark}
+
+Recall that
+\begin{equation}
+    \frac{1}{|\vec{x}-\vec{x}'|} = \sum_{l,m} \frac{4\pi}{2l+1}\left( \frac{r'^{l}}{r^{l+1}} \right) Y_{lm}^*(\theta',\phi')Y_{lm}(\theta,\phi)
+\end{equation}
+
+so
+
+\begin{equation}
+    \Phi(\vec{x}) = \frac{1}{4\pi\epsilon_0}\int\rho(\vec{x}')d^3x'\sum \frac{4\pi}{2l+1}\left( \frac{r'^l}{r^{l+1}} \right) Y_{lm}^*(\theta',\phi')Y_{lm}(\theta,\phi)
+\end{equation}
+which is equal to
+
+\begin{equation}
+    \frac{4\pi}{4\pi\epsilon_0}\sum_{l=0}^{\infty}\underbrace{\sum_{m=-l}^{l}}_{2l+1\text{ terms}} \frac{1}{2l+1} \frac{1}{r^{l+1}}\underbrace{\left[ \int Y_{lm}^*(\theta',\phi')r'^l\rho(\vec{x}')d^3x' \right]}_{q_{lm}^*=q_{l,-m}(-1)^m} Y_{lm}(\theta,\phi)
+\end{equation}
+We can construct $Y_{lm}$'s as homogeneous polynomials on $x-\imath y$, $x+\imath y$ and $z$.
+\begin{equation}
+    q_{00} = \frac{1}{\sqrt{4\pi} }Q
+\end{equation}
+\begin{equation}
+    q_{11} = -\sqrt{\frac{3}{8\pi}}\int(x'-\imath y')\rho(\vec{x}')d^3x' = -\sqrt{\frac{3}{8\pi}}(p_1-\imath p_2)
+\end{equation}
+\begin{equation}
+    q_{10} = \sqrt{\frac{3}{4\pi}}\int z' \rho(\vec{x}')d^3x' = \sqrt{\frac{3}{4\pi}}p_3
+\end{equation}
+\begin{equation}
+    q_{22} = \frac{1}{4}\sqrt{\frac{15}{2\pi}}\int(x'-\imath y')^2\rho(\vec{x}')d^3x' = \frac{1}{4}\sqrt{\frac{15}{2\pi}}(Q_{11}-2\imath Q_{12}-Q_{22})
+\end{equation}
+
+\subsection{Dipole Case}%
+\label{sub:dipole_case}
+
+Suppose we have $Q=0$ and a point dipole $\vec{p}$.
+\begin{equation}
+    \Phi = \frac{1}{4\pi\epsilon_0}\frac{\vec{p}\cdot \hat{x}}{r^2}
+\end{equation}
+Assuming $r\neq 0$, can write the electric field from
+\begin{equation}
+    \vec{E} = -\nabla \Phi = \frac{1}{4\pi\epsilon_0}\left[ \frac{3(\vec{p}\cdot \hat{x})\hat{x} - \vec{p}}{r^3} \right]
+\end{equation}
+
+\begin{equation}
+    \vec{E}(\vec{x}) = \frac{1}{4\pi\epsilon_0}\left[ \frac{3(\vec{p}\cdot \hat{n})\hat{x} - \vec{p}}{|\vec{x}-\vec{x}_0|^3} \right]
+\end{equation}
+
+This is actually not correct. There are no point dipoles for electric fields. Atoms can have induced dipole moments, but there is no solution at $x_0$, the center of the dipole. To find this term, suppose we have a distribution $\rho(\vec{x}')$ which creates an electric field. Say we take a point $\vec{y}$ and a sphere around this point, and average the electric field in this region. Say $\vec{y}=\vec{0}$ for convenience.
+\begin{equation}
+    \int_{\text{ball around } \vec{0}} \vec{E} d^3y = \frac{4\pi}{3} \vec{E}(\vec{0})
+\end{equation}
+If the ball contains the charge,
+\begin{equation}
+    \int_{\text{ball around } \rho(\vec{x})} \vec{E}d^3y = -\frac{1}{3\epsilon_0}\vec{p}
+\end{equation}
+
+If you were to repeat this process for our point dipole, you would find that this integral evaluates to $0$. It misses this $- \frac{1}{3\epsilon_0}\vec{p}$ term. For an ideal point dipole,
+
+\begin{equation}
+    \vec{E} = \frac{1}{4\pi\epsilon_0}\left[ \frac{3(\vec{p}\cdot \hat{n})\hat{x} - \vec{p}}{|\vec{x}-\vec{x}_0|^3}-\frac{4\pi}{3}\vec{p}\delta(\vec{x}) \right]
+\end{equation}
+\end{document}

@@ -1,0 +1,146 @@
+\documentclass[a4paper,twoside]{article}
+\input{../../preamble.tex}
+\title{33-756 Homework 6}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section*{1. Group Theory}
+First, we wish to establish that all irreps are either symmetric or antisymmetric. To prove this, show that any rotation on a tensor product preserves permutation symmetry. That is, if the tensor was symmetric or antisymmetric, then it will remain so after a rotation. Given this fact, you may now prove that any irrep must have definite symmetry. Hint: Think about decomposing a generic tensor into pieces with definite symmetry.
+
+\begin{problem}
+    First, if a generic tensor $ A_{ij} $ is symmetric, $ A^T = A_{ji} = A_{ij} $, whereas if the tensor is antisymmetric, $ A^T = A_{ji} = -A_{ij} $ by definition. A rotation of a tensor has the form $ A \to U A U^{-1} $. $ (U A U^{-1})^T = (U^{-1})^T (A)^T (U)^T = U A^T U^{-1} $, since $ U $ is unitary. If $ A $ is symmetric, $ (U A U^{-1})^T = + U A U^{-1} $ whereas if $ A $ is antisymmetric, $ (U A U^{-1})^T = - U A U^{-1} $, so the rotations preserve permutation symmetry for generic tensors.
+
+    Next, we must prove that any irrep has definite symmetry. We can do this by showing that if a tensor product does not have definite symmetry, it forms a reducible representation. For a tensor without definite symmetry, we can write
+    \begin{equation}
+        A = \frac{A + A^T}{2} + \frac{A - A^T}{2} = A^{\text{sym}} + A^{\text{anti}}
+    \end{equation}
+    We have just shown that rotations must preserve permutation symmetry, so the rotation matrix must be able to be written in block-diagonal form, since some part of the rotation matrix must act only on the symmetric part of the tensor and one part must act only on the antisymmetric part. This is the definition of a representation being reducible, so tensors without definite symmetry can always be reduced into at least symmetric and antisymmetric parts, and the rotation matrix can be written as a block-diagonal of rotation matrices which act on these parts. Therefore, irreps must have definite symmetry.
+\end{problem}
+
+Now we can prove that the symmetry alternates between symmetric and antisymmetric as we descend from $ J_1 + J_2 $ down to $ \abs{J_1 - J_2} $. Consider $ 1 \otimes 1 $. First, show that the $ 2 $ must necessarily be symmetric. Then, using the fact that the states should be orthogonal, show that the $ 1 $ must be antisymmetric and the $ 0 $ symmetric.
+
+\begin{problem}
+    The $\ket{2,2} =\ket{1,1}\ket{1,1} $ state is clearly symmetric under interchange of particles. In general, the highest state will always be symmetric because it's chosen such that $ J = M = j_1 + j_2 = m_1 + m_2 $, and addition is commutative. The lowering operator which we use to get to the next state down the ladder is symmetric, because it acts independently on each particle (we lower the first particle by itself and then add the second particle lowered by itself). In fact, we just showed that any rotation of a tensor product preserves symmetry, and the ladder operators are rotations in this regard. Additionally, the $ 2 $ representation is irreducible, so it must have definite symmetry, so if one of its states is symmetric, the others must also be symmetric.
+
+    As for why they alternate between symmetric and antisymmetric, we know that multiplying a symmetric object by an antisymmetric object will result in zero, but this also means that antisymmetric objects and symmetric objects are orthogonal. Therefore, when we use orthogonality to identify the next lowest total $ J $, we need the state to have the opposite parity symmetry.
+\end{problem}
+
+
+\section*{2. The Quadrupole Moment}
+We are now going to prove that spin-$ \frac{1}{2} $ particles must have a vanishing quadrupole moment. The quadrupole moment $ Q $ is a rank-two tensor which transforms as an irreducible representation of $\text{SO}(3)$.
+\begin{itemize}
+    \item[(a)] The quadrupole transforms as $ L=2 $, which arises from the tensor product $ 1 \otimes 1 $. Show that $ Q_{ij} $ must be a symmetric tensor.
+        \begin{problem}
+            It transforms as an irreducible representation of $\text{SO}(3)$, so it must have definite symmetry (we proved this in problem 1). We also proved that for $ 1 \otimes 1 $, the $ 2 $ irrep must necessarily be symmetric. Therefore, $ Q_{ij} $ is symmetric.
+        \end{problem}
+    \item[(b)] We are not done at this point, because a symmetric tensor is not irreducible. To see why, show that the trace of any symmetric tensor is a singlet of $\text{SO}(3)$, meaning it is invariant.
+        \begin{problem}
+            \begin{align}
+                \Tr[AB] &= \Tr[BA] \\
+                \implies \Tr[Q'] = \Tr[UQ U^{-1}] &= \Tr[U (QU^{-1})] \\
+                &= \Tr[(QU^{-1})U] \\
+                &= \Tr[QU^{-1} U] \\
+                \Tr[Q'] &= \Tr[Q]
+            \end{align}
+            Therefore, the trace is invariant under rotations, which act as unitary matrices. The trace is a scalar, so it has one degree of freedom. The singlet of $\text{SO}(3)$ has dimension $ 2J+1 = 1 $, so the trace belongs to the singlet.
+        \end{problem}
+    \item[(c)] Thus, we have concluded that the quadrupole, if it is to transform as an irrep, should take the form of a symmetric traceless tensor. Now we must form such a tensor with the spin $ S_i $. Form a traceless, symmetric tensor out of $ S_i $.
+        \begin{problem}
+            The only way to write a two-index, symmetric, traceless tensor out of two rank-1 tensors is
+            \begin{equation}
+                Q_{ij} = \frac{S_i S_j + S_j S_i}{2} - \frac{1}{3} \delta_{ij} \Tr[S_i S_j]
+            \end{equation}
+            The first part is the symmetric part of $ S_i S_j $, and the second part is the trace, which is then subtracted.
+        \end{problem}
+    \item[(d)] Use the fact that $ S_i $ obey $ \pb{S_i}{S_j} = 2 \delta_{ij} $ to show that the quadrupole for a spin-$ \frac{1}{2} $ particle must be zero.
+        \begin{problem}
+            We can see that the numerator of the symmetrized part of $ Q $ is the Poisson bracket:
+            \begin{align}
+                Q_{ij} &= \frac{\pb{S_i}{S_j}}{2} - \frac{1}{3} \delta_{ij} \Tr[S_i S_j] \\
+                &= \frac{1}{2} 2 \delta_{ij} - \frac{1}{3} \delta_{ij} \Tr[S_i S_j] \\
+                &= \delta_{ij} - \frac{1}{3} \delta_{ij} \Tr[S_i S_j] \\ 
+            \end{align}
+            but additionally, we can write:
+            \begin{align}
+                Q_{ij} &= \delta_{ij} - \frac{1}{3} \delta_{ij} \Tr[2 \delta_{ij} - S_j S_i] \\
+                &= \delta_{ij} - 2 \delta_{ij} + \frac{1}{3} \delta_{ij} \Tr[S_j S_i] \\
+                &= - \delta_{ij} + \frac{1}{3} \delta_{ij} \Tr[S_i S_j] \\
+                &= -Q_{ij}
+            \end{align}
+            Therefore $ Q_{ij} = 0 $ for all $ i $ and $ j $, so the quadrupole must be zero for a spin-$ \frac{1}{2} $ particle.
+        \end{problem}
+\end{itemize}
+
+\section*{3. Matrix Elements of the Quadrupole Operator}
+Consider the matrix element of the quadrupole operator between a state of $ l=2 $ and $ l' $. Determine the values for $ l' $ for which the matrix element will not in general vanish. To do so, notice from the standpoint of group theory that the tensor product of an operator and a state is no different from a tensor product of two states.
+
+\begin{problem}
+    We are trying to find $ l' $ such that:
+    \begin{equation}
+        \bra{2,M} Q^2_m\ket{l',m'} =\bra{l',m'} Q^2_m\ket{2,M} \neq 0
+    \end{equation}
+    Group theory tells us we can just add the angular momenta of the operator and the state as if they were two states. Using Wigner Eckart theorem, we can write this as:
+    \begin{equation}
+        \bra{l'm'}\ket{2,m;2,M} \mel{l'}{|Q^{l=2}|}{L=2}
+    \end{equation}
+    The reduced matrix element will vanish for certain $ l' $, but we can easily find an equivalent restriction by finding where the Clebsch-Gordan coefficient vanishes:
+    \begin{equation}
+        \bra{l'm'}\ket{2,m;2,M} = 0
+    \end{equation}
+    The nonzero elements occur when $ L = \{l_1 + l_2, l_1 + l_2 - 1,\cdots, \abs{l_1 - l_2} \} $, and for this case, we have $ l_1 = l_2 = 2 $, so
+    \begin{equation}
+        l' = \{2+2, 2+2-1, \cdots, 2-2\} = \{4,3,2,1,0\}
+    \end{equation}
+    These are the only values of $ l' $ where the matrix element will \textit{not} in general vanish.
+\end{problem}
+
+\section*{4. Single-Electron Atom in a Uniform Electric Field}
+A one-electron atom whose ground state is degenerate is placed in a uniform electric field in the $ z $-direction. Obtain an approximate expression for the induced electric dipole moment of the ground state by considering the expectation value of $ ez $ with respect to the perturbed state vector computed to first order. Show that the same expression can also be obtained from the energy shift $ \Delta = - \alpha E^2 / 2 $ of the ground state computed to second order. ($\alpha$ is the polarizability which is defined via the relation $ \va{P} = \alpha \va{E} $, $ \va{P} $ being the induced dipole moment.)
+
+\begin{problem}
+    The first-order perturbation to the ground state can be written
+    \begin{equation}
+        \ket{100}^{(1)} = \sum_{k \neq 1} \frac{\bra{k10}^{(0)}ezE\ket{100}^{(0)}}{E_{100} - E_{k10}}\ket{k10}^{(0)}
+    \end{equation}
+    since $ z $ is an $ l=1 $ operator so only the $ l=1 $ states will have nonzero eigenvalues.
+
+    We now want to find the expectation value using this perturbed state:
+    \begin{align}
+        \ev{ez} &= \bra{100}^{(1)} ez\ket{100}^{(1)} +\bra{100}^{(1)} ez\ket{100}^{(0)} +\bra{100}^{(0)} ez\ket{100}^{(1)} +\bra{100}^{(0)} ez\ket{100}^{(0)} \\
+        &= \sum_{k \neq 1} \sum_{j \neq 1} \frac{\bra{100} ezE\ket{k10}}{E_{100} - E_{k10}} \frac{\bra{j10} ezE\ket{100}}{E_{100} - E_{j10}}\bra{k10}ez\ket{j10} \\
+        &+ \sum_{k \neq 1} \frac{\bra{100} ezE\ket{k10}}{E_{100} - E_{k10}} \bra{k10} ez\ket{100} + \sum_{k \neq 1} \frac{\bra{k10} ezE\ket{100}}{E_{100} - E_{k10}} \bra{100} ez\ket{k10} \\
+        &+ e\underbrace{\bra{0,0}\ket{1,0;0,0}}_{0}\bra{0,N=1}|z|\ket{0,n=1} 
+    \end{align}
+    The first term goes to zero by parity:
+    \begin{align}
+        \bra{k10} z\ket{j10} &= \bra{k10} \pi \pi^{-1} z \pi \pi^{-1}\ket{j10} \\
+        &= (-1)^{l=1}\bra{k10} \pi^{-1} z \pi (-1)^{l=1}\ket{j10} \\
+        &=\bra{k10} \pi^{-1} z \pi\ket{j10} \\
+        &=\bra{k10} -z\ket{j10} \\
+        &= -\bra{k10} z\ket{j10} \\
+        &\implies\bra{k10} z\ket{j10} = 0
+    \end{align}
+    Alternatively, we could say that this is second-order in $ E $, so we don't care about it anyway in our first-order perturbation calculation, so
+    \begin{align}
+        \ev{ez} &= \sum_{k \neq 1} \frac{\bra{100} ezE\ket{k10}}{E_{100} - E_{k10}} \bra{k10} ez\ket{100} + \sum_{k \neq 1} \frac{\bra{k10} ezE\ket{100}}{E_{100} - E_{k10}} \bra{100} ez\ket{k10} \\
+        &= \sum_{k \neq 1} E\frac{\abs{\bra{k10} ez\ket{100}}^2}{E_{100} - E_{k10}} + \sum_{k \neq 1} E\frac{\abs{\bra{k10} ez\ket{100}}^2}{E_{100} - E_{k10}} \\
+        &= 2 \sum_{k \neq 1} \frac{\abs{\bra{k10} ez\ket{100}}^2}{E_{100} - E_{k10}} E \\
+        &= \alpha E \\
+        \va{P} \vdot \vu{z} &= \alpha E
+    \end{align}
+    where
+    \begin{equation}
+        \alpha = 2 \sum_{k \neq 1} \frac{\abs{\bra{k10} ez\ket{100}}^2}{E_{100} - E_{k10}}
+    \end{equation}
+    The second-order energy shift from the ground state is:
+    \begin{equation}
+        E^2\sum_{k \neq 1} \frac{\abs{\bra{k10} ez\ket{100}}^2}{E_{100} - E_{k10}} = \frac{\alpha E^2}{2}
+    \end{equation}
+
+\end{problem}
+
+
+
+
+\end{document}

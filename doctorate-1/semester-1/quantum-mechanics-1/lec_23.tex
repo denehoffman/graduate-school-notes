@@ -1,0 +1,125 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{23}{Fri Oct 11 2019}{The Momentum Operator}
+\section{The Momentum Operator}
+\label{sec:the_momentum_operator}
+
+From last lecture, we said
+\begin{equation}
+    \vec{P} = - \imath\hbar\nabla
+\end{equation}
+We believe this is the momentum operator because
+\begin{equation}
+    [ \vec{R}_j, \vec{P}_k ] = \imath\hbar I \delta_{jk}
+\end{equation}
+Recall Ehrenfest's theorem from the previous lecture:
+\begin{equation}
+    \dv{t}\expval{A}_{\varphi} = \frac{1}{\imath\hbar} \bra{\varphi} [A,H] \ket{\varphi} + \bra{\varphi} \pdv{A}{t} \ket{\varphi}
+\end{equation}
+If
+\begin{equation}
+    H = \frac{P^2}{2m}
+\end{equation}
+Recall that we take the unitary operator for position to be
+\begin{equation}
+    U( \vec{a} ) = e^{-\imath \vec{a} \cdot \vec{P} / \hbar}
+\end{equation}
+we can show that, for $ A = X $, $ U( \vec{a} ) = e^{-\imath \vec{a} \cdot \vec{P} / \hbar} $
+\begin{equation}
+    H' = UHU^\dagger = UU^\dagger H = H
+\end{equation}
+so
+\begin{equation}
+    \dv{t}\expval{X} = \frac{1}{\imath\hbar}\expval{[X,H]}
+\end{equation}
+Note that
+\begin{equation}
+    [X,P^2] = XP^2 - P^2 X + (PXP - PXP) = P[X,P] + [X,P]P = 2\imath\hbar P
+\end{equation}
+therefore
+\begin{equation}
+    [X,H] = \frac{2\imath\bar P}{2m} = \imath\hbar P_x/m
+\end{equation}
+so
+\begin{equation}
+    [ \vec{R}, H ] = \imath\hbar \vec{P} / m
+\end{equation}
+What we find from Ehrenfest's theorem is that
+\begin{equation}
+    \dv{t}\expval{ \vec{R}}= \vec{P} / m
+\end{equation}
+which is the velocity. Therefore, it makes sense that this $ P $ operator is momentum because, for a massive Hamiltonian, it is mass times velocity. There's a third reason to call this operator momentum. Note that it commutes with the Hamiltonian and lacks any explicit time dependence. Therefore if we look at
+\begin{equation}
+    \dv{t}\expval{ \vec{P} } = 0
+\end{equation}
+we discover this conservation law, particularly the conserved property whose conservation is associated with the invariance of the Hamiltonian under translation.
+
+\subsection{Position Basis}
+\label{sub:position_basis}
+Recall that
+\begin{equation}
+    e^{-\imath a P / \hbar} \ket{x} = \ket{x + a}
+\end{equation}
+What does the momentum operator do to this basis?
+\begin{equation}
+    e^{-\imath \delta P / \hbar} \ket{x} = (I - \imath \delta P / \hbar) \ket{x} = \ket{x} - \frac{\imath \delta}{\hbar} P \ket{x} = \ket{x + \delta} 
+\end{equation}
+where the last line comes from us knowing what this infinitesimal position operator must do. Therefore
+\begin{equation}
+    P \ket{x'} = \lim{\delta \to 0} \frac{\imath\hbar}{\delta} (\ket{x'+ \delta} + \ket{x'})
+\end{equation}
+What does this look like in position space?
+\begin{align}
+    \color{red} \bra{x} (\color{black}P \ket{x'} &= \lim_{\delta \to 0} \frac{\imath\hbar}{\delta} (\ket{x'+ \delta} + \ket{x'}) \color{red})\color{black}\\
+    &= \lim_{\delta \to 0} \frac{\imath\hbar}{\delta} ( \bra{x} \ket{x' + \delta} + \bra{x} \ket{x'})\\
+    &= \imath\hbar \delta'(x-x')
+\end{align}
+
+What does this operator do to an arbitrary function on $ x $? Recall that
+\begin{equation}
+    \bra{x} (X \ket{\varphi} ) = x \varphi (x)
+\end{equation}
+Now with momentum:
+\begin{equation}
+    \bra{x} (P \ket{\varphi}) = \bra{x} P I \ket{\varphi}
+\end{equation}
+we insert an identity:
+\begin{equation}
+    I = \int \dd{x'} \op{x'}
+\end{equation}
+so
+\begin{align}
+    \bra{x} P \ket{\varphi} &= \int \dd{x'} \bra{x} P \ket{x'} \bra{x'} \ket{\varphi} \\
+    &= \int \dd{dx'} \imath\hbar \delta'(x-x') \varphi (x')\\
+    &= \imath\hbar \left( \cancelto{0}{\delta(x-x') \varphi(x')\eval_{x'=-\infty}^{\infty}} - \int \dd{x'} \delta(x-x') \varphi'(x') \right)\\
+    &= -\imath\hbar \varphi'(x)
+\end{align}
+The cancellation occurs because $ \varphi $ is an element of the Hilbert space and is thus square integrable, so it vanishes at infinity. Therefore the evaluation of the $ \varphi (x) $ at infinity will vanish.
+
+\subsection{Eigenstates of Momentum}
+\label{sub:eigenstates_of_momentum}
+
+\begin{equation}
+    P \ket{p} = p \ket{p} 
+\end{equation}
+what is $ \ket{p} $?
+\begin{align}
+    \bra{x} \ket{p} &= \chi_p(x)\\
+    \bra{x} P \ket{p} &= p \chi_p(x)\\
+    &= \bra{p} P \ket{x}^*\\
+    &= \left[ \int \dd{x'} \bra{p} \ket{x'} \bra{x'} P \ket{x} \right]^*\\
+    &= -\imath\hbar \chi'_p(x) = p \chi_p(x)
+\end{align}
+This last line is a differential equation, which we can solve:
+\begin{equation}
+    \chi_p(x) = \frac{1}{2 \pi\hbar} e^{\imath p x / \hbar}
+\end{equation}
+In other words, the eigenstates of the momentum operators are plane waves. We can also use this as a basis:
+\begin{equation}
+    I = \int \dd{p} \op{p}
+\end{equation}
+\begin{equation}
+    \int \dd{x} \chi^*_{p} (x) \chi_{p'} (x) = \delta(p-p')
+\end{equation}
+
+\end{document}

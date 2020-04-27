@@ -1,0 +1,80 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{10}{Wed Sep 11 2019}{Spherical Symmetry}
+
+For spherical solutions to the Laplace equation where we utilize the whole angular space,
+\begin{equation}
+    \Phi(r,\theta,\phi) = \sum_{l}\sum_{-l\leq m\leq l} [A_l r^l + B_l r^{-(l+1)}]Y_{lm}(\theta,\phi)
+\end{equation}.
+When there is an axis of symmetry, only the $m=0$ term survives, and we can use $P_l(\cos\theta)$ rather than the $Y_{lm}$ solutions, although they are not normalized.
+
+\begin{equation}
+    \frac{1}{|\vec{x}-\vec{x}'|} = \sum_{l=0}^\infty \frac{r_<^l}{r_>^{l+1}}P_l(\cos\gamma)
+\end{equation}
+is an expansion where we take $\vec{x}'$ to be an axis of symmetry and say $r'>r$. As $\vec{x}\to\vec{x}'$,
+\begin{equation}
+    \frac{1}{|\vec{x}-\vec{x}'|} = \frac{1}{|r-r'|} = \frac{1}{r}\frac{1}{1-\frac{r'}{r}} = \frac{1}{r}\sum_{l=0}^\infty\left(\frac{r'}{r}\right)^l = \sum A_l(r')\frac{1}{r^{l+1}}P_l(\cos 0)\implies\sum\frac{1}{r^{l+1}}r'^l = \sum\frac{A_l(r')}{r^{l+1}}
+\end{equation}.
+
+\begin{ex}
+    Take a circle of charge made from taking vectors of length $c$ an angle $\alpha$ from the $z$-axis. Find the potential at a location $\vec{x}$.
+
+If we imagine that the ring forms a sphere separating vectors which are smaller and larger than $\vec{c}$, $\Phi = \sum\frac{A_l}{r^{l+1}}P_l(\cos\theta)$ for $|\vec{x}|>c$. The axis of symmetry is the $z$-axis, so we can take a special vector along this axis to help us find the coefficients. On axis,
+\begin{equation}
+    \Phi = \frac{2\pi(c\sin\alpha)\lambda}{4\pi\epsilon_0\sqrt{r^2+c^2-2rc\cos\alpha}} = \sum\frac{A_l}{r^{l+1}}P_l(\cos\theta)\bigg|_{\cos\theta\to1}
+\end{equation}.
+This also has an expansion on the right side, since
+\begin{equation}
+    \frac{1}{|\vec{x}-\vec{x}'|} = \sum_{l=0}^\infty \frac{r_<^l}{r_>^{l+1}}P_l(\cos\gamma)
+\end{equation}
+so
+
+\begin{equation}
+    \frac{\lambda}{2\epsilon_0}\sum \frac{c^l}{r^{l+1}}P_l(\cos\alpha) = \sum\frac{A_l}{r^{l+1}}
+\end{equation}
+so
+
+\begin{equation}
+    \Phi(r,\theta) = \frac{\lambda c\sin\alpha}{2\epsilon_0}\sum_l\frac{c^l P_l(\cos\alpha)}{r^{l+1}}P_l(\cos\theta)
+\end{equation}
+for $r>c$. We can expand this further if we ignore the $\phi$
+symmetry:
+
+\begin{equation}
+    \frac{1}{|\vec{x}-\vec{x}'|} = \sum \frac{g_{lm}(r',\theta',\phi')}{r^{l+1}}Y_{lm}(\theta,\phi)
+\end{equation}.
+
+Say $r>r'$. Then,
+\begin{equation}
+    \frac{1}{|\vec{x}-\vec{x}'|} = \sum_{l,m}\sum_{l',m'} \frac{B_{lm;l'm'}r'^{l'}}{r^{l+1}}Y_{lm}(\theta,\phi)Y_{l'm'}^*(\theta',\phi')
+\end{equation}.
+
+Recall,
+
+\begin{equation}
+    \frac{1}{|\vec{x}-\vec{x}'|} = \sum\frac{r'^l}{r^{l+1}}P_l(\cos\gamma(\theta,\phi,\theta',\phi')) = \sum B_{l,m,m'}\left(\frac{r'^l}{r^{l+1}}\right)Y_{lm}(\theta,\phi)Y_{lm'}^*(\theta',\phi')
+\end{equation}.
+If we let $\phi\to\phi'$, $\cos(\phi-\phi')\to 1$, so $m = m'$. Therefore
+\begin{equation}
+    \sum\frac{r'^l}{r^{l+1}}P_l(\cos\gamma) = \sum B_{lm}\frac{r'^l}{r^{l+1}}Y_{lm}(\theta,\phi)Y_{lm}^*(\theta',\phi')
+\end{equation}.
+Rotational symmetry reduces $B_{lm}$ to $B_l$, so we can look at the special case where $\theta'\to 0$, $P_l(\cos\gamma)\to P_l(\cos\theta)$, and $Y_{lm}\to Y_{l0} = \sqrt{\frac{2l+1}{4\pi}}P_l(\cos\theta)$. Finally, we see that $B_l\sqrt{\frac{2l+1}{4\pi}}\sqrt{\frac{2l+1}{4\pi}} = 1$ so $B_l = \frac{4\pi}{2l+1}$.
+
+We have found
+\begin{equation}
+    \frac{1}{|\vec{x}-\vec{x}'|} = \sum_{l,m}\left(\frac{r_<^l}{r_>^{l+1}}\right)\frac{4\pi}{2l+1}Y_{lm}(\theta,\phi)Y_{lm}^*(\theta',\phi')
+\end{equation}.
+\end{ex}
+
+\subsection{Green's Functions in Spherical Coordinates}%
+\label{sub:green_s_functions_in_spherical_coordinates}
+
+
+For Dirichlet Green's Functions, we must have that the function vanishes at the boundaries; the potential is specified and constant there. Suppose we have a problem of concentric spherical shells of radius $a<b$.
+
+Recall if we know $G_D(x,x')$,
+
+\begin{equation}
+    \Phi = \frac{1}{4\pi\epsilon_0}\int G_D(x,x')\rho(x')d^3x' - \frac{1}{4\pi}\oint_{\Sigma}\frac{\partial G_D}{\partial n'}\Phi(x')da'
+\end{equation}
+\end{document}

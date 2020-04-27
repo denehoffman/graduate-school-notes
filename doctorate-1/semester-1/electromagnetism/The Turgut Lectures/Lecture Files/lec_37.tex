@@ -1,0 +1,94 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{37}{Friday, November 08, 2019}{}
+
+Recall that last lecture we said that, for a (very) Gaussian wave packet sharply peaking around $ k_0 $, The fields are both proportional to
+\begin{equation}
+    e^{\imath \vb{k} \vdot \vb{x} - \imath \frac{\omega n(\omega)}{c} t}
+\end{equation}
+In reality, $ \epsilon(\omega) \mu(\omega) \equiv \frac{n^2(\omega)}{c^2} $ is complex. Last time, we just assumed it wasn't (or the imaginary part was small), which allowed us to invert the relation around $ k_0 $.
+
+Let's now expand this for complex $ k $:
+\begin{equation}
+    \int_{- \infty}^{\infty} e^{\ln{A(k)}} + \imath (k - k_0)x + \imath k_0 x - \imath \omega(k_0) t - \imath \eval{\dv{\omega}{k}}_{k_0}(k-k_0)t - \imath \eval{\dv[2]{\omega}{k}}_{k_0}(k-k_0^2)t + \cdots
+\end{equation}
+We can also expand
+\begin{equation}
+    \ln{A(k)} = \ln{A(k_0)} + \frac{\cancelto{0}{A'(k_0)}}{A(k_0)} (k-k_0) + \frac{1}{2} \left[ \frac{A''(k_0)}{A(k_0)} - \frac{\cancelto{0}{A'^2(k_0)}}{A^2(k_0)} \right](k - k_0)^2 + \cdots
+\end{equation}
+so
+\begin{equation}
+    \psi \approx \int_{- \infty}^{\infty} e^{\ln{A(k_0)}} - \frac{\alpha^2}{2} (k-k_0)^2 + \imath (k-k_0)x - \imath \dv{\omega}{k}\eval_{k_0}(k-k_0)t - \imath \frac{\omega''(k_0)}{2} (k-k_0)^2 t \dd{k}
+\end{equation}
+where
+\begin{equation}
+    - \alpha^2 = \frac{A''(k_0)}{A(k_0)} < 0
+\end{equation}
+Therefore
+\begin{equation}
+    \psi \approx A(k_0) e^{\imath (k_0 x - \omega(k_0) t)} \vdot \int_{- \infty}^{\infty} \dd{\bar{k}} e^{- \frac{\alpha^2}{2} \bar{k}^2 - \imath \frac{\omega''(k_0)}{2} t \bar{k}^2 - \imath \bar{k} \left( x - \dv{\omega}{k}\eval_{k_0} \right)}
+\end{equation}
+so
+\begin{equation}
+    \dv{k}{\omega}= \frac{n(\omega)}{c} + \frac{\omega}{c} \dv{n}{\omega}
+\end{equation}
+so
+\begin{equation}
+    \dv{\omega}{k}= \frac{c}{n(\omega) + \omega \dv{n}{\omega}} < c
+\end{equation}
+
+This does not work near the anomalous region where the derivative in the denominator is not positive, but in this region, the imaginary part takes over. In this region, the group velocity can become negative or greater than $ c $, which is just evidence that all the approximations we made are not stable in this region. To be fair, we even approximated the atoms as harmonic oscillators and dipoles.
+
+Some general, model independent ideas:
+
+Causality must exist, this is a big thing!
+
+\begin{equation}
+    \vb{D}(\vb{x}, t) = \epsilon_0 \vb{E}(\vb{x}, t) + \int_0^{\infty} G(\tau) \vb{E}(\vb{x}, t-\tau) \dd{\tau}
+\end{equation}
+Note that the Fourier transform of this convolution is just $ G(\omega) \vb{E}(\vb{x}, \omega) $. We are restricting the integral to go from $ 0 $ to $ \infty $:
+\begin{equation}
+    G(\omega) = \int_0^{\infty} G(\tau) e^{\imath \omega \tau} \dd{\tau}
+\end{equation}
+where we assume $ \omega $ is complex.
+
+Dielectrics have no poles on the real axis, so $ \omega \to 0 $ does not introduce any problems.
+
+Conductors have a simple pole $ \frac{\sigma(\omega)}{\omega} $ at $ \omega = 0 $.
+
+If we take $\omega$ to be complex, we can see that $\epsilon(\omega) $ is meromorphic and can be analytically continued at least in the upper-half plane since $ e^{- \omega_I \tau} $ is okay as long as $ \omega_I > 0 $. Therefore, we have that $ \epsilon^*(\omega) = \int G(\tau) e^{- \imath \omega^* \tau} \dd{\tau} = \epsilon(- \omega^*) $. If we do this integration on a contour in the upper-half plane, we will take the contour to be a circle at $ \infty $, and there are no poles, so
+\begin{equation}
+    \left[ \frac{\epsilon(z)}{\epsilon_0} - 1 \right] = \frac{1}{2 \pi \imath} \oint \frac{\left[ \frac{\epsilon(\omega')}{\epsilon_0} - 1 \right]}{\omega' - z} \dd{\omega'}
+\end{equation}
+
+Remember that
+\begin{equation}
+    \left[ \frac{\epsilon(\omega)}{\epsilon} - 1 \right] = \int_0^{\infty} G(\tau) e^{\imath \omega \tau} \dd{\tau} = G(\tau) \eval{\frac{e^{\imath \omega \tau}}{\imath \omega}}_{0}^{\infty} - \int_0^{\infty} G'(\tau) \frac{e^{\imath \omega \tau}}{\imath \omega} \dd{\tau} = \frac{G(0)}{\imath \omega} - \frac{G'(0)}{(\imath \omega)^2} + \cdots
+\end{equation}
+
+For a dielectric, $ G(0) = 0 $. This tells us that
+\begin{equation}
+    \frac{\epsilon_R(\omega)}{\epsilon_0} \sim \order{\frac{1}{\omega^2}}
+\end{equation}
+and
+\begin{equation}
+    \frac{\epsilon_I(\omega)}{\epsilon_0} \sim \order{\frac{1}{\omega^3}}
+\end{equation}
+so there is no problem with closing the contour at positive infinity. Now we need to approach the real axis. When we do this, we need to jump slightly around $ z $ when we are on the real axis, cutting symmetrically around $ z $ with a semicircle of radius $ \delta $. We can do this by finding the principle value of the integral:
+\begin{equation}
+    \pv{\int} \equiv \lim_{\delta \to 0^+} \left\{ \int_{- \infty}^{\omega - \delta} + \int_{\omega + \delta}^{\infty} \right\}
+\end{equation}
+so
+\begin{equation}
+    \left[ \frac{\epsilon(\omega)}{\epsilon_0} - 1 \right] = \frac{1}{2 \pi \imath} \pi \imath \left[ \frac{\epsilon(\omega)}{\epsilon_0} - 1 \right] + \frac{1}{2 \pi \imath} \pv{\int_{\infty}^{\infty} \frac{\left[ \frac{\epsilon(\omega)}{\epsilon_0} - 1 \right]}{\omega' - \omega} \dd{\omega'}} = \frac{1}{\pi \imath} \pv{\frac{\left[ \frac{\epsilon(\omega)}{\epsilon_0} - 1 \right]}{\omega' - \omega} \dd{\omega'}}
+\end{equation}
+This is the derivation of the Kramers-Kr\"onig relations:
+\begin{equation}
+    \frac{\epsilon_R(\omega)}{\epsilon_0} - 1 = \frac{1}{\pi} \pv{\int_{- \infty}^{\infty} \frac{\frac{\epsilon_I(\omega')}{\epsilon_0}}{\omega' - \omega} \dd{\omega'}}
+\end{equation}
+\begin{equation}
+    \frac{\epsilon_I(\omega)}{\epsilon_0} = \frac{-1}{\pi} \pv{\int_{- \infty}^{\infty} \frac{\left[\frac{\epsilon_R(\omega')}{\epsilon_0}-1\right]}{\omega' - \omega} \dd{\omega'}}
+\end{equation}
+Therefore, on $ \R $, $ \epsilon_R(\omega) - \imath \epsilon_I(\omega) = \epsilon_R(- \omega) + \imath \epsilon_I(- \omega) \implies $ $ \epsilon_R(\omega) $ is even and $ \epsilon_I(\omega) $ is odd.
+
+\end{document}

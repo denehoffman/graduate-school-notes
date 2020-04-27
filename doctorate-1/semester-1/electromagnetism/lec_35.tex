@@ -1,0 +1,83 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{35}{Monday, November 04, 2019}{Dispersion Relations in Media}
+
+Let's now look at momentum instead of energy. We can treat $ \rho \vec{E} + \vec{J} \times \vec{B} $ as the force density, so
+\begin{align}
+    \dv{ \vec{P}_{\text{mech}}}{t} &= \int (\rho \vec{E} + \vec{J} \times \vec{B}) \dd[3]{x} = \int \left[ \epsilon_0 \div{ \vec{E}} \vec{E} + \frac{1}{\mu_0} (\curl{ \vec{B}}) \times \vec{B} - \epsilon_0 \partial_t \vec{E} \times \vec{B} \right] \dd[3]{x}\\
+    &= \int \left[ \epsilon_0 (\div{ \vec{E}}) \vec{E} - \epsilon_0 \partial_t ( \vec{E} \times \vec{B}) + e_0 \vec{E} \times \partial_t \vec{B} - \mu_0 \vec{B} \times (\curl{ \vec{B}}) \right] \dd[3]{x}\\
+    &= \int \left[ \epsilon_0 (\div{ \vec{E}}) \vec{E} + \epsilon_0 c^2 \underbrace{(\div{ \vec{B}})}_{0} \vec{B} + \epsilon_0 \vec{E} \times (- \curl{ \vec{E}}) - \mu_0 \vec{B} \times (\curl{ \vec{B}}) \right] \dd[3]{x} 
+\end{align}
+Note that
+\begin{align}
+    \epsilon_{ijk} E_j \epsilon_{klm} \partial_l E_m &= \epsilon_{ijk} \epsilon_{klm} E_j \partial_l E_m\\
+    &= (\delta_{il} \delta_{jm} - \delta_{im} \delta_{jl})E_j \partial_l E_m\\
+    &= E_j \partial_i E_j - E_j \partial_j E_i
+\end{align}
+so we get that
+\begin{align}
+    \dv{ P^j_{\text{mech}}}{t} &= \int  [\epsilon_0\partial_j E_j E_i + \epsilon_0 c^2\partial_j B_j B_i] - E_j\partial_j E_i - E_j\partial_i E_j + c^2 \epsilon_0  B_j \partial_j B_i - \epsilon_0 c^2 B_j \partial_i B_j \dd[3]{x}\\
+    &= \int \partial_j T_{ji} \dd[3]{x} = \oint_\Sigma T_{ji} \dd{a_j}
+\end{align}
+Here, $ \Sigma $ is the surface of the volume. If we factor in the momentum from electromagnetism, $ - \epsilon_0 \partial_t \int ( \vec{E} \times \vec{B}) \dd[3]{x} $, we find
+\begin{equation}
+    \partial_t\left[ \vec{P}_{\text{mech}} + \vec{P}_{\text{EM}} \right] = \oint_\Sigma T_{ji} \dd{a_j} = \oint_\Sigma \left[ (\epsilon_0 E_i E_j + \epsilon_0 c^2 B_i B_j) - \frac{1}{2} (\epsilon_0 E^2 + \epsilon_0 c^2 B^2)\delta_{ij} \right] \dd{a_j}
+\end{equation}
+This $ T_{ij} = T_{ji} $ is the Maxwell Stress Tensor. It describes the $ i $th component of the momentum escaping in the $ j $th direction. In typical gasses and materials which don't have shearing forces, this tensor is diagonal, but in many solids, the off-diagonals can be nonzero. For example, $ T_{xx} $ is the amount of momentum in the $ x $-direction ($ P_x $) which escapes in the $ x $-direction, while $ T_{xy} $ is the amount of momentum in the $ x $-direction which escapes in the $ y $-direction (and by symmetry, the $ y $-momentum in the $ x $-direction).
+
+If we look at the electromagnetic momentum $ \vec{P} = \epsilon \vec{E} \times \vec{B} $, we expect the Pointing vector $ \vec{S} = \frac{1}{\mu_0} \vec{E} \times \vec{B} $ would give us the energy flux.
+
+\subsection{Angular Momentum Conservation}
+\label{sub:angular_momentum_conservation}
+
+We can define an angular momentum tensor as
+\begin{equation}
+    M_{kji} = x_k T_{ji} - x_j T_{ki}
+\end{equation}
+
+\section{Dispersive Media}
+\label{sec:dispersive_media}
+Suppose we have a linear medium which is dispersive. This means we can have a frequency dependency in our expansion of $ \vec{E} $:
+\begin{equation}
+    \partial_t \vec{E} = \int \partial_t \vec{E}( \vec{x}, \omega) e^{-\imath \omega t} \frac{1}{2 \pi} \dd{\omega} = \int (-\imath\omega) \vec{E}( \vec{x}, \omega) e^{-\imath\omega t} \frac{1}{2 \pi} \dd{\omega} 
+\end{equation}
+so
+\begin{equation}
+    \vec{D} = (\epsilon + \epsilon \chi) \vec{E} \mapsto \vec{D}( \vec{x}, \omega) = (\epsilon_0 + \epsilon_0 \chi(\omega)) \vec{E}( \vec{x}, \omega)
+\end{equation}
+
+Similarly, we get $\omega$ dependence in Maxwell's equations:
+\begin{equation}
+    \curl{ \vec{E}} ( \vec{x}, \omega) = \imath \omega \vec{B}( \vec{x}, \omega)
+\end{equation}
+and
+\begin{equation}
+    \curl{ \vec{B}} = \mu(\omega) \epsilon(\omega) (-\imath\omega) \vec{E}( \vec{x}, \omega)
+\end{equation}
+A consequence of this is that waves of different frequencies no longer travel at the same speed, which is where diffraction comes from.
+\begin{note}{Remark}
+    In general, $\epsilon$ and $\mu$ are complex, and the index of refraction is therefore complex: $ n(\omega) = n_R(\omega) + \imath n_I(\omega) $.
+\end{note}
+
+Howe can we model this? Recall that we model electrons as harmonic oscillators. We know that they are not, they are in definite orbitals, but if we disturb them, we are disturbing an equilibrium position. Therefore, to first order, we can think of them like harmonic oscillators with a linear restoring force bringing the system back to equilibrium. That is why we think of motion as $ m \ddot{x} + m \gamma \dot{x} + \omega_j^2 \vec{x} = -e \vec{E}(\omega) e^{-\imath \omega t} $ where $ \omega $ is the natural frequency of a stable energy level.
+
+To first order, we find solutions to this equation of motion are of the form
+\begin{equation}
+    \vec{x}(t) = \vec{x}_0 e^{-\imath\omega t}
+\end{equation}
+where
+\begin{equation}
+    \vec{x}_0 = \frac{-e}{m\left[ \omega^2_j - \omega^2 - \imath \gamma \right]} \vec{E}
+\end{equation}
+so we can model this as a dipole $ -e \vec{x}(t) = \vec{p}(t) $:
+\begin{equation}
+    \vec{p}(\omega) = \frac{e^2}{m} \frac{1}{[\omega_j^2 - \omega^2 - \imath\gamma\omega]} \vec{E}(\omega) = \chi(\omega) \vec{E}(\omega)
+\end{equation}
+In general, this means we can describe multiple ($ N $) electrons in the form
+\begin{equation}
+    \frac{\epsilon(\omega)}{\epsilon_0} = 1 + \frac{N e^2}{\epsilon_0 m} \sum_{j} \frac{f_j}{\omega_j^2 - \omega^2 - \imath\gamma\omega}
+\end{equation}
+where $ f_j $ is the oscillator strength and $ \omega_j $ are the possible frequencies of the electrons with those oscillation strengths. These will depend on all sorts of things, like what atom we are looking at, what orbital the electron is in, and the molecular configuration. In general, we normalize the strengths by $ \sum_{j} f_j = Z $ where $ Z $ is the number of electrons per molecule.
+
+An interesting consequence of this is that our visible spectrum correlates with the low-refraction wavelengths of light in water, since this is an evolutionarily beneficial span of wavelengths.
+\end{document}

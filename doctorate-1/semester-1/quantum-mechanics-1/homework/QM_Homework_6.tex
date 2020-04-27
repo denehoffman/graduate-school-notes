@@ -1,0 +1,79 @@
+\documentclass[a4paper,twoside]{article}
+\input{../../preamble.tex}
+\title{33-755 Homework 6}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section*{Cohen-Tannoudji Exercise 2.9}
+\subsection*{Expectation Values in Energy Eigenstates}
+Let $ H $ be the Hamiltonian operator of a physical system. Denote by $ \ket{\varphi_{n}} $ the eigenvectors of $ H $, with eigenvalues $ E_n $:
+\begin{equation}
+    H \ket{\varphi_n} = E_n \ket{\varphi_n}
+\end{equation}
+\begin{itemize}
+    \item[a.] For an arbitrary operator A, prove the relation:
+        \begin{equation}
+            \bra{\varphi_n} \comm{A}{H} \ket{\varphi_n} = 0.
+        \end{equation}
+        \begin{problem}
+            Using the hermiticity of $ H $ and associativity of the inner product:
+            \begin{align}
+                \bra{\varphi_n} \comm{A}{H} \ket{\varphi_n} &= \bra{\varphi_n} AH-HA \ket{\varphi_n}\\
+                &= \bra{\varphi_n} AH \ket{\varphi_n} - \bra{\varphi_n} HA \ket{\varphi_n}\\
+                &= \bra{\varphi_n} AE_n \ket{\varphi_n} - \bra{\varphi_n} E_nA \ket{\varphi_n}\\
+                &= E_n \left( \bra{\varphi_n} A \ket{\varphi_n} - \bra{\varphi_n} A \ket{\varphi_n} \right) = 0
+            \end{align}
+        \end{problem}
+    \item[b.] Consider a one-dimensional problem, where the physical system is a particle of mass $ m $ and of potential energy $ V(X) $. In this case, $ H $ is written:
+        \begin{equation}
+            H = \frac{1}{2m} P^2 + V(X)
+        \end{equation}
+        \subitem[$\alpha$.] In terms of $ P $, $ X $, and $ V(X) $, find the commutators: $ \comm{H}{P} $, $ \comm{H}{X} $, $ \comm{H}{XP} $.
+        \begin{problem}
+            \begin{align}
+                \comm{H}{P} &= \frac{P^2}{2m} P + V(X) P - P \frac{P^2}{2m} - P V(X)\\
+                &= \frac{P^3}{2m} + V(X)P - \frac{P^3}{2m} - PV(X)\\
+                &= V(X)P - PV(X) = \comm{V(X)}{P} = \imath\hbar\partial_X V(X) = \imath\hbar V'(X)
+            \end{align}
+            \begin{align}
+                \comm{H}{X} &= \frac{P^2}{2m} X + V(X)X - X \frac{P^2}{2m} - XV(X)\\
+                &= \frac{1}{2m} \comm{P^2}{X} + \comm{V(X)}{X}\\
+                &= -\frac{1}{2m} \comm{X}{P^2} + 0\\
+                &= - \frac{1}{2m} 2\imath\hbar P = - \frac{\imath\hbar P}{m}
+            \end{align}
+            \begin{align}
+                \comm{H}{XP} &= \comm{H}{X}P + X \comm{H}{P}\\
+                &= - \frac{\imath\hbar P^2}{m} + X \comm{V(X)}{P} = -\frac{\imath\hbar P^2}{m} + \imath\hbar XV'(X) \\
+            \end{align}
+        \end{problem}
+        \subitem[$\beta$.] Show that the matrix element $ \bra{\varphi_n} P \ket{\varphi_n} $ (which we shall interpret in Chapter III as the mean value of the momentum in the state $ \ket{\varphi_n} $) is zero.
+        \begin{problem}
+            From the previous problem (the commutator $ \comm{H}{X} = - \frac{\imath\hbar P}{m} $):
+            \begin{align}
+                P = \frac{m}{\imath\hbar} \comm{X}{H} &\implies\\
+                \bra{\varphi_n} P \ket{\varphi_n} &= \frac{m}{\imath\hbar} \bra{\varphi_n} \comm{X}{H} \ket{\varphi_n} = 0
+            \end{align}
+            since, from the first problem, $ \bra{\varphi_n} \comm{A}{H} \ket{\varphi_n} = 0 $.
+        \end{problem}
+        \subitem[$\gamma$.] Establish a relation between $ E_k = \bra{\varphi_n} \frac{P^2}{2m} \ket{\varphi_n} $ (the mean value of the kinetic energy in the state $ \ket{\varphi_n} $) and $ \bra{\varphi_n} X \dv{V}{X} \ket{\varphi_n} $. Since the mean value of the potential energy in the state $ \ket{\varphi_n} $ is $ \bra{\varphi_n} V(X) \ket{\varphi_n} $, how is it related to the mean value of the kinetic energy when:
+        \begin{equation}
+            V(X) = V_0 X^{\lambda} \qc (\lambda = 2,4,6,\cdots; V_0 > 0)?
+        \end{equation}
+        \begin{problem}
+            First, $ \partial_X V(X) = V'(X) = \frac{1}{\imath\hbar} \comm{H}{P} $ from problem $\alpha$. Therefore,
+            \begin{align}
+                XV'(X) &= \frac{1}{\imath\hbar}X \comm{H}{P} = \frac{1}{\imath\hbar}(\comm{H}{XP} - \comm{H}{X}P)\\
+                \implies \ev{XV'(X)}{\varphi_n} &= \frac{1}{\imath\hbar}\cancelto{0}{\ev{\comm{H}{XP}}{\varphi_n}} + 2\ev{\frac{P^2}{2m}}{\varphi_n}\\
+                \ev{XV'(X)}{\varphi_n} &= 2E_k
+            \end{align}
+            In the given case, this means that
+            \begin{align}
+                E_k &= \frac{1}{2} \ev{XV'(X)}{\varphi_n}\\
+                &= \frac{\lambda}{2} \ev{V_0X^{\lambda}}{\varphi_n} = \frac{\lambda}{2} \ev{V(X)}{\varphi_n}
+            \end{align}
+        \end{problem}
+\end{itemize}
+
+
+\end{document}

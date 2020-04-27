@@ -1,0 +1,40 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{22}{Mon Oct 7 2019}{Ring of Current in Cylindrical Coordinates}
+\section{Ring of Current in Cylindrical Coordinates}
+\label{sec:ring_of_current_in_cylindrical_coordinates}
+
+From last time
+\begin{equation}
+    \frac{1}{\abs{ \vec{x} - \vec{x}'}} = \frac{4}{\pi} \int_0^{\infty} \dd{k} \cos(k(z-z')) \left[ \frac{1}{2} I_0(k \rho_<)K_0(k \rho_>) + \sum_{m=1}^{\infty} I_m(k \rho_<)K_m(k \rho_>) \cos(m(\varphi - \varphi')) \right]
+\end{equation}
+
+\begin{align}
+    \vec{A}( \vec{x} ) &= \frac{\mu_0}{4 \pi} \int \vec{J}( \vec{x}' ) \frac{1}{\abs{ \vec{x} - \vec{x}'}} \dd[3]{x'}\\
+    &= \frac{\mu_0}{4 \pi} \int I_0 \delta(\phi' - a) \delta(z')[- \sin(\varphi') \hat{i} + \cos(\varphi') \hat{j} ]\\
+& \times \frac{1}{\abs{ \vec{x} - \vec{x}'}} \rho' \dd{\rho'} \dd{z'} \dd{\varphi'}
+\end{align}
+where $ \hat{\varphi} = [- \sin(\varphi) \hat{i} + \cos(\varphi) \hat{j} $. We can choose $ \varphi = 0 $ since we believe the system is symmetric about $\varphi$. By doing this, we can reduce the equation to
+\begin{equation}
+    \vec{A}( \vec{x} ) = \frac{\mu_0 I_0 a}{\pi} \int_0^{\infty} \dd{k} \cos(kz) I_1(k \rho_<) K_1(k \rho_>) \hat{j}
+\end{equation}
+
+We can then use the previous formulation to write down the elements of the $ \vec{B} $ field using the curl:
+\begin{equation}
+    B_{\rho} = \frac{1}{\rho} \partial_z A_{\varphi}
+\end{equation}
+and
+\begin{equation}
+    B_z = \frac{1}{\rho} \partial_{\rho} (\rho A_{\varphi})
+\end{equation}
+or if we rewrite the potential with $ \hat{j} = \hat{\varphi} $ 
+\begin{equation}
+    B_{\rho} = \frac{1}{\rho} \frac{\mu_0 I_0 a}{\pi} \int_{0}^{\infty} \dd{k} (-k) \sin(kz) I_1(k \rho_<)K_1(k \rho_>)
+\end{equation}
+and
+\begin{equation}
+    B_z = \frac{\mu_0 I_0 a}{\pi} \int_{0}^{\infty} \dd{k} \cos(kz) \begin{cases} \frac{1}{\rho} \pdv{\rho}\left[ \rho I_1(ka)K_1(k \rho) \right] & \rho > a\\ \frac{1}{\rho} \pdv{\rho}\left[ \rho I_1(k \rho)K_1(ka) \right] & \rho < a \end{cases}
+\end{equation}
+ 
+
+\end{document}

@@ -1,0 +1,73 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{35}{Friday, April 17, 2020}{Ideal Quantum Gasses}
+
+Now that we have a new way of labeling states, let's look at the partition function in occupation number representation.
+
+\begin{equation}
+    Z = \sum_{\{n_{\alpha}\}}^{\sum_{\alpha} n_{\alpha} = N} \prod_{\alpha} e^{- \beta \epsilon_{\alpha} n_{\alpha}}
+\end{equation}
+An additional constraint must be made on this sum. For Fermions, we need to consider the Pauli exclusion principle, so the sum will have $ n_{\alpha} \in \{0,1\} $, whereas Bosons can have $ n_{\alpha} \in \N $.
+
+
+The fixed $ N $ constraint is annoying and makes this hard to calculate, but we can remove this constraint by moving to the grand canonical ensemble:
+
+\begin{align}
+    \mathcal{Z} &= \sum_{N=0}^{\infty} Z_N e^{\beta \mu N} \\
+    &= \sum_{N=0}^{\infty} \sum_{\{n_{\alpha}\}}^{\sum_{\alpha} n_{\alpha} = N} \prod_{\alpha} e^{- \beta (\epsilon_{\alpha} - \mu) n_{\alpha}}
+\end{align}
+The interesting thing here is that the first sum makes the constraint $ \sum_{\alpha} n_{\alpha} = N $ superfluous!\ Since we sum all $ N $ up anyway, there is no reason to separate these into groups of fixed $ N $.
+\begin{align}
+    \mathcal{Z} &= \sum_{\{n_{\alpha}\}} \prod_{\alpha} e^{- \beta (\epsilon_{\alpha} - \mu)n_{\alpha}} \\
+    &= \sum_{n_1} \sum_{n_2} \ldots \prod_{\alpha} e^{- \beta (\epsilon_{\alpha} - \mu)n_{\alpha}} \\
+    &= \sum_{n_1} e^{- \beta (\epsilon_1 - \mu)n_1} \sum_{n_2} e^{- \beta (\epsilon_2 - \mu)n_2} \ldots \\
+    &= \prod_{\alpha} \sum_{n_{\alpha}} e^{- \beta (\epsilon_{\alpha} - \mu)n_{\alpha}}
+\end{align}
+Therefore
+\begin{align}
+    \Omega &= - k_B T \ln(\mathcal{Z}) = \begin{cases} - k_B T \sum_{\alpha} \ln(\sum_{n_{\alpha}=0}^{1} e^{- \beta (\epsilon_{\alpha} - \mu)n_{\alpha}}) \\ - k_B T \sum_{\alpha} \ln(\sum_{n_{\alpha} = 0}^{\infty} \left( e^{- \beta (\epsilon_{\alpha} - \mu)} \right)^{n_{\alpha}}) \end{cases} \\
+    &= \begin{cases} - k_B T \sum_{\alpha} \ln(1 + e^{- \beta (\epsilon_{\alpha} - \mu)}) & \text{Fermions} \\ -k_B T \sum_{\alpha} \ln\left( \frac{1}{1 - e^{- \beta (\epsilon_{\alpha} - \mu)}} \right) & \text{Bosons} \end{cases} \\
+    &= \begin{cases} - k_B T \sum_{\alpha} \ln(1 + e^{- \beta (\epsilon_{\alpha - \mu})}) & \text{Fermions} \\ + k_B T \sum_{\alpha} \ln(1 - e^{- \beta (\epsilon_{\alpha - \mu})}) & \text{Bosons} \end{cases} = \mp k_b T \sum_{\alpha} \ln(1 \pm e^{- \beta (\epsilon_{\alpha} - \mu)})
+\end{align}
+When we use $ \{\mp,\pm\} $ notation, we will always use it in the order in which the Fermion is in the top of the notation and the Boson is in the bottom.
+
+
+How many particles do we have in a particular state $ \alpha $?
+\begin{align}
+    \ev{n_{\alpha}} &= \frac{1}{\mathcal{Z}} \left( \prod_{\alpha'} \sum_{n_{\alpha'}} n_{\alpha} e^{- \beta (\epsilon_{\alpha'} - \mu)n_{\alpha'}} \right) \\
+    &= \frac{1}{\mathcal{Z}} \left( \prod_{\alpha'} \sum_{n_{\alpha'}} \left( - \frac{1}{\beta} \pdv{\epsilon_{\alpha}} \right) e^{- \beta (\epsilon_{\alpha'} - \mu)n_{\alpha'}} \right) \\
+    &= - \frac{1}{\beta} \frac{1}{\mathcal{Z}} \pdv{\epsilon_{\alpha}} \mathcal{Z} \\
+    &= - \frac{1}{\beta} \pdv{\epsilon_{\alpha}} \ln(\mathcal{Z}) = \pdv{\Omega}{\epsilon_{\alpha}} \\
+    \ev{n_{\alpha}} &= \pdv{\epsilon_{\alpha}}\left[ \mp k_B T \sum_{\alpha'} \ln(1 \pm e^{- \beta (\epsilon_{\alpha'} - \mu)}) \right] \\
+    &= \mp k_B T \frac{\pm e^{- \beta (\epsilon_{\alpha} - \mu)} (- \beta)}{1 \pm e^{- \beta (\epsilon_{\alpha - \mu})}} \\
+    &= \frac{e^{- \beta (\epsilon_{\alpha} - \mu)}}{1 \pm e^{- \beta (\epsilon_{\alpha - \mu})}} \\
+    &= \frac{1}{e^{\beta (\epsilon_{\alpha} - \mu)} \pm 1} \begin{cases} \text{Fermi} \\ \text{Bose} \end{cases}
+\end{align}
+This expression appears a lot, so we will write it as
+\begin{equation}
+    \ev{n_{\alpha}} = \mathcal{F}_{\pm}(\epsilon_{\alpha} - \mu)
+\end{equation}
+For large $ \epsilon $, the function $ \mathcal{F}(\epsilon) $ is just the Boltzmann factor $ e^{- \beta \epsilon} $, regardless of Fermion or Boson statistics. However, the expectation values are very different for small $ \epsilon $.
+
+
+We can write down the density of states for a single particle as
+\begin{equation}
+    D(\epsilon) = \sum_{\alpha} \delta(\epsilon - \epsilon_{\alpha})
+\end{equation}
+and the cumulative density of states as
+\begin{equation}
+    W(\epsilon) = \int_{- \infty}^{\epsilon} \dd{\epsilon'} D(\epsilon')
+\end{equation}
+We can therefore write
+\begin{equation}
+    \Omega = \mp k_B T \int_{0}^{\infty} \dd{\epsilon} D(\epsilon) \ln(1 \pm e^{- \beta (\epsilon - \mu)})
+\end{equation}
+Let's do integration by parts, integrating $ D(\epsilon) $ and differentiating the logarithm.
+\begin{align}
+    \Omega &= - \int \dd{\epsilon} W(\epsilon) \mathcal{F}_{\pm}(\epsilon - \mu)
+\end{align}
+Therefore,
+\begin{equation}
+    \ev{N} = \sum_{\alpha} \ev{n_{\alpha}} = \int \dd{dpsilon} D(\epsilon) \mathcal{F}_{\pm}(\epsilon - \mu) = - \pdv{\Omega}{\mu}
+\end{equation}
+\end{document}

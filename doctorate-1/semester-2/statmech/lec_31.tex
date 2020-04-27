@@ -1,0 +1,103 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{31}{Wednesday, April 08, 2020}{}
+
+
+Let's look at a couple examples of quantum systems so we can calculate some quantum partition functions.
+
+\begin{ex}
+    Consider a two-level system with $ H = \epsilon n $ with $ n \in \{0,1\} $ such that the energy levels are $ \{0, \epsilon\} $. In this case, the partition function is
+    \begin{equation}
+        Z = \sum_n = e^{- \beta \epsilon n} = 1 + e^{- \beta \epsilon}
+    \end{equation}
+    so
+    \begin{equation}
+        F = - k_B T \ln(Z) = k_B T \ln(1 - e^{- \beta \epsilon}) 
+    \end{equation}
+    \begin{equation}
+        U = \pdv{\beta F}{\beta} = \frac{\epsilon e^{- \beta \epsilon}}{1 + e^{- \beta \epsilon}} = \frac{\epsilon}{e^{\beta \epsilon} + 1}
+    \end{equation}
+    \begin{equation}
+        \ev{n} = \sum_{n=0}^{1} n \frac{e^{- \beta \epsilon n}}{Z} = \frac{0 e^{0} + 1 e^{- \beta \epsilon}}{1 + e^{- \beta \epsilon}} = \frac{1}{e^{\beta \epsilon} + 1}
+    \end{equation}
+    so $ U = \epsilon \ev{n} $.
+\end{ex}
+
+\begin{ex}
+    Consider a symple harmonic oscillator with $ H = \frac{\vu{P}^2}{2m} + \frac{1}{2} m \omega^2 \vu{Q}^2 = \hbar \omega \left( a^\dagger a + \frac{1}{2} \right) = \hbar \omega \left( \vu{N} + \frac{1}{2} \right) $, so
+    \begin{align}
+        Z &= \Tr(e^{- \beta H}) = \sum_{n=0}^{\infty}\bra{n} e^{- \beta \hbar \omega \left( \vu{N} + \frac{1}{2} \right)}\ket{n} \\
+        &= \sum_{n=0}^{\infty} e^{- \beta \hbar \omega \left( n + \frac{1}{2} \right)} \\
+        &= e^{- \frac{1}{2} \beta \hbar \omega} \sum_{n=0}^{\infty} (e^{- \beta \hbar \omega})^n
+    \end{align}
+    This is a geometric series which converges to
+    \begin{equation}
+        Z = \frac{e^{- \frac{1}{2} \beta \hbar \omega}}{1 - e^{- \beta \hbar \omega}} = \frac{1}{2 \sinh(\frac{\beta \hbar \omega}{2})}
+    \end{equation}
+    Observe that in the limit $ T \to \infty $ or $ \hbar \to 0 $, $ Z \to \frac{1}{\beta \hbar \omega} = \frac{k_B T}{\hbar \omega} $, which is the classical result. This explains why we insisted on an $ h $ in the classical partition function.
+    \begin{equation}
+        F = k_B T \ln\left( 2 \sinh(\frac{\beta \hbar \omega}{2}) \right)
+    \end{equation}
+    \begin{equation}
+        U = \frac{1}{2} \hbar \omega + \frac{\hbar \omega}{e^{\beta \hbar \omega} - 1}
+    \end{equation}
+    Also, since $ U = \ev{H} = \hbar \omega \left( \ev{n} + \frac{1}{2} \right) $,
+    \begin{equation}
+        \ev{n} = \frac{1}{e^{\beta \hbar \omega} - 1}
+    \end{equation}
+\end{ex}
+
+\begin{ex}
+    Finally, consider the Einstein model for a crystal. We have $ N $ particles, $ 3 $ dimensions, everything (nearest particles in a 3D lattice)  connected by springs, so we have $ 3N $ eigenmodes. In the simplest possible approximation, assume they all have frequency $ \omega $.
+    \begin{equation}
+        Z = \left( \frac{1}{2\sinh(\frac{\beta \hbar \omega}{2})} \right)^{3N}
+    \end{equation}
+    so
+    \begin{equation}
+        U = \frac{3}{2} Nk_B T + \frac{3N \hbar \omega}{e^{\beta \hbar \omega} - 1}
+    \end{equation}
+    One very interesting thing about this system is the heat capacity,
+    \begin{equation}
+        c_V(T) = \frac{1}{N} \eval{\pdv{U}{T}}_{V,N} = 3k_B \left( \frac{\hbar \omega}{k_B T} \right)^2 \frac{e^{\beta \hbar \omega}}{\left( e^{\beta \hbar \omega} - 1 \right)^2}
+    \end{equation}
+    The interesting thing is the limits. At high temperature, $ \beta \hbar \omega \to 0 $, so $ c_V \to 3 k_B $. This is the classical result, and is known as the ``law of Dulong-Petit''. This doesn't actually happen in reality when we cool crystals down, and for a while nobody knew why. However, in the limit $ \beta \hbar \omega \to \infty $, $ c_V \to 3 k_B (\beta \hbar \omega) e^{- \beta \hbar \omega} $. The important part is the exponential term, which says that in the low temperature limit, the heat capacity becomes exponentially small. Using this, Einstein explained why the heat capacity of crystals goes to $ 0 $ as they are cooled.
+    
+\section{Blackbody Radiation}
+\label{sec:blackbody_radiation}
+Let's remind ourselves of Maxwell's equations in vacuum:
+\begin{align}
+    \div{\va{E}} &= 0 \\
+    \div{\va{B}} &= 0 \\
+    \curl{\va{E}} &= -\dot{\va{B}} \\
+    \curl{\va{B}} &= \frac{1}{c^2} \dot{\va{E}}
+\end{align}
+\begin{equation}
+    \frac{1}{c^2} \ddot{\va{E}} = \curl{\dot{\va{B}}} = - \curl{(\curl{\va{E}})} = - \grad{(\div{\va{E}})} + \laplacian{\va{E}} = \laplacian{\va{E}}
+\end{equation}
+and we get the same with $ \va{B} $. This means the electric and magnetic fields satisfy the wave equation,
+\begin{equation}
+    \left( \laplacian - \frac{1}{c^2} \partial_t^2 \right) \{\va{E}, \va{B}\} = 0
+\end{equation}
+
+Let's look at eigenmodes of a hollow metal cube of length $ L $. We begin with the ansatz
+\begin{align}
+    E_x(\va{r}, t) &= E_{x0} \sin(\omega t) \cos(k_x x) \sin(k_y y) \sin(k_z z)
+    E_y(\va{r}, t) &= E_{y0} \sin(\omega t) \sin(k_x x) \cos(k_y y) \sin(k_z z)
+    E_z(\va{r}, t) &= E_{z0} \sin(\omega t) \sin(k_x x) \sin(k_y y) \cos(k_z z)
+\end{align}
+This ensures proper boundary conditions. The electric field is perpendicular to the boundary whenever $ \{x,y,z\} = 0 $. Also, inserting the solution into the wave equation, it solves it. However, there is also a wall at $ \{x,y,z\} = L $. We need $ k_i L = m_i \pi $ where $ m_i \in \N $. Additionally, $ k^2 = k_x^2 + k_y^2 + k_z^2 = \frac{\omega^2}{c^2} $ or $ \omega = ck $. Therefore
+\begin{equation}
+    \omega^2 = c^2 k^2 = \left( \frac{\pi c}{L} \right)^2 (m_x^2 + m_y^2 + m_z^2) = \left( \frac{\pi c}{L} \right)^2 \va{m}^2
+\end{equation}
+where $ \va{m} = \mqty(m_x\\m_y\\m_z) \in \N^3 - \{\va{0}\} $.
+
+States (``modes'') are enumerated by $ \va{m} $ and the polarization $ \sigma \in \{0,1\} $. The state space is an ``octant'' in $ \N_1^3 $ or $ \N^3_0 - \{\va{0}\} $. The density of states $ D_{\va{m}}(\va{m}) = \sum_{\va{n} \in \N_1^3} \delta(\va{m} - \va{n}) \approx 1 $. The approximation comes from, rather than integrating over all of phase space, integrating over a box around one of these $\delta$-functions, of which there are $ \frac{L}{\pi c} $ in number.
+
+    
+
+
+
+\end{ex}
+
+
+\end{document}

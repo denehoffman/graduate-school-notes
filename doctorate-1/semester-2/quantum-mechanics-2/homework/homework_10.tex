@@ -1,0 +1,168 @@
+\documentclass[a4paper,twoside]{article}
+\input{../../preamble.tex}
+\title{33-756 Homework 10}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section*{1. Fresnel-Like Integrals}
+\begin{itemize}
+    \item[(a)] $ I = \int_{- \infty}^{\infty} e^{\imath \lambda x^2} \dd{x} $.
+        \begin{problem}
+            We can define the following parameterization of a closed loop in complex space: $ \Gamma = \gamma_1 + \gamma_2 + \gamma_3 $ where
+            \begin{equation}
+                \gamma_1\colon\quad x = t \qfor t \in [0,R)
+            \end{equation}
+            \begin{equation}
+                \gamma_2\colon\quad x = R e^{\imath t} \qfor t \in \left[ 0, \frac{\pi}{4} \right].
+            \end{equation}
+            \begin{equation}
+                \gamma_3\colon\quad x = t e^{\imath \frac{\pi}{4}}
+            \end{equation}
+            The integral we want to calculate is
+            \begin{equation}
+                I = 2\int_{\gamma_1} e^{\imath \lambda x^2} \dd{x}
+            \end{equation}
+            as $ R \to \infty $. In order to find this, we can show that the integral along $ \gamma_2 $ vanishes as $ R \to \infty $, and because $ e^{\imath \lambda x^2} $ is holomorphic, it will have no residues in this region so the integral around $ \Gamma $ will be equal to $ 0 $. Therefore, $ \int_{\gamma_1} - \int_{\gamma_2} = \int_{\gamma_3} $ (here I have defined $ \gamma_3 $ in the anticlockwise direction so as to cancel the minus sign).
+            
+
+            First, I will show that $ \int_{\gamma_2} \to 0 $ as $ R \to 0 $. The integral along this path is
+            \begin{equation}
+                I_{\gamma_2} = \int_{\gamma_2} e^{\imath \lambda x^2} \dd{x} = \int_0^{\pi / 4} e^{\imath \lambda R^2 (\cos(2t) + \imath \sin(2t))} i R e^{\imath t} \dd{t}
+            \end{equation}
+            since $ \dd{z} = \imath R e^{\imath t} \dd{t} $. We want to show that this integral vanishes, so we can equivalently show that its magnitude vanishes. by the triangle inequality,
+            \begin{align}
+                \abs{\int_0^{\pi / 4} e^{\imath \lambda R^2 (\cos(2t) + \imath \sin(2t))} \imath R e^{\imath t} \dd{t}} &\leq \int_0^{\pi / 4} \abs{e^{\imath \lambda R^2 (\cos(2t) + \imath \sin(2t))}} \abs{\imath R e^{\imath t}} \dd{t}\\
+                &= R \int_0^{\pi / 4} e^{- \lambda R^2 \sin(2t)} \dd{t}
+            \end{align}
+            We can then use Jordan's inequality: $ \frac{4t}{\pi} \leq \sin(2t) \leq 2t $ for $ 0 \leq t \leq \frac{\pi}{4} $:
+            \begin{equation}
+                \abs{I_{\gamma_2}} \leq R \int_0^{\pi / 4} e^{-4 \lambda R^2 t / \pi} \dd{t} = \frac{\pi}{4 \lambda R} \left( 1 - e^{- \lambda R^2} \right)
+            \end{equation}
+            It is obvious from here that this vanishes as $ R \to \infty $, as long as $ \lambda > 0 $. Therefore, $ I \equiv I_{\gamma_1} = I_{\gamma_3} $:
+            \begin{equation}
+                I = 2 e^{\imath \frac{\pi}{4}} \int_0^{R \to \infty} e^{- \lambda x^2} \dd{x} = e^{\imath \frac{\pi}{4}} \int_{- \infty}^{\infty} e^{- \lambda x^2} \dd{x} = \sqrt{\frac{\pi}{\lambda}} \left(e^{\imath \frac{\pi}{2}}\right)^{1/2} = \sqrt{\frac{i \pi}{\lambda}}
+            \end{equation}
+        \end{problem}
+    \item[(b)] $ I = \int_{- \infty}^{\infty} e^{\imath (ax^2 + b x + c)} \dd{x} $.
+        \begin{problem}
+            In one dimension, the stationary phase approximation says that
+            \begin{equation}
+                \int_{- \infty}^{\infty} e^{\imath f(x)} \dd{x} \approx \sum_{x_0 \in \Sigma} e^{\imath f(x_0) + \text{sign}(f''(x_0)) \frac{\imath \pi}{4}} \sqrt{\frac{2 \pi}{\abs{f''(x_0)}}}
+            \end{equation}
+            where $ \Sigma $ is the set of critical points $ \partial_x f(x_0) = 0 $. For this problem, there is only one critical point at $ x_0 = - \frac{b}{2a} $, so we can plug in the proper values into the formula above to find that
+            \begin{equation}
+                I \approx e^{\imath \left( c - \frac{b^2}{4a} + \imath \frac{\pi}{4} \right)} \sqrt{\frac{2 \pi}{2a}} = \sqrt{\frac{\imath \pi}{a}} e^{\imath \left( c - \frac{b^2}{4a} \right)}
+            \end{equation}
+            To find the exact solution, we first must complete the square in the exponential:
+            \begin{equation}
+                a x^2 + b x + c = a\left( x + \frac{b}{2a} \right)^2 + \left( c - \frac{b^2}{4a} \right)
+            \end{equation}
+            Therefore, the integral will be
+            \begin{equation}
+                I = e^{\imath \left(c - \frac{b^2}{4a}\right)} \int_{- \infty}^{\infty} e^{\imath a \left( x + \frac{b}{2a} \right)^2} \dd{x}
+            \end{equation}
+            We can do a change of variables $ x' = x + \frac{b}{2a} $, $ \dd{x'} = \dd{x} $. The bounds of integration won't change under this transformation, and we have already done the integral of $ e^{\imath a x'^2} $ above. We will therefore find
+            \begin{equation}
+                I = e^{\imath \left( c - \frac{b^2}{4a} \right)} \sqrt{\frac{\imath \pi}{a}}
+            \end{equation}
+            which happens to be equal to the stationary phase approximation.
+        \end{problem}
+    \item[(c)] $ I = \int_{- \infty}^{\infty} e^{\imath (ax^2 + A x^4)} $.
+        \begin{problem}
+            Expanding in $ A $ we find
+            \begin{equation}
+                I \approx \int e^{\imath a x^2} \dd{x} + \int \imath x^4 A e^{\imath a x^2} \dd{x} + \order{A^2}
+            \end{equation}
+            We already know the first integral, and the second one can be done by realizing that
+            \begin{equation}
+                \int \imath x^4 A e^{\imath a x^2} \dd{x} = \int - \imath A \partial_a^2 \left( e^{\imath a x^2} \right) \dd{x} = - \imath A \partial^2_a \int e^{\imath a x^2} \dd{x}
+            \end{equation}
+            so
+            \begin{equation}
+                I = \sqrt{\frac{\imath \pi}{a}} - \imath A \partial^2_a \sqrt{\frac{\imath \pi}{a}} = \sqrt{\frac{\imath \pi}{a}} - \frac{3A}{4a^{5/2}} \imath\sqrt{\pi \imath}
+            \end{equation}
+            I'd guess the condition for a convergent expansion is that $ A << 1 $ or maybe $ A << a $.
+
+            
+            After some consideration, I don't think this was the correct way to do the problem. If we consider the stationary points to be $ 0, \pm \sqrt{- \frac{a}{2A}} $, we can see that expanding around $ 0 $ gives us
+            \begin{align}
+                I &= e^{\imath 0 + \imath \frac{\pi}{4}} \sqrt{\frac{2 \pi}{\abs{2a}}} + 2 e^{- \imath \frac{a^2}{4A} - \imath \frac{\pi}{4}} \sqrt{\frac{2 \pi}{6a}} \\
+                &= \sqrt{\frac{\imath \pi}{a}} + 2 e^{- \imath \frac{a^2}{4A}} \sqrt{\frac{\imath \pi}{3a}}
+            \end{align}
+        \end{problem}
+\end{itemize}
+
+\section*{2. Frequency Space Propagator}
+The frequency space propagator for a particle moving in a potential $ V $ is given by
+\begin{equation}
+    K(x_f, x_i, \omega) = \int_{0}^{\infty} K(x_f, x_i, t) e^{\imath \omega t} \dd{t} = A \sum_n \frac{\sin(nrx_f) \sin(nrx_i)}{(E - \frac{\hbar^2 r^2}{2m} n^2)}
+\end{equation}
+\begin{itemize}
+    \item[(a)] Determine the potential $ V $.
+        \begin{problem}
+            It's just a bit obvious that this is the propagator for a particle in a box. The sine functions in the numerator are eigenfunctions of that Hamiltonian and the energy in the denominator contains the eigenvalues with $ r = \frac{\pi}{L} $. I will therefore derive the propagator for a particle in a box and show that it's Fourier transform is equal to the given equation. The particle in a box (in one dimension) can be described as
+            \begin{equation}
+                H = \frac{p^2}{2m} + V(x) \qquad V(x) = \begin{cases} 0 & 0 \leq x \leq L \\ \infty &\qotherwise \end{cases}
+            \end{equation}
+            The eigensystem is
+            \begin{equation}
+                \varphi_n(x) = \sqrt{\frac{2}{L}} \sin(\frac{n \pi x}{L})
+            \end{equation}
+            \begin{equation}
+                E_n = \frac{\hbar^2 \pi^2}{2mL^2} n^2
+            \end{equation}
+            The propagator is easily calculated:
+            \begin{align}
+                K(x_f, x_i ; t) &= \bra{x} e^{-\imath Ht / \hbar}\ket{x_0} \\
+                &= \sum_n\bra{x} e^{-\imath H t / \hbar}\ket{n}\bra{n}\ket{x_0} \\
+                &= \sum_n e^{- E_n t / \hbar} \psi_n(x) \psi_0^*(x) \\
+                &= \frac{2}{L} \sum_n e^{\imath E_n t / \hbar} \sin(\frac{n \pi x}{L}) \sin(\frac{n \pi x_0}{L})
+            \end{align}
+            We can then Fourier transform this statement:
+            \begin{align}
+                K(x_f, x_i ; \omega) &= \frac{2}{L} \int_0^{\infty} \sum_n \sin(\frac{2 \pi x}{L}) \sin(\frac{2 \pi x_0}{L}) e^{- \imath E t / \hbar} e^{\imath \omega t} \dd{t} \\
+                &= \frac{2}{L} \sum_n \sin(\frac{2 \pi x}{L}) \sin(\frac{2 \pi x_0}{L}) \int_0^{\infty} e^{\imath (\hbar \omega - E_n)t} \dd{t} \\
+                &= \frac{2}{L} \sum_n \sin(\frac{2 \pi x}{L}) \sin(\frac{2 \pi x_0}{L}) \frac{\imath \hbar}{\hbar \omega - E_n} \\
+                &= A \sum_n \frac{\sin(nrx_f) \sin(nrx_i)}{(E - \frac{\hbar^2 r^2}{2m} n^2)}
+            \end{align}
+            with $ r = \frac{\pi}{L} $, $ E = \hbar \omega $, and $ A = \frac{2 \imath \hbar}{L} = \frac{2 \imath \hbar r}{\pi} $.
+        \end{problem}
+    \item[(b)] Determine the constant $ A $ in terms of the other parameters in the problem.
+        \begin{problem}
+            See the end result of 2(a).
+        \end{problem}
+\end{itemize}
+
+\section*{3. Sakurai 2.34}
+\begin{itemize}
+    \item[(a)] Write down an expression for the classical action for a simple harmonic oscillator for a finite time interval.
+        \begin{problem}
+            The classical action for the interval $ [t_a, t_b] $ for a simple harmonic oscillator is
+            \begin{equation}
+                S(t_a, t_b) \equiv \int_{t_a}^{t_b} \dd{t} L(x(t), \dot{x}(t)) = \int_{t_a}^{t_b} \dd{t} \left( \frac{1}{2} m\dot{x}(t)^2 - \frac{1}{2} m \omega^2 x(t)^2 \right)
+            \end{equation}
+        \end{problem}
+    \item[(b)] Construct $\bra{x_n, t_n}\ket{x_{n-1}, t_{n-1}} $ for a simple harmonic oscillator using Feynman's prescription for $ t_n - t_{n-1} = \Delta t $ small. Keeping only terms up to order $ (\Delta t)^2 $, show that it is in complete agreement with the $ t - t_0 \to 0 $ limit of the propagator given by (2.6.46).
+        \begin{problem}
+            We can write the action as
+            \begin{align}
+                S(t_{n-1}, t_n) &= \int_{t_{n-1}}^{t_n} \dd{t} \left[ \frac{1}{2} m\dot{x}^2 - V(x) \right] \\
+                &= \Delta t \left[ \frac{1}{2} m \left( \frac{x_n - x_{n-1}}{\Delta t} \right)^2 - V\left( \frac{x_n + x_{n-1}}{2} \right) \right] \\
+                &= \frac{1}{2 \Delta t} m \left[ x^2_n - 2 x_n x_{n-1} + x^2_{n-1} - \frac{\omega^2}{2} (x_n + x_{n-1})^2 \Delta t \right]
+            \end{align}
+            Therefore, the propagator is
+            \begin{align}
+                \bra{x_n, t_n}\ket{x_{n-1}, t_{n-1}} &= \sqrt{\frac{m}{2 \pi \imath \hbar \Delta t}} e^{\frac{\imath}{\hbar} \int \dd{t} L} \\
+                &= \sqrt{\frac{m}{2 \pi \imath \hbar \Delta t}} \exp\left[ \frac{\imath \Delta t}{\hbar} \frac{m}{2} \left( \left[ \frac{x_n - x_{n-1}}{\Delta t} \right]^2 - \omega^2 \left[ \frac{x_n + x_{n-1}}{2} \right]^2\right) \right]\\
+                &= \sqrt{\frac{m}{2 \pi \imath \hbar \Delta t}} \exp \left[ \frac{\imath}{2 \Delta t} m \left[ x^2_n - 2 x_n x_{n-1} + x^2_{n-1} - \frac{\omega^2}{2} (x_n + x_{n-1})^2 \Delta t \right] \right]
+            \end{align}
+            As $ \Delta t \to 0 $, we can see that this will resemble the original formulation of the propagator, which was
+            \begin{align}
+                K(x_n, t_n ; x_{n-1}, t_{n-1}) = &\sqrt{\frac{m \omega}{2 \pi \imath \hbar \sin(\omega \Delta t)}}\\
+                & \times \exp\left[ \left( \frac{\imath m \omega}{2 \hbar \sin(\omega \Delta t)} \right) \left( (x_n^2 - x_{n-1}^2) \cos(\omega \Delta t) - 2 x_{n} x_{n-1} \right) \right]
+            \end{align}
+            For small $ \Delta t $, $ \sin(\omega \Delta t) \approx \omega $ and $ \cos(\omega \Delta t) \approx 1 - \frac{\omega^2}{2} $, which will make this equation resemble the derived version from the classical action. 
+        \end{problem}
+\end{itemize}
+\end{document}

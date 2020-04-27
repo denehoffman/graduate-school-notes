@@ -1,0 +1,150 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{22}{Wednesday, March 18, 2020}{Time Dependent Perturbation Theory, Continued.}
+
+In our last lecture, we were discussing perturbations of the following form:
+\begin{equation}
+    H = H_0 + \lambda W(t)
+\end{equation}
+
+In the interaction picture, states evolve according to
+\begin{equation}
+    \imath \hbar \pdv{t}\ket{\psi}_I = \lambda W_I(t)\ket{\psi}_I
+\end{equation}
+where
+\begin{equation}
+    W_I(t) = e^{- \imath H_0 t / \hbar} W(t) e^{\imath H_0 t / \hbar}
+\end{equation}
+The states evolve according to the interaction Hamiltonian while the operators evolve according to the unperturbed (free) Hamiltonian. In the limit where $ \lambda \to 0 $, the states don't evolve and only the operators evolve. The advantage of this is that if we take $ \lambda << 1 $, we can expand in $ \lambda $. Let's now project a time independent eigenstate of $ H_0 $ onto this interaction picture equation and insert an identity using the basis states $ m $ of the free Hamiltonian:
+
+\begin{equation}
+    \imath \hbar \pdv{t}\bra{n}\ket{\psi}_I = \sum_m\bra{n} W_I\ket{m}\bra{m}\ket{\psi}_I
+\end{equation}
+where $ H_0\ket{n} = E_0^{(n)}\ket{n} $.
+
+Let's decompose the state $\ket{\psi}_I $ as
+\begin{equation}
+    \ket{\psi}_I =\ket{\alpha, t_0, t} = \sum_n c_n(t)\ket{n}
+\end{equation}
+
+We can now write our time-dependent Schr\"odinger equation as
+\begin{equation}
+    \imath \hbar \dot{c}_n(t) = \sum_m W_{nm} c_m(t) e^{\imath \omega_{mn} t}
+\end{equation}
+where
+\begin{equation}
+    W_{nm} = \mel{n}{W_I}{m} = \mel{n}{e^{\imath H_0 t / \hbar}WV e^{- \imath H_0 t/ \hbar}}{m} = \mel{n}{W}{m} e^{\imath (\omega_n - \omega_m) t}
+\end{equation}
+and $ \omega_{nm} = \omega_n - \omega_m $.
+
+This formulation gives a set of differential equations which are typically not solvable. However, we can see that this works by considering solvable systems.
+\begin{ex}
+    Consider a two-state system with states $\ket{1} $ and $\ket{2} $:
+    \begin{equation}
+        H_0 = E_1\ket{1}\bra{1} + E_2\ket{2}\bra{2}
+    \end{equation}
+    We can introduce some interaction potential
+    \begin{equation}
+        V(t) = \gamma e^{\imath \omega t}\ket{1}\bra{2} + \gamma e^{- \imath \omega t}\ket{2}\bra{1}
+    \end{equation}
+    Therefore, we can write the complete Hamiltonian as
+    \begin{equation}
+        H = \mqty[E_1 & \gamma e^{\imath \omega t} \\ \gamma e^{- \imath \omega t} & E_2]
+    \end{equation}
+    Using the equations we constructed above, we find the following set of differential equations:
+    \begin{align}
+        \imath \hbar \dot{c}_1 &= \gamma e^{\imath t (\omega + \omega_{12})} c_2(t) \\
+        \imath \hbar \dot{c}_2 &= \gamma e^{- \imath t (\omega + \omega_{12})} c_1(t)
+    \end{align}
+    Let's suppose that at $ t = 0 $, $ c_1(0) = 1 $ and $ c_2(0) = 0 $. This is a statement that the system starts entirely in the $\ket{1} $ state. In the second homework problem, we will show that
+    \begin{equation}
+        \abs{c_2}^2 = \frac{\gamma^2}{\hbar^2} \frac{1}{\left[ \frac{\gamma^2}{\hbar^2} + \frac{(\omega + \omega_{12})^2}{4} \right]} \sin[2]( \left( \frac{\gamma^2}{\hbar^2} + \frac{(\omega + \omega_{12})^2}{4} \right)^{1/2} t)
+    \end{equation}
+    Additionally, we know that $ \abs{c_1}^2 + \abs{c_2}^2 = 1 $, so knowing $ \abs{c_2}^2 $. If we look at the $ \sin[2](\cdots) $ portion, we see that the maximal probability of the state occurs when $ \omega = \omega_2 - \omega_1 $, the ``resonance''. In the first oscillation, the state of the system goes from $\ket{1} $ to $\ket{2} $. We can call this absorption. In the ``dip'' in the $ \sin[2](\cdots) $, the state is oscillating back to $\ket{1} $, and we could call this emission. The system is absorbing and emitting energy in a cyclical fashion.
+
+    If we study the maximum value of $ \abs{c_2(t)}^2 $ as a function of $ \omega $, we can see that it will peak at $ \omega_{21} $ and die off as $ \omega \to 0 $ and $ \omega \to \infty $.
+\end{ex}
+
+Let's now look at an implementation of this model using spins.
+\begin{ex}
+    \begin{equation}
+        H_0 = - \va{\mu}_e \vdot \va{B}_0
+    \end{equation}
+    where $ \abs{mu}_e = \frac{e \hbar}{2mc} $ and $ \va{B}_0 - B_0 \vu{e}_z $. This is just the Hamiltonian of an electron in a magnetic field. Let's now add a transverse field which is oscillating in the $ z $-plane:
+    \begin{equation}
+        V(t) = - \va{\mu} \vdot \Delta \va{B}
+    \end{equation}
+    where $ \va{\mu} = \frac{e}{mc} \va{S} $ and  $ \Delta \va{B} = B_1 \left[ \vu{e}_x \cos(\omega t) + \vu{e}_y \sin(\omega t) \right] $.
+
+    Therefore,
+    \begin{equation}
+        V(t) = - \frac{e \hbar B_1}{2 m c} \mqty[0& \cos(\omega t) + \imath \sin(\omega t) \\ \cos(\omega t) - \imath \sin(\omega t) & 0]
+    \end{equation}
+    In analogy to the toy model above, we can define $ \gamma \equiv \frac{e \hbar}{2mc} $.
+    The resonant frequency is then $ \omega_{21} = \frac{e \hbar}{mc} B_0 $. This is the general idea behind MRI technology, where the resonant frequency is typically tuned to that of water. Water is chosen because being able to see the differences in concentration of water can very precisely determine the type of tissue.
+\end{ex}
+
+We just found exact solutions for these systems. However, this is not always possible. We need to find a way to approximate these solutions similar to the way we constructed time-independent perturbation theory:
+\begin{equation}
+    c_n(t) = c_n^{(0)} + c_n^{(1)} + c_n^{(2)} + \cdots
+\end{equation}
+scaling in powers of $ \lambda $. We can write our system of differential equations as
+\begin{equation}
+    \imath \hbar \mqty[\dot{c}_1 \\ \vdots \\ \dot{c}_n] = \mqty[V_{11} & V_{12} e^{\imath \omega_{12} t} & \cdots \\ \vdots & \vdots \\ \dots & \dots & \dots] \mqty[c_1 \\ \vdots \\ c_n]
+\end{equation}
+We assume we know the exact state at $ t = 0 $:
+\begin{equation}
+    c_i(t) = \delta_{i,(n=1)}
+\end{equation}
+such that
+\begin{equation}
+    c_{(n=1)}^{(0)} = 1
+\end{equation}
+At leading order, only $ c_1 $ is non-vanishing, and
+\begin{equation}
+    \imath \hbar \dot{c}_1^{(1)} = V_{11} \underbrace{c_1^{(0)}}_{1}
+\end{equation}
+
+Let's now continue to solve the system using the time evolution operator. We can again write our states as
+\begin{equation}
+    \ket{\alpha, t_0; t}_I = U_I(t, t_0)\ket{\alpha, t_0 ; t_0 }
+\end{equation}
+and the Schr\"odinger equation tells us that
+\begin{equation}
+    \imath \hbar \pdv{t}\ket{\psi}_I = V_I(t)\ket{\psi}_I
+\end{equation}
+where $\ket{\psi}_I =\ket{\alpha, t_0; t}_I $. Plugging this in, we really want to solve
+\begin{equation}
+    \imath \hbar \pdv{t} U_I = V_I(t) U_I(t)
+\end{equation}
+Additionally, $ U(t_0, t_0) = 1 $. We can formally solve this equation as
+\begin{equation}
+    U_I(t, t_0) = \frac{1}{\imath \hbar} \int_{t_0}^{t} \dd{t'} V_I(t') U_I(t', t_0)
+\end{equation}
+This is known as an integral equation. We obviously can't solve it directly, since we don't know $ U_I $, so we can approximate the solution iteratively. First, expand $ U_I $:
+\begin{equation}
+    U_I = U_I^{(0)} + U_I^{(1)} + U_I^{(2)} + \cdots
+\end{equation}
+\begin{equation}
+    U_I^{(1)} = \frac{1}{\imath \hbar} \int_{t_0}^{t} \dd{t'} V_I(t') \underbrace{U_I^{(0)}}_{1}
+\end{equation}
+To next order, we write
+\begin{equation}
+    U_{I}^{(2)} = \frac{1}{\imath \hbar} \int_{t_0}^{t} \dd{t'} U_I^{(1)}(t', t_0) V_I(t') = \frac{1}{\imath \hbar} \int_{t_0}^{t} \dd{t'} \frac{1}{\imath \hbar} V_I(t') \int_{t_0}^{t'} \dd{t''} V_I(t'')
+\end{equation}
+We could continue this to whatever arbitrary order we want. There is a way of writing down the exact formal solution:
+\begin{equation}
+    U_I = T e^{\frac{\imath}{\hbar} \int_{t_0}^{t} V_I(t') \dd{t'}}
+\end{equation}
+Suppose we had a matrix that depends on $ t $ and we exponentiate it:
+\begin{equation}
+    e^{\int A(t) \dd{t}}
+\end{equation}
+In the past, we wrote
+\begin{equation}
+    e^{A} = \sum_n \frac{1}{n!} A^n
+\end{equation}
+but we have no guarantee that $ \comm{A(t)}{A(t')} = 0 $ (and in general, these do not commute).
+The $ T $ is the ``time-ordering'' operator. We ran out of time in the lecture, but we will quickly discuss this in the next lecture.
+
+\end{document}

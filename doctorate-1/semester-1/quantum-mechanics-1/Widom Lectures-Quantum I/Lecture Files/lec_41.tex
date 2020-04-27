@@ -1,0 +1,138 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{41}{Monday, November 25, 2019}{Particles in Electromagnetic Fields}
+
+\section{Particles in Electromagnetic Fields}
+\label{sec:particles_in_electromagnetic_fields}
+
+Suppose we begin with a magnetic field in the $ + \vu{z} $ direction:
+\begin{equation}
+    \va{B} = B \vu{e}_z = \curl{ \va{A}}
+\end{equation}
+since from electromagnetism, we know that the magnetic field can be described as the curl of a vector potential, $ \va{A} $.
+
+\paragraph{Classical Electrodynamics}
+
+We know that Classically, the force on the particle will come from the Lorentz force law:
+\begin{equation}
+    \va{f} = q \va{v} \cross \va{B}
+\end{equation}
+and it will cause charged particles to move in circular paths (assuming they are already moving with some initial velocity). The radius of these orbits will be proportional to $ \sqrt{E} $, the square root of the particle's energy, and it will orbit with a frequency
+\begin{equation}
+    \omega_c = - \frac{qB}{m}
+\end{equation}
+known as the cyclotron frequency, for a particle with charge $ q < 0 $ and mass $ m $. Note that the frequency is always positive so the negative sign will not be present for positively charged particles.
+
+The Classical Hamiltonian can be written as
+\begin{equation}
+    \vb{H} = \frac{1}{2m} \left[ \va{p} - q \va{A} \right]^2
+\end{equation}
+since we already know the equations of motion the particle must follow:
+\begin{equation}
+    \dot{ \va{r}} = \pdv{H}{ \va{p}} = \frac{ \va{p}}{m}
+\end{equation}
+and
+\begin{equation}
+    \dot{ \va{p}} = - \pdv{H}{ \va{r}} = q \va{v} \cross \va{B} = \va{f}
+\end{equation}
+
+Additionally, we know that the electromagnetic fields are gauge invariant, and particularly we can add any curl-less vector field to the vector potential without changing the resultant fields. In general, we can write a curl-less vector field as $ \grad{\chi} $ so
+\begin{equation}
+    \va{A} \to \va{A} + \grad{\chi}
+\end{equation}
+is a valid gauge-invariant transformation.
+
+\paragraph{Quantum Electrodynamics}
+
+In the quantum case, we simply promote everything in the Classical Hamiltonian to operators, including the previously discussed gauge invariance:
+\begin{equation}
+    \vu{H} \to \vu{H}' = \frac{1}{2m} \left[ \va{P} - q \va{A} - q \grad{\chi} \right]^2
+\end{equation}
+such that
+\begin{equation}
+    \vu{H}\ket{\psi} = E\ket{\psi}
+\end{equation}
+and
+\begin{equation}
+    \vu{H}'\ket{\psi'} = E\ket{\psi'}
+\end{equation}
+where $\ket{\psi'} = e^{\imath q \frac{\chi}{\hbar}}\ket{\psi} $ since the momentum operator acting on this wave function will bring down the necessary derivative of $ \chi $ to cancel the gradient introduced in the gauge invariance condition.
+
+We will examine this system under two different but equivalent gauges and then interpret the results. Most importantly, we want to find a complete set of commuting observables (CSCO) which can describe this system and tell us how the degeneracies in quantum states scale as we look at different size scales.
+
+\subsection{The Coulomb Gauge}
+\label{sub:the_coulomb_gauge}
+
+This gauge is defined from the condition that $ \div{ \va{A}} = 0 $. Using this, we can see that the appropriate vector potential is
+\begin{equation}
+    \va{A} = - \frac{1}{2} \va{r} \cross \va{B} = \frac{1}{2} B \left( x \vu{e}_y - y \vu{e}_x \right)
+\end{equation}
+so that the Hamiltonian is now
+\begin{equation}
+    \vu{H} = \frac{ \vu{P}_x^2 + \vu{P}_y^2}{2m} - \underbrace{\frac{qB}{2m} \left( \vu{X} \vu{P}_y - \vu{Y} \vu{P}_x \right)}_{\frac{\omega_c}{2} \vu{L}_z} + \underbrace{\frac{q^2 B^2}{8m}}_{\frac{1}{2} m \left( \frac{\omega_c}{2} \right)^2}
+ \left( \vu{X}^2 + \vu{Y}^2 \right)
+\end{equation}
+Here, we ignore any $ z $-dependence because of the symmetry present in the system, and if we included it, we would just find that the particle behaves like a free particle in that direction.
+
+We can now conveniently write out the Hamiltonian using the circularized ladder operators which we discussed in the previous lecture:
+\begin{equation}
+    \vu{H} = \left( \vu{N}_d + \vu{N}_g + 1 \right) \hbar \frac{\omega_c}{2} + \left( \vu{N}_d - \vu{N}_g \right) \hbar \frac{\omega_c}{2} = \left( \vu{N}_d + \frac{1}{2} \right) \hbar \omega_c
+\end{equation}
+Interestingly, our solution resembles a Quantum Harmonic Oscillator with the cyclotron frequency, but only the right-directed number of quantized turns has any effect on the energy level. If we write our wave function:
+\begin{equation}
+    \ket{\psi_{n_d n_g}} = \frac{1}{\sqrt{n_d! n_g!}} \left( \vu{a}_d^\dagger \right)^{n_d} \left( \vu{a}_g^\dagger \right)^{n_g}\ket{00}
+\end{equation}
+where
+\begin{equation}
+    \bra{ \va{r}}\ket{00} = \frac{\kappa}{\sqrt{\pi}} e^{- \frac{\kappa^2 (x^2 + y^2)}{2}},\quad \kappa^2 = \frac{qB}{2 \hbar}
+\end{equation}
+we can see that there is a clear degeneracy in energy states for any wave function since the energy is independent of the second quantum number, $ n_g $. This means $ n_g $ is not a ``good'' quantum number. Before we complete this set of observables (to create a good set of quantum numbers), it is important to note that the energy levels are
+\begin{equation}
+    E_{n_d n_g} = \left( n_d + \frac{1}{2} \right) \hbar \omega_c
+\end{equation}
+and the $\kappa$ factor used in the wave function can be thought of as a length scale
+\begin{equation}
+    \frac{1}{\kappa} = \sqrt{\frac{2 \hbar}{qB}}
+\end{equation}
+which we refer to as the ``magnetic length''. $ \kappa^2 $ is proportional to the area occupied by each orbit, and this is the starting point for the derivation of the Landau Levels.
+
+To complete our set of commuting observables, note that the angular momentum in the $ \vu{z} $-direction commutes with the Hamiltonian, so our CSCO is $ \{ \vu{H}, \vu{L}_z\} $.To quantify the degeneracy, we can imagine that each orbit of a particular energy level occupies some area, and a box with side length $ \mathcal{L}_x $ and $ \mathcal{L}_y $ can contain a specific number of states of a particular energy. In fact, the degeneracy should be proportional to the area of this box. To better understand why this is true, we will look at another gauge, known as the Landau Gauge:
+
+\subsection{The Landau Gauge}
+\label{sub:the_landau_gauge}
+
+In this gauge, we define $ \va{A} = Bx \vu{y} $. Note that we maintain translation invariance in the $ \vu{y} $-direction:
+\begin{equation}
+    \psi(x,y) = e^{\imath k y} \varphi(x)
+\end{equation}
+We can write out the Hamiltonian to see how it looks in this gauge:
+\begin{equation}
+    \vu{H} \psi(x) = \cancel{e^{\imath ky}} \frac{1}{2m} \left\{ \vu{P}_x^2 + \hbar k - qB \vu{X} \right\} \varphi(x) = E \psi = E \cancel{e^{\imath k y}} \varphi(x)
+\end{equation}
+so
+\begin{equation}
+    \vu{H}_x \varphi(x) = E \varphi(x)
+\end{equation}
+where
+\begin{equation}
+    \vu{H}_x = \frac{1}{2m} \vu{P}_x^2 + \frac{1}{2} m \omega^2_c \left( \vu{X} - \underbrace{\frac{\hbar k}{m \omega_c}}_{X^0} \right)^2
+\end{equation}
+This is simply a 1D Quantum Harmonic Oscillator centered at $ X^0 $. Now, instead of circles, our states are plane waves in the $ \vu{y} $-direction. If we suppose that, for the box described above, we must have waves which match a periodic boundary condition, we find that the allowed values of $ k $ are quantized:
+\begin{equation}
+    k = \frac{2 \pi}{\mathcal{L}_y} N
+\end{equation}
+We also want to limit the position of the QHO to be inside the box, so $ 0 \leq X^0_k \leq \mathcal{L}_x $. Therefore, $ 0 \leq N \leq \frac{m \omega_c}{2 \pi \hbar} \mathcal{L}_x \mathcal{L}_y $, where $ N $ is the degeneracy of the state. We see here that
+\begin{equation}
+    N \propto \frac{qB}{h} \times \mathcal{A}
+\end{equation}
+where $ \mathcal{A} $ is the area of the box, so the degeneracy is proportional to the magnetic flux, $ \Phi = B\mathcal{A} \times \Phi_0 $ where $ \Phi_0 = \frac{h}{q} $ is called the flux quantum.
+
+\begin{note}{Note}
+    There is a relationship between the wave functions in these gauges:
+    \begin{equation}
+        \psi_{n_d n_g}(x,y) = \int \dd{k} e^{- \frac{k^2}{2 \kappa^2}} \psi_{k n_x}(x,y)
+    \end{equation}
+\end{note}
+
+
+\end{document}

@@ -1,0 +1,106 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{4}{Fri Aug 30 2019}{Laplace Equation}
+
+\section{Review}%
+\label{sec:review}
+
+Dirichlet Problem:
+
+\begin{equation}
+    G_D(x,x') = 0
+\end{equation}
+
+\begin{equation}
+     \Phi(x) = \frac{1}{4\pi\epsilon_0}\int G_D(x,x')\rho(x') + \frac{1}{4\pi}\oint_{\Sigma}\frac{\partial G_D}{\partial n'_+}da'\Phi(x')
+\end{equation}
+
+\begin{equation}
+   G_D(x,x') = G_D(x', x)
+\end{equation}
+
+Neumann Problem:
+
+We can't impose $\frac{\partial G_N}{\partial n_-}\bigg|_\Sigma = 0$, so we will impose $\frac{\partial G_N}{\partial n_-}\bigg|_\Sigma = -\frac{4\pi}{\text{Area}(\Sigma)}$:
+
+\begin{equation}
+   \Phi(x) = \frac{1}{4\pi\epsilon_0}\int G_N(x,x')\rho(x')+\langle\Phi\rangle_\Sigma + \oint_\Sigma G_N(x,x')\frac{\partial\Phi}{\partial n'_-} da'
+\end{equation}
+
+\begin{equation}
+   G_N(x,x') = G_N(x', x)
+\end{equation}
+
+If we only have conductors raised to potentials $\Phi_i$ (constants), then the charge in the $j$th conductor becomes:
+
+\begin{align}
+Q_j &= -\frac{1}{4\pi}\oint_{\Sigma_j}\oint_{\Sigma_i}\frac{\partial^2 G}{\partial n_+\partial n'_+}dada'\Phi_i\\ &=\sum_j C_{ji}\Phi_i
+\end{align}
+
+\begin{remark}
+For $\nabla^2\Phi = 0$, the potential satisfies this equation at charge free regions. In charge free regions, $\Phi(x)$ is given by an average over any sphere around $x$ as long as the sphere is in the charge free region:
+\begin{equation}
+    \Phi(x) = \frac{1}{4\pi b^2}\int_{S^2}\Phi(x+b\hat{\xi})da
+\end{equation}
+
+where $b$ is the radius of the sphere and $\hat{\xi}$ is the normal outwards. $da = b^2 d\Omega$ and
+
+\begin{equation}
+   \frac{\partial}{\partial b}\langle\Phi\rangle_{S^2_b} = \frac{\partial}{\partial b}\frac{1}{4\pi}\oint\Phi(x+b\hat{\xi})d\Omega = \frac{1}{4\pi}\oint\nabla\Phi\cdot\hat{\xi}d\Omega = \frac{1}{4\pi}\int_{V}\nabla\cdot(\nabla\Phi) d^2x = 0
+\end{equation}
+
+since $\nabla\cdot(\nabla\Phi) = 0$. This implies $\Phi$ has no max or min apart from the charged regions or boundaries. Suppose there was a maximum at $x_*$. Take a small sphere around $x_*$ and average it, all the values on the sphere will be less than $\Phi(x_*)$, so the average will be less than the ``true'' value. Therefore, there are no true stable equilibrium points in electrostatics.
+\end{remark}
+
+\section{Energy Considerations}%
+\label{sec:energy_considerations}
+
+In free space, if we have point charges,
+\begin{equation}
+   W = \frac{1}{2}\sum_{i\neq j}\frac{1}{4\pi\epsilon_0}\frac{q_i q_j}{|x_i-x_j|}
+\end{equation}
+
+(Jackson uses ``$W$'' for energy). This is like the cost of bringing in charges from infinity. Alternatively, $W = \frac{1}{2}\epsilon\int_\text{everywhere} E^2 d^3x$ for continuous charge distributions (for point charges, you get infinities).
+
+Let us derive $W=\frac{1}{2}\epsilon_0\int E^2 d^3x$:
+
+The work to add an infinitesimal charge $\delta\rho(x)$ to a
+continuous distribution is
+
+\begin{equation}
+   \delta W = \int_\Omega\Phi(x)\delta\rho(x)d^3x
+\end{equation}
+
+\begin{equation}
+    \nabla\cdot\delta E = \delta\rho/\epsilon_0
+\end{equation}
+
+\begin{align}
+    \delta W &= \epsilon_0\int_{\Omega}\Phi(x)\nabla\cdot(\delta E) d^3x = \epsilon_0\int\nabla\cdot[\Phi(x)\delta E]d^3x - \epsilon_0\int_\Omega\nabla\Phi\cdot\delta E d^3x\\
+    &=\epsilon_0\oint_\Sigma\Phi(x)\delta E\cdot d\vec{a}_- + \epsilon\int_\Omega(-\nabla\Phi)\cdot\delta E d^3x\\
+    &= \epsilon_0\sum_i\left(\oint_{\Sigma_i}\delta E\cdot da_-\right)\Phi_i + \epsilon_0\int E\cdot \delta E d^3x
+\end{align}
+
+\begin{equation}
+    \epsilon_0\sum_i\left(\oint_{\Sigma_i}\delta E\cdot da_-\right)\Phi_i = 0,
+\end{equation}
+so
+\begin{equation}
+    \delta W = \epsilon\int_\Omega E\cdot \delta E d^3x = \delta\left(\frac{\epsilon_0}{2}\int_\Omega E^2 d^3x\right)
+\end{equation}
+
+The $1/2$ here comes from pulling the $\delta$ out of the integral.
+
+So $W = \frac{\epsilon_0}{2}\int_\Omega E^2 d^3x + W_0$. $W\to 0$ as $|E|\to 0$ so $W_0\equiv 0$.
+
+In the presence of conductors,
+
+\begin{equation}
+   W = \frac{1}{2}\int_\Omega\Phi\rho d^3x + \frac{1}{2}\sum^N_{k=1} Q_k\Phi_k
+\end{equation}
+
+\begin{remark}
+$\delta W = \sum_i(C^{-1})_{ik}Q_k\delta Q_i$, therefore $\delta W = \delta\left(\frac{1}{2}\sum Q_i(C^{-1})_{ik}Q_k\right)$.
+\end{remark}
+
+\end{document}

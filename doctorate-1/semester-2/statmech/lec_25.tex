@@ -1,0 +1,124 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{25}{Monday, March 23, 2020}{The Canonical State}
+
+\section{The Canonical State}
+\label{sec:the_canonical_state}
+
+Is the canonical distribution stable under the time-evolution of Hamiltonian dynamics? We can answer yes because of Liouville's Theorem.
+
+\begin{align}
+    \pdv{t}P(p,q,t) &= - \sum_{j=1}^{3N} \left( \pdv{P}{q_j}\underbrace{\dot{q}_j}_{\pdv{H}{p_j}} + \pdv{P}{p_j}\underbrace{\dot{p}_j}_{- \pdv{H}{q_j}} \right) \\
+    &= - \sum_{j=1}^{3N} \left( \pdv{P}{q_j} \pdv{H}{p_j} - \pdv{P}{p_j} \pdv{H}{q_j} \right) \\
+    &= - \pb{P}{H}
+\end{align}
+
+This is a nontrivial statement which follows from Liouville's theorem. We will not prove it. An important property of the Poisson bracket in the last line is that
+\begin{equation}
+    \pb{A}{f(A)} = 0
+\end{equation}
+and the canonical state is just a function of $ H $, so
+\begin{equation}
+    \pdv{P_{\text{can}}}{t} = - \pb{P_{\text{can}}}{H} \propto - \pb{e^{- \beta H}}{H} = 0
+\end{equation}
+
+Therefore, the canonical state does not change under Hamiltonian dynamics.
+
+\subsection{Energy Fluctuations}
+\label{sub:energy_fluctuations}
+
+Recall $ P(E) = \frac{1}{Z} \Omega(E) e^{- \beta E} $ which increases strongly with $ E $. Typically $ \Omega(E) \sim E^f $ with $ f \sim N $. Where does $ P(E) $ have its maximum?
+
+\begin{equation}
+    0 = \pdv{E}\ln P(E) = \pdv{E}\left[ - \ln Z + \ln \Omega(E) - \beta E \right] = \frac{f}{E} - \beta
+\end{equation}
+so
+\begin{equation}
+    E_{\text{max}} = \frac{f}{\beta} = f k_B T
+\end{equation}
+
+Recall for the ideal gas, $ f = \frac{3}{2} N $.
+
+Next, how wide is the peak?
+
+\begin{equation}
+    - \frac{1}{\sigma^2_E} = \eval{\pdv[2]{\ln P}{E}}_{E \to E_{\text{max}}} = - \frac{f}{E_{max}^2} = - \frac{1}{f(k_B T)^2}
+\end{equation}
+so
+\begin{equation}
+    \sigma_E = \sqrt{f} k_B T
+\end{equation}
+so the coefficient of variation is
+\begin{equation}
+    \frac{\sigma_E}{E_{\text{max}}} = \frac{\sqrt{f} k_B T}{f k_B T} = \frac{1}{\sqrt{f}} \sim \frac{1}{\sqrt{N}}
+\end{equation}
+so again, the energy fluctuations scale such that at large $ N $, they are small compared to the overall energy of the state.
+
+
+Finally, let's link this to the Helmholtz free energy.
+
+\begin{align}
+    \ln P(E) &= - \beta E + \ln \Omega(E) - \ln Z \\
+    \ln Z &= - \beta E + \ln \Omega(E) - \ln P(E) \\
+    &= - \beta(\underbrace{E - TS}_{\text{Scales with } N}) - \overbrace{\ln \underbrace{P(E)}_{\text{width } \sim \sqrt{E} \text{, height } \sim \frac{1}{\sqrt{E}}}}^{\text{scales with } \ln{E} \sim \ln{N}}
+\end{align}
+Therefore, for large $ N $,
+\begin{equation}
+    - k_B T \ln Z(T,V,N) = E - TS
+\end{equation}
+The right-hand side would be the Helmholtz free energy if it was expressed in $ T $, $ V $, and $ N $, and these are exactly the variables of $ Z(T,V,N) $, so
+\begin{equation}
+    F(T,V,N) = - k_B T \ln Z(T,V,N)
+\end{equation}
+This is another super important equation in statistical mechanics. Alternatively we could write
+\begin{equation}
+    e^{- \beta F} = Z = \int \dd{E} \Omega(E) e^{- \beta E}
+\end{equation}
+
+We can actually do even better than this, but to do it, we need a small excursion:
+
+\begin{note}{Excursion: Saddle Point Evaluation of Integrals}
+    Here's a fun trick to approximate integrals. Suppose we have a function $ f(x) $ that has a single maximum, and perhaps around that maximum we can Taylor expand into a parabola at $ x_m $. Now suppose we want to integrate
+    \begin{equation}
+        I_N := \int \dd{x} e^{N f(x)}
+    \end{equation}
+    approximately for large $ N $. As long as $ f(x) $ has a single peak, we can Taylor expand $ f(x) $ around the maximum and replace $ f(x) $ in the integral by that Taylor expansion. Naively, the function can diverge from that parabola arbitrarily far away from the point of expansion, but it turns out this doesn't matter:
+    \begin{align}
+        I_N &\approx \int \dd{x} e^{N \left[ \underbrace{f(x_m)}_{\text{constant}} \underbrace{- \frac{1}{2} \abs{f''(x_m)} (x - x_m)^2}_{\text{Gaussian}} + \ldots \right]} \\
+        &= e^{N f(x_m)} \sqrt{\frac{2 \pi}{N \abs{f''(x_m)}}} \cdot \ldots
+    \end{align}
+    \begin{equation}
+        \ln I_n = N f(x_m) + \frac{1}{2} \ln \frac{2 \pi}{N \abs{f''(x_m)}} + \cdots
+    \end{equation}
+    and
+    \begin{equation}
+        \lim_{N \to \infty} \left( \frac{1}{N} \ln I_N \right) = f(x_m) = \max_x f(x)
+    \end{equation}
+    We don't actually have to do any integral at all, we just need to find the maximum!
+\end{note}
+
+Now back to the main problem,
+\begin{align}
+    e^{- \beta F} = Z &= \int \dd{E} \Omega(E) e^{- \beta E} \\
+    &= \int \dd{E} e^{S(E) / k_B} e^{- \beta E} \\
+    &= \int \dd{E} e^{- \beta (E - TS(E))} \\
+    &= N \int \dd{e} e^{N(- \beta (e - T s(e)))}
+\end{align}
+What is
+\begin{equation}
+    - \beta f = \lim_{N \to \infty} \left[ \frac{1}{N} \ln e^{- \beta F} \right]?
+\end{equation}
+where $ f $ is the specific free energy $ F/N $.
+
+
+From our saddle point evaluation, we can see that we just need the to find
+\begin{equation}
+    - \beta f = \max_{e} \left\{ - \beta (e - T s(e)) \right\} = - \beta \min_e \left\{ e - T s(e) \right\}
+\end{equation}
+or
+\begin{equation}
+    f = \min_e \left\{ e - T s(e) \right\} = \min_{s} \left\{ e(s) - Ts \right\}
+\end{equation}
+The Legendre transform between the thermodynamic potentials $ s(e) $ and $ f(T) $ arises naturally as the saddle point approximation linking the partition functions $ \Omega(E) $ and $ Z(T) $!\ However, this is only valid for infinitely large systems, and this simple connection will not in general be true for finite systems, particularly computer simulations.
+
+\end{document}

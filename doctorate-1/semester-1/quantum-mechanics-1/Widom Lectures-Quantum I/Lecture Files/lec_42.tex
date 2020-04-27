@@ -1,0 +1,110 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{42}{Friday, November 22, 2019}{Rotations of Quantum States}
+
+\section{Rotations of Quantum States}
+\label{sec:rotations_of_quantum_states}
+
+Let's denote a rotation as a vector $ \va{\alpha} = \alpha \vu{u} $. We think of this rotation as an action $ \mathscr{R}_{ \vu{u}}(\alpha)\colon \va{v} \to \va{v}' = \mathscr{R} \va{v} $. This is what we call an active rotation; The coordinate system is fixed and there is a vector which is being actively transformed. We can combine rotations, and the order of operation doesn't matter as long as we rotate around the same axis:
+\begin{equation}
+    \mathscr{R}_u(\alpha) \mathscr{R}_u(\alpha') = \mathscr{R}_u(\alpha') \mathscr{R}_u(\alpha)
+\end{equation}
+However, this is generally not true for rotations by different axes:
+\begin{equation}
+    \mathscr{R}_u(\alpha) \mathscr{R}_{u'}(\alpha') \neq \mathscr{R}_{u'}(\alpha') \mathscr{R}_u(\alpha)
+\end{equation}
+
+How do rotations transform quantum states? First, let's consider a spinless particle. Suppose $ \psi( \va{r}) =\bra{ \va{r}}\ket{\psi} $. Let's define a rotation operator $ \mathscr{R}\colon \va{r} \to \va{r}' = \mathscr{R} \va{r} $. We are looking for a state such that $ \psi'( \va{r}') =\bra{ \va{r}'}\ket{\psi'} = \psi( \va{r}) $.
+\begin{equation}
+    \psi'( \mathscr{R} \va{r}) = \psi( \va{r}) \implies \psi'( \va{r}) = \psi( \mathscr{R}^{-1} \va{r})
+\end{equation}
+by replacing $ \mathscr{R} \va{r} \equiv \va{s} $ and then $ \va{s} \to \va{r} $. These are dummy variables, $ \va{r} $ can take any value since the coordinate system is standing still. What does the rotation do to the ket vector?
+\begin{equation}
+    \mathscr{R}\colon\ket{\psi} \to\ket{\psi'} = \vu{R}\ket{\psi}
+\end{equation}
+Therefore
+\begin{equation}
+    \bra{ \va{r}}( \vu{R}\ket{\psi}) =\bra{\mathscr{R}^{-1} \va{r}}\ket{\psi}
+\end{equation}
+This is a unitary operator, it is intended to maintain orthogonality of Classical vectors, but we can see it also preserves orthogonality of ket vectors.
+
+How do we connect these operators with angular momentum? Let's think of an infinitesimal rotation, $ \mathscr{R}_{ \vu{u}}(\dd{\alpha})\colon \va{r} \to \va{r}' \approx \va{r} + \dd{\alpha} \vu{u} \cross \va{r} + \cdots $. We can also look at what happens to the wave function:
+\begin{equation}
+    \psi \to \psi'( \va{r}) = \psi( \va{r} - \dd{\alpha} \vu{u} \cross \va{r}) 
+\end{equation}
+
+For example, lets take $ \vu{u} = \vu{e}_2 $:
+\begin{align}
+    \psi'(x,y,z) &= \psi(x + y \dd{\alpha}, y - x \dd{\alpha}, z) = \psi(x,y,z) + \dd{\alpha} \left[ y \partial_x \psi - x \partial_y \psi \right] \\
+    &= \left\{ \left( 1 - \frac{\imath}{\hbar} \dd{\alpha} \vu{L}_z \right) \psi \right\}(x,y,z) \\
+    &= \psi'(x,y,z)
+\end{align}
+so
+\begin{equation}
+    \vu{R}_{ \vu{u}}(\dd{\alpha}) = \vu{1} - \frac{\imath}{\hbar} \dd{\alpha} \vu{u} \vdot \vu{L}
+\end{equation}
+We can divide by $ \dd{\alpha} $ (Leibnitz hates this):
+\begin{equation}
+    \dv{ \vu{R}_{ \vu{u}}(\alpha)}{\alpha} = - \frac{\imath}{\hbar} \vu{u} \vdot \vu{L}
+\end{equation}
+so
+\begin{equation}
+    \vu{R}_{ \vu{u}}(\alpha) = e^{- \frac{\imath}{\hbar} \alpha \vu{u} \vdot \vu{L}}
+\end{equation}
+
+What if we weren't working with a spinless particle? In this case, we are talking about a spinor, a tensor product with the spin state. For spin-$ 1/2 $, $ \va{S} = \frac{\hbar}{2} \va{\sigma} $, in terms of the Pauli matrices.
+
+Define $ \vu{R}_{ \vu{u}}(\theta) = e^{- \frac{\imath}{\hbar} \theta \vu{u} \vdot \vu{S}} $. Therefore
+\begin{equation}
+    \vu{R}_{ \vu{u}}(\theta) = \cos(\frac{\theta}{2}) \vu{I} - \imath \vu{u} \vdot \va{\sigma} \sin(\frac{\theta}{2})
+\end{equation}
+
+What does this operator do to a spinor $\ket{\chi} $?
+
+\begin{equation}
+    \ket{\chi'} \equiv \vu{R}_{ \vu{u}}(\theta)\ket{\chi}
+\end{equation}
+where $\ket{\chi} $ could be $\ket{+}_z $, for example.
+
+Suppose we want to rotate this spinor into the x/y-plane. For such a rotation, the end-state will be defined by the angle $ \varphi $ in the plane, so $ \vu{u} = ( \cos(\varphi + \frac{\pi}{2}), \sin(\varphi + \frac{\pi}{2}), 0) $, so
+\begin{equation}
+    \vu{R} = \cos(\frac{\theta}{2}) \vu{I} + \frac{1}{2} \left( \sigma_+ e^{- \imath \varphi} - \sigma_- e^{\imath \varphi} \right) \sin(\frac{\theta}{2})
+\end{equation}
+so
+\begin{equation}
+    \vu{R}\ket{\chi} = \cos(\frac{\theta}{2})\ket{+}_z + e^{\imath \varphi} \sin(\frac{\theta}{2})\ket{-}_z
+\end{equation}
+Homework 3 told us how to interpret such a state: The end state has the property $ \va{S} = + \frac{\hbar}{2} $ in the direction $ \va{v}' $.
+
+Let's now look at the total angular momentum, $ \va{J} = \va{L} + \va{S} $ which acts in the Hilbert space $ \mathcal{H}_{ \va{r}} \otimes \mathcal{H}_S $. We now want introduce a rotation operator which is a combination of the spatial operator (from the spinless example) and the spin operator: $ \vu{R} = \vu{R}^{(r)} \otimes \vu{R}^{(s)} $, so
+\begin{equation}
+    \vu{R} = e^{- \frac{\imath}{\hbar} \theta \vu{u} \vdot \va{J}}
+\end{equation}
+
+One application of this is that if we have a angularly-invariant potential, the total angular momentum is conserved, since
+\begin{equation}
+    \vu{H} = \frac{ \vu{P}^2}{2m} + \vu{V}(\abs{ \va{R}})
+\end{equation}
+is scalar so
+\begin{equation}
+    \comm{ \va{J} \vdot \vu{u}}{ \vu{H}} = 0 \implies \pdv{t} \ev{ \va{J}} = 0
+\end{equation}
+
+Also, because $ \comm{ \vu{J}_{\pm}}{ \vu{H}} = 0 $, if $\ket{kjm} $ is an eigenstate of $ \vu{H} $,
+\begin{equation}
+    \vu{J}_{\pm}( \vu{H}\ket{kjm} = E_{kjm}\ket{kjm}) \implies \vu{H}( \vu{J}_{\pm}\ket{kjm}) = E_{kjm} ( \vu{J}_{\pm}\ket{kjm})
+\end{equation}
+so
+\begin{equation}
+    E_{kjm} = E_{kj}
+\end{equation}
+so there is a degeneracy in $ 2j + 1 $.
+
+Finally, for some scalar observable $ \vu{A} $,
+\begin{equation}
+    \bra{k'j'm'} \vu{A} \ket{kjm} =\bra{k'_{jj}} \vu{A}\ket{k_{jj}} \delta_{jj'} \delta_{mm'}
+\end{equation}
+is independent of $ m $.
+
+
+\end{document}

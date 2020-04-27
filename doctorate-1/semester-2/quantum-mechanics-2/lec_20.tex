@@ -1,0 +1,115 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{20}{Monday, March 02, 2020}{Electromagnetic Interactions, Continued}
+
+Last time, we said that, neglecting spin, gauge invariance restricts the Hamiltonian to have the form
+\begin{equation}
+    H = \frac{\left( \va{p} - \frac{e}{c} \va{A} \right)^2}{2m} + e \Phi
+\end{equation}
+
+Now we want to study how atoms interact with the electromagnetic field considering this Hamiltonian. Let's assume that the wavelength of the radiation is much larger than the Bohr radius ($ \lambda >> a_0 $) and use the multipole expansion with static fields. In electrostatics, the electric field only depends on the scalar potential $ \Phi $, so
+\begin{equation}
+    \Delta E_{E} \approx \int \abs{\psi(x)}^2 e \Phi(x) \dd[3]{x}
+\end{equation}
+since, to first order, $ \Delta E \approx\bra{nlm} H_I\ket{nlm} $. We can Taylor expand the perturbation as:
+\begin{equation}
+    e \Phi(\va{x}, 0) = e \Phi(\va{0}, 0) + e \va{x} \va{\partial} \Phi(\va{0}, 0) + e x_i x_j \partial_i \partial_j \Phi(\va{0}, 0) + \cdots
+\end{equation}
+We can ignore the first term, since in the static case, this is a constant, so it will not effect the Hamiltonian (as long as gravity is not involved):
+
+\begin{equation}
+    \Delta E_E = e\bra{nlm} \va{x}\ket{nlm} \left( - \va{E}(0) \right) =\bra{nlm} \va{d} \vdot \va{E}\ket{nlm}
+\end{equation}
+where $ \va{d} = - e \va{x} $. We know that both $ l $s can't be $ l=0 $, since $ \va{d} $ is an $ l=1 $ operator and $ 1 \otimes 0 = 1 $, which is orthogonal to $ l=0 $. The next term is
+\begin{equation}
+    e x_i x_j \partial_i \partial_j \Phi = (?)_{ij} \partial_i E_j
+\end{equation}
+$ x_i x_j $ is symmetric so it is not irreducible. We need to subtract the trace:
+\begin{align}
+    &= \left[ e \left( x_i x_j - \frac{1}{3} \delta_{ij} \va{x}^2 \right) + \frac{e}{3} (\delta_{ij} \va{x}^2) \right] \partial_i E_j \\
+    &= Q_{ij} \partial_i E_j + \frac{e}{3} \delta_{ij} \va{x}^2 \partial_i E_j
+\end{align}
+but the second term is $ \frac{e}{3} \va{x} \va{\partial} \vdot \va{E}(0) $ which vanishes due to Gauss' law. Therefore
+\begin{equation}
+    H = \int \va{d} \vdot E + Q_{ij} \partial_i E_j
+\end{equation}
+with $ Q_{ij} = e\left( x_i x_j - \frac{1}{3} \delta_{ij} \va{x}^2 \right) $ defining the quadrupole moment.
+
+Say we wanted to evaluate a particular quadrupole moment,  $\bra{nlm} Q_{xx}\ket{nlm} $. First, we need to convert this into spherical coordinates with indices $ -1, 0, 1 $:
+\begin{equation}
+    Q_{xx} = \vu{e}_x^a \vu{e}_x^b Q_{ab}
+\end{equation}
+where
+\begin{equation}
+    \vu{e}_1 = - \frac{1}{\sqrt{2}} \left[ \vu{e}_x + \imath \vu{e}_y \right]
+\end{equation}
+\begin{equation}
+    \vu{e}_{-1} = \frac{1}{\sqrt{2}} \left[ \vu{e}_x - \imath \vu{e}_y \right]
+\end{equation}
+We can solve for $ \vu{e}_x = \frac{1}{\sqrt{2}} \left[ - \vu{e}_1 + \vu{e}_{-1} \right] $. From here, we can (abuse notation to) say $ \vu{e}_x^1 = - \frac{1}{\sqrt{2}} $ and $ \vu{e}_x^{-1} = \frac{1}{\sqrt{2}} $. We can now write $ Q_{xx} $ as
+\begin{equation}
+    Q_{xx} = \left[- \frac{1}{\sqrt{2}} \right]^2 \left[ Q_{1,1} + Q_{-1,-1} - Q_{1,-1} - Q_{-1,1} \right]
+\end{equation}
+
+Each of the indices transform as $ l=1 $, and the indices are the $ m $'s. Therefore, $ Q_{11} $ transforms as $\ket{11;11} $, $ Q_{1,-1} $ transforms as $\ket{11;1,-1} $, and so on. We can therefore write
+\begin{equation}
+    \bra{nlm} Q_{xx}\ket{nlm} = \frac{1}{2}\bra{nlm} Q_{11} + Q_{-1,-1} - Q_{1,-1} - Q_{-1,1}\ket{nlm} 
+\end{equation}
+The first two terms must have vanishing expectation values, since $ m = 1 + 1 + m $ or $ m = -1 - 1 + m $ don't add up.
+We can write $ Q_{1,-1} $ as
+\begin{equation}
+    \ket{1,1;1,-1} = \sum_{J,M}\ket{JM}\bra{JM}\ket{1,1;1,-1}
+\end{equation}
+and $ Q_{-1,1} $ as
+\begin{equation}
+    \ket{1,-1;1,1} = \sum_{J,M}\ket{JM}\bra{JM}\ket{1,-1;1,1}
+\end{equation}
+From here, we could derive the nonzero matrix elements. However, we don't really need to do this entire decomposition, since we know that if $ Q_{ij} $ is symmetric and traceless, it must transform as $ l=2 $. Therefore the $ l=0 $ matrix element must be zero, since $ 2 \otimes 0 = 2 $ and $ l=1 \neq l=2 $ (the states are orthogonal). However, for $ l=1 $, we have $ 2 \otimes 1 = 3 \oplus 2 \oplus 1 \oplus 0 $, so there are nonzero matrix elements.
+
+
+Next, let's find what the magnetic part of the energy shift is.
+\begin{equation}
+    H = \frac{\left( \va{p} - \frac{e}{c} \va{A} \right)^2}{2m} \to - \frac{e}{2m} \left[ \va{p} \vdot \va{A} + \va{A} \vdot \va{p} \right] + \frac{e^2}{2mc^2} \va{A}^2
+\end{equation}
+The second term is repressed by an additional factor of $ \frac{1}{c} $, so let's only consider a non-relativistic case. If we expand $ \va{A} $, $ \va{A}(0) $ doesn't depend on $ x $, so it commutes with $ \va{p} $:
+\begin{equation}
+    H = - \frac{e}{2mc} \left[ 2 \va{p} \vdot \va{A}(0,t) + p_i x_j \partial_j A_i + (\va{x} \vdot \va{\partial})A_i p_i \right]
+\end{equation}
+
+The lowest order energy shift is proportional to the matrix elements
+\begin{equation}
+    \bra{nlm} \va{p} \vdot \va{A}(0,t)\ket{nlm}
+\end{equation}
+\begin{equation}
+    \ev{\va{p}} = \ev{\dv{\va{x}}{t}} = \frac{1}{\imath \hbar}\bra{E} \comm{x}{H}\ket{E} = \frac{1}{\imath \hbar} \left[ \ev{x} (E-E) \right] = 0
+\end{equation}
+so the first term in the multipole expansion vanishes.
+
+\begin{note}{A Short Diversion (Nugget)}
+    \begin{equation}
+        \bra{p} \comm{x}{p}\ket{p} = \imath \hbar\bra{p}\ket{p} = \imath \hbar
+    \end{equation}
+    but
+    \begin{equation}
+        \bra{p} \comm{x}{p}\ket{p} =\bra{p} xp - px\ket{p} =\bra{p} x\ket{p} (p-p) = 0
+    \end{equation}
+    Great.
+\end{note}
+
+The next term in the expansion is
+\begin{equation}
+    \bra{nlm} p_i x_j \partial_j A_i(0) + x_j \partial_j A_i(0) p_i\ket{nlm} =\bra{nlm} p_i x_j \partial_j A_i + x_j p_i \partial_j A_i\ket{nlm}
+\end{equation}
+
+We can write
+\begin{equation}
+    p_i x_j = x_j p_i - \comm{p_i}{x_j} = x_j p_i - \imath \hbar \delta_{ij} 
+\end{equation}
+so we can rewrite our operator as
+\begin{equation}
+    2 x_j p_i \partial_j A_i + \imath \hbar (\va{\partial} \vdot \va{A})
+\end{equation}
+When we're done, this needs to be proportional to the magnetic field, since we must be gauge invariant. We'll finish this in the next lecture.
+
+
+\end{document}

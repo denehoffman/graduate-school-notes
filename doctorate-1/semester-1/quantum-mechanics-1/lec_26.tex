@@ -1,0 +1,106 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{26}{Wednesday, October 16, 2019}{The Feynman Path Integral}
+\section{Feynman Path Integrals}
+\label{sec:feynman_path_integrals}
+
+Recall the double slit experiment. If we add up the possible paths the particle could take to get to a particular point, labeling the distance from the source to the slits as $ L_1 $ and $ L_2 $ respectively, priming the lengths after the slits, we find that at a point $ x $ on the screen, $ L_j+L_j'(x) \implies A_j(x) = e^{\imath(k(L_j+L_j'(x)))} $ and $ A(x) = \sum_{j} A_j(x) $. For a massive particle, we suppose we have a unitary time operator $ U(t) $:
+\begin{equation}
+    U(t)\colon \ket{\psi(t = 0)} \to \ket{\psi(t)} = U(t) \ket{\psi(0)}
+\end{equation}
+\begin{equation}
+    U(x,t;x_0) \equiv \bra{x} U(t) \ket{x_0}
+\end{equation}
+We define the ``propagator'' as:
+\begin{equation}
+    \psi(x,t) = \int \dd{x_0} U(x,t;x_0) \psi_0(x)
+\end{equation}
+since
+\begin{equation}
+    \bra{x} \left( \ket{\psi(t)} = \int \dd{x_0} U(t) \op{x_0} \ket{\psi(t=0)} \right)
+\end{equation}
+
+Let
+\begin{equation}
+    H = \frac{P^2}{2m} + V(x) \implies U(t) = e^{-\imath Ht/\hbar}
+\end{equation}
+Let us separate the time axis into $ N $ discrete portions ($ \epsilon = t/N $). Doing this, we can write the unitary time operator in the following form:
+\begin{equation}
+    U(t) = \overbrace{ e^{-\imath H \epsilon / \hbar} e^{-\imath \epsilon / \hbar} \cdots e^{-\imath H \epsilon / \hbar} }^{N}
+\end{equation}
+Next, we insert the identity:
+\begin{equation}
+    U(t) = \underbrace{e^{-\imath H \epsilon / \hbar} e^{-\imath \epsilon / \hbar}}_{I_{N-1}} =\overbrace{ \int\dd{x_{N-1}}\op{x_{N-1}} \cdots \underbrace{e^{-\imath H \epsilon / \hbar} e^{-\imath H \epsilon / \hbar}}_{I_1 = \int_{-\infty}^{\infty} \dd{x_1}\op{x_1}} }^{N}
+\end{equation}
+This is similar to a unitary history. We start at $ x_0 $. At time $ t=1 $ we could be anywhere in space, so we evolve unitarily in time from time $ 0 $ to $ 1 $, projecting into a generic state $ \ket{x_1} $. From here, we find
+\begin{equation}
+    \bra{x} U(t) \ket{x_0} = \int \prod_{j=1}^{N-1} \dd{x_j} \bra{x_j} U_{\epsilon} \ket{x_{j-1}}
+\end{equation}
+is the propagator. For each term in this product, what is
+\begin{equation}
+    \bra{x_j} e^{-\imath \left( \frac{P^2}{2m} + V \right)\epsilon/\hbar} \ket{x_{j-1}}?
+\end{equation}
+\begin{note}{Operator Exponentials}
+    \begin{equation}
+        e^{A} e^{B} = e^{A + B + \frac{1}{2} [A,B]}
+    \end{equation}
+\end{note}
+We can make use of this identity, supposing that, with a potential $ V $ and kinetic term $ K $,
+\begin{equation}
+    e^{V+K} = e^{V} e^{K} e^{- \frac{1}{2} [V,K]}
+\end{equation}
+To order $ \order{\epsilon^{1}} $ (we will later take $ \epsilon \to 0 $ we can ignore the last term:
+\begin{equation}
+    \bra{x_{j}} e^{-\imath H \epsilon / \hbar} \ket{x_{j-1}} = e^{- \frac{\imath}{\hbar} V(x_j)} \bra{x_j} e^{- \frac{\imath}{\hbar} \frac{P^2}{2m} \epsilon} \ket{x_{j-1}}
+\end{equation}
+We insert the identity (using now the momentum basis):
+\begin{equation}
+    e^{- \frac{\imath}{\hbar} V(x_j)} \bra{x_j}\left( I = \int \dd{p} \op{p} \right) e^{- \frac{\imath}{\hbar} \frac{P^2}{2m} \epsilon} \ket{x_{j-1}} = e^{- \frac{\imath}{\hbar} V(x_j)} \int \dd{p} \frac{1}{2 \pi \hbar} e^{\frac{\imath}{\hbar} \left[ p(x_j-x_{j-1}) - \frac{p^2\epsilon}{2m} \right]}
+\end{equation}
+Now we need to evaluate this integral. It looks like a Gaussian integral, and we can evaluate it by completing the square. Recall that if (in the exponent) we have the following form: $ a p^2 + b p = (\sqrt{a} p + \sqrt{c})^2-c $ where $ c = b^2 / 4a $. Let $ a = \epsilon/2m $ and $ b = (x_j-x_{j-1}) $
+\begin{equation}
+    \implies e^{\imath m(x_j-x_{j-1})^2 / (2 \epsilon \hbar) } \int \dd{p} e^{(\sqrt{a} p + \sqrt{c})^2}
+\end{equation}
+where the integral evaluates to
+\begin{equation}
+    \sqrt{\frac{m}{2\pi\imath\hbar\epsilon}}
+\end{equation}
+Finally, we can write out our short time propagator as
+\begin{equation}
+    U(x_j,\epsilon,x_{j-1}) = \sqrt{\frac{m}{2\pi\imath\hbar\epsilon}} e^{ \frac{\imath}{\hbar} L_j \epsilon}
+\end{equation}
+where
+\begin{equation}
+    L_j = \frac{1}{2} m \dot{x}_j^2 - V(x_j)
+\end{equation}
+where
+\begin{equation}
+    \dot{x}_j \equiv \frac{x_j-x_{j-1}}{\epsilon}
+\end{equation}
+which we will call the velocity, so we see that $ L_j $ is the Lagrangian.
+
+Now let's get rid of the $ \epsilon $ terms.
+\begin{equation}
+    U(x,t;x_0) = \int \mathscr{D}[x(t)] e^{\frac{\imath}{\hbar} \underbrace{\int_0^t \dd{t'} L(x(t'),\dot{x}(t'))}_{\text{action } S[x(t)] }}
+\end{equation}
+and
+\begin{equation}
+    \sqrt{\frac{m}{2\pi\imath\hbar\epsilon}} \to \sqrt{\frac{m}{2\pi\imath\hbar t}}
+\end{equation}
+where we are integrating over all possible positions at all possible times (which we've done) in a continuum of both (which we haven't).
+
+\begin{ex}
+    Free Particle ($ v=0 $):
+    Around the path of least action, the complex exponentials will not cancel against each other, and the dominant feature will result from this path. The path in general is $ x(t)\colon x(t=0)=x_0 $, $ x(t_{\text{final}}) = x $, $ x = x_0 + vt $ where $ v = \frac{x-x_0}{t} $.
+    \begin{equation}
+        U(x,t;x_0) = \sqrt{\cdots} e^{\frac{\imath}{\hbar} m(x-x_0)^2 / (2t)}
+    \end{equation}
+    Using this, we can work out the wave function at any position by
+    \begin{equation}
+        \psi(x,t) = \int \dd{x_0} U(x,t;x_0) \psi_0(x) U(x,t;x_0)
+    \end{equation}
+    As time goes to $ 0 $, the propagator becomes the $\delta$ function at $ x_0 $, and as time goes toward $ \infty $, the propagator spreads like a Gaussian.
+\end{ex}
+
+
+\end{document}

@@ -1,0 +1,99 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{31}{Monday, October 28, 2019}{Magnetic Fields Inside Conductors, Continued}
+
+From last lecture, we had
+\begin{equation}
+    \vec{J}_{C} = \sigma \vec{E}
+\end{equation}
+and for linear media,
+\begin{equation}
+    \vec{H} = \frac{1}{\mu} \vec{B}
+\end{equation}
+Recall that
+\begin{equation}
+    \curl{ \vec{H}} = \vec{J}
+\end{equation}
+so
+\begin{equation}
+    \laplacian{ \vec{B}} = \sigma \mu \partial_t \vec{B}
+\end{equation}
+
+In last lecture, there was a problem with the proposed boundary conditions. The following is a correction.
+
+Imagine with have a material above the $ z $-axis and free space below it. In the space below, suppose we have a magnetic field $ B_x(t) $ oriented in the $ + \hat{x} $ direction. The magnetic field must be continuous on both sides of the $ z $-axis boundary (it is). Now say the field is $ B_x(t) = B_0 \cos(\omega t) $, so $ \vec{B} = B_x(z,t) \hat{x} $. We want to solve our Laplace equation using this field.
+
+\begin{equation}
+    \vec{B} = \Re[B_x(z) e^{- \imath \omega t} ] \hat{x}
+\end{equation}
+Remember that the parallel $ H $-field is continuous, so
+\begin{equation}
+    \eval{\frac{1}{\mu_0} B_0 e^{- \imath \omega t}}_{z \to 0^-} = \eval{\frac{1}{\mu} B_x(z)}_{z \to 0^+} e^{- \imath \omega t}
+\end{equation}
+so
+\begin{equation}
+    \frac{1}{\mu} B_x(0^+) = \frac{1}{\mu_0} B_x(0^-) = \frac{1}{\mu_0} B_0
+\end{equation}
+so
+\begin{equation}
+    B_x(0^+) = \frac{\mu}{\mu_0} B_0
+\end{equation}
+Our Laplace equation is now
+\begin{equation}
+    \partial^2_z B_x e^{- \imath \omega t} = \sigma \mu (-\imath \omega) B_x(z) e^{- \imath \omega t}
+\end{equation}
+or
+\begin{equation}
+    \partial^2_z B_x + \sigma \mu \omega \imath B_x = 0
+\end{equation}
+Solving this, we assume $ B_x = e^{\imath k z} A $, so $ k^2 = \sigma \mu \omega \imath = \sigma \mu \omega e^{\frac{\pi}{2} \imath} $.
+If we define $ \delta = \sqrt{\frac{2}{\sigma \mu \omega}} $ as the ``skin depth,'' we find that
+\begin{equation}
+    B_x(z,t) = \Re{\frac{\mu}{\mu_0} B_0 e^{\imath \left[ \sqrt{\frac{\sigma \mu \omega}{2}} (1+\imath) \right]z} e^{- \imath \omega t}} = e^{- \frac{2}{\delta}} \cos(\omega t - \delta z)
+\end{equation}
+Therefore, $ \delta $ can be thought of as the characteristic length that the field goes into the conductor.
+
+We can use this field to find the electric field inside the conductor:
+\begin{equation}
+    E_y = \frac{\omega \delta}{\sqrt{2}} \frac{\mu}{\mu_0} B_0 \cos\left( \frac{2}{\delta} - \omega t + \frac{3 \pi}{4} \right)
+\end{equation}
+and eddy currents:
+\begin{equation}
+    J_y = \sigma E_y = \frac{\sigma \omega \delta}{\sqrt{2}} \frac{\mu}{\mu_0} B_0 \cos\left( \frac{2}{\delta} - \omega t + \frac{3 \pi}{4} \right)
+\end{equation}
+
+This next example will probably be in the homework:
+\begin{ex}
+    Suppose we have a sheet of thickness $ a $ with current running in opposite directions on opposite sides. This will induce a perpendicular current inside the material, and using Ampere's law, we can solve to find the magnetic field inside. Suppose we turn off the current suddenly. All of the energy is inside the region, an now now the $ H $ field, which was nonzero inside the material, will begin to decay (but it takes time, it won't decay immediately).
+\end{ex}
+
+\section{Superconductors}
+\label{sec:superconductors}
+
+A result of $ \vec{J} = \sigma \vec{E} $ is that $ m_e \partial_t \vec{v} = e^- \vec{E} -\underbrace{ \frac{m_e \vec{v}}{\tau}}_{\text{scattering}} $. The drift velocity can be thought of as $ \vec{v}_d = \frac{e^- \tau \vec{E}}{m_e} $. This leads to currents $ \vec{J} = n_e e^- \vec{v}_d = \frac{n_e (e^-)^2 \tau}{m_e} \vec{E} $.
+
+In superconductors, we imagine there are supercurrents $ \vec{J}_s $ which have no such scattering effect:
+\begin{equation}
+    \partial_t \vec{J}_s = \frac{n_s (e^-)^2}{m_e} \vec{E}
+\end{equation}
+where $ n_s + n_N = n_e $ where $ n_N $ are ``normal'' electrons. This scenario is not what really happens, but it is a good approximation (Drude model). Define $ \Lambda = \frac{n_s (e^-)^2}{m_e} $ and take the curl of the previous equation:
+\begin{equation}
+    \curl{\partial_t \vec{J}_s} = \Lambda \left( -\partial_t \vec{B} \right)
+\end{equation}
+so
+\begin{equation}
+    \partial_t \left[ \curl{ \vec{J}_s} + \Lambda \vec{B} \right] = \vec{0}
+\end{equation}
+
+London's assumption was that $ \vec{B} = \frac{1}{\Lambda} \curl{ \vec{J} s} $, and $ \curl{ \vec{B}} = \mu_0 \vec{J}_s $. Taking the curl of this, we find that
+\begin{equation}
+    - \laplacian{ \vec{B}} = \mu_0 \Lambda \vec{B}
+\end{equation}
+
+\begin{note}{Quote:}
+    ``Of course this theory is not right.''
+\end{note}
+
+However, it very close to a complete theory of superconductivity, as it predicts that magnetic fields will not penetrate the superconducting medium. The current theory is BCS theory.
+
+\end{document}

@@ -1,0 +1,87 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{13}{Mon Sep 23 2019}{Direct Construction of Green's Functions}
+\begin{quote}
+    ``YAMOCGF'' - Yet Another Method of Constructing Green's Functions
+\end{quote}
+Say we are looking at a region $\Omega$ with $\Psi\eval{\text{boundary}}\equiv 0$ is a general function. We are looking for Green's functions for the operator $(\nabla^2 + f(\vec{x}) + \lambda )$ where $\lambda$ is a given real number and $f$ is a function. Suppose we have solutions to this eigenvalue equation for special values of $\lambda_n$:
+\begin{equation}
+    (\nabla^2 + f)\Psi_n = -\lambda_n\Psi_n
+\end{equation}
+or
+\begin{equation}
+    (\nabla^2 + f + \lambda_n)\Psi_n = 0
+\end{equation}
+Note that $G(\vec{v},\vec{x}')$ is an inverse to our operator:
+\begin{equation}
+    (\nabla^2 + f + \lambda)\cdot G = -4\pi\delta(\vec{x}-\vec{x}')
+\end{equation}
+Let us construct the following object:
+\begin{equation}
+    \sum_{n=1}^{\infty} \frac{\Psi_n^*(\vec{x}')\Psi_n(\vec{x})}{\lambda-\lambda_n}
+\end{equation}
+\begin{theorem}
+    If we have a finite domain, the eigenvalue equation has an infinite number of eigenvalues with finite degeneracy such that $0<\lambda_1 < \lambda_2 < \ldots < \lambda_n\to\infty$ as $n\to\infty$. (If $\Omega$ becomes unbounded, this set becomes continuous and $\Psi_n(x)$'s are not normalizable in the usual sense.)
+    Moreover, $\Psi_n(x)$ form a complete basis.
+\end{theorem}
+
+Back to our object. Say $\lambda\neq \lambda_n$, $n=1,2,\ldots,\infty$. Let us try acting our operator on this sum:
+
+\begin{equation}
+    \sum_{n=1}^{\infty} (\nabla^2 + f + \lambda) \frac{\Psi_n(\vec{x}) \Psi_n^*(\vec{x}')}{\lambda-\lambda_n} = \sum_{n=1}^{\infty} \frac{(\lambda-\lambda_n)\Psi_n(\vec{x})\Psi_n^*(\vec{x}')}{\lambda-\lambda_n} = \sum_{n=1}^{\infty} \Psi_n(\vec{x})\Psi_n^*(\vec{x}') = \delta(\vec{x}-\vec{x}')
+\end{equation}
+So we have found that our Green's function is, in general,
+\begin{equation}
+    G = (-4\pi) \sum_{n=1}^{\infty} \frac{\Psi_n^*(\vec{x}')\Psi_n(\vec{x})}{\lambda-\lambda_n}
+\end{equation}
+\begin{ex}
+    Conducting Box:
+    Our box has sides $a$, $b$, $c$ corresponding to the lengths in $\vec{x}$x $\vec{y}$, and $\vec{z}$.
+
+    We know that the solutions to the Dirichlet conditions are
+    \begin{equation}
+        \sqrt{\frac{2}{a}}\sin\left( \frac{n\pi x}{a} \right) \sqrt{\frac{2}{b}}\sin\left( \frac{m\pi y}{b} \right) \sqrt{\frac{2}{c}}\sin\left( \frac{k\pi z}{c} \right)
+    \end{equation}
+    so
+    \begin{equation}
+        (-\nabla^2)\sqrt{\frac{8}{abc}}\sin\left( n\pi \frac{x}{a} \right) \sin\left( m\pi\frac{y}{b} \right) \sin\left( k\pi\frac{z}{c}\right) = \lambda_{nmk}\Psi_{nmk}
+    \end{equation}
+    Here we know that
+    \begin{equation}
+        \lambda_{nmk} = \left( \frac{n\pi}{a} \right)^2 \left( \frac{m\pi}{b} \right)^2\left( \frac{k\pi}{c} \right)^2
+    \end{equation}
+    So we can write out our general Green's function:
+    \begin{equation}
+        G = -4\pi \sum_{n,m,k=1}^{\infty} \left[ \frac{8}{abc} \right] \frac{\sin\left(\frac{n\pi x}{a} \right)  \sin\left(\frac{n\pi y}{b} \right)\sin\left(\frac{n\pi z}{c} \right)  \sin\left(\frac{n\pi x'}{a} \right)  \sin\left(\frac{n\pi y'}{b} \right)\sin\left(\frac{n\pi z'}{c} \right)}{\left( \frac{n\pi}{a} \right)^2 \left( \frac{m\pi}{b} \right)^2\left( \frac{k\pi}{c} \right)^2}
+    \end{equation}
+\end{ex}
+
+Let us look at $-\nabla^2$ on $\R^3$: $\frac{1}{|\vec{x}-\vec{x}'|}$. We know that
+\begin{equation}
+    \int_{-\infty}^{\infty} \frac{e^{-\imath \vec{k}\vec{x}}e^{\imath \vec{k}\vec{x}'}}{(2\pi)^3}d^3k = \delta(\vec{x}-\vec{x}')
+\end{equation}
+
+\begin{equation}
+    =(4\pi)\int_{-\infty}^{\infty} d^3k \frac{1}{k^2}\Psi_{\vec{k}}(\vec{x})*(\vec{x}')\Psi_{\vec{k}}(\vec{x})
+\end{equation}
+Let's evaluate this in momentum space:
+\begin{equation}
+    \int_0^\infty \cancel{k^2} dk d\Omega \frac{e^{\imath k |\vec{x}-\vec{x}'| \cos\theta}}{\cancel{k^2}(2\pi)^3} = \int_0^\infty \frac{dk 2\pi}{(2\pi)^3}\int_0^{2\pi} d\phi\int 0^\pi d\theta \sin\theta e^{\imath k|\vec{x}-\vec{x}'|\cos\theta}
+\end{equation}
+Notice that $d\theta\sin\theta = -d(\cos\theta)$:
+\begin{equation}
+    = \frac{1}{(2\pi)^2}\int_0^\infty dk \frac{e^{\imath k|\vec{x}-\vec{x}'|} - e^{-\imath k|\vec{x}-\vec{x}'|}}{\imath k|\vec{x}-\vec{x}'|}
+\end{equation}
+Let us change our integration variable, on the second half, to $k\to-k$. This makes the integral $\int_{-\infty}^0$ of the same value.
+\begin{equation}
+    = \frac{1}{(2\pi)^2}\left[ \int_{-\infty}^{\infty} \frac{e^{\imath k | \vec{x} - \vec{x}' |}}{-k^2} \right] \frac{1}{|\vec{x}-\vec{x}'|}
+\end{equation}
+We have this singularity at $k=0$ which we must ``jump'' around, and then take the limit as the size of our jump approaches zero. If we suppose $k$ is complex, we have an exponential decay term if the imaginary part of $k>0$. Therefore, the contour can be closed at infinity, and we can evaluate the limit in the upper-half plane. Therefore, this integral can be solved through the residue theorem, where the residue is $\imath\pi$. The integral then is
+\begin{equation}
+    \frac{1}{4\pi}\frac{1}{|\vec{x}-\vec{x}'|}
+\end{equation}
+where multiplying by $4\pi$ will give us the desired result.
+
+In the next lecture, we will cover multipole expansions.
+
+\end{document}

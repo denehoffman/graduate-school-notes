@@ -1,0 +1,120 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{44}{Friday, December 06, 2019}{The Hydrogen Atom}
+
+If $ \vu{V}(\abs{ \va{R}}) $,
+\begin{equation}
+    \vu{H} = \frac{ \vu{P}^2}{2m} + \vu{V} = \frac{ \vu{P}_r^2}{2m} + \underbrace{\frac{ \vu{L}^2}{2mr^2} + \vu{V}(r)}_{V_{\text{eff}}(r)}
+\end{equation}
+For energy eigenstates, $ \vu{L}^2 \varphi = l(l+1) \hbar^2 \varphi $ and $ \vu{L}_z \varphi = m \hbar \varphi $. We can separate such eigenstates into a radial part and a spherical part:
+\begin{equation}
+    \varphi( \va{r}) = R_{kl}(r) Y_{lm}(\Omega)
+\end{equation}
+
+When we apply our Hamiltonian to this state, we find that
+\begin{equation}
+    \left\{- \frac{\hbar^2}{2m} \frac{1}{r} \dv[2]{r}r + \frac{l(l+1) \hbar^2}{2mr^2} + V(r)\right\} R_{kl}(r) = E_{kl} R_{kl}(r)
+\end{equation}
+
+Let's assume that the radial solution is some power law,
+\begin{equation}
+    R_{kl}(r) \sim Cr^s
+\end{equation}
+When we plug this into our radial Schr\"odinger equation, taking $ r \to 0 $ to neglect the potential, we find that
+\begin{equation}
+    -s(s+1) + l(l+1) = 0
+\end{equation}
+such that $ s = l $ or $ s = -(l+1) $. The second solution would cause the solution to diverge at the origin, so this solution is not viable. Therefore, we would find that the radial function goes like $ R_{kl}(r) \sim r^l $. This is about as far as we can get before we specify a specific form for the potential. Let's now choose a particular central potential.
+
+\section{Coulomb Potential}
+\label{sec:coulomb_potential}
+
+\begin{equation}
+    V(r) = - \frac{e^2}{r}
+\end{equation}
+
+\begin{note}{Note}
+    The Hamiltonian above is for a single particle. Now consider the mass to be the reduced mass in the center of mass frame of two particles (a proton and electron in the case of the Hydrogen atom).
+\end{note}
+
+It's now useful to introduce some dimensionless coordinates. We will scale $ r \to \frac{r}{a_0} $ and $ E \to \frac{E}{E_I} $, where $ a_0 = \frac{\hbar^2}{me^2} = 0.529\angstrom $ is the Bohr radius, known as the ``Bohr'' and $ E_I = \frac{me^4}{2 \hbar^2} = 13.6\electronvolt $ and is called the ``Rydberg''. This is the energy it takes to remove the electron from the Hydrogen atom. Let's also call the radial function
+
+\begin{equation}
+    u_{kl}(r) = r R_{kl}(r)
+\end{equation}
+so that the Schr\"odinger equation becomes
+\begin{equation}
+    \left\{ \dv[2]{r} - \frac{l(l+1)}{r^2} + \frac{2}{r} + E_{kl} \right\} u_{kl}(r) = 0
+\end{equation}
+If we call $ E_{kl} = - \lambda^2_{kl} $ and take the limit of $ r \to \infty $, we find
+\begin{equation}
+    u'' - \lambda^2 u = 0
+\end{equation}
+so $ u \sim e^{- \lambda r} $ as $ r \to \infty $.
+We previously found the solution for small $ r $, so now we want to combine those solutions. We will introduce a function $ y(r) $ in order to solve the equation in between these limits.
+\begin{equation}
+    u(r) = r^{l+1} e^{- \lambda r} y(r)
+\end{equation}
+The only thing we currently know about $ y(r) $ is that $ y(0) = 1 $. If we plug in this solution to the Schr\"odinger equation, we would discover that $ y(r) \sim e^{2 \lambda r} $. This solution will vanish unless $ \lambda = \frac{1}{k+l} $ where $ k \in \Z $ and $ k \geq 1 $. Previously we had assumed there was some additional quantum number, $ k $ which would be necessary to fully define a wave function. This is that quantum number. The specifications on $ k $ are special cases where the wave function will be normalizable, and under this condition, $ y(r) $ is a ``Laguerre Polynomial''.
+
+Remember that $ \lambda^2 = - E_{kl} $ so the energy depends on $ k $ and $ l $. Let $ n \equiv k + l \in \Z \qc n \geq 1 $. Therefore, $ E_{kl} = - \frac{1}{n^2} $, or, reintroducing the units, $ E = \frac{- 13.6\electronvolt}{n^2} $.
+
+There is now an extra degeneracy in these states because the energy depends on both $ k $ and $ l $. We have at least $ (2l+1) $-fold degeneracy, since $ -l \leq m \leq l $ and the energy doesn't depend on $ m $. For a given $ n $, only certain values of $ l $ will be valid. Since $ n, k \geq 1 $, we could have $ l = 0, 1, 2,\cdots,n-1 $. All of these values of $ l $ can be paired with a value of $ k $ to yield the same energy, so the total degeneracy will be given by
+\begin{equation}
+    g_n = \sum_{l=0}^{n-1} (2l+1) = n^2 = 1,4,9,\cdots
+\end{equation}
+
+What do these wave functions look like? We know that the angular parts will just be spherical harmonics.
+\begin{equation}
+    R_{k=1,l=0}(r) \sim e^{- \frac{r}{a_0}} \qq{1S from} n=1,l=0 \to S
+\end{equation}
+\begin{equation}
+    R_{k=2,l=0} \sim \left( 1 - \frac{r}{a_0} \right) e^{- \frac{r}{2 a_0}} \qq{2S}
+\end{equation}
+\begin{equation}
+    R_{k=1,l=1} \sim \frac{r}{a_0} e^{- \frac{r}{2 a_0}} \qq{2P from} l=1 
+\end{equation}
+In general, $ R_n \sim e^{- \frac{r}{na_0}} $.
+
+\section{Origin of the Accidental Coulomb Degeneracy}
+\label{sec:origin_of_the_accidental_coulomb_degeneracy}
+
+Imagine a planet orbiting a star in an elliptical path. The point of closest approach, the perihelion, sits at a certain position relative to the star. Let's call this $ \va{A} $. After each orbit, the planet returns to this position with the same momentum. This means that the perihelion is a conserved vector. This conservation is due to the fact that the gravitational potential is $ \sim \frac{1}{r} $. We can write down the perihelion vector:
+\begin{equation}
+    \va{A} = m e^2 \vu{r} - \va{p} \cross \va{\mathscr{L}}
+\end{equation}
+which is also called the Laplace-Runge-Lenz vector. There is a quantum version of this:
+\begin{equation}
+    \va{A} = m e^2 \vu{R} - \frac{1}{2} \left( \va{P} \cross \va{L} - \va{L} \cross \va{P} \right)
+\end{equation}
+with
+\begin{equation}
+    \comm{\vu{A}_i}{\vu{A}_j} \sim \epsilon_{ijk} \vu{L}_k
+\end{equation}
+and
+\begin{equation}
+    \comm{ \vu{L}_i}{ \vu{A}_j} \sim \epsilon_{ijk} \vu{A}_k
+\end{equation}
+and
+\begin{equation}
+    \comm{ \va{A}}{ \vu{H}} = 0
+\end{equation}
+This last property tells us that $ \va{A} $ is conserved (which we knew) but also that its eigenvalues distinguish degenerate energies. Notice that $ \comm{ \vu{A}_x}{ \vu{H}} = 0 $ and $ \comm{ \vu{A}_x}{ \vu{L}_z} \neq 0 $.
+
+\begin{equation}
+    \vu{H} \vu{A}_x \psi_{klm} = \vu{A}_x \vu{H} \psi_{klm} = E_{kl} \psi_{klm}
+\end{equation}
+so
+\begin{equation}
+    \vu{A}_x \psi_{klm}
+\end{equation}
+is an eigenstate of $ \vu{H} $ with energy $ E_{kl} $. On the other hand, we know that
+\begin{equation}
+    \vu{A}_x \psi_{klm} \neq c \psi_{klm}
+\end{equation}
+since this vector does not commute with the angular momentum operator. Therefore, these shared eigenstates of $ \vu{H} $ and $ \vu{A}_x $ are different than the eigenstates we saw from the angular momentum operator, so there is still some degeneracy in these states which we cannot remove by introducing this new observable.
+
+
+ 
+
+\end{document}

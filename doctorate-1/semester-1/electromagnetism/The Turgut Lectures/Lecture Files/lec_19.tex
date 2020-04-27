@@ -1,0 +1,104 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{19}{Wed Oct 2 2019}{Molecular Theory of Polarization}
+\section{Molecular Theory of Polarization}
+\label{sec:molecular_theory_of_polarization}
+Recall that for a permanent dipole in a field,
+\begin{equation}
+    W = - \vec{p} \cdot \vec{E}
+\end{equation}
+In dielectrics, we see that similarly
+\begin{equation}
+    W = - \int \vec{P} \vec{E}_0 \dd[3]{x}
+\end{equation}
+
+
+The following is a list of interesting phenomena whose derivations are beyond the scope of this class:
+\begin{itemize}
+    \item Pyroelectric materials have permanent dipole densities $ \vec{P}_0 $.
+    \item Ferroelectric materials have a  strong $ \vec{P} $  after a field $ \vec{E} $ has been applied. The polarization has a hysteresis (removing the field doesn't remove the polarization).
+    \item Hook's (actual) law:
+        \begin{equation}
+            \sigma_{il} = \sum_{k,m} \lambda_{ilkm} u_{km}
+        \end{equation}
+        where $ \sigma $ is the stress tensor and
+        \begin{equation}
+            u_{ik} = \frac{1}{2} \left( \pdv{u_i}{x^k} + \pdv{u_k}{x^k} \right)
+        \end{equation}
+        where $ u_i $ is the strain.
+    \item Piezoelectricity and electrostriction are results of this. If you write down the free energy of a stressed/strained system, you see that
+        \begin{equation}
+            \mathcal{F} = \mathcal{F}_0 + \frac{1}{2} \int \lambda_{iklm} u_{lm}  u_{ik} \dd[3]{x} + \frac{1}{2} \int \gamma_{ikl} u_{ik} E_l \dd[3]{x} + \frac{1}{2} \int \epsilon_{ij} E_i E_j \dd[3]{x}
+        \end{equation}
+        \begin{equation}
+            \sigma_{ik} = \fdv{\mathcal{F}}{u^{ik}} = \lambda_{iklm} u_{lm} + \gamma_{ikl} E_l
+        \end{equation}
+        and
+        \begin{equation}
+            \mathcal{D}_i = \fdv{\mathcal{F}}{E_i} = \gamma_{kli} u_{kl} + \epsilon_{ij} E_j
+        \end{equation}
+        where the $ \epsilon $ terms are the dielectric constants of the material (not the Levi-Civita symbol). In these sorts of materials, stresses and strains can generate polarizations inside the material.
+\end{itemize}
+
+\begin{equation}
+    \vec{E} \mapsto \vec{E}_{\text{macro}}
+\end{equation}
+is found by averaging over ``small'' regions. Take a region with a molecule in the center. We divide the electric field into an external (outside our averaging region) and an internal portion, which is
+\begin{equation}
+    \vec{E}(0) = \frac{1}{\frac{4}{3} \pi R^3} \int_{\text{ball}(R)} \vec{E}^{\text{ext}} \dd[3]{x}
+\end{equation}
+If we consider the nearby charges,
+\begin{equation}
+    - \frac{ \vec{P}_T}{3 \epsilon_0} = \int_{\text{ball}} \vec{E}^{\text{interior}} \dd[3]{x}
+\end{equation}
+where $ \vec{P}_T $ is the total dipole moment $\int_{\text{ball}}\rho(\vec{x}')\vec{x}'\dd[3]{x'}\approx\frac{4 \pi}{3} R^3 \vec{P} $.
+Therefore, the macroscopic field of the center is $ \vec{E}^{\text{ext}} - \qq{average} + \vec{E}^{\text{int}}_{\text{average}} $. When there is a molecule at the center of the region, we should remove the internal field contribution and introduce some near-field contribution.
+\begin{equation}
+    \vec{E}^{\text{near}} \approx\vec{0}
+\end{equation}
+for most uniform crystals and random media. Essentially, for many things, the main contribution to the field is $ \vec{E}^{\text{ext}} (0) = \vec{E}_{\text{macro}} + \frac{ \vec{P}}{3 \epsilon_0} $ which includes our dipole correction term. What does this mean?
+\begin{equation}
+    \langle \vec{p}_{\text{mol}} \rangle = \epsilon_0 \gamma_{\text{mol}} \left( \vec{E}_{\text{macro}} + \frac{ \vec{P}}{3 \epsilon_0} \right)
+\end{equation}
+so
+\begin{equation}
+    \vec{P} = N\langle \vec{p}_{\text{mol}} \rangle
+\end{equation}
+where $ N $ is the number density of the molecules. Therefore
+\begin{equation}
+    \vec{P} = \overbrace{\frac{\gamma_{\text{mol}} N}{1 - \frac{\gamma N}{3}}}^{\kappa} \epsilon_0 \vec{E}
+\end{equation}
+
+Mossotti and Classius discovered the relationship
+\begin{equation}
+    \frac{\epsilon / \epsilon_0 - 1}{\epsilon / \epsilon_0 + 2} = 3 N \gamma_{\text{mol}}
+\end{equation}
+In all of these equations, $ \gamma = \frac{ \vec{p}}{\epsilon_0} $
+We can write a Hamiltonian for a molecule
+\begin{equation}
+    H = \sum \frac{P_i^2}{2m} - \sum_i \frac{(Ze)e}{\norm{ \vec{x}_i}} + \frac{1}{2} \sum_{i,j} \frac{e^2}{\norm{ \vec{x}_i - \vec{x}_j}}
+\end{equation}
+We can perturb this Hamiltonian by applying an electric field
+\begin{equation}
+    H \to H - eEz_i
+\end{equation}
+where the second part is much smaller than the original energy levels. This can be approximated as a harmonic oscillator, which implies that
+\begin{equation}
+    m \omega^2 \vec{x} = e \vec{E}
+\end{equation}
+where we ignore any $ m \vec{x}'' $ in the static case, so
+\begin{equation}
+    \vec{x} = \frac{e}{m \omega^2} \vec{E}
+\end{equation}
+where $ m \omega^2 $ is sort of like a spring constant between the atoms in the molecule. Therefore
+\begin{equation}
+    \vec{p} = e \vec{x} = \sum_{i=1}^{n} \frac{e^2}{m \omega_i^2} \vec{E} \propto \gamma_{\text{mol}} \vec{E}
+\end{equation}
+In solids, $ N \propto 10^{28,30} $ so $ \epsilon \propto 10^{0,1} $.
+
+\subsection{Permanent Dipoles}
+\label{permanent_dipoles}
+
+Some molecules (like water) have permanent dipole moments. There will also be temperature contributions, since the probability of aligning to an external field is $ \propto e^{- \vec{p} \cdot \vec{E}/(k_b T)} $.
+
+\end{document}

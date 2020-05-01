@@ -1,0 +1,89 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{40}{Friday, May 1, 2020}{Superconductivity}
+In the last lecture, we established that the necessary conditions for superconductivity were an attractive potential and a Fermi surface. Because of Pauli exclusion, the density of states is large on the Fermi surface, which is why superconductivity wouldn't work with Bosons. The next question we want to answer is, what is the ground state of a superconductor? If we had no interactions, we would get the typical Fermi sea, where the probability to find a particle with any given momentum is $ 1 $ up to $ k_F $. Bardeen, Cooper, and Schriefer (B.C.S. Theory) won a Nobel prize by making an ans\"atz for the ground state. Cooper's calculation told us that there would be bound states of two electrons with opposite momentum (Cooper pairs), so BCS guessed that
+\begin{equation}
+    \ket{\psi} = \prod_{q} \left[ \cos(\theta_q)\ket{0}_q + \sin(\theta_q)\ket{1}_q \right]
+\end{equation}
+where $\ket{1}_q $ corresponds to one electron with spin up and momentum $ \va{q} $ and one electron with spin down and momentum $ - \va{q} $. The $\ket{0}_q $ is not occupied while $\ket{1}_q $ is occupied:
+\begin{equation}
+    \ket{1}_q = a^\dagger_{q\downarrow} a^\dagger_{-q\uparrow}\ket{0}
+\end{equation}
+We can write the full wave function as
+\begin{equation}
+    \ket{\psi} = e^{\imath \prod_{q} \theta_q a^\dagger_{q\uparrow} a^\dagger_{-q\downarrow}}\ket{0}
+\end{equation}
+since $ a_q^\dagger a_q^\dagger = 0 $ because we want $ \pb{a^\dagger_q}{a^\dagger_q} = 0 $ for Fermions. Note that $ \sin[2](\theta_q) $ is the probability to find a Cooper pair labeled by $ q $. Our goal now is to find $ \theta_q $ such that $ E < E_{\text{free}} $ subject to $ \ev{N} = N $. In this ground state, we can calculate the kinetic energy, so
+\begin{equation}
+    H_0 = \sum_i \frac{\hbar^2 q^2}{2m} \sin[2](\theta_q)
+\end{equation}
+We will define an interaction that takes our pairs labeled by $ q $ to pairs labeled by $ q' $ as
+\begin{equation}
+    \hat{V}_{qq'}\ket{0}_q\ket{1}_{q'} =\ket{1}_q\ket{0}_{q'}
+\end{equation}
+so that
+\begin{equation}
+    \hat{V}_{qq'}\ket{0}_q\ket{0}_{q'} = 0 = \hat{V}_{qq'}\ket{1}_q\ket{1}_{q'}
+\end{equation}
+so we can write the potential as
+\begin{equation}
+    \hat{V} = \sum_{q,q'} a^\dagger_{q\downarrow} a^\dagger_{-q\uparrow} a_{q'\uparrow} a_{-q'\downarrow} V_{qq'}
+\end{equation}
+\begin{equation}
+    \mel{\psi}{\hat{V}}{\psi} = \left[ \left(\bra{0}_q \cos(\theta_q) - \imath \sin(\theta_q)\ket{1}_q \right) \left(\bra{0}_{q'} \cos(\theta_{q'} - \imath \sin(\theta_{q'})\bra{1}_{q'}) \right) \cdots \right] \hat{V}_{qq'} \left[ \left( \text{conj} \right) \left( \text{conj} \right) \cdots \right]
+\end{equation}
+so the only non-zero term will be
+\begin{equation}
+    \ev{\hat{V}} = \cos(\theta_q) \cos(\theta_{q'}) \sin(\theta_q) \sin(\theta_{q'}) V_{qq'}
+\end{equation}
+so
+\begin{equation}
+    E = \sum_q \frac{\hbar^2 q^2}{m} \sin[2](\theta_q) + \sum_{qq'} V_{qq'} \cos(\theta_q) \cos(\theta_{q'}) \sin(\theta_q) \sin(\theta_{q'})
+\end{equation}
+Now we want to find the $ \theta_q $ which minimizes $ E $.
+\begin{equation}
+    \Omega = E - \mu N= E + \sum_q (-2 \mu) \sin[2](\theta_q)
+\end{equation}
+\begin{equation}
+    \pdv{\Omega}{\theta_k}= \left[2 \frac{\hbar^2 k^2}{m} - 4 \mu \right] \sin(\theta_k) \cos(\theta_k) + \frac{1}{2} \cos(2 \theta_k) \sum_{q'} V_{kq'} \sin(2 \theta_q)
+\end{equation}
+Let's introduce $ \xi \equiv \frac{\hbar^2 k^2}{2m} - \mu $, so
+\begin{align}
+    \pdv{\Omega}{\theta_k} &= 4 \xi_k \sin(\theta_k) \cos(\theta_k) + \sum_{q'} V_{kq'} \cos(2 \theta_k) \sin(2 \theta_{q'}) = 0 \\
+    &= 2 \xi_k \sin(2 \theta_k) + \frac{1}{2} \cos(2 \theta_k) \sum_{q'} V_{kq'} \sin(2 \theta_{q'}) \\
+    &= 2 \xi_k \tan(2 \theta_k) + \frac{1}{2} \sum_{q'} V_{kq'} \sin(2 \theta_{q'}) \\
+\end{align}
+Let's define $ \tan(2 \theta_k) \equiv - \frac{\Delta_k}{\xi_k} $, so $ \sin(2 \theta_k) = - \frac{\Delta_k}{\sqrt{\Delta_k^2 + \xi_k^2}} $ and $ \cos(2 \theta_k) = \frac{\xi_k}{\sqrt{\Delta_k^2 + \xi_k^2}} $:
+\begin{equation}\label{eq:gap_equation}
+    \Delta_k = - \frac{1}{2} \sum_q \frac{V_{kq} \Delta_q}{\sqrt{\Delta_q^2 + \xi_q^2}}\tag{Gap Equation} 
+\end{equation}
+Let's think of the potential $ V_{qk} = - V $ as long as the particles are within the Debye energy of the Fermi surface ($ \abs{\xi_{k,q}} < \hbar \omega_D $) and $ V_{qk} = 0 $ otherwise. With this simplification,
+\begin{equation}
+    \Delta_k = \frac{V}{2} \sum_q \frac{\Delta_q}{\sqrt{\Delta_q^2 + \xi_q^2}}
+\end{equation}
+and
+\begin{equation}
+    \Delta_0 = \frac{V}{2} \sum_q \frac{\Delta_0}{\sqrt{\Delta_0^2 + \xi_q^2}}
+\end{equation}
+because we have to eliminate momentum dependence from both sides.
+\begin{align}
+    1 &= \frac{V}{2} \int \frac{L^3 \dd[3]{q}}{(2 \pi)^3} \frac{1}{\sqrt{\Delta_0^2 + \xi_q^2}} \\
+    &= \frac{V}{2} \frac{L^3}{(2 \pi)^3} (4 \pi) \int \frac{\dd{q} q^2}{\sqrt{\Delta_0^2 + \xi_q^2}} \\
+    &= \frac{V}{2} \int_{- \hbar \omega_D}^{\hbar \omega_D} \frac{\rho(\xi) \dd{\xi}}{\sqrt{\Delta_0^2 + \xi^2}}
+\end{align}
+with $ \rho(\xi) = \rho(0) $, we can solve this integral as
+\begin{equation}
+    1 = V \rho(0) \sinh[-1]\left[ \frac{\hbar \omega_D}{\Delta_0}  \right]
+\end{equation}
+so as $ V \to 0 $,
+\begin{equation}
+    \Delta_0 = 2 \hbar \omega_D e^{- \frac{1}{\rho(0) V}}
+\end{equation}
+We can then use this to show that
+\begin{equation}
+    2 \sin[2](\theta) = \left[ 1 - \frac{\xi_q}{\sqrt{\xi_q^2 + \Delta_0^2}} \right]
+\end{equation}
+As $ \xi_q \to \infty $ (large energy), $ \theta_q \to 0 $, and as $ q \to 0 $, $ \xi \to - \mu $ and $ \sin[2](\theta_q) = 1 $. Therefore, we know that the probability of a Cooper pair at a particular $ q $ starts at $ 1 $ for small $ q $ and goes to $ 0 $ at high $ q $ with an inflection point at $ \mu = \epsilon_F $. What does this mean physically? At low energy, the states above $ E_F $ don't even feel the potential, and we fill up all of the Cooper pairs below the surface. Near the Fermi surface, there will be some pairs above the trivial ground state and some gaps below the ground state. The gap function we found sets the scale for this splitting. But this means that only a tiny fraction of the electrons in a superconductor, the ones near the Fermi surface, contribute to this effect at all. Resistivity comes from scattering from one state into another. Deep inside the Fermi sea, the electrons have no place to scatter because all of the states above and below are occupied. Therefore, all the resistivity is already coming from states near the Fermi surface. The first excited state has a gap of order $ 2 \Delta_0 $ (this is easy to show, but we don't have time). As a consequence, electrons without adequate energy can't get scatter to this excited state, and the gap scales inversely with the potential. As we increase the temperature, the thermal fluctuations of the electrons will give them enough energy to jump this gap, so there exists a $ T_C $ above which point superconductivity goes away, where $ k T_C \sim \Delta_0 $.
+
+
+\end{document}

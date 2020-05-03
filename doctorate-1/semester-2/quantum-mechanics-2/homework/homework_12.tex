@@ -1,0 +1,70 @@
+\documentclass[a4paper,twoside]{article}
+\input{../../preamble.tex}
+\title{33-756 Homework 12}
+\date{\today}
+\begin{document}
+\maketitle
+\section*{1. Particle in a 1D Box}
+Consider a particle in a one-dimensional box. The length of the wall increases as a function of time such that $ L = v_0 t + L_0 $. The state of the systems at $ t = 0 $ is $\ket{n(L_0)} $.
+\begin{itemize}
+    \item[(a)] Under what conditions do you expect the system to stay in the states $\ket{n(L)} $ (i.e. adiabatically)?
+        \begin{problem}
+            
+        \end{problem}
+    \item[(b)] Calculate the state of the system at a later time $ t $ and show that the Berry phase vanishes.
+        \begin{problem}
+            
+        \end{problem}
+    \item[(c)] The question arises whether or not a priori one can tell that the Berry phase will vanish. The answer is yes. The condition is that somewhere in parameter space there is a degeneracy. Show that the fictitious magnetic field is ill defined at some point(s) in parameter space when a degeneracy point is reached.
+        \begin{problem}
+            
+        \end{problem}
+    \item[(d)] Now we would like to understand why this singularity implies there is a non-vanishing phase. To understand this, we will utilize the analogy with magnetic fields. First, start off by showing that there can be (na\"ively) no magnetic charges in Maxwell's equations, because it would be mathematically inconsistent.
+        \begin{problem}
+            
+        \end{problem}
+    \item[(e)] There can be magnetic charges if we allow for the vector potential to be ambiguous in the sense that you can define it as follows:
+        \begin{equation}
+            \va{A} = \begin{cases} \va{A}_1 & 0 \leq \theta < \frac{\pi}{2} \\ \va{A}_2 & \frac{\pi}{2} < \theta \leq \pi \end{cases}
+        \end{equation}
+        Notice that this is fine since $ \va{A} $ is not physical. $ \va{A}_1 $ and $ \va{A}_2 $ only have to be equal up to a gauge transformation $ \va{A}_1 = \va{A}_2 + \va{\partial}_{\chi} $ on the equator so that $ \va{B} $ is a globally well-defined function of $ x $. Show that the magnetic charge will be given by
+        \begin{equation}
+            4 \pi Q_M = \oint (\va{A}_1 - \va{A}_2) \vdot \dd{l},
+        \end{equation}
+        where the integral is along the $ \vu{\varphi} $ direction. Then show that $ chii = 2Q_m \varphi $.
+        \begin{problem}
+            
+        \end{problem}
+    \item[(f)] Sticking with our diversion into magnetic monopoles, show that if a magnetic monopole existed, then every charged particle would have its charge quantized in units of $ (\hbar c)/(2Q_M) $. This condition comes from making sure that the wave function for an electron in the monopole background is single valued.
+        \begin{problem}
+            
+        \end{problem}
+    \item[(g)] Finally, returning to Berry's phase, we see that if there is going to be a non-zero Berry's phase, the vector potential should be ambiguous (singular at some point). Let us consider the case of a particle in a slowly varying time dependent magnetic field $ \va{B}(t) $. We wish to construct the vector potential
+        \begin{equation}
+            \va{A} = \mel{n}{\grad_R}{n}
+        \end{equation}
+        Take the Hamiltonian to be $ H = \va{R}(t) \vdot \va{\sigma} $. Construct $ n $ by performing a rotation in spin space using polar coordinates and show that the spinor wave function is singular at $ \theta = \pi $. That is, as the south poll is approached, the value of the spinor changes if we approach it from opposite sides. Thus we have found our ambiguity in the vector potential that allows for a non-zero Berry's phase.
+\end{itemize}
+\section*{2. Prove 7.5.49 in Sakurai}
+Sakurai tells us that the potential energy term for interacting Fermions can be written as
+\begin{equation}
+    \mathcal{V} = \frac{e^2}{2V} \sum_{\va{k}_1 \lambda_1} \sum_{\va{k}_2 \lambda_2} \sum_{\va{k_3}} \sum_{\va{k_4}} \delta_{\va{k}_1 + \va{k}_2, \va{k}_3 + \va{k}_4} \frac{4 \pi}{\va{q}^2 + \mu^2} a^\dagger_{\va{k}_1, \lambda_1} a^\dagger_{\va{k}_2 \lambda_2} a_{\va{k}_4 \lambda_2} a_{\va{k}_3 \lambda_1}
+\end{equation}
+\begin{problem}
+    Sakurai deduces this from 7.5.46:
+    \begin{equation}
+        \mathcal{V} = \frac{1}{2} \sum_{\va{k}_1 \lambda_1} \sum_{\va{k}_2 \lambda_2} \sum_{\va{k}_3 \lambda_3} \sum_{\va{k}_4 \lambda_4} \mel{\va{k}_1 \lambda_1 \va{k}_2 \lambda_2}{V}{\va{k}_3 \lambda_3 \va{k}_4 \lambda_4} a^\dagger_{\va{k}_1 \lambda_1} a^\dagger_{\va{k}_2 \lambda_2} a_{\va{k}_4 \lambda_4} a_{\va{k}_3 \lambda_3} 
+    \end{equation}
+    We next need to evaluate the matrix element. To do this, we can write it as a double integral with one integrated variable governing the momentum transfer between states $ 1 $ and $ 3 $ ($ \va{x}' $) and the other governing states $ 2 $ and $ 4 $ ($ \va{x}'' $):
+    \begin{align}
+        \bra{12} V\ket{43} &= \int \dd[3]{x'} \int \dd[3]{x''} V(\va{x}', \va{x}'')\bra{\va{k}_1 \lambda_1}\ket{\va{x}'}\bra{\va{x}'}\ket{\va{k}_3 \lambda_3}\bra{\va{k}_2 \lambda_2}\ket{\va{x}''}\bra{\va{x}''}\ket{\va{k}_4 \lambda_4} \\
+        &= \frac{e^2}{V^2} \iint \dd[3]{(x',x'')} \frac{e^{- \mu \abs{\va{x}' - \va{x}''}}}{\abs{\va{x}' - \va{x}''}} e^{- \imath \va{k}_1 \vdot \va{x}'} \chi^\dagger_{\lambda_1} e^{\imath \va{k}_3 \vdot \va{x}'} \chi_{\lambda_3} e^{- \imath \va{k}_2 \vdot \va{x}''} \chi^\dagger_{\lambda_2} e^{\imath \va{k}_4 \vdot \va{x}''} \chi_{\lambda_4}
+    \end{align}
+\end{problem}
+\section*{3. Fock Space}
+Use the Fock space representation to calculate the partition function for free Bosons and free Fermions
+\begin{equation}
+    Z = \Tr(e^{- \beta H})
+\end{equation}
+where $ H = \sum_k a_k a^\dagger_k \epsilon(k) $ and $ \epsilon(k) $ is the energy of a state with momentum $ \hbar k $.
+\end{document}

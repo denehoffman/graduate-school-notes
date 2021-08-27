@@ -1,0 +1,102 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\chapter{Pattern Formation}
+\lecture{21}{Friday, April 30, 2021}{Pattern Formation I}
+
+\section{Morphogen Gradients}\label{sec:morphogen_gradients}
+
+How do we encode positional information in a group of cells? Consider fly embryos. How do some cells know to become the head and others become the wings, etc? The French Flag Model (due to the distribution of morphogens resembling a tricolor flag) proposed by Lewis Wolpert posits that morphogens in the embryo have a spatial gradient, and at certain threshold values, different cell behaviors will develop.
+
+Suppose our embryo has an oval shape with the long axis called the A-P axis (anterior/posterior) representing the head to tail length. Bicoid morphogens are more present at the anterior side and form a gradient which diminishes towards the posterior side. A simple model of this would be
+\begin{equation}
+    \pdv{[B]}{t} = D \pdv[2]{[B]}{x} - \frac{[B]}{\tau}
+\end{equation}
+which is just diffusion with some decay parameter with a timescale $ \tau $. We need some initial conditions, like
+\begin{equation}
+    \eval{\pdv{[B]}{x}}_{x = -L, L} = 0
+\end{equation}
+and
+\begin{equation}
+    [B](x,t=0) = \begin{cases} B_0 & x=0 \\ 0 & x \neq 0 \end{cases}
+\end{equation}
+At steady state, you get an equation that looks like
+\begin{equation}
+    D \tau \pdv[2]{[B]}{x} = [B]
+\end{equation}
+which has solutions
+\begin{equation}
+    [B] = B_0 e^{-x / \lambda}
+\end{equation}
+where $ \lambda = \sqrt{D \tau} $ is the length scale of the decay. Experimentally, we can see that the length scale $ \lambda $ increases linearly with the length of the embryo. This is unexpected, since $ D $ and $ \tau $ shouldn't depend on the size of the system, they are just molecular properties. To understand this, let's look at a discrete, one-dimensional model. Some sites are cytoplasm sites, which have no morphogen, and others are nucleus sites which do. We can turn the partial differential equation into a difference equation to numerically solve:
+\begin{equation}
+    [B](x, t + \Delta t) = [B](x,t) + \Delta t\left( \frac{D}{\Delta x^2} \left\{ [B](x + \Delta x, t) - 2[B](x,t) + [B](x - \Delta x, t) \right\} - \frac{1}{\tau} [B](x,t) \right)
+\end{equation}
+We assume that $ \tau^{-1} = 0 $ in the cytoplasm and $ \tau^{-1} \neq 0 $ in the nucleus. We can model this by saying
+\begin{equation}
+    \frac{1}{\tau_{\text{eff}}} = \frac{N_{\text{nuc}} \nu}{V} \frac{1}{\tau}
+\end{equation}
+where $ N_{\text{nuc}} $ is the number of nuclei, $ \nu $ is the volume of each nucleus, and $ V $ is the volume of the cell. Then
+\begin{equation}
+    \lambda = \sqrt{D \tau_{\text{eff}}} = \sqrt{\frac{D \tau V}{N_{\text{nuc}} \nu}}
+\end{equation}
+We can write
+\begin{equation}
+    V = 2 \pi R L t = \pi \alpha L^2 t
+\end{equation}
+where $ t $ is the thickness of the embryo shell and $ \alpha = 2RL $ is an aspect ratio, which organisms tend to maintain, even across similar species. This tells us that $ \lambda $ is related to $ \alpha $ due to the distribution of nuclei sites, which explains the scale dependence:
+\begin{equation}
+    \lambda = \sqrt{D \tau \frac{\pi \alpha t}{N_{\text{nuc}} \nu}} L
+\end{equation}
+
+\section{Turing Patterns}\label{sec:turing_patterns}
+
+Alan Turing gave a model which generalizes pattern formation from diffusion:
+\begin{equation}
+    \partial_t u = D \partial_x^2 u + R(u)
+\end{equation}
+One component equations like this cannot result in periodic patterns, only gradients. We need two component models to get more interesting patterns.
+
+\subsection{Activator-Inhibitor Models}\label{sub:activator-inhibitor_models}
+
+Suppose chemical $ X $ produces itself and produces a chemical $ Y $ which inhibits production of $ X $ and itself. For example,
+\begin{align}
+    \dv{X}{t} &= 5X - 6Y + 1 \\
+    \dv{Y}{t} &= 6X - 7Y + 1
+\end{align}
+At steady state, $ \dv{X}{t} = \dv{Y}{t} = 0 $, we have a fixed point at $ X = Y = 1 $. If we examine small perturbations away from this fixed point,
+\begin{equation}
+    X = 1 + \varepsilon_x \qquad Y = 1 + \varepsilon_y
+\end{equation}
+then
+\begin{align}
+    \dv{\varepsilon_x}{t} &= 5 \varepsilon_x - 6 \varepsilon_y \\
+    \dv{\varepsilon_y}{t} = 6 \varepsilon_x - 7 \varepsilon_y
+\end{align}
+which we can write in a matrix form as
+\begin{equation}
+    \dv{t} \mqty(\varepsilon_x \\ \varepsilon_y) = \mqty(5 & -6 \\ 6 & -7) \mqty(\varepsilon_x\\ \varepsilon_y)
+\end{equation}
+We can get the solutions as
+\begin{equation}
+    \varepsilon_x(t) = \varepsilon_x^0 e^{\lambda t} \qquad \varepsilon_y(t) = \varepsilon_y^0 e^{\lambda t}
+\end{equation}
+where $ \lambda $ are the eigenvalues of the matrix:
+\begin{equation}
+    \mqty|5 - \lambda & -6 \\ 6 & -7 - \lambda | = 0 \implies \lambda^2 + 2 \lambda + 1 = 0 \implies \lambda = -1
+\end{equation}
+so the steady-state is always stable to perturbations.
+
+What happens when we couple this kind of reaction to diffusion? Consider two cells, cell 1 and cell 2:
+\begin{align}
+    \dv{X_1}{t} &= 5X_1 - 6 Y_1 + 1 + D_X(X_2 - X_1) \\
+    \dv{Y_1}{t} &= 6 X_1 - 7 Y_1 + 1 + D_Y(Y_2 - Y_1) \\
+    \dv{X_2}{t} &= 5X_2 - 6 Y_2 + 1 + D_X(X_1 - X_2) \\
+    \dv{Y_2}{t} &= 6 X_2 - 7 Y_2 + 1 + D_Y(Y_1 - Y_2) \\
+\end{align}
+In more cells, we could imagine
+\begin{equation}
+    \dv{X_i}{t} = 5 X_i - 6 Y_i + 1 + D_X\left( X_{i+1} + X_{i-1} - 2X_i \right)/(2 a^2)
+\end{equation}
+We get the two-cell version by imagining a periodic boundary condition on the cells, since we technically need more than two cells to model the second derivative in the diffusion equation. What will happen if the rate of diffusion is very different between the two molecular species? Suppose $ D_Y \gg D_X $. If we have a small perturbation in the concentration of $ X $, it will begin to produce more $ X $ and also some $ Y $. However, $ Y $ will diffuse away faster, so it will eat away at parts of the $ X $ distribution which haven't actually been perturbed yet. This will give a ``W'' shaped concentration of $ X $, and these sorts of patterns can grow more complicated for different kinds of interplay between molecular species.
+
+\end{document}

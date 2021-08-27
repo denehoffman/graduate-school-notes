@@ -1,0 +1,40 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{18}{Thursday, March 25, 2021}{}
+
+For $ T \gg 100\giga\electronvolt $, above the $ T_c $ for the SM phase transition at $ T \sim 170\giga\electronvolt $, all $ W $, $ Z $, Higgs, and Fermions are ultrarelativistic. For $ T\ll 100\giga\electronvolt $, they are non-relativistic (including the top quark). We can estimate the decoupling temperature at which $ \Gamma \lesssim H  $ by assuming self-consistently that species are in local thermal equilibrium in an radiation-dominated bath. For strong, EM, and weak interactions for $ T \gg 100\giga\electronvolt $, $ \sigma \sim \frac{\alpha^2}{E^2} \sim \frac{\alpha^2}{T^2} $ because $ E \sim T $ and $ \alpha_{\text{EM}} \sim 1/137 $, $ \alpha_{\text{W}} \sim 1/30 $ and $ \alpha_{\text{S}} \sim 0.1-1 $. For ultrarelativistic particles, $ v \sim 1 $ and $ n \sim T^3 $, so
+\begin{equation}
+    \Gamma = \sigma v n \sim \frac{\alpha^2}{T^2} T^3 \sim \alpha^2 T \times \order{1}
+\end{equation}
+During the radiation-dominated universe, $ H \simeq 1.66 \sqrt{g_*} \left( \frac{T^2}{M_{pl}} \right) $ with $ \sqrt{g_*} \lesssim 10 $ and $ M_{pl} \sim 10^{19} \giga\electronvolt $. Therefore
+\begin{equation}
+    \frac{\Gamma}{H} \sim \frac{\alpha^2}{\sqrt{g_*}} \left( \frac{M_{pl}}{T} \right) \sim \frac{\alpha^2}{\sqrt{g_*}} \left( \frac{\giga\electronvolt}{T} \right) \times 10^{19}
+\end{equation}
+Then for $ \frac{1}{137} \lesssim \alpha \lesssim 1 $ and $ g_* \lesssim 100 $ and $ 100 \giga\electronvolt \ll T \ll M_{pl} $, \textit{all} ultrarelativistic species are in local thermal equilibrium with $ T_i \equiv T $ for all interactions, even non-relativistic particles with $ \sigma \sim \frac{\alpha^2}{m^2} $ but $ n \sim T^3 $ are.
+
+For $ T \lesssim 100\giga\electronvolt $, QED and the strong interactions have $ \sigma \sim \frac{\alpha^2}{T^2} $, but weak interactions have $ \sigma \sim G_F^2 E^2 \sim G_F^2 T^2 $ and for ultrarelativistic particles ($ T \gg 1 \mega\electronvolt $) like neutrinos and electrons,
+\begin{equation}
+    \Gamma = \sigma n v \sim G^2_F T^2 T^3 \sim G_F^2 T^5 \sim \frac{10^{-10}}{(\giga\electronvolt)^4} T^5
+\end{equation}
+Then
+\begin{equation}
+    \frac{\Gamma}{H} \sim \frac{1}{\sqrt{g_*}} \left[ \frac{T}{\mega\electronvolt} \right]^3
+\end{equation}
+For $ T\gg 1 \mega\electronvolt $, $ \frac{\Gamma}{H} \gg 1 $, and for $ T < 1 \mega\electronvolt $, $ \frac{\Gamma}{H} \lesssim 1 $. Weak interactions decouple at $ T \sim 1 \mega\electronvolt $. Note that $ m_n - m_p \simeq 1.2 \mega\electronvolt $.
+
+\section{Thermal History of the Universe}\label{sec:thermal_history_of_the_universe}
+
+\begin{itemize}
+    \item All particles with strong and EM interactions remain in local thermal equilibrium from $ T \sim 10^{15} \giga\electronvolt $ down to $ T_{eq} \sim 1 \electronvolt $
+    \item The weak interactions freeze out/decouple at $ T \sim 0.1-1 \mega\electronvolt $ ($ t \sim 1 \second $), but the only particles that only interact with the weak interaction are neutrinos, so neutrinos fall out of local thermal equilibrium at $ T \sim 1 \mega\electronvolt $.
+    \item Inflation: At $ t \sim 10^{-35} \second $ the energy scale is somewhere around $ 10^{15} $ to $ 10^{16} \giga\electronvolt $.
+    \item Grand Unification (G.U.T.) transition occurs around $ T \sim 10^{15} \giga\electronvolt $ (again, very uncertain, more on this later).
+    \item At $ T_c \sim 175 \giga\electronvolt $, the SM symmetry breaking phase transition occurs, above which all particles are massless, and below which the quarks, charged leptons, and weak bosons acquire masses via the Higgs and Yukawa mechanisms. This is called the Electroweak Phase Transition and occurs around $ t \sim 10^{-11} \second $ after the Big Bang.
+    \item At $ T \sim 150 \mega\electronvolt $ ($ t \sim 10 \micro\second $), the QCD interactions (strong interactions) have a phase transition. For $ T > T_{\text{QCD}} \sim 150 \mega\electronvolt $, quarks and gluons are free. Below this temperature, they are confined in hadrons like protons, neutrons, pions, etc. This is studied at LHC/RHiC by colliding heavy nuclei (gold/uranium).
+    \item At $ T \sim 1 \mega\electronvolt $, the weak interaction freezes out and primordial nucleosynthesis begins at $ t \sim 1 \second $ and lasts around $ 3 \minute $. Below this temperature, $ e^+ e^- $ pairs can no longer be in equilibrium with photons via the reaction $ e^+ e^- \leftrightarrow \gamma \gamma  $, but instead they tend to annihilate and give up their entropy to the photon gas, which heats up. They also give a ``lil' bit'' of entropy to neutrinos via neutral and charged currents.
+    \item At $ T \sim 1 \electronvolt $, matter and radiation equalize. Above this temperature, the universe is radiation dominated, and below it, the universe is matter dominated.
+    \item At $ T \sim 0.3 \electronvolt $, electrons left from $ e^+ e^- \to 2 \gamma $ (remember the matter/antimatter asymmetry, not all of them anihillate) combine with protons to form neutral hydrogen, and photons decouple at $ t \sim 360,000 \text{yr} $ after the Big Bang. The CMB is ``free'' and the Universe becomes transparent to photons.
+\end{itemize}
+
+
+\end{document}

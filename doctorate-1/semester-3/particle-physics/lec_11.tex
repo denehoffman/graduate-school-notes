@@ -1,0 +1,75 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{11}{Friday, September 25, 2020}{Probability Density and Current}
+
+The probability density of finding a particle at a specific place and time is $ \abs{\psi}^2 = \psi^* \psi \equiv \rho(\va{r}, t) $. If $ \psi $ is normalized, $ \int \rho \dd[3]{r} = 1 $, or for multidimensional wave functions, we use the more general Dirac notation:
+\begin{equation}
+    \ket{\psi}^\dagger\ket{\psi} \equiv\bra{\psi}\ket{\psi} = \int \rho \dd[3]{r}
+\end{equation}
+
+Any conserved quantity must obey the continuity equation:
+\begin{equation}
+    \div{\va{j}} + \pdv{\rho}{t} = 0
+\end{equation}
+where $ \va{j} $ is current density (charge flow per unit area per unit time)
+\begin{proof}
+    \begin{equation}
+        \dv{t} \int_{V} \rho \dd{V} = -\int_{S} \va{j} \cdot \dd{\va{s}}
+    \end{equation}
+    where $ S $ is a 2D surface which encloses the volume $ V $ and $ \dd{\va{s}} $ is chosen to point outward from the surface.
+    \begin{equation}
+        \int_V \dv{t} \rho \dd{V} = - \int_V \div{\va{j}} \dd{V}
+    \end{equation}
+    by the divergence theorem. Of course, this is true for any $ V $, so just remove those integrals!
+\end{proof}
+To identify $ \va{j} $, take the free-space Schr\"odinger equation and multiply by $ \psi^* $:
+\begin{equation}
+    \psi^* \times \left( - \frac{1}{2m} \laplacian{\psi} = \imath \pdv{\psi}{t} \right)
+\end{equation}
+\begin{equation}
+    \psi \times \left( - \frac{1}{2m} \laplacian{\psi^*} = -\imath \pdv{\psi^*}{t} \right)
+\end{equation}
+Subtracting these equations, we get
+\begin{align}
+    - \frac{1}{2m} \left( \psi^* \laplacian{\psi} - \psi \laplacian{\psi^*} \right) &= \imath \left( \psi^* \pdv{\psi}{t} + \psi \pdv{\psi^*}{t} \right)\\
+    - \frac{1}{2m} \left( \div{(\psi^* \grad{\psi} - \psi \grad{\psi^*})} \right) &= \imath \pdv{\rho}{t}\\
+    \pdv{\rho}{t} = - \div{\left( \frac{\imath \hbar}{2m} (\psi^* \grad{\psi} - \psi \grad{\psi^*}) \right)} &= - \div{\va{j}} \\
+\end{align}
+so
+\begin{equation}
+    \va{j} = \frac{\imath \hbar}{2m} \left( \psi^* \grad{\psi} - \psi \grad{\psi^*} \right)
+\end{equation}
+For a plane wave in volume $ V $,
+\begin{equation}
+    \psi(\va{r}, t) = \frac{1}{\sqrt{V}} e^{\imath (\va{k} \vdot \va{r} - \omega t)}
+\end{equation}
+where $ \hbar \va{k} = \va{p} $ and $ \hbar \omega = E $.
+
+Inside the volume, $ \rho = \frac{1}{V} $ throughout the volume.
+
+The current density will be
+\begin{align}
+    \va{j} &= - \frac{\imath \hbar}{2mV} \left( e^{-(\va{k} \vdot \va{r} - \omega t)} (\imath \va{k}) e^{\imath (\va{k} \vdot \va{r} - \omega t)} - e^{\imath (\va{k} \vdot \va{r} - \omega t) (- \imath \va{k})} e^{- \imath (\va{k} \vdot \va{r} - \omega t)} \right)\\
+    &= - \frac{\imath \hbar}{2mV} \left( 2 \imath \va{k} \right)\\
+    &= \frac{\hbar \va{k}}{mV} = \frac{\va{p}}{m} \frac{1}{V}\\
+    &= \rho \va{v}
+\end{align}
+
+\subsection{Time-Dependence}
+\label{sub:time-dependence}
+If $ \hat{A}\ket{a_i} = a_i\ket{a_i} $, choose an orthonormal set of $\ket{a_i} $. Then
+\begin{equation}
+    \ket{\psi} = \sum_i \omega_i\ket{a_i}
+\end{equation}
+and if $\ket{\psi} $ is normalized, $ \abs{\omega_i}^2 $ is the probability of finding the system in the state $\ket{a_i} $ with $ a = a_i $ if you measure $ \hat{A} $, so
+\begin{equation}
+    \bra{\psi}\ket{\psi} = \sum_i \abs{\omega_i}^2
+\end{equation}
+The average value measured for $ a $ is $ \bar{a} = \sum_i \abs{\omega_i}^2 a_i \equiv \ev{\hat{A}}{\psi} \equiv \ev{\hat{A}} $.
+
+\begin{equation}
+    \hat{H}\ket{\psi} = \hbar \imath \partial_t\ket{\psi} \implies\bra{\psi} \hat{H} = - \hbar \imath \partial_t\bra{\psi}
+\end{equation}
+and
+
+\end{document}

@@ -1,0 +1,69 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{20}{Wednesday, April 28, 2021}{Neural Signalling and Action Potentials III}
+
+We mentioned that there needs to be two time scales for pulse propagation. One of these it the time scale related to the motion of the signal. The other is a time scale related to the rate at which ion channels close after they are opened. The Hodgkin-Huxley model describes this process, a mathematical model for the circuit, which later won the Nobel Prize. Their insight was that the inactivation of sodium channels leads to propagating spikes. Consider that the Na channel can have three states, closed, open + active, and open + inactive. Before going to the closed state, the open state must pass from active to inactive:
+\begin{equation}
+    \dv{p_c}{t} = - k_{\text{open}} p_c
+\end{equation}
+\begin{equation}
+    \dv{p_o}{t} = k_{\text{open}} p_c - k_{\text{inactive}} p_o
+\end{equation}
+\begin{equation}
+    \dv{p_i}{t} = k_{\text{inactive}} p_o
+\end{equation}
+The rate of opening is related to the conductance:
+\begin{equation}
+    k_{\text{open}} = k_{\text{open}}^{\text{max}} \frac{1}{1 + e^{\beta q[V^* - V(x,t)]}}
+\end{equation}
+$ k_{\text{inactive}} $ can be seen as a constant, experimentally. We can couple this to the time-dependent cable equation via the conductance variable:
+\begin{equation}
+    g_{\text{Na}} = g_{\text{Na}}^{\text{open}} p_o + g_{\text{Na}}^{\text{closed}} p_c
+\end{equation}
+Two important features of this system: 1. The response is fairly robust. The traveling pulse size doesn't depend on the initial voltage (above threshold) and 2. In real life, at high voltages, the signal won't propagate (called blocking).
+
+\section{Fitzhugh-Nagumo Model}\label{sec:fitzhugh-nagumo_model}
+
+The Fitzhugh-Nagumo model for neural firing is a toy model which describes nerve potentials:
+\begin{align}
+    \dv{V}{t} &= V - V^3 / 3 - W + I \\
+    \dv{W}{t} &= \phi (V + a - bW)
+\end{align}
+
+Fitzhugh started with the van der Pol oscillator system:
+\begin{align}
+    \dv{V}{t} &= V - V^3 / 3 - W \\
+    \dv{W}{t} &= \phi V
+\end{align}
+(this is the limit of the Fitzhugh-Nagumo model when $ a = b = I = 0 $). We can take a time derivative of the first equation to eliminate $ W $:
+\begin{equation}
+    \dv[2]{V}{t} + (V^2 - 1) \dv{V}{t} + \phi V = 0
+\end{equation}
+which is just an oscillator with a nonlinear damping term, $ V^2 - 1 $. We will choose (for simplicity) $ \phi \ll 1 $.
+
+Let's go back to the coupled first-order system. If $ \phi \ll 1 $, $ W $ is a ``slow'' variable compared to $ V $. The first thing we can do to study this system is to figure out the fixed points, where $ V' = 0 $ and $ W' = 0 $. This implies
+\begin{equation}
+    V - V^3 / 3 = W
+\end{equation}
+or
+\begin{equation}
+    \phi V = 0
+\end{equation}
+Note that in nonlinear dynamics, these are called ``nullclines''. The fixed point is $ V = 0 $, $ W = 0 $. We want to test if this is a stable fixed point. If we linearize the system, we get
+\begin{equation}
+    \dv{V}{t} \approx V - W
+\end{equation}
+so
+\begin{equation}
+    \dv[2]{V}{t} \approx \dv{V}{t} - \phi V
+\end{equation}
+This is an unstable oscillator because the damping term is negative. Therefore, this fixed point is unstable. If we look at numerical solutions, we can see that $ V $ has oscillatory behavior ($ W $ does too) but it is not uniform. There is a fast increase to the top of each peak and a slower falloff.
+
+In the Fitzhugh-Nagumo model, the fixed point is no longer $ V = W = 0 $, and the $ V = 0 $ nullcline becomes a sloped line. It can further be shown that this new fixed point is no longer unstable. Fixed points happen wherever the nullclines cross, so there can be up to three fixed points (the middle one will always be unstable while the others will be stable).
+
+The behavior of this model is very similar to that of an action potential. Changing the value of $ I $ changes the point at which voltages will allow for the system to travel around the oscillatory phase space.
+
+Neurons contain both an analog portion, the dendrites, which build up action potentials. Once these potentials pass a threshold, the signal moves along the axon in a more digital manner, where the amplitudes don't matter, just the existence or absence of a signal.
+
+
+\end{document}

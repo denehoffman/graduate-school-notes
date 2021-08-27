@@ -1,0 +1,31 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{22}{Wednesday, October 28, 2020}{Radiative Transitions}
+
+\section{Radiative Transitions}\label{sec:radiative_transitions}
+
+
+If we have an electric dipole (called an E1 transition), all you need to know is the spin and pairity. $ M_{f i} =\bra{\psi_f} H'\ket{\psi_i} $, where $ H' $ could be written in terms of spherical harmonics, where it could be said to have a ``spin'' and ``pairity''.
+
+For electric dipoles, $ J^{\pi} = 1^- $, so the selection rules require $ J_f = J_i, J_i \pm 1 $, but you cannot transition from $ J_i = 0 $ to $ J_f = 0 $. $ \pi_f = - \pi_i $.
+
+For magnetic dipoles (M1), $ J^{\pi} = 1^+ $, so the $ J $-rules are the same as electric dipoles, but $ \pi_f = + \pi_i $.
+
+For electric quadrupoles (E2), $ J^{\pi} = 2^+ $, so $ J_f = J_i, J_i \pm 1, J_i \pm 2 $, but you can not transition from $ J_i = 0 $ to $ J_f = 0, 1 $ or from $ J_i = 1 $ to $ J_f = 0 $. $ \pi_f = + \pi_i $.
+
+Magnetic quadrupoles (M2) are $ 2^- $, electric octopoles (E3) are $ 3^- $, and magnetic octopoles (M3) are $ 3^+ $, and the transition rules are fairly straightforward.
+
+\section{Isobaric Analog States}\label{sec:isobaric_analog_states}
+
+The strong force approximately treats neutrons and protons as identical. Small differences in the mass (energy) for same $ A = N + Z $ are because $ m_n > m_p $ (by about $ 0.0013 $ parts per $ 1 $), the electrostatic force treats the proton differently (this can be big for large $ Z $, but doesn't effect the relative positions of the levels), and the Pauli principle.
+
+We can examine combinations of two nucleons. With opposite spin states, the three possible combinations are called isobaric states, and are unbound. If we look at parallel spin states, we find one bound state (the deuteron). The singlet-triplet structure is analagous to coupling two spin-1/2 particles. Imagine a 3-space (not coordinate space) in which the 3-component of 'isobaric spin' of a nucleon decides whether it was a proton ($\ket{I = 1/2, I_3 = +1/2} $) or a neutron ($\ket{1/2, -1/2} $). Coupling two of them would give a singlet ($\ket{0,0} $) state and triplet $ (\ket{1, \{-1,0,1\}}) $ states (which are expected to have approximately the same mass because the strong force treats them approximately the same if they are all a spin singlet).
+
+We can do a similar construction for three nucleons. Note that if we have three of the same type of nucleon, one of them must exist in a higher energy state due to the Pauli principle. Otherwise, tritium and helium-3 will exist in a ground and excited state. The four excited states here form an isobaric analogue quadruplet, and the two ground states form a doublet:
+\begin{equation}
+    \frac{1}{2} \otimes \frac{1}{2} \otimes \frac{1}{2} = \frac{3}{2} \oplus \frac{1}{2}
+\end{equation}
+
+In more recent years, this isobaric spin has been renamed to isotopic spin. In isobar notation, the neutron typically has $ I_3 = - 1/2 $, but in isotopic, this is labeled $ T_3 = +1/2 $, so the convention is flipped.
+
+\end{document}

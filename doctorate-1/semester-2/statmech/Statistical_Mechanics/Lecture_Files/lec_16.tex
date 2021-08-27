@@ -1,0 +1,105 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{16}{Wednesday, February 19, 2020}{Second Derivatives of Thermodynamic Potentials}
+
+Let's examine the derivatives $ \pdv[2]{U}{S} $, $ \pdv{U}{S}{V} $, and $ \pdv[2]{U}{V} $. First, let's write out our usual equation and transform it with a product rule:
+\begin{align}
+    \dd{U} &= T \dd{S} - P \dd{V} + \mu \dd{N} \\
+    \dd{(U + PV)} &= T \dd{S} + V \dd{P} + \mu \dd{N}
+\end{align}
+
+We can now define some derivatives of this equation:
+\begin{equation}
+    \eval{\frac{1}{V} \pdv{V}{T}}_{P,N} = \alpha
+\end{equation}
+Here, $ \alpha $ is the thermal expansion at a constant pressure (usually written in units related to the volume).
+\begin{equation}
+    K_T = - \frac{1}{V} \eval{\pdv{V}{P}}_{T,N}
+\end{equation}
+$ K_T $ is the isothermal compressibility.
+\begin{equation}
+    C_V = \eval{\frac{1}{N} \frac{\dbar{Q}}{\dd{T}}}_{V,N} = \eval{\frac{1}{N} \frac{T \dd{S}}{\dd{T}}}_{V,N} = \frac{T}{N} \eval{\pdv{S}{T}}_{V,N}
+\end{equation}
+is the heat capacity at constant volume and
+\begin{equation}
+    C_P = \frac{T}{N} \eval{\pdv{S}{T}}_{P,N}
+\end{equation}
+is the heat capacity at constant pressure.
+
+We need to relate partial derivatives of various quantities to other quantities which are usually easier to measure. One method is by Maxwell relations:
+
+\begin{alignat}{2}
+    U &\longrightarrow \dd{U} = T \dd{S} - P \dd{V} + \mu \dd{N} &\implies \eval{\pdv{T}{V}}_{S,N} = - \eval{\pdv{P}{S}}_{V,N} \\
+    F &\longrightarrow \dd{F} = -S \dd{T} - P \dd{V} + \mu \dd{N} &\implies \eval{\pdv{\mu}{T}}_{N,V} = - \eval{\pdv{S}{N}}_{T,V} \\
+    \vdots
+\end{alignat}
+
+Suppose we wanted to find a relation for
+\begin{equation}
+    \eval{\pdv{T}{P}}_{S, \mu} = \eval{\pdv{?}{?}}_{?} 
+\end{equation}
+We need the differentials of $ P $, $ S $, and $ \mu $, so we want one of the potentials of the form
+\begin{equation}
+    T \dd{S} + V \dd{P} - N \dd{\mu}
+\end{equation}
+Knowing that we can switch the order of second derivatives (take one derivative first),
+\begin{equation}
+    \pdv{H}{S}{P} = \eval{\pdv{T}{P}}_{S, \mu} = \eval{\pdv{V}{S}}_{P, \mu}
+\end{equation}
+
+Additionally, we can often write
+\begin{equation}
+    \eval{\pdv{A}{B}}_{C,D} = \frac{1}{\eval{\pdv{B}{A}}_{C,D}}
+\end{equation}
+
+The Maxwell relations can usually be written in this form. The other method for deriving these relations is using Jacobians. In general,
+\begin{equation}
+    \pdv{(u,v)}{(x,y)} = \mqty| \eval{\pdv{v}{x}}_{y} & \eval{\pdv{v}{y}}_{x} \\ \eval{\pdv{v}{x}}_{y} & \eval{\pdv{v}{y}}_{x} |
+\end{equation}
+
+Using relations with products of determinants, we can prove that
+\begin{equation}
+    \pdv{(u,v)}{(x,y)} = \pdv{(u,v)}{(A,B)} \pdv{(A,B)}{(x,y)}
+\end{equation}
+
+Another interesting property is that exchanging rows or columns in the Jacobian introduces minus signs:
+\begin{equation}
+    \pdv{(A,B,C)}{(X,Y,Z)} = - \pdv{(C,B,A)}{(X,Y,Z)} = - \pdv{(A,B,C)}{(Y,X,Z)}
+\end{equation}
+
+Another interesting property is that
+\begin{equation}
+    \pdv{(u,y)}{(x,y)} = \mqty| \eval{\pdv{u}{x}}_{y} & \eval{\pdv{u}{y}}_{x} \\ \underbrace{\eval{\pdv{y}{x}}_{y}}_{0} & \underbrace{\eval{\pdv{y}{y}}_{x}}_{1} | = \eval{\pdv{u}{x}}_{y}
+\end{equation}
+
+Because $ \dd{U} $ is an exact derivative,
+\begin{equation}
+    \dd{(\dd{U})} = 0 = \dd{T} \dd{S} - \dd{P} \dd{V} + \dd{\mu} \dd{N}
+\end{equation}
+Suppose we fix $ N $, then
+\begin{equation}
+    \dd{T} \dd{S} = \dd{P} \dd{V}
+\end{equation}
+or
+\begin{equation}
+    \pdv{(T,S)}{(P,V)} = 1
+\end{equation}
+
+Additionally, we can use the properties we found above to write
+\begin{equation}
+    \eval{\pdv{P}{T}}_{V,N} = \pdv{(P,V)}{(T,V)} = \pdv{(P,V)}{(P,T)} \pdv{(P,T)}{(T,V)} = \eval{\pdv{V}{T}}_{P} \frac{1}{\pdv{(T,V)}{(P,T)}} = \frac{\eval{\pdv{V}{T}}_{P}}{\eval{- \pdv{V}{P}}_{T}} = \frac{\alpha}{K_T} 
+\end{equation}
+We have shown that
+\begin{equation}
+    \eval{\pdv{P}{T}}_{V,N} = \frac{\alpha}{K_T}
+\end{equation}
+the right-hand side of which is something that can be measured.
+
+Another relation that can be derived is
+\begin{equation}
+    C_P - C_P = T \frac{V}{N} \frac{\alpha^2}{K_T} > 0
+\end{equation}
+We will prove this in a future lecture.
+
+
+\end{document}

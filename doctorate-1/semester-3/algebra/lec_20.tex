@@ -1,0 +1,65 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{20}{Monday, October 19, 2020}{Modules over PIDs}
+
+Recall from Wednesday we showed that finitely generated submodules of a free module over a PID are free. We also remarked that if $ M \subset N $ are finitely generated $ R $-modules, the number of generates of $ M $ is at most the number of generators of $ N $.
+\begin{definition}
+    The \textit{rank} of a free module $ M $ is the number of linearly independent generators generating $ M $. 
+\end{definition}
+\begin{claim}
+    If $ M $ is a free $ R $-module over an integral domain and $ \text{rank}(M) = n $, then any $ n+1 $ elements of $ M $ are linearly dependent.
+\end{claim}
+\begin{proof}
+    Say $ y_1, \cdots y_{n+1} $ are elements of $ M $. Let $ F $ be the field of fractions of $ R $. We can make $ M $ into a module over $ F $:
+
+    We need to be able to multiply elements of $ F $ by elements of $ M $. Elements of $ F $ are equivalence classes of the form $ \frac{a}{b} $, $ a,b \in R $, $ b \neq 0 $. We can define a module $ M' $ over $ F $ consisting of equivalence classes of expressions $ \frac{m}{r} $ where $ r \in R\setminus\{0\} $. Then we can define multiplication as $ \frac{a}{b} \frac{m}{r} = \frac{am}{br} $ with $ \frac{m}{r} \sim \frac{m'}{r'} $ if $ r'm = rm' $. $ M' = F \otimes_R M $. 
+
+    $ M' $ is a vector space over $ F $ with $ \dim F \leq n $, so there exists $ \frac{a_1}{b_1}, \cdots, \frac{a_{n+1}}{b_{n+1}} \in F $ such that $ \sum_{i=1}^{n+1} \frac{a_i}{b_i} y_i = 0 $, which implies $ \sum_{i=1}^{n+1} \frac{a_i B}{b_i} y_i = 0 $ where $ B = \prod_{i=1}^{n+1} b_i $.
+\end{proof}
+
+\begin{definition}
+    An element $ m \in M $ is a \textit{torsion} element if $ \exists m $ such that $ rm = 0 $. Here, $ r $ is called the \textit{order}.
+\end{definition}
+\begin{definition}
+    A module $ M $ is called a \textit{torsion module} if all its elements are torsion.
+\end{definition}
+\begin{definition}
+    $ e \in R $ is called an \textit{exponent} of $ M $ if $ rM = 0 $. 
+\end{definition}
+\begin{ex}
+    $ \Q / \Z $ (note that this is not finitely generated).
+\end{ex}
+\begin{definition}
+    For module $ M $, $ M_{\text{tor}} = \{m \in M \colon m \text{ is torsion}\} $. 
+\end{definition}
+\begin{claim}
+    $ M/M_{\text{tor}} $ is a torsion-free module.
+\end{claim}
+\begin{proof}
+    $ m,m' \in M_{\text{tor}} $, so $ rm = 0 $ and $ r'm' = 0 $ implies $ rr'(m + m') = 0 $, so $ M_{\text{tor}} $ is closed under addition. Let $ mM_{\text{tor}} \in M/M_{\text{tor}} $ and say $ r(m M_{\text{tor}}) = M_{\text{tor}} $. Then $ rm \in M_{\text{tor}} $ so $ \exists r' \text{ such that } r'(rm)= 0 $, so $ (r'r)m = 0 $ so $ m \in M_{\text{tor}} $.
+\end{proof}
+\begin{claim}
+    If $ M $ is a finitely generated $ R $-module where $ R $ is a $ PID $, then $ M = M_{\text{tor}} \oplus F $ where $ F $ is free.
+\end{claim}
+\begin{claim}
+    Every finitely generated torsion $ R $-module ($ R $ is $ PID $) is of the form $ R/(p_1^{e_1}) \oplus R/(p_2^{e_2}) \oplus \cdots $ where $ p_1, p_2, \cdots, p_n $ are prime elements of $ R $. 
+\end{claim}
+\begin{ex}
+    For $ \Z $-modules (abelian groups), every finitely generated abelian group is isomorphic to $ \Z^r \oplus \Z/p_1^{e_1}\Z \oplus \Z/p_2^{e_2}\Z \oplus \cdots $.
+\end{ex}
+\begin{lemma}
+    If $ M $ is torsion-free and finitely generated, then $ M $ is free.
+\end{lemma}
+\begin{proof}
+    Let $ g_1, \cdots, g_n $ be generators of $ M $. Pick a finite maximal linearly independent subset $ v_1, \cdots, v_m $. Each $ g_i $ is linearly dependent with $ \{v_i, \cdots, v_m\} $, so $ a_i g_i + b_1 v_1 + b_2 v_2 + \cdots + b_n v_n = 0 $ for some $ a_i, b_i \in R $. $ a_i \neq 0 $, since otherwise you would have linear dependence. So, $ a_i g_i \in R \{v_i, \cdots, v_m\} $. Let $ a = \prod_{i=1}^{n} a_i $. Then $ ag_i \in R \{v_1, \cdots, v_n\} $, so $ aM\subseteq R \{v_1,\cdots, v_m\} $ since $ v_1,\cdots, v_m $ are linearly independent. Therefore, $ aM $ is a subset of a free module, hence it is free.
+
+    Now consider the map $ \varphi \colon M \to aM $. The kernel of $ \varphi $ is trivial, so by the first isomorphism theorem, $ M \cong aM $, and $ aM $ is free so $ M $ is free.
+\end{proof}
+\begin{lemma}
+    If $ f\colon M \to M' $ is surjective, $ M' $ is free, and $ y_1', \cdots, y'_n $ is a basis for $ M' $, then $ \exists y_1, \cdots, y_n \in M $ which are linearly independent and $ f(y_i) = y'_i $. 
+\end{lemma}
+We can apply this to $ M \to M/M_{\text{tor}} $. 
+\begin{proof}
+    Construct $ y_1, \cdots, y_m $ by induction on $ m $. Say $ y_1, \cdots, y_m $ have been constructed such that they are linearly independent. Pick $ y_{m+1} \in f^{-1}(y'_{m+1}) $. $ 0 = a_1 y_1 + \cdots + a_m y_m + a_{m+1} y_{m+1} $. Apply $ f $ to both sides to get $ 0 = a_1 y'_1 + \cdots + a_{m+1} y'_{m+1} $. We can conclude here that $ a_i = 0 $.
+\end{proof}
+\end{document}

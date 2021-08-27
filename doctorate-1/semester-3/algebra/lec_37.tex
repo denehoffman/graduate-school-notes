@@ -1,0 +1,91 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{37}{Friday, December 04, 2020}{}
+
+In the last lecture we were discussing a proof that $ f $ and $ g $ having a common factor is equivalent to saying that $ Af + Bg = 0 $ for some nonzero $ A $ and $ B $ of degree less than $ g $ and $ f $ respectively.
+
+\begin{equation}
+    f = a_0 x^m a_1 x^{m-1} + \cdots + a_m
+\end{equation}
+\begin{equation}
+    g = b_0 x^l b_1 x^{l-1} + \cdots + b_l
+\end{equation}
+Then let
+\begin{equation}
+    A = c_0 x^{l-1} + \cdots + c_{l-1}
+\end{equation}
+\begin{equation}
+    B = d_0 x^{m-1} + \cdots + d_{m-1}
+\end{equation}
+
+Then by matching coefficients we have, for the $ x^{l+m-1} $ term, $ c_0 a_0 + d_0 b_0 = 0 $, for the $ x^{l+m-2} $ term $ c_0 a_1 + c_1 a_0 + d_0 b_1 + d_1 b_0 = 0 $, and so on. We can write this system as a matrix:
+\begin{equation}
+    \mqty(a_0 & \cdots & b_0 & \cdots \\ a_1 a_0 & \cdots & b_1 b_0 & \cdots \\ a_2 a_1 a_0 & \cdots & b_2 b_1 b_0 & \cdots \\ \vdots & \vdots & \vdots & \vdots \\ \cdots & a_0 & \cdots & a_0 \\ A & & B) \mqty(c_0 \\ c_1 \\ c_2 \\ \vdots \\ c_{l-1} \\ d_0 \\ d_1 \\ \vdots \\ d_{m-1}) = \va{0}
+\end{equation}
+where $ A = \mqty(\dmat{a_m , \ddots , a_m}) $ and $ B = \mqty(\dmat{b_l , \ddots , b_l}) $. This is called the Sylvester matrix $ \text{Syl}(f,g,x) $.
+
+The resultant of $ f $ and $ g $ with respect to $ x $ is $ \text{Res}(f,g,x) = \det \text{Syl}(f,g,x) $.
+
+Note that $ \text{Res}(f,g,x) $ is a polynomial in $ a_i $ and $ b_i $.
+
+\begin{claim}
+    There are $ A, B $ with $ \text{deg}(A) \leq l-1 $ and $ \text{deg}(B) \leq m-1 $ such that $ \text{Res}(f,g,x) = Af + Bg $ and furthermore the coefficients of $ A $ and $ B $ are polynomials with integer-coefficients in $ a_i $ and $ b_i $.
+\end{claim}
+\begin{proof}
+    \begin{align}
+        f &\in k(a_0, \cdots, a_m)[X] \\
+        g &\in k(b_0, \cdots, b_l)[X] \\
+    \end{align}
+    $ f $ and $ g $ have no common factor, so $ \text{Res}(f,g,x) \neq 0 $. Consider the equation $ \tilde{A} f + \tilde{B} g = 1 $ with $ \text{deg}(\tilde{A}) \leq l-1 $ and $ \text{deg}(\tilde{B}) \leq m-1 $. In matrix form, we have
+    \begin{equation}
+        \text{Syl}(f,g,x) \mqty(c_0 \\ c_1 \\ \vdots \\ c_{l-1} \\ d_0 \vdots \\ d_{m-1}) = \mqty(0 \\ 0 \\ \vdots \\ 0 \\ 1)
+    \end{equation}
+    We can determine the inverse of the Sylvester matrix:
+    \begin{equation}
+        \mqty(c_0 \\ \vdots \\ d_{m-1}) = \frac{\text{adj}(\text{Syl}(f,g,x))}{\det(\text{Syl}(f,g,x))} \mqty(0 \\ \vdots \\ 1)
+    \end{equation}
+    Therefore, if $ A = \tilde{A} \text{Res}(f,g,x) $ and $ B = \tilde{B} \text{Res}(f,g,x) $, then we get the result that we want.
+\end{proof}
+\begin{claim}
+    If $ f,g \in k[x_1, \cdots, x_n] = k[x_2, \cdots, x_n][x_1] $, then $ \text{Res}(f,g,x) \in k[x_2, \cdots, x_n] $ and so if $ I = (f,g) $, then $ \text{Res}(f,g) \in I_1 $, where $ I_1 = I \cap k[x_2, \cdots, x_n] $ is the first elimination ideal.
+\end{claim}
+\begin{claim}
+    If $ f,g \in k[x_1, \cdots, x_n] $ and $ c \in k^{n-1} $, then consider $ \ast = \text{Res}(f(x_1, c), g(x_1, c), x_1) $.
+
+    Let
+    \begin{equation}
+        h = \text{Res}(f,g, x_1) \in k[x_2, \cdots, x_n]
+    \end{equation}
+    If $ \text{deg}(f(x_1, c)) = m $, then $ \ast = a_0(c)^{\text{deg}(g) - \text{deg}(g(\cdots, c))} \cdot \text{Res}(f(x_1, c), g(x_1, c), x_1) $.
+\end{claim}
+\begin{proof}
+    We are interested in the determinant of the Sylvester matrix (I won't write it down again). We know that $ a_0(c) \neq 0 $ by assumption. If $ b_0(c) \neq 0 $, then we obtain $ \text{Syl}(f(x_1, c), g(x_1, c), x_1) $. What happens if $ b_0(c) = 0 $? Then we are left with a bunch of diagonal stripes of $ b_1(c) $, $ b_2(c) $, etc. Let's do expansion along the first row. The determinant becomes
+    \begin{equation}
+        \det(\text{Syl}) = a_0(c) \det(M)
+    \end{equation}
+    where $ M $ is a submatrix of the Sylvester matrix without the first row or column. Then we can induct on the degree.
+\end{proof}
+
+\begin{theorem}[Extension Theorem]
+    Let $ k $ be an algebraically closed field and $ I = (f_1, \cdots, f_s) $ with $ f_i \in k[x_1, \cdots, x_n] $. Let $ f_i = g_i(x_2, \cdots, x_{n-1}) x_1^{N_i} + \text{lower order terms with } x_1 $.
+    
+    Suppose $ (c_2, \cdots, c_n) \in V(I_1) $ and $ (c_2, \cdots, c_n) \not\in V(g_1, \cdots, g_s) $.
+
+    Then $ \exists c_1 \in k $ such that
+    \begin{equation}
+        (c_1, c_2, \cdots, c_n) \in V(I)
+    \end{equation}
+\end{theorem}
+\begin{proof}
+    Take $ \varphi \colon k[x_1, \cdots, x_n] \to k[x_1] $ and $ c = (c_2, \cdots, c_n) $ with the mapping $ f \mapsto f(x_1, c) $. The image of this map is an ideal $ I' = \varphi(I) $.
+
+    $ k[x_1] $ is PID so $ \exists u \in k[x_1] $ such that $ I = (u) $. Then let $ f \in I $ be such that $ u = \varphi(f) $, which means $ u(x_1) = f(x_1, c) $. If $ \text{deg}(u) > 0 $, then since $ k $ is algebraically closed, there is a $ c_1 \in k $ with $ u(c_1) = 0 $. 
+
+    Then $ \forall g \in I $, $ \varphi(g) $ is a multiple of $ u $ and so $ \varphi(g)(c_1) = 0 $. Hence, $ g(c_1, c) = 0 $. This means that $ (c_1, c) \in V(I) $, and in this case we are done.
+
+    On the other hand, suppose $ \text{deg}(u) = 0 $, so $ u $ is constant. Then since $ c \not\in V(g_1, \cdots, g_s) $, $ \exists i $ such that $ g_i(c) \neq 0 $. We then consider $ h = \text{Res}(f_i, f, x_1) $. $ h(c) = g_i(c)^{\text{deg}(f) - \text{deg}(u)} \text{Res}(f_i(x_1, c), f(x_1, c), x_1) $. The first coefficient is nonzero. The second term in this resultant is $ u $, a constant, but the constant won't have any roots so this whole thing is nonzero.
+
+    $ h \in (f_i, f) \cap k[x_2, \cdots, x_n] \subseteq I_1 $, so $ h(c = 0) $. This is a contradiction.
+\end{proof}
+
+\end{document}

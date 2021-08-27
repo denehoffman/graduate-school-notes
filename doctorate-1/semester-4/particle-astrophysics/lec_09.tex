@@ -1,0 +1,177 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{9}{Thursday, February 18, 2021}{Cosmological Geometry}
+
+
+\section{The Cosmological Principle}\label{sec:the_cosmological_principle}
+
+In early times, the universe was isotropic and homogeneous, properties reflected in the CMB and the large-scale distribution of galaxies. In other words, comoving observers see uniform $ P $ and $ \rho $ that only depend on time (and not space). A plane is a simple example of such a spacetime geometry, as is the 2D surface of a 3D sphere. Let's consider this example, a sphere of radius $ R $: $ x^2 + y^2 + z^2 = R^2 $. 
+
+Here, the squared length element is $ \dd{s}^2 = \dd{x}^2 + \dd{y}^2 + \dd{z}^2 $. We can reparameterize this in polar coordinates (in the $ x/y $-plane):
+\begin{align}
+    x &= r \cos(\varphi) \qquad y = r \sin(\varphi) \qquad r = R \sin(\theta) \qquad z = R \cos(\theta) \\
+      &\implies x^2 + y^2 = r^2 = R^2 \sin[2](\theta)
+\end{align}
+In this parameterization,
+\begin{align}
+    \dd{x} &= \dd{r} \cos(\varphi) - r \sin(\varphi) \dd{\varphi} \\
+    \dd{y} &= \dd{r} \sin(\varphi) + r \cos(\varphi) \dd{\varphi}
+\end{align}
+For $ z $, we can see that
+\begin{equation}
+    z \dd{z} = \frac{1}{2} \dd{(z^2)} = - \frac{1}{2} \dd{(x^2)} - \dd{(y^2)} = - x \dd{x} - y \dd{y}
+\end{equation}
+and
+\begin{equation}
+    z = \sqrt{R^2 - r^2}
+\end{equation}
+so
+\begin{equation}
+    \dd{z} = - \frac{r \dd{r}}{\sqrt{R^2 - r^2}}
+\end{equation}
+and
+\begin{equation}
+    \dd{z}^2 = \frac{r^2 \dd{r}^2}{R^2 - r^2}
+\end{equation}
+
+Therefore, the length element squared is
+\begin{equation}
+    \dd{s}^2 = \frac{\dd{r}^2}{1 - \frac{r^2}{R^2}} + r^2 \dd{\varphi}^2 \equiv g_{rr} \dd{r^2} + g_{\varphi \varphi} \dd{\varphi}^2
+\end{equation}
+
+We can define the geometric curvature of a sphere by
+\begin{equation}
+    \kappa = \frac{1}{R^2}
+\end{equation}
+
+
+In 4-space, we can consider a 3D surface of a 4D sphere, introducing a fourth spatial coordinate $ w $:
+\begin{equation}
+    x^2 + y^2 + z^2 + w^2 = R^2
+\end{equation}
+We can reparameterize this in spherical coordinates:
+\begin{equation}
+    x = r \sin(\theta) \cos(\varphi) \qquad y = r \sin(\theta) \sin(\varphi) \qquad z = r \cos(\theta)
+\end{equation}
+with
+\begin{equation}
+    r = R \sin(\chi) \qquad w = R \cos(\chi)
+\end{equation}
+From here, $ w^2 = R^2 - r^2 $, so $ 2w \dd{w} = - 2 r \dd{r} $ or
+\begin{equation}
+    \dd{w} = - \frac{r \dd{r}}{\sqrt{R^2 - r^2}} \qquad \dd{x}^2 + \dd{y}^2 + \dd{z}^2 = (\dd{r})^2 + r^2 \dd{\Omega} \qquad (\dd{w})^2 = \frac{r^2 \dd{r}^2}{R^2 - r^2}
+\end{equation}
+Therefore,
+\begin{equation}
+    \dd{s}^2 = \dd{x}^2 + \dd{y}^2 + \dd{z}^2 + \dd{w}^2 = \frac{\dd{r}^2}{1 - \frac{r^2}{R^2}} + r^2 \dd{\Omega}
+\end{equation}
+where $ \dd{\Omega} \equiv \sin[2](\theta) \dd{\theta}^2 + \dd{\varphi}^2 $. Again, the curvature of the 3D sphere is defined as $ \kappa = \frac{1}{R^2} $.
+
+\section{Minkowski Spacetime}\label{sec:minkowski_spacetime}
+
+Now let's consider a hyperboloid in 4-space, where our fourth coordinate has a negative signature (or equivalently the other three do):
+\begin{equation}
+    x^2 + y^2 + z^2 - w^2 = - R^2
+\end{equation}
+Now
+\begin{equation}
+    r = R \sinh(\chi) \qquad w = R \cosh(\chi)
+\end{equation}
+\begin{equation}
+    2w \dd{w} = 2r \dd{r} \qquad w^2 = R^2 + r^2
+\end{equation}
+Therefore
+\begin{align}
+    \dd{s}^2 &= \underbrace{- \dd{w}^2}_{- \frac{r^2 \dd{r}^2}{R^2 + r^2}} + \underbrace{\dd{x}^2 + \dd{y}^2 + \dd{z}^2}_{\dd{r}^2 + r^2 \dd{\Omega}} \\
+             &= \frac{\dd{r}^2}{1 + \frac{r^2}{R^2}} + r^2 \dd{\Omega}
+\end{align}
+
+Both of these cases, the 3-sphere and 3-hyperboloid, can be summarized as
+\begin{equation}
+    \dd{\sigma}^2 = \frac{\dd{r}^2}{1 - \kappa r^2} + r^2 \dd{\Omega}
+\end{equation}
+where $ \kappa = \pm \frac{1}{R^2} $ and $ \sigma $ is the spatial length element. This is the \textbf{most general} homogeneous and isotropic 3D geometry.
+
+\subsection{Hubble Expansion Geometry}\label{sub:hubble_expansion_geometry}
+
+The length element $ \dd{\sigma} $ describes the comoving distance on these geometries. We can include Hubble's expansion by adding a scale factor $ a(t) $ and the physical distance $ a(t) \dd{\sigma} = \dd{\sigma_{\text{phys}}(t)} $:
+\begin{equation}
+    \dd{s}^2 = (c \dd{t})^2 - (\dd{\sigma_{\text{phys}}})^2 = c^2 \dd{t}^2 - a^2(t) \left[ \frac{\dd{r}^2}{1 - \kappa r^2} + r^2 \dd{\Omega} \right] \tag{Friedmann-Robertson-Walker Metric}
+\end{equation}
+(also known as FRW metric for short). In the comoving coordinates (measured by an observer at rest in the expanding cosmology) $ (ct, r, \theta, \varphi) $, we can write the metric as
+\begin{equation}
+    g_{\mu \nu} = \mqty(\dmat[0]{1,- \frac{a^2}{1 - \kappa r^2}, - a^2 r^2 \sin[2](\theta), -a^2 r^2})
+\end{equation}
+
+With $ g_{\mu \nu} $, we can obtain $ G_{\mu \nu} = R_{\mu \nu} - \frac{1}{2} g_{\mu \nu} R $ (note $ G^{\mu \nu}_{; \nu} = 0 $) with $ T^{\mu \nu} $ of an ideal fluid:
+\begin{equation}
+    T^{\mu \nu}_{F} = - P(t) g^{\mu \nu} + (P(t) + \rho(t) c^2) \frac{u^{\mu} u^{\nu}}{c^2}
+\end{equation}
+with $ g^{\mu \nu} = (g_{\mu \nu})^{-1} $. For a fluid at rest in the comoving frame, there are no peculiar velocities, so $ \frac{u^{\mu}}{c} = (1, 0, 0, 0) $.
+
+We can include the cosmological constant:
+\begin{equation}
+    T^{\mu \nu}_{\Lambda} = g^{\mu \nu} \frac{\Lambda c^4}{8 \pi G}
+\end{equation}
+such that $ T^{\mu \nu} = T^{\mu \nu}_F + T^{\mu \nu}_{\Lambda} $:
+\begin{equation}
+    G_{\mu \nu} = \frac{8 \pi G}{c^4} T_{\mu \nu}
+\end{equation}
+
+\subsection{Newtonian Limit}\label{sub:newtonian_limit}
+
+Recall
+\begin{equation}
+    H^2(t) = \left( \frac{\dot{a}}{a} \right)^2 = \frac{8 \pi G}{3} \left[ \rho_F + \Lambda \right] - \frac{\kappa c^2}{a^2} \tag{Friedmann Equation}
+\end{equation}
+\begin{equation}
+    \frac{\ddot{a}}{a} = - \frac{4 \pi G}{3} \left( \rho_F + 3 \frac{P_F}{c^2} \right) + \frac{8 \pi G}{3} \Lambda \tag{Acceleration Equation}
+\end{equation}
+and
+\begin{equation}
+    \dot{rho}_F + 3 \frac{\dot{a}}{a} \left( \rho_F + \frac{P_F}{c^2} \right) = 0 \tag{Covariant Conservation}
+\end{equation}
+the last of which is a result of $ T^{\mu \nu}_{; \nu} = 0 $. Additionally, we know that the equation of state of the cosmological constant is $ \rho_{\Lambda} = \Lambda = - \frac{P_{\Lambda}}{c^2} $.
+
+We can see that the Newtonian limit yields the same result. We can obtain the acceleration equation from the Hubble expansion law combined with the Euler equation:
+\begin{equation}
+    \va{v}(t) = H(t) \va{r}
+\end{equation}
+where $ \va{r}(t) = a(t) \va{r}_0 $, where $ \va{r}_0 $ is comoving and time independent. Then
+\begin{equation}
+    \pdv{\va{v}}{t} = \dot{H} \va{r}
+\end{equation}
+
+\begin{equation}
+    (\va{v} \vdot \grad_r) = H(t) \left[ x \partial_x + y \partial_y + z \partial_z \right]
+\end{equation}
+and
+\begin{equation}
+    (\va{v} \vdot \grad_r)(v_x; v_y; v_z) = H^2 [x \partial_x + y \partial_y + z \partial_z] (x;y;z) \equiv H^2 \va{r}
+\end{equation}
+since $ \va{v} = H \va{r} $.
+
+By the cosmological principle, $ P $ and $ \rho $ only depend on time, so we get a Poisson equation:
+\begin{equation}
+    \laplacian{\Phi} = 4 \pi G \rho \implies \Phi(\va{r}, t) = \frac{2 \pi}{3} G \rho(t) \va{r}^2
+\end{equation}
+or
+\begin{equation}
+    - \grad{\Phi_r} = - \frac{4 \pi}{3} G \rho(t) \va{r}
+\end{equation}
+Then
+\begin{equation}
+    \eval{\pdv{\va{v}}{t}}_{r} + (\va{v} \vdot \grad_r) \va{v} = \cancelto{0}{- \frac{\grad{P}}{\rho}} \underbrace{- \grad{\Phi}}_{- \frac{4 \pi}{3} G \rho(t) \va{r}}
+\end{equation}
+so
+\begin{equation}
+    (\underbrace{\dot{H}}_{\pdv{\va{v}}{t}} + \underbrace{H^2}_{v \vdot \grad})r = - \frac{4 \pi}{3} G \rho(t) \va{r}
+\end{equation}
+The partial derivative on the left is taken at fixed $ \va{r} $, so
+\begin{equation}
+    \underbrace{(\dot{H} + H^2)}_{\frac{\ddot{a}}{a}} = - \frac{4 \pi}{3} G \rho(t)
+\end{equation}
+This acceleration equation is valid in the Newtonian limit $ P/ \rho c^2 \ll 1 $. Note that all spatial quantities are physical: $ \grad_r = \pdv{\va{r}} $ and $ \va{r} \equiv \va{r}_0 a(t) $ where $ \va{r}_0 $ is comoving. Then the original acceleration equation is consistent with the Euler and Hubble equations in the non-relativistic limit $ P/ \rho c^2 \ll 1 $ and $ \Lambda = 0 $.
+
+
+\end{document}

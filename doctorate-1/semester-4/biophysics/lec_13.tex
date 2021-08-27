@@ -1,0 +1,75 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\chapter{Diffusion in Cells}
+\lecture{13}{Friday, March 26, 2021}{Diffusion in Cells I}
+
+Diffusion is a phenomenon which wants to homogenize concentrations of particles. This implies some flow from high-concentration to low-concentration. Diffusion is the continuum limit of random walks of each particle and is caused by thermal forces. In a cell, this is typically on the order of $ \sim k_B T/ \nano\meter $. We can think of the mean-squared displacement of a random trajectory $ x(t) $:
+\begin{equation}
+    \ev{x} = 0 \qquad \ev{(x(t + \tau) - x(t))^2} = 2D \tau
+\end{equation}
+in one dimension ($ 6 D \tau $ in 3D), where $ D $ is the diffusion coefficient, which depends on the properties of the diffusive particle and the solvent.
+
+We can define a concentration field $ c $ to describe the continuum limit of the amount of particles per unit volume in a system. Of course, this depends on how finely you define the unit volume. We can also define flux as the number of particles crossing a unit area per unit time. We can say that the flux is a vector $ \va{J} $ where $ J_x $ is the number of particles crossing the y-z plane per unit area per unit time. The first law of mass transport is called Fick's Law:
+\begin{equation}
+    \va{J} = - D \grad{c}\tag{Fick's Law} 
+\end{equation}
+If the concentration increases along the $ x $-axis, the flux will be along the $ -x $-axis, because it will try to oppose the concentration gradient. If we look at a box of volume $ \Delta x \Delta y \Delta z $, we can see that the number of particles in the box will be $ N_{\text{box}} = c \Delta x \Delta y \Delta z $. If we only look at the flux along one axis,
+\begin{align}
+    \pdv{N_{\text{box}}}{t} &= \pdv{c}{t} \Delta x \Delta y \Delta z \\
+                            &= j(x,y,z) \Delta y \Delta z - j (x + \Delta x, y,z) \Delta y \Delta z \\
+                            &\approx j(x,y,z) \Delta y \Delta z - \left( j(x,y,z) + \pdv{j}{x} \Delta x \right) \Delta y \Delta z \\
+                            \implies \pdv{c}{t} = - \pdv{j}{x}
+\end{align}
+Using Fick's Law, $ j = - D \pdv{c}{x} $, so we get the Diffusion Equation:
+\begin{equation}
+    \pdv{c}{t} = D \pdv[2]{c}{x}
+\end{equation}
+Expanding this to all dimensions, we have to consider that the diffusion constant can differ throughout space:
+\begin{equation}
+    \pdv{c}{t} = - \div{(D \grad{c})}
+\end{equation}
+Suppose for now that $ D $ is constant in space, so $ \partial_t c = -D \laplacian{c} $. If we consider a 1D lattice with grid size $ a $, let's suppose that a particle has three types of possible trajectories. In the first case, the particle travels to the left, so we consider the statistical weight to be $ k \Delta t $ where $ k $ is the rate of motion (inverse time units). We can also consider a particle moving to the right, which also has weight $ k \Delta t $. The third possibility is that the particle does not move. The statistical weight for this scenario is $ 1 - 2 k \Delta t $, since all of these probabilities must add up to $ 1 $. Then
+\begin{equation}
+    \ev{x} = \sum_i p_i x_i = a k \Delta t + (-a)k \Delta t + (0)(1 - 2 k \Delta t) = 0
+\end{equation}
+\begin{equation}
+    \ev{x^2} = \sum_i p_i x_i^2 = 2 a^2 k \Delta t \approx 2 D \Delta t
+\end{equation}
+where $ D = k a^2 $. We can say that $ \Pr(x,t) $ is the probability density, so $ \Pr(x,t) \Delta x $ is the probability of finding a particle in $ \Delta x $ at $ t $. We can introduce a Master Equation:
+\begin{equation}
+    \Pr(x, t + \Delta t) = (k \Delta t) \Pr(x+a, t) + (k \Delta t) \Pr(x-a, t) + (1-2k \Delta t) \Pr(x,t)
+\end{equation}
+Then a Taylor expansion would show that
+\begin{equation}
+    \Pr(x, t + \Delta t) \approx \Pr(x,t) + \Delta \pdv{\Pr}{t}
+\end{equation}
+and
+\begin{equation}
+    \Pr(x \pm a, t) \approx \Pr(x,t) \pm a \pdv{\Pr}{x} + \frac{a^2}{2} \pdv[2]{\Pr}{x}
+\end{equation}
+
+The solution to the diffusion equation is a Gaussian:
+\begin{equation}
+    c(x,t) = \frac{N}{\sqrt{4 \pi D t}} e^{- x^2 / 4 D t}
+\end{equation}
+(The easy way to find this is by using a Fourier transform)
+
+\subsection{Fluorescence Recovery After Photobleaching (FRAP)}\label{sub:fluorescence_recovery_after_photobleaching_(frap)}
+
+An interesting method for measuring diffusive dynamics involves fluorescent molecules which are photobleached by a laser. Measuring the recovery time (time it takes for unbleached particles to re-enter the spot which was bleached) by diffusion can be used as a measurement of the diffusion constant. By computing the diffusion constant, people can infer transport properties of the cell, like how viscous the cytoplasm is.
+
+Suppose we have a cell with Green Fluorescent Protein (GFP) inside it of length $ 2L $ ($ x \in [-L, L] $) and we photobleach an area in the center, $ [-a, a] $. The initial concentration is $ c_0 $ outside and $ 0 $ inside, and then we impose a no-flux boundary condition, $ \pdv{c}{x} = 0 $ for $ x = \pm L $, since there is no GFP entering or exiting the cell. We can integrate $ c(x,t) $ over $ [-a,a] $ and show that it eventually reaches some maximum concentration. Experimentally, one can measure curves and then fit them to this theoretical model to get $ D $. 
+
+\section{Driven Diffusion}\label{sec:driven_diffusion}
+
+We assumed that motion in one direction had the same statistical rate as motion in the other direction. However this doesn't have to be the case. If we assign $ k_+(F) $ and $ k_-(F) $ to be the rate at which the particle moves right and left respectively, the mean displacement will no longer be $ 0 $: $ \ev{\Delta x} = a(k_+ - k_-) \Delta t $, so we can define a speed $ v = \Delta x / \Delta t = a(k_+ - k_-) $. Then the variance will be $ \text{Var}(\Delta x) \approx a^2 (k_+ + k_-)/(2 \Delta t) $, so $ D = a^2 (k_+ + k_-)/2 $. On a short timescale, the particle is diffusing, but on some longer timescale, it is drifting.
+
+Doing a Taylor expansion like before, we get a slightly different equation:
+\begin{equation}
+    \pdv{p}{t} = -v \pdv{p}{x} + D \pdv[2]{p}{x} \tag{1D Smoluchowski Equation}
+\end{equation}
+where $ p $ is the probability density.
+
+Solving this is also pretty easy by making a transformation $ \bar{x} = x - vt $. Then we just have the usual diffusion equation which we can solve with a Gaussian and transform back. We can also write it as $ \partial_t p = - \partial_x J $ where $ J = vp - D \partial_x p $. At steady state, $ J \equiv 0 $, so $ D \partial_x p = v p $, or $ p \propto e^{\frac{vx}{D}} $.
+
+\end{document}

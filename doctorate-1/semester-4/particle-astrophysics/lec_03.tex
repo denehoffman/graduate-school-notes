@@ -1,0 +1,164 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{3}{Thursday, January 28, 2021}{}
+
+[Lorentz transforms of covariant and contravariant 4-vectors]
+
+\subsection{Contravariant 4-Velocity}\label{sub:contravariant_4-velocity}
+
+\begin{equation}
+    u^{\mu} = \dv{x^{\mu}}{\tau}
+\end{equation}
+where $ x^{\mu} $ is contravariant and $ \tau $ is invariant ($ c^2 \tau^2 = c^2 \tau^2 - \va{x}^2 $). Under LT, $ x^{\prime\mu} = \Lambda^{\mu}_{\nu} x^{\nu} $ and $ \tau \to \tau $ so
+\begin{equation}
+    u^{\prime\mu} = \Lambda^{\mu}_{\nu} \dv{x^{\nu}}{\tau} = \lambda^{\mu}_{\nu} u^{\nu}
+\end{equation}
+
+In components, $ u^{\mu} = \left( c \dv{t}{\tau}, \dv{\va{x}}{\tau} \right) $. Therefore the scalar product is $ u^{\mu} u_{\mu} = \eta_{\mu \nu} u^{\mu} u^{\nu} = c^2 $. This is an invariant under LT.
+
+
+From the expression for proper time,
+\begin{equation}
+    \dd{\tau} = \dd{t} \sqrt{1 - \frac{\va{v}^2}{c^2}} = \frac{\dd{t}}{\gamma}
+\end{equation}
+or
+\begin{equation}
+    \dd{t} = \gamma \dd{\tau}
+\end{equation}
+$ \dd{\tau} $ is the time measured by an observer at rest, so
+\begin{equation}
+    u^{\mu} = \gamma \left( c, \dv{\va{x}}{t} \right) = \gamma (c, \va{v})
+\end{equation}
+
+\subsection{Contravariant 4-Momentum}\label{sub:contravariant_4-momentum}
+
+\begin{equation}
+    p^{\mu} = m u^{\mu} = m \gamma (c, \va{v})
+\end{equation}
+\begin{equation}
+    p^{\mu} p_{\mu} = m^2 u^{\mu} u_{\mu} = m^2 c^2
+\end{equation}
+Therefore,
+\begin{equation}
+    p^{\mu} = \gamma (mc, m \va{v}) \equiv \left( \frac{E}{c}, \va{p} \right)
+\end{equation}
+where
+\begin{equation}
+    E = \gamma m c^2\qquad \va{p} = \gamma m \va{v}
+\end{equation}
+
+Then $ p^{\mu} p_{\mu} = \frac{E^2}{c^2} - \va{p}^2 = m^2 c^2 $, so we get
+\begin{equation}
+    E = \sqrt{\va{p}^2 c^2 + m^2 c^4}\tag{Dispersion Relation}
+\end{equation}
+
+\subsection{Contravariant Force}\label{sub:contravariant_force}
+
+We define the force as
+\begin{equation}
+    F^{\mu} = \dv{p^{\mu}}{\tau} = m \underbrace{\dv{u^{\mu}}{\tau}}_{a^{\mu}}
+\end{equation}
+where $ a^{\mu} $ is the 4-acceleration.
+
+
+\section{General 4-Vectors}\label{sec:general_contravariant_4-vectors}
+
+Contravariant 4-vectors are vectors $ V^{\mu} $ which transform under LT as $ V^{\prime \mu} = \Lambda^{\mu}_{\nu} V^{\nu} $. Covariant 4-vectors transform under an inverse Lorentz transform.
+
+\subsection{Tensors}\label{sub:tensors}
+
+Tensors are 2nd rank (two index) objects which transform as
+\begin{equation}
+    T^{\prime \mu \nu} = \Lambda^{\mu}_{\alpha} \Lambda^{\nu}_{\beta} T^{\alpha \beta}
+\end{equation}
+contravariantly. They transform as the direct product of two contravariant 4-vectors. Similarly, covariant tensors transform as
+\begin{equation}
+    T_{\prime \mu \nu} = \tilde{\Lambda}_{\mu}^{\alpha} \tilde{\Lambda}_{\nu}^{\beta} T_{\alpha \beta}
+\end{equation}
+where $ \tilde{\Lambda} = \Lambda^{-1} $.
+
+If a 4-vector vanishes or is constant in one frame, it is constant in any inertial frame related by that frame with a Lorentz transformation. This is the principle of covariance; the equations of motion maintain the same form in different frames.
+
+\section{Conservation Laws in Particle Kinematics}\label{sec:conservation_laws_in_particle_kinematics}
+
+Consider collisions $ A + B \to C + D $. 
+\begin{equation}
+    F^{\mu} = 0 \implies p^{\mu}_{A} + p^{\mu}_{B} = p^{\mu}_{C} + p^{\mu}_{D}
+\end{equation}
+This is energy-momentum conservation. This brings us to an important concept of ``threshold energy''. In Classical mechanics, the minimum energy for a reaction like in the center of mass is the threshold energy. Energy isn't covariant, but in the center of mass, $ \va{p}_A = - \va{p}_B \equiv \va{p} $. At threshold, the daughter particles are produced at rest: $ \va{p}_C = \va{p}_D = 0 $. Then the threshold condition says $ E_A(p) + E_B(p) = (m_C + m_D)c $.
+
+Photons are massless with energy $ \hbar \omega(k) = \hbar c \abs{\va{k}} $, so the momentum is
+\begin{equation}
+    p^{\mu} = \left( \frac{\hbar \omega}{c}, \hbar \va{k} \right)
+\end{equation}
+and $ p^{\mu} p_{\mu} \equiv 0 $, so this is a ``null'' 4-vector.
+
+Principle of Covariance (elaborated): Because we assume physics works the same in all inertial frames, physical laws (equations of motion) must be written in terms of tensors, 4-vectors, etc.
+
+An astrophysical application is the Greisen-Zatsepin-Kuzmin (GZK) cut-off in UHECR (astro-ph 0309027). Observations of ``air showers'' produced by cosmic rays hitting the upper atmosphere generate protons with energies around $ 10^{19} $--$ 10^{20}\electronvolt $ (like a baseball at $ 100 \kilo\meter\per\hour $). In the 70's, GZK said that UHE protons would lose energy as they scatter off CMB radiation:
+\begin{equation}
+    p + \gamma_{\text{CMB}} \to \Delta^{+} \to p + \pi^0
+\end{equation}
+or
+\begin{equation}
+    p + \gamma_{\text{CMB}} \to \Delta^{\prime +} \to n + \pi^+
+\end{equation}
+The Lorentz factor is $ \gamma = \frac{E}{mc^2} \sim \frac{10^{20}}{10^{9}} \sim 10^{11} $ so $ \frac{v_p}{c} \sim 1 - 5 \times 10^{-24} $. The threshold energy for proton-pion production can be calculated as $ E_{\text{th}} = (m_p + m_{\pi}) c^2 \simeq 1.14 \times 10^9\electronvolt $.
+
+\begin{equation}
+    (p^{\mu}_p + p^{\mu}_{\gamma}) = \left( \frac{E_{\text{th}}}{c}, 0 \right)
+\end{equation}
+The scalar product of this should be $ - (m_p + m_{\pi})^2 c^2 $. We can calculate these invariants in the ``rest frame'' of the CMB. There is no rest frame for an individual photon, but we can think of the CMB as a fluid with a Boltzmann-Einstein distribution function. In this frame, the energy density is $ \sigma T^4 $, so
+\begin{equation}
+    p^{\mu}_p = \left( \frac{E_p^{\text{CMB}}}{c}, \va{p} \right)
+\end{equation}
+and
+\begin{equation}
+    p^{\mu}_{\gamma} = \frac{E_{\gamma}^{\text{CMB}}}{c} \left( 1, \hat{p}_{\gamma} \right)
+\end{equation}
+since $ \abs{\va{p}_{\gamma}} = \frac{E_{\gamma}}{c} $. Assume consistently that $ \abs{\va{p}_p} \gg m_p c $ (very high-energy) so $ E_p^{\text{CMB}} \simeq c \abs{\va{p}_p} $. Then
+\begin{equation}
+    p^{\mu}_{p} p_{\gamma \mu} = \frac{E_p^{\text{CMB}} E_{\gamma}^{\text{CMB}}}{c^2}\left( 1 - \hat{p}_p \vdot \hat{p}_{\gamma} \right)
+\end{equation}
+For a head-on collision, $ \hat{p}_p \vdot \hat{p}_{\gamma} = -1 $. Given the average CMB photon energy, we can see that $ E_p^{\text{CMB}} \sim 3 \times 10^{20} \electronvolt $. This is the threshold energy required for this collision to happen.
+
+One can measure the cross-section for proton-photon scattering to be $ \sigma \sim 10^{-28} \centi\meter\squared $. In a medium with $ n $ scatterers per unit volume, the mean free path is $ \lambda = \frac{1}{\sigma n} $. In the CMB, $ n = 422\centi\meter^{-3} $, so $ \lambda \sim 3 \times 10^{25} \centi\meter \sim 10 \text{Mpc} $.
+
+
+We have calculated that the energies of the protons for these reactions to happen need to be $ \sim 10^{20} \electronvolt $. Knowing the typical mean free path, and knowing that in each collision the proton loses about $ 0.2 $ of its energy, we conclude that we should not see protons like this coming from further than around $ 50 \text{Mpc} $. This is called the GZK cutoff. This was confirmed in 2008. In the rest frame of the protons, the photons are coming at them with $ \gamma \sim 10^{11} $, which means that the CMB photons are coming with about the energy of a pion, which explains the production.
+
+
+
+\section{Basics of G.R.}\label{sec:basics_of_g.r.}
+
+We begin by discussing the equivalence principle. We define the inertial mass through Newton's law:
+\begin{equation}
+    \va{F} = m_I \va{a}
+\end{equation}
+
+For the gravitational force,
+\begin{equation}
+    \va{F} = - m_G \grad{\Phi} = m_I \va{a}
+\end{equation}
+where we say $ m_G $ is the gravitational mass and $ m_I $ is the inertial mass. From this,
+\begin{equation}
+    \va{a} = - \left( \frac{m_G}{m_I} \right) \grad{\Phi}
+\end{equation}
+
+Experimentally, we find that all bodies fall in a gravitational field with the same acceleration, so $ m_G / m_I $ is the same for all bodies (constant). This constant can be absorbed into Newton's constant in the potential such that $ m_G = m_I $.
+
+
+Consider an elevator falling freely in the gravitational field of the earth. Inside the accelerator there is an observer and some other objects. The observer sees things moving either at rest or with a constant velocity relative to him in absence of external forces. Therefore, the observer describes the motion of the objects as if they were in an inertial frame.
+
+For this observer in free fall, there is no gravitational field. This is a consequence of the equivalence principle. A gravitational field can be compensated by going to a freely falling frame.
+
+\subsection{Tidal Forces}\label{sub:tidal_forces}
+
+This analysis isn't quite correct. It would be correct if the field was homogeneous, but we know that it isn't, since the field is generated by the earth. If the person is at the center of the elevator, objects around them will experience slightly less acceleration along $ z $ than the observer and will slowly accelerate towards the observer without any force acting on them. These apparent forces which are the result of an inhomogeneous gravitational field are called ``tidal forces''.
+
+
+The Weak Equivalence Principle states that a freely falling observer experiences no gravitational field in a small neighborhood (small enough to neglect tidal forces). This is a consequence of $ m_I = m_G $ for all bodies.
+
+Einstein takes this a step further with the Strong Equivalence Principle. This states that the Weak E.P. holds for massless particles (photons).
+
+\end{document}

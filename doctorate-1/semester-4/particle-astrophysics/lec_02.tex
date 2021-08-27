@@ -1,0 +1,152 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{2}{Thursday, January 21, 2021}{Time Evolution of Hubble's Law}
+
+If we take a symmetric shell of radius $ R(t) $, we find that it should have mass
+\begin{equation}
+    M(R) = \frac{4 \pi}{3} \rho R
+\end{equation}
+where $ \rho $ is the density of the shell.
+
+Then the total energy of this shell is conserved since the shell is at $ R $ and the mass inside is $ M(R) $, so
+\begin{equation}
+    E = \frac{1}{2} mv^2 - \frac{GM(R) m}{R}
+\end{equation}
+where $ v = \dot{R} $. Let's now combine this with Hubble's Law:
+\begin{equation}
+    v(t) = H(t) R(t),\qquad H(t) = \frac{\dot{a}(t)}{a(t)},\qquad R(t) = R_0 a(t)
+\end{equation}
+
+The third ingredient is conservation of mass. The total mass in the volume is constant, even though the volume is expanding:
+\begin{equation}
+    \rho(t) V(t) = \text{const.}
+\end{equation}
+but
+\begin{equation}
+    V(t) = V_0 \frac{a^3(t)}{a^3(t_0)}
+\end{equation}
+and
+\begin{equation}
+    V_0 = \frac{4 \pi}{3} R_0^3
+\end{equation}
+so
+\begin{equation}
+    \rho(t) = \rho_0 \left( \frac{a(t_0)}{a(t)} \right)^3
+\end{equation}
+This is not a surprise; the expansion increases the volume, but dilutes the mass, so the density should decrease. Note that if $ E < 0 $, $ R $ increases and $ v^2 $ decreases and reaches $ 0 $ at some fixed $ R_{\text{max}} $. We call such a universe ``closed'' or ``bounded''.
+
+If $ E > 0 $, then $ v^2 $ is not zero as $ R \to \infty $. The universe is ``unbounded'' and ``open'' with $ R \leq \infty $, and expansion continues forever.
+
+Finally, if $ E = 0 $, $ v^2 \to 0 $ as $ R \to \infty $, so the universe is still unbounded, but the expansion comes to a halt as $ t \to \infty $. We will call this case ``flat''.
+
+From the conservation of mass and energy, we find
+\begin{align}
+    E &= \frac{1}{2} m H^2(t) R^2(t) - \frac{4 \pi}{3} G \rho(t) R^2(t) m \\
+      &= \frac{1}{2} m \left[ H^2(t) a^2(t) R_0^2 - \frac{8 \pi}{3} G \rho(t) R^2(t) \right]
+\end{align}
+We define a constant $ \kappa $ by
+\begin{equation}
+    E = \frac{1}{2} m c^2 R_0^2 \kappa
+\end{equation}
+where $ \kappa $ has units of $ 1 / (\text{length})^2 $. From this we find
+\begin{equation}
+    H^2(t) = \frac{8 \pi}{3} G \rho(t) - \frac{\kappa c^2}{a^2(t)}\tag{Friedmann's Equation}
+\end{equation}
+The energy is negative when $ \kappa $ is negative, positive when $ \kappa $ is positive, and zero when $ \kappa $ is zero, so we can think of $ \kappa $ as the curvature (we will show this more definitively when we study GR).
+
+For now, just take it for granted that this equation does describe the dynamics of $ H(t) $ beyond Newtonian dynamics. We will later derive the same equation in GR.
+
+From the First Law of Thermodynamics, $ \dd{U} = -P \dd{V} + \dd{Q} $ where $ U $ is the internal energy, $ P $ is pressure, and $ Q $ is heat exchange with the environment. However, the universe, by definition, doesn't have an outside environment; it contains everything. There is no heat exchange with any environment, and we treat the universe as a closed system. This implies the expansion of the universe is adiabatic:
+\begin{equation}
+    \dd{U} = -P \dd{V}
+\end{equation}
+
+Defining energy as $ U = \rho c^2 V $, then
+\begin{equation}
+    \dv{U}{t}= - P \dv{V}{t} \implies \dv{t}(\rho c^2 V)= - P \dv{V}{t}
+\end{equation}
+so
+\begin{equation}
+    \dot{\rho} c^2 V + \rho c^2 \dot{V}+ P\dot{V} = 0
+\end{equation}
+but
+\begin{equation}
+    \dot{V} = 3 \frac{\dot{a}(t)}{a(t)} (a^3 V_0)= 3 H V(t)
+\end{equation}
+so
+\begin{equation}
+    \dot{\rho} + 3 H(t) \left[ \rho + \frac{P}{c^2} \right] = 0
+\end{equation}
+This is energy conservation in an expanding cosmology from a thermodynamic perspective. We will later see in GR that this is a covariant conservation equation.
+
+
+\section{Equation of State}\label{sec:equation_of_state}
+
+A gas of photons in equilibrium at temperature $ T $ has an energy $ U = \sigma T^4 V $ where $ \sigma $ is proportional to the Stephan-Boltzmann constant and $ P = \frac{1}{3} \frac{U}{V} $ with $ U \equiv \rho c^2 V $, so
+\begin{equation}
+    P = \frac{1}{3} \rho c^2
+\end{equation}
+This is the equation of state of radiation. Then our conservation equation from the previous section tells us that
+\begin{equation}
+    \frac{\dot{\rho}}{\rho} = - 4 \frac{\dot{a}}{a}
+\end{equation}
+\begin{equation}
+    \rho_R(t) = \rho_{0,R} \left( \frac{a_0}{a(t)} \right)^4 \implies \rho_R(t) a^4(t) = \text{const.}
+\end{equation}
+The entropy of a photon gas is $ S \propto T^3 V $. For an adiabatic process, $ S = \text{const.} $ so $ T^3(t) V_0 \left( \frac{a(t)}{a_0} \right)^3 = \text{const.} $. Therefore,
+\begin{equation}
+    T(t) = \frac{T_0 a_0}{a(t)} \sim \frac{1}{a(t)}
+\end{equation}
+and
+\begin{equation}
+    \rho c^2 = \frac{U}{V} \propto T^4 = \frac{T_0^4 a_0^4}{a^4(t)}
+\end{equation}
+
+Next, let's look at non-relativistic matter ($ \frac{1}{2} m v^2 \ll m c^2 $ or $ \frac{v^2}{c^2} \ll 1 $).
+
+In an ideal gas, the equation of state is $ PV = N k_B T $ and the mass density is $ \frac{N}{V} m \equiv m n = \rho $. Then
+\begin{equation}
+    P = \frac{N}{V} m \frac{k_B T}{m} = \rho \frac{k_B T}{m}
+\end{equation}
+Recall that by the equipartition theorem in an 3D ideal gas, $ \frac{1}{2} m \ev{v^2} = \frac{3 k_B T}{2} $, so
+\begin{equation}
+    P = \frac{1}{3} \rho \ev{v^2}
+\end{equation}
+Then,
+\begin{equation}
+    \frac{P}{\rho c^2} = \frac{1}{3} \frac{\ev{v^2}}{c^2} \ll 1
+\end{equation}
+For non-relativistic matter, this implies
+\begin{equation}
+    \dot{\rho} + 3 H \rho = 0
+\end{equation}
+and
+\begin{equation}
+    \frac{\dot{\rho}}{\rho} = -3 \frac{\dot{a}}{a}
+\end{equation}
+so
+\begin{equation}
+    \rho_M(t) = \frac{\rho_{0,M} a_0^3}{a^3(t)}
+\end{equation}
+
+The third possible state of matter is related to the cosmological constant, matter at a constant energy density $ \rho_{\Lambda}(t) c^2 \equiv \frac{\Lambda c^2}{8 \pi G} $. Einstein introduced this constant such that
+\begin{equation}
+    \rho_{\text{tot}} = \rho_M + \rho_{\Lambda}
+\end{equation}
+and
+\begin{equation}
+    H^2 = \frac{8 \pi G}{3} \rho_M + \frac{1}{3} \Lambda - \frac{\kappa c^2}{a^2} = 0
+\end{equation}
+Of course, we know this isn't observationally zero. Using our conservation equation,
+\begin{equation}
+    \rho_{\Lambda}(t) \equiv \rho_0 \Lambda
+\end{equation}
+\begin{equation}
+    P_{\Lambda} = - \rho_{\Lambda} c^2
+\end{equation}
+By observation, $ \Lambda $ is positive, so whatever it is, it needs to have negative pressure, whatever that means.
+
+
+
+
+\end{document}

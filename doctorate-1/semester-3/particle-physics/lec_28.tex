@@ -1,0 +1,67 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{28}{Wednesday, November 11, 2020}{Parity in Dirac Fermions}
+
+With $ c \equiv \cos(\theta / 2) $ and $ s \equiv \sin(\theta / 2) $, right-handed spinors can be written
+\begin{equation}
+    u_{\uparrow} \sqrt{E + M} \mqty(c\\se^{\imath \varphi} \\ \frac{p}{E+M} c\\ \frac{p}{E+M} se^{\imath \varphi})
+\end{equation}
+and left-handed as
+\begin{equation}
+    u_{\downarrow} \sqrt{E+M} \mqty(-s\\ c e^{\imath \varphi} \\ \frac{p}{E+M} s \\ \frac{-p}{E+M} c e^{\imath \varphi})
+\end{equation}
+For the antiparticle ($ v $) states, the right-handed helicity has
+\begin{equation}
+    \frac{\va{S}^{(v)} \vdot \va{p}}{p} v_{\uparrow} = \frac{1}{2} v_{\uparrow} \implies \frac{\va{S} \vdot \va{p}}{p} v_{\uparrow} = - \frac{1}{2} v_{\uparrow}
+\end{equation}
+so
+\begin{equation}
+    v_{\uparrow} = \sqrt{E+M} \mqty(\frac{p}{E+M} s \\- \frac{p}{E+M} c e^{\imath \varphi} \\ -s\\ c e^{\imath \varphi}) \qquad v_{\downarrow} = \sqrt{E+M} \mqty(\frac{p}{E+M} c \\ \frac{p}{E+M} s e^{\imath \varphi} \\ c \\ s e^{\imath \varphi})
+\end{equation}
+
+\section{Intrinsic Parity of (Dirac) Fermions}\label{sec:intrinsic_parity_of_(dirac)_fermions}
+
+The parity operator, $ \hat{\pi} $, reverses $ x $, $ y $, and $ z $ axes. Suppose $ \hat{\pi} \psi = \psi' $. Then $ \hat{\pi} \psi' = \hat{\pi}^2 \psi = I \psi = \psi $.
+
+If $\psi$ satisfies the Dirac equation, $ \imath \gamma^{\mu} \partial_{\mu} \psi - m \psi = 0 $ so $ \psi' = \hat{\pi} \psi $ should satisfy
+\begin{equation}
+    \imath \left( \gamma^1 \partial_{x'} + \gamma^2 \partial_{y'} + \gamma^3 \partial_{z'} \right) \psi' - m \psi = - \imath \gamma^0 \partial_t \psi'
+\end{equation}
+where $ x' = -x $ and so on. We can write $\psi$ as $ \hat{\pi} \psi' $, so
+\begin{equation}
+    \imath \left( \gamma^1 \hat{\pi} \partial_x \psi' + \gamma^2 \hat{\pi} \partial_y \psi' + \gamma^3 \hat{\pi} \partial_z \psi' \right) - m \hat{\pi} \psi' = - \imath \gamma^0 \hat{\pi} \partial_t \psi'
+\end{equation}
+Multiply by $ \gamma^0 $ and write $ x $ as $ -x' $ and so on:
+\begin{equation}
+    \imath \left( - \gamma^0 \gamma^1 \hat{\pi} \partial_{x'} \psi' - \gamma^0 \gamma^2 \hat{\pi} \partial_{y'} \psi' - \gamma^0 \gamma^3 \hat{\pi} \partial_{z'} \psi' \right) - m \gamma^0 \hat{\pi} \psi' = - \imath \gamma^0 \gamma^0 \hat{\pi} \partial_t \psi'
+\end{equation}
+The commutator gives us $ - \gamma^0 \gamma^i = + \gamma^i \gamma^0 $, so we can make that substitution across the board. This gives us the same equation as before, but with $ \gamma^0 \hat{\pi} = kI $ where $ k \in \Z $. This means that $ \hat{\pi} = {\gamma^0}^2 \hat{\pi} = \gamma^{0} (k I) = k \gamma^0 $. Finally, $ I = \hat{\pi}^2 = k^2 {\gamma^0}^2 = k^2 I $ so $ k = \pm 1 $. By convention, we choose $ k = +1 $ so $ \hat{\pi} = \gamma^0 $.
+
+Acting this operator on $ u_1 $ and $ u_2 $ (at rest), we find that $ \hat{\pi} u_{1,2} = \gamma^0 u_{1,2} = u_{1,2} $, so fermions have positive parity. For anti-particles at rest, $ \hat{\pi} v_{1,2} = - v_{1,2} $, so antifermions have negative parity.
+
+
+\section{Pseudovectors and Pseudoscalars}\label{sec:pseudovectors_and_pseudoscalars}
+
+Notice that under parity transformations, vectors formed from cross-products remain unchanged: $ \vb{A} = \va{v} \cross \va{v} \to - \va{v} \cross - \va{v} = \vb{A} $. Similarly, dotting a vector and pseudovector generates a pseudoscalar, which \textit{does} switch sign under a parity transformation. Matrix elements could have pseudovectors and pseudoscalar components, so it's possible to create matrix elements which act differently under parity. As it turns out, the electromagnetic and strong forces don't contain such components, but the weak force can be experimentally shown to violate parity because it contains such matrix elements.
+
+\section{Interaction by Particle Exchange}\label{sec:interaction_by_particle_exchange}
+
+In non-relativistic quantum mechanics,
+\begin{equation}
+    T_{fi} = \mel{f}{V}{i} + \sum_{j \neq i} \frac{\mel{f}{V}{i} \mel{j}{V}{i}}{E_i - E_j}
+\end{equation}
+
+In relativistic quantum mechanics, we replace the static potential, $ V $, by interaction via exchanged particles. The first term has no meaning, while higher-order terms can be interpreted as two interactions of exchanged particles.
+
+\section{Time-Ordered Perturbation Theory}\label{sec:time-ordered_perturbation_theory}
+
+We start by picturing two orderings of $ a+b \to c+d $ by exchange of particle $ x $:
+
+\begin{figure}[ht]
+    \centering
+    \incfig[1]{time-ordering}
+    \caption{Time Ordering}\label{fig:time-ordering}
+\end{figure}
+
+
+\end{document}

@@ -1,0 +1,83 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{19}{Friday, April 23, 2021}{Neural Signalling and Action Potentials II}
+
+Next, we will describe cell signaling as a circuit to understand the dynamics of the system. We can think of both gates as battery-resistors connected in parallel, each with resistance $ g_{Na} $ or $ g_K $ and voltage $ V_N^{Na} $ and $ V_N^K $ (the Nernst potentials). These are in parallel with a capacitor which represents the cell membrane. Let $ I_{Na} $ be the current passing through the sodium channel and $ I_K $ be the current in the potassium channel. Then the charge difference set up across the membrane is
+\begin{equation}
+    \Delta Q = - (I_k + I_{Na}) \Delta t = C \Delta V_{\text{mem}}
+\end{equation}
+or
+\begin{equation}
+    c \dv{V_{\text{mem}}}{t} = -(I_K + I_{Na})
+\end{equation}
+We also know that
+\begin{align}
+    I_K &= g_K (V_{\text{mem}} - V_N^K) \\
+    I_{Na} &= g_{Na}(V_{\text{mem}}) (V_{\text{mem}} - V_N^{Na})
+\end{align}
+Recall from the previous class that
+\begin{equation}
+    g_{Na} = g_{Na}^0 \frac{1}{1 + e^{a(V^* - V_{\text{mem}})}}
+\end{equation}
+so (relabeling $ V \equiv V_{\text{mem}} $),
+\begin{equation}
+    c \dv{V}{t} = g_k(V_N^K - V) + g_{Na}(V) (V_N^{Na} - V)
+\end{equation}
+Let's examine the steady-state:
+\begin{equation}
+    \dv{V}{t} = 0 \implies V = \frac{g_K V_N^K + g_{Na} V_N^{NA}}{g_K + g_{Na}}
+\end{equation}
+If we take $ V < V^* $, then $ g_{Na} \sim 0 \ll g_K $, so $ V \approx V_N^K $. However, if $ V > V^* $, $ g_{Na} \gg g_K $, so $ V \approx V_N^{Na} $, so we get two steady states of the system. This system acts like a bistable switch.
+
+
+\section{Cable Equation}\label{sec:cable_equation}
+
+
+We can now imagine that at each point in space along the neuron, there is an equivalent circuit connected in parallel with some internal resistance $ \Delta R_{int} $, the resistance of the lipid. We can think of the potential as an effective potential $ V_N $ for each patch, with $ \Delta g_{patch} $ resistence and $ \Delta C_{patch} $ capacitance. The current in each patch is $ i_r(x) $. How does such a circuit work?
+
+\begin{equation}
+    V(x + \Delta x) - V(x) = - i(x) \Delta R_{\text{int}}
+\end{equation}
+and
+\begin{equation}
+    i(x - \Delta x) = i_r(x) + i(x)
+\end{equation}
+with
+\begin{equation}
+    i_r = \Delta g(V(x) - V_N)
+\end{equation}
+Then
+\begin{equation}
+    i(x - \Delta x) - i(x) = \Delta g (V(x) - V_N)
+\end{equation}
+We can use the first equation to see that
+\begin{equation}
+    \dv{V}{x} = - i(x) \frac{\Delta R_{\text{int}}}{\Delta x}
+\end{equation}
+so
+\begin{equation}
+    -\dv{i}{x} = \frac{\Delta g}{\Delta x} (V - V_N)
+\end{equation}
+and
+\begin{equation}
+    \left( \frac{\Delta x}{\Delta R_{\text{int}}} \right) - \dv{x}\left( - \dv{V}{x} \right) = \left( \frac{\Delta g}{\Delta x} \right)(V - V_N)
+\end{equation}
+which gives us
+\begin{equation}
+    \dv[2]{V}{x} = \frac{\Delta g \Delta R_{\text{int}}}{\Delta x \Delta x} (V - V_N)
+\end{equation}
+Letting $ \Delta g = g \pi d \Delta x $ (a cylindrical cell wall with channels uniformly distributed), $ \frac{\Delta g}{\Delta x} = g \pi d $, and $ \Delta R_{\text{int}} = \frac{\rho \Delta x}{\pi d^2 / 4} $, we get
+\begin{equation}
+    \dv[2]{V}{x} = \lambda^2 (V - V_N) \qquad \lambda = \sqrt{\frac{d}{4 \rho g}} \tag{Cable Equation}
+\end{equation}
+
+This is the steady-state solution. The next thing we want to do is find a time-dependent cable equation that can describe signals moving along this neuron. If we add a term $ \Delta C \pdv{V(x,t)}{t} $ to our first equation, we end up with something like
+\begin{equation}
+    \lambda^2 \pdv[2]{V}{x} - \tau \pdv{V}{t} = \frac{g_{Na} V}{g_K} (V - V_N^{Na})+ (V - V_N^{K})
+\end{equation}
+where $ \tau = \Delta C / g_K $. The propagation speed is then $ v \approx \lambda / \tau $.
+
+If we take a boundary condition, say $ V(x=0) = V_0 $ at $ t = 0 $, what happens? Unfortunately, this equation is rather difficult to solve exactly, but we can input some of the known values for the free parameters and solve it numerically. For sub-threshold voltages which can't excite the sodium channels, the signal will decay to the potassium Nernst potential. However, super-threshold voltages will form a propagating wave-front. Unfortunately, the circuits won't turn off, like the propagating pulse expected of an action potential. The cable equation is not a good model for this because it only has one time derivative (equivalently, one time scale).
+
+
+\end{document}

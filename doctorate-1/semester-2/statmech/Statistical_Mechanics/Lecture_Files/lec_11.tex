@@ -1,0 +1,57 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{11}{Friday, February 07, 2020}{Integrating Factors}
+
+Recall the First Law in differential form:
+\begin{equation}
+    \dd{U} = \dbar{Q} + \dbar{W}
+\end{equation}
+This equation implies that there is no state function for heat or work. To understand this equation, let's revisit the conservation of energy. Imagine a box with cross-sectional area $ A $ and a piston. We can apply some sort of force $ F $ to that piston, moving it an amount $ \dd{x} $, and there's some system inside the box. The work done on the system is (assuming the direction of the force is in the opposite direction of the $ x $ axis):
+\begin{equation}
+    \dbar{W} = F (-\dd{x}) = \frac{F}{A} (- \dd{x} A) = - P \dd{V}
+\end{equation}
+We could also write this as
+\begin{equation}
+    \dd{V} = - \frac{1}{P} \dbar{W}
+\end{equation}
+Recall that we can use an integrating factor (here it's $ - \frac{1}{P} $) to get an exact differential from an inexact differential. The work that we do on the system only depends on the path taken and not on the endpoints, whereas the volume is clearly a well-defined number at each point and doesn't depend on what ``path'' was taken to get to that volume.
+
+We can also look at a small change in heat:
+\begin{align}
+    \dd{S} &= S(U + \dbar{Q}, V, N) - S(U,V,N) \\
+    &= S(U,V,N) + \pdv{S}{U} \dbar{Q} + \ldots - S(U,V,N) \\
+    &= \pdv{S}{U} \dbar{Q} = \frac{1}{T} \dbar{Q}
+\end{align}
+so $ \frac{1}{T} $ is an integrating factor for $ \dbar{Q} $.
+
+Using these integrating factors, we can see that
+\begin{equation}
+    \dd{U} = T \dd{S} - P \dd{V} \left( + \mu \dd{N} \right)
+\end{equation}
+which we derived using statistical mechanics. Again, memorize this.
+
+\section{Heat Engines}
+\label{sec:heat_engines}
+
+\subsection{Reversible and Irreversible Processes}
+\label{sub:reversible_and_irreversible_processes}
+
+Imagine we have some system, we release some constraint, and as a consequence, the system spontaneously goes to a new equilibrium state and the entropy increases. The reverse does not happen spontaneously. This is called an irreversible process. The counterpart to this is a reversible process. Imagine we move a system through a sequence of equilibrium states. If you move it back to the starting point (not necessarily along the same path), no change in entropy has occurred. This doesn't mean that the entropy was constant along the path, but once you return to the start, the entropy returns to its initial value. This is a reversible process. In practice, reversible processes are ``quasistatic''\textemdash they require ``infinitely slow'' motion. However, there do exist quasistatic processes which are not reversible. As a counterexample, imagine a box with a thick wall between two compartments. One side of this box is hot and the other is cold, and suppose the wall conducts heat but poorly. Depending on how poorly the wall conducts heat, we can make the equilibration of the compartments as slow as we want, although this is certainly not a reversible process. The change of state is very slow but still irreversible.
+
+\begin{definition}{Heat Engine}
+    A heat engine is a cyclically operating device that takes ``heat'' and turns it into ``work''.
+\end{definition}
+
+From the First Law, we already have a constraint on the amount of work we can do:
+\begin{equation}
+    \dbar{W} \leq \dbar{Q}
+\end{equation}
+where $ \dbar{W} $ is the work \textbf{done by} the engine and $ \dbar{Q} $ is the heat going into the system. Notice that this is a different sign convention than when we first defined it. One might think we could also take some of the $ \dd{U} $ to exceed this limit, but this is not allowed because the heat engine is cyclic, so it must return to the same state on each cycle. Therefore, $ \dd{U} = 0 $ over any cycle.
+
+Next, the Second Law tells us that, in fact,
+\begin{equation}
+    \dbar{W} < \dbar{Q}
+\end{equation}
+\textit{even under ideal reversible conditions!} We can imagine a system where no energy is ever lost to friction or other irreversible processes, and one might expect such a machine would be perfectly efficient. Next time, we will show why this isn't in fact the case.
+
+\end{document}

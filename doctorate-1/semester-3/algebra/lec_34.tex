@@ -1,0 +1,62 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{34}{Monday, November 23, 2020}{The Quintic Formula}
+
+The goal today is to show that an equation $ x^n + a_{n-1} x^{n-1} \cdots + a_0 $ of degree $ n \geq 5 $ has no solution in radicals (roots).
+
+\begin{claim}
+    Suppose $ K/F $ is Galois and $ F/F' $ is an arbitrary finite extension. Then $ KF'/F' $ is Galois and $ \text{Gal}(KF'/F) \cong \text{Gal}(K/(K \cap F')) $.
+\end{claim}
+\begin{proof}
+    Since $ K/F $ is Galois, $ K $ is a splitting field over $ F $ of some separable polynomial $ f \in F[x] $. Then $ KF' $ is a splitting field over $ F' $ of the same polynomial.
+
+    Take $ \sigma \in \text{Gal}(KF'/F') \mapsto \eval{\sigma}_{K} $. $ \sigma $ fixes $ F' $, so $ \sigma $ fixes $ K \cap F' $. $ K/F $ is normal so $ K/(K \cap F') $ is normal, so $ \sigma K = K $. Therefore, $ \eval{\sigma}_{K} \in \text{Gal}(K/(K \cap F')) $. We will define this restriction as $ \varphi \colon \text{Gal}(KF'/F') \to \text{Gal}(K/(K \cap F')) $. We know then that $ \ker \varphi = \{\sigma \in \text{Gal}(KF'/F') \colon \eval{\sigma}_{K} = \text{id}_K\} $. $ \sigma $ fixes $ K $ and $ \sigma \in \text{Gal}(KF'/F') $, so it also fixes $ F' $. Therefore, $ \sigma $ fixes $ KF' $ so $ \sigma = \text{id}_{KF'} $.
+
+    Let $ H $ be the image of $ \varphi $ in $ \text{Gal}(K/(K \cap F')) $. Then let $ E = \text{Fix}(H) $. Consider $ E' = EF' $. On one hand, we claim that $ E' $ is fixed by $ \text{Gal}(KF'/F') $. To do this, we need to show that $ E $ and $ F' $ are both fixed. $ E $ is fixed because $ E = \text{Fix}(H) $. $ F' $ is fixed because every element of the Galois group fixes $ F' $. Hence $ E' \subseteq F' $, so $ E \subseteq F' $, so $ E\subseteq F' \cap K $. Therefore, $ E = K \cap F' $, and by Galois correspondence, $ H = \text{Gal}(K/(K \cap F')) $.
+\end{proof}
+
+\begin{definition}
+    An extension $ K/F $ is cyclic/abelian/solvable if $ K/F $ is Galois and $ Gal(K/F) $ is cyclic/abelian/solvable respectively. Note this is not a theorem, this is how we define these properties in extensions.
+\end{definition}
+
+\begin{corollary}
+    $ K/F $ is abelian implies $ KF'/F' $ is abelian
+\end{corollary}
+\begin{proof}
+    $ \text{Gal}(K/(K \cap F')) \leq \text{Gal}(K/F) $.
+\end{proof}
+
+\begin{claim}
+    Suppose $ \text{char} F \nmid n $ and $ F $ contains all $ n $th roots of unity (roots of $ x^n - 1 $). Then for $ a \in F $, $ F(\sqrt[n]{a}) / F $ is cyclic.
+\end{claim}
+\begin{proof}
+    $ F(\sqrt[n]{a}) $ is the splitting field of $ x^n - a $. $ \sigma \in \text{Gal}(F(\sqrt[n]{a}) / F) $.
+    \begin{equation}
+        \sigma \sqrt[n]{a} = w(\sigma) \sqrt[n]{a}
+    \end{equation}
+    where $ w(\sigma) $ is an nth root of unity.
+
+    \begin{equation}
+        \varphi \colon \sigma \mapsto w(\sigma) \in F
+    \end{equation}
+    
+    We claim that $ \varphi $ is an injective homomorphism. First of all, it's a homomorphism since $ \sigma(\sigma' \sqrt[n]{a}) = \sigma(w(\sigma') \sqrt[n]{a}) = w(\sigma') \sigma(\sqrt[n]{a}) = w(\sigma') w(\sigma) \sqrt[n]{a} $. The $ \ker \varphi $ is where $ w(\sigma) = 1 $, so $ \sigma = \text{id} $, so it is injective.
+
+    Therefore $ \text{Gal}(F(\sqrt[n]{a}) / F) $ is isomorphic to a subgroup of $ n $th roots of unity, which is cyclic.
+    \begin{ex}
+        Every finite subgroup of a multiplicative group of a field is cyclic. To prove this, let $ G $ be such a group. The number of elements of exponent $ n $ in $ G $ is the number of solutions to $ x^n - 1 = 0 $. The number of solutions is $ \leq n $. Using the classification of finite abelian groups, it must be the product of cyclic groups.
+    \end{ex}
+    \begin{definition}
+        An extension $ K/K_0 $ is a \textit{radical} extension if there is a sequence of extensions $ K_0 \subseteq K_1 \subseteq K_2 \subseteq \cdots \subseteq K_n = K $ such that $ K_{n+1} = K_n(\tau_n) $ where $ \tau_n $ is a root of $ x^{m_n} - a_n = 0 $, or $ \tau_n = \sqrt[m]{a} $.
+    \end{definition}
+    Observe that $ \text{char} K_0 = 0 $. If $ K/K_0 $ is radical, then there exists $ K'/K $ such that $ K'/K_0 $ is radical and $ K'_{n+1} / K'_n $ is abelian.
+    
+    We can prove this by induction on the length. The induction step goes as follows. We will transform the extension onto roots of $ a $ into the sequence of extensions $ K(w_n) $, $ K(w_{n+1} \sqrt[n]{a}) $, etc. This is a cyclotomic extension. Look at the extension of $ K(w_n) $. There exists some extension of $ K $ which is $ \Q $ along with an extension to $ \Q(w_n) $ which extends to $ K(w_n) $. Since the extension between $ \Q $'s is abelian, then the extension between $ K $'s is.
+
+    We now claim that if $ \text{char} K_0 = 0 $, $ K/K_0 $ is radical from the above observation. Then $ \text{Gal}(K/K_0) $ is solvable.
+
+    Define $ G_m = \text{Gal}(K_m / K_0) $. We know that since all these extensions are normal, $ G_{m+1} / G_m \cong \text{Gal}(K_{m+1} / K_{m}) $, which is abelian. We then have a sequence $ 1 \triangleright G_1 \triangleright \cdots \triangleright G_n $, such that $ G_{m+1} / G_m $ is abelian. This is the definition of solvablility. We will conclude this proof in the next lecture.
+\end{proof}
+
+
+\end{document}

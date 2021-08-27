@@ -1,0 +1,42 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{40}{Friday, December 11, 2020}{}
+
+
+(Missed first 10 minutes)
+
+Recall the coordinate transform
+\begin{align}
+    x &= a_1 \tilde{x} \\
+    y &= \tilde{y} + a_2 \tilde{x}
+    f(x,y) &= f_n(x,y) + f_{n-1}(x, y) + \cdots \\
+    f_n(x, y) &= \tilde{x}^{n} f_n(a_1, a_2) + \text{ lower order}
+\end{align}
+
+Write $ g(x,y) = g_n(x,y) + g_{n-1}(x,y) + \cdots $ so that $ g_m(x,y) = \tilde{x}^m g_m(a_1, a_2) $. Consider $ g_n(a_1, a_2) f_n(a_1, a_2) = k $. Then there exists an $ a_1 $ and $ a_2 $ with $ a_1 \neq 0 $ such that $ h(a_1, a_2) \neq 0 $.
+
+There are in fact many such $ a_1 $ and $ a_2 $. Suppose there exist $ a_1 $ and $ a_2, a_2' $ such that both $ h(a_1, a_2) \neq 0 $ and $ h(a_1, a_2') \neq 0 $. Without loss of generality, say that $ \text{deg}(f) = m $ and $ \text{deg}(g) = n $. $ f(x,y) $ is of the form $ x^m a_0 + x^{m+1} a_1 + \cdots $ and $ g(x,y) $ is of the form $ x^n b_0 + x^{n-1} b_1 + $ where $ a_0 \neq 0 $ and $ b_0 \neq 0 $. In general, $ \text{deg}(a_i) \leq i $ and $ \text{deg}(b_j) \leq j $. Consider the resultant,
+\begin{equation}
+    \text{Res}(f,g,x) = \det S
+\end{equation}
+where $ S $ is the Sylvester matrix. The left half contains diagonals of the coefficients $ a_i $ and the right half contains diagonals of $ b_i $ We denote the $ (i,j) $ entry as $ S_{ij} \in k[y] $. The degree of the matrix elements are
+\begin{align}
+    \text{deg}(S_{ij}) \leq i - j &\qquad j \leq n \\
+    \text{deg}(S_{ij}) \leq i - (j - n) &\qquad j > n
+\end{align}
+
+\begin{equation}
+    \text{Res}(f,g,x) = \sum_{\sigma \in S} (-1)^{\sigma} \prod S_{ij} \sigma(i)
+\end{equation}
+so
+\begin{align}
+    \text{deg}(\text{Res}(f,g,x)) &\leq \max_{\sigma} \sum_{i=1} \text{deg}(S_{ij} <++> \sigma(i)) \\
+                                  &\leq \cancelto{0}{\sum^{n+m}_{1} (1 - \sigma(i))} + \sum_{\sigma(i) > n} n \\
+                                  &= nm
+\end{align}
+So $ \text{deg}(\text{Res}(f,g,x)) \leq nm $. As long as it is nonzero, then it has at most $ nm $ roots, but we know that it is nonzero because we supposed $ f $ and $ g $ had no common factor.
+
+We know that $ V(f,g) $ is finite because it is finite in projections in at least two coordinate systems, and once we know that it is finite, we can choose a coordinate transform such that no two points are horizontal.
+
+
+\end{document}

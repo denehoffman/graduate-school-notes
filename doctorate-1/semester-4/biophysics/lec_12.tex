@@ -1,0 +1,46 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{12}{Wednesday, March 24, 2021}{Biological Fluid Dynamics II}
+
+\subsection{Stokes Flow}\label{sub:stokes_flow}
+
+In the last lecture (before the midterm), we discussed the concept of a Reynolds number, $ \text{Re} = \frac{\rho a v}{\eta} $ where $ \eta $ is the fluid viscosity, $ a $ is a length scale of the object, $ v $ is velocity, and $ \rho $ is the fluid density. This is a dimensionless value but is intrinsically scale-dependent. In biophysics, we are generally working with $ \text{Re} \ll 1 $. In this regime, the Navier-Stokes equations become just the Stokes equation:
+\begin{equation}
+    \grad{p} = \eta \laplacian{\va{v}}\tag{Stokes Equation}
+\end{equation}
+This equation defines Stokes flow and is much easier to solve than the full Navier-Stokes equation.
+
+\subsection{Fluid Dynamics of Blood}\label{sub:fluid_dynamics_of_blood}
+
+Suppose we have a capillary, which we can model as an infinitely long pipe. The physics will not depend on where we are along the length of the pipe, and we can write the equation in cylindrical coordinates, $ (r, \theta, z) $. There also should be no angular dependence, since we are assuming an angularly-symmetric capillary. We want to compute the velocity profile at steady state. In this case, $ \va{v} = v(r) \vu{z} $ by cylindrical symmetry, $ \pdv{\va{v}}{t} = 0 $ in the steady state, and $ (\va{v} \vdot \grad) \va{v} = 0 $, so we need to solve
+\begin{equation}
+    \pdv{p}{z} = \eta \frac{1}{r} \dv{r}\left( r \dv{v}{r} \right)
+\end{equation}
+where the right-hand side is just the Laplacian in cylindrical coordinates. Here we are assuming the pressure is just $ z $-dependent. The solution can be found to be
+\begin{equation}
+    v(r) = \frac{\Delta p}{4 \eta l} \left( \frac{d^2}{4} - r^2 \right)
+\end{equation}
+where $ \Delta p $ is the pressure difference across a length $ l $ and $ d $ is the diameter of the capillary. To solve this, we assume $ v(d/2) = 0 $, called a no-slip boundary condition at the wall of the capillary.
+
+\subsection{Stokes Drag}\label{sub:stokes_drag}
+
+What is the drag force on a sphere of radius $ R $ through a viscous fluid at constant speed $ v $ (away from any boundaries). This force will depend on the geometry of the object:
+\begin{equation}
+    F_S \propto \text{viscous stress} \times \text{surface area} \tag{Stokes Drag Force}
+\end{equation}
+In principle, this is a sort of complicated problem, but we will make a rough estimate. For the sphere, the viscous stress is about $ \eta v / R $ while the surface area is $ 4 \pi R^2 $. Then $ F_S \propto \eta v R $. The exact solution from solving the Stokes equation is $ F_S = 6 \pi \eta R v $. In two dimensions, it will be $ F_S = 4 \pi \eta R v $. What would the drag force on a cylinder be (the shape of many single-celled organisms)? First, this object is no longer isotropic, the drag force certainly depends on which direction we pull the cylinder. We will come back to this later, but essentially it will be very similar to the sphere, but with a prefactor which depends on direction.
+
+For $ \text{Re} < 10 $, we generally get laminar flow (parallel lines) around a spherical object. For $ \text{Re} \sim [10, 40] $, some vortices form and are generally maintained (stable). However, for $ \text{Re} > 40 $, vortices form and are periodically shed (unstable/chaotic). However, we can experimentally see vortex flows in cellular motion, despite having $ \text{Re} \ll 1 $. A cell contracting over a very short length of time can cause the Reynolds number to increase by several orders of magnitude, if only momentarily. 
+
+\section{Motion of Biological Organisms}\label{sec:motion_of_biological_organisms}
+
+We can imagine a scallop as an animal with one degree of freedom (the opening and closing of its shell can be parametrized by $ \theta $, the angle of opening). Any motion created by opening should exactly cancel motion created by closing, so we are limited to motion along a linear phase space between two points (maximal open and closed states).
+
+However, if we take an animal with two degrees of freedom, $ \theta $ and $ \varphi $, we can create cycles in a two-dimensional phase space which can lead to motion.
+
+\textit{E. coli} swim by rotating its flagellum. The force of propulsion is proportional to the drag coefficient along the $ z $-axis times the velocity along that axis. If we imagine the flagellum oscillating in a plane, we can define a tangent at any point with an angle $ \theta $ to the $ z $-axis. Then the force of propulsion along the $ z $-axis will be $ F_p = F_{\perp} \sin(\theta) - F_{\parallel} \cos(\theta) $. If $ F_{\perp} = \gamma_{\perp} v \cos(\theta) $ with $ \gamma_{\perp} \sim 4 \pi \eta l $ and $ F_{\parallel} = \gamma_{\parallel} v \sin(\theta) $ with $ \gamma_{\parallel} \sim 2 \pi \eta l $, then $ F_p = 2 \pi \eta L v \cos(\theta) \sin(\theta) $ (here $ \gamma $ are the drag coefficients).
+
+On Friday we will study diffusion in cells.
+
+
+\end{document}

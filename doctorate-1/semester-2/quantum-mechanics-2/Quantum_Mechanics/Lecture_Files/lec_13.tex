@@ -1,0 +1,114 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{13}{Wednesday, February 12, 2020}{Perturbations of the Hydrogen Atom}
+
+\section{Fine Structure of Hydrogen}
+\label{sec:fine_structure_of_hydrogen}
+
+\subsection{Relativistic Correction}
+\label{sub:relativistic_correction}
+
+Let's call our expansion parameter $ \lambda \equiv \frac{v}{c} $, the scaled velocity of the electron in an orbit. Recall that the virial theorem tells us that $ KE \sim PE $, so $ m_e v^2 \sim \frac{e^2}{r} \sim \frac{e^2}{a_0} = \frac{e^4 m_e}{\hbar^2} $. Dividing both sides by $ c^2 $, we find that
+\begin{equation}
+    \frac{v^2}{c^2} \sim \frac{e^4}{\hbar c^2} \sim \alpha^2
+\end{equation}
+where $ \alpha \approx \frac{1}{137} $ is defined as the fine structure constant.
+
+The Schr\"odinger equation was not built to do relativistic corrections (we need the Dirac equation for this), but we can use it to get a handle on sources of relativistic corrections. We know the relativistic energy that we should see from a free particle:
+\begin{equation}
+    E^2 = \va{p}^2 c^2 + m^2 c^4 = m c^2 \left[ 1 + \frac{\va{p}^2}{2 m^2 c^2} + \frac{\va{p}^4}{8 m^4 c^4} \right]
+\end{equation}
+The first term is proportional to the free-particle Hamiltonian, but the next relativistic correction will be
+\begin{equation}
+    H_I = \frac{\va{p}^4}{8 m_e^3 c^2} \sim \frac{v^4}{c^4} \sim \alpha^4
+\end{equation}
+Recall that $ E_0 \sim m c^2 \alpha^2 $ so
+\begin{equation}
+    \frac{H_I}{E_0} \sim \alpha^2
+\end{equation}
+
+There are two more corrections at this order.
+
+\subsection{Spin-Orbit Interaction}
+\label{sub:spin-orbit_interaction}
+
+If we have an electron moving in the electric field of the proton, we also need to include the effect of a magnetic field that the electron sees because it is moving quickly through this field. The electron itself has spin, which is like a magnetic moment, and this interacts with this apparent magnetic field:
+\begin{equation}
+    \va{E} = \frac{\va{x}}{r} \pdv{\Phi}{r} \qquad \Phi = - \frac{e^2}{r}
+\end{equation}
+\begin{equation}
+    \va{B} = - \frac{\va{v}}{c} \cross \va{E}
+\end{equation}
+\begin{equation}
+    H = - \frac{e \va{S}}{mc} \vdot \va{B} = - \frac{e}{mc^2} \va{S} \vdot (\va{v} \cross \va{x}) \frac{1}{r} \dv{r} \Phi \qquad \Phi = - \frac{e^2}{r}
+\end{equation}
+
+This is not really correct, because this is the magnetic field seen by a boosted inertial observer, and the electron is not moving at constant velocity (it's moving around the proton in some way, so the velocity vector must be changing). Interestingly, if you do this correctly with the Dirac equation, there's just an extra factor of $ 2 $:
+\begin{equation}
+    H_I = \frac{1}{2m^2 c^2} \va{S} \vdot \va{L} \frac{e^2}{r^3}
+\end{equation}
+
+\subsection{Darwin Term}
+\label{sub:darwin_term}
+
+Due to fluctuations (Compton wavelength) the electron itself isn't a point in space. If you try to probe an electron at smaller distances than this wavelength, you will necessarily create other electrons through pair production. The Compton wavelength of the electron goes like $ \lambda_C = \frac{\hbar c}{m} \sim \frac{100 \mega\electronvolt \vdot \text{Fermi}}{0.5 \mega\electronvolt}$. We won't take up class time writing down the derivation of this correction:
+\begin{equation}
+    H_D = \frac{\pi e^2 \hbar^2}{2 m_e^2 c^2} \delta^{(3)}(\va{r})
+\end{equation}
+
+\subsection{Calculating the Spin-Orbit Contribution}
+\label{sub:calculating_the_spin-orbit_contribution}
+
+Typically the wave function is divided into a spatial and a spin space:
+\begin{equation}
+    \ket{\psi} =\ket{\psi_s} \otimes\ket{\chi}
+\end{equation}
+and we want to find $ E_1 = \ev{H_I} $. We can write this as
+\begin{equation}
+    \ev{\frac{1}{r^3} \va{L} \vdot \va{S}} = \ev{\frac{L_a}{r^3}}{\psi_s} \ev{S_a}{\chi}
+\end{equation}
+Note that we can write
+\begin{equation}
+    \va{S} \vdot \va{L} = \frac{1}{2} (\va{S} + \va{L})^2 - \frac{\va{S}^2}{2} - \frac{\va{L}^2}{2} = \frac{1}{2} \left[ \va{J}^2 - \va{S}^2 - \va{L}^2 \right]
+\end{equation}
+We would like to work in a basis which diagonalizes $ \va{J} $, the total angular momentum. How do we add angular momentum? Before we go into the theory, let's just do an example. The simplest example possible is adding two spin-$ \frac{1}{2} $ particles.
+\begin{ex}
+    Suppose we have a wave function of two particles:
+    \begin{equation}
+        \ket{\chi} =\ket{\chi_1} \otimes\ket{\chi_2}
+    \end{equation}
+    What is the total spin? We always have a choice of basis, so we want to take all the operators which commute and diagonalize them. We have two choices of mutually commuting operators. We know that $ \comm{\va{S}_1}{\va{S}_2} = 0 $, so we can choose the set
+    \begin{equation}
+        \{\va{S}^2_1, S_{1z}, \va{S}^2_2, S_{2z}\}
+    \end{equation}
+    However, we really want to diagonalize $ (\va{S}_1 + \va{S}_2)^2 $. $ \va{S}^2_{1,2} $ are the Casimir operators so they commute with everything, and it turns out the final set of commuting observables is
+    \begin{equation}
+        \{(\va{S}_1 + \va{S}_2)^2, \va{S}^2_1, \va{S}_2^2, (S_{1z} + S_{2z}) = S_z^T\}
+    \end{equation}
+    There are four possible states in our Hilbert space: $ \{\ket{++},\ket{--},\ket{+-},\ket{-+}\} $ (where $\ket{\pm} $ corresponds to $ S_z = \pm\frac{\hbar}{2} $). We want to transform into the second basis. For the first two states, have $ S_z^T\{\ket{++},\ket{--} \} \to \{ \hbar, - \hbar\} $. We know that the states go from $ -l $ to $ l $, and the largest $ l $ we could have is $ \frac{1}{2} + \frac{1}{2} = 1 $, so we assign $\ket{++} $ with $ S_z^T \sim 1 $ as the highest state. Next, we get the other states using raising and lowering operators:
+    \begin{equation}
+        S_{T_-} = S_{1_-} + S_{2_-} = (S_{1x} - \imath S_{1y}) + (S_{2x} - \imath S_{2y})
+    \end{equation}
+    Recall that in general, these ladder operators act on the system as
+    \begin{equation}
+        J_{\pm} \ket{jm} = \sqrt{(j\mp m)(j\pm m+1)} \hbar\ket{j,m\pm 1}
+    \end{equation}
+    Let's get the next state down in the ladder:
+    \begin{equation}
+        S_{T_-}\ket{++} = (S_{1_-} + S_{2_-})\ket{++}
+    \end{equation}
+    \begin{equation}
+        S_{1_-}\ket{+} = \left[ \left( \frac{1}{2} + \frac{1}{2} \right) \left( \frac{1}{2} - \frac{1}{2} + 1 \right) \right]^{\frac{1}{2}} \hbar \ket{-} = \hbar\ket{-}
+    \end{equation}
+    and similarly with $ S_{2_-} $. We therefore find that
+    \begin{equation}
+        S_{T_-}\ket{++} = \hbar \left[\ket{+-} +\ket{-+} \right]
+    \end{equation}
+    If the $\ket{++} $ state is $\ket{1,1} $, the next lowest state will be $\ket{1,0} $, so
+    \begin{equation}
+        \ket{1,0} = \frac{1}{\sqrt{2}} \left[\ket{+-} +\ket{-+} \right]
+    \end{equation}
+\end{ex}
+
+
+\end{document}

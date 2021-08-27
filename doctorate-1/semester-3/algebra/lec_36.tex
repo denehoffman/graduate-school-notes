@@ -1,0 +1,127 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{36}{Wednesday, December 02, 2020}{Algebraic Geometry}
+
+\section{Intro to Algebraic Geometry}\label{sec:intro_to_algebraic_geometry}
+
+
+If $ f_1, \cdots, f_s \in k[X] $ (where $ X = (x_1, \cdots, x_n) $), we can examine
+\begin{equation}
+    V(f_1, \cdots, f_s) = \{a \in k^n \colon f_i(a) = 0 \quad\forall i\}
+\end{equation}
+We call this an affine variety, which is an algebraic set. Equivalently, if $ I = (f_1, \cdots, f_s) $,
+\begin{equation}
+    V(f_1, \cdots, f_s) = V(I)
+\end{equation}
+\begin{ex}
+    Over $ \R $,
+    \begin{equation}
+        V(x^2 + y^2 - 1)
+    \end{equation}
+    is a circle and
+    \begin{equation}
+        V(xy - 1)
+    \end{equation}
+    is a hyperbola, etc.
+\end{ex}
+
+More generally, given a set $ S \in k^n $, we can look at an ideal
+\begin{equation}
+    I(S) = \{f \in k[X] \colon \eval{f}_{S} = 0\}
+\end{equation}
+
+Let's combine these notions:
+\begin{equation}
+    I(V(I)) \supseteq I
+\end{equation}
+
+\begin{definition}
+    $ \text{rad} I = \{r\colon \exists m\quad r^m \in I\} $. Note that $ \text{rad} I $ is an ideal.
+\end{definition}
+
+\begin{theorem}[Hilbert's Nullstellensatz]
+    If $ k $ is algebraically closed, then there is a bijection between the set of radical ideals in $ k[X] $ and the varieties in $ k^n $.
+\end{theorem}
+
+\begin{definition}
+    A function $ f\colon V \to k $ ($ V subset k^n $) is called \textit{regular} if $ f $ agrees with a polynomial map $ k^n \to k $.
+\end{definition}
+
+If we look at the variety $ V = V(xy-1) $, then $ x $ and $ x + (xy - 1) $ induce the same $ V \to k $.
+
+The ring of regular functions is denoted by $ k[V] \equiv \frac{k[X]}{I(V)} $. People often denote $ k^n $ by $ \mathbb{A}^n = V(\varnothing) $, called the affine $ n $-space. In other words, $ k[\mathbb{A}^n] = k[X] $.
+
+Say we have two varieties, $ V $ and $ W $, possibly living in different spaces: $ V \subset \mathbb{A}^n $ and $ W \subset \mathbb{A}^m $.
+
+Then a regular map $ \varphi \colon V \to W $ is a map such that $ \varphi = \eval{(\varphi_1, \cdots, \varphi_m)}_{V} $ where each $ \varphi_i $ is a polynomial.
+
+\begin{claim}
+    There is a bijection between regular maps $ V \to W $ and $ k $-algebra homomorphisms $ k[W] \to k[V] $.
+\end{claim}
+\begin{proof}
+    $ \varphi \colon V \to W $ with the mapping $ \varphi' = (f \in k[W] \mapsto f \circ \varphi \in k[V]) $.
+    
+    If $ \varphi $ is regular, then $ \varphi'(f+g) = \varphi'(f) + \varphi'(g) $ and $ \varphi'(cf) = c \varphi'(k) $ $ \forall c \in k $.
+
+    For the converse direction, $ \varphi' \colon k[W] \to k[V] $. Consider the image of $ x_1, \cdots, x_m \in k[x_1, \cdots, x_m] $ in $ k[W] $ and call it $ \tilde{x}_i $.
+
+    Let $ F_i = \varphi'(\tilde{x}_i) \in k[V] $ and define $ \varphi \colon V \to k^m $ by $ \varphi(a) = (F_1(a), \cdots, F_m(a)) $. We claim that $ \varphi $ maps to $ W $. 
+
+    Recall that $ k[W] = \frac{k[x_1, \cdots, x_m]}{I(W)} $, so if $ f \in I(W) $, then $ f \circ \varphi = 0 $.
+
+    Then
+    \begin{align}
+        f(F_1, \cdots, F_m) &= f(\varphi'(\tilde{x}_1), \cdots, \varphi'(\tilde{x}_m)) \\
+                            &= \varphi'(f(\tilde{x}_1, \cdots, \tilde{x}_m)) \\
+                            &= \varphi'(0) = 0
+    \end{align}
+\end{proof}
+
+A particular case of the Nullstellensatz (the weak Nullstellensatz) appears if $ 1 \not\in I \subset k[X] $. If $ k $ is algebraically closed, then there is a point in $ V(I) $, i.e. a solution to a system of equations $ f = 0 $ $ \forall f \in I $.
+
+\subsection{Projection}\label{sub:projection}
+
+If $ V = V(I) \subseteq \mathbb{A}^n $, we can project $ V $ to $ \mathbb{A}^{n-1} $ with the mapping
+\begin{equation}
+    (a_1, a_2, \cdots, a_n) \mapsto (a_2, \cdots, a_n)
+\end{equation}
+
+We think of $ I_1 = I \cap k[X_2, \cdots, X_n] $.
+\begin{note}{Note}
+    The projection of $ V $, denoted $ \pi(V) $, satisfies $ V(I_1) \supseteq \pi(V) $.
+\end{note}
+
+\begin{ex}
+    $ V = V(xy-1) $. The projection of $ V $ is $ \pi(V) = \mathbb{A}^1 \setminus \{0\} $ (you can see this if you plot the function and project onto the $ x $-axis). In this case, $ I_1 = (0) $ so $ V(I_1) = \mathbb{A}^1 $.
+\end{ex}
+
+\subsection{Resultants}\label{sub:resultants}
+
+When do two polynomials have a common map?
+\begin{claim}
+    If $ f, g \in k[x] $ (one variable for now) are polynomials of degree $ m $ and $ l $ respectively, then the following are equivalent:
+    \begin{itemize}
+        \item $ f $ and $ g $ have a common factor
+        \item $ \exists A,B \in k[x] $ with
+            \begin{alignat}{2}
+                0 &< \text{deg}(A) &&< l \\
+                0 &< \text{deg}(B) &&< m \\
+            \end{align}
+            such that $ Af + Bg = 0 $ 
+    \end{itemize}
+\end{claim}
+\begin{proof}
+    If $ f = hf' $, $ g = hg' $, and $ \text{deg}(h) > 0 $, then $ A = g' $, $ B = -f' $ and $ Af + Bg = h(g'f' - f'g') = 0 $.
+
+    Conversely, if $ A $ and $ B $ satisfy the second condition and $ \gcd(f, g) = 1 $ then $ 1 = \tilde{A} f + \tilde{B} g $ and so
+    \begin{align}
+        B &= B(\tilde{A} f + \tilde{B} g) \\
+          &= B \tilde{A} f + \tilde{B} B g \\
+          &= B \tilde{A} f - \tilde{B} A f \\
+          &= f(B \tilde{A} - \tilde{B} A)
+    \end{align}
+    but $ \text{deg}(B) \geq \text{deg}(f) = m $, and this is a contradiction.
+\end{proof}
+
+
+\end{document}

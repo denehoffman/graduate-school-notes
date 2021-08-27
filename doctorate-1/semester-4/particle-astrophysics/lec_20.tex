@@ -1,0 +1,60 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{20}{Thursday, April 01, 2021}{Solitons}
+Suppose we slowly vary $ h $ across $ h = 0 $, like from $ h < 0 $ to $ h > 0 $. For $ h \to 0^- $, the minimum is at $ \phi_- $, but as $ h $ crosses $ 0 $, the true minimum becomes $ \phi_+ $, but the system remains trapped in the local metastable state at $ \phi_- $ until it somehow ``decays'' to the true minimum. To do so, it must overcome a free-energy barrier.
+
+Howe does it do this? Before we answer this, we must look at ``topological'' excitations associated with spontaneous symmetry breaking for $ h = 0 $ (the degenerate case).
+
+Consider the potential $ V(\phi) = \frac{\lambda}{4} \left[ \phi^2 - \phi_0^2 \right]^2 $. In 1+1 dimensions, the Klein-Gordon equation is
+\begin{equation}
+    \pdv[2]{\phi}{t} - \pdv[2]{\phi} + V'(\phi) = 0
+\end{equation}
+so for static field configurations,
+\begin{equation}
+    - \pdv[2]{\phi}{x} - \lambda \phi_0^2 \phi + \lambda \phi^3 = 0
+\end{equation}
+This features solutions that interpolate between the two minima at $ \pm \phi_0 $. If we define $ \phi(x) = \phi_0 u(x) $ and $ z = \sqrt{\lambda} \phi_0 $, then
+\begin{equation}
+    - \pdv[2]{u}{z} - u + u^3 = 0
+\end{equation}
+has solutions like $ u(z) = \pm \tanh[\frac{z - z_0}{\sqrt{2}}] $. For the original equation, this means
+\begin{equation}
+    \phi(x) = \pm \phi_0 \tanh[\sqrt{\frac{\lambda}{2}} \phi_0 (x - x_0)]
+\end{equation}
+These solutions are called solitons (+) or antisolitons (-) (or kinks (+) and anti-kinks (-)). $ x_0 $ is an arbitrary position by translational invariance. These excitations of the spontaneous symmetry breaking ground state are also known as \textit{domain walls}. In 1+1 dimensions, these are topological. The topological current,
+\begin{equation}
+J^{\mu} = \varepsilon^{\mu \nu} \pdv_{\nu} \phi
+\end{equation}
+with $ \varepsilon^{01} = +1 = - \varepsilon^{10} $, the Levi-Civita symbol.
+\begin{equation}
+    \partial_{\mu} J^{\mu} = 0 \implies Q = \int \dd{x} J^{0}(x)
+\end{equation}
+is conserved, but
+\begin{equation}
+    Q = \int \dd{x} \dv{\phi}{x} = \phi(\infty) - \phi(- \infty)
+\end{equation}
+For solitons, $ Q = 2 \phi_0 $, and for antisolitons, $ Q = - 2 \phi_0 $. This current is a topological current, since it is not related to any Noether symmetry.
+
+The energy density of the soliton domain wall is localized around $ x_0 $. The width of this distribution is $ \xi \sim \sqrt{\lambda} \phi_0 $. 
+\begin{equation}
+    \mathcal{H}(x) = \frac{1}{2} \left( \pdv{\phi}{x} \right)^2 + V(\phi)
+\end{equation}
+
+In 3+1 dimensions, how does a phase transition occur? Consider lowering the temperature from $ T > T_c $ to $ T < T_c $. The homogeneous single phase with $ \ev{\phi} = 0 $ breaks into domains with $ \pm \phi_0 $ separated by a domain wall. The domain wall features an energy per unit length given precisely by the soliton domain wall energy. Eventually these excitations relax as soliton-antisolitons collide (a soliton-antisoliton pair is ``topologically trivial''). These concepts are useful to describe first-order phase transitions as nucleating ``bubbles''. In a first-order phase transition, the system is ``trapped'' in a local minimum and must ``decay'' to the one with the lowest free-energy. Consider a spontaneous thermal fluctuation that creates a bubble of radius $ R $ of the ``true'' phase in the ``sea'' of the ``false'' metastable phases. Inside the bubble, the phase with $ \ev{\phi} = \phi_+ $ has a lower free energy $ - \Delta F $ than the phase outside the bubble, and the surface of the bubble is like a domain wall separating the phases. Such domain walls feature an energy density localized at the wall. The total change in free energy to create such a spontaneous bubble is:
+\begin{equation}
+    \Delta F(R) = 4 \pi R^2 \sigma - \frac{4 \pi R^3}{3} \Delta \mathcal{F}
+\end{equation}
+where $ \sigma $ is the surface tension or energy per unit area, and $ \Delta \mathcal{F} $ is the change in free energy density. If we plot this against $ R $, we find a zero at $ R^* = \frac{3 \sigma}{\Delta \mathcal{F}} $. If $ R < R^* $, the bubble shrinks because of the surface tension. If $ R > R^* $, the bubble grows because the volume of the phase with lower free energy wins out. These bubbles grow gaining free energy and converting the metastable phase to the true stable phase. This process is called \textit{nucleation} and is at the heart of the vapor chamber detector in particle physics. Here, energetic particles passing through a supersaturated water vapor ``seed'' the production of bubbles (bubble chamber). The system must overcome a free energy barrier $ F[\phi(R^*)] $, a field configuration with critical radius. The nucleation process is suppressed by $ e^{- \frac{F[\phi(R^*)]}{T}} $. For a radial configuration, $ \phi $ obeys the static Klein-Gordon equation in spherical coordinates for spherical symmetry (spherical bubbles):
+\begin{equation}
+    \dv[2]{\phi}{R} + \frac{2}{R} \dv{\phi}{R} - V'(\phi) = 0
+\end{equation}
+
+Once such a supercritical bubble is formed, the physics is similar to a liquid-gas transition, a hallmark of first-order phase transitions driven strongly \textit{out of equilibrium} by the growth of supercritical bubbles converting metastable phases to stable phases. In particle physics, the nature of the different transitions is till very much debated.
+
+The electroweak theory might feature a first-order transition for a Higgs mass less than $ 80 \giga\electronvolt $ but with $ m_H = 125 \giga\electronvolt $, the transition is either a smooth crossover (no transition but a continuous transformation) or a ``mild'' second-order transition between phases with broken/unbroken $ \text{SU}(2) \times \text{U}(1) $ symmetry. Such a transition occurs at $ T \sim 100 \giga\electronvolt $ at a time $ t \sim 10^{-11} \second $ after the Big Bang: these are known as sphalerons, which are also bubbles.
+
+The QCD phase transition between the phase of deconfined and confined quarks occurs around $ T \sim 150 \mega\electronvolt $ and $ t \sim 10^{-5} \second $. The evidence from lattice gauge theory (for the three lightest quarks) \textit{suggests} a first-order transition to a ``mixed'' phase, but uncertainties remain. The important feature of QCD is that if it is a ``mixed'' phase of quarks, gluons, mesons, and baryons, the liquid-gas transition occurs along an isochore (equal pressure) line, which is a consequence of the Maxwell construction. In turn, this implies an anomalous small speed of sound which may result on the formation of black holes via Jean's instabilities (more on this later) with $ M \approx M_{\odot} $.
+
+Associated with these phase transitions, there emerge ``topological excitations'' like spontaneous symmetry breaking of discrete symmetries leads to solitons/domain walls (for example, in ferro magnets), SSB in gauge theories like the Standard Model lead to other excitations, strings, for instance, for $ \text{U}(1) $ symmetry. Sphalerons are configurations of critical bubbles associated with electroweak theory ($ \text{SU}(2) \times \text{U}(1) $), and skyrmions are associated with baryons in the EFT for mesons/baryons in QCD ($ \text{SU}(3) $).
+
+\end{document}

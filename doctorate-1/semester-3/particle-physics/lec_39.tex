@@ -1,0 +1,70 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{39}{Friday, December 11, 2020}{}
+
+From the final result of the previous lecture, we can write down the Lorentz-invariant cross-section:
+\begin{align}
+    \dv{\sigma}{q^2} &= \frac{1}{64 \pi s {p_i^*}^2} \ev{\abs{\mathcal{M}_{fi}}^2} \\
+                     &= \frac{Q_q^2 e^4}{32 \pi s p_i^*} \frac{s^2 + u^2}{t^2} \\
+                     &= \frac{Q^2_q e^4}{8 \pi q^4} \frac{s^2 + u^2}{s^2}
+\end{align}
+Recall that $ u + s + t = \sum_i m_i^2 = 0 $ in this case, so $ u = -s-t = -s-q^2 $:
+\begin{equation}
+    \dv{\sigma}{q^2} = \frac{2 \pi \alpha^2 Q_q^2}{q^4} \left[ 1 + \left( 1 + \frac{q^2}{s} \right)^2 \right] \tag{1}
+\end{equation}
+
+\section{Quark-Parton Model}\label{sec:quark-parton_model}
+
+If, in the ``infinite momentum frame'' a struck quark carries a fraction $ \xi $ of the 4-momentum, $ p_q = (\xi E_2, 0, 0, \xi E_2) $, after collision, $ p_q^2 = (\xi p_2 + q)^2 = (\xi p_2)^2 + 2 \xi p_2 \vdot q + q^2 = m_q^2 $. If we ignore the mass term and the $ \xi^2 $ term (suppose they are very small), then
+\begin{equation}
+    \xi = \frac{- q^2}{2 \pi_2 \vdot q} = \frac{Q^2}{2 p_2 \vdot q} = x
+\end{equation}
+$ x $, for any electron-proton scattering, is a fraction of $ p_2 $ carried by the struck quark (in the infinite momentum frame), while $ s $ for the electron-proton system is $ s = (p_1 + p_2)^2 \sim 2 p_1 \vdot p_2 $. $ s_q $ for the system is $ s_q = (p_1 + x p_2)^2 \sim x 2 p_1 \vdot p_2 = xs $.
+
+Similarly, $ y_q = \frac{p_q \vdot q}{p_q \vdot p_1} = \frac{x p_2 \vdot q}{x p_2 \vdot p_1} = y $, and $ x_q = 1 $ because scattering from quarks is always elastic. Then, $ (1) $ becomes
+\begin{equation}
+    \dv{\sigma}{q^2} = \frac{2 \pi \alpha^2 Q_q^2}{q^4} \left[ 1 + \left( 1 + \frac{q^2}{xs} \right) \right]
+\end{equation}
+with $ q^2 = - Q^2 = - (s_q - m_q^2)x_q y_q $, since $ y = \frac{2 m_p}{s-m_p^2} \nu $ and $ x = \frac{Q^2}{2m_p \nu} $. Therefore, $ \frac{q^2}{s_q} = \frac{q^2}{xs} = - x_q y_q = -y $.
+
+\begin{align}
+    \dv{\sigma}{q^2} &= \frac{2 \pi \alpha^2 Q_q^2}{q^4} \left[ 1 + (1 - y)^2 \right] \\
+                     &= \frac{4 \pi \alpha^2 Q_q^2}{Q^4} \left[ 1 - y + \frac{y^2}{2} \right] \tag{2}
+\end{align}
+
+\subsection{Parton Distribution Functions}\label{sub:parton_distribution_functions}
+
+Let the probability of up or down quarks within the proton having momentum-fraction $ x $ (in the $ \infty $-momentum frame) be $ u^p(x) \dd{x} \equiv u(x) \dd{x} $ or $ d^p(x) \dd{x} \equiv d(x) \dd{x} $ for the up and down quarks and barred versions for the antiquarks.
+
+\begin{equation}
+    \pdv[2]{\sigma^p}{x}{Q^2} = \frac{4 \pi \alpha^2}{Q^4} \left[ (1-y) + \frac{y^2}{2} \right] \sum_i Q_i^2 q_i(x)
+\end{equation}
+Compare this with the high $ Q^2 $ limit in terms of $ F_{1,2}(x, Q^2) $:
+\begin{equation}
+    \pdv{\sigma}{x}{Q^2} = \frac{4 \pi \alpha^2}{Q^4} \left[ (1-y) \frac{F_2}{x} + y^2 F_1 \right]
+\end{equation}
+so
+\begin{equation}
+    F_2(x, Q^2) = 2x F_1 = x \sum_i Q^2_i q_i(x)
+\end{equation}
+This predicts Bjorken scaling, since this is not dependent on $ Q^2 $, and it also predicts the Callen-Gross relation, $ F_2 = 2xF_1 $.
+
+\subsection{Determination of PDFs}\label{sub:determination_of_pdfs}
+
+Neglecting the $ s $ and $ \bar{s} $ component,
+\begin{align}
+    F_2^{ep}(x) &= x \sum_i Q_i^2 q_i(x) = x \left( \frac{4}{9} u(x) + \frac{1}{9} d(x) + \frac{4}{9} \bar{u}(x) + \frac{1}{9} \bar{d}(x) \right) \\
+    F_2^{en}(x) &= x \left( \frac{4}{9} d(x) + \frac{1}{9} u(x) + \frac{4}{9} \bar{d}(x) + \frac{1}{9} \bar{u}(x) \right)
+\end{align}
+Then
+\begin{equation}
+    \int_0^1 F_2^{ep}(x) \dd{x} = \frac{4}{9} f_u + \frac{1}{9} f_d
+\end{equation}
+where $ f_u \equiv \int_0^1 [x u(x) + x \bar{u}(x)] $ and $ f_d \equiv \int_0^1 [x d(x) + x \bar{d}(x)] $, the fraction of the proton momentum carried by up/down quarks.
+\begin{equation}
+    \int_0^1 F_2^{en}(x) \dd{x} = \frac{4}{9} f_d + \frac{1}{9} f_u
+\end{equation}
+From SLAC measurements, $ \int F_2^{ep}(x) \dd{x} = 0.18 $ and $ \int F_2^{en}(x) \dd{x} = 0.12 $ so $ f_u = 0.36 $ and $ f_d = 0.18 $. Note that this doesn't add up to $ 1 $, so there is a large portion of the momentum which is presumably carried by gluons ($ g $) or $ s $ and $ \bar{s} $ (strange quarks).
+
+
+\end{document}

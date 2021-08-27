@@ -1,0 +1,118 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{21}{Tuesday, April 06, 2021}{Primordial Nucleosynthesis}
+
+\section{Primordial Nucleosynthesis}\label{sec:primordial_nucleosynthesis}
+
+To understand the formation of elements in the early universe, we must explore the concept of Nuclear Statistical Equilibrium. This has two parts: thermal equilibrium among species and chemical equilibrium among ``reacting'' species. Consider non-relativistic particles. Their distribution function is Maxwell-Boltzmann:
+\begin{equation}
+    f(p) = e^{- (m - \mu)/ T} e^{- p^2 / 2mT}
+\end{equation}
+The number of species $ i $ in thermal equilibrium is
+\begin{equation}
+    n_i = g_i \left( \frac{m_i T}{2 \pi} \right)^{3/2} e^{- (m_i - \mu_i)/ T} 
+\end{equation}
+
+Consider a nuclear reaction in which $ Z $ protons and $ A - Z $ neutrons combine to form a bound nucleus with atomic mass $ A $ and charge $ Z $. Since $ n $ and $ p $ formed after the QCD confinement transition at $ T_{\text{QCD}} \sim 150 \mega\electronvolt $ and $ m_p \sim m_n \sim 1 \giga\electronvolt $, both are non-relativistic. If the temperature is large enough, the nucleus can dissociate into $ Zp $ and $ (A - Z)n $. At this temperature,
+\begin{equation}
+    \nuclide[Z][A]{N} \leftrightarrow Z p + (A - Z)n
+\end{equation}
+is in chemical equilibrium when the nuclei are in constant coexistence with $ p $ and $ n $ and the reactions go both ways equally. Then
+\begin{equation}
+    \mu_N = Z \mu_p + (A - Z) \mu_n
+\end{equation}
+From the equation for the density for each species, we can move some stuff around to find
+\begin{equation}
+    e^{\mu_N /T} = \frac{n_N}{g_N} \left( \frac{2 \pi}{m_N T} \right)^{3/2} e^{m_N / T}
+\end{equation}
+but
+\begin{equation}
+    e^{\mu_N / T} = e^{Z \mu_p / T} e^{(A - Z) \mu_n / T} = \left[ \frac{n_p}{g_p} \left( \frac{2 \pi}{m_p T} \right)^{3/2} e^{m_p / T} \right]^Z \left[ \frac{n_n}{g_n} \left( \frac{2 \pi}{m_n T} \right)^{3/2} e^{m_n / T} \right]^{A-Z}
+\end{equation}
+We know that $ g_n = g_p = 2 $ since they are spin-1/2 Fermions. We can approximate $ m_n \simeq m_p $ such that $ m_N \simeq A m_n $. Then
+\begin{equation}
+    n_A \simeq \frac{g_A A^{3/2}}{2^A} \left( \frac{2 \pi}{m_n T} \right)^{\frac{3}{2}(A - 1)} n_p^Z n_n^{A-Z} e^{B_A / T}
+\end{equation}
+where $ B_A = m_p Z + m_n (A - Z) - m_N $ is the binding energy. For $ n + p \leftrightarrow d + \gamma $, the deuteron binding energy is $ 2.2 \mega\electronvolt \ll 1 \giga\electronvolt $.
+\begin{center}
+    \begin{tabular}{@{}ccc@{}}
+        \toprule
+        Nucleus & $ B_A (\mega\electronvolt) $ & $ g_A $ \\
+        \midrule
+        $ d/D = \nuclide[2]{H} $ & $ 2.22 $ & $ 3 $ \\
+        $ T = \nuclide[3]{H} $ & $ 6.92 $ & $ 2 $ \\
+        $ \nuclide[3]{He} $ & $ 7.72 $ & $ 2 $ \\
+        $ \nuclide[4]{He} $ & $ 28.3 $ & $ 1 $ \\
+        $ \nuclide[12]{C} $ & $ 92.2 $ & $ 1 $ \\
+        \bottomrule
+    \end{tabular}
+\end{center} \\
+
+The total nucleon density (protons and neutrons) is
+\begin{equation}
+    n_N = n_p + n_n + \sum_i (A n_A)_i
+\end{equation}
+where the first two terms are free protons and neutrons, and the final term is the sum over \textit{all} bound species $ i $ each with atomic number $ (p + n) = A $, such that $ A n_A $ is the number of nucleons bound in a nucleus of $ A $.
+
+The mass fraction of a nuclear species $ \nuclide[A][Z]{N} $ is $ X_A = \frac{A n_A}{n_N} $ so that by definition, $ \sum_i X_i = 1 $.
+
+\subsection{Baryon Asymmetry}\label{sub:baryon_asymmetry}
+
+We can write an asymmetry parameter
+\begin{equation}
+    \eta = \frac{n_B - n_{\bar{B}}}{n_{\gamma}}
+\end{equation}
+which is time-dependent since all these terms scale as $ a^{-3}(t) $. Observations reveal that there is no substantial amount of antimatter in the Universe, so $ n_{\bar{B}} \sim 0 $, otherwise there would be a large flux of hard ($ > 1 \mega\electronvolt $ $ \gamma $-rays from annihilations. We can estimate $ \eta $ today with $ n_{\bar{B}} \sim 0 $ and $ \frac{\rho_B}{m_n} = n_B = \frac{\rho_B}{\rho_{0,c}} \frac{\rho_{0,c}}{m_n} $ with $ \rho_{0,c} = 1.05 h^2 \times 10^{4} \frac{\electronvolt}{\centi\meter^3} $, $ \frac{\rho_B}{\rho_{0,c} = \Gamma_B} $, and $ n_{\gamma} = \frac{421}{\centi\meter^3} $. This will give
+\begin{equation}
+    \eta = 2.68 \times 10^{-8} (\underbrace{\Omega_B h^2}_{\sim 0.02})
+\end{equation}
+This quantity is very important. There are around $ 10^9 $ photons per baryon. Using the expression for $ n_A $ above, we can write $ T $ in terms of $ n_{\gamma} $ and divide by $ n_N $ to get $ X_A $:
+\begin{equation}
+    X_A = A \frac{n_A}{n_N} = g_A [\zeta(3)]^{A-1} \pi^{\frac{1-A}{2}} 2^{(3A-5)/2} A^{5/2} \left( \frac{T}{m_n} \right)^{\frac{3}{2} (A - 1)} \times \eta^{A-1} X_p^Z X_n^{A-Z} e^{\frac{B_A}{T}}
+\end{equation}
+where $ \eta \sim n_N / n_{\gamma} $. This is the mass abundance ratio for a species $ A $ in nulear statistical equilibrium (both thermal and chemical). An important ratio is the neutron/proton ratio. Above $ T > 1 \mega\electronvolt $, weak interactions maintain thermal equilibrium between $ n $ and $ p $ via
+\begin{align}
+    n &\leftrightarrow p + e^- + \bar{\nu}_e \\
+    e^+ + n &\leftrightarrow p + \bar{\nu}_e \\
+    \nu_e + n &\leftrightarrow p + e^-
+\end{align}
+with $ \mu_{e^+} = - \mu_{e^-} $ and $ \mu_{\bar{\eta}} = - \mu_{\eta} $. With $ \mu_n = \mu_p + \mu_{e^-} - \mu_{\eta_e} $, we can self-consitently assume that $ \eta_{\nu} \equiv 0 $. Remember that $ \frac{\mu_e}{T} \equiv \zeta_e $ and
+\begin{equation}
+    \frac{n_{e^-} - n_{e^+}}{n_{\gamma}} \propto (\zeta^3 + \zeta \pi)
+\end{equation}
+But $ n_{e^-} - n_{e^+} = n_B - n_{\bar{B}} $ by charge neutrality with $ n_{\bar{B}} \sim 0 $ and $ \frac{n_B}{n_{\gamma}} \sim 10^{-9} $. We can then safely set $ \zeta_e \equiv 0 $ and $ \mu_{\nu} = \mu_{e^-} = 0 $, and $ \mu_n \equiv \mu_p $ in equilibrium.
+
+Then
+\begin{equation}
+    \frac{n_n}{n_p} = \frac{X_n}{X_p} = e^{- Q / T}
+\end{equation}
+where $ Q = m_n - m_p = 1.293 \mega\electronvolt $. $ n_n / n_p $ diminishes as $ T $ diminishes, and for $ T \gg 1 \mega\electronvolt $, $ X_n / X_p \sim 1 $. From the expression for $ X_A $, the temperature $ T_A $ at which the mass fraction is $ X_A \sim 1 $ is given by
+\begin{equation}
+    T_A \simeq \frac{1}{A - 1} \frac{B_A}{\ln(1/\eta) + \frac{3}{2} \ln(m_n / T_A) + \mathbb{C}(A)}
+\end{equation}
+where $ \mathbb{C}(A) $ is some constant that depends on $ A $. This can be solved numerically. The weak interactions freeze out at $ T \sim 0.8 \mega\electronvolt $, at which point the $ n/p $ ratio freezes to $ X_n / X_p = e^{-1.29/0.8} = 0.2 $. If the neutron was absolutely stable, this ratio would remain constant. However, the neutron has a decay with $ \tau_n \sim 900\second $.
+
+As the temperature drops, the following chain of nuclear reactions takes place:
+\begin{align}
+    p + n &\leftrightarrow d + \gamma \\
+    d + d &\leftrightarrow \nuclide[3]{He} + n \\
+    \nuclide[3]{He} + d &\leftrightarrow \nuclide[4]{He} + p
+\end{align}
+Note that the proton is restored. These reactions soak up all available neutrons into the $ \nuclide[4]{He} $ state via another pathway:
+\begin{align}
+    d + d &\leftrightarrow \nuclide[3]{H} + p \\
+    \nuclide[3]{H} + d \to \nuclide[4]{He} + n
+\end{align}
+
+\section{The Deuterium Bottleneck}\label{sec:the_deuterium_bottleneck}
+
+The first step in that reaction chain is an electromagnetic reaction, $ p + n \leftrightarrow d + \gamma $. Every single further step needs the deuterium to already be formed and will proceed whenever $ X_D \sim 1 $. From the expression for the criterion $ X_A \sim 1 $, assuming $ X_n \sim X_p \sim 1 $, we can see that
+\begin{equation}
+    T_D \sim \frac{2.2 \mega\electronvolt}{\ln(1/eta) + \frac{3}{2} \ln(\frac{m_n}{T_A} + \mathbb{C}_D)}
+\end{equation}
+but $ \eta \sim 10^{-10} $ and $ \ln(1 / \eta) \sim 10 \ln(10) \sim 23 $, so $ T_D \sim 0.1 \mega\electronvolt $. The temperature must get this low for deuterium to form with $ X_D \sim 1 $, and this is because at $ T \sim B_D \sim 2.2 \mega\electronvolt $, there are lots of photons that photodisintegrate the deuterium thatt is produced, which is a consequence of $ \frac{n_{\gamma}}{n_{B}} \sim 10^{10} $.
+
+However, once the deuteron is formed, the rest of the reactions happen very fast with large capture cross-sections. All the neutrons end up as Helium-4. Using the $ T-t $ dictionary (our correspondence between temperature and time after the Big Bang from a few lectures ago), $ 0.1 \mega\electronvolt $ comes to about $ t \sim 3 \minute $ after the Big Bang, since the weak freeze out is at $ t \sim 1 \second $. Neutrons decay freely with $ \tau_n \sim 900 \second $, and their abundence at $ t_D $ is suppressed by $ e^{t_D / \tau_n} \sim 0.8 $, since at freeze out, $ X_n / X_p \sim 0.2 $, so at $ t_D $, $ X_n / X_p = 0.2 \times 0.8 \sim 1/7 $.
+
+
+\end{document}

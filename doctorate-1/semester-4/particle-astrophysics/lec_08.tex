@@ -1,0 +1,57 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{8}{Tuesday, February 16, 2021}{Event Horizons and Singularities}
+
+In the previous class, we discussed the Schwarzschild radius $ R_S $. All geodesics inside $ R_S $ end up at $ r = 0 $. When $ R_S \ll r $,
+\begin{equation}
+    \dd{s^2} \simeq (c \dd{t})^2 \left[ 1 + \frac{2 \Phi}{c^2} \right] - \dd{r^2} \left[ 1 - \frac{2 \Phi}{c^2} \right] + r^2 \dd{\Omega^2}
+\end{equation}
+in the weak-field limit, where $ \Phi = - \frac{GM}{r} $. Centrifugal acceleration is balanced by the gravitational pull, so $ v^2 = \frac{GM}{r} $, or
+\begin{equation}
+    \frac{v^2}{c^2} = \frac{GM}{c^2 r} = \frac{1}{2} \frac{R_S}{r}
+\end{equation}
+if $ R_S \ll r $, then we are not only in the weak gravity limit, but also in the non-relativistic limit $ v^2 \ll c^2 $.
+
+\section{Gravitational Redshifts}\label{sec:gravitational_redshifts}
+
+The Schwarzschild coordinates describe a spacetime which is asymptotically flat at $ r \to \infty $. Consider stationary observers (fixed $ r $, $ \theta $, and $ \varphi $):
+\begin{equation}
+    \dd{\tau^2} = \left[ 1 - \frac{R_S}{r} \right] \dd{t^2} \equiv \left[ 1 + \frac{2 \Phi}{c^2} \right] \dd{t^2}
+\end{equation}
+
+Since $ \dd{t} $ is the time measured by an observer at $ r = \infty $,
+\begin{equation}
+    \frac{\dd{\tau(r_1)}}{\dd{\tau(r_2)}} = \frac{\left[ 1 - \frac{R_S}{r_1} \right]}{\left[ 1 - \frac{R_S}{r_2} \right]}
+\end{equation}
+so in the weak gravitational limit, $ \frac{R_S}{r} \ll 1 $,
+\begin{equation}
+    \dd{\tau(r_1)} = \left[ 1 + R_s \left( \frac{1}{r_1} - \frac{1}{r_2} \right) \right] \dd{\tau(r_2)}
+\end{equation}
+
+If $ r_1 > r_2 $ (higher), $ \frac{1}{r_1} < \frac{1}{r_2} $ so $ \dd{\tau(r_1)} > \dd{\tau(r_2)} $, and since the frequency is $ \propto \frac{1}{\Delta \tau} $, $ \nu(r_1) < \nu(r_2) $, which is a gravitational redshift. We can see also that $ r \to R_S $ would mean the observer's proper time differential, $ \dd{\tau(R_s)} = 0 $. 
+
+\section{Gravitational Lensing}\label{sec:gravitational_lensing}
+
+Imagine we have a very bright quasar and a large mass between it and the observer. If we allow $ \beta $ to be the observed angle between the lens and the source and $ D_d $ be the distance to the lens and $ D_{ds} $ to be the distance along that ray to meet perpendicular to the source (to form a triangle), then we find that
+\begin{equation}
+    \theta_{\pm} = \frac{1}{2} \left[ \beta \pm \sqrt{\beta^2 + 4 \theta^2_E} \right]
+\end{equation}
+where $ \theta_E $ is Einstein's angle, $ \theta_E = \left[ \frac{4 G M}{c^2} \frac{D_{ds}}{D_{d} D_{S}} \right] $, where $ D_S = D_{ds} + D_d $ describes the two angles at which we should see images of the source from the observer's perspective. In three-dimensions, this appears as a ring (Einstein ring) with an aperture angle of $ \theta_E $.
+
+For typical galaxies with $ M \sim 10^{11} M_{\odot} $ and distances in $ \giga \text{pc} $,
+\begin{equation}
+    \theta_E \sim 0.9" \left( \frac{M}{10^{11} M_{\odot}} \right)^{1/2} \left( \frac{D_s}{1\giga \text{pc}} \right)^{-1/2} \left( \frac{D_{ds}}{D_d} \right)^{1/2}
+\end{equation}
+(quote mark for arcsecond).
+
+\section{Flat Rotation Curves}\label{sec:flat_rotation_curves}
+
+If we have stars in the outskirts of a galaxy, the halo of their rotational velocity is balancing the gravitational pull:
+\begin{equation}
+    v(R) = \sqrt{\frac{GM(R)}{R}}
+\end{equation}
+since $ \frac{G M(R)}{R^2} = \frac{V^2(R)}{R} $. Consider a nearly constant density of matter \textit{inside}: $ M(R) = \frac{4 \pi}{3} R^3 \rho $. Then inside the galaxy, $ \frac{M(R)}{R} \sim R^2 $ and $ V(R) \propto R $, but a star outside the main density of the galaxy should have $ V(R) \sim \frac{1}{\sqrt{R}} \sqrt{GM_{\text{tot}}} $.
+
+
+
+\end{document}

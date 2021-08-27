@@ -1,0 +1,134 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{2}{Friday, February 05, 2021}{Physics of the Cell II}
+
+\section{The Adder Model, Again}\label{sec:the_adder_model,_again}
+
+Let us denote $ l_i(0) $ as the cell length at time $ t = 0 $, where $ i $ is the index for generation. In the adder model,
+\begin{equation}
+    l_i(\tau) = l_i(0) + \delta_i
+\end{equation}
+where $ \tau $ is the generation time (the splitting time) and $ \delta_i $ is the added size, which for now we allow to be different between generations. After the next generation, after division by a ratio $ r $, we have
+\begin{equation}
+    l_{i+1}(0) = r l_i(\tau) = r\left( l_i(0) + \delta_i \right)
+\end{equation}
+Let's say the mean of $ l_i $ is the ``newborn size'':
+\begin{equation}
+    \ev{l_i} = l_b
+\end{equation}
+and
+\begin{equation}
+    \ev{\delta_i} = \delta
+\end{equation}
+Then
+\begin{equation}
+    l_b = r (l_b + \delta)
+\end{equation}
+One of the assumptions made here is that when we take a mean, the value of $ r $ could technically fluctuate from generation to generation, but we assume that process is distinct and independent from when the cell actually decides to split. Solving for $ l_b $:
+\begin{equation}
+    l_b = \frac{r \delta}{1-r}
+\end{equation}
+In the case of symmetric division, $ r = 1/2 $, which makes $ l_b = \delta $.
+
+Next, we may ask: how fast is the size convergence process? Does a large cell converge at the same rate as a small cell? We will address this later.
+
+\section{Generalized Model}\label{sec:generalized_model}
+
+
+It is surprising enough that such a simple model can explain the growth of \textit{E. coli.}, but what about other bacteria? As it turns out, some other cells show a correlation to either the timer and sizer models, so we can write a more general model:
+\begin{equation}
+    l(\tau) = al(0) + \delta
+\end{equation}
+For an adder, $ a = 1 $ and $ \delta > 0 $. For a timer model, $ a > 0 $ and $ \delta = 0 $. For a sizer model, $ a = 0 $ and $ \delta > 0 $ (and $ \delta $ is constant).
+
+We know that with some conditions on this general model, we have size convergence, but others don't converge. We can study this model to understand the conditions on convergence:
+\begin{align}
+    l_i(\tau) &= a l_i(0) + \delta \\
+    l_{i+1}(0) &= r l_i(\tau) \\
+    l_{i+1} &= ar l_i + r \delta \\
+    l_{i+1} - l_i &= (ar - 1)l_i + rd
+\end{align}
+This last equation is like a finite difference, so we can approximate it as a differential equation:
+\begin{equation}
+    \dv{l}{i} = - (1-ar)l + \delta r
+\end{equation}
+This works approximately well with many generations, because technically $ i $ is an integer. Then the rate of convergence is the quantity $ (1-ar) $. We can also see that $ \dv{l}{i} = 0 $ when
+\begin{equation}
+    l = \frac{\delta r}{1 - ar}
+\end{equation}
+In the timer limit, where $ \delta = 0 $, there is no well-defined stable size (unless $ ar = 1 $ exactly, which is not a robust possibility for living systems).
+
+
+\subsection{Distribution of Cell Size and Division Parameters}\label{sub:distribution_of_cell_size_and_division_parameters}
+
+If we look at the parameters that we can measure, there is some distribution that we could calculate for each parameter (such as $ r $, $ l(\tau) $, $ \tau $, $ l_b = l(0) $, and $ \delta $, but also the elongation rate $ \lambda $). Most of these are not independent of each other:
+\begin{equation}
+    \left( \frac{\sigma_{\delta}}{\ev{\delta}} \right)^2 = 3\left( \frac{\sigma_{l_0}}{\ev{l_0}} \right)^2 \approx \frac{1}{\ln(2)} \left( \frac{\sigma_{\tau}}{\ev{\tau}} \right)^2
+\end{equation}
+To derive the first equality here (the second is for homework), we can start with the adder model
+\begin{equation}
+    l_{i + 1}(0) = r l_i(0) + r\delta_i \tag{1}
+\end{equation}
+Let's first square both sides:
+\begin{equation}
+    l_{i+1}^2 = r^2 l_i^2 + r^2\delta_i^2 + 2rl_i \delta_i
+\end{equation}
+Then, take an average, for now treating $ r $ as fixed:
+\begin{equation}
+    \ev{l_{i+1}^2} = r^2 \ev{l_i^2} + r^2\ev{\delta_i^2} + 2r^2 \ev{l_i \delta_i}
+\end{equation}
+We should have
+\begin{equation}
+    \ev{l_{i+1}^2} = \ev{l_i^2} \equiv \ev{l^2}
+\end{equation}
+and we can define $ \ev{\delta_i^2} \equiv \ev{\delta^2} $. We also know that
+\begin{equation}
+    \ev{\delta_i} = \ev{l_i} = \ev{l} = \ev{\delta}
+\end{equation}
+We can do this because this is an average across all generations, so looking at an average over $ i+1 $ and comparing it to an average over $ i $ doesn't cause a difference, because we are averaging over all $ i $.
+
+What about $ \ev{l_i \delta_i} $? These are independent variables, so we can actually write
+\begin{equation}
+    \ev{l_i \delta_i} = \ev{l_i} \ev{\delta_i} = \ev{\delta}^2
+\end{equation}
+Now recall that we are just looking at the adder model here, but in the general case, these values could be dependent (in the sizer case, they certainly are). Nowe we have
+\begin{align}
+    \ev{l^2} &= r^2 \ev{l^2} + r^2 \ev{\delta^2} + 2 r^2 \ev{\delta}^2 \\
+    (1-r^2) \ev{l^2} &= r^2 \ev{\delta^2} + 2 r^2  \ev{\delta}^2
+\end{align}
+Let's assume $ r = 1/2 $, so
+\begin{align}
+    \frac{3}{4} \ev{l^2} &= \frac{1}{4} \ev{\delta^2} + \frac{1}{2}\ev{\delta}^2 \\
+    3\ev{l^2} &= \ev{\delta^2} + 2\ev{\delta}^2
+\end{align}
+We can now calculate the variance in $ l $:
+\begin{align}
+    \ev{l^2} - \ev{l}^2 = \frac{1}{3} \left( \ev{\delta^2} - \ev{\delta}^2 \right)
+\end{align}
+since $ \ev{\delta} = \ev{l} $.
+
+\section{Fundamental Principles of Living Matter}\label{sec:fundamental_principles_of_living_matter}
+
+\begin{itemize}
+    \item \textbf{Living systems operate out of equilibrium}
+    \item \textbf{Living systems self-organize} into heterogeneous component parts. Within this organization, there are four key functions which a cell has to perform:
+        \subitem Structure (proteins)
+        \subitem Energy\textemdash needed to maintain the structure (carbohydrates)
+        \subitem Information/Memory\textemdash needed to replicate the structure (DNA/RNA\textemdash nucleic acids)
+        \subitem Barrier/Environmental Sensing (lipids)
+    These systems are built on macromolecules, which are mostly small molecules made almost entirely of the elements nitrogen, oxygen, phosphorus, carbon, and hydrogen. These macromolecules can assemble together to form organelles, which form cells, which form tissues, which form organisms.
+    \item \textbf{Living systems have evolved}
+    \item \textbf{Living systems are self-replicating.} Von Neumann, in his \textit{Theory of Self-Reproducing Automata}, postulated that a self-replicating machine must have two fundamental requirements:
+        \subitem A method of copying the machine
+        \subitem A method of copying the instructions of the machine
+
+        This is identical to the central dogma of molecular biology. DNA polymers copy the machine instructions, and ribosomes and RNA copy the machine (the proteins). The four \textit{nucleotides}, adenine, thymine, guanine, and cytosine, can be thought of as letters which generate an alphabet of three-letter collections called \textit{codons}. These words are used to tell ribosomes how to construct proteins out of amino acids. There are 23 amino acids (and two stop codes). The fact that multiple codons can give the same amino acid makes the system more protected from errors in the genetic code.
+    
+        Replication occurs when DNA polymerase copies DNA to create more DNA (double helix to double helix). Transcription is the process by which DNA generates RNA (double helix to single helix which can be read by a ribosome to chain together amino acids). The first step occurs on the order of less than a second, while the second step, called protein synthesis, occurs on the order of seconds. However, the cell itself grows on the order of hours.
+
+        In a minimal cell, ribosomes make proteins, and proteins do all the other replication processes, but there needs to be additional amino acids (food) to grow. Also, as the cell grows, it needs more ribosomes to keep up with the rate of growth. If you look at the amount of ribosomes in a cell, $ r $, it increases linearly with the growth rate of the cell: $ r = r_{\text{min}} + \frac{\lambda}{\kappa_t} $ (more on this \textit{bacterial growth law} in a future lecture). A similar principle holds for the cell mass, the RNA, and the DNA. We call $ \kappa_t $ the ``translational capacity''.
+
+        There is also a \textit{nutrient growth law}, which states that larger cells grow faster (exponential dependence with growth rate: $ s \propto e^{\lambda} $). What is the reason for this? It depends on what variable is being controlled in an experiment. If you control the size of the cell, there might be a different reason why the growth rate has this dependence as compared to controlling the amount of nutrients available.
+\end{itemize}
+
+\end{document}

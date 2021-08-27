@@ -1,0 +1,58 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{28}{Monday, November 09, 2020}{Algebraic Closures}
+
+Recall that we defined a field $ F $ to be algebraically closed if very polynomial $ f \in F[x] $ of $ \deg f \geq 1 $ has a root.
+
+Equivalently, every polynomial splits into linear factors.
+
+\begin{claim}
+    For every field $ K $ there is an extension $ E/K $ such that $ E $ is algebraically closed.
+\end{claim}
+\begin{proof}
+    For each polynomial $ f \in K[x] $ of $ \deg f \geq 1 $, introduce an indeterminate $ x_f $ and consider a polynomial ring $ K[x_f \colon \deg f \geq 1] $.
+
+    Define an ideal $ I = (f(x_f)\colon \deg f \geq 1, f \in K[x]) $. We claim that $ R \neq I $.
+    
+    To prove this, if they were equal, $ 1 \in I $ implies $ 1 = \sum_{f \in S} g_f \cdot f(x_f) $ for $ g_f \in R $ and $ S $ finite. $ g_f \in R[x_f \colon f \in S] $.
+    
+    Consider finitely many polynomials $ f \colon f \in S $ and find an extension $ K'/K $ such that all $ f \colon f \in S $ have a root each. The identity equation is an identity in $ k'[x_f \colon f \in S] $. Evaluate both sides at the point $ x_f = Q_f $ where $ Q_f \in K' $ is a root of $ f $. This gives a contradiction ($ 1=0 $), so $ R \neq I $. 
+
+    There exists a maximal ideal $ M \subset R $ containing $ I $. Let $ E_0 = R/M $ be a field since $ M $ is maximal. $ E_0 $ contains a copy of $ K $, and it also contains a root of every $ f \in K[x] $ of $ \deg f \geq 1 $, namely $ x_f $.
+
+    We can then do the same to $ E_0 $ to get the set $ E_1 $, and so on. We get a chain $ E_0 \subset E_1 \subset E_2 \subset \cdots $, and we call $ E = \bigcup_n E_n $.
+
+    We claim that $ E $ is algebraically closed. Take $ f \in E[x] $. Since $ f $ has only finitely many coefficients, $ \exists n $ such that $ f \in E_n[x] $. Therefore $ f $ has a root in $ E_{n+1} $, so $ f $ has a root in $ E $.
+\end{proof}
+
+\begin{theorem}
+    Every field $ K $ is contained in an algebraic extension that is algebraically closed.
+\end{theorem}
+\begin{proof}
+    $ K $ is any field and $ E $ is an algebraically closed extension of $ K $. Let $ F = \{\alpha \in E\colon \alpha \text{ algebraic over } k\} $. We claim that $ F $ is a field, because if $ \alpha, \beta $ are algebraic, then so are $ \alpha + \beta $, $ \alpha \beta $, $ \alpha / \beta $. We then claim that $ F $ is algebraically closed. $ f \in F[x] $, and let $ \alpha_0, \cdots, \alpha_n $ be coefficients of $ f $. Then let $ G = F[\alpha_0, \cdots, \alpha_n] $ so $ f \in G[x] $. Now $ [G\colon K] $ is finite because $ [G\colon K] \leq \prod_{i = 0}^{n} [K(\alpha_i)\colon K] $. Let $ Q \in E $ be a root of $ f $. $ [G(Q)\colon G] \leq \deg f $, so $ [G(Q)\colon K] \leq [G(Q)\colon G] [G\colon K] $ is finite. Therefore, $ Q \in F $.
+\end{proof}
+
+\begin{definition}
+    If $ F $ is algebraically closed and an algebraic extension of $ K $, we call $ F $ the \textit{algebraic closure} of $ K $.
+\end{definition}
+
+\begin{claim}
+    Suppose $ E/K $ is an algebraic extension and $ L $ is an algebraically closed field containing $ K $. There is an embedding of $ E $ into $ L $ extending that of $ K $ into $ L $.
+\end{claim}
+\begin{proof}
+    Consider the set $ X $ of pairs $ (F, \sigma) $ where $ K\subset F\subset E $ and $ F/K $ and $ \sigma\colon F \to L $ is an embedding such that $ \eval{\sigma}_{K} = \sigma_K $, the embedding of $ K $ into $ L $. There is a partial order $ (F, \sigma) \leq (F', \sigma') $ if $ F\subseteq F' $ and $ \eval{\sigma'}_{F} = \sigma $. Note that $ X \neq \varnothing $ as $ (K, \sigma_K) \in X $. If $ C $ is a chain where $ \tilde{F} = \bigcup_{(F, \sigma) \in C} F $ and $ \tilde{\sigma} = \bigcup_{(F, \sigma) \in C} \sigma $, then $ (\tilde{F}, \tilde{\sigma}) $ is an upper bound for $ C $. Therefore, $ \exists (F, \sigma) $ which is maximal in $ X $.
+
+    We next claim that $ F = E $. If this were not true, $ \theta \in E \setminus F $ $ F(\theta) / F $ is algebraic because $ \theta $ is algebraic over $ K $. We may then extend $ (F, \sigma) $ to $ (F(\theta), \sigma') $, contradicting the maximality. How? Turns out we skipped a proposition:
+\end{proof}
+
+\begin{claim}
+    If $ K $ is a field and $ L $ is an algebraically closed field containing $ K $, and $ \theta $ is algebraic over $ K $ with minimal polynomial $ p \in K[x] $, then there are $ m $ extensions of $ K(\theta) $ to $ L $, i.e. there are $ m $ maps $ \sigma \colon K(\theta) \to L $ such that $ \eval{\sigma}_{K} = \text{id}_K $ where $ m $ is the number of distinct roots of $ p $ in $ L $. 
+\end{claim}
+\begin{proof}
+    $ \sigma(\theta) $ is a root of $ p $ because $ p(\sigma(\theta)) = \sigma(p(x)) = p(\theta) = 0 $ since the coefficients of $ p $ are in $ K $, $ \sigma(a b) $ with $ a \in K $, $ b \in K(\theta) $ is equal to $ a \sigma(b) $.
+
+    Once we know where $ \sigma $ goes we know where everything goes. $ \sigma $ is determined by $ \sigma(\theta) $ because every extension of $ K[\theta] $ is a polynomial in $\theta$. Conversely, if $ \beta \in L $ is a root of $ p $, then the map $ f(\theta) \mapsto f(\beta) $ $ \forall f \in K[x] $ is well-defined and is a homomorphism. We can show this since if $ f(\theta) = g(\theta) $, then $ h = f = g $ implies $ h(\theta) = 0 $, so $ \eval{p}_{K} $ implies that $ h(\beta) = 0 $.
+\end{proof}
+
+
+\end{document}

@@ -1,0 +1,92 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{33}{Friday, November 20, 2020}{Primitive Element Theorem, cont.}
+
+We will now prove the primitive element theorem for finite fields.
+\begin{proof}
+    Recall that elements of $ \mathbb{F}_{p^n} $ are the roots of $ x^{p^n} - x \in \mathbb{F}[x] $. Let $ \theta \in \mathbb{F}_{p^n} \setminus \bigcup_{F \text{ proper subfield } \mathbb{F}_{p^n}} F $. We claim that $ \theta $ is a root of $ x^{p^n} - x $ that is not a root of $ \prod_{d\mid n} (x^{p^d} - x) $. Conversely, if $ \theta $ is a root of the first and not the second, then $ \theta \in \mathbb{F}_{p^n} \setminus \bigcup_{F \text{ proper subfield } \mathbb{F}_{p^n}} F $.
+
+    Indeed, $ F_p(\theta) $ is a finite field of degree $ d $ over $ \mathbb{F}_p $ and $\theta$ is a root of $ x^{p^d} - x $.
+
+    The degree of the first equation is $ p^n $. The degree of the second (the product) is
+    \begin{equation}
+        \sum_{d<n} p^d < 2 p^{n-1} < p^n
+    \end{equation}
+    by properties of geometric series.
+\end{proof}
+
+Suppose $ F/K $ is Galois and $ E $ is an intermediate extension. Then consider the case where $ E/K $ is Galois (equivalently $ E/K $ is normal). We can take any element of the Galois group $ \sigma \in \text{Gal}(F/K) $ and restrict it to $ E $: $ \eval{\sigma}_{E} \in \text{Gal}(E/K) $ because $ E/K $ is normal. We now have a map from the larger Galois group to the smaller by restriction.
+\begin{align}
+    \varphi \colon \text{Gal}(F/K) &\to \text{Gal}(E/K) \\
+    \sigma &\mapsto \eval{\sigma}_{E}
+\end{align}
+
+$ \varphi $ is surjective by the extension lemma. $ \ker \varphi = \text{Gal}(F/E) $, and $ F/E $ is normal, so by the first isomorphism theorem,
+\begin{equation}
+    \text{Gal}(E/K) \cong \frac{\text{Gal}(F/K)}{\text{Gal}(F/E)}
+\end{equation}
+
+Conversely, consider the same $ F,E,K $ fields but suppose we only know $ F/K $ is Galois (instead of $ E/K $). Take $ \sigma \in \text{Gal}(F/K) $. We can now look at automorphims $ \text{Aut}(\sigma E/K) $. This is equivalent to $ \sigma \text{Aut}(E/K) \sigma^{-1} $ ($ \sigma E = \{\sigma(a) \colon a \in E\} $ is a field).
+
+So, if $ G = \text{Gal}(F/E) $ is normal, then $ E = \text{Fix}(G) $.
+\begin{claim}
+    $ E/K $ is a normal extension.
+\end{claim}
+\begin{proof}
+    If $ E/K $ is not normal, $ \exists \sigma \in \text{Aut}(\bar{E}) $ such that $ \sigma E \neq E $. $ G = \eval{\sigma}_{F} \in \text{Gal}(F/K) $. Then $ \underbrace{\text{Fix}(\sigma G \sigma^{-1})}_{= \text{Fix}(G)} = \sigma \text{Fix}(G) $ so $ \sigma E = E $.
+\end{proof}
+
+\section{Finite Fields}\label{sec:finite_fields}
+
+\begin{claim}
+    $ \mathbb{F}_{p^n} / \mathbb{F}_p $ is Galois and the Galois group is isomorphic to $ \Z/n\Z $.
+\end{claim}
+\begin{proof}
+    $ \mathbb{F}_{p^n} $ is a splitting field of $ x^{p^n} - x $.
+
+    $ \text{Frob}(y) = y^p $, and $ \text{Frob} \in \text{Aut}(\mathbb{F}_{p^n}) $. $ \abs{\text{Gal}(\mathbb{F}_{p^n} / \mathbb{F}_p)} = n $ since $ [\mathbb{F}_{p^n} \colon \mathbb{F}_p] = n $.
+
+    We now claim that $ \text{Frob} $ is an element of order $ n $ in $ \text{Gal}(\mathbb{F}_{p^n} / \mathbb{F}_p) $.
+
+    $ \text{Frob}^m = \text{id} $ implies that $ \forall a \in \mathbb{F}_{p^n} $, $ a = \text{Frob}(a) = a^{p^m} $. This means that $ x^{p^m} - x $ vanishes on $ \mathbb{F}_{p^n} $. Therefore, $ m \geq n $.
+\end{proof}
+
+
+\section{Cyclotomic Extensions of $ \Q $}\label{sec:cyclotomic_extensions_of_$_q_$}
+
+Let $ w_n = \{\text{roots of } x^n - 1 \text{ in } \bar{\Q}\} $.
+\begin{equation}
+    \Q(w_n) / \Q = \Q(\alpha) / \Q
+\end{equation}
+where $ \alpha $ is any primitive root of order $ n $ and the minimal polynomial of $ a / \Q $ is $ \Phi_n $, and so the extension $ \Q(w_n) / \Q $ is of degree $ \varphi(n) $.
+
+\begin{claim}
+    \begin{equation}
+        \text{Gal}(\Q(w_n) / \Q) \cong \left( \Z/n\Z \right)^* = \{a\colon \gcd(a ,n) = 1\}
+    \end{equation}
+    under multiplication.
+\end{claim}
+\begin{proof}
+    \begin{equation}
+        a \in (\Z/n\Z)^* \mapsto \varphi_a
+    \end{equation}
+    where $ \varphi_a(f(\alpha)) = f(\alpha^a) $ $ \forall f \in \Q[x] $. 
+
+    We need to check that this is well-defined. $ f(\alpha) = g(\alpha) $ implies $ \Phi_n \mid f-g $. This implies $ (f-g)(\alpha^a) = \Phi_n(\alpha^a \times \cdots) = 0 $. Therefore, $ \varphi_a $ is a homomorphism: $ \varphi_a(f+g) = \varphi_a(f) + \varphi_a(g) $ and $ \varphi_a(fg) = \varphi_a(f) \varphi_a(g) $.
+
+    Therefore,
+    \begin{equation}
+        (\Z/n\Z)^* \mapsto \text{Gal}(\Q(w_n) / \Q)
+    \end{equation}
+    is well-defined:
+    \begin{align}
+        (\varphi_a \circ \varphi_b)(f(\alpha)) &= \varphi_a(f(\alpha^b)) \\
+                                               &= f( (\alpha^a)^b)\\
+                                               &= f(\alpha^{ab}) \\
+                                               &= \varphi_{ab}(f(\alpha))
+    \end{align}
+\end{proof}
+
+
+
+\end{document}

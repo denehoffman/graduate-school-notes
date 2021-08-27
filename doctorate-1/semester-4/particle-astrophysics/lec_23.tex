@@ -1,0 +1,133 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{23}{Tuesday, April 13, 2021}{Photon Decoupling and Recombination}
+
+Photons are in LTE with left-over electrons via Thompson scattering, but if we add electron-positron annihilation at $ T \sim 0.3 \mega\electronvolt $, lectrons become non-relativistic and the cross-section
+\begin{equation}
+    \sigma_{Th} \sim \frac{\alpha^2_{EM}}{m_e^2} = 6.62 \times 10^{-25} \centi\meter^2
+\end{equation}
+has a reaction rate $ \Gamma_{e \gamma} = \sigma_{Th} n_e $ where $ n_e $ is the (free) electron density. However, the neutrality of the universe implies $ n_e = n_p $ and for $ T \leq T_H \sim 13.6 \electronvolt $, neutral hydrogen forms and the number of free electrons drops dramatically, so photons can no longer scatter. They then decouple and their distribution function freezes when $ \frac{\Gamma_{e \gamma}}{H} \ll 1 $. At $ T_H \sim 13.6 \electronvolt $, electrons are non-relativistic and their distribution is Maxwell-Boltzmann. The ``reaction'' that stabilizes chemical equilibrium between $ e $, $ p $, and neutral Hydrogen is
+\begin{equation}
+    e + p \leftrightarrow H + \gamma 
+\end{equation}
+Since $ \mu_{\gamma} = 0 $ and all the other particles are non-relativistic, $ \mu_e + \mu_p \equiv \mu_H $ and
+\begin{equation}
+    n_i = g_i \left( \frac{m_i T}{2 \pi} \right)^{3/2} e^{\left( \frac{\mu_i - m_i}{T} \right)}
+\end{equation}
+
+Then
+\begin{equation}
+    n_H = g_H \frac{n_e n_p}{g_e g_p} \left( \frac{m_H T}{2 \pi} \right)^{3/2} \left( \frac{4 \pi^2}{m_e m_p T^2} \right)^{3/2} e^{-\underbrace{(m_H - m_e - m_p)}_{- B_H}/T}
+\end{equation}
+where $ B_H = 13.6 \electronvolt $ is the binding energy of hydrogen, the Rydberg energy.
+
+Consider the ground state of hydrogen, where $ g_H = 2 \times 2 $ since $ g_p = g_e = 2 $ for each particle's spin (not considering antiparticles). By charge neutrality, $ n_e = n_p $, so
+\begin{equation}
+    n_H = n_e^2 \left( \frac{2 \pi}{m_e T} \right)^{3/2} e^{B_H / T}
+\end{equation}
+(assuming $ m_H \sim m_p $)
+
+We can consider the ionization fraction
+\begin{equation}
+    X_e = \frac{n_e}{n_p + n_H} = \frac{n_e}{n_B}
+\end{equation}
+where $ n_B = n_p + n_H $ is the baryon density. Since the density of free protons $ n_p $ equals $ n_e $ by charge neutrality, we can write $ X_e = \frac{n_p}{n_p + n_H} \implies 1 - X_e = \frac{n_H}{n_B} $. Then
+\begin{equation}
+    n_H = n_B(1 - X_e) = n_e^2 \left( \frac{2 \pi}{m_e T} \right)^{3/2} e^{B_H / T}
+\end{equation}
+or
+\begin{equation}
+    (1 - X_e) = \underbrace{\frac{n_e^2}{n_B^2}}_{X_e^2} \underbrace{\frac{n_B}{n_{\gamma}}}_{\eta} n_{\gamma} \left( \frac{2 \pi}{m_e T} \right)^{3/2} e^{B_H / T}
+\end{equation}
+with $ n_{\gamma} = \frac{2 \zeta(3) T^3}{\pi^2} $. Then
+\begin{equation}
+    \left( \frac{1 - X_e}{X_e^2} \right) = \frac{4 \zeta(3) \sqrt{2}}{\sqrt{\pi}} \eta \left( \frac{T}{m_e} \right)^{3/2} e^{B_H / T}
+\end{equation}
+We know $ \eta = 2.8 \times 10^{-8} \underbrace{(\Omega_B h^2)}_{0.02} $ and the temperature is redshifted to be $ T = 2.73\kelvin (1+z) $, where $ 2.73\kelvin $ is the temperature of the CMB today and $ 1+z = \frac{1}{a} $ ($ T = \frac{T_0}{a} $).
+
+We can plot $ X_e(z) $ to see that for $ z \lesssim 1200 $, $ X_e \lesssim 0.1 $, so around $ 90\% $ of electrons are bound into neutral hydrogen. The equilibrium abundance of free electrons is found by setting $ \eval{X_e}_{\text{eq}} $, or
+\begin{equation}
+    \eval{X_e}_{eq} \simeq 0.51 \eta^{-1/2} \left( \frac{m_e}{T} \right)^{3/4} e^{-B_H / (2T)}
+\end{equation}
+
+For $ z \lesssim 1200 $, the density of free electrons becomes very small and $ \frac{\Gamma_{e \gamma}}{H} \ll 1 $. Photons decouple at $ z \sim 1100 $ at $ T_D \sim 3000\kelvin \sim 0.3 \electronvolt \ll 13.6 \electronvolt $. Again, the fact that $ \eta \sim 10^{-10} $ implies that $ T_D \ll B_H $ because there are an enormous amount of photons per baryon and the tail of the Big Bang spectrum is still capable of dissociating hydrogen atoms even for $ T \ll B_H $. Since photons were in local thermal equilibrium until decoupling, we can estimate the time of decoupling from the following.
+\begin{equation}
+    \Gamma_{e \gamma} = \sigma_{Th} n_e c
+\end{equation}
+where $ c $ is the speed of photons, $ \sigma_{Th} = 6.65 \times 10^{-25} \centi\meter^2 $, and
+\begin{equation}
+    n_e = X_e n_B = x_e \eta n_{\gamma} 
+\end{equation}
+and
+\begin{equation}
+    n_{\gamma} = \frac{421 \left( \frac{1}{\centi\meter} \right)^3}{a^3(t)} = \frac{421}{\centi\meter^3} (1 + z)^3
+\end{equation}
+implies
+\begin{equation}
+    n_e = X_e \underbrace{\Omega_B h^2}_{0.02} (1 + z)^3 \times 1.13 \times 10^{-5} \centi\meter^{-3}
+\end{equation}
+so
+\begin{equation}
+    \frac{\Gamma_{e \gamma}}{H} = 6.65 \times 0.02 \times 1.13 X_e \frac{10^{-30}}{\centi\meter} \times \frac{c}{H} \times (1 + z)^3
+\end{equation}
+During matter domination,
+\begin{equation}
+    H^2 = \frac{8 \pi G}{3} \frac{\rho_M}{a^3} = H_0^2 \Omega_M (1 + z)^3 \implies H = H_0 \Omega_M^{1/2} (1 + z)^{3/2}
+\end{equation}
+\begin{equation}
+    \frac{c}{H_0} = \text{Hubble radius} = 9.25 \times 10^{27} \frac{\centi\meter}{h}
+\end{equation}
+so finally
+\begin{equation}
+    \frac{\Gamma_{e \gamma}}{H} \simeq 0.15 X_e \times 9.25 \times \frac{10^{27}}{h} \times 10^{-30} (1 + z)^{3/2} \simeq 1.2 X_e \times 10^{-3} (1 + z)^{3/2}
+\end{equation}
+For this to be $ \lesssim 1 $, we need $ 10^{-3} X_e (1+z)^{3/2} \lesssim 1 \implies X_e \ll 1 $.
+
+From the SAHA equation with $ X_e \ll 1 $, we have
+\begin{equation}
+    X_e \sim 0.51 \eta^{-1/2} \left( \frac{m_e}{T_{CMB}} \right)^{3/4} (1 + z)^{3/4} e^{- (B_H / T_{CMB}) (1 + z)}
+\end{equation}
+Numerically, we can find $ z_{\text{decouple}} \sim 1200 $, which is $ t_{\text{decouple}} \sim 400,000\text{ years} $ with $ \frac{1}{H_0} \sim 13.8 \text{Gyr} $.
+
+From this, we can consider their distribution as a black body, and after decoupling, the distribution becomes
+\begin{equation}
+    f_{\gamma}(p_f;t) = \frac{1}{e^{p_f(t) / T_D(t)} - 1}
+\end{equation}
+where $ p_f(t) = \frac{p_c}{a(t)} $ and $ T_D(t) = \frac{T_{CMB}}{a(t)} $ where $ T_{CMB} $ is the temperature of the CMB today, so
+\begin{equation}
+    f_{\gamma} = \frac{1}{e^{p_c / T_{CMB}} - 1}
+\end{equation}
+This $ z \simeq 1100 $ is called the ``last scattering surface'' (LSS) and corresponds to about $ 360,000 $ years after the Big Bang.
+
+\section{Physics Beyond the Standard Model}\label{sec:physics_beyond_the_standard_model}
+
+\subsection{Grand Unification--Supersymmetry}\label{sub:grand_unification--supersymmetry}
+One consequence of quantum fluctuations is that the couplings $ \alpha_{EM} $, $ \alpha_{QCD} $, and $ \alpha_W $ become energy dependent. We can see this when we talk about screening and anti-screening. Consider a metal. When a positive charge is deposited, electrons form a cloud around it. Dipole moments are induced that screen the original charge. From a (far) distance $ \lambda $, the original charge appears smaller, and at a longer distance, or smaller wavevector, the total charge in the screening cloud cancels the original charge: the medium features a dielectric ``constant''. In a dielectric or polarizable medium, two charges do not interact with the ``bare'' Coulomb potential, but by a screened potential
+\begin{equation}
+    V(r) = \frac{e^2}{r \varepsilon(r)} 
+\end{equation}
+where $ \varepsilon(r) $ is the dielectric function. In terms of momentum (Fourier transform),
+\begin{equation}
+    V(k) = \frac{e^2}{k^2 \tilde{\varepsilon}(k)}
+\end{equation}
+
+In QFT, the vacuum becomes a polarizable medium through the quantum fluctuations which materialize an $ e^+ e^- $ pair during a short time scale, thanks to $ \Delta E \Delta t \sim \hbar $ ($ \Delta E \sim 2 m_e c^2 \sim 1 \mega\electronvolt \implies \Delta t \sim 10^{-23} \second $). The vacuum polarization correction can be seen diagramatically by considering Rutherford scattering:
+\begin{equation}
+    \Diagram{fd & g & fu \\ fu & & fd} \to \Diagram{fd & g & f0 fl flu f0 & g & fu \\ fu & & & & fd}
+\end{equation}
+where the potential goes from $ V(k) = \frac{e^2}{k^2} \sim \frac{\alpha_{EM}}{k^2} $ to $ V(k) = \frac{\alpha_{EM}}{k^2 \varepsilon(k^2)} \equiv \frac{\alpha_{EM}(k^2)}{k^2} $. We can calculate higher order loop corrections to show that $ \alpha_{EM}(k^2) $ grows for large $ k^2 $ and diminishes for small $ k^2 $.
+
+In QCD, the situation reverses. We still get fermionic loops like in QED, but due to the self-interaction of gluons, we also get gluon loops. Because of this, $ \alpha_{QCD} $ decreases with $ k^2 $. It becomes very large as $ k^2 \to 0 $, which leads to quark-gluon confinement, but it is weak at large $ k^2 $, known as asymptotic freedom:
+
+\begin{equation}
+    \alpha_{QED}(k^2) = \frac{\alpha_{QED}}{1 - \frac{\alpha_{QED}}{\pi} \ln(\frac{k^2}{m_e^2})}
+\end{equation}
+and
+\begin{equation}
+    \alpha_{QCD}(k^2) = \frac{\alpha_{QCD}}{1 + \frac{7}{4 \pi} \alpha_{QCD} \ln(\frac{k^2}{\Lambda^2})} \equiv \frac{1}{\frac{7}{4 \pi} \ln(\frac{k^2}{\Lambda^2_{QCD}})}
+\end{equation}
+where $ \Lambda_{QCD} \sim 150 \mega\electronvolt $. $ \alpha_W(k^2) $ has similar behavior to $ \alpha_{QED}(k^2) $.
+
+If we plot these curves against $ k^2 $, we find that they meet at various points. However, they don't quite meet at the same point. However, in supersymmetry theories, the couplings unify at $ k^2 \sim (10^{16} \giga\electronvolt)^2 $, the Grand Unification scale. Supersymmetry implies an additional fermion for each boson and vice-versa, so for each neutrino (spin-1/2) there's a neutralino with spin-0 (electrons have selectrons and quarks have squarks). However, there are caveats to this theory.
+
+\end{document}

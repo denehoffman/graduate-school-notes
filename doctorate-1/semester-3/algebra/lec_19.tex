@@ -1,0 +1,80 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{19}{Wednesday, October 14, 2020}{Tensor Products, cont.}
+
+In the previous lecture, we discussed the exterior product
+\begin{equation}
+    \Lambda(M) = R \oplus M \oplus \Lambda^2(M) \otimes \cdots
+\end{equation}
+where $ \Lambda^k(M) $ consist of $ k $-tensors modulo all tensors: $ v_1 \otimes v_2 \otimes \cdots \otimes v_k $ such that $ v_i = v_j $ for some $ i \pm j $. Equivalence of this definition to the one in our previous lecture can be shown by showing that every tensor of this form is in the ideal
+\begin{equation}
+    A(M) = (v \otimes v \colon v \in V) \subseteq T(M)
+\end{equation}
+The basic idea of the proof is that $ v \otimes u = - u \otimes v \mod A(M) $, so $ v_1 \otimes \cdots v_i \otimes v_{i+1} \otimes \cdots \otimes v_k \equiv - v_1 \otimes \cdots \otimes v_{i+1} \otimes v_i \otimes \cdots \otimes v_k $.
+
+Say $ M $ is a finite-dimensional vector space over $ F $ with $ \text{dim}(M) = n $ and $ \{v_1, \cdots, v_n\} $ is a basis for $ M $.
+\begin{equation}
+    \Lambda^{n+1}(M) = 0
+\end{equation}
+because we can write all vectors in terms of our basis vectors. Suppose we have some $ u_1 \otimes \cdots \otimes u_{n+1} $ with $ u_i \in M $. Write each $ u_i $ in terms of the basis and expand using multilinearity. Each term must have a repeated basis vector, so they are congruent to $ 0 \mod A(M) $.
+\begin{note}{Notation}
+    Equivalence classes under $ A(M) $ (i.e. elements of $ \Lambda^k(M) $) are written with $ \wedge $ rather than $ \otimes $:
+    \begin{equation}
+        v_1 \otimes v_2 \otimes \cdots \otimes v_k \mod A(M) = v_1 \wedge v_2 \wedge \cdots \wedge v_k
+    \end{equation}
+\end{note}
+Similarly,
+\begin{equation}
+    \Lambda^n(M) \neq 0
+\end{equation}
+since the determinant is alternating.
+
+Note $ \Lambda^k(M) $ is spanned by $ v_{i_1} \wedge \cdots \wedge v_{i_k} $ where $ 1 \leq i_1 < \cdots < i_k \leq n $. In particular, this is a set of $ \binom{n}{k} $ elements, and so $ \text{dim}(\Lambda^k(M)) \leq \binom{n}{k} $. In fact, this set is linearly independent, so $ \text{dim}(\Lambda^k(M)) = \binom{n}{k} $.
+\begin{proof}
+    First, for $ I \subset \{1,2,\cdots,n\} $, say $ I = \{i_1 < i_2 < \cdots < i_n\} $ then $ V_I = v_{i_1} \wedge \cdots \wedge v_{i_n} $.
+
+    Suppose $ 0 = \sum_{\abs{I} = k} \alpha_I V_I $. Then $ 0 \wedge V_J = \sum_I \alpha_I V_I \wedge V_J $. Choose $ J $ of size $ n-k $.
+
+    Then $ 0 = \alpha_I \cdot (-1)^{?} \cdot V_{\{1,2,\ldots,n\}} $ so $ \alpha_I = 0 $.
+\end{proof}
+
+Say we have a subspace $ M' \subset M $ and $ u_1,\cdots,u_t $ is a basis for $ M' $. $ u_1\wedge \cdots\wedge u_t \in \Lambda^t(M) $.
+\begin{equation}
+    u_1 \wedge (u_2 + \lambda u_1) \wedge \cdots \wedge u_t = u_1 \wedge u_2 \wedge \cdots \wedge u_t
+\end{equation}
+The element $ u_1 \wedge \cdots \wedge u_m $ up to some constant $ F^* $ is determined by $ M' $. Therefore, we have a way to map $ k $-dimensional subspaces into $ \Lambda^k(M) / F^* $.
+
+\section{Modules over PIDs}\label{sec:modules_over_pids}
+
+Assume $ R $ is a $ PID $.
+
+\begin{definition}
+    Elements $ v_1, v_2, \cdots, v_n \in M $ are \textit{linearly dependent} if $ \exists r_1, \cdots, r_n \in R $ such that $ r_1 v_1 + \cdots + r_n v_n = 0 $.
+\end{definition}
+\begin{definition}
+    A set $ B \subset M $ is a \textit{basis} if $ B $ is linearly independent and generates $ M $.
+\end{definition}
+\begin{definition}
+    An $ R $-module $ M $ is \textit{free} if it has a basis.
+\end{definition}
+\begin{ex}
+    If $ p $ is a prime element in $ R $, then $ R / (p) $ is an $ R $-module that is not free because $ rv = 0 $ $ \forall v \in R / (p) $. 
+\end{ex}
+\begin{claim}
+    A submodule of a free finitely-generated module over a PID is free.
+\end{claim}
+\begin{proof}
+    Say $ M $ is a finitely-generated free module. $ N \subset M $ is a submodule, and $ \{v_1, \cdots, v_m\} $ is a basis for $ M $. Define $ N_r = N \cap (v_1, \cdots, v_r) $ and claim (for induction) that $ N_r $ is free. The case where $ r = 0 $ is trivial. For the induction step, define $ I = \{a \in R \colon \exists x \in N,\ x = b_1 v_1 + \cdots + b_r v_r + a v_{r+1}\} $. $ I $ is an ideal. Since $ R $ is a PID, there exists an $ a_{r+1} $ such that $ I = (a_{r+1}) $. Let $ w \in N $ such that $ w = b_1 v_1 + \cdots + b_r b_r + a_{r+1} v_{r+1} $ for some $ b_1, \cdots, b_r $. Then $ N_{r+1} = N_r + (w) $. Note that $ N_r \cap (w) = 0 $. Indeed, the coefficient of $ v_{r+1} $ in $ aw $ is $ a a_{r+1} = \neq 0 $ (if $ a \neq 0 $ and $ w \neq 0 $). If $ w = 0 $, then $ N_{r+1} = N_r $, else $ N_{r+1} = N_r \oplus (w) $.
+\end{proof}
+
+\begin{definition}
+    The \textit{rank} of a free module $ M $ is the number of elements in the basis.
+\end{definition}
+
+
+
+
+
+
+
+\end{document}

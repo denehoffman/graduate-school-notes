@@ -1,0 +1,100 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\chapter{Mechanics of Biopolymers}
+\lecture{9}{Wednesday, March 03, 2021}{Mechanics of Biopolymers I}
+
+\section{Mechanical Structure in Biological Cells}\label{sec:mechanical_structure_in_biological_cells}
+
+Beams are everywhere. In biology, they give cells structure: cytoskeletal filaments and microtubules define the shape and rigidity of a cell. Sterocilia on inner ear hair cells help us hear, flagella help sperm move, and histones wrap DNA.
+
+Actin filaments cluster in different ways to perform different tasks in the cell. Sometimes they form filopodia, small clusters which push into the cell wall to probe the outside environment. When the cell divides, the actin forms a contractile ring, a belt which contracts to divide the cell wall. Neurons also consist of a network of filaments.
+
+Actin is responsible for cell shape, polarity, movement, and muscle contraction. Microtubules are thicker, hollow tubes which provide tracks for cargo transport and aid in cell division. There is a third type of filament called intermediate filament (which we don't know much about) which is responsible for maintaining cell shape and providing tensile strength. These are all proteins that are found in eukaryotic cells, but prokaryotic cells have similar fibers.
+
+\section{Physics and Mathematics of Beam Theory}\label{sec:physics_and_mathematics_of_beam_theory}
+
+We can think about beam bending as stretching. In an unbent beam, we define an axis through the middle as the neutral axis with length $ L_0 $. When the beam is bent, material on one side of the neutral axis is stretched while material on the other side is compressed. Microscopically, we can think of this like two layers of springs with natural length $ a_0 $. When bent, the top layer gets stretched to $ a_0 + \Delta a $ while the bottom layer is compressed to $ a_0 - \Delta a $.
+
+As a result of bending, different points along the beam may have different curvatures. We define curvature in terms of the reciprocal of the radius of curvature, the radius of a circle tangent to the curve: $ \kappa = \frac{1}{r_c} $.
+
+The first question we will ask is how do we define curvature elasticity? Hooke's law tells us that elastic strain energy is proportional to the square of the strain because in a spring, the energy is proportional to the square of the displacement, and we just said the beam can be thought of as a bunch of parallel springs. We can think of the strain of a fractional extension to be
+\begin{equation}
+    \epsilon = \frac{\Delta L}{L_0} 
+\end{equation}
+where $ \Delta L $ is the extension length and $ L_0 $ is the original length.
+
+Let's imagine a rod of length $ L $. If we divide the contour into small regions labeled by $ i $, the total bending energy is
+\begin{equation}
+    E_{\text{bend}} = \sum_i u^i_{\text{bend}} = \int_0^L \dd{l} u_{\text{bend}}
+\end{equation}
+where $ u^i_{\text{bend}} $ is the bending energy of each discrete section and $ u_{\text{bend}} $ is the energy density per unit length of the contour. If we look at an individual discrete section, we can define the radius of curvature as $ R $. If we define the radial distance as $ z $, then we can call the neutral axis $ z = 0 $, the stretched part $ z = d $, and the compressed side as $ z = -d $, such that the beam has thickness $ 2d $. We can use our definition of the energy above:
+\begin{equation}
+    u_{\text{bend}} = \int \dd{A} \frac{1}{2} E \epsilon^2
+\end{equation}
+where $ E $ is Young's modulus and the integral is over the cross section of the beam. Note that because the strain is unitless, the Young's modulus has units of energy per unit volume, the same units as stress or pressure. Therefore,
+\begin{equation}
+    E_{\text{bend}} = \int_0^L \dd{l} \int \dd{A} \frac{1}{2} E \epsilon^2
+\end{equation}
+We now have to calculate the strain. What is the length of a longitudinal portion of the beam section as a function of $ z $, $ L(z) $? We can show geometrically that this is
+\begin{equation}
+    L(z) = (R + z) \theta
+\end{equation}
+where $ \theta $ is the angle made by the arc of the beam section. We know that $ \epsilon = \frac{\Delta L}{L_0} = \frac{L(z) - L_0}{L_0} = \frac{L(z)}{L_0} - 1 $ and $ L_0 = R \theta $, so
+\begin{equation}
+    \epsilon(z) = \frac{(R + z) \theta}{R \theta} - 1 = \frac{z}{R}
+\end{equation}
+The bending energy is therefore
+\begin{align}
+    E_{\text{bend}} &= \int_0^L \dd{l} \int \dd{A} \frac{E}{2} \left( \frac{z}{R} \right)^2 \\
+                    &= \frac{E}{2} \int_0^L \dd{l} \frac{1}{R^2} \underbrace{\int \dd{A} z^2}_{\text{geometric momement } I} \\
+                    &= \underbrace{\frac{EI}{2}}_{\text{bending modulus or stiffness}} \int_0^L \dd{l} \frac{1}{R^2} \\
+                    &= \frac{K_{\text{eff}}}{2} \int_0^L \dd{l} \left( \dv{\hat{t}}{l} \right)^2
+\end{align}
+where $ \hat{t} $ is the unit vector tangent to the curve. For uniform curvature,
+\begin{equation}
+    E_{\text{bend}} = \frac{K_{\text{eff}} L}{2 R^2} = \frac{E I \theta^2}{2L}
+\end{equation}
+
+We can further relate persistence length of polymers to stress and strain. A polymer at a temperature $ T $ will fluctuate under thermal forces proportional to $ k_B T $. Something with high persistence length $ \xi_p $ will not fluctuate a lot, while something with low $ \xi_p $ will. Lets imagine that
+\begin{equation}
+    E_\text{bend} = \frac{1}{2} \frac{EIL}{R^2} = k_B T
+\end{equation}
+If we suppose the radius of curvature is about the same as the length of the curved section and define this as $ \xi_p $, we get
+\begin{equation}
+    k_B T = \frac{1}{2} EI \frac{\xi_p}{\xi_p^2}
+\end{equation}
+so
+\begin{equation}
+    \xi_p = \frac{E I}{2k_B T}
+\end{equation}
+
+Let's now examine some properties of tangent-tangent correlations. Let's define a function $ g(s) $ parameterized by $ s $ along the length of the curve:
+\begin{equation}
+    g(s) = \ev{\hat{t}(s) \vdot \hat{t}(0)}
+\end{equation}
+Since the tangent vector is a unit vector, we can write this as
+\begin{equation}
+    g(s) = \ev{\cos(\theta(s))}
+\end{equation}
+where $ \theta $ is the angle between the tangent vectors. Let's approximate this by a series expansion:
+\begin{equation}
+    g(s) aprox \ev{1 - \frac{\theta^2}{2} + \frac{\theta^4}{4!} + \cdots} \sim 1 - \frac{1}{2} \ev{\theta^2}
+\end{equation}
+where
+\begin{equation}
+    \ev{\theta^2} = \int \dd{\varphi} \int \dd{\theta} \sin(\theta) \Pr(\theta, \varphi) \theta^2
+\end{equation}
+where
+\begin{equation}
+    \Pr(\theta) = \frac{1}{Z} e^{- \beta E_{\text{bend}}(\theta)} = \frac{1}{Z} e^{- \beta \frac{E I \theta^2}{2s}}
+\end{equation}
+where $ Z = \int \dd{\varphi} \int \dd{\theta} \sin(\theta) e^{- \beta E_{\text{bend}}(\theta)} $. From this, we can compute that
+\begin{equation}
+    g(s) \approx 1 - \frac{k_B T}{EI} s = 1 - \frac{s}{\xi_p}
+\end{equation}
+For $ s \ll \xi_p $,
+\begin{equation}
+    g(s) = e^{- s / \xi_p}
+\end{equation}
+
+\end{document}

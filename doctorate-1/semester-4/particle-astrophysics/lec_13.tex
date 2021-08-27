@@ -1,0 +1,161 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{13}{Tuesday, March 09, 2021}{Matter-Antimatter Asymmetry}
+
+\section{Matter-Antimatter Asymmetry}\label{sec:matter-antimatter_asymmetry}
+
+We have $ \hat{H} - \mu \hat{N} = \sum_{k, \alpha} \left( \hat{n}_{k, \alpha} (E_k - \mu) + \hat{\bar{n}}_{k, \alpha} (E_k + \mu) \right) $ with $ \hat{n} = b^\dagger b $ and $ \hat{\bar{n}} = d^\dagger d $ and $ (\hat{n})^2 = \hat{n} $.
+
+We previously showed that the statical expectation values should be
+\begin{equation}
+    n_k = \frac{1}{e^{\beta (E_k - \mu)} + 1} \qquad \bar{n}_k = \frac{1}{e^{\beta (E_k + \mu)} + 1}
+\end{equation}
+We can describe the asymmetry between antiparticles and particles by
+\begin{equation}
+    \frac{1}{V} \sum_k (n_k - \bar{n}_k) = \int \frac{\dd[3]{k}}{(2 \pi)^3} \left( \frac{1}{e^{\beta (E_k - \mu)} + 1} - \frac{1}{e^{\beta (E_k + \mu)} + 1} \right)
+\end{equation}
+This quantity is not equal to zero \textit{iff} $ \mu \neq 0 $.
+
+\section{Electromagnetism}\label{sec:electromagnetism}
+
+The photon field obeys Maxwell's equations:
+\begin{equation}
+    \div{\va{E}} = 4 \pi \rho \qquad \div{\va{B}} = 0 \qquad \curl{\va{B}} = \frac{1}{c} \partial_t \va{E} + \frac{4 \pi}{c} \va{J} \qquad \curl{\va{E}} = - \frac{1}{c} \partial_t \va{B}
+\end{equation}
+
+We can solve these by introducing scalar and vector potentials, $ \Phi $ and $ \va{A} $:
+\begin{equation}
+    \va{B} = \curl{\va{A}} \implies \div{\va{B}} = 0
+\end{equation}
+and
+\begin{equation}
+    \va{E} = - \frac{1}{c} \partial_t \va{A} - \grad{\Phi} \implies \curl{\va{E}} = - \frac{1}{c} \partial_t \underbrace{(\curl{\va{A}})}_{\va{B}}
+\end{equation}
+
+Setting $ c = 1 $, we can introduce the 4-potential $ A^{\mu} = (\Phi, \va{A}) $ and the strength tensor
+\begin{equation}
+    F^{\mu \nu} = \pdv{A^{\nu}}{x_{\mu}} - \pdv{A^{\mu}}{x_{\nu}}
+\end{equation}
+with $ \partial{x_{\mu}} = \left( \partial_t, - \grad \right) $. Note this tensor is antisymmetric in $ \mu $ and $ \nu $.
+\begin{equation}
+    F^{0i} = \partial_t A^i + \grad{\Phi} = - E^i = - F^{i0}
+\end{equation}
+\begin{equation}
+    F^{xy} = - \pdv{A^y}{x} + \pdv{A^x}{y} = B^z
+\end{equation}
+and so on. We can also introduce the 4-current $ J^{\mu} = (\rho, \va{J}) $ such that
+\begin{equation}
+    \partial_{\mu} F^{\mu \nu} = 4 \pi J^{\nu}
+\end{equation}
+with $ \partial_{\mu} = \pdv{x^{\mu}} = \left( \partial_t, \grad \right) $. Because $ F^{\mu \nu} $ is antisymmetric, $ \partial_{\nu} \partial_{\mu} F^{\mu \nu} = 0 \implies \partial_{\nu} J^{\nu} = 0 $, so $ J^{\mu} $ is conserved.
+
+\subsection{Gauge Invariance}\label{sub:gauge_invariance}
+
+The description of electromagnetism in terms of the potential is redundant. $ \va{B} = \curl{\va{A}} $ is invariant under
+\begin{equation}
+    \va{A} \to \va{A} - \grad{\Lambda(x, t)}
+\end{equation}
+where $ \Lambda $ is some arbitrary function. Similarly, $ \Phi $ is invariant under
+\begin{equation}
+    \Phi \to \Phi + \pdv{\Lambda(x, t)}{t}
+\end{equation}
+or together,
+\begin{equation}
+    A^{\mu} \to A^{\mu} + \partial^{\mu} \Lambda
+\end{equation}
+and
+\begin{equation}
+    F^{\mu \nu} \to F^{\mu \nu} + \underbrace{\partial^{\mu} \partial^{\nu} \Lambda - \partial^{\mu} \partial^{\nu} \Lambda}_{0}
+\end{equation}
+
+This invariance is called gauge invariance and the transformations mentioned are gauge transformations. We can ``fix'' the gauge by choosing a function $ \Lambda $ which has the correct number of degrees of freedom.
+
+\subsection{The Coulomb Gauge}\label{sub:the_coulomb_gauge}
+
+In this gauge, we define $ \div{\va{A}} = 0 $, and this causes
+\begin{equation}
+    \div{\va{E}} = 4 \pi \rho = - \frac{1}{c} \pdv{t}(\div{\va{A}}) - \laplacian{\Phi}
+\end{equation}
+so
+\begin{equation}
+    - \laplacian{\Phi} = 4 \pi \rho
+\end{equation}
+We call $ \Phi $ the Coulomb potential, and we can solve this equation as
+\begin{equation}
+    \Phi(\va{x}) = \int \dd[3]{x'} \frac{\rho(x')}{\abs{\va{x} - \va{x}'}}
+\end{equation}
+so $ \Phi(x) $ is fixed by the charge distribution $ \rho(\va{x}) $, so $ \Phi(x) $ is \textit{not} an independent degree of freedom. We started with $ A^{\mu} $ having four degrees of freedom. Introducing the Coulomb gauge reduced this to three degrees of freedom, and solutions for $ \Phi $ tell us there are only two degrees of freedom.
+
+\subsection{Free Electromagnetic Waves}\label{sub:free_electromagnetic_waves}
+
+Suppose $ J^{\mu} = 0 $ (no sources), so $ \Phi = 0 $ and assume the Coulomb gauge ($ \div{\va{A}} = 0 $). Now Maxwell's equations have the form
+\begin{equation}
+    \partial_{\mu} F^{\mu \nu} = 0 \implies \partial_{\mu} \partial^{\mu} \va{A} = 0
+\end{equation}
+This can be written
+\begin{equation}
+    \frac{1}{c^2} \left( \pdv[2]{t} - \laplacian \right) \va{A}(x, t) = 0
+\end{equation}
+which has plane wave solutions,
+\begin{equation}
+    \va{A} = \va{\epsilon}(k) e^{- \imath \omega t} e^{\imath \va{k} \vdot \va{x}}
+\end{equation}
+\begin{equation}
+    \frac{\omega^2}{c^2} = \va{k}^2 \implies \omega = \pm c \abs{\va{k}}
+\end{equation}
+the dispersion relation of free electromagnetic waves. What is $ \va{\epsilon}(k) $? Using the Coulomb gauge condition on this plane wave solution, we find
+\begin{equation}
+    \va{k} \vdot \va{\epsilon}(k) = 0
+\end{equation}
+so $ \va{\epsilon} \perp \va{k} $. This gives the transversality condition: We choose a right-handed triad of unit vectors $ \vu{k} $, $ \vu{\epsilon}_1 $, $ \vu{\epsilon}_2 $ with $ \vu{\epsilon}_1 \cross \vu{\epsilon}_2 = \vu{k} $. We can form this basis in a 3D sphere:
+\begin{equation}
+    \sum_{\lambda = 1}^{2} \hat{\epsilon}_i^{\lambda} \hat{\epsilon}_j^{\lambda} = \delta_{ij} - \hat{k}_i \hat{k}_j = \delta_{ij} - \frac{\va{k}_i \va{k}_j}{\abs{\va{k}^2}}
+\end{equation}
+Two transverse degrees of freedom describe electromagnetic waves. The most general solution of the wave equation under the Coulomb gauge is a superposition of waves:
+
+\begin{equation}
+    \va{A}(\va{x}, t) = \frac{1}{\sqrt{V}} \sum_k \sum_{\lambda = 1}^2 \frac{\va{\epsilon}_{\lambda}(k)}{\sqrt{2 \omega(k)}} \left[ a_{k, \lambda} e^{- \imath \omega(k) t} e^{\imath \va{k} \vdot \va{x}} + a^\dagger_{k, \lambda} e^{\imath \omega(k) t} e^{- \imath \va{k} \vdot \va{x}} \right]
+\end{equation}
+
+\section{Maxwell's Equations from Variational Principles}\label{sec:maxwell's_equations_from_variational_principles}
+
+We can obtain Maxwell's equations from the variational principle with
+\begin{equation}
+    \mathcal{L} = - \frac{1}{4} F^{\mu \nu} F_{\mu \nu} = - \frac{1}{2} F^{\mu \nu} \partial_{\mu} A_{\nu} = \frac{1}{2} (\va{E}^2 - \va{B}^2)
+\end{equation}
+Under $ A^{\mu} \to A^{\mu} + \delta A^{\mu} $,
+\begin{equation}
+    \delta I = \int \dd[4]{x} (\partial_{\mu} F^{\mu \nu}) \delta A_{\nu} = 0
+\end{equation}
+Integration by parts gives us $ \partial_{\mu} F^{\mu \nu} $. With $ \pi = \pdv{\mathcal{L}}{\dot{A}} $, the Hamiltonian density is
+\begin{equation}
+    \mathcal{H} = \frac{1}{2} (\va{E}^2 + \va{B}^2)
+\end{equation}
+With the solution for $ \va{A} $ above, $ \va{E} = \dot{\va{A}} $, and $ \va{B} = \curl{\va{A}} $ (and $ \vu{\epsilon}_1 \cross \vu{\epsilon}_2 = \vu{k} $) and the normalization condition
+\begin{equation}
+    \frac{1}{V} \int \dd[3]{x}e^{\imath (\va{k} - \va{k}') \vdot \va{x}} = \delta_{k, k'}
+\end{equation}
+we get
+\begin{equation}
+    H = \frac{1}{2} \sum_k \sum_{\lambda = 1}^2 \omega(k) \left[ a^\dagger_{k, \lambda} a_{k, \lambda} + a_{k, \lambda} a^\dagger_{k, \lambda} \right]
+\end{equation}
+This is, again, a collection of harmonic oscillators, just like with the real scalar field, but now there are two transverse degrees of freedom. Using the commutation relations,
+\begin{equation}
+    \comm{a_{k, \lambda}}{a^\dagger_{k', \lambda'}} = \delta_{k,k'} \delta_{\lambda, \lambda'} \qquad \comm{a}{a} = \comm{a^\dagger}{a^\dagger} = 0
+\end{equation}
+we get
+\begin{equation}
+    H = \sum_k \sum_{\lambda = 1,2} \omega(k) \left[ a^\dagger_{k, \lambda} a_{k, \lambda} + \frac{1}{2} \right]
+\end{equation}
+where the zero-point energy is then $ \sum \frac{\omega(k)}{2} $.
+
+\subsection{Thermodynamics of Photons}\label{sub:thermodynamics_of_photons}
+
+Note that the number of photons is not conserved, they can be absorbed or emitted, so $ \mu = 0 $ for photons. Then $ Z = \Tr e^{- \beta H} $ gives us
+\begin{equation}
+    n_{k, \lambda} = \frac{\Tr a^\dagger_{k, \lambda} a_{k, \lambda} e^{- \beta H}}{\Tr e^{- \beta H}} = \frac{1}{e^{\beta \omega(k)} - 1}
+\end{equation}
+This is a Bose-Einstein distribution with $ \mu = 0 $.
+
+
+\end{document}

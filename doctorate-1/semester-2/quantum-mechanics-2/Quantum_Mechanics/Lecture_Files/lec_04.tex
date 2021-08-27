@@ -1,0 +1,179 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{4}{Wednesday, January 22, 2020}{Conserved Charge of Rotational Invariance}
+
+Recall Noether's theorem from the previous lecture:
+\begin{equation}
+    \dv{t}\left[ \fdv{L}{\dot{\va{x}}} \delta\va{ x} \right] = 0
+\end{equation}
+
+If the action is rotationally invariant, 
+\begin{equation}
+    \va{ x} \to R(\vu{n}, \theta)\va{ x}
+\end{equation}
+where
+\begin{equation}
+    R(\vu{n}, \theta) = e^{\imath\va{ L} \vdot\vu{ n} \theta}
+\end{equation}
+In the previous lecture, we found that
+\begin{equation}
+    \imath (L^a)_{ij} = \epsilon^a_{ij} \equiv \epsilon_{aij}
+\end{equation}
+
+If we expand the exponential to a few terms, we find
+\begin{equation}
+    e^{\imath\va{ L} \vdot\vu{ n} \theta} \to 1 + \imath\va{ L} \vdot\vu{ n} \theta + \order{\theta^2}
+\end{equation}
+as $ \theta \to 0 $. We find $ \delta\va{ x} $ to be
+\begin{align}
+    \delta\va{ x} &= \left[ (\imath\va{ L} \vdot\vu{ n})_{ij} \theta \right] x_j \\
+    &= \left( \imath (L^a)_{ij} n^a x_j \right) \theta \\
+    &= \left( \epsilon_{aij} n_a x_j \right) \theta
+\end{align}
+
+If our Lagrangian has the form
+\begin{equation}
+    L = \frac{1}{2} m \dot{x}^2 - V(x)
+\end{equation}
+we find that Noether's theorem gives us
+\begin{align}
+    \dv{t}\left[ m\dot{x}_i \delta x_i \right] &= 0 \\
+    &= \dv{t} m \left[ \dot{x}_i ( n_a \theta \epsilon_{aij} x_j) \right] \\
+    &= \dv{t}\left[ m \dot{x}_i \epsilon_{aij} x_j n_a \theta\right]
+\end{align}
+Because $\vu{ n} $ and $ \theta $ are arbitrary and this equation must be true for all $\vu{ n} $ and $ \theta $,
+\begin{equation}
+    \dv{t}\left[ \underbrace{m\dot{x}_i}_{p_i} \epsilon_{aij} x_j \right] = 0
+\end{equation}
+so
+\begin{equation}
+    p_i x_j \epsilon_{aij} =\va{ x} \cross\va{ p} =\va{ L} \quad \longrightarrow \qq{invariant}
+\end{equation}
+
+\section{Conservation Laws in Quantum Mechanics}
+\label{sec:conservation_laws_in_quantum_mechanics}
+
+The fundamental time-evolution equation in QM is the Schr\"odinger equation:
+\begin{equation}
+    \imath \hbar \pdv{t}\ket{\psi} = H\ket{\psi}
+\end{equation}
+
+The Schr\"odinger picture is a formulation where we make the operators independent of time, but allow the wave functions to be time-dependent.
+
+The Heisenberg picture is a formulation where all of the operators are time-dependent whereas the wave functions are time-independent.
+
+There is a simple way to transform between the two using a time-evolution operator:
+\begin{equation}
+    U(t',t) = e^{- \imath H(t'-t)/ \hbar}
+\end{equation}
+
+If we work in the Schr\"odinger picture, we know that $\ket{\psi(t')} = U(t',t)\ket{\psi(t)} $. If we consider the expectation value of some operator:
+\begin{equation}
+    \bra{\psi(t')}_S O_S\ket{\psi(t)}_S =\bra{\psi(t')} U^\dagger(t',t) O U(t',t)\ket{\psi(t)}
+\end{equation}
+We could equivalently define
+\begin{equation}
+    O_H(t') = U^\dagger(t',t) O_S U(t',t)
+\end{equation}
+such that
+\begin{equation}
+    \bra{\psi(t')}_S O_S\ket{\psi(t)}_S =\bra{\psi}_H O_H(t')\ket{\psi}_H
+\end{equation}
+where
+\begin{equation}
+    \ket{\psi}_H \equiv U(t',t)\ket{\psi(t)}_S
+\end{equation}
+We can use the Schr\"odinger equation on the Heisenberg picture operator:
+\begin{align}
+    \imath \hbar \pdv{t} O_H(t) &= \\
+    \imath \hbar \pdv{t}\bra{\psi}_S O_S \ket{\psi}_S &= \left[ \imath \hbar \pdv{t}\bra{\psi}_S \right] O\ket{\psi}_S +\bra{\psi}_S O \left[ \imath \hbar \pdv{t}\ket{\psi}_S \right] \\
+    &= -\ev{\psi}{HO} + \ev{\psi}{OH} \\
+    &= \ev{\psi}{\comm{O}{H}} \\
+    &= \imath \hbar\bra{\psi}_H \dv{t}O_H(t)\ket{\psi}_H
+\end{align}
+so
+\begin{equation}
+    \imath \hbar \dv{t}O_H(t) = \comm{O}{H}
+\end{equation}
+
+What does this have to do with conserved quantities? If $ \comm{O}{H} = 0 $, $ O $ is time independent. In quantum mechanics, a symmetry is always expressible in terms of a unitary transformation
+\begin{equation}
+    U = e^{\imath\va{ X} \vdot \va{\lambda}}
+\end{equation}
+where $\va{ X}^\dagger =\va{ X} $ are the generators of the symmetry which obey a Lie algebra $ \comm{X_a}{X_b} = \imath f_{abc} X_c $.
+
+The difference between classical and quantum mechanics is that everything is an operator, and operators transform under symmetries:
+\begin{equation}
+    O \to U^\dagger(\va{\lambda}) O U(\va{\lambda})
+\end{equation}
+where $ \va{\lambda} $ is the set of parameters which determine the group element. Now consider some of the typical operators and how they transform. Under rotations, the position operator transforms as
+\begin{equation}
+    \va{ x} \to U(\vu{n}, \theta)\va{ x} U(\vu{n}, \theta)
+\end{equation}
+or
+\begin{equation}
+    \va{ x}' = e^{- \imath\va{ L} \vdot\vu{ n} \theta/\hbar}\va{ x} e^{\imath\va{ L} \vdot\vu{ n} \theta/\hbar}
+\end{equation}
+Consider an infinitesimal rotation ($ \theta \to 0 $):
+\begin{equation}
+    \va{ x}' = (1 - \imath\frac{\va{ L}}{\hbar} \vdot\vu{ n} \theta)\va{ x} (1 + \imath\frac{\va{ L}}{\hbar} \vdot\vu{ n} \theta) + \order{\theta^2}
+\end{equation}
+or
+\begin{equation}
+    \va{ x}' =\va{ x} - (\imath\frac{\va{ L}}{\hbar} \vdot\vu{ n} \theta)\va{ x} +\va{ x} (\imath\frac{\va{ L}}{\hbar} \vdot\vu{ n} \theta)
+\end{equation}
+so
+\begin{equation}
+    \delta\va{ x} =\va{ x} (\imath\frac{\va{ L}}{\hbar} \vdot\vu{ n} \theta) - (\imath\frac{\va{ L}}{\hbar} \vdot\vu{ n} \theta)\va{ x}
+\end{equation}
+so
+\begin{equation}
+    \delta x_a = \left[ (x_a (\imath L_b)/\hbar) - (\imath L_b X_a )/\hbar\right]\vu{ n}_b \theta
+\end{equation}
+We define the angular momentum operator as
+\begin{equation}
+    \va{ L} \equiv\va{ x} \cross\va{ p} =\va{ x} \cross \left( \imath \hbar \pdv{\va{x}} \right)
+\end{equation}
+We can also write this in index notation:
+\begin{equation}
+    L_b = - \imath \hbar x_i \partial_j \epsilon_{ijb}
+\end{equation}
+Let's now apply this to our $ \delta x_a $ formula:
+\begin{equation}
+    \delta x_a = (\imath\vu{ n}_b \theta) \comm{x_a}{\imath \frac{L_b}{\hbar}} 
+\end{equation}
+Now we just need to figure out what the commutator is.
+\begin{equation}
+    \comm{x_a}{\imath \frac{L_b}{\hbar}} = \comm{x_a}{x_c p_d \epsilon_{cdb}}
+\end{equation}
+$ \epsilon_{cdb} $ is just a constant, we can take it out, and we are left with
+\begin{equation}
+    \comm{x_a}{\imath x_c p_d} = \imath \comm{x_a}{x_c} p_d + x_c \imath \comm{x_a}{p_d}
+\end{equation}
+since
+\begin{equation}
+    \comm{A}{BC} = \comm{A}{B} C + B \comm{A}{C}
+\end{equation}
+
+Position commutes with itself and $ \comm{x_a}{p_d} = \imath \hbar \delta_{ad} $ so
+\begin{equation}
+    \comm{x_a}{x_c p_d} = -x_c(\delta_{ad})
+\end{equation}
+Finally
+\begin{align}
+    \delta x_a &= \imath\vu{ n}_b \theta \epsilon_{cdb} (\imath \hbar x_c \delta_{ad}) \\
+    &= - \vu{ n}_b \theta x_c \epsilon_{cab} \\
+    &= - \vu{ n}_b \theta x_c \epsilon_{abc}
+\end{align}
+This is very similar to the classical case where
+\begin{equation}
+    \delta x_a =\vu{ n}_b \theta x_c \epsilon_{abc}
+\end{equation}
+Whereas in the quantum case we have
+\begin{equation}
+    \delta x_a = - \vu{ n}_b \theta x_c \epsilon_{abc}
+\end{equation}
+
+We have shown that the operator $\va{ x} $ transforms just like a vector under rotation. If you did the same thing with $\va{ p} $, you would find the exact same result (and a similar result with any vector operator).
+
+\end{document}

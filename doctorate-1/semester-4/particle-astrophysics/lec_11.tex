@@ -1,0 +1,187 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{11}{Tuesday, March 02, 2021}{Hamiltonian Formulation and Quantization}
+
+\section{Hamiltonian Formulation}\label{sec:hamiltonian_formulation}
+
+In single particle classical mechanics, the Lagrangian is given by
+\begin{equation}
+    L[\dot{q}, q] = \frac{1}{2} m\dot{q}^2 - V(q)
+\end{equation}
+We can then define the canonical momentum as
+\begin{equation}
+    p = \dv{L}{\dot{q}} = m \dot{q} \implies \dot{q} = \frac{p}{m}
+\end{equation}
+The Hamiltonian is
+\begin{equation}
+    H(p,q) = p \dot{q} - L[\dot{q}, q] \to \frac{p^2}{2m} + V(q)
+\end{equation}
+In a continuum (classical) theory with $ \mathcal{L}[\psi, \dot{\psi}] $, the canonical momentum can be defined as $ \pi = \pdv{\mathcal{L}}{\dot{\psi}} $ with Lagrangian \textit{density}
+\begin{equation}
+    \mathcal{L}[\psi, \dot{\psi}] = \frac{\dot{\psi}^2}{2} - \frac{(\grad{\psi})^2}{2} - \frac{1}{2} m^2 \psi^2
+\end{equation}
+which implies $ \pi = \dot{\psi} $ and the Hamiltonian \textit{density}
+\begin{equation}
+    \mathcal{H} = \pi \dot{\psi} - \mathcal{L}[\psi, \dot{\psi}] = \frac{\pi^2}{2} - \frac{(\grad{\psi})^2}{2} + \frac{m^2}{2} \psi^2
+\end{equation}
+
+The total Hamiltonian can be found by
+\begin{equation}
+    H = \int \dd[3]{x} \mathcal{H}[\pi, \psi] \equiv E
+\end{equation}
+where $ E $ is the energy.
+
+\section{Quantization}\label{sec:quantization}
+
+We can write a general wave function:
+\begin{equation}
+    \psi(\va{x}, t) = \frac{1}{\sqrt{V}} \sum_k \frac{1}{\sqrt{2 E_k}} \left[ a_k e^{- \imath E_k t} e^{\imath \va{k} \vdot \va{x}} + a^\dagger_k e^{\imath E_k t} e^{- \imath \va{k} \vdot \va{x}} \right]
+\end{equation}
+where $ V $ is the quantization volume. This is a general linear superposition of plane wave solutions of the Klein-Gordon equation with some generalized Fourier coefficients $ a_k $ and $ a^\dagger_k $.
+
+Taking the time derivative, we find the canonical momentum,
+\begin{equation}
+    \pi(\va{x}, t) = - \frac{\imath}{\sqrt{V}} \sum_k \sqrt{\frac{E_k}{2}} \left[ a_k e^{- \imath E_k t} e^{\imath \va{k} \vdot \va{x}} - a^\dagger_k e^{\imath E_k t} e^{- \imath \va{k} \vdot \va{x}} \right]
+\end{equation}
+
+Using the finite volume identity,
+\begin{equation}
+    \int \dd[3]{x}e^{\imath (\va{k} - \va{k}') \vdot \va{x}} = V \delta_{\va{k}, \va{k}'}
+\end{equation}
+where $ \va{k} = \frac{2 \pi}{L} (m_x, m_y, m_z) $ for $ m_i \in \Z $ and $ V = L^3 $.
+Plugging this into our Hamiltonian, we have
+\begin{equation}
+    H = \int \dd[3]{x} \frac{1}{2} \left[ \pi^2 + (\grad{\psi})^2 + m^2 \psi^2 \right] = \sum_k \frac{E_k}{2} (a^\dagger_k a_k + a_k a^\dagger_k)
+\end{equation}
+We define $ a $ and $ a^\dagger $ as quantum operators. The quantization is achieved by imposing commutation relations on these operators:
+\begin{equation}
+    \comm{a_k}{a^\dagger_{k'}} = \delta_{k, k'} \qquad \comm{a_k}{a_{k'}} = \comm{a^\dagger_k}{a^\dagger_{k'}} = 0
+\end{equation}
+so
+\begin{equation}
+    a_k a^\dagger_k = 1 + a^\dagger_k a_k
+\end{equation}
+Therefore, we can write the Hamiltonian as
+\begin{equation}
+    H = \sum_k E_k \left[ a^\dagger_k a_k + \frac{1}{2} \right] = \sum_k E_k \left[ n_k + \frac{1}{2} \right]
+\end{equation}
+where we define $ n_k $ as the number of quanta. This is the equation for a collection of harmonic oscillators with frequency $ E_k = \sqrt{k^2 + m^2} $ and $ E_0 = \sum_k \frac{E_k}{2} $ zero-point energy.
+
+If we take this finite sum and convert it into an integral $ \left( \sum_k \to V \int \frac{\dd[3]{k}}{(2 \pi)^3} \right) $, we can get the zero-point energy density,
+\begin{equation}
+    \frac{E_0}{V} = \int \frac{\dd[3]{k}}{(2 \pi)^3} \sqrt{k^2 + m^2}
+\end{equation}
+
+This quantity is \textit{divergent}, which is a big problem in General Relativity where all sources of matter and energy contribute to the gravitational field in the energy-momentum tensor $ T^{\mu \nu} $.
+
+\section{Fermions}\label{sec:fermions}
+
+Dirac showed that the Klein-Gordon equations can't describe electrons (or other fermions, particles with spin $ 1/2 $) because the Schr\"odinger equation leads to a positive semi-definite probability density:
+
+\begin{align}
+    \imath \hbar \partial_t \psi &= 0 \frac{\hbar^2}{2m} \laplacian{\psi} \tag{a}\\
+    \implies - \imath \hbar \partial_t \psi^* &= - \frac{\hbar^2}{2m} \laplacian{\psi^*} \tag{b}
+\end{align}
+so taking $ \psi^* (a) - \psi (b) $, we get
+\begin{equation}
+    \imath \hbar \partial_t (\psi^* \psi) = - \frac{\hbar^2}{2m} \div{(\psi^* \grad{\psi} - \psi \grad{\psi^*})}
+\end{equation}
+This is like a continuity equation
+\begin{equation}
+    \dot{\rho} + \div{\va{J}} = 0
+\end{equation}
+with $ \rho = \psi^* \psi $ being the probability density and $ \va{J} = \frac{\hbar}{2m \imath} \left( \psi^* \grad{\psi} - \psi \grad{\psi^*} \right) $ being the probability current. Conservation of probability implies that
+\begin{equation}
+    \pdv{t} \int \rho \dd[3]{x} = 0
+\end{equation}
+if
+\begin{equation}
+    \int \div{\va{J}} \dd[3]{x} = 0
+\end{equation}
+
+On the other hand, we can look at the Klein-Gordon equation:
+\begin{align}
+    \partial^2_t \psi &= \laplacian{\psi} - m^2 \psi \tag{a} \\
+    \implies \partial^2_t \psi^* &= \laplacian{\psi^*} - m^2 \psi^* \tag{b}
+\end{align}
+so $ \psi^* (a) - \psi (b) $ gives us
+\begin{equation}
+    \pdv{t} \left[ \psi^* \pdv{\psi}{t} - \psi \pdv{\psi^*}{t} \right] + \div{\va{J}} = 0
+\end{equation}
+(with the same $ \va{J} $ as in the Schr\"odinger equation). This $ \rho = \psi^* \pdv{t} \psi - \psi \pdv{t} \psi^* $ is \textit{not} manifestly positive semi-definite because of the second time derivative.
+
+Additionally, the wave function transforms as a scalar under rotations and Lorentz translations. However, an electron has spin $ 1/2 $. Dirac postulated that we require an equation with one time derivative (to get the same probability density as in the Schr\"odinger equation) but also only first-order spatial derivatives, to treat space and time on equal footing like in Special Relativity:
+\begin{equation}
+    \imath \hbar \partial_t \psi = - \imath \hbar c \alpha ve \vdot \grad{\psi} + \beta c^2 m \psi \equiv H \psi
+\end{equation}
+the $ \va{a} \vdot \grad{\psi} $ term must be rotationally invariant, so $ \va{\alpha} $ must transform as vectors under rotations. However, there are no preferred vectors in Special Relativity, $ \va{\alpha} $ can't just be any arbitrary fixed vector, but $ \va{\alpha} $ and $ \beta $ must instead be Hermitian. How can we find these? Squaring both sides, we get the Klein-Gordon equation on the left, and on the right we have
+\begin{align}
+    (H \psi)^2 &= (- \imath \hbar c \alpha_i \grad_i + \beta m c^2)(- \imath \hbar c \alpha_j \grad_j + \beta m c^2) \psi \\
+               &= \left[- \hbar^2 c^2 \alpha_i \alpha_j \grad_i \grad_j + \beta^2 m^2 c^4 - \imath \hbar c \left( c^2 \alpha_i \beta m \grad_i + c^2 \beta \alpha_i m \grad_i \right)\right] \psi 
+\end{align}
+Since $ \grad_i \grad_j $ is symmetric,
+\begin{equation}
+    \alpha_i \alpha_j = \frac{1}{2} \underbrace{(\alpha_i \alpha_j + \alpha_j \alpha_i)}_{\text{symmetric}} + \frac{1}{2} \underbrace{(\alpha_i \alpha_j - \alpha_j \alpha_i)}_{\text{antisymmetric}}
+\end{equation}
+so the antisymmetric part must cancel when multiplied by $ \grad_i \grad_j $. In order to get the Klein-Gordon equation and the correct dispersion relation,
+\begin{equation}
+    \frac{1}{2} (\alpha_i \alpha_j + \alpha_j \alpha_i) = \delta_{ij} \qquad \beta^2 = 1 \qquad (\alpha_i \beta + \beta \alpha_i) = 0
+\end{equation}
+
+These quantities cannot be simple numbers. The anticommutators can be shown to be
+\begin{equation}
+    \pb{\alpha_i}{\alpha_j} = 2 \delta_{ij} \qquad \pb{\alpha_i}{\beta} = 0
+\end{equation}
+and $ \beta^2 = 1 $, $ \alpha_i^2 = 1 $ (by setting $ i = j $).
+We need four matrices which square to $ 1 $, are Hermitian, and obey the anticommutation relations above. Also,
+\begin{equation}
+    \alpha_i \beta = - \beta \alpha_i \qand \beta^2 = 1 \implies \beta \alpha_i \beta = - \alpha_i \implies \Tr \beta \alpha_i \beta = - \Tr \alpha_i = \Tr \alpha_i \beta^2
+\end{equation}
+so
+\begin{equation}
+    \Tr \alpha_i = 0
+\end{equation}
+for $ i = 1,2,3 $ and since $ \alpha_i^2 = 1 $, $ \alpha_i \beta \alpha_i = - \beta $ implies that $ \Tr \beta = 0 $. Therefore, we also require these matrices to be traceless. Dirac wrote down these matrices as
+\begin{equation}
+    \alpha_i = \mqty(0 & \sigma_i \\ \sigma_i & 0) \qquad \beta = \mqty(\mathbb{I}_{2\times 2} & 0 \\ 0 & \mathbb{I}_{2 \times 2})
+\end{equation}
+where $ \sigma_i $ are the Pauli matrices,
+\begin{equation}
+    \sigma^1 = \mqty(\pmat{1}) \qquad \sigma^2 = \mqty(\pmat{2}) \qquad \sigma^3 = \mqty(\pmat{3})
+\end{equation}
+All together, the Dirac equation can be written
+\begin{equation}
+    \imath \hbar \partial_t \psi = \left[ - \imath \hbar c \va{\alpha} \vdot \grad + \beta m c^2 \right] \psi \tag{Dirac Equation}
+\end{equation}
+
+Consider the plane wave solutions
+\begin{equation}
+    \psi = \mathcal{A} e^{- \imath E t / \hbar} e^{\imath \va{p} \vdot \va{x} / \hbar}
+\end{equation}
+where $ \mathcal{A} = \mqty(A_1\\A_2\\A_3\\A_4) $ is a four-component spinor. Then
+\begin{align}
+    E \mathcal{A} &= (c \va{\alpha} \vdot \va{p} + \beta m c^2) \mathcal{A} \\
+    E^2 \mathcal{A} &= (c \va{\alpha} \vdot \va{p} + \beta m c^2) E \mathcal{A} \\
+                    &= (c \va{\alpha} \vdot \va{p} + \beta m c^2)(c \va{\alpha} \vdot \va{p} + \beta m c^2) \mathcal{A} \\
+                    &= \left( c^2 \underbrace{\alpha_i \alpha_j}_{\frac{1}{2} \pb{\alpha_i}{\alpha_j} = \delta_{ij}}p_i p_j + \underbrace{\beta^2}_{1} m^2 c^4 + p_i \underbrace{(\alpha_i \beta + \beta \alpha_i)}_{0} \right) \mathcal{A} \\
+                    &= (p^2 c^2 + m^2 c^4) \mathcal{A} \\
+    E^2 &= p^2 c^2 + m^2 c^4
+\end{align}
+which is the correct dispersion relation. What exactly is this ``spinor'' component? If we go to the rest frame with $ p = 0 $,
+\begin{equation}
+    E \mathcal{A} = m c^2 \beta \mathcal{A}
+\end{equation}
+This has four solutions,
+\begin{align}
+    \mqty(1\\0\\0\\0) \implies E &= + m c^2 \qquad S = + \frac{\hbar}{2} \\
+    \mqty(0\\1\\0\\0) \implies E &= + m c^2 \qquad S = - \frac{\hbar}{2} \\
+    \mqty(0\\0\\1\\0) \implies E &= - m c^2 \qquad S = + \frac{\hbar}{2} \\
+    \mqty(0\\0\\0\\1) \implies E &= - m c^2 \qquad S = - \frac{\hbar}{2}
+\end{align}
+where we define the spin operator by
+\begin{equation}
+    \va{S} \equiv \mqty(\frac{\hbar \va{\sigma}}{2} & 0 \\ 0 & \frac{\hbar \va{\sigma}}{2})
+\end{equation}
+These solutions have spin-$ 1/2 $ and energy $ \pm m c^2 $ since $ E^2 = m^2 c^4 $ at rest.
+
+\end{document}

@@ -1,0 +1,106 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{7}{Wednesday, February 24, 2021}{Structure of Macromolecules I}
+
+\section{End-to-end Length of DNA Strands}\label{sec:end-to-end_length_of_dna_strands}
+
+Let's define some statistical properties of a random walk. If we think of a DNA strand's ends as random walkers, we can talk about the end-to-end distance as a probability distribution. We could also talk about the radius of gyration, the average distance from each point to the center of mass. Let's simplify this end-to-end distance for a random walk in one dimension. You can think of each segment as either pointing to the left or right, so
+\begin{equation}
+    R = (n_r - n_l)a = (2n_r - N)a
+\end{equation}
+where $ n_r $ and $ n_l $ are the number of segments pointing right and left, $ a $ is the length of a segment, and $ N $ is the total number of segments. The probability distribution is then proportional to the number of ways you can realize the number of segments pointing to the right (or left):
+\begin{equation}
+    W(n_r;N) = \frac{N!}{n_r!(N - n_r)!}
+\end{equation}
+Again, in this we assume there is no ``memory'' of previous steps in the random walk, each segment's direction is independent of the previous. The probability distribution is then this times the probability of that many segments bing in the right-going state:
+\begin{equation}
+    p(n_r; N) = W(n_r ; N) \left( \frac{1}{2} \right)^N
+\end{equation}
+Then we can turn this into a probability function of the end-to-end distance:
+\begin{equation}
+    R = (n_r - n_l)a \implies p(R;N) = \frac{N!}{\left( \frac{N}{2} + \frac{R}{2a} \right)!\left( \frac{N}{2} - \frac{R}{2a} \right)!} \left( \frac{1}{2} \right)^N
+\end{equation}
+This probability distribution peaks at $ R = 0 $, which means that the most common position for a 1D strand is a loop.
+
+In the limit where $ R\ll Na $, this binomial distribution becomes a Gaussian:
+\begin{equation}
+    p(R;N) \approx \frac{2}{\sqrt{2 \pi N}} e^{- R^2 / 2Na^2}
+\end{equation}
+by the Central Limit Theorem.
+
+We can generalize this Gaussian to 3D:
+\begin{equation}
+    p(\va{R};N) = \left( \frac{3}{2 \pi N a^2} \right)^{3/2} e^{-3R^2 / 2Na^2}
+\end{equation}
+
+\subsection{How Rigid is a Polymer?}\label{sub:how_rigid_is_a_polymer}
+
+We can define a property called the ``persistence length'' which is a measure of the length scale over which a polymer remains relatively straight. Consider a curve of length $ L $ parameterized by $ s \in (0,L) $. At each point, you can draw a tangent vector $ \va{t}(s) $. If you take the dot product of two tangent vectors and average over all the possible tangent vectors,
+\begin{equation}
+    \ev{\va{t}(s) \vdot \va{t}(u)} = e^{- \abs{s-u} / \xi_p}
+\end{equation}
+where $ \xi_p $ is the persistence length. In practice, this is done experimentally, although the relation can be derived from bending mechanics, which we will cover in the next chapter. For DNA, $ L\gg \xi_p $.
+
+If we consider a point on the curve to be $ \va{r}(s) $, then $ \va{t}(s) = \pdv{\va{r}}{s} $. Experimentally, you can calculate the tangent-tangent correlation function and the width of this distribution will be the persistence length. The persistence length is also a measure of the ``memory'' of an object\textemdash how well each segment's orientation is correlated to the previous segments. Because $ \xi_p \sim 50\nano\meter \ll L $ for DNA, it can be easily bent and twisted inside the nucleus.
+
+How is persistence length related to Kuhn length? The end-to-end distance can be defined as
+\begin{equation}
+    \va{R} = \int_0^L \dd{s} \hat{t}(s)
+\end{equation}
+and $ \ev{R^2} = Na^2 $ where $ a $ is the Kuhn length.
+\begin{equation}
+    \ev{R^2} = \ev{\int_0^L \dd{s} \hat{t}(s) \vdot \int_0^L \dd{u} \hat{t}(u)} = \ev{\int_0^L \dd{s} \int_0^L \dd{u} \hat{t}(s) \vdot \hat{t}(u)}
+\end{equation}
+We can divide the domain of integration into two parts, first integrating $ u $ and then $ s $. For any value of $ s $, the $ u $ quantity runs from $ s $ to $ L $, so
+\begin{equation}
+    \ev{R^2} = 2\int_0^L \dd{s} \int_s^L \dd{u} e^{-(u-s)/ \xi_p}
+\end{equation}
+Define $ x = u - s $:
+\begin{equation}
+    \ev{R^2} = 2 \int_0^L \int_0^L \dd{x} e^{-x/ \xi_p}
+\end{equation}
+We will now assume that $ L \gg s $. This isn't a great assumption, because it clearly might not be true, but using it,
+\begin{equation}
+    \ev{R^2} \approx 2 \int_0^L \dd{s} \int_0^{\infty} \dd{x} e^{-x / \xi_p}
+\end{equation}
+We could actually calculate the original integral exactly, but the higher-order corrections won't really matter much for the polymers we want to study.
+\begin{equation}
+    \ev{R^2} \approx 2L \xi_p
+\end{equation}
+We can then compare this with $ \ev{R^2} = N a^2 $ to show that
+\begin{equation}
+    a = 2 \xi_p
+\end{equation}
+note that
+\begin{equation}
+    \sqrt{\ev{R^2}} = \sqrt{2L \xi_p} = \sqrt{aL}
+\end{equation}
+The theory for semi-rigid objects is a lot more difficult because we cant make the assumption $ L \gg s $.
+
+Radius of gyration can be related to these metrics:
+\begin{equation}
+    \ev{R^2_G} = \frac{1}{N} \sum_{i=1}^{N} (\va{R} - \va{R}_{\text{CM}})^2
+\end{equation}
+\begin{equation}
+    \sqrt{\ev{R^2_G}} = \sqrt{\frac{L \xi_p}{3}}
+\end{equation}
+
+We can then use the length of a DNA strand along with the persistence length to calculate the average size of the molecule (the physical space it occupies in 3D).
+
+\section{How is DNA Packaged?}\label{sec:how_is_dna_packaged?}
+
+In the nucleus, DNA is tightly packed into nucleosomes, which are formed from histones which bind to the DNA (``beads-on-a-string''). These nucleosomes pack into a chromatin fiber, which is then looped and packaged with other proteins into chromosomes. Chromosomes are not always present, and generally only form during cell division. In the intermediate stages, the DNA becomes less organized.
+
+Inside the nucleus, we can tag and view the individual chromosomes, and as it turns out, they are tethered at different locations on the edge of the nucleus. Because of these tethering sites, the statistical properties are very different than those of a free polymer.
+
+Consider two florescent markers on a chromosome, one tethered and the other free to move. For the free marker, the distance from the nearest tether is Gaussian:
+\begin{equation}
+    \Pr(\va{r}) = \left( \frac{3}{2 \pi N a^2} \right)^{3/2} e^{-3\va{r}^2 / 2N a^2}
+\end{equation}
+The tethered mark will follow a displaced distribution:
+\begin{equation}
+    \Pr(\va{r}) = \left( \frac{3}{2 \pi N' a^2} \right)^{3/2} e^{-3(\va{r} - \va{R})^2 / 2N' a^2}
+\end{equation}
+Statistically, this tethered model fits experimental data better than a free polymer model. In the next lecture, we will discuss DNA looping\textemdash how DNA self-regulates its transcription.
+
+\end{document}

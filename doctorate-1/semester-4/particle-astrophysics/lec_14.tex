@@ -1,0 +1,202 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{14}{Thursday, March 11, 2021}{Quantum Statistical Mechanics}
+
+\section{Quantum Statistical Mechanics}\label{sec:quantum_statistical_mechanics}
+
+
+Let's begin with the partition function for the grand canonical ensemble
+\begin{equation}
+    Z = \Tr e^{- \beta (\hat{H} - \mu \hat{N})}
+\end{equation}
+\begin{equation}
+    U = \ev{\hat{H}} = \frac{\Tr \hat{H} e^{- \beta (\hat{H} - \mu \hat{N})}}{Z}
+\end{equation}
+and
+\begin{equation}
+    N = \ev{\hat{N}} = \frac{\Tr \hat{N} e^{- \beta (\hat{H} - \mu \hat{N})}}{Z}
+\end{equation}
+
+Furthermore, we have the equation of state for this ensemble,
+\begin{equation}
+    TS = U + PV - \mu N
+\end{equation}
+and
+\begin{equation}
+    PV = k_B T \ln(Z)
+\end{equation}
+
+We can write the energy density as
+\begin{equation}
+    \frac{U}{V} = g \int \frac{\dd[3]{k}}{(2 \pi)^3} \hbar E(k) \left[ n_k + \bar{n}_k \right]
+\end{equation}
+where $ g $ is the spin degrees of freedom, $ g = (2s + 1) $ for particles with spin, or the polarization degrees of freedom, $ g = 2 $ for photons, since there are two independent polarizations. The number density is then
+\begin{equation}
+    \frac{N}{V} = g \int \frac{\dd[3]{k}}{(2 \pi)^3} (n_k - \bar{n}_k)
+\end{equation}
+where $ n_k $ ($ \bar{n}_k $) is the distribution function for particles (antiparticles). For photons, $ g = 2 $, and also $ \bar{n}_k \equiv 0 $, since there are no anti-photons. Additionally, for photons, $ \mu = 0 $, so
+\begin{equation}
+    n_k = \frac{1}{e^{\beta \omega(k)} - 1}
+\end{equation}
+
+For real scalar particles,
+\begin{equation}
+    n_k = \frac{1}{e^{\beta E(k)} - 1}
+\end{equation}
+where $ E(k) = \sqrt{k^2 c^2 + m^2 c^4} $. In this case, $ \mu = 0 $ and $ g = 1 $.
+
+For spin-1/2 fermions,
+\begin{equation}
+    n_k = \frac{1}{e^{\beta (E(k) - \mu)} + 1} \qquad \bar{n}_k = \frac{1}{e^{\beta (E(k) + \mu)} + 1}
+\end{equation}
+and $ g = 2 $. For particles with color or flavor, we also have to include $ g_c $, the color or flavor degrees of freedom.
+
+\begin{equation}
+    \rho c^2 \equiv \frac{U}{V}
+\end{equation}
+so a general result of quantum statistical mechanics is that
+\begin{equation}
+    P = \frac{g}{3} \int \frac{\dd[3]{k}}{(2 \pi)^3} \hbar k \bar{v}(k) [n_k + \bar{n}_k]
+\end{equation}
+where $ \bar{v}(k) = \dv{E(k)}{k} $ is the group velocity. For massless particles, $ E(k) = c \abs{k} $ and $ \bar{v} = c $, so the energy is $ \hbar c \abs{k} $, which tells us that
+\begin{equation}
+    P = \frac{1}{3} \rho c^2
+\end{equation}
+the equation of state for a photon gas.
+
+
+\section{Gauge Interactions}\label{sec:gauge_interactions}
+
+We have been focusing on free field theories so far. Let's now consider interactions between electrons and photons, the basis of quantum electrodynamics, the coupling of charged particles to the electromagnetic force. We begin with classical mechanics. The Lorentz force is given by
+\begin{equation}
+    m \ddot{\va{x}} = e \left( \va{E} + \frac{\va{v}}{c} \cross \va{B} \right)
+\end{equation}
+
+We can obtain this from a Hamiltonian:
+\begin{equation}
+    \dot{\va{x}} = \pdv{H}{\va{p}} \qquad \dot{\va{p}} = - \pdv{H}{\va{x}}
+\end{equation}
+If we take $ H = \frac{p^2}{2m} + V(\va{x}) $, then $ \dot{\va{x}} = \frac{\va{p}}{m} $ and $ \dot{\va{p}} = - \grad{V} $.
+
+Then, $ \ddot{\va{x}} = \frac{\dot{\va{p}}}{m} = - \frac{\grad{V}}{m} $. This means that the Hamiltonian itself cannot couple directly to $ \va{E} $ or $ \va{B} $, because then we would have time derivatives of these fields in the acceleration, which is not consistent with the Lorentz force. We need a Hamiltonian whose first time derivative has this generalized momentum and whose second time derivative has $ \va{E} $ and $ \va{B} $. The minimal coupling would be
+\begin{equation}
+    \va{p} \to \va{p} - \frac{e}{c} \va{A}
+\end{equation}
+such that
+\begin{equation}
+    H = \frac{1}{2m} \left( \va{p} - \frac{e}{c} \va{A} \right)^2 + e \Phi
+\end{equation}
+With this, Hamilton's equations will yield the Lorentz force. The Schr\"odinger equation will read
+\begin{equation}
+    \imath \hbar \pdv{\psi}{t} = \frac{1}{2m} \left( - \imath \hbar \grad - \frac{e}{c} \va{A} \right)^2 \psi + e \Phi \psi
+\end{equation}
+In Dirac theory, the Dirac equation becomes
+\begin{equation}
+    \imath \hbar \pdv{\psi}{t} = \left[ c \va{\alpha} \vdot \left( - \imath \hbar \grad - \frac{e}{c} \va{A} \right) + \beta m c^2 + e \Phi \right] \psi
+\end{equation}
+In terms of the 4-potential, in units where $ \hbar = c = 1 $,
+\begin{equation}
+    \mathcal{L} = \bar{\psi} (\imath \slashed{\partial} - e \slashed{A} - m) \psi
+\end{equation}
+where $ \slashed{A} = \gamma^{\mu} A_{\mu} = \gamma^0 \Phi + \va{\gamma} \vdot \va{A} $. Under the gauge transformations $ \psi \to e^{- \imath e \Lambda(x)} \psi $ and $ \bar{\psi} \to \bar{\psi} e^{\imath e \Lambda(x)} $, $ A^{\mu} \to A^{\mu} + \partial^{\mu} \Lambda(x) $, the Dirac Lagrangian is invariant:
+\begin{equation}
+    \imath \partial_{\mu} (e^{- \imath e \Lambda} \psi)= e^{- \imath e \Lambda} \left( \imath \partial_{\mu} \psi + e \partial_{\mu} \Lambda \psi \right)
+\end{equation}
+and
+\begin{align}
+    \gamma^{\mu} \left( \imath \partial_{\mu} - e A_{\mu} - e \partial_{\mu} \Lambda \right) \left( e^{- \imath e \Lambda} \psi \right) &= e^{- \imath e \Lambda} \gamma^{\mu} \left( \imath \partial_{\mu} + e \partial_{\mu} \Lambda - e \partial_{\mu} \Lambda - e A_{\mu} \right) \psi \\
+                                                                                                                                               &= e^{- \imath e \Lambda} \left( \imath \slashed{\partial} - e \slashed{A} \right) \psi
+\end{align}
+which implies
+\begin{equation}
+    \bar{\psi} e^{\imath e \Lambda} e^{- \imath e \Lambda} (\imath \slashed{\partial} - e \slashed{A}) \psi
+\end{equation}
+is invariant. The coupling between electromagnetism and Dirac fields is
+\begin{equation}
+    e \bar{\psi} \gamma^{\mu} \psi A_{\mu} \equiv e J^{\mu} A_{\mu}
+\end{equation}
+with $ \partial_{\mu} J^{\mu} = 0 $ by the Dirac equation. The complete QED Lagrangian is therefore
+\begin{align}
+    \mathcal{L}_{\text{QED}} &= - \frac{1}{4} F_{\mu \nu} F^{\mu \nu} + \bar{\psi} (\imath \slashed{\partial} - e \slashed{A} - m) \psi \\
+                             &= \underbrace{\mathcal{L}_{\text{EM}}}_{- \frac{1}{4} F_{\mu \nu} F^{\mu \nu}} + \underbrace{\mathcal{L}_{\text{D}}}_{\bar{\psi} (\imath \slashed{\partial} - m) \psi} + e J^{\mu} A_{\mu}
+\end{align}
+
+We quantized both the Dirac and EM fields in terms of creation and annihilation operators:
+\begin{equation}
+    \va{A} = \frac{1}{\sqrt{V}} \sum \cdots(a_{k, \lambda} + a^\dagger_{k, \lambda} \cdots)
+\end{equation}
+where $ a $ destroys and $ a^\dagger $ creates,
+\begin{equation}
+    \psi = \sum \cdots (b + d^\dagger \cdots)
+\end{equation}
+\begin{equation}
+    \bar{\psi} = \sum \cdots(b^\dagger + d \cdots)
+\end{equation}
+where $ b $ and $ d $ destroy electrons and positrons and $ b^\dagger $ and $ d^\dagger $ create them.
+
+\subsection{Basic QED Feynman Rules}\label{sub:basic_qed_feynman_rules}
+
+We can graphically depict electron/positron annihilation as $ \feyn{fAP} $ and creation as $ \feyn{PfA} $.
+
+We can describe a process like Coulomb/Rutherford scattering graphically as
+\begin{equation}
+    \Diagram{fA & & fA\\& gv & \\fA & & fA}
+\end{equation}
+This is electron-electron scattering by exchange of a photon. The initial electron emits (creates) a photon which is absorbed by the other electron. We can write this as
+\begin{equation}
+    \underbrace{b_{p_1} b_{p_3}}_{\text{destroy initial electrons}} \underbrace{a^\dagger a}_{\text{emit and absorb photon}} \underbrace{b^\dagger_{p_2} b^\dagger_{p_4}}_{\text{create end-state electrons}}
+\end{equation}
+
+Photons are massless ($ \omega = ck $) and electron scattering is long range, whereas the weak interactions are short ranged and the $ W^{\pm} $ and $ Z^0 $ vector bosons are massive. They become massive through the process of spontaneous symmetry breaking.
+
+\section{Spontaneous Symmetry Breaking}\label{sec:spontaneous_symmetry_breaking}
+
+Let's study the simplest framework, a real scalar field:
+\begin{equation}
+    \mathcal{L} = \frac{1}{2} \partial_{\mu} \Phi \partial^{\mu} \Phi - V(\Phi)
+\end{equation}
+For ``free'' massive scalars, (the Klein-Gordon equation) which we studied before, $ V(\Phi) = \frac{1}{2} m^2 \Phi^2 $. Adding this simple mass term breaks gauge invariance. We can write the mass term of a vector boson the same way we write it for a scalar:
+\begin{equation}
+    \frac{1}{2} m^2 A_{\mu} A^{\mu}
+\end{equation}
+such that
+\begin{equation}
+    \mathcal{L} = - \frac{1}{4} F^{\mu \nu} F_{\mu \nu} + \frac{1}{2} m^2 A^{\mu} A_{\mu}
+\end{equation}
+However, we no longer have gauge symmetry because $ A^{\mu} \to A^{\mu} + \partial^{\mu} \Lambda $ is explicitly broken by this mass term. The solution is the Higgs mechanism.
+
+If we consider the Hamiltonian density, which is now
+\begin{equation}
+    \mathcal{H} = \frac{1}{2} \pi^2 + \frac{1}{2} (\grad{\Phi})^2 + V(\Phi)
+\end{equation}
+where $ \pi = \dot{\Phi} $, then if we consider a field $ \bar{\Phi} $ which is constant in spacetime,
+\begin{equation}
+    H[\bar{\Phi}] = \underbrace{V}_{\text{(volume)}} V(\bar{\Phi})
+\end{equation}
+which gives us the energy density. With the potential we described, $ V(\bar{\Phi}) = \frac{1}{2} m^2 \bar{\Phi}^2 $, so the minimum is at $ \bar{\Phi} = 0 $. However, now consider a different, more interesting potential:
+\begin{equation}
+    V(\Phi) = \frac{\lambda}{4} \left( \frac{\mu^2}{\lambda} - \Phi^2 \right)^2 = - \frac{\mu^2}{2} \Phi^2 + \frac{\lambda}{4} \Phi^4 + \frac{\mu^4}{4 \lambda}
+\end{equation}
+This is a quartic equation with two minima at $ \bar{\Phi}_{\pm} = \pm \frac{\mu}{\sqrt{\Lambda}} $. In this case, $ \bar{\Phi} = 0 $ is a maximum. The potential is symmetric under $ \Phi \to - \Phi $, so the minima are degenerate ground states. We can expand around these minima, $ \Phi = \Phi_{\pm} + \eta $:
+\begin{equation}
+    V(\eta) = \frac{\lambda}{4} \left( 2 \Phi_{\pm} \eta + \eta^2 \right)^2 = \mu^2 \eta^2 + \lambda \Phi_{\pm} \eta^3 + \frac{\lambda}{4} \eta^4
+\end{equation}
+This first term is related to the mass: $ \mu^2 \eta^2 = \frac{1}{2} m^2 \eta^2 \implies m^2 = 2 \mu^2 $. Now the symmetry is $ \eta \to - \eta $ and $ \Phi_{\pm} \to \Phi_{\mp} $, so choosing one of the minima spontaneously breaks the symmetry. The Lagrangian is still symmetric, but when we quantize the field, we will break that symmetry. If we quantize harmonic oscillations around $ \Phi_+ $, we have
+\begin{equation}
+    V_{+}(\eta) = \frac{1}{2} m^2 \eta^2 \color{red}+\color{black} \underbrace{\lambda \Phi_+ \eta^3}_{\sqrt{\lambda} \mu \eta^3} + \frac{\lambda}{4} \eta^3
+\end{equation}
+but around the other minimum,
+\begin{equation}
+    V_-(\eta) = \frac{1}{2} m^2 \eta^2 \color{red}-\color{black} \sqrt{\lambda} \mu \eta^3 + \frac{\lambda}{4} \eta^4
+\end{equation}
+
+Essentially, choosing one of the vacua breaks the symmetry, and upon quantization, each vacua leads to a different Hilbert space, spaces which are orthogonal in the $ V \to \infty $ limit.
+
+\section{Phase Transitions}\label{sec:phase_transitions}
+
+The excitations around these vacua correspond to particles. If the system is at finite temperature $ T $, there will be thermal fluctuations in addition to quantum fluctuations, so the quantization around the vacua treats $ \frac{1}{2} m^2 \eta^2 $ as harmonic fluctuations and the linear terms $ \eta^3 $ and $ \eta^4 $ as perturbations, If we write $ \Phi = \Phi_+ + \eta $, then $ \ev{\eta} = 0 $ (or $ \ev{\Phi} = \ev{\Phi_+} $) at $ T = 0 $ is called the vacuum expectation value.
+
+However, fluctuations of $ \ev{\eta^2} \neq 0 $, where $ \sqrt{\ev{\eta^2}_T - \ev{\eta^2}_{T=0}} $ is of order $ \order{2 \mu / \sqrt{\lambda}} $, lead to field fluctuations where the original symmetry is absorbed (particles have enough energy to break out of double-well potential and move between wells). This is a phase transition which must occur at finite temperature $ T_c $. For $ T < T_c $, the symmetry is spontaneously broken and $ \ev{\Phi} $ is either $ \Phi_+ $ or $ \Phi_- $. We will continue this in the next lecture.
+
+
+\end{document}

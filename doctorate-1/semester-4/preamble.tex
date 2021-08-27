@@ -1,0 +1,209 @@
+% My LaTeX preamble file - by Nathaniel Dene Hoffman
+% Credit for much of this goes to Olivier Pieters (https://olivierpieters.be/tags/latex)
+% and Gilles Castel (https://castel.dev)
+% There are still some things to be done:
+% 1. Update math commands using mathtools package (remove ddfrac command and just override)
+% 2. Maybe abbreviate \imath somehow?
+% 3. Possibly format for margin notes and set new margin sizes
+% First, some encoding packages and useful formatting
+%--------------------------------------------------------------------------------------------
+\usepackage{import}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage[l2tabu,orthodox]{nag}   % force newer (and safer) LaTeX commands
+\usepackage[utf8]{inputenc}         % set character set to support some UTF-8
+                                    %   (unicode). Do NOT use this with
+                                    %   XeTeX/LuaTeX!
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}         % multi-language support
+\usepackage{sectsty}                % allow redefinition of section command formatting
+\usepackage{tabularx}               % more table options
+\usepackage{booktabs}
+\usepackage{titling}                % allow redefinition of title formatting
+\usepackage{imakeidx}               % create and index of words
+\usepackage{xcolor}                 % more colour options
+\usepackage{enumitem}               % more list formatting options
+\usepackage{tocloft}                % redefine table of contents, new list like objects
+\usepackage{subfiles}               % allow for multifile documents
+
+% Next, let's deal with the whitespaces and margins
+%--------------------------------------------------------------------------------------------
+\usepackage[centering,margin=1in]{geometry}
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{2ex plus 0.5ex minus 0.2ex} % whitespace between paragraphs
+
+% Redefine \maketitle command with nicer formatting
+%--------------------------------------------------------------------------------------------
+\pretitle{
+  \begin{flushright}         % align text to right
+    \fontsize{40}{60}        % set font size and whitespace
+    \usefont{OT1}{phv}{b}{n} % change the font to bold (b), normally shaped (n)
+                             %   Helvetica (phv)
+    \selectfont              % force LaTeX to search for metric in its mapping
+                             %   corresponding to the above font size definition
+}
+\posttitle{
+  \par                       % end paragraph
+  \end{flushright}           % end right align
+  \vskip 0.5em               % add vertical spacing of 0.5em
+}
+\preauthor{
+  \begin{flushright}
+    \large                   % font size
+    \lineskip 0.5em          % inter line spacing
+    \usefont{OT1}{phv}{m}{n}
+}
+\postauthor{
+  \par
+  \end{flushright}
+}
+\predate{
+  \begin{flushright}
+  \large
+  \lineskip 0.5em
+  \usefont{OT1}{phv}{m}{n}
+}
+\postdate{
+  \par
+  \end{flushright}
+}
+
+% Mathematics Packages
+\usepackage[Gray,squaren,thinqspace,cdot]{SIunits}      % elegant units
+\usepackage{amsmath}                                    % extensive math options
+\usepackage{amsfonts}                                   % special math fonts
+\usepackage{mathtools}                                  % useful formatting commands
+\usepackage{amsthm}                                     % useful commands for building theorem environments
+\usepackage{amssymb}                                    % lots of special math symbols
+\usepackage{mathrsfs}                                   % fancy scripts letters
+\usepackage{cancel}                                     % cancel lines in math
+\usepackage{esint}                                      % fancy integral symbols
+\usepackage{relsize}                                    % make math things bigger or smaller
+%\usepackage{bm}                                         % bold math!
+\usepackage{slashed}
+
+\newcommand\ddfrac[2]{\frac{\displaystyle #1}{\displaystyle #2}}    % elegant fraction formatting
+\allowdisplaybreaks[1]                                              % allow align environments to break on pages
+
+% Ensure numbering is section-specific
+%--------------------------------------------------------------------------------------------
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+
+% Citations, references, and annotations
+%--------------------------------------------------------------------------------------------
+\usepackage[small,bf,hang]{caption}        % captions
+\usepackage{subcaption}                    % adds subfigure & subcaption
+\usepackage{sidecap}                       % adds side captions
+\usepackage{hyperref}                      % add hyperlinks to references
+\usepackage[noabbrev,nameinlink]{cleveref} % better references than default \ref
+\usepackage{autonum}                       % only number referenced equations
+\usepackage{url}                           % urls
+\usepackage{cite}                          % well formed numeric citations
+% format hyperlinks
+\colorlet{linkcolour}{black}
+\colorlet{urlcolour}{blue}
+\hypersetup{colorlinks=true,
+            linkcolor=linkcolour,
+            citecolor=linkcolour,
+            urlcolor=urlcolour}
+
+% Plotting and Figures
+%--------------------------------------------------------------------------------------------
+\usepackage{tikz}          % advanced vector graphics
+\usepackage{pgfplots}      % data plotting
+\usepackage{pgfplotstable} % table plotting
+\usepackage{placeins}      % display floats in correct sections
+\usepackage{graphicx}      % include external graphics
+\usepackage{longtable}     % process long tables
+
+% use most recent version of pgfplots
+\pgfplotsset{compat=newest}
+
+% Misc.
+%--------------------------------------------------------------------------------------------
+\usepackage{todonotes}  % add to do notes
+\usepackage{epstopdf}   % process eps-images
+\usepackage{float}      % floats
+\usepackage{stmaryrd}   % some more nice symbols
+\usepackage{emptypage}  % suppress page numbers on empty pages
+\usepackage{multicol}   % use this for creating pages with multiple columns
+\usepackage{etoolbox}   % adds tags for environment endings
+\usepackage{tcolorbox}  % pretty colored boxes!
+
+
+% Custom Commands
+%--------------------------------------------------------------------------------------------
+\newcommand\hr{\noindent\rule[0.5ex]{\linewidth}{0.5pt}}                % horizontal line
+\newcommand\N{\ensuremath{\mathbb{N}}}                                  % blackboard set characters
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+%\newcommand\C{\ensuremath{\mathbb{C}}}
+\renewcommand{\arraystretch}{1.2}                                       % More space between table rows (could be 1.3)
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand\D{\mathrm{D}}
+\newcommand*{\dbar}{\ensuremath{\text{\dj}}}
+
+\newcommand{\incfig}[2][1]{%
+    \def\svgwidth{#1\columnwidth}
+    \import{./figures/}{#2.pdf_tex}
+}
+
+% Custom Environments
+%--------------------------------------------------------------------------------------------
+\newcommand{\lecture}[3]{\hr\\{\centering{\large\textsc{Lecture #1: #3}}\\#2\\}\hr\markboth{Lecture #1: #3}{\rightmark}}   % command to title lectures
+\usepackage{mdframed}
+\theoremstyle{plain}
+\newmdtheoremenv[nobreak]{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem*{ex}{Example}
+\newmdtheoremenv[nobreak]{definition}{Definition}[section]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{claim}{Claim}
+\AtEndEnvironment{ex}{\null\hfill$\diamond$}%
+% Note: A proof environment is already provided in the amsthm package
+\tcbuselibrary{breakable}
+\newenvironment{note}[1]{\begin{tcolorbox}[
+    arc=0mm,
+    colback=white,
+    colframe=white!60!black,
+    title=#1,
+    fonttitle=\sffamily,
+    breakable
+]}{\end{tcolorbox}}
+\newenvironment{problem}{\begin{tcolorbox}[
+    arc=0mm,
+    breakable,
+    colback=white,
+    colframe=black
+]}{\end{tcolorbox}}
+
+% Header and Footer
+%--------------------------------------------------------------------------------------------
+% set header and footer
+\usepackage{fancyhdr}                       % header and footer
+\pagestyle{fancy}                           % use package
+\fancyhf{}
+\fancyhead[LE,RO]{\textsl{\rightmark}}      % E for even (left pages), O for odd (right pages)
+\fancyfoot[LE,RO]{\thepage}
+\fancyfoot[LO,RE]{\textsl{\leftmark}}
+\setlength{\headheight}{15pt}
+
+
+% Physics
+%--------------------------------------------------------------------------------------------
+\usepackage[arrowdel]{physics}      % all the usual useful physics commands
+\usepackage{feyn}                   % for drawing Feynman diagrams
+%\usepackage{bohr}                   % for drawing Bohr diagrams
+%\usepackage{tikz-feynman}
+\usepackage{elements}               % for quickly referencing information of various elements
+\usepackage{tensor}                 % for writing tensors and chemical symbols
+
+% Finishing touches
+%--------------------------------------------------------------------------------------------
+\author{Nathaniel D. Hoffman}

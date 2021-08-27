@@ -1,0 +1,113 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{1}{Monday, January 13, 2020}{Overview of Probability}
+
+\section{Probability in a Nutshell}
+\label{sec:probability_in_a_nutshell}
+
+We will begin with an object called a random variable (``RV'') $ A $. It can take many different values each time the experiment is run, and the value given follows some distribution: $ A \in \{a_1, \cdots, a_n\} \mapsto \Pr_A(a) $, the probability that the RV $ A $ takes the value $ a $.
+
+Additionally, we want the probabilities to be normalized: $ \sum_a \Pr_A(a) = 1 $.
+
+Now suppose we have two random variables, $ A $ and $ B $.
+
+\begin{definition}[Joint Probability]
+    $ \Pr_{A,B}(a,b) $ is the probability that $ A $ takes the value $ a $ and $ B $ takes the value $ b $.
+\end{definition}
+
+\begin{definition}[Marginal Probability]
+    $ \Pr_A(a) = \sum_b \Pr_{A,B}(a,b) $
+\end{definition}
+
+\begin{definition}[Conditional Probability]
+    $ \Pr(a\mid b) $ is the probability of $ a $ \textit{given} $ b $, since it is conceivable that the random variable $ B $ is informative about the outcome of $ A $ or vice versa.
+\end{definition}
+
+\begin{ex}
+    Suppose we roll a die, and $ A \in \{1,2,3,4,5,6\} $ while $ B \in \{\text{even}, \text{odd}\} $.
+
+    \begin{equation}
+        \Pr(\text{roll a } 6) = \frac{1}{6}
+    \end{equation}
+    so
+    \begin{equation}
+        \Pr(\text{roll a } 6 \mid \text{even}) = \frac{1}{3} 
+    \end{equation}
+    and
+    \begin{equation}
+        \Pr(\text{even}\mid \text{roll a } 6) = 1
+    \end{equation}
+\end{ex}
+
+It's intuitive that
+\begin{equation}
+    \Pr_{A,B}(a,b) = \Pr(a\mid b) \Pr_B(b) = \Pr(b\mid a) \Pr_A(a)
+\end{equation}
+
+Therefore
+\begin{equation}\label{eq:bayes_theorem}
+    \Pr(a\mid b) = \frac{\Pr(b\mid a) \Pr_A(a)}{\Pr_B(b)}\tag{Bayes' Theorem}
+\end{equation}
+
+\subsection{Statistical Independence}
+\label{sub:statistical_independence}
+
+We call a pair of random variables  statistically independent if the joint probabilities factor into the marginals:
+
+\begin{equation}
+    \Pr_{A,B}(a,b) = \Pr_A(a) \Pr_B(b) \iff A \text{ and } B \text{ are statistically independent}
+\end{equation}
+
+In some ways, statistical independence is a good thing, since it makes calculations technically easier. Unfortunately, it's typically boring, since this means $ A $ is not informative about $ B $ and vice versa, so knowing things about one variable will tell you nothing about the other.
+
+If two RVs are statistically independent,
+\begin{equation}
+    \Pr(a\mid b) = \frac{\Pr_{A,B}(a,b)}{\Pr_B(b)} = \frac{\Pr_A(a) \cancel{\Pr_B(b)}}{\cancel{\Pr_B(b)}} = \Pr_A(a)
+\end{equation}
+
+Now suppose we have more than two RVs, $ \{A_1, A_2, \cdots, A_N\} $.
+
+\begin{definition}[Pairwise Independence]
+    \begin{equation}
+        \Pr_{A_i, A_j}(a_i, a_j) = \Pr_{A_i}(a_i) \Pr_{A_j}(a_j) \quad i \neq j
+    \end{equation}
+\end{definition}
+
+\begin{definition}[Mutual Independence]
+    \begin{equation}
+        \Pr_{A_1, A_2, \ldots, A_N}(a_1, a_2,\cdots, a_N) = \Pr_{A_1}(a_1) \Pr_{A_2}(a_2) \cdots \Pr_{A_N}(a_N)
+    \end{equation}
+\end{definition}
+
+\begin{note}{Note}
+    Mutual independence obviously implies pairwise independence. However, pairwise independence \textbf{does not} imply mutual independence!
+\end{note}
+
+\section{Functions of Random Variables}
+\label{sec:functions_of_random_variables}
+
+Suppose we have a random variable $ A $ with probability $ \Pr_A(a) $. We can use a function to generate a new random variable, $ F(A) $. What is $ \Pr_F(f) $, the probability that our new random variable takes a value $ f $?
+
+\begin{equation}\label{eq:transformation_theorem_for_probabilities}
+    \Pr_F(f) = \sum_a \delta_{f,F(a)} \Pr_A(a)\tag{Transformation Theorem for Probabilities}
+\end{equation}
+
+To understand this, notice that, for example, if $ A \in \{-3, -2, -1, 0, 1, 2, 3\} $ and $ F(x) = x^2 $, there are now two ways to get $ f = 4 $ (namely, $ a = -2 $ or $ a = 2 $). Therefore, we have to look at both of these $ a $ values (the $\delta$-function) and of course we must also consider the probability to get each $ a $.
+
+\section{Expectation Values}
+\label{sec:expectation_values}
+
+\begin{definition}[Expectation Value]
+    \begin{equation}
+        \ev{A}_{\Pr_{A}} = \sum_a \Pr_{A}(a)
+    \end{equation}
+    is called the expectation value of $ A $, and is simply a weighted average over all the possible values $ A $ can take.
+\end{definition}
+
+$ \ev{\cdots} $ acts like a linear operator:
+\begin{equation}
+    \ev{\alpha A + \beta B} = \alpha \ev{A} + \beta \ev{B}
+\end{equation}
+
+
+\end{document}

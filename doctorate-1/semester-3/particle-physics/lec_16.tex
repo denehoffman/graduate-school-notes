@@ -1,0 +1,72 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{16}{Wednesday, October 07, 2020}{}
+
+We can define the Lorentz-invariant matrix elements of $ \hat{H}' $ as
+\begin{align}
+    M_{f i}^{(1)} &= \mel{\psi'_a, \psi'_b, \ldots, \psi'_z}{\hat{H}'}{\psi'_1, \psi'_2, \ldots, \psi'_n} \\
+    &= (2E_a 2 E_b \ldots 2 E_z \times 2 E_1 2 E_2 \ldots 2 E_n )^{1/2} \times \mel{\psi_a, \ldots, \psi_z}{\hat{H}}{\psi_1, \ldots, \psi_n}
+\end{align}
+
+For a decay $ a \to 1 + 2 $
+\begin{align}
+    \Gamma_{f i} &= 2 \pi \int \abs{T_{f i}}^2 \delta(E_a - E_1 - E_2) \dd{n} \\
+    &= (2 \pi)^4 \int \abs{T_{f i}}^2 \delta(E_a - E_1 - E_2) \delta^3(\va{p}_a - \va{p}_1 - \va{p}_2) \times \frac{\dd[3]{p_1}}{(2 \pi)^3} \frac{\dd[3]{p_2}}{(2 \pi)^3} \\
+    &= \frac{(2 \pi)^4}{2 E_a} \int \abs{M_{f i}}^2 \delta(E_a - E_1 - E_2) \delta^3(\va{p}_a - \va{p}_1 - \va{p}_2) \times \frac{\dd[3]{p_1}}{(2 \pi)^3 2 E1} \frac{\dd[3]{p_2}}{(2 \pi)^3 2 E_2}
+\end{align}
+
+These final two terms are Lorentz-invariant phase space for each of the final particles. To see this, consider a boost in the $ z $-direction:
+
+\begin{equation}
+    \dd[3]{p'} = \dd{p'_x} \dd{p'_y} \dd{p'_z} = \dd{p_x} \dd{p_y} \dv{p'_z}{p_z} \dd{p_z} = \dv{p'_z}{p_z} \dd[3]{p}
+\end{equation}
+where $ \dv{p'_z}{p_z} = \gamma \left( 1- \beta \dv{E}{p_z} \right) $. Since $ E = \sqrt{\va{p}^2 + m^2} $, $ \dv{E}{p_z} = \frac{p_z}{\sqrt{p^2 + m^2}} = \frac{p_z}{E} $. Therefore, $ \dd[3]{p'} = \frac{E'}{E} \dd[3]{p} $ is not Lorentz-invariant, but $ \frac{\dd[3]{p'}}{E'} = \frac{\dd[3]{p}}{E} $ is.
+
+$ \frac{\dd[3]{p_i}}{(2 \pi)^3 2 E_i} $ can be written more ``naturally'' as
+\begin{align}
+    \int \frac{\delta(E_i^2 - p_i^2 - m_i^2)}{\delta(f(x))} \dd{E_i} &= \int \frac{\delta(E_i^2 - p_i^2 - m_i^2)}{\delta(x - x_0)/ \eval{\dv{f}{x}}_{x_0}} \dd{E_i} \\
+    &= \int \frac{\delta(E_i - \sqrt{p_i^2 - m_i^2})}{2 E_i} \dd{E_i}
+\end{align}
+so
+\begin{equation}
+    \frac{\dd[3]{p_i}}{(2 \pi)^3 2 E_i} = \int \dd{E_i} \frac{\dd[3]{p_i}}{(2 \pi)^3} \delta(E_i^2 - p_i^2 - m_i^2)
+\end{equation}
+so
+\begin{equation}
+    \iiint \frac{\dd[3]{p_i}}{(2 \pi)^3 2 E_i} f = \int \dd[4]{p_i} \frac{\delta( (p_i^{\mu})^2 - m_i^2)}{(2 \pi)^3} f
+\end{equation}
+Using this,
+\begin{equation}
+    \Gamma_{f i} = \frac{(2 \pi)^4}{2 E_a} \int \abs{M_{f i}}^2 \delta^4(p_a^{\mu} - p_1^{\mu} - p_2^{\mu}) \prod_{i=1}^{2} \frac{\delta(p_i^2 - m_i^2)}{(2 \pi)^3} \dd[4]{p_i}
+\end{equation}
+
+\subsection{Decay to Multiple Final Channels}\label{sub:decay_to_multiple_final_channels}
+
+Take, for example, $ \Lambda $-decay:
+\begin{align}
+    \Lambda & \to p \pi^- \quad 0.64\\
+    & \to n \pi^0 \quad 0.36\\
+    & \to n \gamma \quad 0.0017\\
+    & \to p \pi^- \gamma \quad 0.0003\\
+\end{align}
+If $ \Gamma_i $ is the rate of decay to channel $ i $, then the total rate of decay is $ \Gamma = \sum_i \Gamma_i $, $ \tau = 1 / \Gamma $, and the branching ratio of channel $ i $, $ \text{BR}_i = \Gamma_i / \Gamma $.
+
+\subsection{Two-Body Decay}\label{sub:two-body_decay}
+
+In the center of momentum,
+\begin{equation}
+    \Gamma_{f i} = \frac{1}{8 \pi^2 m_a} \int \abs{M_{f i}}^2 \delta(m_a - E_1 - E_2) \delta^3(\va{p}_1 + \va{p}_2) \frac{\dd[3]{p1}}{2E_1} \frac{\dd[3]{p_2}}{2 E_2}
+\end{equation}
+
+Now we can integrate over $ \va{p}_2 $: 
+\begin{equation}
+    \Gamma_{f i} = \frac{1}{8 \pi^4 m_a} \int \abs{M_{f i}}^2 \frac{\delta(m_a - E_1 - E_2)}{4 E_1 E_2} \dd[3]{p_1}
+\end{equation}
+Using $ \dd[3]{p_1} = p_1^2 \dd{r_1} \dd{\Omega_1} $,
+\begin{equation}
+    \Gamma_{f i} = \frac{1}{8 \pi^2 m_a} \int \abs{M_{f i}}^2 \underbrace{\delta(m_a - \sqrt{m_1^2 + p_1^2} - \sqrt{m_2^2 + p_1^2})}_{f(p_1)} \frac{p_1^2 \dd{r_1} \dd{\Omega_1}}{4 E_1 E_2}
+\end{equation}
+We know that $ f(p_1) = 0 $ for $ p_1 = p_1^* = \frac{1}{2 m_a} \sqrt{(m_a^2 - (m_1 + m_2)^2)(m_a^2 - (m_1 - m_2))^2} $.
+
+
+\end{document}

@@ -1,0 +1,68 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{14}{Friday, October 02, 2020}{Fermi's Golden Rule}
+
+\section{Fermi's Golden Rule}
+\label{sec:fermi's_golden_rule}
+
+Once you know the matrix elements for a transition, how can you determine the rate of the transition? Let $\ket{k} $ be an orthonormal eigenbasis of an unperturbed Hamiltonian (no transitions should happen):
+\begin{equation}
+    \hat{H}_0\ket{k} = E_k\ket{k}
+\end{equation}
+If we add a perturbation $ \hat{H} = \hat{H}_0 + \hat{H}' $, the Schr\"odinger equation tells us
+\begin{equation}
+    \imath \hbar \partial_t\ket{\psi} = (\hat{H}_0 + \hat{H}')\ket{\psi}
+\end{equation}
+where $\ket{\psi} = \sum_k c_k(t) \ket{k} e^{- \imath E_k t} $. The coefficients are time-dependent because the states are not necessarily eigenstates of the perturbed Hamiltonian. Therefore,
+\begin{align}
+    \imath \hbar \sum_k \dv{c_k}{t}\ket{k} e^{- \imath E_k t} + \sum_k E_k c_k\ket{k} e^{- \imath E_k t} &= \sum_k c_k E_k\ket{k} e^{- \imath E_k t} + \sum_k H' c_k\ket{k} e^{- \imath E_k t} \\
+    \imath \hbar \sum_k \dv{c_k}{t}\ket{k} e^{- \imath E_k t} &= \sum_k H' c_k\ket{k} e^{- \imath E_k t} 
+\end{align}
+Suppose the initial state is $\ket{\psi} =\ket{k} $ with $ k = i $. Then $ c_k(0) = \delta_{ik} $. As a first approximation, assume that $ c_i(t) \approx 1 $ and $ c_{k \neq i}(t) $ is negligible:
+\begin{equation}
+    \hbar \imath \sum_i \dv{c_k}{t}\ket{k} e^{- \imath E_k t} = H'\ket{i} e^{- \imath E_k t}
+\end{equation}
+Multiply both sides by some other energy eigenstate state $\bra{f} $:
+\begin{equation}
+    \hbar \imath \sum_i \dv{c_f}{t} e^{- \imath E_f t} = \mel{f}{H'}{i} e^{- \imath E_i t}
+\end{equation}
+so
+\begin{equation}
+    \dv{c_f}{t} = \frac{- \imath}{\hbar} \mel{f}{H'}{i} e^{\imath (E_f - E_i) t}
+\end{equation}
+To first order, the transition matrix element $ T_{f i} $ is $ T_{f i} = \mel{f}{H'}{i} $.
+
+If $ H' $ turns on at $ t=0 $, then at $ t = T $, 
+\begin{equation}
+    c_f(T) = - \frac{\imath}{\hbar} \int_0^T T_{f i} e^{\imath (E_f - E_i) t} \dd{t}
+\end{equation}
+If $ H' $ has no explicit time dependence,
+\begin{equation}
+    c_f(T) = - \frac{\imath}{\hbar} \mel{f}{H'}{i} \int_0^T e^{\imath (E_f - E_i) t}
+\end{equation}
+Therefore
+\begin{equation}
+    \Pr(i \to f) = \abs{c_f(t)}^2 = \frac{\abs{T_{f i}}^2}{\hbar^2} \left( \int_0^T e^{\imath (E_f - E_i) t} \dd{t} \right)\left( \int_0^T e^{-\imath (E_f - E_i) t'} \dd{t'} \right)
+\end{equation}
+This makes the transition rate
+\begin{equation}
+    \Gamma_{f i} = \frac{\Pr(f \to i)}{T} = \frac{4 \sin[2](E_f - E_i) t / 2}{T(E_f - E_i)^2} \abs{T_{f i}}^2
+\end{equation}
+We can extend $ T \to \infty $ to show that
+\begin{equation}
+    \dd{\Gamma_{f i}} = 2 \pi \abs{T_{f i}}^2 \delta(E_f - E_i)
+\end{equation}
+
+In a continuum of states, we need to integrate over the density of states:
+\begin{equation}
+    \Gamma_{f i} = 2 \pi \abs{T_{f i}}^2 \rho(E_i)
+\end{equation}
+
+To next order,
+\begin{equation}
+    \hbar \imath \dv{c_f}{t} e^{- \imath E_f t} = - \frac{\imath}{\hbar} \sum_{k \neq i} \mel{f}{H'}{k} e^{- \imath E_k t} \mel{k}{H'}{i} \frac{e^{\imath (E_k - E_i) t}-1}{\imath(E_k - E_i)}
+\end{equation}
+
+
+
+\end{document}

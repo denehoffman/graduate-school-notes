@@ -1,0 +1,51 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{4}{Wednesday, September 09, 2020}{Interaction of Radiation with Matter}
+
+\subsection{Ionization}
+\label{sub:ionization}
+
+Also known as ``why radiation is dangerous''. If a charged particle passes through matter, it will ionize nearby atoms as they are passed. The ionization will take energy away from the radiation. Some will go to the atom and some to the electron being attracted or repelled. The highest energy transfer in a single interaction is
+\begin{equation}
+    T_{\text{max}} = \frac{2 m_e c^2 \beta^2 \gamma^2}{1 + 2 \gamma m_e / m + (m_e / m)^2}
+\end{equation}
+
+For heavy particles ($ m >> m_e $), the rate of energy loss per unit thickness is approximated by the Bethe-Bloch formula:
+\begin{equation}
+    \ev{\dv{E}{x}} = - k Z^2_R \frac{Z}{A} \frac{1}{\beta^2} \left[ \frac{1}{2} \frac{\ln(2) m_e c^2 \beta^2 \gamma^2 T_{\text{max}}}{I^2} - \beta^2 - \frac{\delta(\gamma \beta)}{2} \right]
+\end{equation}
+which is equal to
+\begin{equation}
+    \ev{\dv{E}{x}} = - k Z^2_R \frac{Z}{A} \frac{1}{\beta^2} \left[ \frac{1}{2} \frac{\ln(2) m_e c^2 \beta^2 \gamma^2}{I^2} - \beta^2\right]
+\end{equation}
+if $ \gamma m_e << m $. In both equations, $ k = 4 \pi N_A r_e^2 m_e c^2 = 0.307\mega\electronvolt \centi\meter^2 /\text{mol} $, $ I $ is the mean ionization potential, $ A $ is the relative atomic mass, and $ Z_R $ is the $ Z $ of the radioactive particle. $ Z/A $ is usually about $ 1/2 $ for light elements, smaller for lead and nearly $ 1 $ for hydrogen.
+
+At very high energy, this formula no longer works and radiative effects become important.
+
+The spectrum of ionized electrons is
+\begin{equation}
+    \pdv{N}{T}{x} \sim \frac{1}{2} k Z_R^2 \frac{Z}{A} \frac{1}{\beta^2} \frac{1}{T^2}
+\end{equation}
+for $ I << T < T_{\text{max}} $. Note the $ \frac{1}{T^2} $ dependence.
+
+\subsection{Multiple Scattering}
+\label{sub:multiple_scattering}
+
+Particle tracks are deflected due to many small-angle Coulomb interactions off of nuclei. This gives an approximate Gaussian distribution about a straight path with a width
+\begin{equation}
+    \omega_0 = \frac{13.6\mega\electronvolt}{\beta c p} Z_R \sqrt{\frac{x}{x_0}} (1 + 0.038 \ln(x/x_0))
+\end{equation}
+where $ x_0 $ is the radiation length of the material.
+
+\subsection{Bremsstrahulng}
+\label{sub:bremsstrahulng}
+
+An electron (or another high energy lepton or pion) can emit radiation as the particle is accelerated in the near-field of another particle.
+
+\subsection{Photon Radiation}
+\label{sub:photon_radiation}
+
+At low energy (less than $ 1 \mega\electronvolt $), this is dominated by ionization, Raleigh scattering, and Compton scattering. At medium energy, Compton dominates, and at high energy ($ > 100 \mega\electronvolt $), this is dominated by pair-production in the field of the nucleus (also in the field of atomic electrons). The mean free path for pair production is given by $ \sim \frac{9}{7} x_0 $. For cosmically high energies ($ > 10^{11} \giga\electronvolt $), hadronic processes (photo-nuclear effects) dominate.
+
+
+\end{document}

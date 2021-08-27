@@ -1,0 +1,97 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{24}{Friday, March 20, 2020}{Classical Statistical Physics}
+
+Recall that knowing $ S(E,V,N) $ tells us basically everything about the system. Once you know (any) thermodynamic potential, ``you win''. Notice we are back to using $ E $ for energy. Remember that we had a way to compute this:
+
+\begin{equation}
+    S(E,V,N) = k_B \ln\left[ \int \frac{\dd[3N]{p} \dd[3N]{q}}{h^{3N} N!} \delta(E-H(p,q)) \right]
+\end{equation}
+
+This tells us everything about the system, but in general this integral is impossible (we were only able to do it for a very simple case, the ideal gas). Even if we wanted to approximate it using a Taylor expansion, we would get very frustrated with the $\delta$-function.
+
+Let's go back to a canonical distribution of energy in a system connected to a reservoir separated by a diathermal wall. We can see that the total energy of the ``universe'' is just the sum of the system and the reservoir,
+\begin{equation}
+    E_T = E + E_R
+\end{equation}
+
+For such a system, we found that
+\begin{equation}
+    P(E) = \frac{\Omega(E) \Omega_R(E_R)}{\Omega_T(E_T)}
+\end{equation}
+
+Since we go by our maxim that the system goes to the state of maximal probability, we can just maximize the logarithm:
+\begin{equation}
+    \ln P(E) = \ln \Omega(E) + \ln \Omega_R(E_T - E) - \ln \Omega_T(E_T)
+\end{equation}
+
+Since the reservoir is large, we have $ E << E_T $, so we can Taylor expand around it:
+
+\begin{equation}
+    \ln P(E) = \ln \Omega(E) + \left[ \ln \Omega_R(E_T) - \underbrace{\pdv{\ln \Omega_R(E_T)}{E_T}}_{\frac{1}{k_B T_R} = \beta_R = \beta = \frac{1}{k_B T}}E + \order{E^2} \right] - \ln \Omega_T(E_T)
+\end{equation}
+Notice that $ \ln \Omega_R(E_T) $ and $ \ln \Omega_T(E_T) $ don't depend on $ E $. We'll put them into a new constant, $ \ln Z $:
+\begin{equation}
+    \ln P(E) = \ln \Omega(E) - \beta E - \ln Z
+\end{equation}
+
+Now we can re-exponentiate to find
+\begin{equation}
+    P(E) = \frac{1}{Z} \Omega(E) e^{- \beta E}
+\end{equation}
+
+The one thing we don't know in there is $ Z $, but notice that $ P(E) $ is a probability density, so it must be normalized. Therefore,
+\begin{equation}
+    Z(T, V, N) = \int \dd{E} \Omega(E, V, N) e^{- \beta E}
+\end{equation}
+If we want to give the proper terminology, $ Z(T) $ is the ``Laplace transform'' of $ \Omega(E) $.
+
+$ Z $ is the ``partition function''. It's called $ Z $ after the German \textit{Zustandssumme}, meaning ``sum of states''.
+
+Let's do this derivation again, but in phase space. The probability of being in one particular microstate is
+\begin{equation}
+    P(p,q) = \frac{\Omega_R(E_T - H(p,q))}{\Omega_T(E_T)}
+\end{equation}
+\begin{equation}
+    \ln P(p,q) = \ln \Omega_R(E_T - E(p,q)) - \ln \Omega_T(E_T)
+\end{equation}
+
+Again, if we recognize $ H << E_T $, we can Taylor expand:
+
+\begin{equation}
+    \ln P(p,q) = \ln \Omega_R(E_T) - \beta H(p,q) - \ln \Omega_T(E_T) + \cdots = - \beta H(p,q) - \ln \tilde{Z}
+\end{equation}
+
+Therefore,
+\begin{equation}
+    P(p,q) = \frac{1}{\tilde{Z}} e^{- \beta H(p,q)} 
+\end{equation}
+and
+\begin{equation}
+    \tilde{Z}(T,V,N) = \int \dd[3N]{p} \dd[3N]{q} e^{- \beta H(p,q)}
+\end{equation}
+
+Notice this looks very similar to what we did before, but without any $ \Omega $ functions. Notice also that there is a very obvious sum of states in $ \tilde{Z} $ in the form of an integral over all $ p $ and $ q $. Asking the probability of finding a state with energy $ E $ is a different question than asking the probability of finding a particular state, since states can be degenerate.
+
+
+Let's now link these two expressions.
+\begin{align}
+    Z(T,V,N) &= \int \dd{E} \color{red} \underbrace{\Omega(E,V,N)}_{ \int \frac{\dd[3N]{p} \dd[3N]{q}}{h^{3N} N!} \delta(E-H(p,q))} \color{black} e^{- \beta E} \\
+    &= \color{red}\int \frac{\dd[3N]{p} \dd[3N]{q}}{h^{3N} N!}\color{black} \int \dd{E} \color{red}\delta(E - H(p,q))\color{black} e^{- \beta E} \\
+    &= \frac{1}{h^{3N} N!} \int \dd[3N]{p} \dd[3N]{q} e^{- \beta H(p,q)} \\
+    &= \frac{1}{h^{3N} N!} \tilde{Z}(T,V,N)
+\end{align}
+
+Therefore, we could write
+\begin{equation}
+    P(p,q) = \frac{1}{Z h^{3N} N!} e^{- \beta H(p,q)}
+\end{equation}
+and
+\begin{equation}
+    Z(T,V,N) = \int \frac{\dd[3N]{p} \dd[3N]{q}}{h^{3N} N!} e^{- \beta H(p,q)}
+\end{equation}
+This probability density on phase space is called the ``canonical state''. These are probably the most important equations in classical statistical physics.
+
+
+
+\end{document}

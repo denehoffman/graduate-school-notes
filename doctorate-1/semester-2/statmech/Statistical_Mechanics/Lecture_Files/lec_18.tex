@@ -1,0 +1,77 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{18}{Monday, February 24, 2020}{Heat Capacity}
+
+\section{Heat Capacity}
+\label{sec:heat_capacity}
+
+Heat capacities answer the question of how much heat goes into a system when you heat it at constant pressure or volume. Let's start with constant volume:
+
+\begin{equation}
+    C_v = \frac{T}{N} \eval{\pdv{S}{T}}_{V,N} = \frac{T}{N} \pdv{(S,V)}{(T,V)} = \frac{T}{N} \pdv{(S,V)}{\color{red}(T,P)\color{black}} \pdv{\color{red}(T,P)\color{black}}{(T,V)}
+\end{equation}
+
+Why would we do this? The first Jacobian has no like terms, so we could expand it again and end up with more partial derivatives. The second option is that we did an expansion that we shouldn't do. The third option is to literally write down what the Jacobian is. It's just the determinant of a matrix of a bunch of partial derivatives, so we can write it down. Let's first deal with the easy second term:
+
+\begin{equation}
+    \pdv{(T,P)}{(T,V)} = \eval{\pdv{P}{V}}_{T} = \frac{1}{\eval{\pdv{V}{P}}_{T}} = \frac{1}{-v \frac{1}{-v} \eval{\pdv{V}{P}}_{T}} = \frac{1}{-V \kappa_T}
+\end{equation}
+where $ \kappa_T $ is the compressibility. Now let's look at the unusual first term:
+
+\begin{equation}
+    \pdv{(S,V)}{(T,P)} = \mqty| \eval{\pdv{S}{T}}_{P} & \eval{\pdv{S}{P}}_{T} \\ \eval{\pdv{V}{T}}_{P} & \eval{\pdv{V}{P}}_{T} | = \underbrace{\eval{\pdv{S}{T}}_{P}}_{\ast} \underbrace{\eval{\pdv{V}{P}}_{T}}_{\ast\ast} - \underbrace{\eval{\pdv{V}{T}}_{P}}_{\dagger} \underbrace{\eval{\pdv{S}{P}}_{T}}_{\dagger\dagger}
+\end{equation}
+
+Let's now evaluate each of these partial derivatives separately:
+
+\begin{equation}
+    \ast \eval{\pdv{S}{T}}_{P} = \frac{N}{T} \frac{T}{N} \eval{\pdv{S}{T}}_{P} = \frac{N}{T} C_p
+\end{equation}
+
+\begin{equation}
+    \ast\ast \eval{\pdv{V}{P}}_{T} = -V \kappa_T
+\end{equation}
+
+\begin{equation}
+    \dagger \eval{\pdv{V}{T}}_{P} = V \alpha
+\end{equation}
+
+\begin{equation}
+    \dagger\dagger \eval{\pdv{S}{P}}_{T} \implies -S \dd{T} + V \dd{P} \implies \eval{\pdv{S}{P}}_{T} = -\eval{\pdv{V}{T}}_{P} = -V \alpha
+\end{equation}
+
+Therefore,
+\begin{equation}
+    \pdv{(S,V)}{(T,P)}= \frac{N}{T} C_p (-V \kappa_T) - V \alpha (- V \alpha)
+\end{equation}
+
+Putting everything together, we find that
+\begin{equation}
+    C_V = \frac{T}{N} \frac{- \frac{NV}{T} C_p \kappa_T + (V \alpha)^2}{-V \kappa T} = C_p - \frac{TV \alpha^2}{N \kappa_T}
+\end{equation}
+
+Typically, this equation is written
+\begin{equation}
+    C_P - C_V = \frac{TV \alpha^2}{N \kappa_T}
+\end{equation}
+
+While $ \alpha $ need not be positive, $ \alpha^2 $ must be, and in conventional cases, $ \kappa_T > 0 $ (materials don't expand when you compress them). Therefore, $ C_P > C_V $.
+
+
+\section{Extremum Principles}
+\label{sec:extremum_principles}
+
+Let's recall the reason we extremize entropy. Take a box with a movable wall that for the moment is fixed. If you unbolt the wall, it will move to an equilibrium position and is very unlikely to move back to its original position. No work was done on this box, and no heat went in or out of the box, but the entropy went up. After we released some extensive constraint (volume, in this case), the entropy increased irreversibly. Now that the system has achieved a new equilibrium state, the entropy has achieved its maximum possible value under its new conditions. If we suppose the constraint is parameterized by the position of the wall $ x $,
+\begin{equation}
+    \eval{\pdv{S}{x}}_{U} = 0
+\end{equation}
+and
+\begin{equation}
+    \eval{\pdv[2]{S}{X}}_{U} < 0
+\end{equation}
+so that this point is a maximum.
+
+
+Now we are going to repeat this but with an interesting change. In this situation, we know that unbolting the wall will irreversibly move us towards the equilibrium. But what if we wanted to do this reversibly? How do we do this? We have to make the wall move slowly, so imagine there is a stick attached to the wall which extends outside the box and someone is holding that stick, preventing it from moving too fast (adiabatically). Because we did it reversibly and no heat went in or out of the system, the entropy remains constant. However, work is being done here, unlike in the previous system. This system ``talked'' to the outside world, not by heat exchange, but by work exchange, so it is unlikely that the energy of that system stayed the same. Again, this system has kept the entropy the same, but it lowered its energy (in fact, we will prove in the next lecture that the energy has found a new minimum through this process).
+
+\end{document}

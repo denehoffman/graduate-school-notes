@@ -1,0 +1,70 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{12}{Monday, September 28, 2020}{}
+\begin{equation}
+    \partial_t \ev{\hat{A}} = \ev{\frac{\hat{H}}{- \hbar \imath} \hat{A}}{\psi} + \ev{\hat{A} \frac{\hat{H}}{\hbar \imath}}{\psi} = \frac{\imath}{\hbar} \ev{\comm{\hat{H}}{\hat{A}}}
+\end{equation}
+so if $ \hat{A} $ commutes with $ \hat{H} $, then $ \ev{\hat{A}} $ is a constant, even if $\ket{\psi} $ isn't an eigenstate.
+
+If $\ket{\psi} $ is an eigenstate of $ \hat{H} $ and $ \hat{B} $ does not commute with $ \hat{H} $, then
+\begin{equation}
+    \partial_t \ev{\hat{B}} = \frac{\imath}{\hbar} \ev{\comm{\hat{H}}{\hat{B}}} = \imath \abs{\ev{E \hat{B} - \hat{B} E}} = E \ev{\hat{B} - \hat{B}} = 0
+\end{equation}
+
+If $\ket{\varphi_0} $ is not an eigenfunction of $ \hat{H} $ or $ \hat{B} $, then
+\begin{equation}
+    \ket{\varphi_0} = \sum_i c_i\ket{\psi_i}
+\end{equation}
+so
+\begin{equation}
+    \ket{\varphi(t)} = \sum_i c_i\ket{\psi_i} e^{- \imath E_i t}
+\end{equation}
+The probability of being in the state $ b_k $ is
+\begin{align}
+    \Pr(b_k) &= \abs{\bra{b_k}\ket{\varphi(t)}}^2\\
+    &= \abs{\sum_i c_i\bra{b_k}\ket{\psi_i} e^{- \imath E_i t}}^2\\
+    &= \abs{\sum_i c_i b_{ik} e^{- \imath E_i t}}^2
+\end{align}
+The probability of measuring $ b_k $ undergoes a complicated evolution as the relative phases of the energy eigenstates causes them to ``beat'' against each other.
+\begin{ex}
+    In neutrino oscillation, there are (as far as we know) three energy eigenstates and three flavor eigenstates. The flavor states beating against each other are the cause for oscillations.
+\end{ex}
+
+\subsection{Compatible Observables}
+\label{sub:compatible_observables}
+
+If $ \comm{\hat{A}}{\hat{B}} = 0 $, for a non-degenerate eigenstate $\ket{\varphi} $ of $ \hat{A} $,
+\begin{equation}
+    \hat{A}(\hat{B}\ket{\varphi}) = \hat{B} \hat{A}\ket{\varphi} \hat{B} a\ket{\varphi} = a (\hat{B}\ket{\varphi})
+\end{equation}
+so $ \hat{B}\ket{\varphi} $ is an eigenstate of $ \hat{A} $, so $ \hat{B}\ket{\varphi} = b\ket{\varphi} $ so $\ket{\varphi} $ is a simultaneous eigenstate of $ \hat{A} $ and $ \hat{B} $.
+
+If $\ket{\varphi_i} $ are degenerate eigenstates,
+\begin{equation}
+    \hat{A}\ket{\varphi_i} = a\ket{\varphi_i}
+\end{equation}
+then
+\begin{equation}
+    \hat{A} (\hat{B}\ket{\varphi_i}) = \hat{B} \hat{A}\ket{\varphi_i} = a (\hat{B}\ket{\varphi_i})
+\end{equation}
+so $ \hat{B}\ket{\varphi_i} $ is an eigenstate of $ \hat{A} $. Therefore, it must be a linear combination of $\ket{\varphi_i} $'s:
+\begin{equation}
+    \hat{B}\ket{\varphi_i} = \sum_{j=1}^{k} c_{ij}\ket{\varphi_i}
+\end{equation}
+We can diagonalize $ c_{ij} $, so $ \hat{B}\ket{\varphi'_l} = b_l\ket{\varphi'_l} $, where $\ket{\varphi'_l} $ are linear combinations of $\ket{\varphi_j} $ and are eigenstates of both $ \hat{A} $ and $ \hat{B} $.
+
+If $ \hat{C} $ commutes with $ \hat{A} $ and $ \hat{B} $, there exists a linear combination of $ \hat{A} $ eigenstates which are also $ \hat{B} $ and $ \hat{C} $ eigenstates. The states can be labeled by their simultaneous eigenvalues: $\ket{a_i, b_k, c_j} $ and so on, for other commuting operators. If $ \hat{A} $ and $ \hat{B} $ don't commute, there is no such linear combination, and so they do not share simultaneous eigenstates.
+
+\begin{definition}
+    \begin{equation}
+        \Delta a \equiv \sqrt{\ev{\hat{A}^2} - \ev{\hat{A}}^2}
+    \end{equation}
+\end{definition}
+It can be shown that $ \Delta a \Delta b \geq \frac{1}{2} \abs{\comm{\hat{A}}{\hat{B}}}^2 $.
+\begin{ex}
+    \begin{equation}
+        \comm{\hat{x}}{\hat{p}} = \imath \hbar \implies \Delta x \Delta p \geq \frac{\hbar}{2}
+    \end{equation}
+\end{ex}
+
+\end{document}

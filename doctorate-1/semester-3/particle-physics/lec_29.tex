@@ -1,0 +1,77 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{29}{Friday, November 13, 2020}{Propagators and Virtual Particles}
+
+The second-order contribution to the transition matrix for $ a + b \to c + d $ through the particle $ x $ is
+\begin{equation}
+    T^{ab}_{fi} = \frac{\mel{f}{V}{j} \mel{j}{V}{i}}{E_i - E_j} = \frac{\mel{cd}{V}{cbx} \mel{bcx}{V}{ab}}{(E_a - E_b) - (E_b + E_c + E_x)} = \frac{\mel{d}{V}{x+b} \mel{c+x}{V}{a}}{E_a - (E_c + E_x)}
+\end{equation}
+Note that $ E_j \neq E_i $, and this is allowed for a short period of time by the energy-time uncertainty relation. Another way of thinking of this is that $ E_x $ is not well-defined if it is short-lived, so $ E_j = E_c + E_b + E_x $ is not well-determined and \textit{could} equal $ E_i $.
+
+The invariant matrix element $ M_{ji} $ is found by normalizing all particles (in $ i $ or in $ j $) to $ \sqrt{2E} $.
+\begin{equation}
+    V_{ji} = \mel{c+x}{V}{a} = \frac{M_{a \to a+x}}{(2 E_a 2 E_c 2 E_x)^{1/2}}
+\end{equation}
+or really,
+\begin{equation}
+    \mel{bcx}{V}{ab} = \frac{M_{ab \to bcx}\cancel{\bra{b}\ket{b}}}{(2E_a \cancel{(2 E_b)^2} 2E_c 2E_x)^{1/2}}
+\end{equation}
+For the simplest (constant scalar) interaction for $ M_{a \to c+x} $,
+\begin{equation}
+    V_{ji} = \frac{g_a}{(2E_a 2 E_c 2 E_x)^{1/2}}
+\end{equation}
+\begin{equation}
+    V_{fj} = \frac{g_b}{(2 E_b 2 E_d 2 E_x)^{1/2}}
+\end{equation}
+
+so
+\begin{align}
+    T_{fi}^{ab} &= \frac{\mel{dc}{V}{cbx} \mel{xcb}{V}{ab}}{E_a - E_c - E_x} \\
+                &= \frac{1}{E_a - E_c - E_x} \frac{g_a g_b}{2 E_x (2 E_a 2 E_b 2 E_c 2 E_d)^{1/2}}
+\end{align}
+So the Lorentz-invariant matrix element is
+\begin{equation}
+    M_{fi}^{ab} = (2 E_a 2 E_b 2 E_c 2 E_d)^{1/2} T_{fi}^{ab} = \frac{g_a g_b}{2 E_x (E_a - E_c - E_x)}
+\end{equation}
+Similarly,
+\begin{equation}
+    M_{fi}^{ba} = \frac{g_a g_b}{2 E_x (E_b - E_d - E_x)}
+\end{equation}
+so
+\begin{equation}
+    M_{fi} = M_{fi}^{ab} + m_{fi}^{ba} = \frac{g_a g_b}{2 E_x} \left[ \frac{1}{E_a - E_c - E_x} + \frac{1}{E_b - E_d - E_x} \right]
+\end{equation}
+We know that $ E_a + E_b = E_c + E_d $ so $ E_b - E_d = E_c - E_a = -(E_a - E_c) $, so
+\begin{align}
+    M_{fi} &= \frac{g_a g_b}{2E_x} \left[ \frac{1}{(E_a - E_c) - E_x} - \frac{1}{(E_a - E_c) + E_x} \right] \\
+           &= \frac{g_a g_b}{\cancel{2 E_x}}  \left[ \frac{\cancel{2 E_x}}{(E_a - E_c)^2 - E_x^2} \right]
+\end{align}
+Finally
+$ E_x^2 = \va{p}_x^2 + m_x^2 = (\va{p}_a - \va{p}_c)^2 + m_x^2 $, so
+\begin{align}
+    M_{fi} &= \frac{g_a g_b}{(E_a - E_c)^2 - (\va{p}_a - \va{p}_c)^2 - m_x^2} \\
+           &= \frac{g_a g_b}{q^2 - m_x^2}
+\end{align}
+and so a propagator is born:
+\begin{equation}
+    \frac{1}{q^2 - m_x^2}
+\end{equation}
+always appears when we exchange a particle with rest mass $ m_x $. In QED, we will be only exchanging photons with $ m_{\gamma} = 0 $, but this isn't true for weak interactions. However, the weak interaction masses are large, which makes this propagator small, which is why it is ``weak''.
+
+\section{Virtual Particles}\label{sec:virtual_particles}
+
+Feynman diagrams represent the sum over all time-orderings, which may require $ \bar{x} $ to be exchanged rather than $ x $ (not true for photons since they are their own antiparticle). 4-momentum must be conserved at every vertex, but $ E $ is not conserved at vertices of time-ordered diagrams. $ q = p_a - p_c = p_d - p_b $, so $ q^2 \neq m_x^2 $ for Feynman diagrams. Then $ x $ is off the ``mass-shell''. We call this a virtual particle, which may be a mathematical construct resulting from representing interacting particles in a basis of eigenstates of the unperturbed Hamiltonian.
+
+For s-channel annihilation, $ q = p_1 + p_2 = p_3 + p_4 $ so $ q^2 = s > 0 $. Therefore, $ x $ is time-like.
+
+For t-channel and u-channel scattering, $ q = p_1 - p_3 = p_4 - p_2 $, so it can be shown that $ q^2 = t < 0 $.
+
+\section{Quantum Electrodynamics}\label{sec:quantum_electrodynamics}
+
+From the above discussion, the Lorentz-invariant matrix element for $ a + b \to c + d $ by exchange of $ x $ can be written as
+\begin{equation}
+    M = \frac{\mel{\psi_c}{V}{\psi_a} \mel{\psi_d}{V}{\psi_b}}{q^2 - m_x^2}
+\end{equation}
+For QED (photon-exchange), $ m_x = 0 $.
+
+\end{document}

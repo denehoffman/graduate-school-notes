@@ -1,0 +1,97 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{25}{Monday, November 02, 2020}{Fields}
+
+Wrapping up modules over PIDs.
+
+Say $ F $ is algebraically closed. Then every torsion finitely generated $ F[x] $-module can be written
+\begin{equation}
+    \bigotimes_{\lambda} \frac{F[x]}{( (x - \lambda)^{\lambda})} 
+\end{equation}
+In this, pick the basis $ \{1, (x- \lambda), (x - \lambda)^2, \cdots, (x - \lambda)^{n-1}\} $. Multiplication by $ x $ gives $ x(x- \lambda)^{t} = (x - \lambda)^{t+1} + \lambda (x- \lambda)^t $. Therefore, this operation takes a basis vector to the next basis vector plus $\lambda$ times itself. The only exception will be the last basis vector: $ x (x - \lambda)^{n-1} = \lambda (x - \lambda)^{n-1} $ (in $ M = ( (x - \lambda)^{\lambda}) $).
+
+In this basis, the matrix of $ T $ (multiplication by $ x $) is
+\begin{equation}
+    T = \mqty(\lambda &&&&\\1&\lambda&&&\\&1&\lambda&&\\&&\ddots&\ddots&\\&&&1&\lambda)
+\end{equation}
+This is called the \textit{Jordan normal form}.
+
+
+\section{Categories}\label{sec:categories}
+
+
+\begin{definition}
+    A \textit{category} $ C $ consists of a class of objects $ \text{Ob}(C) $, and for each pair of objects $ A, B \in \text{Ob}(C) $, a set of morphisms $ \text{Hom}(A,B) $, and a rule to compose morphisms such that $ \varphi \in \text{Hom}(A,B) $ and $ \psi \in \text{Hom}(B,C) $, there exists a morphism $ \psi \circ \varphi \in \text{Hom}(A,C) $ such that $ \circ $ is associative and there is an identity morphism.
+\end{definition}
+
+\begin{ex}
+    $ \overline{\text{Gp}} $ is the category of groups with maps being group homomorphisms.
+
+    $ \overline{\text{Rng}} $ is the category of rings with ring homomorphisms.
+
+    $ \overline{\text{CRng}} $ is the category of commutative rings.
+
+    $ \overline{\text{Set}} $ is the category of sets with functions.
+
+    $ \overline{\text{Top}} $ is the category of topological spaces.
+
+    $ \overline{\text{HTop}} $ is the category of topological spaces with homotopy classes. 
+\end{ex}
+
+$ A \cong B $ if $ \exists \varphi \in \text{Hom}(A,B) $ and $ \psi \in \text{Hom}(B,A) $ such that $ \varphi \psi = 1_A $ and $ \psi \varphi = 1_B $.
+
+\begin{definition}
+    Take the morphisms $ A,B \in \text{Ob}(C) $. $ P $ together with $ \alpha \in \text{Hom}(P,A) $ and $ \beta \in \text{Hom}(P,B) $ is a \textit{product} if every $ P' \to A,B $ through $ \alpha', \beta' $ respectively, there exists a unique $ \gamma $ such that $ \gamma \in \text{Hom}(P',P) $.
+\end{definition}
+
+\begin{figure}[ht]
+    \centering
+    \incfig[1]{product}
+    \caption{Product}\label{fig:product}
+\end{figure}
+
+For example, suppose $ A \times B \xrightarrow{\alpha, \beta} A,B $ and $ G \xrightarrow{\pi_A, \pi_B} A,B $. Then $ \gamma(g \in G) = (\pi_A, \pi_B) $.
+
+\begin{definition}
+    $ P, \alpha\colon A \to P, \beta\colon B \to P $ is a \textit{coproduct} if for all $ P', \alpha'\colon A \to P', \beta'\colon B \to P' $ there exists a $ \gamma\colon P \to P' $.
+\end{definition}
+
+\begin{figure}[ht]
+    \centering
+    \incfig[1]{coproduct}
+    \caption{Coproduct}\label{fig:coproduct}
+\end{figure}
+
+In $ \overline{\text{Set}} $, categorical products are the usual products. Coproducts of sets are disjoint unions $ A\sqcup B $ (usually defined by something like $ (A \times \{0\}) \cup (B \times \{1\}) $ or something like this).
+
+Two elements in the category of sets are isomorphic if they have the same cardinality.
+
+$ \overline{\text{AB}} $ is the category of abelian groups with group homomorphisms. The categorical product is the product.
+
+For the coproduct, define $ \alpha(g) = (g,0) $ and $ \beta(g) = (0,g) $. Then $ \gamma \colon A \times B \to G $ is defined by $ \gamma(a,b) = (\alpha'(a), \beta'(b)) $.
+
+In contrast, in $ \overline{\text{Gp}} $, the coproduct is a free product: $ A \ast B $ is the group consisting of formal expressions of the form $ a_1 b_1 a_2 b_2 \cdots a_n b_n $, $ a_i \in A $, $ b_i \in B $. 
+
+\section{Fields}\label{sec:fields}
+
+For fields $ F,G $ every morphism $ F \to G $ is an injection, i.e. the $ \ker $ is trivial.
+
+\begin{proof}
+    All nonzero elements of $ F $ are units, and so the only possible ideals are $ (0) $ and $ F $, so $ \ker \varphi = 0 $ or $ \ker \varphi = F $ but $ \varphi(1) = 1 $ so $ 1 \notin \ker \varphi $. 
+\end{proof}
+
+\begin{definition}
+    If $ F,G $ are fields and $ F\subset G $, we say $ G $ is an \textit{extension} of $ F $ and $ F $ is a \textit{base}.
+\end{definition}
+
+\begin{definition}
+    The \textit{characteristic} of a field $ F $, $ \text{Char}(F) = \min \{n \in \N\colon n1 = 0 \in F\} $. If the set is empty, then $ \text{Char}(F) = 0 $.
+\end{definition}
+
+\begin{ex}
+    $ \text{Char}(\Z/p\Z) = p $, $ \text{Char}(\Q) = 0 $.
+\end{ex}
+
+If $ \text{Char}(F) = p $, then $ F $ is an extension of $ \Z/p\Z $. If $ \text{Char}(F) = 0 $, then $ F $ is an extension of $ \Q $. 
+
+\end{document}

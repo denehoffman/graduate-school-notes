@@ -1,0 +1,102 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{2}{Wednesday, September 02, 2020}{}
+
+A final note on orbits: they are equivalence classes. We can prove this through the following propositions:
+
+
+Proposition: If $ y \in G \cdot x $ then $ x \in G \cdot y $
+
+Proof: $ y = g \cdot x $ then $ g^{-1} \cdot y = g^{-1} \cdot (g \cdot x) = (g^{-1} g) \cdot x = id \cdot x = x $
+
+Proposition: If $ X $ is finite and $ G \curvearrowright X $, then $ \abs{G \cdot x} = \abs{G} / \abs{G_x} $ where $ G_x := \{g \in G \mid gx = x\} $ (stabilizer of $ x $)
+
+Proof: $ \varphi: G \to G \cdot x $, $ g \mapsto g \cdot x $
+
+\begin{note}{Note}
+    $ h \in G_x =: H $ implies $ \varphi(gh) = \varphi(g) $ since $ ghx = gx $. $ \varphi $ is constant on the left cosets of $ H $, i.e. sets of the form $ gH $.
+\end{note}
+
+$ G/H $ is the set of left cosets. We can make maps $ \pi(g) = gH $ and $ \psi(gH) = \varphi(g) $. $ \varphi = \psi \pi $ and $ \abs{G/H} = \abs{G} / \abs{H} $. We claim $ \psi $ is a bijection, and if we prove it, we prove the proposition. First, we can say its a surjection because $ \psi $ is a surjection. Suppose $ \psi(g_1 H) = \psi(g_2 H) $. This is equivalent to $ \varphi(g_1) = \varphi(g_2) $.
+\begin{align}
+    g_1 \cdot x = g_2 \cdot x &\Leftrightarrow g_1^{-1} g_2 \cdot x = x\\
+    &\Leftrightarrow g_1^{-1} g_2 \in G_x = H\\
+    &\Leftrightarrow g_2 \in g_1 H\\
+    &\Leftrightarrow g_2 H = g_1 H
+\end{align}
+which proves injectivity.
+
+\subsection{Fixed Points}
+\label{sub:fixed_points}
+
+\begin{definition}
+    An orbit of size $ 1 $ is called a \textit{fixed point}.
+\end{definition}
+
+\begin{definition}
+    The orbit of $ G\curvearrowright G $ by conjugation\textemdash the orbit of this action is a conjugacy class. The \textit{centralizer} is the stabilizer for this action: $ C_G(x) = \{g \in G \mid gxg^{-1} = x\} $.
+\end{definition}
+
+\begin{definition}
+    We can also look at mappings like $ G\curvearrowright 2^G $. If we look at subgroups $ H \leq G $, the stabilizer of $ H $ is called the \textit{normalizer}: $ N_G(H) = \{g \mid gHg^{-1} = H\} $.
+\end{definition}
+
+\begin{definition}
+    The \textit{center} of $ G $ is $ Z(G) = \{h \in G \mid g^{-1} h g = h \quad\forall g \in G\} $.
+\end{definition}
+If $ G $ is finite,
+\begin{equation}
+    G = Z(G) \cup G \cdot x_1 \cup \cdots \cup G \cdot x_r
+\end{equation}
+where $ x_1 \cdots x_r $ are representations of non-central conjugacy classes. Additionally,
+\begin{equation}
+    \abs{G} = \abs{Z(G)} + \sum_{i = 1}^{r} [G \colon C_G(x_i)]
+\end{equation}
+
+\section{P-Groups}
+\label{sec:p-groups}
+
+\begin{definition}
+    A group $ G $ is a \textit{p-group} if $ \abs{G} = p^m $ where $ p $ is prime.
+\end{definition}
+
+The reason these are important in group theory is that most finite groups are p-groups.
+
+\begin{definition}
+    For finite groups $ G $, if $ p $ divides $ \abs{G} $ and $ p^m $ divides $ \abs{G} $ but $ p^{m+1} $ does not divide $ \abs{G} $ and $ H \leq G $ of order $ \abs{H} = p^m $, we call $ H $ the \textit{p-Sylow subgroup} of $ G $.
+\end{definition}
+
+We will use the notation $ a \mid b $ sometimes for $ a $ ``divides'' $ b $.
+
+\begin{theorem}[Sylow I]
+    If $ p \mid \abs{G} $, then $ G $ contains a p-Sylow subgroup. 
+\end{theorem}
+
+\begin{lemma}
+    If $ G $ is abelian, $ p \mid \abs{G} $ then $ G $ contains a subgroup of order $ p $.
+\end{lemma}
+
+\begin{proof}
+    A number $ n $ is an \textit{exponent} of $ G $ if $ g^n = 1 \quad\forall g \in G$. We claim if $ n $ is an exponent of an abelian group $ G $, then $ \abs{G} \mid n^m \quad\exists m $. We can prove this by induction on $ \abs{G} $: $ b \in G $ and $ b \neq 1 $, we can define a subgroup $ H = <b> $, the powers of $ b $. Therefore, $ b^{\abs{H}} = 1 \implies \abs{H} \mid n $. Because $ n $ is an exponent of $ G $, $ n $ is also an exponent of $ G/H $: $ (gH)^n = g^n H $. By induction, $ \exists m $ such that $ \abs{G/H} \mid n^m $: $ \abs{G} = \abs{G/H} \cdot \abs{H} $ and $ n^m \cdot n = n^{m+1} $.
+
+    Consider $ n = \prod_{g \in G} \abs{g} $. $ n $ is an exponent of $ G $. Therefore, we know that $ p\mid \abs{G} $ and $ \abs{G} \mid n^m $, so $ p \mid \abs{g} $ for some $ g \in G $. $ h = g^{\abs{g} / p} $, so $ \abs{h} = p $.
+\end{proof}
+
+Let's now use this lemma to prove the first Sylow theorem:
+\begin{proof}
+    Proof by induction on $ \abs{G} $. Let's assume $ \abs{G} = p^m n $ where $ p \slashed{\mid} n $. If $ H < G $ and $ p^m \mid \abs{H} $, then a p-Sylow subgroup of $ H $ is a p-Sylow subgroup of $ G $.
+
+    For all $ H < G $, assume the largest power of $ p $ dividing $ \abs{H} $ is $ p^{l(H)} $ with $ l < m $. This is equivalent to $ p\mid [G \colon H] $. Recall that we can say
+    \begin{equation}
+        \abs{G} = \abs{Z(G)} + \sum_{i = 1}^{r} [G \colon C_G(x_i)]
+    \end{equation}
+    We know that $ p \mid \abs{G} $ and $ p \mid [G \colon C_G(x_i)] $, so $ p \mid \abs{Z(G)} $. By the lemma we just proved, $ \exists H \leq Z(G) $ such that $ \abs{H} = p $.
+
+    $ Z(G) \triangleleft G $ (normal subgroup) and even $ H \triangleleft G $. Consider $ G' = G/H $. We want to use induction to find $ P' $, the p-Sylow subgroup in $ G' $.
+
+    $ G \xrightarrow{\pi} G/H = G' \geq P' $. We are going to pull back $ P = \pi^{-1}(P') $. $ \abs{P} = p \cdot \abs{P'} $, so $ P $ is a subgroup.
+\end{proof}
+
+
+
+\end{document}

@@ -1,0 +1,98 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{14}{Wednesday, March 31, 2021}{Diffusion in Cells II}
+
+In the last class, we discussed driven diffusion, where the concentration field (in one dimension) follows the equation
+\begin{equation}
+    \pdv{c}{t} + v \pdv{c}{x} = D \pdv[2]{c}{x}
+\end{equation}
+We can rewrite this as
+\begin{equation}
+    \pdv{c}{t} = - \pdv{J}{x}
+\end{equation}
+where
+\begin{equation}
+    J = v c - D \pdv{c}{x}
+\end{equation}
+If we think of $ J $ as the current and $ v $ as a velocity, then we can also say that $ v = F / \gamma $ where $ \gamma $ is a friction coefficient and $ F $ is the force which is moving the particles in the fluid.
+\begin{equation}
+    J = \frac{F}{\gamma} c - D \pdv{c}{x}
+\end{equation}
+At equilibrium, we have $ \pdv{c}{t} = 0 $ so $ \pdv{J}{x} = 0 $ or $ J = 0 $, in which case
+\begin{align}
+    \frac{F c}{\gamma} &= D \pdv{c}{x} \\
+    \gamma D \frac{\dd{c}}{c} &= F \dd{x} = - \dd{U} \\
+    \implies c &\propto e^{- \frac{U}{\gamma D}}
+\end{align}
+Then the probability of finding a particle at $ x $ is proportional to the concentration field, so
+\begin{equation}
+    \Pr \propto e^{- U / \gamma D} \sim e^{- U / k_B T} 
+\end{equation}
+since this should also have a Boltzmann distribution, so we find that
+\begin{equation}
+    D \gamma = k_B T \tag{Einstein Relation}
+\end{equation}
+This means that the diffusion constant and the friction are not independent. Recall that Stoke's law tells us $ \gamma = 6 \pi \eta R $, so
+\begin{equation}
+    D = \frac{k_B T}{6 \pi \eta R} \tag{Fluctuation Dissipation Theorem}
+\end{equation}
+so diffusion is proportional to the inverse of viscosity.
+
+\section{Diffusion to Capture}\label{sec:diffusion_to_capture}
+
+Let's imagine monomers diffusing to attach to a polymer (or equivalently, some signaling molecule diffusing to a receptor site).
+
+Suppose that far from a cell (which has receptors on the cell wall), the concentration is $ c_0 $. At the cell wall (take a spherically symmetric cell), $ r = a $, the concentration is $ c(a) < c_0 $, since when they are caught by receptors, they enter the cell. We are interested in the capture rate at the surface.
+
+\begin{equation}
+    \dv{n}{t} = \text{flux} = J(r = a) 4 \pi a^2
+\end{equation}
+$ \va{J} = - D \grad{c} $, and we then need to solve the diffusion equation at steady state, $ D \laplacian{c} = 0 $. However, we will assume the concentration field is spherically symmetric, which will simplify this greatly. In these coordinates,
+\begin{equation}
+    D\frac{1}{r^2} \pdv{r} \left( r^2 \pdv{c}{r} \right) = 0
+\end{equation}
+or
+\begin{equation}
+    \dv{r}\left( r^2 \dv{c}{r} \right) = 0
+\end{equation}
+so
+\begin{equation}
+    r^2 \dv{c}{r} = A \text{ (a constant)}
+\end{equation}
+We can integrate to show that
+\begin{equation}
+    c(r) = - \frac{A}{r} + B
+\end{equation}
+We can use our boundaries:
+\begin{equation}
+    c(r \to \infty) = c_0
+\end{equation}
+and
+\begin{equation}
+    c(r \to a) = c(a)
+\end{equation}
+If $ c(a) = 0 $, we are describing ``perfect capture''. In this case, $ c(r) = c_0 \left( 1 - \frac{a}{r} \right) $.
+
+Then $ J = - D \eval{\dv{c}{r}}_{r=a} = - \frac{D c_0}{a} $, and $ \dv{n}{t} = 4 \pi D c_0 a $.
+
+In a reaction-limited scenario (no longer perfect capture),
+\begin{equation}
+    \dv{n}{t} = M K_{\text{on}} c(a) = J(a) 4 \pi a^2
+\end{equation}
+so
+\begin{equation}
+    J(a) = - \eval{\dv{c}{r}}_{r=a} = - \frac{D}{a} (c_0 - c(a))
+\end{equation}
+Then
+\begin{equation}
+    M K_{\text{on}} c(a) = D 4 \pi a (c_0 - c(a))
+\end{equation}
+or
+\begin{equation}
+    c(a) = \frac{c}{1 + \frac{M K_{\text{on}}}{4 \pi D a}}
+\end{equation}
+In the limit where $ D \gg \frac{M K_{\text{on}}}{4 \pi a} $, $ c(a) = c_0 $ and the distribution becomes limited. This is the reaction-limited limit. In the other direction, we have $ c(a) = 0 $, which is the diffusion-limited limit.
+
+In reality, receptors are not always uniformly distributed. If receptors are localized in some area, would the capture be more efficient? It appears that real cells do have strong localization in their receptor proteins.
+
+\end{document}

@@ -1,0 +1,89 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{24}{Friday, October 30, 2020}{Modules over PIDs, cont.}
+
+\section{Decomposition Theorem for Finitely Generated Modules over a PID}\label{sec:decomposition_theorem_for_finitely_generated_modules_over_a_pid}
+
+\begin{theorem}[Chinese Remainder Theorem]
+    Take an integral domain $ R $ and ideals $ I,J\subset R $ such that $ I+J = R $. That is, they are comaxial/coprime.
+    
+    For example, if $ I = (a) $ and $ J = (b) $, then $ I+J = R $ is equivalent to saying $ I + J \ni 1 $ and $ \exists c,d $ such that $ c a + d b = 1 $. 
+
+    The theorem states that
+    \begin{equation}
+        \frac{R}{I} \oplus \frac{R}{J} \cong \frac{R}{IJ}
+    \end{equation}
+\end{theorem}
+\begin{proof}
+    Take a map $ \varphi\colon R \to R/I \oplus R/J $, so $ r\mapsto r+I \oplus r+J $.
+
+    $ \ker \varphi = I \cap J $. We claim that $ I\cap J = IJ $. To prove this, $ IJ\subset I \cap J $ by definition. Since $ I+J \ni 1 $, that means $ \exists x \in I, y \in J $ such that $ x + y = 1 $. Let $ z \in I \cap J $. Then $ z = z \cdot 1_R = z(x + y)= zx + zy $. $ zx \in JI $ and $ zy \in IJ $ so $ zx + zy = z \in IJ $.
+
+    Now by the first isomorphism theorem, $ \frac{R}{\ker \varphi} = \frac{R}{IJ} \cong \varphi(R) $.
+
+    Finally, we claim $ \varphi $ is surjective. $ \varphi(1) = 1 + I \oplus 1 + J $. On the other hand, $ \varphi(1) = \varphi(x + y) = y + I \oplus x + J $ (since $ x + I = I $). $ \varphi(x) = 0 \oplus 1 + J $ and $ \varphi(y) = 1 + I \oplus 0 $. Say we have $ r_1 $ and $ r_2 $. Then $ \varphi(r_2 x + r_1 y) = r_1 + I \oplus r_2 + J $, so $ \varphi $ is surjective.
+\end{proof}
+
+\begin{corollary}
+    \begin{equation}
+        \frac{\Z}{m\Z} \oplus \frac{\Z}{n\Z} \cong \frac{\Z}{mn\Z}
+    \end{equation}
+    if $ (m,n)=1 $ (they are coprime).
+\end{corollary}
+Similarly, we can demonstrate this as a ring isomorphism:
+\begin{equation}
+    \frac{R}{(m)} \oplus \frac{R}{(n)} \cong \frac{R}{(mn)}
+\end{equation}
+In fact, this is an $ R $-module isomorphism.
+
+
+In decomposition
+\begin{equation}
+    \bigotimes_p \frac{R}{(p^r)}
+\end{equation}
+call the prime exponents for each $ p $ $ r_{ij} $ such that the exponents of $ p_1 $ are $ r_{11} \geq r_{12} \geq r_{13} \geq \cdots $. Then
+\begin{equation}
+    \frac{R}{(p_1^{r_{11}})} \oplus \frac{R}{(p_2^{r_{21}})} \oplus \cdots \oplus \frac{R}{(p_l^{r_{l1}})} \cong \frac{R}{(p_1^{r_{11}} p_2^{r_{21}} \cdots p_l^{r_{l1}})}
+\end{equation}
+We could then continue with the other exponents. Then we can always decompose such a module like
+\begin{equation}
+    \frac{R}{(a_1)} \oplus \frac{R}{(a_2)} \oplus \cdots \oplus \frac{R}{(a_k)}
+\end{equation}
+such that $ a_1 | a_2 | a_3 | \cdots | a_k $ (divides).
+
+\section{Invariant Factor Form}\label{sec:invariant_factor_form}
+
+\begin{itemize}
+    \item[1.] Finitely generated $ \Z $-modules (abelian groups) are decomposed as $ \Z^n \oplus \frac{\Z}{a_1 \Z} \oplus \cdots \oplus \frac{\Z}{a_k \Z} $.
+    \item[2.] $ F[x] $-modules (vector spaces mod $ F $ with a mapping from the space to itself, $ T\colon V \to V $). If $ F[x] $-module is torsion-free, then $ 1, T, T^2, \cdots $ are linearly independent, so $ V $ is infinite-dimensional.
+\end{itemize}
+
+By the decomposition theorem, every torsion finitely generated $ F[x] $-module is isomorphic to
+\begin{equation}
+    \frac{F[x]}{(p_1(x))} \oplus \cdots \oplus \frac{F[x]}{(p_k(x))}
+\end{equation}
+
+What is $ F[x]/(p(x)) $? $ p(x) = a_0 + a_1 x + \cdots + a_{n-1} x^{n-1} + x^n $. Then $ \dim_F \frac{F[x]}{(p(x))} = n $ due to the division algorithm (all the things divisible by each power of $ x $). For a basis, we can use $ 1, x, x^2, \cdots, x^{n-1} $. Let $ T\colon \frac{F[x]}{(p(x))} \to \frac{F[x]}{(p(x))} $, $ f \mapsto x f $. $ T $ in this basis is given by
+\begin{equation}
+    T = \mqty(0&0&0&\cdots&0-a_0\\1&0&0&\cdots&0-a_1\\0&1&0&\cdots&0-a_2\\0&0&1&\cdots&0-a_3\\\vdots&\vdots&\vdots&\cdots&\vdots\\0&0&0&\cdots&0-a_{n-1}\\0&0&0&\cdots&1)
+\end{equation}
+Hence, if $ V $ is a finite dimensional vector space over $ F $ and $ T\colon V \to V $, we can decompose $ V $ as $ V_1 \oplus \cdotsV_k $ such that on each $ V_i $, there is a $ T_i $ like the $ T $ above and $ T $ can be written in a block-diagonal form comprised of these $ T_i $ called the rational canonical form.
+
+This is unique by uniqueness of module factorization. Note that $ T\colon \frac{F[x]}{(p)} \to \frac{F[x]}{(p)} $, $ f \mapsto x f $ satisfies $ p(T) = 0 $, i.e. $ 0 = a_0 I + a_1 T + \cdots + a_{n-1} T^{n-1} + T^n $. Also, for no polynomial $ q $ of $ \deg q < n $, $ q(T) = 0 $, since $ q(T) f = q(x) f $ so $ q(T) 1 = q(x) \neq 0 \mod p(x) $.
+
+So, if
+\begin{equation}
+    \frac{F[x]}{(p_1)} \oplus \cdots \oplus \frac{F[x]}{(p_k)}
+\end{equation}
+is the invariant factor decomposition ($ p_1 | p_2 | \cdots | p_k $), then the map $ T $ satisfies $ p_k(T) = 0 $. Furthermore, there is no polynomial of smaller degree with the same property. We call $ p_k $ a minimal polynomial. Note that $ \deg p_k \leq \dim V $. 
+
+As an exercise, the characteristic of the companion matrix is the polynomial $ p(x) $:
+\begin{equation}
+    \det(Ix - T) = \det \mqty(x&&&&&a_0\\-1&x&&&&a_1\\&-1&&&&\vdots\\\\&&&&-1&a_{n-1} + x)
+\end{equation}
+
+\begin{corollary}[Cayley-Hamilton]
+    If $ q $ is the characteristic polynomial of $ T $, then $ q(T) = 0 $.
+\end{corollary}
+
+\end{document}

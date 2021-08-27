@@ -1,0 +1,125 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{7}{Thursday, February 11, 2021}{Newton's Laws for Fluids}
+
+In our last class, we ended by discussing the force acting on a cell of fluid:
+\begin{equation}
+    \Delta m \va{a} = \va{F}_{\text{tot}} \equiv \Delta m \dv{\va{v}}{t}
+\end{equation}
+What goes into this $ \va{F}_{\text{tot}} $? Consider a cubic cell and the forces along the $ z $-axis. We have fluid on top of the cell exerting a pressure downwards ($ P(z+ \dd{z}) $). There is also fluid below acting with a pressure upward ($ P(z) $):
+\begin{equation}
+    F_z = [P(z) - P(z+ \dd{z})] \dd{x} \dd{y} 
+\end{equation}
+where $ \dd{x} \dd{y} $ is the area perpendicular to the $ z $-axis. In general, we can show that $ \va{F} = - \grad{P} \Delta V $. Adding gravity, we get
+\begin{equation}
+    \pdv{\va{v}}{t} + (\va{v} \vdot \grad) \va{v} = - \frac{\grad{P}}{\rho} - \grad{\Phi} \tag{Euler Equation}
+\end{equation}
+Again, we also have
+\begin{equation}
+    \pdv{\rho}{t} + \div{\rho \va{v}} = 0 \tag{Continuity Equation}
+\end{equation}
+If we include viscosity and neglect gravity, we would get the Navier-Stokes equations. We can recast these in a manner in which we can extract an energy-momentum tensor. Let's write them in terms of components:
+\begin{equation}
+    \pdv{\rho}{t} + v_j \pdv{\rho}{x_j} + \rho \pdv{v_j}{x_j} = 0
+\end{equation}
+and
+\begin{equation}
+    \pdv{v_i}{t} + v_j \pdv{v_i}{x_j} = - \frac{1}{\rho} \pdv{P}{x_i} - \pdv{\Phi}{x_i}
+\end{equation}
+Premultiplying the first equation by $ v_i $ and the second by $ \rho $ and adding gives us:
+\begin{equation}
+    \pdv{t}(\rho v_i) + \pdv{x_j}\underbrace{\left(\rho v_i v_j + P \delta_{ij}\right)}_{T_{ij}} = - \rho \pdv{\Phi}{x_i}
+\end{equation}
+We can then multiply by $ \frac{c}{c} $:
+\begin{equation}
+    \frac{1}{c} \pdv{t}\underbrace{(\rho v_i c)}_{T^{0i} = T^{i0}} + \pdv{x_j}T_{ij} = \underbrace{- \rho \pdv{\Phi}{x_i}}_{\frac{F_{\text{ext}, i}}{V}}
+\end{equation}
+This first term can then be rewritten
+\begin{equation}
+    \frac{1}{c} \pdv{t}T^{i0} + \pdv{x_j}T^{ij} = \partial_{\mu} T^{i \mu}
+\end{equation}
+So in the absence of gravity,
+\begin{equation}
+    \partial_{\mu} T^{i \mu} = 0
+\end{equation}
+
+Let's go back and define $ T^{00} \equiv \rho c^2 $, the rest energy density, such that
+\begin{equation}
+    \int \dd[3]{x}T^{00} = M c^2
+\end{equation}
+
+Multiplying the continuity equation by $ c $, we find that
+\begin{equation}
+    \pdv{\rho}{t} + \div{(\rho \va{v})} = \frac{1}{c} \pdv{t} \underbrace{\rho c^2}_{T^{00}} + \underbrace{\div{(\rho \va{v}c)}}_{\grad_j{T^{0j}}} = 0
+\end{equation}
+so in the absence of gravity, we have
+\begin{equation}
+    \partial_{\mu} T^{\nu \mu} = 0
+\end{equation}
+with
+\begin{equation}
+    T^{00} = \rho c^2 \qquad T^{0i} = T^{i0} = \rho v^i c\qquad T^{ij} = \rho v^i v^j + P \delta^{ij}
+\end{equation}
+We will show later that adding gravity back in will cause this tensor to be covariantly conserved.
+
+
+For a fluid at rest,
+\begin{equation}
+    T^{\mu \nu} = \mqty(\dmat[0]{\rho c^2, P, P, P})
+\end{equation}
+$ T^{\mu \nu} $ transforms as a tensor under Galilean transformation, so
+\begin{equation}
+    T^{\mu \nu}(\va{v}) = \Lambda^{\mu}_{\alpha}(\va{v}) \Lambda^{\nu}_{\beta}(\va{v}) T^{\alpha \beta}(0)
+\end{equation}
+where under a Galilean transformation, $ ct \to c t' = ct $ and $ \va{x}' = \va{x} + \frac{\va{v}}{c}(ct) $.
+
+Since Galilean transforms are the non-relativistic limit of special relativity, $ T^{\mu \nu} $ transforms as a tensor in special relativity (again, in absence of gravity). We will then show (in homework) that
+\begin{equation}
+    T^{\mu \nu} = -P \eta^{\mu \nu} + (P + \rho c^2) \frac{u^{\mu}}{c} \frac{u^{\nu}}{c}
+\end{equation}
+where $ u^{\mu} = \dv{x^{\mu}}{\tau} = \gamma (c, \va{v}) $, the 4-velocity.
+
+$ T^{\mu \nu} $ is a symmetric, second-rank tensor, so both sides of this equation must also be that way.
+
+$ T^{\mu \nu} $ is also a tensor under general coordinate transforms:
+\begin{equation}
+    T^{' \mu \nu} (x')= \pdv{x^{' \mu}}{x^{\alpha}} \pdv{x^{' \nu}}{x^{\beta}} T^{\alpha \beta} (x)
+\end{equation}
+but
+\begin{equation}
+    \pdv{x^{' \mu}}{x^{\alpha}} \pdv{x^{' \nu}}{x^{\beta}} \eta^{\alpha \beta} \equiv g^{\mu \nu}(x') 
+\end{equation}
+and $ u^{\mu}(x') $ also transforms as a 4-vector, so
+\begin{equation}
+    Te^{\mu \nu}(x) = - P(x) g^{\mu \nu}(x) + (P(x) + \rho(x) c^2) \frac{u^{\mu}(x) u^{\nu}(x)}{c^2}
+\end{equation}
+where $ P(x) $ and $ \rho(x) $ transform as scalars (for ideal fluids).
+
+
+In general relativity, conservation laws are written in terms of covariant derivatives.
+\begin{equation}
+    \partial_{\mu} T^{\nu \mu} = 0 = T^{\nu \mu}_{; \mu} = \partial_{\mu} T^{\mu \nu} + \Gamma^{\nu}_{\rho \alpha} T^{\rho \alpha} + \Gamma^{\alpha}_{\alpha \rho} T^{\nu \rho}
+\end{equation}
+In the weak field limit, $ \Gamma^{0}_{00} = 0 $ and $ \Gamma^{i}_{00} = \frac{1}{2 c^2} \grad^i{\Phi} $. The $ \nu = 0 $ component (continuity) remains the same, and we get precisely the Euler equation.
+
+
+Again, consider Einstein's equations with $ \Lambda = 0 $:
+\begin{equation}
+    G_{\mu \nu} = - \frac{8 \pi G_N}{c^4} T_{\mu \nu}
+\end{equation}
+We can also add a cosmological constant
+\begin{equation}
+    T^{\mu \nu}_{\Lambda} = \frac{c^4 \Lambda}{8 \pi G_N} g^{\mu \nu}
+\end{equation}
+since $ g^{\mu \nu}_{; \nu} = 0 $.
+
+
+\section{Solutions of Einstein's Equations}\label{sec:solutions_of_einstein's_equations}
+
+Let us begin with the vacuum solution of these equations. We are looking at a spherically symmetric, stationary, non-rotating distribution of matter and look at the metric \textit{outside} this distribution (in the vacuum, where the pressure of the density vanishes). We are going to use a set of spherical coordinates $ (ct, r, \theta, \varphi) $, which we will call the Schwarzschild coordinates. The invariant length element squared is
+\begin{equation}
+    \dd{s^2} = g_{\mu \nu} \dd{x^{\mu}} \dd{x^{\nu}} = \left[ 1 - \frac{2GM}{r c^2} \right] (c \dd{t})^2 - \frac{\dd{r^2}}{\left[ 1 - \frac{2GM}{c^2 r} \right]} + r^2 (\dd{\theta^2} + \sin[2](\theta) \dd{\varphi^2})
+\end{equation}
+Again, $ \frac{2GM}{c^2} \equiv R_S \approx 3\kilo\meter \frac{M}{M_{\odot}} $, the Schwarzschild radius. Notice that there is a singularity at $ r = R_S $, which we will call an event horizon, but in other coordinates, there are no singularities. However, there is a true singularity at $ r = 0 $. As $ r \to \infty $, we have $ g_{\mu \nu} \to \eta_{\mu \nu} $.
+
+\end{document}

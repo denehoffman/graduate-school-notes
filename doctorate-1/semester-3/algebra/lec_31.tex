@@ -1,0 +1,90 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{31}{Monday, November 16, 2020}{Galois Theory and Automorphisms}
+
+Let's look at the group $ k = \Z/p\Z $ and consider the roots of $ f(x) = x^{p^n} - x $. Let $ F $ be the set of roots of $ f(x) $ in $ \bar{k} $. First, $ f(x) $ is separable, since $ \D f = \D \cancelto{0}{p^n x^{p^n - 1}} - 1 $. Second, $ F $ is a field, since if $ a,b \in F $, then $ a^{p^n} = a $ and $ b^{p^n} = b $, so $ (a + b)^{p^n} = a^{p^n} + b^{p^n} = a + b $. If $ a \neq 0 $, then $ a^{p-1} - 1 = 0 $ so $ a^{p^n - 2} a = 1 $ so $ a^{-1} = a^{p^n - 2} $.
+
+Now consider $ \frac{F}{\Z/p\Z} $. $ F $ is called a finite field of size $ p^n $. We will use the notation $ \mathbb{F}_{p^n} $.
+
+\begin{theorem}
+    If $ F $ is a finite field, then $ F \cong \mathbb{F}_{p^n} $ for some prime $ p $ and some $ n \in \N $.
+\end{theorem}
+\begin{proof}
+    $ \text{char} F = p \neq 0 $ so $ \mathbb{F}_{p} \subseteq F $. Hence $ [F\colon\mathbb{F}_p] = n < \infty $.
+
+    Then $ F^* = F \setminus \{0\} $ is an abelian group of order $ \abs{F} - 1 = p^n - 1 $, so $ \forall a \in F^* $, $ a^{p^n - 1} = 1 $ and $ \forall a \in F $, $ a^{p^n} - a = 0 $.
+\end{proof}
+
+\section{Galois Theory and Automorphisms}\label{sec:galois_theory_and_automorphisms}
+
+We define $ \text{Aut}(F) = \{\sigma \colon \sigma \text{ is an automorphism of } F\} $.
+
+If $ K $ is a subfield of $ F $, then $ \text{Aut}(F/K) = \{\sigma \in \text{Aut}(F) \colon \sigma/K = \text{id}/K\} $.
+
+\begin{ex}
+    $ \text{Aut}(\Q(\sqrt{d})/\Q) \cong \Z/2\Z $ where $ d $ is not a square. It contains $ \{\text{id}, a + b \sqrt{d} \mapsto a - b \sqrt{d}\} $.
+\end{ex}
+\begin{ex}
+    $ \text{Aut}(\Q(\sqrt[3]{2})/\Q) = \{\text{id}\} $.
+\end{ex}
+
+\begin{definition}
+    If $ H \subseteq \text{Aut}(F) $, then $ \text{Fix}(H) = \{a \in F \colon \sigma a = a \quad \forall \sigma \in H\} $.
+\end{definition}
+\begin{itemize}
+    \item $ \text{Fix}(H) $ is a subfield of $ F $.
+    \item Usually, $ H $ is a subgroup of $ \text{Aut}(F) $.
+\end{itemize}
+$ \text{Fix}(H) $ is a \textit{fixed field} of $ H $.
+
+\begin{equation}
+    H_1 \subseteq H_2 \implies \text{Fix}(H_1) \supseteq \text{Fix}(H_2)
+\end{equation}
+
+The important point here is that
+\begin{equation}
+    H \to \text{Fix}(H)
+\end{equation}
+is a bijection for nice (normal and separable) extensions.
+
+\begin{claim}
+    If $ K $ is a field, $ p \in K[x] $ with $ \deg p \geq 1 $ and $ F $ is a splitting field of $ p $, then $ \abs{\text{Aut}(K/F)} \leq [K\colon F] $, with equality if $ p $ is separable.
+\end{claim}
+\begin{proof}
+    Let $ p_1 $ be an irreducible factor of $ p $, and let $ \alpha $ be a root of $ p_1 $. Let $ K_1 $ be the splitting field of $ K $ inside $ F $.
+    
+    Every $ \sigma \in \text{Aut}(F/K) $ satisfies $ \sigma/K_1 \in \text{Aut}(K_1/K) $. As we proved earlier, $ \abs{\text{Aut}(K_1/K)} $ is the number of distinct roots of $ p_1 $.
+
+    Fix any $ \sigma_1 \in \text{Aut}(K_1/K) $. Then we claim the size of $ S_{\sigma_1} \equiv \{\sigma \in \text{Aut}(F/K) \colon \eval{\sigma}_{K_1} = \sigma_1\} = \abs{\text{Aut}(F/K_1)} $.
+
+    This is true because if we fix any extension of $ \sigma_1 $ to $ \text{Aut}(F/K) $, then $ \sigma^{-1}, \sigma $ for $ \sigma \in \text{Aut}(S_{\sigma_1}) $, $ \eval{\sigma^{-1} \sigma}_{K_1} = \frac{\text{id}}{K_1} $. 
+
+    In other words, there is a one-to-one correspondence between $ S_{\sigma_1} $ and $ \text{Aut}(F/K_1) $, namely $ \sigma \in S_{\sigma_1} \to \sigma_1^{-1} \sigma $.
+
+    Since $ [F\colon K]= [F\colon K_1][K_1\colon K] $ and $ \text{Aut}(K_1/K) \leq [K_1\colon K] $, by induction implied to $ F/K_1 $,
+    \begin{equation}
+        \text{Aut}(F/K_1) \leq [F\colon K_1]
+    \end{equation}
+    since every $ \sigma_1 \in \text{Aut}(K_1/K) $ extends in $ \abs{\text{Aut}(F/K_1)} $ ways.
+\end{proof}
+
+\begin{definition}
+    A finite extension $ F/K $ is \textit{Galois} if $ \abs{\text{Aut}(F/K)} = [F\colon K] $.
+\end{definition}
+
+We will use the notation $ \text{Gal}(F/K) = \text{Aut}(F/K) $ for the Galois group of $ F/K $.
+
+If $ p \in K[x] $ is irreducible, the Galois group of $ p $ is $ \text{Gal}(F/K) $ for splitting field $ F $.
+
+
+\begin{ex}
+Some Galois groups:
+    \begin{itemize}
+        \item Take $ x^2 - d $ for $ d $ not square over $ \Q $. Then $ \text{Gal}(F/K) \cong \Z/2\Z $.
+        \item $ K \mathbb{F}_2(t)$, $ p = x^2 - t $, then $ \D p = 0 $, so the only automorphism of this extension is $ \text{Aut}(F/K) = 1 $, so $ F/K $ is not Galois.
+            $ \mathbb{F}_2[t] $ are polynomials in indeterminate $ t $ with $ \mathbb{F}_2 - \text{coeff} $. $ \mathbb{F}_2(t) $ is a field of fractions of $ \mathbb{F}_2[t] $, i.e. rational functions with $ \mathbb{F}_2 - \text{coeff} $.
+        \item $ x^3 - 2 $, and $ F = \Q(\sqrt[3]{2}, w) = \Q(\sqrt[3]{2}, w\sqrt[3]{2}, w^2 \sqrt[3]{2}) $, then $ \abs{F\colon Q} = 6 $ so $ \text{Aut}(F/\Q) $ is order $ 6 $, so $ S_3 \cong \{\text{roots of } x^3 - 2\} $.
+    \end{itemize}
+\end{ex}
+
+\end{document}

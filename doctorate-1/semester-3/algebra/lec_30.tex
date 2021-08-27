@@ -1,0 +1,119 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{30}{Friday, November 13, 2020}{}
+
+\section{Separable Polynomials}\label{sec:separable_polynomials}
+
+\begin{definition}
+    For a field $ K $, we say that $ f \in K[x] $ is \textit{separable} if $ f $ has distinct roots in $ K $ (or equivalently in the splitting field of $ K $).
+\end{definition}
+
+The derivative of a polynomial $ f = \sum_n a_n x^n \in K[x] $ is
+\begin{equation}
+    \D f = \sum_n n a_n x^{n-1}
+\end{equation}
+
+It's easy to show that $ \D (fg) = f\D g + (\D f)g $.
+
+\begin{claim}
+    $ f \in K[x] $ is separable iff $ \gcd(f ,\D f) = 1 $.
+\end{claim}
+\begin{proof}
+    If $ f $ is not separable, then $ f = (x-a)^2 g $ in $ K[x] $, so
+    \begin{equation}
+        \D f = 2(x-a)g + (x-a)^2 \D g
+    \end{equation}
+    so $ x-a \mid f, \D f $.
+
+    Conversely, suppose $ x-a \mid f, \D f $. Then we could write
+    \begin{equation}
+        f = (x-a)g
+    \end{equation}
+    so
+    \begin{equation}
+        \D f = g + (x-a)\D g
+    \end{equation}
+    Now we know that $ x-a \mid \D f $, so therefore $ x-a\mid g $. Substituting this back into the equation, we say that $ g = (x-a)h $ so $ f = (x-a)^2 h $.
+\end{proof}
+
+\begin{claim}
+    If $ f \in K[x] $ is irreducible and is not separable, then $ \text{char} K = p \neq 0 $ and $ f $ is of the form $ f(x) = g(x^p) $.
+\end{claim}
+\begin{proof}
+    $ \deg \D f < \deg f $, and $ \gcd(f ,\D f) \neq 1 $ implies $ \exists g \mid f, \D f $. Since $ f $ is irreducible and UFD, $ \D f = 0 $. Therefore, $ n a_n x^n = 0 $ for all $ n $, so if $ a_n \neq 0 $ then $ n = 0 $ in $ K $, so $ \text{char} K \mid n $ $ \forall n $ such that $ a_n \neq 0 $.
+\end{proof}
+
+\begin{claim}
+    If $ K $ is a field and $ \text{char} K = p \neq 0 $, then the map $ y \mapsto y^p $ is a homomorphism from $ K \to K $.
+\end{claim}
+\begin{proof}
+    \begin{equation}
+        (yz)^p = y^p z^p
+    \end{equation}
+    \begin{equation}
+        (y+z)^p = \sum_{i+j=p} \binom{p}{i} y^i z^j
+    \end{equation}
+    We know that $ \binom{p}{i} = \frac{p(p-1)\cdots(p-i+1)}{i!} $ if $ i \geq 1 $, and if $ i<p $ then $ p\mid \binom{n}{i} $, so $ (a+b)^p = a^p + b^p $.
+\end{proof}
+\begin{corollary}
+    If $ k = \Z/p\Z $, the $ g \in K[x] $, so $ g(x)^p = g(x^p) = (ax^s + bx^t)^p = a^p x^{sp} + b^p x^{pt} = ax^{sp} + bx^{pt} $.
+\end{corollary}
+
+\section{Cyclotomic Extensions}\label{sec:cyclotomic_extensions}
+
+Consider $ x^n - 1 $ over $ \Q $. Its roots are $ n $th roots of unity $ w_n = \{\tau \in \Q\mid \tau^n = 1\} $.
+
+\begin{definition}
+    The element of
+    \begin{equation}
+        w_n \setminus \bigcup_{d\mid n, d<n} w_d 
+    \end{equation}
+    is called a \textit{primitive} root of unity of order $ n $.
+\end{definition}
+
+Let's define
+\begin{equation}
+    \Phi_n(x) = \prod_{\tau^n = 1, \tau \text{ is primitive with order } n} (x - \tau) \in \Q[x]
+\end{equation}
+\begin{claim}
+    $ \Phi \in \Z[x] $.
+\end{claim}
+\begin{proof}
+    \begin{align}
+        x^n - 1 &= \prod_{d\mid n} \Phi_d\\
+                &= \Phi_n \prod_{d\mid n, d<n} \Phi_d
+    \end{align}
+    By induction on $ n $, we take the base case where $ \Phi_1 = x-1 $. The equation we just showed tells us that $ x^n - 1 = \Phi_n f $ where $ f \in \Z[x] $ by the division algorithm. $ \Phi_n \in \Q[x] $, so by Gauss's lemma, $ \text{content}(x^n - 1) = 1 $ and $ \text{content}(f) = 1 $ because $ x^n - 1 $ and $ f $ are monic. Therefore, $ \text{content}(\Phi_n) = 1 $.
+\end{proof}
+
+Note that $ \deg \Phi_n $ is the number of the elements of the set $ \#\{m \leq n \mid \gcd(m ,n) = 1\} = \varphi(n) $ (Euler's totient function).
+
+\begin{theorem}
+    $ \Phi_n $ is irreducible over $ \Q $. 
+\end{theorem}
+\begin{proof}
+    By Gauss's lemma, $ \Phi_n $ is irreducible over $ \Z $. Suppose it is reducible:
+    \begin{equation}
+        \Phi_n(x) = f(x) g(x)
+    \end{equation}
+    \begin{equation}
+        \tau \in w_n \setminus \bigcup_{d\mid n, d<n} w_d
+    \end{equation}
+    Let $ p $ be any prime not dividing $ n $ and consider $ \tau^p $. Since $ p \nmid n $, $ \tau^p $ is also a primitive root of order $ n $, so $ \Phi_n(\tau^p) = 0 $.
+
+    There are two cases. First, $ g(\tau^p) = 0 $, so $ \tau $ is a root of $ g(x^p) $. Therefore, $ f(x) \mid g(x^p) $. Say $ g(x^p) = f(x) h(x) $.
+
+    Let $ \bar{f} $, $ \bar{g} $, $ \bar{h} $ be the images of $ f,g,h \in \Z[x] $ in $ \Z/p\Z[x] $ under the projection map.
+
+    Then $ \bar{g}(x^p) = \bar{f}(x) \bar{h}(x) $, so $ g(x)^p = \bar{f}(x) \bar{h}(x) $. Hence, the right-hand side is not separable.
+
+    Then, $ \gcd(\bar{g}, \bar{f}) \neq 1 $, hence $ \bar{\Phi}_n = \bar{f} \bar{g} $ is non-separable.
+
+    On the other hand, $ \Phi_n \mid x^n - 1 $ in $ \Z[x] $ and so in $ \Z/p\Z[x] $, then $ \bar{\Phi}_n $ non-separable implies $ x^n - 1 $ is non-separable. However, it's easy to check that $ x^n - 1 $ is separable, since $ \D (x^n - 1) = nx^{n-1} $ and $ \gcd(n x^{n-1} ,x^n - 1) = 1 $ if $ p \nmid n $, so we have a contradiction. Therefore, the first case leads to a contradiction.
+
+    The second case is where $ f(\tau^p) = 0 $ wherever $ \tau $ is a prime of order $ n $ and $ (p ,n) = 1 $.
+
+    Then $ \tau^{p_1 p_2 \cdots p_l} $ is a root of $ f $ whenever primes $ p_1, \cdots, p_l $ do not divide $ n, \cdots, l $. Then $ f(\tau^m) = 0 $ $ \forall m $ such that $ (m,n) = 1 $, so $ f $ vanishes on all primitive roots of order $ n $. Therefore $ \Phi_n \mid f \implies \Phi_n = f $ is irreducible.
+\end{proof}
+
+\end{document}

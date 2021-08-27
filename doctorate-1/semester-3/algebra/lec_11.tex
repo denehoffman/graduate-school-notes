@@ -1,0 +1,71 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{11}{Friday, September 25, 2020}{}
+
+In the last lecture, we were talking about rings of functions on a compact metric space. We showed that maximal ideals correspond to points in that space. We did this with continuous functions, but this also works fine with differentiable functions, twice-differentiable functions, etc.
+
+Polynomials are a common class of functions. Let's take a field $ F $ (think $ \R $ or $ \C $). Polynomials on a field are represented $ F[x] $. We know that this is a principal ideal domain, so primes are irreducibles of the form $ f $ where $ f $ is an irreducible polynomial.
+
+\begin{theorem}[Fundamental Theorem of Algebra (Analysis?)]
+    In $ \C $, every polynomial factors into a product of linear factors. Equivalently, every $ f \in \C[x] $ has a root.
+\end{theorem}
+
+\begin{definition}
+    A field $ F $ such that every non-constant polynomial in $ F[x] $ has a root is called \textit{algebraically closed}.
+\end{definition}
+
+If $ F $ is algebraically closed, then prime ideals in $ F[x] $ are $ (x-a) $, $ a \in F $. They are also maximal.
+
+Let's localize such a field. Take $ \C[x]_{(x-a)} = \{\frac{f}{g} \colon g \neq 0\}  $ where the only maximal ideal is $ (x-a)\C[x]_{(x-a)} $.
+\begin{ex}
+    Take $ \C[x,y] $. $ P = (x) $ is a prime ideal. $ fg \in (x) \implies f \in (x) \qor g \in (x) $, and $ fg \in (x) \iff fg = xh \exists h \iff \eval{fg}_{x=0} = 0 $. $ (x) $ is prime but not maximal, since $ (x) \subseteq (x,y) $.
+    
+    Maximal ideals of $ F[x,y] $ for algebraically closed $ F $ are $ (x-a, y-b) $ $ a, b \in F $, which are $ \{f\colon \eval{f}_{(a,b)} = 0\} $.
+\end{ex}
+
+Recall $ F $ is a field $ \implies F[x] $ is a UFD (unique factorization domain).
+\begin{theorem}
+    If $ R $ is a UFD, then $ R[x] $ is a UFD.
+\end{theorem}
+\begin{proof}
+    To prove this, we need to define something called the content of a function:
+    \begin{definition}
+        For $ f \in R[x] $ with $ R $ UFD, let $ \text{content}(f) \equiv \gcd(a_0 ,\cdots, a_n) $ where $ f = a_0 x^a + \cdots + a_n x^n $.
+    \end{definition}
+    \begin{lemma}[Gauss's Lemma]
+        \begin{equation}
+            \text{content}(fg) = \text{content}(f) \cdot \text{content}(g)
+        \end{equation}
+    \end{lemma}
+    \begin{proof}
+        If $ \text{content}(f) \neq 1 $, then consider $ f' = \frac{f}{\text{content}(f)} \in R[x] $. This is still in the ring because every coefficient is divisible by the content. $ g' = \frac{g}{\text{content}(g)} $. It is now enough to show the content is multiplicative for $ f' $ and $ g' $. Without loss of generality, $ \text{content}(f) = \text{content}(g) = 1 $. Now we want to show that this is equal to the content of the product.
+
+        Suppose $ p $ is irreducible in $ R $ and $ p $ divides $ \text{content}(fg) $. Since $ p $ does not divide $ \text{content}(f) $, let $ s $ be the smallest index such that $ p $ does not divide $ a_s $ (this exists). Similarly, $ p $ does not divide $ \text{content}(g) $, so we can look at the smallest $ t $ such that $ p $ does not divide $ b_t $ (the coefficients of $ f $ and $ g $ are $ a_n $ and $ b_n $ respectively).
+
+        Now consider the coefficient of $ x^{s+t} $ in $ fg $. It is 
+        \begin{equation}
+            \sum_{i+j = s + t} a_i b_j = a_s b_t + \sum_{i+j = s + t,\ (i,j) \neq (s,t)} a_i b_j
+        \end{equation}
+        This final term is divisible by $ p $ but the left side is also divisible by $ p $, and this is a contradiction.
+    \end{proof}
+    Consider $ R $ is a UFD and $ F $ is a field of fractions (for example $ R = \Z $, $ F = \Q $). $ f \in F[x] $, $ f = \frac{f'}{d} $, $ f' \in R[x] $, $ d \in R $.
+    \begin{equation}
+        \text{content}(f) \equiv \frac{\text{content}(f')}{d}.
+    \end{equation}
+    Gauss's lemma holds for this content:
+    \begin{equation}
+        \text{content}\left( \frac{f'}{c} \cdot \frac{g'}{d} \right) = \frac{\text{content}(f'g')}{c d}
+    \end{equation}
+
+    A quick observation: $ f \in F[x] $ and $ \text{content}(f) \in R $ iff $ f \in R[x] $.
+    \begin{theorem}
+        If $ f \in R[x] $ is irreducible in $ R[x] $, then $ f $ is irreducible in $ F[x] $.
+    \end{theorem}
+    \begin{proof}
+        $ f = gh $ where $ g,h \in F[x] $. $ \text{content}(f) = \text{content}(g) \cdot \text{content}(h) = \frac{a}{b} \frac{c}{d} $. This means $ b $ divides $ c $ and $ d $ divides $ a $. We can consider a polynomial $ f' = \frac{f b}{c} $ and $ g' = \frac{g d}{b} $. $ f', g' \in R[x] $.
+    \end{proof}
+\end{proof}
+
+
+
+\end{document}

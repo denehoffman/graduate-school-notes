@@ -1,0 +1,82 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{6}{Monday, September 14, 2020}{}
+
+\begin{claim}
+    \begin{equation}
+        [A,B,C] \subseteq [C,B,A][B,C,A]
+    \end{equation}
+\end{claim}
+\begin{proof}
+    \begin{equation}
+        [a,b,c^a][c,a,b^c][b,c,a^b] = 1
+    \end{equation}
+\end{proof}
+
+\begin{claim}
+    \begin{equation}
+        \comm{\gamma_i}{\gamma_j} \subseteq \gamma_{i+j}
+    \end{equation}
+\end{claim}
+\begin{proof}
+    Induction on $ \min(i,j) $: For $ j = 1 $, this is the definition.
+    \begin{align}
+        \comm{\gamma_i}{\gamma_j} &= \comm{\gamma_i}{\comm{\gamma_{j-1}}{G}}\\
+        &= [G, \gamma_{j-1}, \gamma_{i}]\\
+        &\subseteq \comm{\comm{\gamma_i}{G}}{\gamma_{j-1}} [\gamma_{j-1}, \gamma_{i}, G]
+        &\subseteq \gamma_{i+j} \gamma_{i+j}
+    \end{align}
+\end{proof}
+
+\begin{itemize}
+    \item[(3)] Heisenberg group expressions of the form $ a^l b^m c^n $
+
+        $ ac = ca $, $ c b = b c $, $ ab = bac $, so $ a^l b^m c^n \mapsto \mqty(1&l&n\\0&1&m\\0&0&1) $
+\end{itemize}
+
+Nilpotent groups are examples of corner central series: $ \gamma_1 \triangleleft \gamma_2 \triangleleft \gamma_3 \triangleleft \cdots $.
+
+We can also have upper central series: $ Z_0 = 1 $, $ Z_{i + 1} $ consists of elements of $ G $ that commute with all $ G \mod(Z_i) $:
+\begin{equation}
+    g \in Z_{i+1} \iff \comm{g}{h} \in Z_i\ \forall h \in G \iff \comm{g Z_i}{h Z_i} = 1 \text{ in } G/Z_i
+\end{equation}
+
+By definition, $ g Z_i \in Z(G/Z_i) $ (the center of $ G $), so $ Z_{i+1} $ is the image under the $ G \to G/Z_i $ projection of $ Z(G/Z_i) $.
+
+
+\begin{claim}
+    If $ G $ is nilpotent of step $ s $ (i.e. $ \gamma_{s+1} = 1 $), iff $ Z_s = G $, and in this case, $ \gamma_i \subseteq Z_{s-i+1} $.
+\end{claim}
+
+\begin{proof}
+    Suppose $ \gamma_{s+1} = 1 $. This implies $ \gamma_s \subseteq Z(G) $.
+
+    Assume $ \gamma_{i+1} \subseteq Z_{s-i} $. We know that $ \gamma_i $ commute with $ G\mod\gamma_{i+1} $. This means that $ \gamma_i $ commute with $ G\mod Z_{s-i} $. But this also means (by definition of $ Z_i $) that $ \gamma_i \subseteq Z_{s-i+1} $.
+
+    Since $ \gamma_1 = G $, then $ Z_s = \gamma_1 = G $ so $ Z_s = G $. Elements of $ Z_{s-i+2} $ commute with $ G\mod Z_{s-i+1} $ so $ \gamma_i = \comm{\gamma_{i-1}}{G} \subseteq Z_{s-i+1} $. 
+\end{proof}
+
+In general, central series are sequences of normal subgroups: $ 1 = G_0 \triangleleft G_1 \triangleleft G_2 \triangleleft \cdots $. The minimal length central series have the same length and satisfy
+\begin{alignat}{6}
+    1 &= &Z_0 &\triangleleft \cdots \triangleleft &Z_1 &\triangleleft \cdots\triangleleft &Z_s &= G\\
+    & & \triangledown & &\triangledown & &\triangledown & \\ 
+    1 &= &G_0 &\triangleleft \cdots \triangleleft &G_1 &\triangleleft \cdots\triangleleft &G_s &= G\\
+    & & \triangledown & &\triangledown & &\triangledown & \\ 
+    1 &= &\gamma_{s+1} &\triangleleft \cdots \triangleleft &\gamma_{s-i+1} &\triangleleft \cdots\triangleleft &\gamma_1 &= G
+\end{alignat}
+
+\begin{theorem}
+    Finite $ G $ is nilpotent iff it is a product of Sylow subgroups. Say $ P_1, \cdots, P_l $ are Sylow subgroups for primes $ p_1, \cdots, p_l $. Then $ G = p_1 p_2 \cdots p_l \cong P_1 \times \cdots \times P_l $
+\end{theorem}
+
+\begin{proof}
+    Claim 1: If $ H \leq G $, then $ H \leq N_G(H) $.
+
+    Proof of 1: We can prove this by induction on $ \abs{G} $. First, we know that $ Z(G) \leq N_G(H) $. If $ Z(G) \nsubseteq H $, we are done. Otherwise, we know that $ H/Z(G) < G/Z(G) $, so by induction, $ H/Z < N_{G/Z}(H/Z) = N $. Pull back any element of $ N $.
+
+    Claim 1 implies that if $ P $ is Sylow, then $ N_G(P) = P $.
+\end{proof}
+
+
+
+\end{document}

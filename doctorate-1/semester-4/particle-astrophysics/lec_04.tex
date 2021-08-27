@@ -1,0 +1,73 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{4}{Tuesday, February 02, 2021}{General Relativity}
+
+In the last lecture, we talked about how the Strong Equivalence Principle says that the Weak Equivalence Principle holds for massless objects. Before we understand why one would take such a principle as true, we should look at the consequences of this principle.
+
+Imagine we have an emitter and detector inside our freely falling elevator, positioned on the floor and ceiling of the elevator respectively. If we think of the elevator as an inertial frame, then to an outside observer, the detector has gained a velocity $ g t $ where $ t = h/c $, with $ h $ being the height of the elevator. Then the frequency measured by the detector is
+\begin{equation}
+    \nu_d = \nu_e \left[ \frac{1 + v/c}{1 - v/c} \right]^{1/2} \sim \nu_e \left( 1 + \frac{v}{c} \right)
+\end{equation}
+or
+\begin{equation}
+    \frac{\nu_d - \nu_e}{\nu_e} = \frac{v}{c} = \frac{gh}{c^2}
+\end{equation}
+
+This is just the Doppler effect. Both observers must agree in their observation. The Earth observer concludes that in climbing up the gravitational field, the photon must have lost energy (red-shift) which exactly cancels the blue-shift from the Doppler effect:
+\begin{equation}
+    \eval{\frac{\Delta \nu}{\nu}}_{\text{grav}} = - \frac{gh}{c^2}
+\end{equation}
+with $ g = \frac{GM_E}{R^2_E} $, so
+\begin{equation}
+    \abs{\frac{\Delta \nu}{\nu}}_{\text{grav}} = \frac{1}{2} \frac{h}{R_E} \frac{2GM_E}{c^2 R_E}
+\end{equation}
+We label $ \frac{2 G M_E}{c^2} $ as the Schwarzschild radius of the Earth.
+
+Let's estimate some of these numbers. Say the elevator has $ h \sim 1 \meter $ and $ g \sim 10 \meter\per\second\squared $. This gives $ \frac{\Delta \nu}{\nu} \sim 10^{-16} $. This red-shift was measured by looking at the red-shift of $ \text{Fe}^{57} $ with $ h = 22.5 \meter $ at a tower in Harvard.
+
+The second effect of the Strong E.P. is light bending in a gravitational field (gravitational lensing). Consider again an observer in a freely falling frame, but now a photon is directed across this frame (perpendicular to the gravitational field). In the freely-falling frame, this photon follows a straight line. To an Earth observer, the detector has dropped at a velocity $ g t $ in the time it takes the photon to hit it, so the observer sees a bent path. The elevator has fallen a distance $ \frac{1}{2} g t^2 = \frac{1}{2} g \frac{L^2}{c^2} $. The deflection angle can be found as
+\begin{equation}
+    \tan(\varphi) \sim \varphi = \frac{1}{2} \frac{g \left( \frac{L^2}{c^2} \right)}{L} \sim \frac{1}{2} \frac{G M_E L}{c^2 R_E^2} \sim \frac{1}{4} \left( \frac{2 G M_E}{c^2 R_E} \right) \frac{L}{R_E}
+\end{equation}
+The Earth observer will explain the light trajectory as being bent by the gravitational field. The arc length, $ L \varphi $, is about $ 5\milli\meter $. If we allow the elevator to have a diameter of $ L = 2 R_E $, we find $ \varphi \sim \frac{1}{2} \times 10^{-9} \radian $.
+
+
+\section{Gravity as Geometry}\label{sec:gravity_as_geometry}
+
+\subsection{Geodesics}\label{sub:geodesics}
+
+In the gravitational field of the Earth, we have $ z(t) = z_0 + v_0 t - \frac{1}{2} g t^2 $. We can think of this as a coordinate transformation $ z \to z' = z + \frac{1}{2} g t^2 $. This is a general coordinate transformation $ x^{\mu} \to x^{\prime \mu}(x) $ such that
+\begin{equation}
+    \dd{x^{\prime \mu}} = \underbrace{\pdv{x^{\prime \mu}}{x^{\nu}}}_{\Lambda^{\mu}_{\nu}(x)} \dd{x^{\nu}}
+\end{equation}
+\begin{equation}
+    \dd{s^2} = \eta_{\mu \nu} \dd{x^{\mu}} \dd{x^{\nu}} = \underbrace{\eta_{\mu \nu} \pdv{x^{\mu}}{x^{\prime \alpha}}\pdv{x^{\nu}}{x^{\prime \beta}}}_{g_{\alpha \beta}} \dd{x^{\prime \alpha}} \dd{x^{\prime \beta}}
+\end{equation}
+
+Einstein reasoned that gravity can be removed locally using such a transformation, but not everywhere because of tidal forces. There is no single coordinate transformation that gets rid of gravity everywhere unless we consider a curved geometry of spacetime.
+
+Consider two ants moving away from each other at constant velocity on the surface of a sphere in straight lines. As they walk away from each other, the distance between the ants does not increase uniformly, but rather appears as acceleration. Similarly consider a funnel. Particles sliding down the funnel at constant velocity will appear to be accelerating towards each other in the absence of any other forces. This is similar to the idea of tidal forces.
+
+We can generalize our spacetime invariant $ \dd{s^2} \equiv c^2 \dd{\tau^2} $ to $ \dd{s^2} = g_{\mu \nu}(x) \dd{x^{\mu}} \dd{x^{\nu}} $. Additional coordinate transforms can be absorbed into new metrics, so the metric transforms as a tensor under general coordinate transformations. This generalizes Lorentz transformations to general coordinate transformations. The proper distance between two points is
+\begin{equation}
+    c \int_{\tau_A}^{\tau_B} \dd{\tau} = \int \sqrt{g_{\mu \nu}(x) \dd{x^{\mu}} \dd{x^{\nu}}}
+\end{equation}
+
+Trajectories that minimize the proper distance in a geometry determined by the metric $ g_{\mu \nu}(x) $ are called ``geodesics''. Rather than minimize the square root, we can use the Euler-Lagrange equations with $ L = g_{\mu \nu}(x) \dot{x}^{\mu} \dot{x}^{\nu} $:
+\begin{equation}
+    \dv{\tau}\left[ \dv{L}{\dot{x}^{\mu}} \right] - \dv{L}{x^{\mu}} = 0
+\end{equation}
+This implies that
+\begin{equation}
+    \ddot{x^{\mu}} + \Gamma^{\mu}_{\alpha \beta} \dot{x}^{\alpha} \dot{x}^{\beta} = 0 \tag{Geodesic Equation}
+\end{equation}
+where
+\begin{equation}
+    \Gamma^{\mu}_{\alpha \beta} = \frac{1}{2} g^{\mu \rho} \left( \partial_{\alpha} g_{\rho \beta} + \partial_{\beta} g_{\rho \alpha} - \partial_{\rho g_{\alpha \beta}} \right) \tag{Christoffel Symbols}
+\end{equation}
+where $ g^{\mu \rho} g_{\rho \sigma} = \delta^{\mu}_{\sigma} $.
+
+The solution to the geodesic equation gives trajectories parameterized in $ \tau $ which describe paths that minimize proper distance.
+
+
+\end{document}

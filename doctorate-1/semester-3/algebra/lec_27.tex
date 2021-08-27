@@ -1,0 +1,51 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{27}{Friday, November 06, 2020}{Zorn's Lemma}
+
+In the previous class, we were trying to prove the following claim:
+\begin{claim}
+    $ [FG \colon K] \leq [F \colon K][G \colon K] $
+\end{claim}
+The first part of the proof concerned showing that if $ (\alpha_{i})_{i} $ is a basis for $ F / K $ and $ (\beta_{j})_{j} $ is a basis for $ G / K $ then $ FG = K[\{\alpha_{i}\}_{i} \cup \{\beta_{j}\}_{j} ] $.
+
+\begin{proof}
+    Recall that if $ Q $ is algebraic over $ K $, then $ K[Q] \cong K(Q) $, so $ F = K[(\alpha_{i})_{i\in I}] $ and similar for $ G $ and $ FG = K[(\alpha_{i}),(\beta_{j})]  $ implies every finite extension is algebraic in $ F / K $ for powers of $ Q\in F $.
+\end{proof}
+\begin{corollary}
+    If $ Q_1 $ and $ Q_2 $ are algebraic over $ K $, then so is $ Q_1+Q_2 $, $ Q_1Q_2 $, and $ Q_1 / Q_2 $.
+\end{corollary}
+\begin{ex}
+    Consider $ [\mathbb{Q}[\sqrt[3]{2}] \colon \mathbb{Q}] = 3 $ and $ [\mathbb{Q}[\sqrt{5}] \colon \mathbb{Q}] = 2 $. Then if  $ m = [\mathbb{Q}[\sqrt[3]{2}, \sqrt{5}] \colon \mathbb{Q}] $ gives $ m \leq 2 \cdot 3 = 6 $. Also $ m = [\mathbb{Q}[\sqrt{5}] \colon \mathbb{Q}] \cdot [\mathbb{Q}[\sqrt[3]{2},\sqrt{5}] \colon \mathbb{Q}[\sqrt{5}] \colon \mathbb{Q}[\sqrt{5}]] $ implies $ 2 \mid m $ and $ 3 \mid m $ so $ m=6 $. This proves that these roots and their powers are all linearly independent in $ \mathbb{Q} $.
+\end{ex}
+
+Recall field $ K $ is algebraically closed if every polynomial of $ \deg \geq 1 $ has a root.
+
+\begin{lemma}[Zorn's Lemma (equivalent to the axiom of choice)]
+    \begin{definition}
+        A binary relation $ \leq $ on a set $ X $ is a \textit{partial order} if
+        \begin{itemize}
+            \item $ x \leq x  $ 
+            \item $ x \leq y  $ and $ y \leq x  $ implies $ x = y $ 
+            \item $ x \leq y  $ and $ y \leq z   $ implies $ x \leq z  $
+        \end{itemize}
+        An element $ x $ is \textit{maximal} if $ \not\exists y \neq x  $ such that $ x \leq y  $.
+    \end{definition}
+    \begin{definition}
+        A \textit{chain} is a set $ C \subset X $ such that for every $ x,y\in C $, either $ x \leq y $ or $ y \leq x  $.
+    \end{definition}
+    \begin{definition}
+        An \textit{upper bound} for a set $ S \subseteq X  $ is an element $ x $ such that $ \forall s\in S  $, $ s \leq x  $.
+    \end{definition}
+    The lemma states that if every chain has an upper bound, then there is a maximal element. For this class, we will take this to be an axiom.
+\end{lemma}
+
+\begin{claim}
+    If $ R $ is a ring with $ 1 $, $ I \subset R $ is an ideal, then $ I $ is contained in a maximal ideal.
+\end{claim}
+\begin{proof}
+    $ X = \{\text{ideal} J \colon J\supset I, J \neq R \} $. $ J,J'\in X $ and $ J \leq J'  $ if $ J \subseteq J' $. Applying Zorn to $ (X, \leq ) $, we get the result.
+\end{proof}
+
+
+
+\end{document}

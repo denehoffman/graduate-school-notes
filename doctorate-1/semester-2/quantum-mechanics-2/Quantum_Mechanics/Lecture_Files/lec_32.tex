@@ -1,0 +1,125 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{32}{Friday, April 10, 2020}{Berry's Phase}
+
+\section{The Adiabatic Approximation}
+\label{sec:the_adiabatic_approximation}
+
+\begin{theorem}{Adiabatic Theorem}
+    Take some system in an energy eigenstate and turn on a time dependence by allowing one of the parameters in the Hamiltonian to be time dependent ($ \lambda \to \lambda(t) $). For instance, a particle in a box of size $ L $ and letting $ L \to L(t) $, where we grow or shrink the size of the box in time. If $\ket{\psi} =\ket{n,L} $ at $ t = 0 $, then as we propagate in time, if the parameter is changing slowly enough, the system will stay in the same eigenstate, but an eigenstate of the new Hamiltonian: $ t > 0 \implies\ket{\psi} =\ket{n, L(t)} $.
+\end{theorem}
+
+To prove this, suppose we have the Schr\"odinger equation on a state
+\begin{equation}
+    \imath \hbar \pdv{t}\ket{\alpha, t} = H\ket{\alpha, t}
+\end{equation}
+where
+\begin{equation}
+    \ket{\alpha, t} = \sum_n c_n(t) e^{\imath \theta_n(t)}\ket{n}
+\end{equation}
+
+
+If $ H $ is independent of time, then
+\begin{equation}
+    \ket{\alpha, t} = \sum_n c_n e^{- \imath E_n t / \hbar}\ket{n}
+\end{equation}
+where $ c_n =\bra{n}\ket{\alpha, t = 0} $ or $ \theta_n(t) = - E_n t / \hbar $.
+
+
+However, if we allow for this additional time dependence, we would write
+\begin{equation}
+    \theta_n(t) = - \frac{1}{\hbar} \int_0^t E_n(t') \dd{t'}
+\end{equation}
+This is an inspired guess based on the time-independent limit. Now we can apply the Schr\"odinger equation:
+\begin{equation}
+    \imath \hbar \pdv{t}\ket{\alpha, t} = \sum_n (\imath \hbar)\left[ \dot{c}_n(t)\ket{n} + c_n(t) (\imath \dot{\theta}_n(t))\ket{n, t} + c_n  \pdv{t}\ket{n,t}\right] e^{\imath \theta_n(t)}
+\end{equation}
+where $ \imath \dot{\theta}_n(t) = (-\imath) \hbar E_n(t) $. Therefore
+\begin{equation}
+    \imath \hbar \pdv{t}\ket{\alpha, t} = \sum_n e^{\imath \theta_n(t)} \imath \hbar \left[ \dot{c}_n + \frac{E_n}{\hbar} c_n(t) + c_n \pdv{t} \right]\ket{n,t}
+\end{equation}
+and
+\begin{equation}
+    H\ket{\alpha, t} = \sum_n c_n e^{\imath \theta_n} E_n\ket{n,t}
+\end{equation}
+so this term cancels out. Let's project onto $\bra{m,t} $
+\begin{equation}
+    \imath \hbar \dot{c}_m e^{\imath \theta_m(t)} + \imath \hbar \sum_n c_n\bra{m, t} e^{\imath \theta_n(t)} \pdv{t}\ket{n, t} =\bra{m, t} \sum_n c_n e^{\imath \theta_n} E_n\ket{n, t} = 0
+\end{equation}
+so
+\begin{equation}
+    \dot{c}_m = -\sum_m c_n\bra{m, t} \pdv{t}\ket{n, t} e^{\imath (\theta_n(t) - \theta_m(t))}
+\end{equation}
+
+Note that if $ \pdv{t}\ket{n} = 0 $, then $ \dot{c}_m = 0 $, which makes sense. We can break this up into two parts:
+\begin{equation}
+    \dot{c}_m = -c_n \bra{n, t} \pdv{t}\ket{n, t} - \sum_{n \neq m} c_n\bra{m,t} \pdv{t}\ket{n, t} e^{\imath (\theta_n - \theta_m)}
+\end{equation}
+For the second term, consider
+\begin{align}
+    \pdv{t} \left[ H\ket{n,t}\right] &= \pdv{t}\left[E_n(t)\ket{n,t} \right]\\
+    \dot{H}\ket{n, t} + H \pdv{t}\ket{n,t} &= \dot{E}_n(t)\ket{n, t} + E_n \pdv{t}\ket{n, t}
+\end{align}
+If we then project onto $ m \neq n $, we find
+\begin{equation}
+    \left[\bra{n t} \dot{H}\ket{n, t} + E_m(t)\bra{m, t} \pdv{t}\ket{n, t}\right] = E_n\bra{m, t} \pdv{t}\ket{n, t}
+\end{equation}
+so
+\begin{equation}
+    \bra{m, t} \pdv{t}\ket{n, t} = \frac{\bra{m,t} \dot{H}\ket{n,t}}{E_n - E_m}
+\end{equation}
+
+Now that we have this piece, we can insert it into our differential equation:
+\begin{equation}
+    \dot{c}_m = -c_m \bra{m,t} \pdv{t}\ket{m,t} - \sum_{n \neq m} c_n \frac{\bra{m,t} \dot{H}\ket{n,t}}{E_n - E_m} e^{\theta_n - \theta_m} 
+\end{equation}
+
+The adiabatic approximation is simply dropping the second term, which is a statement that the rate of change in $ H $ is much smaller than the natural frequencies associated with the energies of the states. We can solve this differential equation as
+\begin{equation}
+    c_m = e^{\imath \gamma_m(t)} c_m(0)
+\end{equation}
+where $ \imath \gamma_m(t) = -\bra{m, t} \pdv{t}\ket{m, t} $. Now we can reinsert this into our equation for the wave function:
+\begin{equation}
+    \ket{\alpha, t} = \sum_n c_n(0) e^{\imath \gamma_n(t)} e^{\imath \theta_n(t)}\ket{n, t}
+\end{equation}
+where $ \gamma_n \in \R $ is called the adiabatic phase. $ \theta_n $ is the canonical phase from time evolution which we defined above. This adiabatic phase was known for a very long time, but the reason it is interesting is that it is purely geometric.
+
+First, let's prove $ \gamma_n \in \R $. Notice that if it weren't real, the wave function's norm would change, which would violate unitarity.
+\begin{equation}
+    I = \int_0^t\bra{n,t} \pdv{t}\ket{n,t}
+\end{equation}
+so
+\begin{align}
+    \Im I &= \int_0^t \left( \mel{n,t}{\pdv{t}}{nt} - (\mel{n,t}{\pdv{t}}{n,t})^* \right) \\
+    &= \int_0^t \left( \mel{n,t}{\frac{H}{\imath \hbar}}{n,t} - \mel{n,t}{\frac{H}{\imath \hbar}}{n,t} \right)
+\end{align}
+From this, it is easy to see that $ \gamma_m^* = \gamma_m $
+
+
+Now let's prove that Berry's phase is purely geometric. Suppose $ H(\va{R}(t)) $. Then
+\begin{equation}
+    \mel{n,t}{\pdv{t}}{n,t} = \mel{n,t}{\dv{\va{R}}{t} \dv{\va{R}}}{n,t} = \mel{n,t}{\dot{\va{R}} \vdot \grad_R}{n,t}
+\end{equation}
+$ \va{R} $ is not a coordinate in space, it is a coordinate in the parameter space. In other words, we don't mean $ \va{R} = (x, y, z) $, we mean that it could be anything, like the components of a magnetic field. From this we see that
+\begin{align}
+    \gamma_n &= \imath \int_0^t \mel{n,t'}{\grad_R}{n,t'} \dv{\va{R}}{t'} \dd{t'}\\
+    &= \imath \int_{\va{R}(0)}^{\va{R}(t)} \mel{n,t'}{\grad_R}{n,t'} \vdot \dd{\va{R}}
+\end{align}
+
+If we call the matrix element $ \va{A} $, then this phase looks like
+\begin{equation}
+    e^{\imath \int_{R(0)}^{R(t)} \va{A} \vdot \dd{\va{R}}}
+\end{equation}
+
+What happens if we move in a closed loop? In this case, the adiabatic phase will give us
+\begin{equation}
+    e^{\imath \oint \va{A} \vdot \dd{\va{R}}} = e^{\imath \int \left( \curl{\va{A}} \right) \vdot \dd{a}}
+\end{equation}
+where $ a $ is the area of the surface we are working with. This is a bit of a cheat because Stoke's theorem is for three dimensions and the parameter space can have an arbitrary number of dimensions, but there is a generalization of Stoke's theorem that covers these cases. We can define $ \va{B} = \curl{\va{A}} $, so the phase is just
+\begin{equation}
+    e^{\imath \Phi_B}
+\end{equation}
+This is not a real ``flux of a field'', it is a mathematical name for something that looks like one. One of the things we will do is take a particle with spin and move it around in a magnetic field. As it turns out, it doesn't matter what path the particle takes, the only thing that effects the outcome is the angle between the plane of the path and the field. This is what it means to be geometric or topological. The mathematics doesn't care about the shape of the surface.
+
+
+\end{document}

@@ -1,0 +1,121 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{26}{Thursday, April 22, 2021}{Inflation, Cont.}
+
+$ \epsilon \ll 1 $ and $ \eta \ll 1 $ guarantee a slow roll, or enough e-folds so that $ H t_f \sim 60 $ and $ e^{H t_f} \sim 10^{28} $, which is enough to inflate a Planck-sized region into today's Hubble radius. Measuring temperature anisotropies today measures a particular combination of $ \epsilon $ and $ \eta $, although they cannot be measured individually.
+
+When $ \phi(t) $ oscillates at the bottom of the potential, it creates (or decays into) particles that collide and produce a radiation dominated cosmology, ending inflation. This is called reheating and is not yet understood.
+
+\subsection{Generation of Fluctuations}\label{sub:generation_of_fluctuations}
+
+Consider $ \hat{\phi}(\va{x}, t) \equiv \underbrace{\phi(t)}_{\mel{0}{\hat{\phi}(x,t)}{0}} + \delta \phi(x,t) $. Expanding in a Fourier transform,
+\begin{equation}
+    \delta \phi(x,t) = \frac{1}{\sqrt{V}} \sum_k \delta \tilde{\phi}_k(t) e^{\imath \va{k} \vdot \va{x}}
+\end{equation}
+Perturbations in this field lead to small perturbations in the metric:
+\begin{equation}
+    G_{\mu \nu} = \frac{8 \pi G}{c^4} \implies G_{\mu \nu}^{(0)} = \frac{8 \pi G}{c^4} T_{\mu \nu}^{(0)}
+\end{equation}
+and
+\begin{equation}
+    \delta G_{\mu \nu} = \frac{8 \pi G}{c^4} \delta T_{\mu \nu}
+\end{equation}
+where $ \delta T_{\mu \nu} $ comes from $ \delta \phi $.
+
+The perturbed metric acts like Newtonian perturbations around a Minkowski metric:
+\begin{equation}
+    \dd{s}^2 = c^2 \dd{t}^2 \left[ 1 + 2 \psi(x,t) \right] - a^2(t) \left[ 1 - 2 \psi(x, t) \right] \dd{\va{x}}^2 
+\end{equation}
+where $ \psi(x,t) $ is like a gravitational potential. We can interpret this as a perturbation on the FRW metric, so $ a(t) \to a(t) + \delta a(\va{x}, t) $. Then
+\begin{equation}
+    (a + \delta a)^2 \simeq a^2 + 2 a \delta a + \cdots = a^2 \left[ 1 + 2 \frac{\delta a}{a} \cdots \right]
+\end{equation}
+so
+\begin{equation}
+    \psi(\va{x}, t) \simeq - \frac{\delta a(\va{x},t)}{a(t)}
+\end{equation}
+
+Now suppose the field $ \phi(t) + \delta \phi(\va{x}, t) $ drives the cosmoogical expansion. $ \delta \phi $ can be interpreted as small changes in the time at each spacetime point, like $ t \to t + \delta t(\va{x}, t) $. At different spacetime positions, the observer's time changes slightly so that
+\begin{equation}
+    \phi(t + \delta t(x)) \simeq \phi(t) + \dot{\phi}(t) \delta t(x) = \phi(t) + \delta \phi(x)
+\end{equation}
+At each $ x $, the value of $\phi$ changes slightly, effecting the expansion:
+\begin{equation}
+    \delta t(x) \equiv \frac{\delta \phi(x)}{\dot{\phi}(x)}
+\end{equation}
+Then we have
+\begin{equation}
+    a(t + \delta t(x)) \equiv a(t) + \dot{a}(t) \delta t(x) = a(t) + \underbrace{H a \delta t(x)}_{\delta a(x)}
+\end{equation}
+so
+\begin{equation}
+    \frac{\delta a(x)}{a(t)} = H(t) \delta t(x) \equiv - \psi(\va{x}, t)
+\end{equation}
+or
+\begin{equation}
+    \psi(x,t) = - \frac{H}{\dot{\phi}} \delta \phi(x)
+\end{equation}
+so these small fluctuations in the inflaton field lead to small fluctuations in the metric in the form of a ``Newtonian'' gravitational potential.
+
+Let's now examine the power spectrum of these fluctuations. Expanding
+\begin{equation}
+    \delta \phi(\va{x},t) \equiv \int \frac{\dd[3]{k}}{(2 \pi)^3} e^{\imath k x} \delta \tilde{\phi}(\va{k}, t)
+\end{equation}
+Then
+\begin{equation}
+    P_{S \phi} [k;t] = \mel{0}{\delta \tilde{\phi}(\va{k}, t) \delta \tilde{\phi} - \va{k}, t}{0}
+\end{equation}
+To evaluate this, we would need to use QFT in curved spacetime. For $ \lambda_{\text{phys}} \gg \frac{c}{H} $,
+\begin{equation}
+    P_{S \phi} [k,t] = \left( \frac{H}{2 \pi} \right)^2 \tag{Harrison-Zel'dovich}
+\end{equation}
+which is independent of $ k $ (scale-invariant).
+
+Then
+\begin{equation}
+    P_{\psi} [k,t] = \frac{H^2}{\dot{\phi}^2} \left( \frac{H}{2 \pi} \right)^2    
+\end{equation}
+when $ \lambda_{\text{phys}} \gg \frac{c}{d_H} $.
+
+During slow roll, $ 3H \dot{\phi} = - V'(\phi) $ but $ 9 H^2 = 3 \times 8 \pi G V(\phi) $ and
+\begin{equation}
+    \frac{\dot{\phi}^2}{H^2} = \frac{(V'(\phi))^2}{9 H^4} = \frac{(V'(\phi))^2}{(8 \pi)^2 G^2 V^2(\phi)} = \frac{M_{pl}^4}{6 H \pi^2} \left( \frac{V'}{V} \right)^2 = \epsilon \frac{M_{pl}^2}{4 \pi}
+\end{equation}
+where $ \epsilon $ is one of our slow roll parameters. Then
+\begin{equation}
+    P_{\psi}(k) = \frac{H^2}{\pi M_{pl}^2 \epsilon} \qquad \lambda_{\text{phys}} \gg \frac{c}{H}
+\end{equation}
+
+\section{After Inflation}\label{sec:after_inflation}
+
+During inflation, the Hubble radius $ \frac{c}{H} $ is constant, but the physical wavelength $ \lambda_{\text{phys}} = \lambda_c e^{Ht} $ and the physical particle horizon $ \lambda_p(t) = \frac{c}{H} e^{Ht} \implies \lambda_c < \frac{c}{H} $ are always inside the particle horizon (they are correlated). After inflation, in the radiation-dominated era, the particle horizon is approximately equal to the Hubble radius which is proportional to $ t \sim a^2 $. During matter domination, the Hubble radius scales like the particle horizon, or $ t \sim a^{3/2} $.
+
+Physical wavelengths that cross the Hubble radius during inflation re-enter the Hubble radius (the particle horizon) in the radiation or matter dominated eras. Those that re-enter during matter domination at the time of recombination (last scattering surface) have been \textit{outside} the Hubble radius during the radiation-dominated era and therefore are \textit{not} in causal contact with microphysics while outside. When the fluctuation in the metric ($ \psi $) now re-enters during matter domination at the last scattering surface, theis effects the temperature of the CMB: $ T(t) = \frac{T_0}{a(t)} $, but metric fluctuations like $ \psi $ lead to fluctuations in $ a(t) \to a + \delta a $, or
+\begin{equation}
+    T(t) \to \frac{T_0}{a} \left( 1 - \frac{\delta a}{a} \right) = \frac{T_0}{a(t)} + \underbrace{\Delta T}_{\psi \frac{T_0}{a} = \psi T}
+\end{equation}
+so
+\begin{equation}
+    \eval{\frac{\Delta T}{T}}_{LSS} \equiv \psi(\va{x}, t)
+\end{equation}
+
+Additionally,
+\begin{equation}
+    \ev{\frac{\Delta T}{T} \frac{\Delta T}{T}} \equiv P_T \simeq P_{\psi}(k) \simeq \frac{H^2}{\pi M_{pl}^2 \epsilon}
+\end{equation}
+on large scales, like the LSS. Then
+\begin{equation}
+    \abs{\frac{\Delta T}{T}} \sim \frac{H}{M_{pl} \epsilon} \sim 10^{-5}
+\end{equation}
+as measured by CMB observations. With $ H \sim \sqrt{G} V^{1/2}(\phi) $, knowing $ \epsilon $ can give us $ V(\phi) $. Additionally, primordial gravitational waves are generated during inflation with a typical amplitude $ H/M_{pl} $. Since $ \rho_R \sim T^4 $, we can see that $ \frac{\Delta T}{T} \sim \frac{\delta \rho_R}{\rho_R} $, or $ \delta \rho_R = 4 T^3 \Delta T $, so all together
+\begin{equation}
+    \frac{delat \rho_R}{\rho_R} = 4 \frac{\Delta T}{T} \sim \psi
+\end{equation}
+However, since radiation and matter are strongly coupled through Thompson scattering, metric perturbations generated by quantum fluctuations of $ \delta \phi $ during inflation \textit{seed} inhomogeneities in the radiation and matter distribution with
+\begin{equation}
+    \frac{\delta \rho_M}{\rho_M} \sim \frac{\Delta T}{T} \sim \psi \sim \frac{H}{\dot{\phi}} \delta \phi
+\end{equation}
+
+Additionally, these small inhomogeneities \textit{grow} under gravitational collapse. This is known as Jean's instability, and we will study it in the next lecture.
+
+\end{document}

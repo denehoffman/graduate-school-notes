@@ -1,0 +1,176 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{12}{Thursday, March 04, 2021}{The Dirac Equation, Continued}
+
+We have just shown that solutions are 4-spinors with $ E = \pm \sqrt{k^2 + m^2} $ and spin $ S = \pm \hbar / 2 $. We can write a general solution as a linear superposition:
+
+\begin{equation}
+    \psi(x, t) = \frac{1}{\sqrt{V}} \sum_k \sum_{\alpha = 1,2} \left[ b_{k, \alpha} u_{k, \alpha} e^{- \imath E_k t} e^{\imath \va{k} \vdot \va{x}} + d^\dagger_{k, \alpha} v_{k, \alpha} e^{\imath E_k t} e^{- \imath \va{k} \vdot \va{x}} \right]
+\end{equation}
+with $ E_k \equiv + \sqrt{k^2 + m^2} $ such that $ E_k t - \va{k} \vdot \va{x} \equiv k^{\mu} x_{\mu} $ where $ k^{\mu} \equiv (E_k, \va{k}) $ (with $ c = 1 $ still). The 4-spinors $ u_{k, \alpha} $ and $ v_{k, \alpha} $ are obtained by requiring $ \psi $ to be the solution to the Dirac equation with $ b_{k, \alpha} $ and $ d^\dagger_{k, \alpha} $ as the Fourier coefficients. Plugging this into the Dirac equation, we get that
+\begin{equation}
+    \mqty(m - E_k & \va{\sigma} \vdot \va{k} \\ \va{\sigma} \vdot \va{k} & -(m + E_k))u_{k, \alpha} = 0
+\end{equation}
+We write $ u_{k, \alpha} = \mqty(\varphi \\ \chi) $, each of these as 2-component spinors satisfying
+\begin{equation}
+    (m - E_k) \varphi + \va{\sigma} \vdot \va{k} \chi = 0 \tag{a}
+\end{equation}
+and
+\begin{equation}
+    \va{\sigma} \vdot \va{k} \varphi - (m + E_k) \chi = 0 \tag{b}
+\end{equation}
+From (b), we get
+\begin{equation}
+    \chi = \frac{\va{\sigma} \vdot \va{k}}{(E_k + m)} \varphi
+\end{equation}
+so plugging this back into (a) and using $ (\va{\sigma} \vdot \va{k})(\va{\sigma} \vdot \va{k}) = k^2 $, we have
+\begin{equation}
+    \left( (m - E_k) + \frac{k^2}{m + E_k} \right) \varphi = 0
+\end{equation}
+so for $ \varphi \neq 0 $, $ E_k^2 = k^2 + m^2 $. We choose
+\begin{equation}
+    \varphi_1 = \mqty(1\\0) \qquad \varphi_2 = \mqty(0\\1)
+\end{equation}
+which makes
+\begin{equation}
+    u_{k, \alpha} = \mathcal{N}_{k, \alpha} \mqty(\varphi_{\alpha} \\ \frac{\va{\sigma} \vdot \va{k}}{E_k + m} \varphi_{\alpha})
+\end{equation}
+and
+\begin{equation}
+    u^\dagger_{k, \alpha} = \mqty(\varphi_{\alpha}^\dagger & \varphi_{\alpha}^\dagger \frac{\va{\sigma} \vdot \va{k}}{E_k + m})
+\end{equation}
+
+Similarly,
+\begin{equation}
+    \mqty(m + E_k & - \va{\sigma} \vdot \va{k} \\ - \va{\sigma} \vdot \va{k} & - (m - E_k)) v_{k, \alpha} = 0
+\end{equation}
+gives us
+\begin{equation}
+    \chi_1 = \mqty(1\\0) \qquad \chi_2 = \mqty(0\\1)
+\end{equation}
+and
+\begin{equation}
+    v_{k, \alpha} = \tilde{\mathcal{N}}_{k, \alpha} \mqty(\frac{\va{\sigma} \vdot \va{k}}{m + E_k} \chi_{\alpha} \\ \chi_{\alpha})
+\end{equation}
+As with $ u $, we choose the normalization factor such that
+\begin{equation}
+    v^\dagger_{k, \alpha} \vdot v_{k, \alpha'} = \delta_{\alpha, \alpha'}
+\end{equation}
+
+\section{Action Principle for the Dirac Equation}\label{sec:action_principle_for_the_dirac_equation}
+
+We want to derive the Dirac equation from an action principle,
+\begin{equation}
+    I = \int \dd[4]{x} \mathcal{L}[\psi^\dagger, \psi]
+\end{equation}
+Given independent variations of $ \psi \to \psi + \delta \psi $, $ \psi^\dagger \to \psi^\dagger + \delta \psi^\dagger $, we can find the variation $ I \to I + \delta I $ to linear order in $ \delta \psi, \delta \psi^\dagger $ and find the path where $ \delta I = 0 $:
+\begin{equation}
+    \mathcal{L} = \psi^\dagger (\imath \partial_t \psi + \imath \va{\alpha} \vdot \grad{\psi} + \beta m \psi)
+\end{equation}
+Under $ \psi^\dagger \to \psi^\dagger + \delta \psi^\dagger $,
+\begin{equation}
+    \delta \mathcal{L} = \delta \psi^\dagger \left( \imath \partial_t \psi + \imath \va{\alpha} \vdot \grad{\psi} + \beta m \psi \right)
+\end{equation}
+and
+\begin{equation}
+    \delta I = \int \dd[4]{x} \delta \mathcal{L} = 0
+\end{equation}
+gives us
+\begin{equation}
+    \imath \partial_t \psi = - \imath \va{\alpha} \vdot \grad{\psi} + \beta m \psi
+\end{equation}
+Doing the same with $ \delta \psi $ gives the Hermitian conjugate Dirac equation.
+
+Define $ \gamma^0 = \beta $, $ \va{\gamma} = \gamma^0 \alpha = \beta \va{\alpha} $ and $ \bar{\psi} = \psi^\dagger \gamma^0 $, where $ (\gamma^0)^2 = \beta^2 = 1 $. Then
+\begin{align}
+    \mathcal{L} &= \psi^\dagger \underbrace{\gamma^0 \gamma^0}_{1} \left( \imath \partial_t \psi + \imath \va{\alpha} \vdot \grad - \gamma^0 m \right) \psi \\
+                &= \bar{\psi} \left( \underbrace{\imath \gamma_0 \partial_t + \imath \va{\gamma} \vdot \grad}_{\equiv \imath \slashed{\partial} = \imath \gamma^{\mu} \partial_{\mu}} - m \right) \psi
+\end{align}
+so
+\begin{equation}
+    \mathcal{L} = \bar{\psi} (\imath \slashed{\partial} - m) \psi \tag{Dirac Lagrangian Density}
+\end{equation}
+Note that
+\begin{equation}
+    \pb{\gamma^{\mu}}{\gamma^{\nu}} = 2 \eta^{\mu \nu}
+\end{equation}
+
+\section{Dirac Hamiltonian}\label{sec:dirac_hamiltonian}
+
+As in classical mechanics, $ \pi = \pdv{\mathcal{L}}{\dot{\psi}} = \imath \psi^\dagger $ and $ \mathcal{H} = \pi \dot{\psi} - \mathcal{L} $, so we can show that
+\begin{equation}
+    \mathcal{H} = \psi^\dagger (- \imath \va{\alpha} \vdot \grad + \beta m) \psi \tag{Dirac Hamiltonian Density}
+\end{equation}
+with $ H = \int \dd[4]{x} \mathcal{H} $.
+
+Using our generalized wave function from the beginning, we can go through the quantization process. We suppose $ \frac{1}{V} \int \dd[3]{x}e^{\imath (\va{k} - \va{k}') \vdot x} = \delta_{k, k'} $ and (need to prove in homework) $ v^\dagger u = u^\dagger v = 0 $, and we can show that
+\begin{equation}
+    H = \sum_k \sum_{\alpha} E_k \left[ b^\dagger_{k, \alpha} b_{k, \alpha} - d_{k, \alpha} d^\dagger_{k, \alpha} \right]
+\end{equation}
+
+If we try to quantize using the canonical commutation relations (like in the Klein-Gordon theory for scalar particles),
+\begin{equation}
+    \comm{d_{k, \alpha}}{d^\dagger_{k', \alpha'}} = \delta_{k, k'} \delta_{\alpha, \alpha'}
+\end{equation}
+so
+\begin{equation}
+    H = \sum_{k, \alpha} E_k \left[ b^\dagger_{k, \alpha} b_{k, \alpha} - d^\dagger_{k, \alpha} d_{k, \alpha} \right] - \underbrace{2 \sum_k E_k}_{\text{zero point energy}}
+\end{equation}
+The minus sign in the terms implies that increasing the number of negative energy particles lowers the energy, so there is \textit{no ground state}, since you can always have an arbitrary number of these negative energy particles. Because of this, Dirac instead theorized that we should quantize these particles with \textit{anticommutation} relations:
+\begin{equation}
+    \pb{b_{k, \alpha}}{b^\dagger_{k', \alpha'}} = \pb{d_{k, \alpha}}{d^\dagger_{k', \alpha'}} = \delta_{k,k'} \delta_{\alpha, \alpha'}
+\end{equation}
+and
+\begin{equation}
+    \pb{b}{b} = \pb{d}{d} = \pb{b^\dagger}{b^\dagger} = \pb{d^\dagger}{d^\dagger} = \pb{b}{d} = \cdots = 0
+\end{equation}
+Using this quantization,
+\begin{equation}
+    H = \sum_{k} \sum_{\alpha} E_k \left[ b^\dagger_{k, \alpha} b_{k, \alpha} + d^\dagger_{k, \alpha} d_{k, \alpha}  \right] - 2 \sum_k E_k
+\end{equation}
+In this theory (thinking only about electrons for now), $ b^\dagger $ and $ b $ create/annihilate electrons with spin $ \alpha $, and $ d^\dagger $ and $ d $ create/annihilate positrons (antiparticles with the same mass as electrons but opposite charge) with spin $ \alpha $. The total number of particles can be written as
+\begin{equation}
+    \hat{N} = \sum_{k, \alpha} \left( \underbrace{b^\dagger_{k, \alpha} b_{k, \alpha}}_{n_{k, \alpha}} - \underbrace{d^\dagger_{k, \alpha} d_{k, \alpha}}_{\bar{n}_{k, \alpha}} \right)
+\end{equation}
+where $ n_{k, \alpha} $ represents the number of electrons and $ \bar{n}_{k, \alpha} $ represents the number of positrons. This theory correctly predicts the number of spin degrees of freedom and the existence of antiparticles. The total charge is given by
+\begin{equation}
+    \hat{Q} = e \hat{N}
+\end{equation}
+so using the Dirac equation, it follows that the current
+\begin{equation}
+    J^{\mu} = \bar{\psi} \gamma^{\mu} \psi \equiv (\overbrace{\psi^\dagger \psi}^{\rho}, \overbrace{\psi^\dagger \va{\alpha} \psi}^{\va{J}})
+\end{equation}
+is conserved ($ \partial_{\mu} J^{\mu} = 0 $). Assuming $ \va{J} $ vanishes at spatial boundaries,
+\begin{equation}
+    \pdv{t} \int_V \rho \dd[3]{x}+ \int_V \div{\va{J}} \dd[3]{x}= 0
+\end{equation}
+so
+\begin{equation}
+    Q = \int \dd[3]{x} \psi^\dagger \psi
+\end{equation}
+is a constant. Using the anticommutation relations and disregarding the overall constant term, we can write
+\begin{equation}
+    Q = e\sum_{k, \alpha} b^\dagger_{k, \alpha} b_{k, \alpha} - d^\dagger_{k, \alpha} d_{k, \alpha}
+\end{equation}
+
+\subsection{Pauli Exclusion Principle}\label{sub:pauli_exclusion_principle}
+
+From $ \pb{b^\dagger_{k, \alpha}}{b^\dagger_{k', \alpha'}} = 0 $, we see that, for $ k = k' $ and $ \alpha = \alpha' $, $ 2 b^\dagger_{k, \alpha} b^\dagger_{k, \alpha} = 0 $, so we cannot create two electrons with the same quantum numbers. Similarly, if $ k = k' $ but $ \alpha \neq \alpha' $, $ b^\dagger_{k, \alpha} b^\dagger_{k, \alpha'} = - b^\dagger_{k, \alpha'} b^\dagger_{k, \alpha} $, so the wave function for a state with one electron with $ k, \alpha $ and another with $ k, \alpha' $ is antisymmetric under exchange of these particles. This is the Pauli exclusion principle. Note that $ \comm{\hat{N}}{\hat{H}} = 0 $. In quantum statistical mechanics, we need $ Z = \Tr e^{- \beta (\hat{H} - \mu \hat{N})} $ where $ \mu $ is the chemical potential and $ \beta \equiv \frac{1}{k_B T} $. Then
+\begin{equation}
+    \hat{H} - \mu \hat{N} = \sum_{k, \alpha} \left( b^\dagger_{k, \alpha} b_{k, \alpha} (E_k - \mu) + d^\dagger_{k, \alpha} d_{k, \alpha} (E_k + \mu) \right)
+\end{equation}
+so antiparticles must have the opposite chemical potential from particles. The probability of finding a particle in a given state is
+\begin{equation}
+    n_k = \frac{\Tr b^\dagger_{k, \alpha} b_{k, \alpha} e^{- \beta (H - \mu N)}}{\Tr e^{- \beta (H - \mu N)}} = \frac{1}{e^{\beta (E_k - \mu)} + 1}
+\end{equation}
+and
+\begin{equation}
+    \bar{n}_k = \frac{1}{e^{\beta (E_k + \mu)} + 1}
+\end{equation}
+These are Fermi-Dirac statistics.
+
+\subsection{Spin-Statistics Connection}\label{sub:spin-statistics_connection}
+
+A profound result of QFT is that half-odd integer spins ($ 1/2 $, $ 3/2 $, \ldots) must be quantized with anticommutation relations and therefore follow the Pauli exclusion principle and have antisymmetric wave functions under particle exchange. These are called fermions, and include leptons, quarks, and baryons. Particles with integer spin must be quantized with commutation relations, so they must have symmetric wave functions under particle exchange. These are called bosons, and include the scalar Higgs, the vector force-carrying particles like photons, weak bosons, and gluons, and composites like mesons.
+
+\end{document}

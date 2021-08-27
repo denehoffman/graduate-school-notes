@@ -1,0 +1,221 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{27}{Tuesday, April 27, 2021}{Structure Formation: Jeans Instability}
+
+\section{Jeans Instability}\label{sec:jeans_instability}
+
+In the derivation of $ T^{\mu \nu} $ we arrived at the two main equations which describe fluids in the Newtonian non-relativistic limit:
+\begin{equation}
+    \pdv{\rho}{t} + \grad{(\rho \va{v})} = 0 \tag{Continuity}
+\end{equation}
+\begin{equation}
+    \pdv{\va{v}}{t} + (\va{v} \vdot \grad)\va{v} = - \frac{1}{\rho} \grad{P} - \grad{\phi} \tag{Euler}
+\end{equation}
+along with Poisson's equation for $ \phi $:
+\begin{equation}
+    \laplacian{\phi} = 4 \pi G \rho
+\end{equation}
+
+We will use this to understand the growth of structures under gravitational instabilities during the matter-dominated era. We'll later learn why this is the era when structure formation begins. We can study the evolution of perturbations in the matter/velocity distributions for non-relativistic fluids, since the speed of propagation of these perturbations is $ c_s^2 \sim P/\rho \ll c^2 $.
+
+We will study the evolution of perturbations in stages:
+\begin{itemize}
+    \item Minkowski Spacetime
+        \subitem Perfect Newtonian fluids without gravity
+        \subitem Adding viscosity
+        \subitem Adding gravity but removing velocity (this leads to Jeans Instability)
+    \item Ideal self-gravitating fluids in an expanding (matter-dominated) cosmology
+\end{itemize}
+
+\section{Minkowski Spacetime}\label{sec:minkowski_spacetime}
+
+\subsection{Newtonian Fluids in Absence of Gravity}\label{sub:newtonian_fluids_in_absence_of_gravity}
+
+In the absence of gravity,
+\begin{equation}
+    \partial_{\mu} T^{\mu \nu} = 0
+\end{equation}
+implies the continuity equation above and the Euler equation without $ - \grad{\phi} $.
+
+If we consider a closed system and adiabatic perturbations, we have
+\begin{equation}
+    \dd{Q} = \dd{U} + P \dd{V} = 0
+\end{equation}
+For a fluid at rest ($ \va{v} = 0 $), $ \rho(x,t) = \rho_0 $ and $ P(x,t) = P_0 $, so the continuity and Euler equations are clearly satisfied. Consider a small perturbation
+\begin{equation}
+    \va{v} = \underbrace{0}_{\va{v}_0} + \va{v}_1 \qquad \rho(x,t) = \rho_0 + \rho_1(x,t) \qquad P(x,t) = P_0 + P_1(x,t)
+\end{equation}
+with $ \rho_1 \ll \rho_0 $ and $ P_1 \ll P_0 $. Then the continuity and Euler equations (to linear order in this perturbation) read
+\begin{equation}
+    \pdv{\rho_1}{t} + \grad{(\rho_0 \va{v}_1)} = \pdv{\rho_1}{t} + \rho_0 \grad{\va{v}_1} = 0
+\end{equation}
+\begin{equation}
+    \pdv{\va{v}_1}{t} = - \frac{1}{\rho_0} \grad{P_1}
+\end{equation}
+Unfortunately, this gives us three unknowns (the perturbed values) but only two equations, so we need an equation of state, or some equation relating $ P_1 $ as a function of $ \rho_1 $ (like $ P_1(\rho_1) $). From $ \dd{Q} = 0 = \dd{U} + P \dd{V} $, we can take the ideal (non-relativistic) gas equation $ P = \frac{N}{V} k_B T $ and $ U = \frac{3}{2} PV $ from statistical mechanics to get
+\begin{equation}
+    \dd{U} = \frac{3}{2} \left( \dd{P} V + P \dd{V} \right) = - P \dd{V}
+\end{equation}
+so
+\begin{equation}
+    \pdv{\va{v}_1}{t} = - \frac{c_s^2}{\rho_0} \grad{\rho_1}
+\end{equation}
+Taking the time-derivative of the continuity equation, we get
+\begin{equation}
+    \pdv[2]{\rho_1}{t} + \rho_0 \grad{\left( \pdv{\va{v}_1}{t} \right)} = 0
+\end{equation}
+Inserting this into the previous equation, we get a wave equation:
+\begin{equation}
+    \pdv[2]{\rho_1}{t} - c_s^2 \laplacian{\rho_1} = 0
+\end{equation}
+or
+\begin{equation}
+    \frac{1}{c_s^2} \pdv[2]{\rho_1}{t} - \laplacian{\rho_1} = 0
+\end{equation}
+which describes waves with a propagation velocity $ c_s $. We can get solutions via a Fourier transform:
+\begin{equation}
+    \rho_1(x) = \tilde{\rho}_1(k) e^{- \imath \omega t} e^{\imath \va{k} \vdot \va{x}}
+\end{equation}
+so
+\begin{equation}
+    \omega^2 - c_s^2 \va{k}^2 = 0 \implies \omega(k) = \pm c_s \abs{\va{k}}
+\end{equation}
+This is the dispersion relation of sound waves. Then
+\begin{equation}
+    P_1(x, t) = c_s^2 \rho_1(x,t) = c_s^2 \tilde{\rho}(k) e^{- \imath \omega t} e^{\imath \va{k} \vdot \va{x}}
+\end{equation}
+and from
+\begin{equation}
+    \frac{3}{2} V \dd{P} = - \frac{5}{2} P \dd{V}
+\end{equation}
+we get
+\begin{equation}
+    \frac{\dd{P}}{P} = - \frac{5}{3} \frac{\dd{V}}{V}
+\end{equation}
+Density is related to the volume: $ \rho = \frac{Nm}{V} \implies \dd{\rho} = - \frac{Nm}{V^2} \dd{V} $, so
+\begin{equation}
+    \frac{\dd{\rho}}{\rho} = - \frac{\dd{V}}{V} \implies \frac{\dd{P}}{P} = \frac{5}{3} \frac{\dd{\rho}}{\rho} \implies P = P_0 \left( \frac{\rho}{\rho_0} \right)^{5/3}
+\end{equation}
+With $ P_0, \rho_0 $ constant, we get $ \dd{P} = P_1 $ and $ \dd{\rho} = \rho_1 $, so
+\begin{equation}
+    \frac{P_0}{\rho_0} = \frac{k_B T}{m} \implies P_1 = c_s^2 \rho_1 \qquad c_s^2 = \frac{5}{3} \frac{k_B T}{m}
+\end{equation}
+
+Note that from the classical equipartition theorem, we have
+\begin{equation}
+    \frac{1}{2} m \ev{v^2} = \frac{3}{2} k_B T \implies \ev{v^2} = \frac{3 k_B T}{m} \implies c_s^2 = \frac{5}{9} \ev{v^2}
+\end{equation}
+
+We can propose plane wave solutions to Euler's equation:
+\begin{equation}
+    \va{v}_1(x,t) = \va{\tilde{v}}(k) e^{- \imath \omega t} e^{\imath \va{k} \vdot \va{x}} \implies - \imath \omega \va{\tilde{v}}(k) = - \imath \frac{c_s^2}{\rho_0} \va{k} \tilde{\rho}_1(k)
+\end{equation}
+or $ \va{\tilde{v}}(k) = \frac{c_s}{\rho_0} \hat{k} \tilde{\rho}_1(k) $ is parallel to $ \va{k} $, so this is a longitudinal perturbation.
+
+\subsection{Non-Ideal Fluids in Absence of Gravity}\label{sub:non-ideal_fluids_in_absence_of_gravity}
+
+We can now add viscosity. Without proof, the energy-momentum tensor of viscous fluids is
+\begin{equation}
+    T^{00} = \rho c^2 \qquad T^{0i} = T^{i0} = \rho c v^i \qquad T^{ij} = P \delta^{ij} + \rho v^i v^j - \eta \left[ \partial_j v^i + \partial_i v^j - \frac{2}{3} \delta^{ij} \div{\va{v}} \right] - \xi \delta^{ij} \div{\va{v}}
+\end{equation}
+where $ \eta $ is the sheer viscosity and $ \xi $ is the bulk viscosity, both of which are linearly proportional to the mean free path. The continuity equation is unchanged, but the Euler equation becomes
+\begin{equation}
+    \pdv{(\rho v^i)}{t}+ \pdv{(\rho v^i v^j)}{x^j} = - \pdv{P}{x^i} + \eta \laplacian{v^i} + \left( \xi + \frac{\eta}{3} \right) \pdv{v^j}{x^i}{x^j}
+\end{equation}
+
+With
+\begin{equation}
+    \pdv{(\rho v^i)}{t} = \rho \pdv{v^i}{t} + v^i \pdv{\rho}{t}
+\end{equation}
+we can combine this with the continuity equation to get
+\begin{equation}
+    \pdv{\va{v}}{t} + (\va{v} \vdot \grad) \va{v} = - \frac{\grad{P}}{\rho} + \frac{\eta}{\rho} \laplacian{\va{v}} + \frac{\left( \xi + \frac{\eta}{3} \right)}{\rho} \grad{(\div{\va{v}})}
+\end{equation}
+If we neglect thermal conductivity, we use an adiabatic equation of state:
+\begin{equation}
+    \delta P = \frac{5}{3} \left( \frac{P}{\rho} \right) \delta \rho = c_s^2 \delta \rho
+\end{equation}
+with $ c_s^2 = \frac{5}{3} \frac{k_B T}{m} $. If we expand in small perturbations and linearize as before, we can propose Fourier transforms for $ P_1 $, $ \rho_1 $, and $ \va{v}_1 $ as before with $ \tilde{P}_1 = c_s^2 \tilde{\rho}_1 $. From the continuity equation, we get
+\begin{equation}
+    - \imath \omega \tilde{\rho}_1 + \imath \rho_0 k \tilde{v}_{\parallel} = 0
+\end{equation}
+where $ \va{\tilde{v}}_1 = \hat{k} \tilde{v}_{\parallel} + \tilde{v}_{\perp} $, so
+\begin{equation}
+    \tilde{\rho}_1 = \rho_0 \frac{k}{\omega} \tilde{v}_{\parallel}
+\end{equation}
+From the Euler equation, we get
+\begin{equation}
+    \imath \omega \tilde{v}_{\perp} = - k^2 \frac{\eta}{\rho_0} \tilde{v}_{\perp}
+\end{equation}
+along the perpendicular projection and
+\begin{equation}
+    \omega^2 - c_s^2 k^2 + \imath \omega \gamma_k = 0
+\end{equation}
+for the parallel projection, where $ \gamma_k = \frac{k^2}{\rho_0} \left( \xi + \frac{4}{3} \eta \right) $. this gives us a dispersion relation for the parallel component:
+\begin{equation}
+    \omega_{\pm} = - \imath \frac{\gamma_k}{2} \pm \sqrt{c_s^2 k^2 - \left( \frac{\gamma_k}{2} \right)^2}
+\end{equation}
+Note that $\gamma_k$, the damping factor related to viscosity, vanishes in the long wavelength limit ($ k \to 0 $), which is the hallmark of hydrodynamic modes, long-lived in the long-wavelength limit.
+
+\subsection{Ideal Fluids with Gravity}\label{sub:ideal_fluids_with_gravity}
+
+Consider a spherical shell of mass $ \Delta m $ outside a uniform mass distribution of (fixed) radius $ r_0 $ and total mass $ M_0 $. The acceleration of the shell towards the inner mass by gravitational force is called the ``gravitational collapse'' onto the inner mass. This happens on a characteristic time scale, $ t_{ff} $, the free-fall time. This is determined by energy conservation:
+\begin{equation}
+    \frac{1}{2} \left( \dv{r}{t} \right)^2 = \frac{GM_0}{r} - \frac{G M_0}{r_i}
+\end{equation}
+so that the shell begins to collapse with $ v = 0 $ at $ r_i \gg r_0 $ ($ r_i $ is the initial radius). Then
+\begin{equation}
+    t_{ff} = - \int_{r_i}^{r_0} \dv{t}{r} \dd{r} = - \int_{r_i}^{r_0} \frac{\dd{r}}{\sqrt{\frac{2 G M_0}{r} - \frac{2 G M_0}{r_i}}}
+\end{equation}
+Using $ x = r/r_i $ and taking $ r_0 \ll r_i $, we get
+\begin{equation}
+    t_{ff} = \left[ \frac{r_i^3}{2GM_0} \right]^{1/2} \int_0^1 \left[ \frac{x}{1-x} \right]^{1/2} \dd{x}
+\end{equation}
+Using $ x = \sin[2](\theta) $, we get
+\begin{equation}
+    t_{ff} \approx \frac{\pi}{2} \left[ \frac{r_i^3}{2 GM_0} \right]
+\end{equation}
+If we consider the average density
+\begin{equation}
+    \bar{\rho} = \frac{M_0}{\frac{4 \pi}{3} r_1^3}
+\end{equation}
+inside the initial ball, we get
+\begin{equation}
+    t_{ff} \approx \sqrt{\frac{3 \pi}{32}} \frac{1}{\sqrt{G \bar{\rho}}} \simeq \frac{1}{\sqrt{G \bar{\rho}}} 
+\end{equation}
+
+This is the time scale in absence of restoring forces. Note that an important feature is revealed in an expanding cosmology. If $ H^2 = \frac{8 \pi G}{3} \rho $, then $ H \sim \sqrt{G \rho} $ or $ t_{ff} \sim \frac{1}{H} $, which is the Hubble time scale.
+
+\subsection{Jeans Instability}\label{sub:jeans_instability}
+
+Using the equations from the beginning of this lecture, along with the adiabatic equation of state $ \dd{U} = - P \dd{V} \implies \delta P = c_s^2 \delta \rho $, consider a perturbation around a homogeneous state (same as before but adding $ \phi(x,t) = \phi_0 + \phi_1(x,t) $).
+
+``Jeans Swindle'': Technically, there is no homogeneous state because if $ \rho = \rho_0 $ then $ \laplacian{\phi_0} = 4 \pi G \rho_0 $ implies $ \phi_0 $ cannot be homogeneous, since it would imply $ \phi_0 \sim \rho_0 \va{x}^2 $. Then with $ \va{v} = 0 $, we get $ \frac{\grad{P}}{\rho_0} = - \grad{\phi_0} \neq 0 $, so $ P $ can't be homogeneous either. We will see later how this changes with expansion.
+
+Let's argue that the gravitational forces will balance out and linearize around a homogeneous state:
+\begin{equation}
+    \pdv{\rho_1}{t} + \rho_0 \div{\va{v}_1} = 0
+\end{equation}
+\begin{equation}
+    \pdv{\va{v}_1}{t} = - \frac{\grad{P_1}}{\rho_0} - \grad{\phi_1}
+\end{equation}
+\begin{equation}
+    \laplacian{\phi_1} = 4 \pi G \rho_1
+\end{equation}
+\begin{equation}
+    P_1 = c_s^2 \rho_1
+\end{equation}
+Taking the time derivative of the first equation and using the second on the right-hand side, we can use the fourth equation to get
+\begin{equation}
+    \pdv[2]{\rho_1}{t} - c_s^2 \laplacian{\rho_1} - 4 \pi G \rho_0 \rho_1 = 0
+\end{equation}
+If we suppose the usual Fourier transform on $ \rho_1 $, we get a dispersion relation
+\begin{equation}
+    \omega(k) = \pm \sqrt{c_s^2 k^2 - 4 \pi G \rho_0}
+\end{equation}
+For $ c_s^2 k^2 > 4 \pi G \rho_0 $, $ \omega(k) $ is real, so these will be oscillations like sound waves. Otherwise, $ \omega $ is imaginary, so we have a constantly growing and a constantly decaying solution from $ e^{\pm \abs{\omega} t} $. For the growing solution, small density perturbations are \textit{unstable} and grow, becoming large amplitude perturbations. This is the definition of Jeans instability and it leads to gravitational collapse.
+
+In the next class, we'll look at the physics behind this, or what happens when the gravitational term $ 4 \pi G \rho_0 $ overpowers the $ c_s^2 k^2 $ term.
+
+
+\end{document}

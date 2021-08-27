@@ -1,0 +1,69 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{1}{Monday, August 31, 2020}{Particle Physics}
+
+\section{Some Basics}
+\label{sec:some_basics}
+
+The fine-structure constant\textemdash the fundamental coupling of the EM field to the electron:
+\begin{equation}
+    \alpha = \frac{e^2}{4 \pi \epsilon_0 \hbar c} \approx \frac{1}{137}
+\end{equation}
+
+The length scale we will often use is the Fermi: $ 10^{-15} \meter = 1\femto\meter $. We also use barns for cross sections: $ 1\barn = 100\femto\meter^2 $, but typically we use millibarns and smaller.
+
+In natural units, $ \hbar = c = 1 $, so $ 197.3\mega\electronvolt \cdot \femto\meter = 1 $ and $ \alpha = \frac{e^2}{4 \pi} $. Also $ 1\angstrom = 10^5\femto\meter = 5 \times 10^5\giga\electronvolt^{-1} $ and $ 1\barn = 100\femto\meter^2 =  $ <++>
+
+\subsection{Fermions and Bosons}
+\label{sub:fermions_and_bosons}
+
+Fermions have half-integer spin and anti-symmetric wave functions under interchange of particles. Because of this, two of them can't occupy the same state (hence the Pauli exclusion principle). Bosons have integer spin and symmetric wave functions, so no exclusion principle.
+
+The universe is made of fermions interacting by exchanging bosons (and occasional boson field excitations). The elementary fermions are the (anti)leptons (electrons, neutrinos, etc.) and the quarks. $ q \bar{q} $ pairs are mesons, $ qqq $ groups are baryons, and all of these are called hadrons. The elementary bosons are (potentially) the graviton, $ \gamma $, $ g $, $ Z^0 $, $ W^{\pm} $, and the Higgs.
+
+\subsection{Spectroscopic Notation}
+\label{sub:spectroscopic_notation}
+
+For some reason we still label orbital angular momentum with letters: s-wave, p-wave, d, f, g, h, \ldots for $ L = 0 $, $ 1 $, $ 2 $, \ldots.
+
+We also refer to $ L = 0, 1, 2 $ as scalar, vector, and tensor states in that order. Labeling by parity, we can also have pseudo-scalar/vector/tensor particles: $ 0^+ $, $ 1^- $, and $ 2^+ $ are the regular versions, the switched signs are the pseudo versions.
+
+
+\subsection{Decay Width}
+\label{sub:decay_width}
+
+\begin{equation}
+    \psi(t) = \frac{1}{\sqrt{2 \pi}} \int B(\omega) e^{- \imath \omega t} \dd{\omega}
+\end{equation}
+
+Physically, this implies $ \Delta \omega \Delta t \geq 1/2 $ or $ \Delta E \delta t \geq \hbar / 2 $. If we happen to have a wave function $ \abs{\psi(t)}^2 \propto e^{-t/ \tau} $, we say that the decay width (full width at half maximum) is $ \Gamma = \frac{1}{\tau} = \frac{\hbar c}{e \tau} $ because the Fourier transform gives
+\begin{equation}
+    \abs{B(\omega)}^2 \propto \frac{(\Gamma / 2)^2}{(\omega - \omega_0)^2 + (\Gamma / 2)^2}
+\end{equation}
+a Lorentzian/Breit-Wigner distribution.
+
+
+\section{Overview of the Standard Model}
+\label{sec:overview_of_the_standard_model}
+
+QED or the EM interactions involve $ \gamma $ coupling to charges:
+
+\feynmandiagram [horizontal=a to b] {
+    i1 -- [fermion] a -- [fermion] i2,
+    a -- [photon] b,
+};
+
+
+The graviton theoretically couples to mass:
+
+\feynmandiagram [horizontal=a to b] {
+    i1 -- [fermion] a -- [fermion] i2,
+    a -- [photon] b,
+};
+
+We don't yet have a working quantum theory of gravity.
+
+
+The weak force bosons ($ Z^0 $ and $ W^{\pm} $) couple to the weak charge of every known Fermion. These vertices are the same as EM, but don't necessarily conserve charge or flavor. In general for all diagrams, no vertex has more than three lines coming from it. In comparison, the weak force coupling constant is actually much larger than $ \alpha $, but the mass of the bosons are huge in comparison (nucleon size). The only way neutrinos can interact is by weak interactions, and that involves producing a high mass particle out of nothing but energy, so they don't interact very often. Initially, there was a $ B $-boson coupled to hypercharge and three $ W $-bosons coupled to weak isospin. At some time in the early universe, the electroweak symmetry was spontaneously broken, so the first two $ W $-bosons formed the $ W^{\pm} $-bosons in a linear combination, and the $ \gamma $ and $ Z^0 $ bosons were formed from the final two weak force bosons in a transformation involving the Weinberg angle/weak mixing angle. Experimentally, $ \sin[2](\theta_W) = 0.22290\pm0.00030 $.
+
+\end{document}

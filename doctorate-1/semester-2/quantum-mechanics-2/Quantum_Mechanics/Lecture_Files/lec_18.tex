@@ -1,0 +1,127 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{18}{Wednesday, February 26, 2020}{}
+
+Recap from last lecture: We can represent an object $ x $ in a Cartesian basis $ x_i $, $ i = 1,2,3 $ or in a spherical basis $ x_a $, $ a = 1,0,-1 $ if if it is a representation of the rotation group (vectors, for example). We can transform both states and operators under the action of the group:
+\begin{equation}
+    \ket{\psi} \to U\ket{\psi}
+\end{equation}
+and
+\begin{equation}
+    O \to U O U^{-1}
+\end{equation}
+
+Let's try to relate the Cartesian and spherical bases. First, consider states. We know that the state $\ket{i=3} =\ket{m=0} $ by our definitions. They are both eigenstates of $ L_z $ with $ L_z\ket{m=0} = 0 $. Under a rotation around the $ z $-axis, the state $\ket{i=3} $ transforms infinitesimally as
+\begin{equation}
+    \ket{i=3} \to U(\vu{n} = \vu{e}_3, \theta)\ket{i=3} \approx (1- \imath \theta L_z)\ket{i=3} =\ket{i=3}
+\end{equation}
+by definition, so $ L_z\ket{i=3} = 0 $. Next, let's rotate around the $ x $-axis, first in Cartesian coordinates:
+\begin{equation}
+    \mqty[1&0&0\\0& \cos(\theta) & - \sin(\theta) \\0& \sin(\theta) & \cos(\theta)] \mqty[0\\0\\1] \sim \mqty[0\\0\\1] + \mqty[0\\- \theta \\0]
+\end{equation}
+since the rotation matrix is approximately (for small $ \theta $),
+\begin{equation}
+    \mqty[1&0&0\\0& \cos(\theta) & - \sin(\theta) \\0& \sin(\theta) & \cos(\theta)] \approx  \mqty[1&0&0\\0&1&- \theta \\0& \theta &1]
+\end{equation}
+Therefore, the infinitesimal rotation of $\ket{i=3} $ is $ \delta_x(\theta)\ket{i=3} = - \theta\ket{i=2} $.
+
+In the spherical basis, we have
+\begin{align}
+    e^{- \imath L_x \theta}\ket{m=0} &\approx\ket{m=0} - \imath \theta L_x\ket{m=0} \approx \mqty[0\\1\\0] - \imath \theta \frac{1}{\sqrt{2}} \mqty[0&1&0\\1&0&1\\0&1&0] \mqty[0\\1\\0] \\
+    &=\ket{m = 0} - \frac{\imath \theta}{\sqrt{2}} \mqty[1\\0\\1] \\
+    &=\ket{m = 0} - \frac{\imath \theta}{\sqrt{2}} \left[\ket{m=1} +\ket{m=-1} \right]
+\end{align}
+
+All together,
+\begin{align}
+    \delta_x(\theta)\ket{i=3} &= -theta\ket{i=2} \\
+    \delta_x(\theta)\ket{m=0} &= - \frac{\imath \theta}{\sqrt{2}} \left[\ket{m=1} +\ket{m=-1} \right]
+\end{align}
+so we can conclude that
+\begin{equation}
+    \ket{i=2} = \frac{\imath}{\sqrt{2}} \left[\ket{m=1} +\ket{m=-1} \right]
+\end{equation}
+We could do the same manipulation around the $ y $-axis and find that
+\begin{equation}
+    \ket{i=1} = \frac{1}{\sqrt{2}} \left[\ket{m=-1} -\ket{m=1} \right]
+\end{equation}
+
+We can then use these results to show that
+\begin{equation}
+    \ket{m = \pm 1} = \mp \frac{1}{\sqrt{2}} [\vu{x} \pm \imath \vu{y}]
+\end{equation}
+
+We have just determined the relationship between the bases using states. Now let's do the same thing using operators:
+\begin{equation}
+    O \to U O U^{-1} \approx (1 - \imath \theta \vu{n} \vdot \va{L}) O (1 + \imath \theta \vu{n} \vdot \va{L}) = O - \imath \theta \comm{\va{L}}{O}
+\end{equation}
+Therefore, the group action on an operator is the commutator. Again, we define $ X_{m=0} \equiv X_{i=3} $ because both are invariant under rotations about the $ z $-axis.
+\begin{equation}
+    \comm{J_{\pm}}{X_{m=0}} = \sqrt{2} \hbar X_{\pm}
+\end{equation}
+since this is the action of the raising and lowering operators. Now let's do the same action in the Cartesian basis:
+\begin{align}
+    \comm{J_x \pm \imath J_y}{X_{i=3}} &= \comm{(\va{r} \cross \va{p})_x \pm \imath (\va{r} \cross \va{p})_y}{z} \\
+    &= \comm{r_i p_j \epsilon_{ijx}}{z} \pm \imath \comm{r_i p_j \epsilon_{ijy}}{z} \\
+    &= r_i \comm{p_j}{z} \epsilon_{ijx} \pm \imath r_i \comm{p_j}{z} \epsilon_{ijy}
+\end{align}
+$ r_i p_j $ is zero unless $ i=j $, but $ \epsilon_{ijx} = 0 $ when $ i=j $, and $ r $ commutes with $ z $, so we can pull it out of the commutator in the final step above.
+
+Together, we have
+\begin{align}
+    \comm{J_x \pm \imath J_y}{X_{i=3}} &= r_i \hbar (- \imath) \epsilon_{izx} + \imath r_i (- \imath \hbar) \epsilon_{izy} \\
+    &= y \hbar (- \imath) \epsilon_{yzx} \pm x \hbar \epsilon_{xzy} \\
+    &= (\mp x - \imath y) \hbar
+\end{align}
+
+We can then equate these results:
+\begin{equation}
+    X_{m=\pm 1} = \frac{1}{\sqrt{2}} \left( \mp X_{X_{i=1}} - \imath X_{i=2} \right)
+\end{equation}
+
+\section{Recap: Wigner-Eckart Theorem}
+\label{sec:recap_wigner-eckart_theorem}
+
+\begin{equation}
+    \bra{lm, \alpha} O^s_L\ket{l'm', \beta}
+\end{equation}
+is only nonzero if $ m = s+m' $.
+\begin{equation}
+    \bra{lm, \alpha} O^s_L\ket{l'm', \beta} =\bra{lm}\ket{Ls;l'm'}\bra{l, \alpha} |O_L|\ket{l', \beta}
+\end{equation}
+
+Suppose we know
+\begin{equation}
+    A =\bra{\frac{1}{2} \frac{1}{2} \alpha} z\ket{\frac{1}{2} \frac{1}{2} \beta}
+\end{equation}
+and we are interested in calculating
+\begin{equation}
+    \bra{\frac{1}{2} \frac{1}{2} \alpha} x\ket{\frac{1}{2}, - \frac{1}{2} \beta} = B
+\end{equation}
+
+With Wigner-Eckart, we can write
+\begin{equation}
+    A =\bra{\frac{1}{2} \frac{1}{2}}\ket{1,0; \frac{1}{2} \frac{1}{2}}\bra{\frac{1}{2} \alpha} |z|\ket{\frac{1}{2} \beta}
+\end{equation}
+and
+\begin{equation}
+    B =\bra{\frac{1}{2} \frac{1}{2} \alpha} \frac{1}{\sqrt{2}} [x_{m=1} + \imath x_{m=-1}]\ket{\frac{1}{2}, - \frac{1}{2} \beta }
+\end{equation}
+The $ x_{m=-1} $ matrix element vanishes from our knowledge that $ m = s+m' $ from above, and $ -1 - \frac{1}{2} $ doesn't equal $ \frac{1}{2} $ but $ 1 - \frac{1}{2} $ does:
+
+\begin{equation}
+    B =\bra{\frac{1}{2} \frac{1}{2} \alpha} \frac{1}{\sqrt{2}}x_{m=1}\ket{\frac{1}{2}, - \frac{1}{2} \beta }
+\end{equation}
+
+Using Wigner-Eckart, we can now write
+\begin{equation}
+    B =\bra{\frac{1}{2} \frac{1}{2}}\ket{1,1; \frac{1}{2}, - \frac{1}{2}}\bra{\frac{1}{2} \alpha} |x|\ket{\frac{1}{2} \beta}
+\end{equation}
+but $ x $ and $ z $ are both $ l=1 $ states, so the reduced matrix elements must be the same thing, since it only depends on the total $ l $ of the operator. Therefore
+\begin{equation}
+    \frac{A}{B} = \frac{\bra{\frac{1}{2} \frac{1}{2}\ket{1,0; \frac{1}{2}, \frac{1}{2}}}}{- \frac{1}{\sqrt{2}}\bra{\frac{1}{2} \frac{1}{2}}\ket{1,1; \frac{1}{2}, - \frac{1}{2}}} = 1 \implies A = B
+\end{equation}
+
+
+
+\end{document}

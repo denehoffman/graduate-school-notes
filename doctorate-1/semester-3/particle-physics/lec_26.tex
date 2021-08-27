@@ -1,0 +1,84 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{26}{Friday, November 06, 2020}{Spinor Solutions}
+
+In our last class, we solved the spatial part of the wave functions, but we still need to find solutions to the spinor. We will write this as $ u = \mqty(u_A \\ u_B) $ where $ u_A $ and $ u_B $ are both two-component spinors.
+\begin{equation}
+    \mqty( (E-M)I_2 & - \va{\sigma} \vdot \va{p} \\ \va{\sigma} \vdot \va{p} & -(E+M)I_2) \mqty(u_A\\u_B) = 0
+\end{equation}
+so
+\begin{equation}
+    u_A = \frac{\va{\sigma} \vdot \va{p}}{E - M} u_B \qquad u_B = \frac{\va{\sigma} \vdot \va{p}}{E + M} u_A
+\end{equation}
+If we chose a basis with $ u_A = \mqty(1\\0) \qor \mqty(0\\1) $, then
+\begin{equation}
+    u_B = \frac{1}{E + M} \mqty(p_z & p_x - \imath p_y\\ p_x + \imath p_y & -p_z) u_A
+\end{equation}
+From this, we get two (of four independent) solutions, depending on which $ u_A $ we put in:
+\begin{equation}
+    u_1(E, \va{p}) = A_1 \mqty(1\\0\\ \frac{p_z}{E+M} \\ \frac{p_x + \imath p_y}{E + M})
+\end{equation}
+\begin{equation}
+    u_2(E, \va{p}) = A_2 \mqty(0\\1\\ \frac{p_x - \imath p_y}{E+M} \\ \frac{-p_z}{E + M})
+\end{equation}
+Similarly, we could start with $ u_B = \mqty(1\\0) \qor \mqty(0\\1) $ and get solutions where
+\begin{equation}
+    u_A = \frac{1}{E-M} \mqty(p_z & p_x - \imath p_y \\ p_x + \imath p_y & -p_z) u_B
+\end{equation}
+This gives us the other two solutions:
+\begin{equation}
+    u_3(E, \va{p}) = A_3 \mqty(\frac{p_z}{E-M} \\ \frac{p_x + \imath p_y}{E - M} \\ 1 \\ 0)
+\end{equation}
+\begin{equation}
+    u_4(E, \va{p}) = A_4 \mqty(\frac{p_x - \imath p_y}{E-M} \\ \frac{-p_z}{E - M} \\ 0 \\ 1)
+\end{equation}
+
+For $ \va{p} = 0 $, $ u_1 $ and $ u_2 $ are reduced to the rest solutions with $ E = M $, and $ u_3 $ and $ u_4 $ are reduced to the rest solutions with $ E = -M $. Since, in general, all spinors (in free space) satisfy $ E^2 = p^2 + m^2 \implies E = \pm \sqrt{p^2 + m^2} $, we identify $ u_1 $ and $ u_2 $ as the $ E = \sqrt{p^2 + m^2} > 0 $ solutions and $ u_3 $ and $ u_4 $ as the $ E = - \sqrt{p^2 + m^2} < 0 $. 
+
+\section{Antiparticles and the Dirac Sea}\label{sec:antiparticles_and_the_dirac_sea}
+
+Negative-energy solutions present a problem as all electrons would be expected to drop in energy to these negative solutions, and since we can go arbitrarily high in excited states, we should be able to also go arbitrarily low with these negative states, so they would drop without limit, releasing infinite energy from each electron.
+
+Dirac postulated that the negative energy states are all occupied (by an infinite number of electrons, which released an infinite amount of energy when they filled those states). If we assume this is okay, then we have an occupied infinite sea of negative energy states and the Pauli principle prevents excess electrons from descending into the sea.
+
+This then creates a further prediction that a high-energy $ \gamma $ should be able to excite one of these ``sea'' electrons out of one of the highest-energy states ($ \sim -m_e $) to one of the lowest positive-energy levels ($ \sim +m_e $), leaving a hole in the sea. Nothing like this had ever been observed, so Dirac tried to come up with reasons for why this is. First, he believed these negative energy electrons were protons. As soon as pair production was discovered, it turned out that this actually could be done. The ``hole'' in the sea can be interpreted as an $ e^+ $, and the sea accounts for $ e^{+} e^{-} $ pair creation and annihilation.
+
+\section{The Feynman-St\"uckelberg Interpretation}\label{sec:the_feynman-st\"uckelberg_interpretation}
+
+Negative energy states can be interpreted as particles moving backwards in time:
+\begin{equation}
+    e^{- \imath E t} = e^{+ \imath \abs{E} t} = e^{- \imath \abs{E} (-t)}
+\end{equation}
+or as a positive-energy antiparticle moving forward in time:
+\begin{equation}
+    e^{- \imath (-E) t} 
+\end{equation}
+\begin{figure}[ht]
+    \centering
+    \incfig[1]{electron-annihilation}
+    \caption{Electron Annihilation}\label{fig:electron-annihilation}
+\end{figure}
+
+\subsection{Anti-Particle Spinors}\label{sub:anti-particle_spinors}
+
+$ u_3 $ and $ u_4 $ are spinors for negative-energy particles propagating backwards in time, so $ \va{p} $ in the spinor is negative of physical momentum of the antiparticle (and $ E_{e^-} = - E_{e^+} $).
+
+Define anti-particle spinors $ v $ with $ v_1(E, \va{p}) = u_4(-E, - \va{p}) $, where the first $ E $ and $ \va{p} $ correspond to the physical energy and momentum of the antiparticle, while the second correspond to that of a regular particle with negative energy.
+
+\begin{equation}
+    v_1(E, \va{p}) = u_4(-E, - \va{p}) = A'_1 \mqty(\frac{p_x - \imath p_y}{E+M} \ \frac{- p_z}{E+M} \\ 0 \\ 1)
+\end{equation}
+and
+\begin{equation}
+    v_2(E, \va{p}) = u_3(-E, - \va{p}) = A'_2 \mqty(\frac{p_z}{E+M} \ \frac{p_x + \imath p_y}{E+M} \\ 1 \\ 0)
+\end{equation}
+
+\subsection{Normalization}\label{sub:normalization}
+
+For Lorentz-invariance, we need to normalize $ \psi \propto E $ (we ended up normalizing it to $ 2E $ to match the $ \delta^4(p^2-m^2) $ phase-space convention).
+
+Let $ 2E = u_1^\dagger u_1 = \abs{A_1}^2 \left( 1 + \frac{p_z^2}{(E + M)^2} + \frac{p_x^2 + p_y^2}{(E + M)^2} \right) = \frac{E^2 + M^2 + 2 E M + p^2}{(E + M)^2} \abs{A_1}^2 $.
+
+
+
+\end{document}

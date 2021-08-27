@@ -1,0 +1,47 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{10}{Wednesday, September 23, 2020}{Non-Relativistic Quantum Mechanics}
+
+\section{Non-Relativistic Quantum Mechanics}
+\label{sec:non-relativistic_quantum_mechanics}
+
+Take a plane wave $ \psi(x, t) = A e^{\imath c \va{k} \vdot \va{r} - \omega t} $. Any wave function can be written as a linear combination of plane waves. DeBroglie postulated that $ \va{p} = \hbar \va{k} $ and $ E = \hbar \omega $ for plane waves.
+\begin{equation}
+    P_{\gamma} = \frac{E}{c} = \frac{h \frac{c}{\lambda}}{c} = \frac{2 \pi \hbar}{\lambda} = \hbar k
+\end{equation}
+\begin{equation}
+    E_{\gamma} = \hbar \nu = 2 \pi \hbar \nu = \hbar \omega
+\end{equation}
+
+\begin{equation}
+    v_G = \dv{\omega}{k} = \dv{(E/ \hbar)}{p/ \hbar} = \dv{p} \frac{p^2}{2m} = \frac{p}{m}
+\end{equation}
+
+Each observable $ A $ is associated with an operator $ \hat{A} $, meaning the possible values of that observable are the eigenvalues of this operator:
+\begin{equation}
+    \hat{A} \psi_a = a \psi_a
+\end{equation}
+
+For real observables, $ \hat{A} $ is Hermitian: $ \hat{A}^\dagger = \hat{A} $. The plane wave suggests that $ \hat{\va{p}} = - \imath \grad $ and $ \hat{H} = \imath \partial_t $. We assume the Hamiltonian is the energy operator since that's how it works classically. The time evolution of a wave function is given by the Schr\"odinger equation:
+\begin{equation}
+    \imath \hbar \partial_t \psi(\va{r}, t) = \hat{H} \psi(\va{r}, t)
+\end{equation}
+For a single particle,
+\begin{equation}
+    \hat{H} = \frac{\hat{\va{p}}^2}{2m} + \hat{V}(\va{r}) = - \frac{\hbar^2}{2m} \laplacian + V(r)
+\end{equation}
+
+Attempting to find separable solutions of the form $ \psi(\va{r}, t) = \psi(\va{r}) \varphi(t) $ gives $ \imath \hbar \frac{1}{\varphi(t)} \pdv{t} \varphi(t) = \frac{1}{\psi(\va{r})} \hat{H} \psi(\va{r}) $. Solving this, we find $ \varphi = A e^{- \imath E t / \hbar} $. This give us the time-independent Schr\"odinger equation:
+\begin{equation}
+    \hat{H} \psi(\va{r}) = E \psi(r)
+\end{equation}
+Solving this gives the allowed wave functions and energies.
+
+Any wave function at $ t=0 $ can be written as a linear combination of energy eigenstates. The time-evolution is know to be
+\begin{equation}
+    a(\va{r}, t) = \sum_i w_i \psi_i(\va{r}) e^{- \imath E_i t/ \hbar}
+\end{equation}
+
+Including electromagnetism transforms $ \va{p} \to -im \hbar \grad - e \va{A} $.
+
+\end{document}

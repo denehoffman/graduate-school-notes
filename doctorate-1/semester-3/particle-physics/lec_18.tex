@@ -1,0 +1,89 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{18}{Monday, October 12, 2020}{Cross Sections, cont.}
+
+Since the cross section is Lorentz invariant, we can do calculations in any frame. Typically, the center of mass frame is the most convenient. In this frame, two incoming beam particles have momentum $ p^*_i $ and they are scattered at some angle with momentum $ p^*_f $. We can write the flux as
+\begin{equation}
+    F = 4 E_a^* E_b^* \left( \frac{p_i^*}{E_a^*} + \frac{p_i^*}{E_b^*} \right) = 4 p_i^*(E_a^* + E_b^*) = p_i^* \sqrt{s}
+\end{equation}
+so
+\begin{equation}
+    \sigma = \frac{1}{(2 \pi)^2} \frac{1}{4 p_i^* \sqrt{s}} \int \abs{M_{f i}}^2 \delta(\sqrt{s} - E_1 - E_2) \delta^3(\va{p}_1 + \va{p}_2) \frac{\dd[3]{p_1}}{2 E_1} \frac{\dd[3]{p_2}}{2 E_2}
+\end{equation}
+This is the same integral we did for $ 2 $-body decay with $ m_a = \sqrt{s} $:
+\begin{equation}
+    \sigma = \frac{1}{64 \pi^2 s} \frac{p_f^*}{p_i^*} \int \abs{m_{f i}}^2 \dd{\Omega^*}
+\end{equation}
+
+\subsection{Differential Cross-Sections}\label{sub:differential_cross-sections}
+
+Often, it is more interesting to not complete the integration over the final state kinematics and leave the cross-section in differential form. For example, if we didn't integrate over $ \dd[3]{p_1} $ we would be left with $ \dd[3]{p_1}= p_1^2 \dd{p_1} \dd{\Omega_1} = p_1^2 \dv{p_1}{E_1} \dd{E_1} \dd{\Omega_1} $ such that
+\begin{equation}
+    \dd{\sigma} = \int \dd[3]{p_2}\left( \cdots \right) \left( p_1^2 \dv{p_1}{E_1} \right) \dd{E_1} \dd{\Omega_1}
+\end{equation}
+so
+\begin{equation}
+    \pdv{\sigma}{E_1}{\Omega_1}= \int \dd[3]{p_2} \left( \cdots \right) \left( p_1^2 \dv{p_1}{E_1} \right)
+\end{equation}
+This is called the double-differential cross-section.
+
+Then, if we know the luminosity of the experiment, $ \mathcal{L} \pdv{\sigma}{E_1}{\Omega_1} $ gives us the scattering rate into $ \dd{\Omega_1} $ with energy $ E_1 $ to $ E_1 + \dd{E_1} $. Fore a two-body final state, $ E_1 $ is a function of $ \theta_1 $, so we measure $ \dv{\sigma}{\Omega} $. 
+
+For a two-body final state in the center of mass,
+\begin{equation}
+    \dd{\sigma} = \frac{1}{64 \pi^2 s} \frac{p_f^*}{p_i^*} \abs{M_{f i}}^2 \dd{\Omega^*}
+\end{equation}
+so
+\begin{equation}
+    \dv{\sigma}{\Omega^*} = \frac{1}{64 \pi^2 s} \frac{p_f^*}{p_i^*} \abs{M_{f i}}^2
+\end{equation}
+We want to then find the cross-section in the lab frame (for a fixed target). We can get the Lorentz-invariant cross-section in terms of $ t = (p_1 - p_3)^2 = (p_1^* - p_3^*)^2 $:
+\begin{equation}
+    t = m_1^2 + m_3^2 - 2(E_1^* E_3^* - p_1^* p_3^* \cos(\theta^*))
+\end{equation}
+so
+\begin{equation}
+    \dd{t} = 2 p_1^* p_3^* \dd{\cos(\theta^*)} = 2 p_i^* p_f^* \dd{\cos(\theta^*)}
+\end{equation}
+(note $ t $ is not time).
+
+We are trying to find
+\begin{equation}
+    \dd{\Omega^*} = \dd{\cos(\theta^*)} \dd{\varphi^*} = \frac{\dd{t} \dd{\varphi}}{2 p_i^* p_f^*}
+\end{equation}
+so
+\begin{equation}
+    2 p_i^* p_f^* \pdv{\sigma}{t}{\varphi} = \frac{1}{64 \pi^2 s} \frac{p_f^*}{p_i^*} \abs{M_{f i}}^2
+\end{equation}
+and
+\begin{equation}
+    \pdv{\sigma}{t}{\varphi} = \frac{1}{128 \pi^2 s {p_i^*}^2} \abs{M_{f i}}^2
+\end{equation}
+This is now Lorentz-invariant.
+
+\subsection{3-Body Final States and Dalitz Plots}\label{sub:3-body_final_states_and_dalitz_plots}
+
+Consider two particles colliding to create three final-state particles:
+\begin{equation}
+    (p_a + p_b)= p_1 + p_2 + p_3 = \sqrt{s}
+\end{equation}
+so
+\begin{equation}
+    s = p_1^2 + p_2^2 + p_3^2 + 2 p_1 p_2 + 2 p_1 p_3 + 2 p_2 p_3
+\end{equation}
+Define $ m_{1 2}^2 = (p_1 + p_2)^2 $ and so on:
+\begin{equation}
+    m_{12}^2 + m_{23}^2 + m_{13}^2 = s + m_1^2 + m_2^2 + m_3^2
+\end{equation}
+which is always a constant.
+
+\begin{equation}
+    \dd{\sigma} = \frac{(2 \pi)^4}{N_a + N_b} \frac{1}{2 E_a} \frac{1}{2 E_b} \abs{M_{f i}}^2 \prod_{i=1}^{3} \frac{\dd[3]{p_i}}{(2 \pi)^3 2 E_i} \delta^3(\va{p}_1 + \va{p}_2 + \va{p}_3) \delta(\sqrt{s - E_1 - E_2 - E_3})
+\end{equation}
+If $ \abs{m_{f i}}^2 $ is isotropic in the center of mass (no angular dependence, e.g. A spin-zero intermediate state) or if we average over spins, it can be shown that integration over seven of the final state coordinates gives
+\begin{equation}
+    \dd{\sigma} = \frac{(2 \pi)^4}{N_a + N_b} \frac{1}{2 E_a} \frac{1}{2 E_b} \frac{1}{(2 \pi)^3 32 s} \overline{\abs{m_{f i}}^2} \dd{m_{12}^2} \dd{m_{23}^2}
+\end{equation}
+If we plot our observed events on axes of $ m_{23}^2 $ vs. $ m_{12}^2 $, this will give a uniform distribution if $ \overline{\abs{M_{f i}}^2} $ is constant. Otherwise, there will be structure which tells you about the behavior of the transition matrix element.
+
+\end{document}

@@ -1,0 +1,102 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{30}{Monday, November 16, 2020}{Feynman Rules for QED}
+
+For QED, we can write the free-photon field $ A_{\mu} $ in terms of the four-vector polarization of state $ \lambda $, $ \varepsilon_{\mu}^{(\lambda)} $,
+
+\begin{equation}
+    A_{\mu} = \varepsilon_{\mu}^{(\lambda)} e^{\imath (\va{p} \vdot \va{r} - Et)}
+\end{equation}
+
+For a real photon (not virtual), $ \va{\varepsilon} \perp \va{p} $ (transverse, as opposed to virtual protons, which can have a longitudinal component). For a real photon propagating in the $ z $-direction, we have two possible polarization vectors,
+\begin{equation}
+    \varepsilon^{(1)} = (0,1,0,0) \qquad \varepsilon^{(2)} = (0,0,1,0)
+\end{equation}
+Any other polarizations are linear combinations of these. For example, circular polarization is $ \frac{1}{\sqrt{2}}(\varepsilon^{(1)} \pm \imath \varepsilon^{(2)}) $.
+
+The interaction of the charge $ q $ and the EM field by a four-vector potential $ A^{\mu} = (\Phi, \va{A}) $ is found by minimal substitution: $ \partial_{\mu} = \partial_{\mu} + \imath q A_{\mu} $ where $ A_{\mu} = (\Phi, - \va{A}) $ while $ \partial_{\mu} = \left( \pdv{t}, + \grad \right) $. The free-particle Dirac equation tells us
+\begin{equation}
+    (\imath \gamma^{\mu} \partial_{\mu} - m) \psi = 0
+\end{equation}
+so this becomes
+\begin{equation}
+    (\gamma^{\mu} \partial_{\mu} \psi + \imath q \gamma^{\mu} A_{\mu} \psi + \imath m \psi) = 0
+\end{equation}
+(having multiplied through by $ -\imath $). If we then multiply by $ \imath \gamma^0 $, we get
+\begin{equation}
+    \imath \partial_t \psi + \imath \gamma^0 \va{\gamma} \cdot \grad{\psi} - q \gamma^0 \gamma^{\mu} A_{\mu} \psi - m \gamma^0 \psi = 0
+\end{equation}
+or
+\begin{equation}
+    \imath \partial_t \psi = \hat{H} \psi
+\end{equation}
+where
+\begin{equation}
+    \hat{H} = \underbrace{(m \gamma^0 - \imath \gamma^0 \va{\gamma} \vdot \grad)}_{H^0} + \underbrace{q \gamma^0 \gamma^{\mu} A_{\mu}}_{H^1}
+\end{equation}
+
+\begin{equation}
+    \mel{\psi(p_3)}{H^1}{\psi(p_1)} = u_e^\dagger(p_3) \underbrace{Q_e}_{-1} e \gamma^0 \gamma^{\mu} \varepsilon_{\mu}^{(\lambda)*} u_e(p_1)
+\end{equation}
+is the interaction matrix element for an electron, $ p_1 $, scattering by interaction with the EM field to electron $ p_3 $. If we write these as plane waves, $ e^{\imath (\va{p}_1 \vdot \va{r} - E_1 t)} $, $ e^{- \imath (\va{p}_3 \vdot \va{r} - E_3 t)} $, and $ e^{- \imath (\va{q} \vdot \va{r} - \omega t)} $, these cancel iff $ \va{q} = \va{p}_1 - \va{p}_3 $ and $ \omega = E_1 - E_3 $ (four-momentum conservation).
+
+For $ e^- \tau^- \to e^1 \tau^1 $, the $ \tau^- $-$ \gamma $ vertex interaction is $ u_{\tau}^\dagger(p_4) Q_{\tau} e \gamma^0 \gamma^{\nu} \varepsilon_{\nu}^{(\lambda)} u_{\tau}(p_2) $. $ M $ is found by summing over the time-orderings (the propagator!) and all internal polarizations (in this case, the virtual photon polarizations):
+\begin{equation}
+    M = \sum_{\lambda} u_e^\dagger(p_3) Q_e e \gamma^0 \gamma^{\mu} u_e(p_1) \epsilon_{\mu}^{(\lambda)*} \frac{1}{q^2} \varepsilon_{\nu}^{(\lambda)} u_{\tau}^\dagger(p_4) Q_{\tau} e \gamma^{0} \gamma^{\nu} u_{\tau}(p_2)
+\end{equation}
+According to the textbook, this reduces to $ \sum_{\lambda} \epsilon_{\mu}^{(\lambda)*} \epsilon_{\nu}^{\lambda} = -g_{\mu \nu} $, so
+\begin{equation}
+    M = Q_e Q_{\tau} e^2 \underbrace{\left[ \underbrace{\bar{u}_e}_{u^\dagger \gamma^0}(p_2) \gamma^{\mu} u_e(p_1) \right]}_{j^{\mu}_e} - \frac{g_{\mu \nu}}{q^2} \left[ \bar{u}_{\tau}(p_4) \gamma^{\nu} u_{\tau}(p_2) \right]
+\end{equation}
+The four-current $ j^{\mu} $ is a covariant four-vector, so
+\begin{equation}
+    M = Q_e Q_{\tau} e^2 j^{\mu}_e \frac{g_{\mu \nu}}{q^2} j^{\nu}_{\tau} = - Q_e Q_{\tau} e^2 j_e^{\mu} j_{\tau \mu} \frac{1}{q^2} = -Q_e Q_{\tau} e^2 \frac{j_e \vdot j_{\tau}}{q^2}
+\end{equation}
+
+Then, if spins are not determined, take an average over initial spins and sum over final spins.
+
+\section{Feynman Rules for QED}\label{sec:feynman_rules_for_qed}
+
+
+The product of these factors will be $ - \imath m $. We say that initial-state particles are $ u(p) $ (arrows entering a vertex) and $ \bar{u}(p) $ (arrows leaving a vertex). For an initial-state antiparticle, we have $ \bar{v}(p) $ (backwards arrows entering a vertex) and for final-state antiparticles we have $ v(p) $ (backward arrows leaving a vertex). Finally, for initial-state photons, we have $ \varepsilon_{\mu}(p) $ (squiggle entering a vertex) and $ \varepsilon_{\mu}^*(p) $ (squiggle leaving a vertex). The photon propagator is $ - \imath \frac{g_{\mu \nu}}{q^2} $ (a squiggle between two vertices), and the fermion propagator is $ - \imath \frac{(\gamma^{\mu} q_{\mu} + m)}{q^2 - m^2} $. Finally, we write the QED vertex as $ - \imath Q e \gamma^{\mu} $:
+
+\begin{align}
+    \feyn{fA x} &= u(p) \\
+    \feyn{x fA} &= \bar{u}(p) \\
+    \feyn{fV x} &= \bar{v}(p) \\
+    \feyn{x fV} &= v(p) \\
+    \feyn{gx} &= \varepsilon_{\mu}(p) \\
+    \feyn{xg} &= \varepsilon_{\mu}^*(p) \\
+    \feyn{x g x} &= - \imath \frac{g_{\mu \nu}}{q^2} \\
+    \feyn{x f x} &= - \imath \frac{(\gamma^{\mu} q_{\mu} + m)}{q^2 - m^2} \\
+    \Diagram{fd & x & fu\\&gv} &= - \imath Q e \gamma^{\mu}
+\end{align}
+
+When presented with a Feynman diagram, we can use these Feynman rules to write out all the parts of the matrix element. For the electron-tauon scattering described above, we have
+\begin{equation}
+    \Diagram{\vertexlabel^{e^-}&&&\vertexlabel^{e^-} \\
+fdA & & fuA\\
+   & gv &\\
+fuA & & fdA\\
+   \vertexlabel_{\tau^-}&&&\vertexlabel_{\tau^-}}\implies
+\end{equation}
+\begin{align}
+    - \imath M &= [\bar{u}_e(p_3) (\underbrace{\imath e \gamma^{\mu}}_{- \imath Q_e}e \gamma^{\mu}) u_e(p_1)] - \imath \frac{g_{\mu \nu}}{q^2} [\bar{u}_{\tau}(p_4) (\underbrace{\imath e \gamma^{\nu}}_{- \imath Q_{\tau} e \gamma^{\nu}})u_{\tau}(p_2)]\\
+    m &= - e^2 [\bar{u}_e(p_3) \gamma^{\mu} u_e(p_1)] \frac{g_{\mu \nu}}{q^2} [\bar{u}_{\tau}(p_4) \gamma^{\nu} u_{\tau}(p_2)]
+\end{align}
+
+For another example, consider electron-positron annihilation into tauon-antitauon pair production. Now
+\begin{equation}
+    \Diagram{\vertexlabel^{e^-}&&&\vertexlabel^{\tau^-} \\
+fdA & & fuA\\
+   & g &\\
+fuV & & fdV\\
+   \vertexlabel_{e^+}&&&\vertexlabel_{\tau^+}}\implies
+\end{equation}
+\begin{equation}
+    - \imath M = [\bar{v}_e(p_2) (\imath e \gamma^{\mu}) u_e(p_1)] \left( \frac{- \imath g_{\mu \nu}}{q^2} \right) [\bar{u}_{\tau}(p_3) (\imath e \gamma^{\nu}) v_{\tau}(p_4)]
+\end{equation}
+
+In general, you if you ever draw two arrows facing each other, you've messed up. Start and the end of a fermion line and move backwards along the arrows. The first arrow you move backwards along is an adjoint (you then have to decide if it's a particle or antiparticle).
+
+\end{document}

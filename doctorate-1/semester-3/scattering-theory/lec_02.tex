@@ -1,0 +1,82 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{2}{Monday, August 31, 2020}{Effective Field Theory}
+
+\section{Effective Field Theory}
+\label{sec:effective_field_theory}
+
+The problem? Hadron physics is difficult. How should we deal with strong interaction phenomenology? Why isn't it as well understood as EM or the weak interactions? To overcome these problems, we are going to study effective field theory, hopefully in an intuitive way.
+
+
+Hadron physics concerns the strong interactions between quarks and gluons. The particles we study, hadrons, are not these elementary particles but are rather particles built from quarks (mesons and baryons). In QED, the relative coupling constant that describes how particles interact is $ e $, the charge of the electron. This is related to the fine structure constant, $ \frac{e^2}{4 \pi} = \alpha \approx \frac{1}{137} $. We can build a perturbation theory around this and expand in powers of $ \alpha $, which is relatively small compared to $ 1 $. The leading order is just a minimal ``tree level'' diagram. The next order has ``loops''. More specifically, we can imagine a Feynman diagram with a virtual particle/antiparticle loop, which ``polarizes'' the vacuum.
+
+
+In QCD, there are three charges, and additionally gluons can interact with each other. This has a consequence to vacuum polarization which is different from QED. Classically, we can interpret vacuum polarization as a ``screening effect'' which gets weaker with distance. The running coupling constant in QCD is
+\begin{equation}
+    \alpha_s(Q^2) = \frac{\alpha_s(\mu^2)}{1 + \frac{\alpha_s(\mu^2)}{12 \pi} (11 N_c - 2 N_f) \log[\frac{Q^2}{\mu^2}]}
+\end{equation}
+However, the term $ 11 N_c - 2 N_f = -4 $ (number of colors and flavors), so the screening effect is actually the opposite of QED\textemdash it grows with distance! Therefore, the perturbation theory will break down at low energies, while we have asymptotic freedom at high energies (``weak QCD''). We believe the problem at low energies is related to confinement (``strong QCD'') which doesn't allow us to see quarks by themselves and only neutral-color hadrons.
+
+However, even perturbative QCD can't explain the particle spectrum or even interactions and decays of hadrons. Some of the ways we can go forward are lattice QCD, quark models, and effective field theory.
+
+\subsection{Separation of Scales}
+\label{sub:separation_of_scales}
+
+In different areas of physics, we study phenomena at very disparate scales of mass, length, time, and energy. Scales which are very different than each other shouldn't effect each other. Two big revolutions of the 20th century, relativity and QM, were largely ignored for centuries because $ v << c $ for most everyday interactions and $ E \times t >> \hbar $. The same is true in particle physics. For example, the electron mass is $ m_e = 0.511\mega\electronvolt $, while the top quark mass is $ m_t \approx 180\giga\electronvolt $. However, we can still calculate the hydrogen spectrum without incorporating the top quark mass.
+
+Weak decays are mediated by exchanges of the $ W^{\pm} $ boson ($ M_W \approx 80\giga\electronvolt $), but the energy release from neutron decays are only about $ 1\mega\electronvolt $ and kaon decays are a few hundred MeV. We can use an effective field theory which ignores some of the finer details of the masses in QED to calculate these decay energies.
+
+Another EFT example is light-by-light scattering. If we only look at photon energies $ \omega << m_e $, we can look at a theory which ignores the masses of the particles in the theory: $ \mathcal{L}[\varphi, \bar{\varphi}], A_{\mu} \to \mathcal{L}[A_{\mu}] $. There are two gauge-invariant properties in EM, namely $ F_{\mu \nu} F^{\mu \nu} \propto \va{E}^2 - \va{B}^2 $ and $ F_{\mu \nu} \tilde{F}^{\mu \nu} \propto \va{E} \vdot \va{B} $ so:
+
+\begin{equation}
+    \mathcal{L}_{\text{eff}} = \frac{1}{2} (\va{E}^2 - \va{B}^2) + \frac{e^4}{16 \pi^2 m_e^4} \left[ a(\va{E}^2 - \va{B}^2)^2 + b (\va{E} \vdot \va{B})^2 \right] + \cdots
+\end{equation}
+
+Notice the electron mass only appears in the denominator. We can also calculate the factors $ a $ and $ b $ from the underlying field theory ($ 7a = b = 14/45 $). In an energy expansion of the theory, this Lagrangian is much simpler to do calculations with than full QED.
+
+Now we want to apply some of these principles to QCD:
+
+\begin{equation}
+    \mathcal{L}_{\text{QCD}} = - \frac{1}{2} \Tr G^a_{\mu \nu} G^{\mu \nu, a} + \sum_f \bar{\psi}_f (\imath \slashed{D} - m_f) \psi_f + \cdots
+\end{equation}
+However, we can do a chiral decomposition of the fermion fields
+\begin{equation}
+    \psi = \psi_L + \psi_R
+\end{equation}
+for massless fermions, this is called helicity. Using this, we can rewrite and simplify the QCD Lagrangian. Now the masses of the three lightest quarks, u, d, and s, are small, much smaller than typical hadron masses. We can pretend these quarks are massless and further simplify the Lagrangian:
+
+\begin{equation}
+    \mathcal{L}_{QCD} = - \frac{1}{2} \Tr G^a_{\mu \nu} G^{\mu \nu, a} + \imath \bar{q}_L \slashed{D} q_L + \imath \bar{Q}_R \slashed{D} q_R - \bar{q} \mathcal{M} q
+\end{equation}
+where $ q^T = (u, d, s) $ and $ \mathcal{M} = \text{diag}(m_u, m_d, m_s) $. This gives rise to the $ \text{SU} (3)_V $ (the eightfold way). Along with isospin symmetry ($ \text{SU}(2)_V $), we can get a lot of information about the particle spectrum. However, the other symmetry that is created is $ \text{SU}(3)_A $, but we don't actually see any of the resulting particles of this symmetry. This can be understood by the Goldstone mode of symmetry realization, where the symmetry is hidden or spontaneously broken. The typical visualization is the sombrero potential. A ball at the top of the sombrero will have some rotational symmetry, but it is unstable. The ball will want to roll down to the minimum, which breaks the rotational symmetry. There is no energy required to move around the hat, so those degrees of freedom are ``massless''. However, there is also a way to move up and down the hat a little bit, and those degrees of freedom have mass.
+
+
+The result of Goldstone theorem is that you get massless and spinless particles (Goldstone bosons). The number of them corresponds to the number of broken symmetry generators. There are eight axial generators broken when going from $ \text{SU}(3)_L \cross \text{SU}(3)_R \to \text{SU}(3)_V $, so the GBs are pseudoscalars: $ \pi^{\pm} $, $ \pi^0 $, $ K^{\pm} $, $ K^0 $, $ \bar{K}^9 $, and $ \eta $. We can construct an effective theory for these Goldstone bosons. So far, this is only the chiral limit where $ m_u = m_d = m_s = 0 $. In nature, these masses are not actually zero, so we reintroduce the masses into our effective theory, breaking the chiral symmetry. This is called chiral perturbation theory. To leading order, we can derive the pion, kaon, and eta masses in terms of the pion masses, which results in the Gell-Mann\textemdash Okubo mass formula, which relates the masses of these particles to $ 7\% $ accuracy.
+
+\section{Pion-Pion Scattering}
+\label{sec:pion-pion_scattering}
+
+Due to isospin symmetry, we can give a prediction for the scattering amplitude for $ \pi $-$ \pi $ by
+\begin{equation}
+    A(s,t,u) = \frac{s - M_{\pi}^2}{F_{\pi^2}}
+\end{equation}
+using the leading order term of the Lagrangian, and this turns out to predict the s-wave amplitude very well.
+
+Why might we want to go to higher order? Well really, why not? All the higher orders are allowed and theoretically do happen. This is supposed to be a QFT, so we should be doing loop corrections. The amplitude above is a real ($ \mathbb{R} $) quantity, but unitarity requires
+\begin{equation}
+    \Im(t_l^I) = \sqrt{1 - \frac{4 M^2_pi}{s}} \abs{t_l^I}^2
+\end{equation}
+where $ t_l^I $ is the amplitude, so there should be an imaginary part in the next-highest term. If we consider a loop diagram with chiral dimension $ \nu $, $ L $ loops, $ I $ internal lines, and $ V_d $ vertices of order $ d $, Weinberg's power counting argument says that
+\begin{equation}
+    \nu = \sum_d V_d(d - 2) + 2L + 2
+\end{equation}
+
+\subsection{What about Baryons?}
+\label{sub:what_about_baryons?}
+
+
+So far, this has only been an effective theory for mesons (the Goldstone bosons). However, chiral perturbation theory can be expanded to the baryons. Unfortunately, this is no longer a simple theory. The nucleon fields are not massless in the limit where the quark masses are zero (the chiral limit). In fact, they are rather unchanged. In upcoming lectures, we will work with $ NN $ systems rather than $ \pi \pi $ and $ \pi N $. This system has bound states (the deuteron), which are non-perturbative effects, so we can't calculate those amplitudes perturbatively.
+
+We can also study the heavy-quark effective theory, where $ m_c, m_b \to \infty $.
+
+\end{document}

@@ -1,0 +1,106 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{32}{Friday, November 20, 2020}{Muon-Electron Interactions}
+
+For the anti-muon, the right-handed helicity is
+\begin{equation}
+    v_{\uparrow}(p_4) = \sqrt{E} \mqty(c\\s\\-c\\-s)
+\end{equation}
+and the left-handed spinor is
+\begin{equation}
+    v_{\downarrow} = \sqrt{E} \mqty(s\\-c\\s\\-c)
+\end{equation}
+where $ s = \sin(\theta / 2) $ and $ c = \cos(\theta / 2) $.
+
+This allows us to calculate $ j_e $ for each of the four initial-state helicity combinations (which we average) and $ j_{\mu} $ for each of the four final-state helicity combinations (which we sum).
+
+\section{Muon and Electron Currents}\label{sec:muon_and_electron_currents}
+
+The matrix element for a particular helicity combination of $ e^- e^+ \to \mu^- \mu^+ $ can be written $ M_{fi} = - \frac{e^2}{s} (j_e \vdot j_{\mu}) $ where $ j_e^{\mu} = \bar{v}(p_2) \gamma^{\mu} u(p_1) $ and $ j_{\mu}^{\nu} = \bar{u}(p_3) \gamma^{\nu} v(p_4) $ are calculated with the combinations of right and left-handed helicity spinors found above.
+
+In general, combinations of $ \bar{\psi} \gamma^{\mu} \varphi $ can be evaluated explicitly using the Dirac-Pauli representation as
+\begin{equation}
+    j^0 = \bar{\psi} \gamma^0 \varphi = \psi^\dagger \gamma^0 \gamma^0 \varphi = \psi^\dagger \varphi
+\end{equation}
+\begin{equation}
+    j^1 = \bar{\psi} \gamma^1 = \psi^\dagger \gamma^0 \gamma^1 \varphi = \psi_0^* \varphi_3 + \psi_1^* \varphi_2 + \psi_2^* \varphi_1 + \psi_3^* \varphi_0
+\end{equation}
+and so on.
+
+To calculate the matrix elements, we need to take into account all 16 helicity combinations between pairs of right or left-handed particles going to pairs of right/left-handed particles. We must find $ j_e $ and $ j_{\mu} $ for each of the four possible combinations. For example, if the final state has $ \mu^-_{\uparrow} \mu^+_{\downarrow} $,
+\begin{align}
+    j_{\mu}^0 &= \bar{u}_{\uparrow}(p_2) \gamma^0 v_{\downarrow}(p_4) \\
+              &= E \mqty(c & s & c & s) \mqty(s\\-c\\s\\-c)\\
+              &= 0
+\end{align}
+Similarly,
+\begin{align}
+    j^1_{\mu} &= \bar{u}_{\uparrow}(p_3) \gamma^0 v_{\downarrow}(p_4) \\
+              &= E(- c^2 + s^2 - c^2 + s^2) \\
+              &= 2E(s^2 - c^2)\\
+              &= - 2 E \cos(\theta)
+\end{align}
+
+Doing all of these, we find that
+\begin{equation}
+    j_{\mu, RL} = 2 E \mqty(0 & - \cos(\theta) & \imath & \sin(\theta))
+\end{equation}
+You can also show that
+\begin{equation}
+    j_{\mu, RR} = \mqty(0 & 0 & 0 & 0) = j_{\mu, LL}
+\end{equation}
+These matrix elements only vanish in the relativistic limit, so they aren't necessarily zero at lower energies.
+\begin{equation}
+    j_{\mu, LR} = 2E \mqty(0 & - \cos(\theta) & - \imath & \sin(\theta))
+\end{equation}
+
+We could similarly calculate $ j_e $ by brute force:
+\begin{equation}
+    \left[ \bar{u} \gamma^{\mu} v \right]^\dagger = v^\dagger (\gamma^{\mu})^\dagger \gamma^0 u
+\end{equation}
+If $ \mu = 0 $, $ (\gamma^{\mu})^\dagger \gamma^0 = \gamma^0 \gamma^{\mu} $. If $ \mu \neq 0 $, we still get $ \gamma^0 \gamma^{\mu} $, so
+\begin{align}
+    [ \bar{u} \gamma^{\mu} v]^\dagger = v^\dagger \gamma^0 \gamma^{\mu} u = \bar{v} \gamma^{\mu} u
+\end{align}
+
+We can then find the electron current, $ j_e^{\nu} = \bar{v}_e \gamma^{\nu} u_e $ by taking the Hermitian conjugate of $ j_{\mu}^{\nu} $ and setting $ \theta = 0 $:
+\begin{align}
+    j_{e,RL} &= 2E \mqty(0 & -1 & - \imath & 0)\\
+    j_{e,LR} &= 2E \mqty(0 & -1 & \imath & 0)
+\end{align}
+
+Now we have all the currents, so we can calculate the matrix element!
+
+
+\section{Electron-Muon Production Cross-Section}\label{sec:electron-muon_production_cross-section}
+
+Of the 16 possible helicity combinations, only 4 have non-zero currents: $ RL \to RL $, $ RL \to LR $, $ LR \to RL $, and $ LR \to LR $. For the first,
+\begin{equation}
+    M_{RL \to RL} = - \frac{e^2}{s \color{red}(=(2E)^2)\color{black}} j_{e}^{\mu} g_{\mu \nu} j_{\mu}^{\nu} = - e^2 (- \cos(\theta) - 1) = e^2 (1 + \cos(\theta))
+\end{equation}
+$ s = (2E)^2 $ in the center of mass frame or for symmetric colliders.
+The same can be said about $ M_{LR \to LR} $ by parity.
+
+\begin{equation}
+    M_{RL \to LR} = M_{LR \to RL} = e^2 (1 - \cos(\theta))
+\end{equation}
+
+Since helicity states are orthogonal,
+\begin{align}
+    \abs{M_{RL \to RL} + M_{LR \to LR} + M_{RL \to LR} + M_{LR \to RL}}^2 &= \abs{M_{RL \to RL}}^2 + \abs{M_{LR \to LR}}^2 + \abs{M_{RL \to LR}}^2 + \abs{M_{LR \to RL}}^2 \\
+                       &= e^4 \left[ 2(1 + \cos(\theta))^2 + 2(1 - \cos(\theta))^2 \right] \\
+                       &= 2 e^4 \left[ 2 + 2 \cos[2](\theta) \right]
+\end{align}
+We have to average over the four initial combinations, even though two of them are zero:
+\begin{equation}
+    \ev{\abs{M_{fi}}^2} = e^4 (1 + \cos[2](\theta))
+\end{equation}
+where $ e^2 = 4 \pi \alpha $, so
+\begin{align}
+    \dv{\sigma}{\Omega} &= \frac{1}{64 \pi^2 s} \cancelto{1}{\frac{p_f^*}{p_i^*}} \ev{\abs{M_{fi}}^2} \\
+                        &= \frac{\alpha^2}{4 s} \left( 1 + \cos[2](thetai) \right)
+\end{align}
+since $ \frac{p_f^*}{p_i^*} \to 1 $ in the relativistic limit.
+
+
+\end{document}

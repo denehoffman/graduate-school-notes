@@ -1,0 +1,81 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{35}{Monday, November 30, 2020}{The Quintic Formula, Cont.}
+
+Last time, we proved that every radical extension of characteristic $ 0 $ field is contained in a solvable extension. We now want to use this to prove that there are equations that don't have a radical solution.
+
+Take equations of quadratic form, $ x^2 + b x + c = 0 $. We know that the roots are given by the quadratic equation:
+\begin{equation}
+    \frac{-b \pm \sqrt{b^2 - 4c}}{2}
+\end{equation}
+
+\begin{theorem}
+    There exists a degree-5 equation with $ \Z $-coefficients whose roots are not in a radical extension.
+\end{theorem}
+
+\begin{lemma}
+    If $ p \in \Q[x] $ all of prime degree and all but $ 2 $ of whose roots are real, then the Galois group of $ p $ in $ \Q $ is $ S_n $ where $ n = \deg p $.
+\end{lemma}
+\begin{proof}
+    Suppose $ G $ is the Galois group of $ p $. We can think of $ G $ as the group which permutes the roots of $ p $. $ G \leq \text{Sym}(\text{roots of p}) $. We will call the roots of $ p $ $ R $. $ G $ acts transitively on $ R $, i.e. $ R $ is the orbit of $ G $.
+
+    The reason for this is the following. $ K $ is a splitting field of $ p $ such that $ G = \text{Gal}(K/\Q) $. If $ r \in R $, $ f \equiv \prod_{r' \in Gr}(x - r') $. $ f $ is fixed by $ G $, such that $ \tau f = \prod_{r' \in Gr}(x - \tau r') $, so $ f \in \text{Fix}(G)[x] = \Q[x] $.
+
+    Because $ G $ acts transitively on $ R $, $ R = \frac{\abs{G}}{\abs{G_r}} $ where $ G_r $ is the stabilizer of some $ r \in R $ (from very early in this class). We assumed that $ \abs{R} = n $ is prime, so $ n \mid \abs{G} $.
+
+    By Cayley's theorem, there exists an element $ g \in G $ of order $ n $, so $ g $ is an $ n $-cycle on $ R $. Indeed, if $ g $ is a product of an $ a_1 $-cycle, $ a_2 $-cycle, $ a_3 $-cycle, etc., then the order of $ g = \text{lcm}(a_1, a_2, a_3, \cdots) $.
+
+    Now we will use the assumption that all but two roots are real. Since complex conjugation is an automorphism of $ \C $ and hence of $ K \subseteq \C $, it gives us an element $ g' \in G $ which is a transposition on $ R $. We have shown that the Galois group contains two elements, an $ n $-cycle on the roots and this transposition:
+
+    \begin{equation}
+        S_n = \ev{(12\cdots n),(ij)}
+    \end{equation}
+\end{proof}
+
+Now for the proof of the original theorem:
+\begin{proof}
+    Take $ p = x^5 - 4x + 2 $. This is irreducible in $ \Q $ using the Eisenstein theorem for prime $ 2 $. The derivative is $ p' = 5x^4 - 4 $, so the roots of $ p' $ are $ \pm(4/5)^{1/4} $ and those are simple.
+\end{proof}
+
+
+\begin{theorem}
+    If $ K/F $ is a degree $ n $ extension and $ \text{char}(F) \nmid n $ and $ F $ contains all $ n $th roots and $ K/F $ is cyclic, then $ K = F(\sqrt[n]{a}) $ for $ a \in F $.
+
+    If we have a solvable extension $ K/K_0 $ with Galois group $ G $, then $ \frac{G_{m+1}}{G_m} $ are cyclic. Suppose there is a sequence of extensions $ K_n $ between $ K $ and $ K_0 $. Then if $ K_0 $ has enough roots of unity, then the theorem implies that $ \frac{K_{i+1}}{K_i} $ are radical.
+\end{theorem}
+\begin{definition}
+    The \textit{character} of a field $ F $ in a field $ K $ is a map $ \varphi \colon F^* \to K^* $ that is a homomorphism of abelian groups.
+\end{definition}
+\begin{lemma}
+    If $ \sigma_1, \cdots, \sigma_m $ are distinct characters $ F^* \to K^* $, then $ \sigma_1, \cdots, \sigma_m $ are linearly independent over $ K $.
+\end{lemma}
+
+\begin{proof}
+    Induction on $ m $ (base case is trivial): Suppose $ a_1 \sigma_1 + \cdots + a_m \sigma_m = 0 $, i.e. $ \forall b \in F^* $, $ a_1 \sigma_1(b) + \cdots + a_m \sigma_m(b) = 0 $ (call this equation 1). There must exist some $ c $ such that $ \sigma_1(c) \neq \sigma_2(c) $. Then, $ \forall b $, $ a_1 \sigma_1(b c) + \cdots = 0 $, but this is equal to $ a_1 \sigma_1(c) \sigma_1(b) + \cdots = 0 $ (call this equation 2).
+
+    Then $ \sigma_1(c) (\text{Eq } 1) - \text{Eq } 2 = a_2 (\sigma_1(c) - \sigma_2(c)) \sigma_2(b) + \cdots = 0 $. The first term in parentheses here is nonzero by definition.
+\end{proof}
+\begin{corollary}
+    If $ F/E $ is Galois and $ \sigma_1, \cdots, \sigma_n \in \text{Gal}(F/E) $, then $ \sigma_1, \cdots, \sigma_n $ are linearly independent over $ F $. 
+\end{corollary}
+
+Now the proof of the theorem:
+\begin{proof}
+    Define for $ \alpha \in K $ and $ n $th root $ w \in F $ the following expression:
+    \begin{equation}
+        [\alpha, w] \equiv \alpha + w \sigma(\alpha) + w^2 \sigma^2(\alpha) + \cdots + w^{n-1} \sigma^{n-1}(\alpha)
+    \end{equation}
+    where $ \text{Gal}(K/F) = \ev{\sigma} $. Now examine the action of this generator on the expression:
+    \begin{equation}
+        \sigma [\alpha, w] = \sigma(\alpha) + w \sigma^2(\alpha) + \cdots + w^{n-1} \sigma^n(\alpha)
+    \end{equation}
+    Now $ \sigma^n(\alpha) = \alpha $ and $ w^n = 1 $ so we can write
+    \begin{equation}
+        \sigma [\alpha, w] = w^{-1} [\alpha, w]
+    \end{equation}
+    Therefore, $ \sigma [\alpha, w]^n = [\alpha, w]^n $, so this element is fixed by $\sigma$: $ [a, w]^n \in \text{Fix}(\ev{\sigma}) = \text{Fix}(\text{Gal}) = F $. So we've found some element whose $ n $th power is in $ F $. It now suffices to show that $ [F([\alpha, w])\colon F] = n $.
+
+    Chose an $ \alpha $ such that $ [\alpha, w] \neq 0 $ using the lemma, because $ \text{id} + w \sigma + w^2 \sigma^2 + \cdots \neq 0 $. If $ [F([\alpha, w])\colon F] = m $, this means $ [\alpha, w] $ is fixed by $ \sigma^m $ by the Galois correspondence. We know that $ \sigma^m [\alpha, w] = w^{-m} [\alpha, w] $, and $ w^{-m} = 1 \iff n\mid m $. 
+\end{proof}
+
+\end{document}

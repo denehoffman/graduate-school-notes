@@ -1,0 +1,61 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{23}{Wednesday, March 18, 2020}{The Gibbs Phase Rule}
+
+In the last lecture, we talked about phase separation as a direct result of the Van der Waal's equation. If we make plots of the extensive or intensive variables (pressure, temperature, and volume for example), we see that the Maxwell construction gives us a ``cliff'' which represents a first-order phase transition. We then used the Clausius Clapeyron Equation to find relations between the entropy and temperature depending on certain slopes.
+
+\section{Gibbs Phase Rule}
+\label{sec:gibbs_phase_rule}
+
+What if you have a system with multiple phases coexisting (or multiple chemical species coexisting, like ice cubes in alcohol)? Consider a system with $ K $ components and $ \varphi $ phases. By components, we mean things like water, alcohol, etc. In any phase $ j $, the number fraction of component $ k $ is
+\begin{equation}
+    x_k^{(j)} = \frac{N_k^{(j)}}{\sum_{k=1}^{K} N_k^{(j)}}
+\end{equation}
+
+Obviously,
+\begin{equation}
+    \sum_{k=1}^{K} x_k^{(j)} = 1
+\end{equation}
+This means that in every phase, there are $ K - 1 $ independent concentrations (not $ K $, because they have to add up to $ 1 $). In $\varphi$ phases, this creates $ \varphi (K - 1) $ tunable concentrations (the number of concentrations you can freely pick). However, this is not all that is going on. These phases are in contact, so of course, they can exchange molecules. Because of this, the chemical equilibrium requires that the $ \varphi $ coexisting phases  must have the same chemical potential:
+\begin{equation}
+    \mu_k^{(1)} = \mu_k^{(2)} = \cdots = \mu_k^{(\varphi)}
+\end{equation}
+There are $ \varphi - 1 $ equalities in the equation above. For every component, there are $ \varphi - 1 $ conditions that must hold, and for all $ K $ components, this creates $ K (\varphi - 1) $ constraints. We also have $ \varphi (K - 1) $ choices of concentrations, so what are the total number of degrees of freedom?
+
+\begin{align}\label{eq:gibbs_phase_rule}
+    f &= \underbrace{2}_{T \qand P} + \underbrace{\varphi (K - 1)}_{\text{tunable concentrations}} - \underbrace{K(\varphi - 1)}_{constraints} \\
+    &= 2 + K - \varphi\tag{Gibbs Phase Rule}
+\end{align}
+
+For example, pure water ($ K = 1 $), fluid-ice coexistence would have two phases ($ \varphi = 2 $), so the number of degrees of freedom is $ f = 2 + 1 - 2 = 1 $. Therefore, the phase boundary is a 1D curve in the $ T-P $ diagram. In the case of fluid-ice-vapor coexistence, we have $ \varphi = 3 $, so $ f = 2 + 1 - 3 = 0 $. There are no degrees of freedom left. This corresponds to the ``triple point'', and explains why the triple point is uniquely defined.
+
+
+\section{The Third Law of Thermodynamics}
+\label{sec:the_third_law_of_thermodynamics}
+
+Nernst: ``For $ T \to 0 $, the entropy of the system must go to a constant which does not depend on the pressure.''
+
+Planck: ``For $ T \to 0 $, the entropy goes to $ 0 $.''
+
+The classical ideal gas violates the third law. This is because the origin of the third law is in quantum mechanics. We will discuss this in more detail in a later lecture. For now, what are the consequences of the third law?
+
+\begin{itemize}
+    \item[1.] Heat capacities go to zero as $ T \to 0 $.
+        \subitem Proof: $ c_x(T) = \frac{T}{N} \eval{\pdv{S}{T}}_{x,N} $ implies $ \dd{S}(T,x,N) = \frac{N c_x(T)}{T} $, so $ \Delta S = N \int_{T_1}^{T_2} \dd{T} \frac{c_x(T)}{T} $. If this is the case, assume we pick two temperatures $ 0 < T_1 < T_2 $ which are ``close'' to $ 0 $ in the sense that if $ c_x(T) $ were to go to a constant $ c_x(0) = c_{x,0} > 0 $ for $ T \to 0 $, then for $ 0 < T < T_2 $, we can safely approximate $ c_x(T) $ by $ c_{x,0} $. Basically we're saying that we can expand $ c_x(T) $ around $ T_2 $ and take, to good approximation, the first value of the expansion. If we do this,
+        \begin{equation}
+            \Delta S \approx N \int_{T_1}^{T_2} \dd{T} \frac{c_{x,0}}{T} = N c_{x,0} \ln(\frac{T_2}{T_1})
+        \end{equation}
+        However, this goes to $ \infty $ as $ T_1 \to 0 $. Hence, $ S(T_1) $ would go to $ - \infty $ as $ T_1 \to 0 $, in violation of the third law. Hence, $ c_x(T) $ must go to zero as $ T \to 0 $.
+    \item[2.] $ \alpha(T) = \frac{1}{V} \eval{\pdv{V}{T}}_{P,N} = - \frac{1}{V} \eval{\pdv{S}{P}}_{T,N} $. If $ S \to $ a constant that does not depend on pressure as $ T \to 0 $, then $ \alpha(T) \to 0 $ as $ T \to 0 $, since as $ T \to 0 $, $ S $ no longer depends on $ P $.
+    \item[3.] Recall we once derived the relation $ c_p - c_v = \frac{\alpha^2 T V}{N \kappa_T} $. Let's look at 
+        \begin{equation}
+            \frac{c_p - c_v}{T} = \frac{\alpha^2 V}{N \kappa_T} = - \frac{1}{N} \eval{\pdv{V}{T}}_{P}^2 \eval{\pdv{P}{V}}_{T} = - \frac{1}{N} \underbrace{\eval{\pdv{S}{P}}_{T}}_{\to 0} \underbrace{\eval{\pdv{S}{V}}_{T}}_{\to 0} \to 0 \text{ as } T \to 0 
+        \end{equation}
+        Both the numerator and denominator go to zero here, so no only do $ c_V $ and $ c_P $ both individually go to zero, their difference vanishes \textit{more strongly} than linearly in $ T $.
+\end{itemize}
+
+
+
+
+
+\end{document}

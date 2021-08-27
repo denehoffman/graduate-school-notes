@@ -1,0 +1,173 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{10}{Thursday, February 25, 2021}{Standard Candles}
+
+Consider a light source with intrinsic luminosity $ L = \frac{\Delta E}{\Delta t} $ where $ \Delta t $ is measured in the rest frame of the source. In that flat Minkowski spacetime, the flux through a sphere of radius $ R $ is
+\begin{equation}
+    F = \frac{L}{4 \pi R^2}
+\end{equation}
+For an expanding cosmology, there are several effects.
+\begin{itemize}
+    \item A cosmological redshift in $ \Delta E $:
+        \begin{equation}
+            \Delta E_0 = \frac{\Delta E_e}{1 + z_e}
+        \end{equation}
+        because the frequency of the photons emitted is related by $ \omega_0 = \frac{\omega_e}{1 + z_e} $ 
+    \item There is also a ``time'' redshift,
+        \begin{equation}
+            \Delta t_0 = \Delta t_e (1 + z_e)
+        \end{equation}
+        which of course is a consequence of the frequency shift since $ \nu = \frac{1}{\Delta t} $, so
+        \begin{equation}
+            L_0 = \frac{L_e}{(1 + z_e)^2}
+        \end{equation}
+        gives the \textit{observed} flux
+        \begin{equation}
+            F_0 = \frac{L_e}{4 \pi (1 + z_e)^2 (a(t_0) R)^2}
+        \end{equation}
+        since the physical distance between the observer and the sources is $ a(t_0 )R $ but we normalize $ a(t_0) = 1 $, so the luminosity distance is
+        \begin{equation}
+            d^2_L = R^2 \cdot (1 + z_e)^2 \implies d_L = R(z_e) (1 + z_e)
+        \end{equation}
+        We now need to find $ R(z_e) $. Light follows a null geodesic
+        \begin{equation}
+            \dd{s}^2 = c^2 \dd{t}^2 - \frac{a^2 (\dd{r})^2}{1 - \kappa r^2} = 0
+        \end{equation}
+        which means $ \frac{c \dd{t}}{a(t)} = \frac{\dd{r}}{\sqrt{1 - \kappa r^2}} $, so
+        \begin{equation}
+            c \int_{t_e}^{t_0} \frac{\dd{t}}{a(t)} = \int_0^R \frac{\dd{r}}{\sqrt{1 - \kappa r^2}}
+        \end{equation}
+        Now we know that
+        \begin{equation}
+            \int \frac{\dd{t}}{a} = \int \frac{\dd{t}}{\dd{a}} \frac{\dd{a}}{a} = \int \frac{1}{Ha} \frac{\dd{a}}{a}
+        \end{equation}
+        so
+        \begin{equation}
+            c \int_{a_e}^1 \frac{\dd{a}}{a^2 H} = \int_0^R \frac{\dd{r}}{\sqrt{1 - \kappa r^2}} = F(R)
+        \end{equation}
+        Now
+        \begin{equation}
+            a = \frac{1}{1 + z} \implies \dd{a} = - \frac{\dd{z}}{(1 + z)^2} = - a^2 \dd{z} \implies \frac{\dd{a}}{a^2} = - \dd{z}
+        \end{equation}
+        so the left-hand side is
+        \begin{equation}
+            c \int_0^{z_e} \frac{\dd{z}}{H(z)}
+        \end{equation}
+        where
+        \begin{equation}
+            H(z) = H_0 \left[ \Omega_R (1 + z)^4 + \Omega_M (1 + z)^2 + \Omega_{\Lambda} + \Omega_{\kappa} (1 + z)^2 \right]^{1/2}
+        \end{equation}
+        Finally,
+        \begin{equation}
+            F(R) = \underbrace{\frac{c}{H_0}}_{d_{H_0}} \int_0^{z_e} \frac{\dd{z}}{\left[ \Omega_R (1 + z)^4 + \Omega_M (1 + z)^3 + \Omega_{\Lambda} + \Omega_{\kappa} (1 + z)^2 \right]^{1/2}}
+        \end{equation}
+        where $ R \equiv R(z_e) $. For a flat ($ \kappa = 0 = \Omega_{\kappa} $), $ F(R) = R $ and the luminosity distance is $ (1 + z_e)R(z_e) $.
+
+    Writing $ a(t) = \frac{a(t_0)}{1 + z} \equiv \frac{1}{1 + z} $, we get
+    \begin{equation}
+        \int_{1/(1+z_e)}^1 \frac{\dd{a}}{a^2 H(a)} \equiv \int_0^R \frac{\dd{r}}{\sqrt{1 - \kappa r^2}} \implies R = R(z_e)
+    \end{equation}
+
+    $ R(z_e) $ is a function of the cosmological parameters $ \Omega_{X} $, which all must add up to $ 1 $. During most of ``observable'' ($ z \lesssim 1 $) life, we can neglect $ \Omega_R \sim 10^{-5} $ and do a two-parameter fit over $ \Omega_M $ and $ \Omega_{\Lambda} $. The strategy is to find standard candles, type I-a supeprnovae with known intrinsic $ L_e $. Then, by measuring the flux and redshift,
+    \begin{equation}
+        d_L(z_e) = (1 + z_e)\underbrace{R(z_e)}_{R(\Omega_X)}
+    \end{equation}
+    A fit will give $ \Omega_M \simeq 0.25 $, $ \Omega_{\Lambda} \simeq 0.75 $, $ \Omega_{\kappa} \simeq 0 $ (flat cosmology), and $ \Omega_R $ fixed by the CMB.
+\end{itemize}
+
+\section{Horizons}\label{sec:horizons}
+
+An important concept is that of horizons. A particle horizon comes from the FRW metric:
+\begin{equation}
+    \dd{s}^2 = c^2 \dd{t}^2 - a^2(t) \dd{\va{l}}^2
+\end{equation}
+where $ \dd{\va{l}}^2 $ is the comoving spatial distance squared, $ \frac{\dd{r}^2}{1 - \kappa r^2} + r^2 \dd{\Omega} $. A light ray follows a null geodesic $ \dd{s}^2 = 0 $, so $ c^2 \dd{t}^2 = a^2(t) \dd{\va{l}}^2 $. The total comoving distance traveled since the time of the Big Bang ($ t = 0 $) is called the \textit{comoving particle horizon}:
+\begin{equation}
+    L_C = c \int_0^t \frac{\dd{t'}}{a(t')}
+\end{equation}
+whereas the \textit{physical particle horizon} at time $ t $ is
+\begin{equation}
+    L_p = c a(t) \int^t_0 \frac{\dd{t'}}{a(t')}
+\end{equation}
+Particles which are farther away than this ($ L_C $) distance are impossible for us to observe, because light couldn't travel that far in the time since the beginning of the universe.
+
+\section{Particle Physics}\label{sec:particle_physics}
+
+To proceed further, we need to understand what actually goes into $ \rho $, $ P $, and the equations of state that relate them. The microscopic distribution of matter is based on the Standard Model with three fundamental interactions (electromagnetism, weak, and strong), six quarks (fermions $u$, $d$, $s$, $c$, $b$, $t$ with spin-1/2), six leptons ($ e $, $ \nu_e $, $ \mu $, $ \nu_{\mu} $, $ \tau $, $ \nu_{\tau} $), various gauge vector bosons which mediate the interactions ($ \gamma $ for EM, $ W^{\pm} $ (shared with EM) and $ Z^0 $ for weak, and eight gluons $ g $ for strong), and the scalar (spin-0) Higgs boson ($ H $).
+
+In non-relativistic limits, these particles obey the non-relativistic Schr\"odinger equation:
+\begin{equation}
+    \imath \hbar \partial_t \psi = \frac{(- \imath \hbar \grad)^2}{2m} \psi \implies \psi(x,t) = e^{- \frac{\imath}{\hbar} E t} e^{\frac{\imath}{\hbar} \va{p} \vdot \va{x}}
+\end{equation}
+where $ E = \frac{\va{p}^2}{2m} $.
+
+For relativistic dynamics, $ E^2 = p^2 c^2 + m^2 c^4 $, so
+\begin{equation}
+    \left( \imath \hbar \partial_t \right)^2 \psi = \left[ (- \imath \hbar \grad)^2 c^2 + m^2 c^4 \right] \psi
+\end{equation}
+gives us
+\begin{equation}
+    \frac{1}{c^2} \partial_t^2 \psi - \laplacian{\psi} + \frac{m^2 c^2}{\hbar^2} \psi \equiv 0 \tag{Klein Gordon Equation}
+\end{equation}
+
+The term $ m^2 c^2 / \hbar^2 $ has units of $ 1/ \text{length}^2 $, so we can define a wavelength
+\begin{equation}
+    \lambda_C = \frac{\hbar}{mc} \tag{Compton Wavelength}
+\end{equation}
+of the particle, which is the length scale associated with its dynamics. In natural units, $ c = \hbar = 1 $, so $ m $ has units of inverse length and the Klein Gordon equation can be written
+\begin{equation}
+    \partial_{\mu} \partial^{\mu} \psi + m^2 \psi = 0
+\end{equation}
+where
+\begin{equation}
+    \partial_{\mu} \partial^{\mu} \psi = \pdv{x^{\mu}} \pdv{x_{\mu}} \psi \equiv \eta^{\mu \nu} \pdv{x^{\mu}} \pdv{x^{\nu}} \psi \equiv \left( \partial_t^2 - \laplacian \right) \psi
+\end{equation}
+since $ t = ct $. $ \partial_{\mu} \partial^{\mu} \equiv \square $ is an invariant under Lorentz transformations. By covariance, the wave function transforms as a scalar, which means we can't use it for particles with spin, but it does describe the dynamics of the Higgs boson.
+\begin{equation}
+    \psi'(x',t') = \psi(x,t)
+\end{equation}
+Solutions in natural units can be written
+\begin{equation}
+    \psi(x,t) = A_k e^{- \imath E_k t} e^{\imath \va{k} \vdot \va{x}}
+\end{equation}
+Plugging this into the Klein-Gordon equation gives $ E_k^2 = \pm \sqrt{k^2 + m^2} $. Therefore, the most general form of a solution is a linear superposition:
+\begin{equation}
+    \psi(x,t) = \frac{1}{\sqrt{V}} \sum_k \left[ A_k e^{- \imath E_k t} e^{\imath \va{k} \vdot \va{x}} + A^*_k e^{\imath E_k t} e^{- \imath \va{k} \vdot \va{x}} \right]
+\end{equation}
+Where we define $ E_k = + \sqrt{k^2 + m^2} $ and $ V $ is the quantization volume.
+
+
+\section{Lagrangian and Hamiltonian Dynamics and Quantization}\label{sec:lagrangian_and_hamiltonian_dynamics_and_quantization}
+
+We want to find the equations of motion for the scalar field $ \psi $ from the variational principle provided by Special Relativity. We can introduce a Lagrangian function of $ \psi $ and $ \partial_{\mu} \psi $ such that
+\begin{equation}
+    I = \in_{t_i}^{t_f} L[\psi, \partial \psi] \dd{t}
+\end{equation}
+with $ \psi \to \psi + \delta \psi $, $ \partial_{\mu} \psi \to \partial_{\mu} \delta \psi $, and $ \eval{\delta \psi}_{t_i}^{t_f} = 0 $ yields the equation of motion
+\begin{equation}
+    L = \int \dd[3]{x}\left[ \frac{1}{2} \partial_{\mu} \psi \partial^{\mu} \psi - \frac{1}{2} m^2 \psi \right]
+\end{equation}
+and
+\begin{equation}
+    I = \int_{t_i}^{t_f} \dd{t} \int \dd[3]{x}\left[ \frac{1}{2} \partial_{\mu} \psi \partial^{\mu} \psi - \frac{1}{2} m^2 \psi \right]
+\end{equation}
+
+Integrating by parts and discarding the surface turns ($ \delta \psi $ vanishes at $ t_i $, $ t_f $, and the boundary of $ V $), $ I \to + \delta I $:
+\begin{equation}
+    \delta I = -\int_{t_i}^{t_f} \dd{t} \int \dd[3]{x}\left[ \frac{1}{2} \partial_{\mu} \psi \partial^{\mu} \psi + \frac{1}{2} m^2 \psi \right] \delta \psi
+\end{equation}
+Finally, requesting $ \delta I = 0 $, we get the Klein-Gordon equation. The Lagrangian density
+\begin{equation}
+    \mathcal{L} = \frac{1}{2} \partial_{\mu} \psi \partial^{\mu} \psi - \frac{1}{2} m^2 \psi^2     
+\end{equation}
+privdes an action principle:
+\begin{equation}
+    I = \int \dd[4]{x} \mathcal{L}[\psi, \partial \psi]
+\end{equation}
+where $ \dd[4]{x} = \dd{t} \dd[3]{x} $ is invariant under Lorentz transformations:
+\begin{equation}
+    \dd{t} \to \gamma (\dd{t} - \beta \dd{x}) \qquad \dd{x} \to \gamma (\dd{x} - \beta \dd{t})
+\end{equation}
+
+
+\end{document}

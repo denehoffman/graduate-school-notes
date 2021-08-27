@@ -1,0 +1,169 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{25}{Tuesday, April 20, 2021}{Inflation}
+
+\section{The Horizon Problem}\label{sec:the_horizon_problem}
+
+In a spatially flat FRW cosmology, $ \dd{s}^2 = c^2 \dd{t}^2 - a^2(t) \dd{\va{x}}^2 $. Photons travel along null geodesics:
+\begin{equation}
+    \dd{s}^2 = 0 \implies c \dd{t} = a \dd{l}
+\end{equation}
+where $ \dd{l} $ is the spatial distance in comoving coordinates. Therefore, the comoving distance traveled by a photon between the time of the Big Bang ($ t=0 $) and time $ t $ is
+\begin{equation}
+    L_c(t) = c \int_0^t \frac{\dd{t'}}{a(t')}
+\end{equation}
+and the physical distance
+\begin{equation}
+    L_p(t) = c a(t) \int_0^t \frac{\dd{t'}}{a(t')}
+\end{equation}
+which is the physical particle horizon. In a radiation-dominated universe,
+\begin{equation}
+    a(t) \propto t^{1/2}
+\end{equation}
+so
+\begin{equation}
+    L_p(t) = 2ct
+\end{equation}
+The Hubble radius comes from $ H(t) = \frac{\dot{a}}{a} = \frac{1}{2t} $, so
+\begin{equation}
+    d_H(t) = \frac{c}{H(t)} = 2ct \implies L_p(t) = d_H(t)
+\end{equation}
+in a radiation-dominated universe.
+
+In a matter-dominated universe, $ a(t) \propto t^{2/3} $, so
+\begin{equation}
+    L_p(t) = 3ct
+\end{equation}
+and
+\begin{equation}
+    d_H(t) = \frac{3}{2} ct = \frac{1}{2} L_p(t)
+\end{equation}
+
+In both cases, $ L_p \propto d_H $, so we ``see more'' as time evolves. At the time of the last scattering, the causal (particle) horizon is about $ L_p \sim 10^6 \text{ly} $, which corresponds to a time of about $ 360,000 \text{yr} $ or $ 0.3\mega \text{pc} $ at $ z_{\text{rec}} \sim 1100 $. Today, this size would be $ \sim 10^9 \text{ly} $. However, the Hubble radius today is $ \frac{c}{H_0} \sim 14 \times 10^9 \text{ly} $, which is 14 times larger than the size of the horizon at the Last Scattering Surface extrapolated to today.
+
+The CMB is homogeneous and isotropic to $ 1 $ part in $ 10^5 $ across the whole sky, which has $ (14)^3 \sim 10000 $ causally uncorrelated regions. So the question is:
+
+\begin{quote}
+    Why is the CMB so homogeneous and isotropic across the whole sky?
+\end{quote}
+This is the Horizon Problem. This means that at the time of LSS, the CMB must have been correlated (homogeneous and isotropic) over a scale far larger than the particle horizon at the time.
+
+Let's consider that the radiation-dominated era goes all the way back to the Planck time, $ \sim 10^{-43} \second $ when the size of the particle horizon is the Planck length, $ l_p \sim 10^{-33} \centi\meter $. Assuming the temperature at this time is similar to the Planck mass, $ 10^{19} \giga\electronvolt $, the scale factor is $ \frac{a(t_p)}{a(t_0)} \sim 10^{-32} $. The Planck-sized horizon today would be $ l_p \times 10^{32} \sim 0.1\centi\meter $ whereas today the horizon is $ 4000\mega \text{pc} \sim 10^{28} \centi\meter $!/ The problem is that in either era, $ L_p \sim d_H $, so we need a cosmology during which $ L_p \gg d_H $. Consider a $ \Lambda $-dominated universe with $ a(t) = e^{Ht} $ with $ H = \sqrt{\frac{8 \pi G}{3} \Lambda} $. Then
+\begin{equation}
+    L_p = \frac{c}{H} (e^{Ht} - 1)
+\end{equation}
+For $ Ht\gg 1 $, $ L_p = e^{Ht} d_H \gg d_H $.
+
+Then consider that before the radiation-dominated era, there was a $ \Lambda $-dominated era during which the Hubble radius is $ d_H = \frac{c}{H} $ but $ L_p \sim e^{Ht} d_H $. Then if $ d_H \sim l_p $ but $ e^{Ht} \sim 10^{28} \sim e^{60} $, a Planck-sized region would encompass all the Universe today. If events are causally correlated in this $ \Lambda $-era, they remain so during the radiation and matter-dominated eras.
+
+\section{The Flatness Problem}\label{sec:the_flatness_problem}
+
+Observations clearly show that the universe today is spatially flat. From Friedmann's equation
+\begin{equation}
+    H^2 = \frac{8 \pi G}{3} \rho - \frac{\kappa}{a^2} \implies \kappa = \frac{8 \pi G}{3} (\rho - \rho_c) a^2 \qor \frac{\rho - \rho_c}{\rho} = \frac{3 \kappa}{8 \pi G} \frac{1}{a^2 \rho}
+\end{equation}
+where $ H^2 \equiv \frac{8 \pi G}{3} \rho_c $.
+
+Today, $ \rho \sim \rho_c $, and for radiation domination, $ \rho \sim \frac{1}{a^4} $, so $ \frac{\rho - \rho_c}{\rho} \sim a^2 \sim t $. For matter domination, $ \rho \sim a^{-3} $ so $ \frac{\rho - \rho_c}{\rho} \sim a \sim t^{2/3} $. In either case, $ \frac{\rho - \rho_c}{\rho} $ grows at large $ t $. If $ \frac{\rho - \rho_c}{\rho} \sim 0 $ today, it must have been \textit{extremely} small in the past!\ The flatness problem is that for regular fluids with $ \frac{P}{\rho} = w > 0 $
+\begin{equation}
+    \rho \sim \frac{1}{a^{3(1+w)}} \qand \frac{\rho - \rho_c}{\rho} \sim a^{1+3w} 
+\end{equation}
+grow for $ w > - \frac{1}{3} $ but shrink for $ w < - \frac{1}{3} $. In particular, a $ \Lambda $-dominated cosmology with $ w = -1 $ results in $ \frac{\rho - \rho_c}{\rho} \to 0 $ as $ a $ increases. Then a period of $ \Lambda $ domination makes the universe flatter, so both the Horizon and Flatness problems are solved by a period of \textit{inflation}, a $ \Lambda $-dominated cosmology with $ a(t) = e^{Ht} $ and $ H = \sqrt{\frac{8 \pi G}{3} \Lambda} $, a de Sitter spacetime.
+
+Note that during an inflationary era, a physical wavelength $ \lambda_p(t) = \lambda_c a(t) = \lambda_c e^{Ht} $ grows like the particle horizon. If $ \lambda < \frac{c}{H} $, it is always inside the particle horizon. If physical wavelengths were inside the particle horizon during inflation, then they are inside the particle horizon today, which means they are causally connected.
+
+\section{Implementing Inflation}\label{sec:implementing_inflation}
+
+We can examine a QFT of a scalar field in FRW cosmology. The action
+\begin{equation}
+    S = \int \dd{t} \dd[3]{x_c} a^3(t) \left\{ \frac{1}{2} g^{\mu \nu} \pdv{\phi}{x^{\mu}} \pdv{\phi}{x^{\nu}} - V(\phi) \right\}
+\end{equation}
+and
+\begin{equation}
+    \dd{s}^2 = c^2 \dd{t}^2 - a^2(t) \dd{\va{x}}^2
+\end{equation}
+with
+\begin{equation}
+    g_{\mu \nu} = \mqty(\dmat[0]{1, -a^2, -a^2, -a^2}) \qquad g^{\mu \nu} = \mqty(\dmat[0]{1, -1/a^2, -1/a^2, -1/a^2})
+\end{equation}
+Then
+\begin{equation}
+    \frac{1}{2} g^{\mu \nu} \pdv{\phi}{x^{\mu}} \pdv{\phi}{x^{\nu}} = \frac{1}{2} \left[ \frac{\dot{\phi}^2}{c^2} - \frac{(\grad{\phi})^2}{a^2(t)} \right]
+\end{equation}
+and
+\begin{equation}
+    T^{\mu}_{\nu} = g^{\mu \alpha} \pdv{\phi}{x^{\alpha}} \pdv{\phi}{x^{\nu}} - \delta^{\mu}_{\nu} \mathcal{L}
+\end{equation}
+Here $ \phi $ defines the ``inflaton'' field. In QFT, $ \phi(\va{x}, t) $ is an operator but the right-hand-side of Einstein's equation, $ G^{\mu \nu} = \frac{8 \pi G}{c^4} T^{\mu \nu} $ means that $ T^{\mu \nu} $ must be a commuting number. For a semiclassical treatment assuming isotropy and homogeneity, there is a vacuum state $\ket{0} $ such that
+\begin{equation}
+    \bra{0} \hat{\phi}(\va{x}, t)\ket{0} \equiv \phi(t)
+\end{equation}
+only depends on $ t $ and not $ \va{x} $. Similarly
+\begin{equation}
+    \bra{0} \hat{T}^{\mu}_{\nu}\ket{0} \equiv \mqty(\dmat[0]{\rho(t), -P(t), -P(t), -P(t)})
+\end{equation}
+with
+\begin{equation}
+    \rho(t) = \frac{\dot{\phi}^2}{2} + V(\phi) \qquad P(t) = \frac{\dot{\phi}^2}{2} - V(\phi)
+\end{equation}
+and
+\begin{equation}
+    w = \frac{P}{\rho} = \frac{\frac{\dot{\phi}^2}{2} - V(\phi)}{\frac{\dot{\phi}^2}{2} + V(\phi)}
+\end{equation}
+Note that if $ \dot{\phi} = 0 $, $ P = - \rho $ and $ w = -1 $. This would be the equation of state of the cosmological constant.
+
+The equations of motion for the scalar field is obtained by the variational principle on the action:
+\begin{equation}
+    S = \int \dd{t} \dd[3]{x_c} a^3(t) \left[ \frac{1}{2} \dot{\phi}^2 - \frac{1}{2} \left( \frac{\grad{\phi}}{a} \right)^2 - V(\phi) \right]
+\end{equation}
+Using $ \phi \to \phi + \delta \phi $, we have $ \frac{1}{2} \dot{\phi}^2 \to \frac{1}{2} \dot{\phi}^2 + \dot{\phi} \dv{t}(\delta \phi) $. Integrating this second term by parts, we pick up a term $ \dv{t}(a^3)= 3 \left( \frac{\dot{a}}{a} \right)a^3 $. Setting $ \delta S = 0 $, we find
+\begin{equation}
+    \ddot{\phi} + 3 H \dot{\phi} + V'(\phi) \underbrace{+ \left( \frac{\grad{\phi}}{a} \right)^2}_{=0} = 0
+\end{equation}
+where the final term can be neglected for isotropic and homogeneous universes.
+
+The Friedmann equation reads
+\begin{equation}
+    H^2 = \frac{8 \pi G}{3} \left[ \frac{\dot{\phi}^2}{2} + V(\phi) \right]
+\end{equation}
+and the Acceleration equation says
+\begin{equation}
+    \frac{\ddot{a}}{a} = - \frac{4 \pi G}{3} \left[ 2 \dot{\phi}^2 - 2 V(\phi) \right] = \frac{8 \pi G}{3} \left[ V(\phi) - \dot{\phi}^2 \right]
+\end{equation}
+The continuity equation gives us
+\begin{equation}
+    \dot{\rho} + 3H(\rho + P) = 0 \implies \dot{\phi} \left[ \ddot{\phi} + 3H \dot{\phi} + V'(\phi) \right] = 0
+\end{equation}
+We can compare this to a free field where $ V(\phi) = \frac{1}{2} m^2 \phi^2 $, which makes
+\begin{equation}
+    \ddot{\phi} + 3 H \dot{\phi} + m^2 \phi = 0
+\end{equation}
+look like a damped harmonic oscillator. Consider $ V(\phi) = \frac{\lambda}{4} (\phi^2 - \phi_0^2)^2 $ and $ \phi(t \sim 0) $ near the top with $ V(\phi_i) \gg \dot{\phi}_i^2 $.
+
+$ H^2 \simeq \frac{8 \pi G}{3} V(\phi_i) \simeq \text{constant} $, so taking the time derivative of the condition $ V(\phi) \gg \frac{\dot{\phi}^2}{2} $, we get
+\begin{equation}
+    \dot{\phi} V '(\phi) \gg \dot{\phi} \ddot{\phi} \implies V'(\phi) \gg \ddot{\phi}
+\end{equation}
+so we can neglect $ \ddot{\phi} $ in the equations of motion:
+\begin{equation}
+    3H \dot{\phi} + V'(\phi) \approx 0
+\end{equation}
+during inflation. In a $ \Lambda $-cosmology, $ H^2 \simeq \frac{8 \pi G}{3} V(\phi) $, so taking the time derivative, we have
+\begin{align}
+    2H \dot{H} &= \frac{8 \pi G}{3} \dot{\phi} V'(\phi) \\
+               &= \frac{8 \pi G}{3} \dot{\phi} (-3H \dot{\phi}) \\
+    \implies \dot{H} &\simeq -4 \pi G \dot{\phi}^2 \\
+    \implies \frac{\dot{H}}{H^2} &\sim - \frac{3}{2} \frac{\dot{\phi}^2}{V(\phi)} \ll 1
+\end{align}
+so the Hubble parameter varies very slowly during inflation. This is known as the slow-roll condition: Using $ \dot{\phi} = \frac{-V'(\phi)}{3H} $, we get
+\begin{equation}
+    \frac{\dot{H}}{H^2} = - \frac{3}{2} \frac{(V'(\phi))^2}{9H^2 V(\phi)} = - \frac{1}{16 \pi G} \left( \frac{V'(\phi)}{V(\phi)} \right)^2 \equiv - \epsilon
+\end{equation}
+where $ \epsilon \ll 1 $ is the ``slow roll'' parameter. Another related parameter is
+\begin{equation}
+    \eta = \frac{1}{8 \pi G} \left( \frac{V''(\phi)}{V} \right) \ll 1
+\end{equation}
+
+
+
+\end{document}

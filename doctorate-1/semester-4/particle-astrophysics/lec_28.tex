@@ -1,0 +1,179 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{28}{Thursday, April 29, 2021}{Jeans Instability, Cont.}
+
+Looking at the physical interpretation, consider the no-pressure case, where $ c_s = 0 \implies P = 0 $. Then
+\begin{equation}
+    \abs{\omega} = \sqrt{4 \pi G \rho_0} = \sqrt{4 \pi} \underbrace{\sqrt{G \rho_0}}_{\approx \frac{1}{t_{ff}}}
+\end{equation}
+Then
+\begin{equation}
+    \rho_1 \sim e^{\sqrt{4 \pi} t/t_{ff}}
+\end{equation}
+so the typical time scale for the growth of unstable perturbations is $ t_{ff} $.
+
+Now consider $ c_s \neq 0 $ with $ k = \frac{2 \pi}{\lambda} $. Then
+\begin{equation}
+    c_s^2 k^2 - 4 \pi G \rho_0 = 4 \pi \left[ \pi \frac{c_s^2}{\lambda^2} - \underbrace{G \rho_0}_{\approx \frac{1}{t^2_{ff}}} \right] = \frac{4 \pi c_s^2}{\lambda^2} \left[ \pi - \left( \frac{\lambda}{c_s t_{ff}} \right)^2 \right]
+\end{equation}
+
+Now, $ \lambda / c_s \equiv t_s $ is the time scale during which a a sound wave travels a distance $ \lambda $. Therefore, $ \omega^2 \sim \left[ \pi - \left( \frac{t_s}{t_{ff}} \right)^2 \right] $, so if $ t_s \gg t_{ff} $, $ \omega^2 < 0 $ so we have gravitational collapse. A sound wave cannot restore the pressure/equilibrium because it takes longer than the free-fall time for collapse.
+
+If $ t_s \ll t_{ff} $, then a sound wave can restore the equilibrium before the collapse time scale, leading to acoustic oscillations (sound waves). In summary, if $ \frac{\pi c_s^2}{\lambda^2} > G \rho_0 $, we get oscillations, otherwise we have Jeans instability and gravitational collapse. We can construct a length scale
+\begin{equation}
+    L_J = \sqrt{\frac{\pi}{G \rho_0}} c_s \tag{Jeans Length}
+\end{equation}
+If the wavelength of perturbation is larger than the Jeans length, then there is a Jeans instability and gravitational collapse. Small perturbations are unstable. Otherwise, we have oscillations. We can also construct a mass scale derived from the mass contained in a sphere of radius $ L_J $:
+\begin{equation}
+    M_J = \frac{4 \pi}{3} \rho_0 L_J^3 \tag{Jeans Mass}
+\end{equation}
+
+\subsection{Consequences for Dark Matter}\label{sub:consequences_for_dark_matter}
+
+The important quantity is $ c_s $. For a collisionless model, consider replacing $ c_s $ with $ \sqrt{\ev{v^2}} $, so $ L_J \sim \sqrt{\ev{v^2}} t_{ff} $.
+
+For Cold Dark Matter (CDM), we consider small velocities and heavy, cold particles. $ \ev{v^2} \sim \frac{k T}{M} \implies \lambda_J $ is a few parsecs. WIMPS have $ M \sim 100 \giga\electronvolt $.
+
+For Warm Dark Matter (WDM), $ \lambda_J \sim 50-100 \kilo\text{pc} $ (scale of the galaxy). Sterile neutrinos are a proposed WDM particle, with $ M \sim \kilo \electronvolt $.
+
+For Hot Dark Matter, $ c_s \sim c $ and $ \lambda_J \sim 100\mega\text{pc} $ (this would be like neutrino-mass particles). This is ruled out by the fact that galaxies form.
+
+\section{Ideal Self-Gravitating Fluids in an Expanding Cosmology}\label{sec:ideal_self-gravitating_fluids_in_an_expanding_cosmology}
+
+consider $ \rho_0(t) $, $ P_0(t) $, and $ \va{v}(t) = H \va{r} $ where $ \va{r} $ is the physical independent variable. For unperturbed fluids, $ \rho_0 $ and $ P_0 $ only depend on $ t $ and not $ \va{r} $. Then
+\begin{align}
+    \eval{\pdv{\rho_0}{t}}_{r} + \rho_0 \grad_r\vdot\va{v} &= 0 \\
+    \eval{\pdv{v}{t}}_{r} + (\va{v} \vdot \grad_r) \va{v} &= - \grad_r{\phi} \\
+    \laplacian_r{\phi} &= 4 \pi G \rho_0(t)
+\end{align}
+
+In an expanding cosmology, for unperturbed fluids, the Hubble flow is $ \va{r}(t) = a(t) \va{x} $, where $ \va{x} $ is comoving and time independent.
+
+In a matter-dominated cosmology,
+\begin{equation}
+    \eval{\pdv{\va{v}}{t}}_{r} = \dot{H} \va{r}
+\end{equation}
+so from the Laplace equation,
+\begin{equation}
+    \phi(\va{r}, t) = \frac{2 \pi}{3} G \rho_0(t) \va{r}^2
+\end{equation}
+implies that $ \grad{\phi} = \frac{4 \pi}{3} \rho_0(t) \va{r} $. Using the second equation, we have
+\begin{equation}
+    (\dot{H} + H^2) \va{r} = - \frac{4 \pi}{3} \rho_0(t) \va{r} \implies \frac{\ddot{a}}{a} = - \frac{4 \pi G}{3} \rho_0(t)
+\end{equation}
+This is the acceleration equation in the Newtonian limit ($ P/\rho c^2 \ll 1 $)!
+
+Now if we go back to the first equation, $ \grad_r \vdot \va{v} = 3H $ implies
+\begin{equation}
+    \dot{\rho}_0(t) + 3 \frac{\dot{a}}{a} \rho_0 = 0
+\end{equation}
+so
+\begin{equation}
+    \rho_0(t) = \frac{\text{const}}{a^3(t)}
+\end{equation}
+
+While you need Jeans swindle in the previous Minkowski derivation, with Hubble expansion there actually is a consistent solution of the unperturbed fluid equations.
+
+Another problem with the Minkowski treatment applied to an expanding cosmology is that for long wavelength perturbations, $ \lambda \gg L_J $, the time scale for collapse is on the same order as the time scale for instability, so expansion would severely modify the time evolution of Jeans unstable modes. Let's study these perturbations, starting with the velocity field:
+\begin{equation}
+    \va{v} = \underbrace{\dot{a}(t) \va{x}}_{\frac{\dot{a}}{a} \va{r}} + \va{v}_1(\va{r}, t)
+\end{equation}
+where $ \va{v}_1 $ is the peculiar velocity relative to the Hubble flow with $ \va{v}_1 \ll H(t) \va{r} $. since the continuity and Euler equations have time derivatives at a constant $ \va{r} $, we can write $ \rho(\va{r}) \to \rho(\va{x}) $ with $ \va{x} = \va{r} / a $ so that
+\begin{equation}
+    \eval{\pdv{t}}_{r} = \eval{\pdv{t}}_{x} - \underbrace{\frac{\dot{a}}{a^2} \va{r} \vdot \grad_x}_{\frac{\dot{a}}{a} \va{x} \vdot \grad_x}
+\end{equation}
+The continuity equation reads
+\begin{equation}
+    \eval{\pdv{\rho}{t}}_{r} + \grad_r(\rho \va{v}) = 0
+\end{equation}
+so the first term becomes
+\begin{equation}
+    \eval{\pdv{\rho}{t}}_{r} = \eval{\pdv{\rho}{t}}_{x} - \frac{\dot{a}}{a} \va{x} \vdot \grad_x{\rho}
+\end{equation}
+The second term has $ \grad_r = \frac{1}{a} \grad_x $, so
+\begin{equation}
+    \frac{1}{a} \grad_x(\rho \times (\dot{a} \va{x} + \va{v}_1)) = \frac{1}{a} \grad_x(\rho \va{v}_1) + 3 \frac{\dot{a}}{a} \rho + \frac{\dot{a}}{a} \va{x} \vdot \grad_x \rho
+\end{equation}
+Notice the final term here cancels the second term in the previous line. Therefore,
+\begin{equation}
+    \eval{\pdv{\rho}{t}}_{x} + \frac{3 \dot{a}}{a} \rho + \frac{1}{a} \grad_x(\rho \va{v}_1) = 0
+\end{equation}
+For perturbations, we write
+\begin{equation}
+    \rho = \rho_0(t) [1 + \delta(\va{x}, t)]
+\end{equation}
+where $ \delta = \frac{\rho - \rho_0}{\rho_0} $.
+\begin{equation}
+    \phi = \frac{2 \pi}{3} G \rho_0 \underbrace{a^2 \va{x}^2}_{\va{r}^2} + \phi_1(\va{x}, t)
+\end{equation}
+and
+\begin{equation}
+    \frac{\ddot{a}}{a} = - \frac{4 \pi G}{3} \rho_0
+\end{equation}
+The first term is
+\begin{equation}
+    - \frac{1}{2} \frac{\ddot{a}}{a} a^2 \va{x}^2 = - \frac{1}{2} \ddot{a} a \va{x}^2
+\end{equation}
+so
+\begin{equation}
+    \phi = \underbrace{- \frac{1}{2} \ddot{a} a \va{x}^2}_{\phi_0(\va{x}, t)} + \phi_1(\va{x}, t)
+\end{equation}
+Finally, if we look at the Euler equation with $ P(\va{x}, t) = P_0(t) + P_1(\va{x}, t) $, we have
+\begin{equation}
+    \eval{\pdv{\va{v}}{t}}_{r} + (\va{v} \vdot \grad_r) \va{v} = - \frac{\grad{P}}{\rho} - \grad{\phi}
+\end{equation}
+Since $ \va{v}_0 = \dot{a} \va{x} $, we have, to zeroth order
+\begin{equation}
+    \eval{\pdv{\va{v}_0}{t}}_{r} + (\va{v}_0 \vdot \grad_r) \va{v}_0 = - \grad{\phi_0}
+\end{equation}
+and
+\begin{equation}
+    \underbrace{\eval{\pdv{\va{v}_1}{t}}_{r}}_{\eval{\pdv{\va{v}_1}{t}}_{x} - \frac{\dot{a}}{a} (\va{x} \vdot \grad_x) \va{v}_1} + \underbrace{(\va{v}_0 \vdot \grad_r) \va{v}_1}_{\frac{\dot{a}}{a} (\va{x} \vdot \grad_x) \va{v}_1} + \underbrace{(\va{v}_1 \vdot \grad_r) \va{v}_0}_{\frac{\dot{a}}{a} \va{v}_1} = \underbracec{- \frac{\grad{P_1}}{\rho_0} - \grad{\phi_1}}_{- \frac{1}{a \rho_0}}\grad_x{P_1} - \frac{1}{a} \grad_x{\phi_1}
+\end{equation}
+so
+\begin{equation}
+    \pdv{\va{v}_1}{t} + \frac{\dot{a}}{a} \va{v}_1 = - \frac{1}{a \rho_0} \grad_x{P_1} - \frac{1}{a} \grad_x{\phi_1}
+\end{equation}
+And with $ \rho_1 = \rho_0 \delta $, we have
+\begin{equation}
+    \frac{1}{a^2} \laplacian_x{\phi_1} = 4 \pi G \rho_0 \delta
+\end{equation}
+For adiabatic expansion, we have $ P_1 = c_s^2 \rho_1 = c_s^2 \rho_0 \delta $. In summary, we have
+\begin{align}
+    \pdv{\delta}{t} + \frac{1}{a} \left( \grad_x \vdot \va{v}_1 \right) &= 0 \\
+    \pdv{\va{v}_1}{t} + \frac{\dot{a}}{a} \va{v}_1 &= - \frac{1}{a \rho_0} \grad_x{P_1} - \frac{1}{a} \grad_x{\phi_1} \\
+    \laplacian_x{\phi_1} &= 4 \pi G a^2 \rho_0 \delta \\
+    P_1 &= c_s^2 \rho_0 delta
+\end{align}
+If we take the time derivative of the first equation, we can use the other equations to get
+\begin{equation}
+    \pdv[2]{\delta}{t} + 2 \frac{\dot{a}}{a} \pdv{\delta}{t} - \frac{c_s^2}{a^2} \laplacian_x{\delta} - 4 \pi G \rho_0 \delta = 0
+\end{equation}
+
+Taking the spatial Fourier transform with
+\begin{equation}
+    \delta(x,t) = \tilde{\delta}_k(t) e^{\imath \va{k} \vdot \va{x}}
+\end{equation}
+with $ \va{k} $ comoving and $ \frac{\va{k}}{a} = \va{k}_{ph} $, we get
+\begin{equation}
+    \pdv[2]{\tilde{\delta}}{t} + 2 \frac{\dot{a}}{a} \pdv{\tilde{\delta}}{t} + [c_s^2 k_{ph}^2 - 4 \pi G \rho_0] \tilde{\delta} = 0
+\end{equation}
+If we took $ \dot{a} / a = 0 $ and $ a = 1 $, this is the same as Minkowski spacetime with $ \abs{\va{k}_{ph}} = \frac{2 \pi}{\lambda_{ph}} $. The Jeans length in physical coordinates corresponds when the last term vanishes:
+\begin{equation}
+    \lambda_{J,ph} = c_s \sqrt{\frac{\pi}{G \rho_0(t)}}
+\end{equation}
+For matter domination, $ \frac{\dot{a}}{a} = H = \frac{2}{3t} $ and $ \rho_0 = \frac{3 H^2}{8 \pi G} $. The general solution is a combination of Bessel functions, but we can understand the growth of structure for $ \lambda \gg \lambda_J \implies c_s^2 k^2 \to 0 $ (vanishing pressure). This condition gives us
+\begin{equation}
+    \pdv[2]{\tilde{\delta}}{t} + \frac{4}{3t} \pdv{\tilde{\delta}}{t} - \frac{2}{3 t^2} \tilde{\delta} = 0
+\end{equation}
+Solutions have the form
+\begin{equation}
+    \tilde{\delta}(t) = A t^{2/3} + \frac{B}{t}
+\end{equation}
+where $ A $ and $ B $ are constants. Instead of exponential growth as in Minkowski, we now have a growing mode which is slower, $ \tilde{\delta} \sim A t^{2/3} \sim A a(t) $. Expansion slows the growth of density perturbations. During radiation domination, the growth is only $ \ln(t) \sim \ln(a(t)) $, which is much slower because the expansion is faster. Structure formation via gravitational collapse of density perturbations grow only during (and after) the matter-dominated era.
+
+\section{Conclusion}\label{sec:conclusion}
+
+This concludes the notes taken for the Particle Astrophysics class taught by Dr. Daniel Boyanovsky in the Spring Semester of 2021 at the University of Pittsburgh. These notes were transcribed by me, Nathaniel Dene Hoffman, following handwritten lecture notes distributed by the professor as well as notes taken concurrently in class. Any inaccuracies in the notes are likely my fault, and these notes have not been thoroughly proofread for accuracy or consistency. The final few lectures were rushed because we were running towards the end of the semester, and the professor chose not to have a final (or midterm), so the mathematical details were not critical to understanding the class. As a result, some of the less-important details in these lectures (and others) have been glossed over. I hope these notes will be useful to someone taking the class or at least as a reference in understanding the basics of cosmology and particle physics in an expanding universe. Any comments may be directed to dene@cmu.edu, although I cannot guarantee I will have time to update these notes with corrections. Thanks for reading!
+
+\end{document}

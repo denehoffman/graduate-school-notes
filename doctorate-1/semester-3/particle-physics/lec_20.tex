@@ -1,0 +1,76 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{20}{Wednesday, October 21, 2020}{Nuclear Physics, cont.}
+
+From our previous lecture, we said that the mass of the nucleus could be written
+\begin{equation}
+    M_n = N m_n + Z m_p - B
+\end{equation}
+This is based on the ``liquid drop model'', where we treat nuclear matter as an incompressible liquid ($ R \propto A^{1/3} $).
+
+Strong (nuclear) interactions are short-ranged, so they saturate: $ B_1 = a_v A $. However, nucleons on the surface are not as tightly bound (since they are not surrounded by nucleons): $ B_2 = a_v A - a_s A^{2/3} $.
+
+\subsection{Coulomb Repulsion}\label{sub:coulomb_repulsion}
+
+$ B $ is reduced by repulsion of two protons from $ Z - 1 $ other protons with distance $ R \propto A^{1/3} $:
+\begin{equation}
+    \Delta B \propto \sum_{i=1}^{Z} \frac{e(Z-1)e}{R} \propto \frac{Z(Z-1)}{A^{1/3}}
+\end{equation}
+so
+\begin{equation}
+    B_3 = a_v A - a_s A^{2/3} - a_c \frac{Z(Z-1)}{A^{1/3}}
+\end{equation}
+
+\subsection{Asymmetry Term}\label{sub:asymmetry_term}
+
+We expect $ N > Z $ for heavy nuclei. The advantage is reduced as $ N $ grows by some asymmetry term (otherwise $ \nuclide[238]{H} $ would be common). Treating the nucleus as two degenerate Fermi gasses (one of neutrons and another of protons), the Pauli exclusion principle says that if $ N >> Z $, extra neutrons added are at a higher energy than extra protons (the Fermi energy for the neutrons will be higher than that of the protons if there are more neutrons than protons).
+
+The Fermi pressure for particles on a lattice is $ p = \frac{h}{L} \sqrt{n_x^2 + n_y^2 + n_z^2} $. $ Z = \frac{4}{3} \pi n^3_{\mathcal{F}_p} $ so $ n_{\mathcal{F}_p} \propto Z^{1/3} $ and $ n_{\mathcal{F}_n} \propto N^{1/3} $.
+
+Therefore, the Fermi energy will be
+\begin{equation}
+    E_{\mathcal{F}_p} = \frac{p^2_{\mathcal{F}_p}}{2m} = \frac{1}{2m} \left( \frac{h}{L} \right)^2 \left( \frac{3}{4 \pi} Z \right)^{2/3}
+\end{equation}
+so
+\begin{equation}
+    E_{\text{tot}_p} = 4 \pi \int_0^{n_{\mathcal{F}_p}} E(n) n^2 \dd{n} = 4 \pi \int \frac{1}{2m} \left( \frac{h}{L} n \right) n^2 \dd{n} \propto \frac{1}{L^2} n^5_{\mathcal{F}_p} \propto \frac{Z^{5/3}}{A^{2/3}}
+\end{equation}
+For $ N $ neutrons and $ Z $ protons vs. $ \frac{A}{2} $ neutrons and $ \frac{A}{2} $ protons,
+\begin{equation}
+    \Delta E_{\text{tot}} \propto \frac{1}{A^{2/3}} N^{5/3} + \frac{1}{A^{2/3}} Z^{5/3} - 2 \frac{1}{A^{2/3}} \left( \frac{A}{2} \right)^{5/3}
+\end{equation}
+Let $ N = \frac{A}{2} (1 + \lambda) $ and $ Z = \frac{A}{2} (1 - \lambda) $ ($ \lambda \equiv \frac{N - Z}{A} $). Then
+\begin{equation}
+    \Delta E_{\text{tot}} \propto \frac{1}{A^{2/3}} \left( \frac{A}{2} \right)^{5/3} \left( (1 + \lambda)^{5/3} + (1 - \lambda)^{5/3} - 2 \right)
+\end{equation}
+If $ \lambda \ll 1 $,
+\begin{align}
+    \Delta E &\propto A \left[ \left( 1 + \frac{5}{3} \lambda + \frac{5}{3} \left( \frac{5}{3} - 1 \right) \lambda^2 \right) + \left( 1 - \frac{5}{3} \lambda + \frac{5}{3} \left( \frac{5}{3} - 1 \right) \lambda^2 \right) - 2 \right] \\
+    &\propto A \lambda^2 = A \left( \frac{N - Z}{A} \right)^2 = \frac{(N - Z)^2}{A}
+\end{align}
+so
+\begin{equation}
+    B_4 = B_3 - a_{\text{sym}} \frac{(N - Z)^2}{A}
+\end{equation}
+
+Finally, beyond the liquid-drop model plus the Fermi gas model, there are pairing correlations. Nuclei are more tightly bound if $ N $ is even and $ Z $ is even. They are less bound if one of them is odd, and even less if both are:
+\begin{equation}
+    B_5 = a_v A - a_s A^{2/3} - a_c \frac{Z(Z-1)}{A^{1/3}} - a_{\text{sym}} \frac{(N - Z)^2}{A} - a_{\text{pairity}} \delta(N,Z)
+\end{equation}
+where
+\begin{equation}
+    \delta = \begin{cases} 1& \qif N \qodd Z \qodd \\ 0&\qif A\qood\\ -1&\qif N\qeven Z\qeven \end{cases}
+\end{equation}
+An empirical fit (for $ A > 20 $) yields (in $ \mega\electronvolt $):
+
+\begin{tabular}{@{}ccccc@{}}
+        \toprule
+        $ a_v $ & $ a_s $ & $ a_c $ & $ a_{\text{sym}} $ & $ a_{\text{pairity}} $ \\
+        \midrule 
+        $ 15.76 $ & $ 17.8 $ & $ 0.711 $ & $ 23.7 $ & $ 11.18/ \sqrt{A} $ \\
+        \bottomrule
+\end{tabular}
+This predicts the curve of binding energy roughly and also predicts the $ \beta $-stability curve and proton/neutron drip lines. The liquid drop model also qualitatively explains fusion.
+
+
+\end{document}

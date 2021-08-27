@@ -1,0 +1,168 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{1}{Friday, August 28, 2020}{Scattering Theory}
+
+\section{Scattering and the S-Matrix}
+\label{sec:scattering_and_the_s_matrix}
+
+We can begin by considering scattering in Classical Mechanics. Imagine an electron scattering off of an atom. We can say that the electron goes on a trajectory $ \va{x}(t) $. We produce the electron in a collider, so when it is just starting out, it follows the beam line or ``in'' asymptote. At a certain approximate interaction range, it no longer follows this asymptote. Finally, when it is outside of the range of interaction, it follows an ``out'' asymptote. This interaction follows Newton's law: $ m \va{x}'' = - \grad{V} $. If we could see the entire trajectory, scattering would be really easy, but all the experimenter has are the asymptotes. This is okay though, because we can use these asymptotes to determine observables and eventually figure out some of the properties of the scattering. For example, we can get information about this potential, $ V $, by constructing a differential cross-section (say with relation to the scattering angle, $ \theta $), $ \dv{\sigma}{\cos(\theta)} $.
+
+
+Now let's transition to Quantum Mechanics and a scattering with a single spinless particle. In QM, we have a Hamiltonian with the form $ H = H_0 + V $, and we want to solve $ \dv{t}\ket{\psi(t)} = H\ket{\psi(t)} $. The general solution is given by $\ket{\psi(t)} = \underbrace{U(t)\ket{\psi(0)}}_{\text{orbit}} = e^{- \imath H t}\ket{\psi(0)} $. Let the orbit describe a scattering experiment. First, we can take $ t \to - \infty $. We would expect a free particle solution (wavepacket) in this limit, since it's far away from the interaction. 
+\begin{equation}
+    U_0(t) = e^{- \imath H_0 t}
+\end{equation}
+and we expect
+\begin{equation}
+    \lim_{t \to - \infty} \norm{e^{- \imath H t}\ket{\psi} - e^{- \imath H_0 t}\ket{\psi_{\text{in}}}} \to 0
+\end{equation}
+
+As it turns out, we typically don't need the norm here because of something called the asymptotic condition (this makes the phases not matter). This only works for some potentials, but let's just assume it for now.
+
+\begin{equation}
+    \ket{\psi} = \begin{cases} \lim_{t \to - \infty} U^\dagger(t) U_0(t)\ket{\psi_{\text{in}}} \equiv \Omega_+\ket{\psi_{\text{in}}}\\ \lim_{t \to + \infty} U^\dagger(t) U_0(t)\ket{\psi_{\text{out}}} \equiv \Omega_-\ket{\psi_{\text{out}}}\end{cases} 
+\end{equation}
+
+These $ \Omega_{\pm} $ operators are called M\o{}ller operators. We are able to represent the state at $ t = 0 $ in terms of asymptotic states. The M\o{}ller operators kick the state from one orbit to another. In our case, they take the state from the asymptotic orbits to the interaction orbit. We can use the properties of these operators to represent the out states in terms of the in states:
+
+\begin{align}
+    \ket{\psi_{\text{out}}} &= \Omega_-^\dagger \Omega_+\ket{\psi_{\text{in}}} \\
+    &\equiv S\ket{\psi_{\text{in}}}
+\end{align}
+where $ S $, which we will call the ``S-matrix'' or ``S-operator'' contains \textbf{all} of the scattering information. If we know this matrix exactly, we've solved the problem, but in practice this is very difficult and nearly impossible to find exact solutions, although we will go over some in the coming weeks.
+
+
+We would like to calculate some experimental quantity that we can actually measure. Let's define $\ket{\psi_{\text{in}}} =\ket{\varphi} $ and $\ket{\psi_{\text{out}}} =\ket{\chi} $, so $\ket{\varphi_+} = \Omega_+\ket{\varphi} $ and $\ket{\chi_-} = \Omega_-\ket{\chi} $.
+
+\begin{align}
+    \Pr(\varphi \to \chi) &= \abs{\bra{\chi_-}\ket{\varphi_+}}^2 \\
+    &= \abs{\bra{\chi} S\ket{\varphi}}^2
+\end{align}
+
+The probability amplitude for scattering $ \varphi \to \chi $ is given by the S-matrix element. Note that there are a couple conditions on $ V $. It must fall off faster than $ \frac{1}{r^3} $ be less singular than $ \frac{1}{r^2} $ at the origin, and be a smooth function.
+
+\section{Scattering in Quantum Field Theory}
+\label{sec:scattering_in_quantum_field_theory}
+
+The basic idea of scattering in QFT is to calculate\ldots S-matrix elements. In QFT, $\ket{\chi} $ and $\ket{\varphi} $ are multiparticle states. They could be this way in our previous example, but it's much more natural in the language of QFT, especially if the number of particles is changing. For instance, we could have two particles go into and three particles come out of an interaction. In theory, the math involves an infinite separation in spacetime, but this is a pretty decent approximation for most experiment. In the LHC, the accelerator is about $ 10^4\meter $ in diameter, while the interaction space is on the order of $ 10^{-15}\meter $. Note that we measure the differential cross-section, which goes like $ \dd{\sigma} P(\varphi \to \chi) \times \text{``kinematic factors''} $.
+
+The S-matrix element is the core theory-experiment object. With theory, we could calculate an expected cross-sectional curve and compare it to some discrete experimental values.
+
+The important thing about the S-matrix is it involves the free states. It sounds like a miracle, since we can use these very simple things to probe very complex interactions, but this just means we need lots of information to determine matrix elements. Let's start with a free particle. There will be a difference between QM and relativistic QM. In both, particles are inputs; We don't care what they are or where they came for, we put this stuff in by hand. Nothing prohibits us from making up almost any potential we want (of course it might not agree with experiment). It is important to be able to define an interaction range, because we really only care about interactions that go to zero strength at infinity. Particles should emerge from this interaction, so we need a more abstract concept to generate particles\textemdash fields. These fields are not physical, but their excitations are.
+
+\subsection{Review of Harmonic Oscillator}
+\label{sub:review_of_harmonic_oscillator}
+
+The simple harmonic oscillator is relevant because physically it represents vibrations due to some arbitrary restoring force. It's also nice because it introduces very neat energy levels and a ground state. We will write the Hamiltonian as
+\begin{equation}
+    H = \frac{p^2}{2m} + \frac{m \omega^2}{2} x^2
+\end{equation}
+and as usual, we solve using creation and annihilation operators:
+\begin{equation}
+    \comm{a}{a^\dagger} = 1
+\end{equation}
+\begin{equation}
+    a = \sqrt{\frac{m \omega}{2}} \left( x + \frac{\imath}{m \omega} p \right)
+\end{equation}
+\begin{equation}
+    a^\dagger = \sqrt{\frac{m \omega}{2}} \left( x - \frac{\imath}{m \omega} p \right)
+\end{equation}
+so
+\begin{equation}
+    H\ket{n} = \omega \left( N + \frac{1}{2} \right)\ket{n}
+\end{equation}
+where $ N = a^\dagger a $.
+
+Now consider a one-dimensional string (like a guitar string). The string has a length $ L $ and let's discretize this into $ N $ ``beads'' with distance $ a $ between them: $ (N + 1)a = L $. Each bead will have mass $ m $, so the total mass of the string is $ Nm $. The displacement of the $ j $th bead can be written $ y_j $, and this can be determined by the tension $ T $ on this bead in relation to the neighboring beads:
+\begin{equation}
+    m \ddot{y}_j = T(\sin(\theta_1) - \sin(\theta_2)) \approx \frac{T}{a} ( (y_{j+1} - y_j) - (y_j - y_{j-1}))
+\end{equation}
+
+We can define the force as $ - \grad{V} $, so it has the same units as the tension $ T $. We can write the Lagrangian as
+\begin{equation}
+    L = \frac{1}{2} m \sum_j \dot{y}^2_j - \frac{1}{2} \frac{T}{a} \sum_j (y_{j+1} - y_j)^2
+\end{equation}
+Notice the harmonic oscillator in the second half of this equation. Now we want to take the continuum limit where $ N \to \infty $ and $ a \to 0 $. If we do this, the sum becomes an integral over the length of the string:
+\begin{equation}
+    L = \int_0^L \dd{x} \left( \frac{m}{2a} (\partial_t y)^2 - \frac{1}{2} T (\partial_x y)^2 \right)
+\end{equation}
+It is now useful to rescale these values and change some coordinates:
+\begin{equation}
+    q \equiv \sqrt{T} y \qquad \nu^2 = \frac{Ta}{m}
+\end{equation}
+Here, $ q $ is like a generalized coordinate and $ \nu $ is like the speed of sound.
+
+\begin{equation}
+    L = \frac{1}{2} \int_0^L \dd{x} \left( \frac{1}{\nu^2} (\partial_t q)^2 - (\partial_x q)^2 \right)
+\end{equation}
+
+Now let's look at the Hamiltonian. We can do the canonical transformation $ \partial_t q \to p $:
+\begin{equation}
+    H = \frac{1}{2a} \sum_j \left[ \nu^2 p_j^2 + (q_{j+1} - q_j)^2 \right]
+\end{equation}
+These are now coupled harmonic oscillators, so we need to find a way to uncouple these terms and get rid of the crossterms. The way we can do this is by using normal modes from a discrete Fourier transform:
+
+\begin{equation}
+    H = \sum_n \omega_n a_n^\dagger a_n + \left( \frac{1}{2} \sum_n \omega_n \right)
+\end{equation}
+where $ \omega_n = \nu k_n $ and $ k_n = \frac{2 \pi n}{Na} $.
+
+We can create various modes from the ground state by creation operators:
+\begin{equation}
+    \ket{n_1 n_2 \cdots} = a^\dagger_{n_1} a^\dagger_{n_2} \cdots\ket{0}
+\end{equation}
+
+Just as we did with the Lagrangian, we can convert the sum to an integral. For convenience, let's set $ \nu = 1 $, so
+\begin{equation}
+    H = \frac{1}{2} \int \dd{x} p^2(x) + (\partial_x q)^2
+\end{equation}
+
+Recall that the Lagrangian is
+\begin{equation}
+    L = \frac{1}{2} \int \dd[3]{x} \left( (\partial_t q)^2 - (\partial_x q)^2 \right) - (\partial_y q)^2 - (\partial_z q)^2 = \frac{1}{2} \int \dd[3]{x} (\partial_{\mu} q)(\partial^{\mu} q)
+\end{equation}
+We could add another term to this, a force acting on an individual bead, as
+\begin{equation}
+    L = \frac{1}{2} \int \dd[3]{x} (\partial_{\mu} q)(\partial^{\mu} q) - \mu^2 q^2
+\end{equation}
+and so on with other interaction terms.
+
+
+What really happens in this limit $ a \to 0 $? This limit only makes sense for certain interactions. This limit might be a problem, because we are turning something (which might be very large) into a continuum of potentially large things. The Hamiltonian is a sum over the normal modes, but summing over all possible states could be infinite (and often is when dealing with additional interactions). Suppose we have a Hamiltonian
+\begin{equation}
+    H = \sqrt{p^2} - \lambda \delta(x)
+\end{equation}
+Let's try to solve this Hamiltonian (assume $ \lambda > 0 $ for an attractive potential):
+\begin{equation}
+    (\sqrt{p^2} - \lambda \delta(x)) \psi = - E_B \psi
+\end{equation}
+We can go to momentum space:
+\begin{equation}
+    \psi(p) =\bra{p}\ket{\psi} = \int \dd{x} e^{\imath p x} \psi(x)
+\end{equation}
+so
+\begin{equation}
+    \psi(p) = \frac{1}{\sqrt{p^2} + E_B}
+\end{equation}
+where
+\begin{equation}
+    \int_{- \infty}^{+ \infty} \frac{\dd{p}}{2 \pi} \frac{1}{\sqrt{p^2} + E_B} = \frac{1}{\lambda}
+\end{equation}
+
+This integral diverges, so the only solution is trivial $ \psi = 0 $, right? Let's regularize it by cutting it off at some scale and adjust our potential so that it depends on the cutoff (such that they are equal when the cutoff goes to infinity):
+\begin{equation}
+    \int^{\Lambda}_{- \Lambda} \frac{\dd{p}}{2 \pi} \frac{1}{\sqrt{p^2} + E_B} = \frac{1}{\lambda(\Lambda)}
+\end{equation}
+so that
+\begin{equation}
+    E_B(\Lambda) = \Lambda e^{- \frac{\pi}{\lambda(\Lambda)}}
+\end{equation}
+
+
+
+
+
+
+
+
+\end{document}

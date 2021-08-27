@@ -1,0 +1,57 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{13}{Wednesday, September 30, 2020}{}
+
+\section{Orbital Angular Momentum}
+\label{sec:orbital_angular_momentum}
+
+Classically, $ \va{L} = \va{r} \cross \va{p} $, so quantum mechanically, one would assume $ \hat{L} = \hat{r} \cross \hat{p} $. Therefore, $ \va{L}_x = \hat{y} \hat{p}_z - \hat{z} \hat{p}_y $ and so on.
+
+We already saw that $ \comm{\hat{x}}{\hat{p}_x} = \imath \hbar $ and $ \comm{\hat{x}}{\hat{p}_y} = \cdots = 0 $ (the off-diagonals commute). It's trivial to derive the commutation relations for angular momentum:
+\begin{equation}
+    \comm{L_i}{L_j} = \imath \hbar \epsilon_{ijk} L_k
+\end{equation}
+
+This same relation applies to other angular-momentum-like operators (operators with Lie algebras) like $ \hat{\va{S}} $, $ \hat{\va{J}} $ and $ \hat{\va{I}} $.
+
+If we define the Casimir operator $ \hat{L}^2 = \hat{L}_x^2 + \hat{L}_y^2 + \hat{L}_z^2 $, $ \comm{\hat{L}^2}{\hat{L}_i} = 0\ \forall i $. We can choose to work in a basis of simultaneous eigenstates of $ \hat{L}^2 $ and any (single) projection. The typical choice of projection is $ \hat{L}_z $. We can then choose eigenstates labeled $\ket{\lambda,m} $ where
+\begin{align}
+    \hat{L}^2\ket{\lambda, m} &= (\hbar)\lambda\ket{\lambda, m} \\
+    \hat{L}_z\ket{\lambda, m} &= (\hbar)m\ket{\lambda, m}
+\end{align}
+We can define raising and lowering operators $ \hat{L}_{\pm} = \hat{L}_x \pm \imath \hat{L}_y $ which commute with $ \hat{L}^2 $.
+\begin{equation}
+    \comm{\hat{L}_z}{\hat{L}_{\pm}} = \pm (\hat{L}_x \pm \imath \hat{L}_y) = \pm \hat{L}_{\pm}
+\end{equation}
+
+Additionally (homework), $ \hat{L}^2 = \hat{L}_- \hat{L}_+ + \hat{L}_z + \hat{L}_z^2 $. Therefore
+\begin{equation}
+    \hat{L}^2 (\hat{L}_{\pm}\ket{\lambda, m}) = \hat{L}_{\pm} (\hat{L}^2\ket{\lambda, m}) = \lambda \hat{L}_{\pm}\ket{\lambda, m}
+\end{equation}
+so $ \hat{L}_{\pm}\ket{\lambda, m} $ is still an eigenstate of $ \hat{L}^2 $ with eigenvalue $ \lambda $. We can then use the commutation relation to show that
+\begin{equation}
+    \hat{L}_z \hat{L}_+ = \hat{L}_+ \hat{L}_z \pm \hat{L}_{\pm}
+\end{equation}
+so
+\begin{equation}
+    \hat{L}_z (\hat{L}_+\ket{\lambda, m}) = (\hat{L}_+ \hat{L}_z + \hat{L}_+)\ket{\lambda, m} = (\hat{L}_+ m + \hat{L}_+)\ket{\lambda, m} = (m + 1)(\hat{L}_+\ket{\lambda, m})
+\end{equation}
+so we can conclude that $ \hat{L}_+\ket{\lambda, m} $ is still an eigenstate of $ \hat{L}_z $, but with eigenvalue $ m + 1 $ unless $ \hat{L}_+\ket{\lambda, m} = 0 $. The same property can be shown with $ \hat{L}_- $. 
+
+Let $ l $ be the max value of $ m $ which cannot be raised. Then
+\begin{equation}
+    \hat{L}^2\ket{\lambda, l} = (\hbar^2)l(l + 1)\ket{\lambda, l}
+\end{equation}
+so $ \lambda = l(l+1) $. Therefore, we will change our notation to $\ket{l,m} $ where $ l(l+1) $ is the $ \hat{L}^2 $ eigenvalue of $\ket{l,m} $. By the lowering operator relation, there exists a minimum $ m_{\text{min}} = -l $, so $ 2l $ must be an integer so that $ m $ can step between $ +l $ and $ -l $.
+
+We can now ask what the raising and lowering operators actually do to the states. We know they increase or decrease $ m $, but in general
+\begin{equation}
+    \hat{L}_{\pm}\ket{l,m} = a_{l,m}^{\pm}\ket{l,m\pm1}
+\end{equation}
+To find $ a_{l,m} $, take the Hermitian conjugate and find the inner product:
+\begin{equation}
+    a_{l,m}^{\pm} = (\hbar) \sqrt{l(l+1) - m(m\pm 1)}
+\end{equation}
+
+
+\end{document}

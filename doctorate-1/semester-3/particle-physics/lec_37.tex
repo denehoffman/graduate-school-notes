@@ -1,0 +1,58 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{37}{Monday, December 07, 2020}{}
+
+The proton radius as measured by hydrogen and muon spectroscopy may or may not agree, depending on recent (2019) findings. For nuclei, where $ G_E $ may dominate, $ \rho(r) $ can be easily reconstructed with an inverse Fourier transform constrained to fit the charge distribution. For nucleons, the large magnetic form factor is consistent with the Fourier transform of an exponential distribution:
+\begin{equation}
+    G_M^{n/p} \propto G_{\text{dipole}} \equiv \frac{1}{(1 - Q^2 / Q_0^2)^2}
+\end{equation}
+with $ Q_0 = 0.84\giga\electronvolt $, so $ G_M^p = \frac{\mu_p}{\mu_N} G subb \text{dipole} \sim 2.793 G_{\text{dipole}} = (1 + \kappa)G_{\text{dipole}} $ where $ \kappa = 1.793 $ is called the anomalous magnetic moment. Similarly, $ G_M^n = \frac{\mu_n}{\mu_N} G_{\text{dipole}} \sim -1.913 G_{\text{dipole}} $.
+
+There is a small contribution from $ G_E^p $ (especially small when $ \tau G_M^2 \gg G_E^2 $) which \textit{seemed} to be well-described by $ G_E^p = G_{\text{dipole}} $. For the neutron, $ G_E^n $ must be zero for $ \va{q}^2 - 0 $. This suggests a simple structure of $ \rho(r) = A e^{-r/a} $ with a cusp at the origin. However, this formulation assumed single-photon exchange.
+
+The, an alternate technique to determine these form factors was developed measuring transfer of polarization from a polarized electron beam. This derivation automatically gives the ratio between the form factors with no Rosenbluth separation needed. This experiment (JLab Hall A) gives seems to show that $ G_E $ is not a dipole. Two-photon exchange makes a several percent change in the cross-section. Also, these effects happen to have the same $ \epsilon $-dependence as expected due to $ G_M $. The overall cross-section is about right, and so is $ G_M $, but extracting $ G_E $ from Rosenbluth separation doesn't quite give the right answer.
+
+Relativistically, the form factors are not Fourier transforms of $ \rho $ and $ m $, except it can be shown that in the ``Breit frame'' (a.k.a. the brick-wall frame), in which $ E_3 = E_1 $, $ G_E $ is exactly a Fourier transform of $ \rho $. However, the Breit frame is different for each $ Q^2 $, so the Fourier transform can't be inverted. There is no simple interpretation of the form factors in the relativistic (target recoil) regime. For high $ Q^2 $,
+
+\begin{equation}
+    \dv{\sigma}{\Omega} = \sigma_{\text{Mott}} \eta_{\text{recoil}} \frac{Q^2}{2m_t} G_M^2 \tan[2](\theta / 2)
+\end{equation}
+If $ G_M^p \propto G_{\text{dipole}} \propto \frac{1}{Q^4} $ for large $ Q^2 $, then the cross section is $ \propto \frac{1}{Q^6} $ so it falls off rapidly with $ Q^2 $ because of finite nucleon size. If deep inelastic doesn't follow this dipole approximation, then it would suggest that the electron is scattering off something smaller (or a point particle).
+
+\section{Deep Inelastic Scattering}\label{sec:deep_inelastic_scattering}
+
+For $ Q^2 = - q^2 = 4 E_1 E_3 \sin[2](\theta / 2) $, we define the Bjorkan $ x $ as
+\begin{equation}
+    x \equiv \frac{Q^2}{2 p_2 \vdot q}
+\end{equation}
+In the lab frame, this is 
+\begin{equation}
+    x = \frac{Q^2}{2m_t \omega}
+\end{equation}
+
+For elastic scattering, $ \omega = \frac{Q^2}{2m_t} $, so plugging that in we get $ x = 1 $. For inelastic scattering, $ \omega > \frac{Q^2}{2m_t} \implies x < 1 $. Specifically, $ W^2 = p_4^2 = (q + p_2)^2 = q^2 + 2 p_2 \vdot q + p_2^2 $ so $ W^2 + Q^2 - m_p^2 = 2 p_2 \vdot q $:
+\begin{equation}
+    x = \frac{Q^2}{Q^2 + (W^2 - m_p^2)} 
+\end{equation}
+where $ W^2 - m_p^2 = 0 $ for elastic scattering, otherwise it is $ > 0 $, so $ 0 < x < 1 $, and $ x = 0 $ only if $ Q^2 = 0 $. 
+
+Define inelasticity as
+\begin{equation}
+    y = \frac{p_2 \vdot q}{p_2 \vdot p_1}
+\end{equation}
+In the lab frame, $ p_2 = (m_t, 0, 0, 0) $ so
+\begin{equation}
+    y = \frac{\omega}{E_1} 
+\end{equation}
+
+Let's also define
+\begin{equation}
+    \nu = \frac{p_2 \vdot q}{m_t} 
+\end{equation}
+In the lab frame, $ p_2 \vdot q = m_t \omega $ so
+\begin{equation}
+    \nu = \omega
+\end{equation}
+is the energy-transfer in the lab frame. $ x, y, \nu $ are all Lorentz-invariant.
+
+\end{document}

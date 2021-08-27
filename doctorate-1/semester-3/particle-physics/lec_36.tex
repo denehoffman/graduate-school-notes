@@ -1,0 +1,39 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{36}{Friday, December 04, 2020}{}
+
+If you were to plot $ \epsilon(1+ \tau) \dv{\sigma}{\Omega} / (\eta \sigma) = [\epsilon G_E^2 + \tau G_m^2] $ vs. $ \epsilon $, you would find that the slope is $ G_E^2 $ and the intercept is $ \tau G_M^2 $. This Rosenbluth separation allows separation of $ G_E $ and $ G_M $ (and hence $ F_1 $ and $ F_2 $) by making multiple measurements of the cross section at the same $ Q^2 $ but at different $ E_1 $ and $ \theta $, which means different $ \epsilon $. 
+
+\section{Non-Relativistic Interpretation of the Form Factor}\label{sec:non-relativistic_interpretation_of_the_form_factor}
+
+If $ \va{q}^2 = w^2 - q^2 = w^2 + Q^2 = \left( \frac{Q^2}{2m_t} \right)^2 + Q^2 = Q^2 + \left( 1 + \frac{Q^2}{(2 m_t)^2} \right) $, then if $ Q \ll 2m_t $, $ \va{q}^2 \approx Q^2 $.
+
+Non-relativistically, for charge $ Q_t \rho(\va{r}) $,
+\begin{equation}
+    V(\va{r}) = \int \frac{Q_t \rho(\va{r}')}{4 \pi \abs{\va{r} - \va{r}'}} \dd[3]{r'}
+\end{equation}
+In the Born Approximation (plane wave initial and final states),
+\begin{align}
+    \mathcal{M}_{fi} &= \mel{\psi_f}{V(r)}{\psi_i} \\
+                     &= \int e^{- \imath \va{p}_3 \vdot \va{r}} V(r) e^{\imath \va{p}_1 \vdot \va{r}} \dd[3]{r} \\
+                     &= \int \dd[3]{r}e^{\imath \va{q} \vdot \va{r}} \int \dd[3]{r'} \frac{Q_t \rho(r')}{4 \pi \abs{\va{r} - \va{r}'}} \\
+                     &= \int \dd[3]{r} \int \dd[3]{r'} e^{\imath \va{q} \vdot (\va{r} - \va{r}')} e^{\imath \va{q} \vdot \va{r}'} \frac{Q_t \rho(r')}{4 \pi \abs{\va{r} - \va{r}'}}
+\end{align}
+Now let $ \va{R} \equiv \va{r} - \va{r}' $.
+\begin{equation}
+    \mathcal{M}_{fi} = \underbrace{\int \dd[3]{R}e^{\imath \va{q} \vdot \va{R}} \frac{Q_t}{4 \pi R}}_{\text{point-charge } \mathcal{M}_{fi}} \times \underbrace{\int \dd[3]{r'} \rho(r') e^{\imath \va{q} \vdot \va{r}'}}_{G_E(\va{q}^2)}
+\end{equation}
+Therefore,
+\begin{align}
+    G_E(\va{q}^2) &= \int \rho(r) e^{\imath \va{q} \vdot \va{r}} \dd[3]{r} \\
+                  &= 2 \pi \int_0^{\infty} \dd{r} \int_{-1}^{1} \dd{\underbrace{\eta}_{\cos(\theta)}} e^{\imath q r \eta} \rho(r)
+\end{align}
+Really,
+\begin{equation}
+    \dv{\sigma}{\Omega}= \eval{\dv{\sigma}{\Omega}}_{0} \frac{\epsilon G_E^2 + \tau G_M^2}{\epsilon(1 + \tau)}
+\end{equation}
+where the non-relativistic $ G_M $ is similar to a Fourier transform of magnetization density (due to spins and currents). Still, $ G_E $ and $ G_M $ can be separated by Rosenbluth (or other ways).
+
+In the limit as $ \abs{\va{q}} \to 0 $, $ G_E \to \frac{Q_N}{e} $, which is $ 1 $ for the proton and $ 0 $ for the neutron. Likewise, $ G_M \to \frac{\mu_{n/p}}{\mu_N} $ which is $ 2.793 $ for the proton and $ -1.913 $ for the neutron, where $ \mu_N = \frac{e \hbar}{2m_N} \ll \mu_B \equiv \frac{e \hbar}{2m_e} $, which is not what Dirac would predict (he would say this is equal to $ G_E $ in this limit).
+
+\end{document}

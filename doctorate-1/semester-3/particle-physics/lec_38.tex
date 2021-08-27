@@ -1,0 +1,69 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{38}{Wednesday, December 09, 2020}{Deep Inelastic Scattering}
+
+In the last class, we defined the Lorentz-invariant variables (Bjorkan) $ x $, (inelasticity) $ y $, and $ \nu $. Inelastic kinematics can be described (Lorentz-invariantly) in terms of any two independent choices of
+\begin{equation}
+    Q^2 = -q^2 \quad x = \frac{Q^2}{2p_2 \vdot q} \quad y = \frac{p_2 \vdot q}{p_2 \vdot p_1} \quad \nu = \frac{p_2 \vdot q}{m_t}
+\end{equation}
+
+For fixed $ s $ (single beam energy), all events at any $ \theta $ and $ E_3 $ have the same $ s = (p_1 + p_2)^2 = m_e^2 + m_t^2 + 2p_1 \vdot p_2 \approx m_t + 2 p_1 \vdot p_2 $, so $ p_1 \vdot p_2 = \frac{1}{2} (s - m_p^2) $ (here we are considering electron-proton scattering).
+
+Therefore, $ y = \frac{p_2 \vdot q}{p_2 \vdot 1} = \frac{2p_2 \vdot q}{(s - m_p^2)} = \frac{2 m_p}{s-m_p^2} \nu $, so $ y $ and $ \nu $ are not independent for fixed $ s $. Therefore, we can define kinematics by any two of $ Q^2 $, $ x $, $ y $, and $ \nu $ except for the pair $ y $ and $ \nu $.
+
+At low $ Q^2 $ (really, at large $ x $), in the lab frame,
+\begin{align}
+    w^2 &= (p_2 + q)^2 + p_2^2 + 2 p_2 \vdot q + q^2 \\
+        &= m_t^2 + 2p_2 \vdot (p_1 - p_3) - Q^2 \\
+        &= m_t^2 + 2m_t (E_1 - E_3) - 4 E_1 E_3 \sin[2](\theta / 2) \\
+        &= (m_t^2 + 2 E_1 m_t) - (2m_t + 4E_1 \sin[2](\theta / 2)) E_3
+\end{align}
+which is linear in $ E_3 $. Different scattered-electron energies correspond to different final-state excitations. The continuum of states at high $ W $ is deep-inelastic scattering. $ \pdv{\sigma}{\Omega}{E_3} $ vs. $ Q^2 $ for higher $ W^2 $ has a small dependence on $ Q^2 $. Constant form factor indicates scattering from something small or point-like within the proton.
+
+\section{Structure Functions}\label{sec:structure_functions}
+
+Again, starting from a target current operator of mixture $ \gamma^{\mu} $ and $ \frac{\imath \sigma^{\mu \nu} q_{\nu}}{m_p} $ with coefficients that depend on $ Q^2 $ and now $ x $, it can be shown that
+\begin{equation}
+    \pdv{\sigma}{x}{Q} = \frac{4 \pi \sigma^2}{Q^4}\left[ \left( 1 - y - \frac{m_p^2 y^2}{Q^2} \right) \frac{F_2(x,Q^2)}{x} + y^2 F_1(x,Q^2) \right]
+\end{equation}
+These are not to be confused with $ F_1(Q^2) $ and $ F_2(Q^2) $, the Dirac and Pauli elastic form factors. By measuring at different beam energies but the same $ x $ and $ Q^2 $, then the form factors here will not change. Two different, known, linear combinations of these form factors can be measured because $ y $ changes, so $ F_1 $ and $ F_2 $ can be extracted separately.
+
+For larger-$ Q^2 $ deep inelastic scattering ($ Q^2 \gg m_p y^2 $), this simplifies with just $ 1-y $ multiplying $ F_2/x $.
+
+\subsection{Bjorken Scaling}\label{sub:bjorken_scaling}
+
+At large $ Q^2 $ (larger than a few GeV-squared), $ F_1 $ and $ F_2 $ become almost independent of $ Q^2 $. This suggests scattering from point-like constituents. We typically write these as $ F_{\{1,2\}}(x, Q^2) \to F_{\{1,2\}}(x) $
+
+\subsection{Callen-Gross Relation}\label{sub:callen-gross_relation}
+
+At large $ Q^2 $, $ F_1(x) $ and $ F_2(x) $ are not independent:
+\begin{equation}
+    F_2(x) = 2x F_1(x)
+\end{equation}
+which again, is consistent with electron scattering from a point particle (of spin $ 1/2 $), a Dirac particle with fixed magnetic moment. All of this suggests a smaller constituent particle of the proton, the quark.
+
+\section{Electron-Quark Scattering}\label{sec:electron-quark_scattering}
+
+We will be talking about scattering from a ``free'' quark. While we don't really see free quarks ever, QCD has asymptotic freedom, which basically means if you hit a quark hard enough, it doesn't interact with the other quarks very much. This differs from electron-muon scattering only in the charge:
+\begin{equation}
+    \ev{\abs{\mathcal{M}_{fi}}^2} = 2Q_q^2 e^4 \left( \frac{s^2 + u^2}{t^2} \right) \approx 2Q_q^2 e^4 \frac{(p_1 \vdot p_2)^2 + (p_1 \vdot p_2)^2}{(p_1 \vdot p_3)^2}
+\end{equation}
+
+In the center-of-mass frame,
+\begin{align}
+    p_1 &= (E,0,0,E) \\
+    p_2 &= (E,0,0,-E) \\
+    p_3 &= (E, E \sin(\theta^*), 0, E \cos(\theta^*)) \\
+    p_4 &= (E, -E \sin(\theta^*), 0, -E \cos(\theta^*))
+\end{align}
+where $ E \equiv \frac{\sqrt{s}}{2} $ (really $ E^* $). Then,
+\begin{equation}
+    \ev{\abs{\mathcal{M}_{fi}}^2} = 2Q_q^2 e^4 \frac{4E^4 + E^4(1 + \cos(\theta^*))^2}{E^4(1 - \cos(\theta^*))^2}
+\end{equation}
+so
+\begin{equation}
+    \dv{\sigma}{\Omega^*} = \frac{Q_q^2 e^4}{8 \pi^2 s} \frac{1 + \frac{1}{4} (1 + \cos(\theta^*))^2}{(1 - \cos(\theta^*))^2}
+\end{equation}
+QED conserves chirality, which means that it conserves helicity in the relativistic limit. The $ 1 $ in the numerator comes from the contribution from $ RR \to RR $ and $ LL \to LL $ which is zero because $ S_z = 0 $. The $ \frac{1}{4}(1 + \cos(\theta^*))^2 = \frac{1}{2}(\cos[2](\theta^* / 2)) $ comes from the $ RL \to RL $ and $ LR \to LR $ contributions with $ \abs{S_z} = 1 $.
+
+\end{document}

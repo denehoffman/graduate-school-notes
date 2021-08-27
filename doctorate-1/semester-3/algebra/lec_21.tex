@@ -1,0 +1,65 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{21}{Wednesday, October 21, 2020}{Modules over PIDs, cont.}
+
+\begin{definition}
+    An element $ m \in M $ has \textit{period} $ r $ if $ rm = 0 $.
+\end{definition}
+
+\begin{theorem}
+    If $ M $ is a module that is finitely generated over a PID, then $ M = M_{\text{tor}} \oplus F $ where $ F $ is free.
+\end{theorem}
+\begin{lemma}
+    If $ F $ is free and there is a mapping $ M \to F $, then the generators of $ F $ can be pulled back to generatos of a free submodule in $ M $.
+\end{lemma}
+\begin{lemma}
+    If $ M_{\text{tor}} $ is torsion free, then $ M/M_{\text{tor}} $ is free.
+\end{lemma}
+\begin{proof}
+    $ \pi\colon M \to M / M_{\text{tor}} $. Let $ \{\bar{y}_1, \cdots, \bar{y}_n\} $ be a basis for $ M/M_{\text{tor}} $. Let $ y_1, \cdots, y_n $ be pullbacks of $ \bar{y}_1, \cdots, \bar{y}_n $. 
+
+    Let $ F = R \{y_1, \cdots, y_n\} $. The $ \ker \pi = M_{\text{tor}} $. We claim that $ M = F \otimes M_{\text{tor}} $. Indeed, $ x \in M $, $ \pi(x) = a_1 \bar{y}_1 + \cdots + a_n \bar{y}_n $.
+
+    Then $ x - (a_1 y_1 + \cdots + a_n y_n) \in \ker \pi $ since applying $ \pi $ to both sides gives $ 0 $. Therefore, $ x \in M \implies x - (a_1 y_1 + \cdots + a_n y_n) \in M_{\text{tor}} $, so $ M = F + M_{\text{tor}} $. On the other hand, $ F \cap M_{\text{tor}} = 0 $, so $ M = F \oplus M_{\text{tor}} $.
+\end{proof}
+
+A free finitely generated module is isomorphic to $ R^n $.
+
+\begin{theorem}
+    A torsion module over PID $ R $ is isomorphic to $ R/(p_1^{r_1})\oplus R/(p_2^{r_2}) \oplus \cdots \oplus R/(p_m^{r_m}) $ where $ p_i $'s are prime.
+\end{theorem}
+\begin{theorem}
+    The multiset of ideals $ (p_1^{r_1}), (p_2^{r_2}), \cdots $ is unique.
+\end{theorem}
+\begin{definition}
+    Let $ M_r = \{m \in M \colon r m = 0\} $. Also, define $ M(p) = \{m \in M \colon \exists i\ p^i m = 0\} $ for prime $ p $. 
+\end{definition}
+\begin{claim}
+    If $ c $ is an exponent for $ M $ and $ c = ab $ with $ (a,b) = 1 $ (coprime), then $ M_c = M_a \oplus M_b $.
+\end{claim}
+\begin{proof}
+    If $ a $ and $ b $ are coprime, then $ 1 = \alpha a + \beta b $. Therefore, for $ m \in M_c $, $ m = 1 \cdot m = (\alpha a + \beta b)m = \alpha a m + \beta b m $. $ \alpha a m \in M_b $ since multiplying by $ b $ gives $ \alpha a b m = \alpha c m = 0 $ since $ m \in M_c $ so $ m c = 0 $. Respectively $ \beta b m \in M_a $, and for $ m \in M_a \cap M_b $, $ 1 \cdot m = 0 + 0 = 0 \implies m = 0 $, so $ M_c = M_a \otimes M_b $.
+\end{proof}
+\begin{claim}
+    If $ M $ is torsion and finitely generated, $ M = M(p_1) \oplus M(p_2) \oplus \cdots \oplus M(p_n) $. 
+\end{claim}
+Observe that if $ p $ is prime, $ M_p $ is a $ R/(p) $-module. Indeed $ m \in M_p $ implies $ r m = 0 $ if $ r \in (p) $.
+\begin{definition}
+    Elements $ y_1, y_2, \cdots, y_m \in M $ are \textit{independent} if $ a_1 y_1 + \cdots + a_m y_m = 0 \implies a_1 y_1 = a_2 y_2 = \cdots = a_m y_m = 0 $.
+
+    Equivalently, $ R \{y_1, \cdots, y_m\} = R y_1 \oplus \cdots \oplus R y_m $.
+\end{definition}
+\begin{lemma}
+    Let $ M $ be an $ R $-module of exponent $ p^r $, and let $ x $ be an element of period $ p^r $. Consider $ \bar{M} = M/(x) $ and $ \bar{y}_1, \cdots, \bar{y}_m \in \bar{M} $ are independent. Then $ \exists y_i \in \bar{y}_i $ ($ y_i $ is a representative of $ \bar{y}_i $) such that the period of $ y_i $ is equal to the period of $ \bar{y}_i $ and $ x, y_1, \cdots, y_m $ are independent.
+\end{lemma}
+\begin{proof}
+    $ \bar{y} \in \bar{M} $ of period $ p^n $. Pick $ y \in \bar{y} $. Then $ p^n y \in p^n \bar{y} $ so $ p^n y = p^s c x $ where $ p $ does not divide $ c $. 
+
+    $ s \leq r $ because exponent is $ p^r $. The period of $ p^s c x $ is $ p^{r-s} $. Then the period of $ y $ is $ p^n \cdot p^{r-s} = p^{n + r - s} $. $ p^r M = 0 $, so $ n + r - s \leq r \implies n \leq s $.
+
+    Take $ y' = y - p^{s-n} c x $. Then $ y' \equiv y \mod (x) $, i.e. $ y' \in \bar{y} $. $ p^n y' = p^n y - p^s c x = 0 $, so the period of $ y' $ is $ p^n $. Next, we want to show independence.  
+
+    Suppose $ a x + a_1 y_1 + \cdots + a_m y_m = 0 $. Take both sides $ \mod (x) $. We are left with $ a_1 \bar{y}_1 + \cdots + a_m \bar{y}_m = 0 $. By independence, $ a_i \bar{y}_i = 0 \forall i $. Therefore, the period of $ y_i $ is divisible by $ a_i $, so $ a_i y_i = 0 $, so $ a x = 0 $. 
+\end{proof}
+
+\end{document}

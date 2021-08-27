@@ -1,0 +1,90 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{10}{Wednesday, September 23, 2020}{Localization}
+
+\section{Localization}
+\label{sec:localization}
+
+$ R $ commutative, $ D \subset R $ multiplicative subset (i.e. $ D $ is closed under multiplication and $ D $ has no $ 0 $ or zero-divisors). Informally, $ R D^{-1} $ or $ R[D^{-1}] $ consists of ``fractions'' $ \frac{a}{d} $ for $ a \in R $, $ d \in D $.
+
+Formally, elements of $ R[D^{-1}] $ are equivalence classes of pairs $ (a,d),\ a \in R,\ d \in D $ under equivalence relation $ (a,b) \sim (c,d) $ iff $ ad - b c = 0 $.
+
+\begin{note}{Notation}
+    $ \frac{a}{b} $ for equivalence class $ (a,b) $.
+\end{note}
+
+\begin{equation}
+    \frac{a}{b} + \frac{c}{d} \equiv \frac{ad + c b}{b d}
+\end{equation}
+
+The ring $ R[D^{-1}] $ is commutative with $ 1 $.
+
+\subsection{Universal Property}
+\label{sub:universal_property}
+
+\begin{equation}
+    R \xrightarrow{i} R[D^{-1}]
+\end{equation}
+If we have a map $ R \xrightarrow{\varphi} S $ where $ \varphi(d) $ is a unit for every $ d \in D $, then $ \exists R[D^{-1}] \xrightarrow{\psi} S $ such that $ \psi = \varphi \circ i $.
+
+\begin{claim}
+    Given $ R, D $ there is a unique ring satisfying this universal property.
+\end{claim}
+\begin{proof}
+    Suppose there was some ring $ S $ which also had this property. We could then define a map $ R[D^{-1}] \xrightarrow{a} S $ by that universal property, and a map $ S \xrightarrow{b} R[D^{-1}] $ by the other universal property.
+
+    Clearly, $ b \circ a\colon R[D^{-1}] \xrightarrow{c} R[D^{-1}] $, so $ R[D^{-1}] $ is isomorphic to $ S $.
+\end{proof}
+
+\begin{ex}
+    Some examples of localization:
+    \begin{itemize}
+        \item $ \Z \to \Q $
+        \item $ R = F[X] $, $ D = R- \{0\} $, $ F[X][D^{-1}] $ is the ring of rational functions denoted $ F(X) $.
+            \begin{equation}
+                \frac{1}{x + x^2} \in F(x),\ F = \Z/2\Z
+            \end{equation}
+        \item $ R $ is an integral domain, $ D = R- \{0\} $, $ R[D^{-1}] $ is a field called the field of fractions.
+        \item Suppose we have a prime ideal $ P \subset R $ and let $ D = R - P $. Recall that $ a,b \in D \implies a b \in D $. If $ a b \notin D $ then $ a b \in P $ iff $ a \in P $ or $ b \in P $.
+            \begin{note}{Notation}
+                The ring $ R[(R-P)^{-1}] $ is denoted by $ R_{P} $.
+            \end{note}
+            Properties:
+            \begin{itemize}
+                \item $ R_P $ has a unique maximal ideal which is $ P R_P $.
+                    \begin{proof}
+                        $ P R_P $ consists of elements $ \frac{a}{b} $ where $ a \in P $ and $ b \notin P $. Suppose $ I \subsetneq P R_P $ ideal. Then $ \exists \frac{a}{b} \in I - P R_P $ where $ a,b \notin P $. Therefore, $ \frac{b}{a} \in R_P \implies 1 = \frac{a}{b} \frac{b}{a} \in I $ so $ I = R_P $.
+                    \end{proof}
+            \end{itemize}
+    \end{itemize}
+\end{ex}
+
+Why do we call this localization? Take a compact metric space $ M $ (like $ \{0,1\}^d $ or any compact subset of Euclidean space). Lets look at $ R(M) $ as the set of continuous functions on $ M $. $ R $ is a ring (adding and multiplying functions gives another function, inverses don't necessarily work so it isn't a field).
+
+Say we have $ S\subset M $ as a closed subset of $ M $. How do the functions on this subset relate to functions on the whole space? Tietze extension theorem says that every $ f\colon S \to \R $ extends to $ \tilde{f}\colon M \to \R $, i.e. $ \tilde{f} / S = f $.
+
+Take $ f,g \in R(M) $. These are equal on $ S $ if $ f-g $ vanishes on $ S $. This is equivalent to saying that $ f-g \in I = \{h \in R(M),\ \eval{h}_{S} = 0\} $. $ I $ is an ideal in $ R $ which we will denote $ I(S) $.
+
+This means that $ \frac{R(M)}{I(S)} \cong R(S) $. The quotient by ideal is equivalent to the ring on the smaller space.
+
+Let's look at an ideal of a point $ x \in M $:
+\begin{claim}
+    $ I(\{x\}) $ is a maximal ideal.
+\end{claim}
+\begin{proof}
+    $ I(\{x\}) = \text{ker}(f \in R \xmapsto{\pi} \{x\}) $. By the first isomorphism theorem, $ \frac{R}{I(\{x\})} \cong \text{Im}(\pi) = R $, therefore $ I(\{x\}) $ is maximal.
+\end{proof}
+\begin{claim}
+    Every maximal ideal is of the form $ I(\{x\}) $.
+\end{claim}
+\begin{proof}
+    Suppose $ I $ is ideal not contained in any $ I(\{x\}) $:
+
+    $ \forall x \in M $, $ \exists f_x \in I $ such that $ f_x(x) \neq 0 $. Since $ f_x $ is continuous, $ \exists \text{open } U_x \ni x $ such that $ \eval{f_x}_{U_x} \neq 0 $.
+
+    If we look at the set of all such $ \{U_x\}_{x \in M} $, $ M $ is compact so there is some finite subcover $ U_{x_1} \cup \cdots \cup U_{x_n} = M $. $ f = f_{x_1}^2 + f_{x_2}^2 + \cdots f_{x_n}^2 $ is everywhere positive. $ f^{-1} \in R(M) $, so $ 1 = f \cdot f^{-1} \in I $ so $ I = R(M) $.
+\end{proof}
+
+On the space $ M \to R(M) $, the points $ x \in M $ correspond to the maximal ideals. In the next lecture, we will see that this works for spaces which don't necessarily have a metric, and there will be a similar correspondence with neighborhoods of points.
+
+\end{document}

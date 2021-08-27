@@ -1,0 +1,55 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{1}{Monday, August 31, 2020}{Algebra}
+
+Topics in this course:
+\begin{itemize}
+    \item Groups
+    \item Rings/modules
+    \item Fields/Galois theory
+    \item Algebraic geometry
+    \item Representation theory
+\end{itemize}
+
+Office hours: Thursday 3pm or by appointment. Zoom link is on the \href{www.borisbukh.org}{website} (no in-person office hours).
+
+\section{Recap of Group Theory}
+\label{sec:recap_of_group_theory}
+
+Group homomorphisms (groups $ G $, $ H $) $ \varphi \colon G \to H $ preserve $ \forall g_1, g_2\quad \varphi(g_1 g_2) = \varphi(g_1) \varphi(g_2) $, $ \varphi(g^{-1}) = \varphi(g)^{-1} $, and $ \varphi(I_G) = I_H $. A group action of $ G $ on a set $ X $ is a homomorphism $ G \to S_X $, where $ S_X $ is the symmetric group on $ X $, set of bijections from $ X $ onto itself.
+
+The usual notation for the group action is
+\begin{equation}
+    \varphi(g) x \equiv g \cdot x
+\end{equation}
+For example
+\begin{itemize}
+    \item[(1)] $ S_X $ acting on $ X $: $ S_x \xrightarrow{\text{id}} S_X $
+    \item[(2)] $ S_X $ acting on $ \binom{X}{2} \equiv \{ \{x_1, x_2\} \colon x_1, x_2 \in X\} $: $ \pi \cdot \{x_1, x_2\} = \{\pi x_1, \pi x_2\} $
+    \item[(2')] $ S_X $ acting on $ \binom{X}{k} $ or $ 2^X $
+    \item[(3)] $ \text{GL}_n(F) $ being the set of $ n $-by-$ n $ matrices $ M $ with coefficients in a field $ F $ where $ \det(M) \neq 0 $ ($ \text{GL}(F) \curvearrowright F^n $)
+    \item[(4)] We can also have the action of a subgroup if $ G \curvearrowright X $ and $ H \leq G $, $ H\curvearrowright X $ 
+    \item[(5)] $ \Z $-action on a metric space $ M $ given a homeomorphism $ T\colon M \to M $ by $ n \cdot x = T^{(n)}(x) = \underbrace{T(T(\cdots(x)))}_{n} $.
+    \item[(6)] $ G $-actions on $ G $
+        \subitem(a) $ g \cdot a = g a $
+        \subitem(b) $ g \cdot b = a g^{-1} $
+        \subitem(c) Conjugation: $ g \cdot a = g a g^{-1} $. If $ ag = g a $ then $ gag^{-1} = a $
+\end{itemize}
+
+Let's examine the action $ G\curvearrowright G $ on the left: $ \varphi \colon G \to S_G $. We claim that $ \ker \varphi = 1 $. We can define the kernel by $ \varphi(g) \cdot h = h \forall h \Leftrightarrow g \in \ker \varphi $. Hence, $ gh = h \forall h \implies g = 1 $.
+
+\begin{theorem}[Cayley]
+    For all $ G $, $ G $ is isomorphic to a subgroup of $ S_G $.
+
+    Proof: $ G \simeq \frac{G}{\ker \varphi} \cong \varphi(G) $
+    
+\end{theorem}
+
+\begin{definition}[Orbits]
+    $ G\curvearrowright X $, for $ x \in X $ the set $ G \cdot x = \{g \cdot x\colon g \in X\} $ is called the orbit of $ X $ under $ G $.
+\end{definition}
+
+The reason for this nomenclature is from the action of rotations in $ \R\curvearrowright\R^2 $. If we consider $ \alpha \cdot v $ as the rotations of $ v $ by $ \alpha $, the orbit of $ \R^2 $ under $ \R $ is the set of all rotations of $ v $ (an orbit of the magnitude of the vector about its origin). 
+
+
+\end{document}

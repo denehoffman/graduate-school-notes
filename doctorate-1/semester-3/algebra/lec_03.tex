@@ -1,0 +1,66 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{3}{Friday, September 04, 2020}{The Sylow Theorems}
+
+\begin{theorem}[Sylow]
+    Let $ G $ be finite, prime $ p \mid \abs{G} $, $ P $ is p-Sylow:
+    \begin{itemize}
+        \item[1.] If $ H $ is a p-subgroup of $ G $, then a conjugate of $ H $ is in $ P $.
+        \item[2.] All p-Sylow subgroups of $ G $ are conjugate.
+        \item[3.] The number of p-Sylow subgroups is $ 1 (\mod p) $.
+    \end{itemize}
+\end{theorem}
+
+\begin{lemma}
+    If $ G $ is a p-group and $ G\curvearrowright X $, then the number of fixed points is $ \abs{X} (\mod p) $.
+\end{lemma}
+\begin{proof}
+    \begin{equation}
+        \abs{X} = \sum_{i=1}^r \abs{G \cdot x_i} = \sum_{i = 1}^r [G:G_{x_i}]
+    \end{equation}
+    We can write this as the number of fixed points plus the sum of powers of $ p $. Taking everything mod-p, we get the desired result.
+\end{proof}
+
+\begin{lemma}
+    If $ H \leq G $ is a p-subgroup, $ P $ is p-Sylow and $ H \leq N_G(P) $, then $ H \leq P $.
+\end{lemma}
+
+Note that $ P \subseteq N_G(P) = \{g \mid gPg^{-1} = P\} $.
+
+\begin{proof}
+    Consider $ HP $. $ HP \leq G $. This is not necessarily true for two subgroups, but this works because $ h_1 p_1 h_2 p_2 = h_1 h_2 h_2^{-1} p_1 h_2 p_2 = h_1 h_2 p_1 p_2 $ because $ H $ is in the normalizer of $ P $.
+
+    The second isomorphism theorem says that $ (HP)/P \cong H/(H \cap P) $. The proof of this is that we can make a projection map $ H \xrightarrow{\pi} HP/P $ which maps $ h\mapsto hP $ surjectively. $ \text{ker} \pi = H \cap P $ so by the first isomorphism theory this is proven.
+
+    \begin{equation}
+        [HP:P] = [H:H \cap P]
+    \end{equation}
+    If $ H \nleq P $ then $ HP $ is strictly larger than $ P $. Hence, $ HP $ is a larger p-group than $ P $. This is a contradiction.
+\end{proof}
+
+\begin{proof}
+    Finally we will prove all the Sylow theorems. Consider $ S $ to be the set of all p-Sylow subgroups of $ G $. Let's examine the conjugation action $ G\curvearrowright S $. $ P \leq N_G(P) $, the stabilizer of this action, so
+    \begin{equation}
+        p \slashed{\mid} [G:N_G(P)] = \frac{\abs{G}}{\abs{N_G(P)}} = \frac{\abs{G}}{\abs{P}} \frac{\abs{P}}{\abs{N_G(P)}}
+    \end{equation}
+    Therefore,
+    \begin{equation}
+        \abs{G \vdot P} = \frac{\abs{G}}{\abs{N_G(P)}} \neq 0 (\mod p)
+    \end{equation}
+    on the other hand, consider the action of $ H\curvearrowright G \cdot P $. The number of fixed points is $ \abs{G \cdot P} \neq 0 (\mod p) $.
+
+    Suppose $ Q \in G \cdot P $ is a fixed point. This means $ H \leq N_G(Q) $ by definition. By the second lemma we proved, $ H \leq Q = gPg^{-1} $. This proves the first part of the Sylow theorem. For the second part, take $ H $ to be the p-Sylow subgroup and apply (1). By (1), $ H \subseteq gPg^{-1} $.
+
+    For part (3), we know that $ G \cdot P = S $ by part (2). By part (2), the number of fixed points is equal to the number of p-Sylow subgroups containing $ H $.
+\end{proof}
+
+\begin{ex}
+    If $ \abs{G} = 35 $, and $ G $ is abelian, $ S_5 \leq G \qq{order} 5$, and $ S_7 \leq G \qq{order} 7 $.
+
+    The number of $ 5 $-Sylow subgroups is $ 1(\mod 5) = \frac{\abs{G}}{\abs{N_G(S_5)}} $, so $ S_5 $ is the only $ 5 $-Sylow subgroup of $ G $. Similarly with $ S_7 $, so $ S_5 $ and $ S_7 $ are normal in $ G $.
+\end{ex}
+
+Proposition: If $ \abs{G} $ is finite, $ p $ is the smallest prime dividing $ \abs{G} $, and $ [G:H] = p $, then $ H $ is normal.
+
+
+\end{document}

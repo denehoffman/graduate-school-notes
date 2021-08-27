@@ -1,0 +1,81 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{27}{Friday, March 27, 2020}{}
+
+Take a simple case where
+\begin{equation}
+    H(p, q) = \sum_{i=1}^{N} \frac{\va{p}_i^2}{2m} + U(\{q\})
+\end{equation}
+
+We can therefore write
+\begin{align}
+    Z &= \int \frac{\dd[3N]{p} \dd[3N]{q}}{h^{3N} N!} e^{\beta \sum_{i=1}^{N} \frac{\va{p}_i^2}{2m} + U(\{q\})} \\
+    &= \frac{1}{h^{3N} N!} \int \dd[3N]{p} e^{- \beta \sum_{i=1}^{N} \frac{\va{p}^2_i}{2m}} \int \dd[3N]{q} e^{- \beta U(\{q\})} \\
+    &= \frac{1}{h^{3N} N!} \left[ \underbrace{\int \dd[3]{p_1} e^{- \beta \frac{\va{p}_1^2}{2m}}}_{\left( \frac{2 \pi m}{\beta} \right)^{3/2}} \right]^N \underbrace{\int \dd[3N]{q} e^{- \beta U(\{q\})}}_{=:Q} \\
+    &= \frac{(2 \pi m k_B T)^{3N/2}}{h^{3N} N!} Q \\
+    &= \left( \underbrace{\frac{\sqrt{2 \pi m k_B T}}{h}}_{\frac{1}{\lambda_{\text{th}}}} \right)^{3N} \frac{1}{N!} Q \\
+    &= \frac{Q}{\lambda_{\text{th}}^{3N} N!}
+\end{align}
+where $ Q $ is often called the configurational partition function (since it deals with the positions of the particles) and $ \lambda_{\text{th}} $ is the thermal de Broglie wavelength. The difficult part now is calculating $ Q $. Let's do this for the ideal gas. In this case, $ U(\{q\}) = 0 $ so $ e^{- \beta U(\{q\})} = 1 $. Therefore,
+\begin{equation}
+    Q = \int \dd[3N]{q} e^{- \beta U(\{q\})} = \int \dd[3N]{q} = V^N
+\end{equation}
+
+Therefore, for the ideal gas,
+\begin{equation}
+    Z_{\text{IG}} = \left( \frac{V}{\lambda_{\text{th}}^3} \right)^N \frac{1}{N!}
+\end{equation}
+Do not lose track of the fact that the temperature dependence is in $ \lambda_{\text{th}} $. We can then calculate the free energy of the ideal gas:
+
+\begin{align}
+    F &= - k_B T \ln(Z) = - k_B T \ln\left[ \left( \frac{V}{\lambda_{\text{th}}^3} \right)^N \frac{1}{N!} \right] \\
+    &= - k_B T \left[ N \ln \frac{V}{\lambda^3_{\text{th}}} - \ln(N!) \right] \\
+    & \approx - k_B T \left[ N \ln \frac{V}{\lambda_{\text{th}}^3} - N \ln(N) + N  \right] \\
+    & \approx - N k_B T \left[ \ln \frac{V}{N \lambda^3_{\text{th}}} + 1 \right] \\
+    & \approx N k_B T \left[ \ln(n \lambda^3_{\text{th}}) - 1 \right]
+\end{align}
+where $ n = \frac{N}{V} $ is the particle number density. Notice that the argument of the logarithm is finally dimensionless.
+
+
+\subsection{Factorization}
+\label{sub:factorization}
+Let's consider another Hamiltonian:
+\begin{equation}
+    H(p,q) = \sum_{i=1}^{N} \frac{\va{p}_i^2}{2m} + \sum_{i=1}^{N} \tilde{\phi}_i(\va{q}_i) 
+\end{equation}
+Notice that the potential and kinetic energy decompose additively into sums of terms, each of which features only one particle. Therefore
+
+\begin{align}
+    Z &= \frac{1}{\lambda^{3N}_{\text{th}} N!} \int \dd[3N]{q} \prod_{i=1}^{N} e^{- \beta \tilde{\phi}_i(\va{q}_i)} \\
+    &= \frac{1}{\lambda^{3N}_{\text{th}} N!} \prod_{i=1}^{N} \int \dd[3]{q_i} e^{- \beta \tilde{\phi}_i(\va{q}_i)} \\
+    &= \frac{\prod_{i=1}^{N} Q_i}{\lambda_{\text{th}}^{3N} N!} \\
+    &= \left( \frac{Q_i}{\lambda_{\text{th}}^3} \right)^N \frac{1}{N!}
+\end{align}
+
+\begin{ex}
+    Take for example a single harmonic oscillator in one dimension:
+    \begin{equation}
+        H_1 = \frac{p^2}{2m} + \frac{1}{2} k x^2
+    \end{equation}
+    \begin{align}
+        Z &= \int \frac{\dd{p} \dd{x}}{h^1 1!} e^{- \beta \left( \frac{p^2}{2m} + \frac{1}{2} kx^2 \right)} = \frac{1}{h} \sqrt{2 \pi m k_B T} \sqrt{\frac{2 \pi k_B T}{k}} \\
+        &= \frac{2 \pi k_B T}{h} \sqrt{\frac{m}{k}} = \frac{k_B T}{\hbar \omega}
+    \end{align}
+
+    Now for $ N $ harmonic oscillators,
+    \begin{equation}
+        H_N = \sum_{i=1}^{N} \left( \frac{p_i^2}{2m} + \frac{1}{2} k_i x_i^2 \right)
+    \end{equation}
+    \begin{align}
+        Z = \prod_{i=1}^{N} Z_i = \prod_{i=1}^{N} \frac{k_B T}{\hbar \omega_i}
+    \end{align}
+    If all $ \omega_i = \omega $,
+    \begin{equation}
+        Z = \left( \frac{k_b T}{\hbar \omega} \right)^N
+    \end{equation}
+
+    What happened to $ N! $? Often, when particles are tethered to springs, they become distinguishable via the spring to which they belong. In this case, they cannot be confused, so we lose the degeneracy which is accounted for by $ N! $.
+\end{ex}
+
+
+\end{document}

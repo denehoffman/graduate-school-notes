@@ -1,0 +1,107 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{6}{Friday, February 19, 2021}{Two-State Biological Systems II}
+
+\begin{ex}
+    Phosphorylation can be described as a two-state system as proteins without a phosphate group can be thought of as being in an ``off'' state and proteins with phosphate are ``on''. This phosphate comes from ATP (adenosine triphosphate) which changes to ADP (adenosine diphosphate) through the process of protein kinase. A protein which is unphosphorylated exists in an ``active'' and ``inactive'' state with energies $ \epsilon $ and $ 0 $ respectively (such that the energy to be in the active state is higher). In the phosphorylated state, the free energy landscape changes such that the active energy is $ \epsilon - I_1 $ and the inactive state has a higher energy $ - I_2 $. We can then define four states, (in)active (un)phosphorylated, which we can describe using two state variables. We will say $ \sigma_P = 0,1 $ if the protein isn't/is phosphorylated. Additionally $ \sigma_S = 0,1 $ if the state is inactive/active.
+
+    \begin{tabular}{@{}ccccc@{}}
+        State & $ \sigma_P $ & $ \sigma_S $ & Energy & Weight \\
+            \toprule
+        Inactive Unphosphorylated & 0 & 0 & 0 & 1\\
+        Active Unphosphorylated & 0 & 1 & $ \epsilon $ & $ e^{- \beta \epsilon} $ \\
+        Inactive Phosphorylated & 1 & 0 & $ - I_2 $ & $ e^{\beta I_2} $ \\
+        Active Phosphorylated & 1 & 1 & $ \epsilon - I_1 $ & $ e^{- \beta (\epsilon - I_1)} $ \\
+            \bottomrule
+    \end{tabular}
+
+    We can describe the energy as
+    \begin{equation}
+        G(\sigma_P, \sigma_S) = \epsilon \sigma_S - I_2 \sigma_P + (I_2 - I_1) \sigma_S \sigma_P
+    \end{equation}
+    Then
+    \begin{equation}
+        p_{\text{active}} = \frac{e^{- \beta G(0,1)}}{\sum_{\sigma_S} e^{- \beta G(0, \sigma_S)}} = \frac{e^{- \beta \epsilon}}{1 + e^{- \beta \epsilon}}
+    \end{equation}
+    We can also ask the probability of being in the active state when phosphorylated:
+    \begin{equation}
+        p^*_{\text{active}} = \frac{e^{- \beta G(1,1)}}{\sum_{\sigma_S} e^{- \beta G(1, \sigma_S)}} = \frac{e^{- \beta (\epsilon - I_1)}}{e^{- \beta I_2} + e^{- \beta (\epsilon - I_1)}}
+    \end{equation}
+    Then
+    \begin{equation}
+        \frac{p^*_{\text{active}}}{p_{\text{active}}} = \frac{1 + e^{\beta \epsilon}}{1 + e^{\beta (\epsilon + I_2 - I_1)}}
+    \end{equation}
+    If $ \epsilon \sim 5 k_B T $ and $ I_2 - I_1 \sim - 10 k_B T $, then
+    \begin{equation}
+        \frac{p^*_{\text{active}}}{p_{\text{active}}} \sim 150
+    \end{equation}
+    For enzymes found in cells,
+    \begin{equation}
+        \frac{p^*_{\text{active}}}{p_{\text{active}}} \sim 2\text{ to }1000
+    \end{equation}
+\end{ex}
+
+
+\begin{ex}
+    Haemoglobin: A case study in cooperative binding
+
+    Haemoglobin is a receptor molecule which has four binding sites for oxygen molecules. consider four sites described by $ \sigma_i $ where $ i = 1,2,3,4 $ and $ \sigma_i = 0 $ for unbound and $ 1 $ for bound.
+    
+    These binding sites are arranged in a square, and the entire state can be described by a string of numbers, like $ \{0,0,0,0\} $ or $ \{0,1,1,0\} $. There are $ 2^4 = 16 $ states in this configuration, but not all are unique. We can imagine that the nearby binding energies are different than the diagonal binding energies. Consider a simpler model which we will call ``dimoglobin''; haemoglobin but with only two states.
+
+    If one of the sites is occupied, it will have some binding energy $ \epsilon $. If both are occupied, there will also be some interaction energy $ J $. In terms of state variables, we can write
+    \begin{equation}
+        E(\sigma_1, \sigma_2) = \epsilon(\sigma_1 + \sigma_2) + J \sigma_1 \sigma_2
+    \end{equation}
+    Additionally, $ J < 0 $ because we want cooperative binding, where the energy to bind more oxygen is lower with each additional bound site. We can now construct the partition function:
+    \begin{equation}
+        Z = 1 + 2e^{- \beta (\epsilon - \mu)} + e^{- \beta (2 \epsilon + J - 2 \mu)}
+    \end{equation}
+    where $ \mu $ is the chemical potential for adding an oxygen molecule. We would now like to calculate the average occupancy, $ \ev{N} $:
+    \begin{equation}
+        \ev{N} = \frac{1}{Z} \left[ 0 + 1 e^{- \beta (\epsilon - \mu) + 1 e^{- \beta (\epsilon - \mu)}} + 2 e^{- \beta (2 \epsilon + J - 2 \mu)} \right]
+    \end{equation}
+    Additionally,
+    \begin{equation}
+        \mu = \mu_0 + k_B T \ln(c/c_0)
+    \end{equation}
+    where $ c $ is the concentration of oxygen, so
+    \begin{equation}
+        \ev{N} = \frac{2(c/c_0)e^{- \beta \Delta \epsilon} + 2(c/c_0)^2 e^{- \beta (2 \Delta \epsilon + J)}}{1 + 2(c/c_0)e^{- \beta \Delta \epsilon} + 2(c/c_0)^2 e^{- \beta (2 \Delta \epsilon + J)}}
+    \end{equation}
+    where $ \Delta \epsilon = \epsilon - \mu_0 $.
+
+
+    Now back to the haemoglobin. How many non-degenerate microstates exist? There should be $ 5 $ if we consider all the interaction energies to be the same: one state for each occupancy number. In order of increasing number occupancy, we cna write the partition function as
+    \begin{equation}
+        Z = 1 + 4 e^{- \beta (\epsilon - \mu)} + 6 e^{- \beta (2 \epsilon - 2 \mu + J)} + 4 e^{- \beta (3 \epsilon - 3 \mu + 3 J)} + e^{- \beta (4 \epsilon - 4 \mu + 6 J)}
+    \end{equation}
+    If we were to arrange this similarly to the dimoglobin model, we would see a faster phase transition to the completely occupied state with oxygen concentration in haemoglobin than with dimoglobin.
+\end{ex}
+
+\chapter{Structure of Macromolecules}
+\begin{note}{Note}
+    We had extra time at the end of this lecture, so we have started next week's lecture early.
+\end{note}
+
+\section{Structure of DNA}\label{sec:structure_of_dna}
+
+We can characterize a strand of DNA by a curve in space, $ \va{r}(x,y,z) $. Each random configuration defines a microstate, and if we imagine the curve to be continuous in space, there will be an infinite number of microstates, so we can't just count them like we did before.
+
+One way we can represent the structure is a construction called a Kuhn segment. We can approximate the DNA as small, rigid, rod-like sections. The length of those segments depends on the physical properties of the molecule or material (not the length of the material). For example, the Kuhn segment of a rigid object, like a pen, is infinite in length. Spaghetti has a smaller Kuhn segment than copper wire. For DNA, the scale is around $ 50 $ to $ 100\nano\meter $.
+
+We can think of the structure as the path of a random walker. Each segment points in a direction independent of the previous one.
+
+\subsection{Random Walks}\label{sub:random_walks}
+
+In 1D, if we want to know the average displacement (the mean-square displacement or variance), we find that
+\begin{equation}
+    \ev{R^2} = \ev{\sum_{i=1}^{N} \sum_{j=1}^{N} x_i x_j} = \sum_{i=1}^{N} \underbrace{\ev{x_i^2}}_{a^2} + \sum_{i \neq j=1}^{N} \underbrace{\ev{x_i x_j}}_{0}
+\end{equation}
+so
+\begin{equation}
+    \ev{R^2} = N a^2
+\end{equation}
+or $ \sqrt{\ev{R^2}} = a \sqrt{N} $.
+
+\end{document}

@@ -1,0 +1,76 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\chapter{Molecular Motors}
+\lecture{16}{Friday, April 09, 2021}{Molecular Motors I}
+
+\section{Translational Motors}\label{sec:translational_motors}
+
+Many forms of molecular motion are driven by translational motors which operate by proteins walking along filaments. Even motors which appear to rotate typically operate via translational motors. Muscle myosin-II is formed from a coiled chain of two $ \alpha $-helicest which walk along actin filaments. These coils are then packaged into larger bundles, and the motion of individual fibers causes larger structured motion on the whole bundle. Once they reach the end of the actin filaments, the myosin proteins fall off and bind again somewhere else. This assembly of myosin motors generates muscle contraction.
+
+How do myosin molecules ``walk''? There are two possible scenarios. In a hand-over-hand method, the molecule twists, causing a stepping motion (like climbing a ladder). Alternatively, it could operate like an inchworm, extending one side and retracting the other. If we look at a plot of position vs time, we see many plateaus or steps. If the inchworm mechanism was correct, we would expect continuous motion. Additionally, the step sizes favor the hand-over-hand mechanism. If we place a tag on one ``foot'' of the myosin molecule and plot the step size as the displacement of that tag, we find three peaks, with average step sizes around $ 23 \nano\meter $, $ 52\nano\meter $, and $ 74\nanometer $. This is because one of the steps hardly moves the marker at all, since it rotates on that leg, while the other step will move it quite a lot.
+
+\section{Molecular Motors as Directed Random Walkers}\label{sec:molecular_motors_as_directed_random_walkers}
+
+Molecular motors exist in multiple physical and chemical states. However, we would like to start with a simple model to see how few states we need to successfully explain experimental data. Consider a one-state model where motors exist in one state in each site. In one time step, the motor either moves left, right, or neither, so we can construct a master equation:
+\begin{equation}
+    p(n, t + \Delta t) = k_+ \Delta t p(n-1, t) + k_- \Delta t p(n+1, t) + (1-k_- \Delta t - k_+ \Delta t) p(n,t)
+\end{equation}
+We can Taylor expand $ p(n \pm a, t) $ and $ p(n,t + \Delta t) $ to find a driven diffusion equation:
+\begin{equation}
+    \pdv{p}{t} = - V \pdv{p}{x} + D \pdv[2]{p}{x}
+\end{equation}
+where
+\begin{equation}
+    V = a [k_+(F) - k_-(F)] \qquad D = \frac{a^2}{2} \left[ k_+(F) + k_-(F) \right]
+\end{equation}
+The rates ideally depend on the force applied. We can solve the driven diffusion equation using the transformation $ \bar{x} = x - Vt $ to find
+\begin{equation}
+    p(x, t) = \frac{1}{\sqrt{4 \pi D t}} e^{-(x - Vt)^2 / (4 D t)}
+\end{equation}
+
+Now we need to figure out how the jump rates depend on force. Suppose the force is acting in the $ k_- $ direction. We can use a principle of detailed balance, which says there is no net flow of probability for a closed cycle of states:
+\begin{equation}
+    k_+ p_n = k_- p_{n+1}
+\end{equation}
+We could also say that
+\begin{equation}
+    k_+ p_{n-1} = k_- p_n
+\end{equation}
+We can then say that in equilibrium,
+\begin{equation}
+    \frac{p_{n+1}}{p_n} = \frac{k_+}{k_-}
+\end{equation}
+We also know that
+\begin{equation}
+    p_n = \frac{1}{Z} e^{- \beta E_n}
+\end{equation}
+so
+\begin{equation}
+    \frac{p_{n+1}}{p_n} = e^{- \beta (E_{n+1} - E_n)} = \frac{k_+}{k_-}
+\end{equation}
+We can write the energy to be in a state as a function of the force:
+\begin{equation}
+    E_{n+1} - E_n = E_{n+1}^0 + F(n+1) a - E_n^0 + F n a = (E_{n+1}^0 - E_n^0) + Fa = \Delta E + fa
+\end{equation}
+so
+\begin{equation}
+    \frac{k_+}{k_-} = e^{- \beta (\Delta E + Fa)}
+\end{equation}
+We can have two possible scenarios, one where the forward rate is force-dependent and one where the backward rate is:
+\begin{equation}
+    k_+(F) = k_- e^{- \beta (\Delta E + Fa)} \qor k_-(F) = k_+ e^{- \beta (\Delta E + Fa)} 
+\end{equation}
+Let's assume the first case. Then
+\begin{equation}
+    V(F) = a k_- \left( 1 - e^{- \beta (\Delta E + Fa)} \right)
+\end{equation}
+
+When $ V(F) = 0 $, the force opposing the motion is large enough that no motion happens. It turns out that the second scenario, where the backward rate is force-dependent, agrees more with data.
+
+\subsection{Two-State Motor Model}\label{sub:two-state_motor_model}
+
+Imagine we have two internal states, $\ket{0} $ and $\ket{1} $. These might correspond to whether or not the motor is bound to ATP. For example, $ p_1(n,t) $ is the probability that the system is in state $ 1 $ at position $ n $ at time $ t $. The homework asks us to derive $ \dv{p_1}{t} $ or $ \dv{p_2}{t} $.
+
+
+
+\end{document}

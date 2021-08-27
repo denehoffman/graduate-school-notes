@@ -1,0 +1,119 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{12}{Monday, February 10, 2020}{Time-Independent Perturbation Theory}
+
+Last time, we found that, for
+\begin{equation}
+    H = H_0 + \lambda H_I
+\end{equation}
+\begin{equation}
+    \Delta E_n = \ev{H_I}{\phi_n^{(0)}}
+\end{equation}
+and
+\begin{equation}
+    \Delta\ket{\phi_n} = = \sum_{m \neq n} \frac{\mel{\phi_m^{(0)}}{H_I}{\phi_n^{(0)}}}{E_n^{(0)} - E_m^{(0)}}\ket{\phi_m^{(0)}}
+\end{equation}
+Notice that we have switched the conventional indices from last lecture. Just use this from now on. The upper $ (0) $ means these are the unperturbed things.
+
+What happens to this last equation if we have a degeneracy? Diagonalize the Hamiltonian such that
+\begin{equation}
+    \mel{m}{H_I}{n} \propto \delta_{nm}
+\end{equation}
+
+Let's say that $ H_I = \bar{p} \vdot \va{E} $ where $ \bar{p} $ is the dipole moment, which is the leading-order energy term for a hydrogen atom. If we put the electric field along the $ z $-direction, the dipole moment will be $ \bar{p} = -ez $ so
+\begin{equation}
+    H_I = -ezE
+\end{equation}
+Consider $ n = 1 $:
+\begin{equation}
+    \Delta E_{n=1} = \mel{1,0,0}{-ez}{1,0,0}E
+\end{equation}
+\begin{align}
+    \mel{0,0}{z}{0,0} &= 0 \qsince \\
+    \pi^{-1} z \pi &= -z \qand \pi\ket{0,0} = \pm\ket{0,0} \\
+    \mel{0,0}{\pi \pi^{-1} z \pi \pi^{-1}}{0,0} &= (\pm) \mel{0,0}{-z}{0,0}(\pm) = - \mel{0,0}{z}{0,0} = 0
+\end{align}
+where $ \pi $ is the parity operator.
+
+For the higher states, we will use the fact that
+\begin{equation}
+    \pi\ket{l,m} = (-1)^l\ket{l,m}
+\end{equation}
+
+For $ n = 2 $, $ l = 0,1 $, so
+\begin{equation}
+    \Delta \ket{\phi_{n=2}} = \sum_{m,n} \frac{\mel{m}{z}{n}}{E_n - E_m} Ee\ket{m}
+\end{equation}
+Now there are four degenerate states, $\{\ket{0,0},\ket{1, -1},\ket{1, 0},\ket{1,+1}\}$. We will now try to diagonalize the system in terms of these states. First,
+\begin{equation}
+    \mel{l,m}{z}{l'm'} \propto \delta_{mm'}
+\end{equation}
+$ \comm{L_z}{z} = 0 $ so $ \mel{lm}{\comm{L_z}{z}}{l'm'} = 0 $, so
+\begin{equation}
+    0 = \mel{lm}{L_z z}{l'm'} - \mel{lm}{zL_z}{l'm'} = (m-m') \hbar \left[ \mel{lm}{z}{l'm'} \right]
+\end{equation}
+so $ \Delta m = 0 $ for $ H_I \sim z $. Also, $ \Delta l \neq 0 $ since if the $ l $'s are the same, the states are orthogonal.
+\begin{center}
+\begin{tabular}{@{}l|cccc@{}}
+        $ l'm' \rightarrow $ &(0,0)&(1,-1)&(1,0)&(1,1)\\
+        \toprule
+        (0,0)&0&0&$\lambda$&0\\
+        \midrule
+        (1,-1)&0&0&0&0\\
+        \midrule
+        (1,0)&$\lambda$&0&0&0\\
+        \midrule
+        (1,1)&0&0&0&0\\
+    \bottomrule
+\end{tabular}
+\end{center}
+
+We claim $ \mel{lm}{z}{l'm'} = \mel{l'm'}{z}{lm} $ because the operators are all Hermitian. Now we need to diagonalize this. First we will change the order of the basis a bit:
+
+\begin{center}
+\begin{tabular}{@{}l|cccc@{}}
+        $ l'm' \rightarrow $ &(0,0)&(1,0)&(1,1)&(1,-1)\\
+        \toprule
+        (0,0)&0&$\lambda$&0&0\\
+        \midrule
+        (1,0)&$\lambda$&0&0&0\\
+        \midrule
+        (1,1)&0&0&0&0\\
+        \midrule
+        (1,-1)&0&0&0&0\\
+    \bottomrule
+\end{tabular}
+\end{center}
+
+Let's now define $ \xi_1 = \frac{1}{\sqrt{2}} \left[\ket{0,0} +\ket{1,0} \right] $ and $ \xi_2 = \frac{1}{\sqrt{2}} \left[\ket{0,0} -\ket{1,0} \right] $, which are the eigenvectors of this matrix. Therefore, we can define a new basis $ \{\xi_1, \xi_2,\ket{1,1},\ket{1,-1}\} $ where
+\begin{equation}
+    z = \mqty(\dmat{\hat{\lambda}, - \hat{\lambda}, 0, 0})
+\end{equation}
+Referring back to our original equation for the perturbed energy, we can now see that these new states, $ \xi_1 $ and $ \xi_2 $ are not degenerate to $\ket{1,1} $ and $\ket{1,-1} $, but in fact have $ \Delta E = \pm_{1,2} \hat{\lambda} = \pm 3 a_0 E $ (the last equality requires the full calculation of the matrix element).
+
+\section{Selection Rules}
+\label{sec:selection_rules}
+
+For an operator $ O $, what values of $ n $, $ l $, and $ m $ give
+\begin{equation}
+    \mel{nlm}{O}{n'l'm'} \neq 0?
+\end{equation}
+For example, in the case of $ O = z $, we just showed that $ \Delta m = 0 $ using the fact that $ \comm{L_z}{z} = 0 $. For $ \Delta l $, we need to use the fact that
+\begin{equation}
+    \comm{L^2}{\comm{L^2}{z}} = 2 \hbar^2 \pb{z}{L^2}
+\end{equation}
+Taking the matrix elements of both sides, we get a relationship between $ l $ and $ l' $. The right-hand side gives us:
+\begin{equation}
+    \mel{nlm}{2 \hbar^2 \pb{z}{L^2}}{n'l'm'} = (2 \hbar^2) \hbar^2 \left[ (l'\ket{l'+1}) + (l\ket{l+1}) \right] \mel{nlm}{z}{n'l'm'}
+\end{equation}
+The left-hand side gives
+\begin{align}
+    \mel{nlm}{L^2 (L^2 z - z L^2)- (L^2 z - z L^2) L^2}{n'l'm'} &= \hbar^2 \mel{nlm}{z}{n'l'm'} [ (l(l+1))^2 \\&- l(l+1)l'(l'+1) \\&- l(l+1)l'(l'+1) \\&+ (l'(l'+1))^2 ]
+\end{align}
+These sides must be equal, so we can cancel the matrix elements and equate
+\begin{equation}
+    (l+l')(l+l'+1)( (l-l')^2 -1) = 0
+\end{equation}
+The possible solutions are $ (l-l') = \pm 1 $. We could also have $ l = l' = 0 $, but we previously ruled this out by using a parity argument. Therefore, $ \Delta l = \pm 1 $.
+
+\end{document}

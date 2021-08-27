@@ -1,0 +1,116 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+
+\chapter{Physics of the Cell}
+
+\lecture{1}{Wednesday, February 03, 2021}{Physics of the Cell I}
+
+Replication is one of the fundamental processes of living cells. \textit{E. coli.} is a perfect example for understanding the physics of these biological processes because it is a very simple cell which is not as compartmentalized as our cells. When we examine cells dividing, we can start to ask questions, like how fast do cells grow, when do they divide, and how do the cells measure time and size? What is the biological clock that tells the cell when it needs to begin the next step of the replication process? What determines the structure of the cell colony, and how do the cells interact with each other?
+
+\section{\textit{E. coli.} as the Model Organism}\label{sec:e_coli_as_the_model_organism}
+
+We can model \textit{E. coli.} as a cylinder with a $ 1\micro\meter $ diameter and a length between $ 2 $-$ 6 \micro\meter $. If you measure the area of the total group of cells as they grow, you will find that they grow exponentially:
+\begin{equation}
+    \dv{N}{t} = \underbrace{\lambda}_{\text{growth rate}} N \implies N(t) = N(t=0) e^{\lambda t}
+\end{equation}
+From this, we can compute the doubling time, the time in which the population size doubles:
+\begin{equation}
+    t_{\text{doubling}} = \lambda^{-1} \ln(2) \approx 3000\second
+\end{equation}
+for \textit{E. coli.} which is pretty fast, on the order of $ 40\minute $ or so. The basic flow of information in the cell is that DNA replicates, it is transcribed into RNA, and RNA is translated into proteins which carry out the physical metabolism of the cell.
+
+
+If we now look at a single cell, na\"ively, the cells divide when they roughly double in mass. This is actually an incorrect model, and we will discuss this later. The time from birth to division is called the cell cycle, and that is equal to the doubling time. In \textit{E. coli.}, DNA is kind of spread out (not concentrated in a nucleus like in human cells). There isn't a lot of free space inside the cell. There are $ 4 \times 10^6 $ base pares of DNA and $ 2 \times 10^6 $ proteins, along with ribosomes, lipids, ions, water, and other molecules. Movement around the cell is relatively slow because of all these obstructions.
+
+Given the doubling time, we can compute that the replication process operates at around $ 2000 \text{bp}/\second $ (base pairs per second). How do any of the molecules in the cell decide which daughter cell they'll end up in? We can say that each molecule has some probability $ p $ of ending up in daughter cell $ 1 $ and probability $ q = 1 - p $ to end up in daughter cell $ 2 $. If we start with $ N $ molecules, we can calculate the probability of ending up with $ n_1 $ molecules in cell $ 1 $:
+\begin{equation}
+    \Pr(n_1, N) = \frac{N!}{n_1!(N - n_1)!} p^{n_1} q^{N-n_1}
+\end{equation}
+
+This is the equation of a simple binomial process, so we can calculate the mean to be $ \ev{n_1} = Np $ and the standard deviation as $ \sqrt{\ev{n_1^2} - \ev{n_1}^2} = \sqrt{Npq} $. Is this a good model? Does this actually explain what we observe in living cells?
+
+We could measure $ \Delta N = n_1 - n_2 $ and plot it against $ N $, the total number of molecules. In an ideal case, $ \Delta N = 0 $, whereas in a case where one cell always gets everything, we would have $ \Delta N \propto N $. In our model, we predict $ \Delta N \propto \sqrt{N} $, like the standard deviation.
+
+
+In reality, the individual cells don't grow exponentially. There is initially a lag phase where not much growth happens. Then there's an exponential face where the growth rate is constant. Finally comes a late exponential/early stationary stage followed by a stationary phase, where the cell mass stabilizes.
+
+
+We can model such a system as a logistic curve:
+\begin{equation}
+    \dv{N}{t} = \lambda N(N_{\text{max}} - N) = \lambda N - \lambda_d N^2
+\end{equation}
+where $ \lambda_d $ can be thought of as the ``death'' rate. This equation will have a ``fixed point'' at $ N_{\text{max}} $ where going to the right of that point in $ N $ will result in a negative growth rate, whereas moving to the left of it will result in a positive growth rate, both leading back to the fixed point.
+
+If we write this equation as
+\begin{equation}
+    \dv{N}{t}= \lambda N \left( 1 - \frac{N}{M} \right)
+\end{equation}
+then we can solve this as
+\begin{equation}
+    N(t) = N_0 e^{\lambda t} \frac{MN(0)}{M + N(0) (e^{\lambda t} - 1)}
+\end{equation}
+
+\subsection{Coordination of Cell Growth with Division}\label{sub:coordination_of_cell_growth_with_division}
+
+If the cell grows according to the logistic model, when will it divide? Even if we just assume exponential growth, at what time, $ \tau $ would the cell split? If the cells elongate exponentially at a constant rate, we can write this as
+\begin{equation}
+    l_i(t) = l_i(0) e^{\lambda t}
+\end{equation}
+
+\subsection{Timer Model}\label{sub:timer_model}
+
+In a timer model, the cell divides at a constant time from birth ($ \tau = \text{const} $). What this also implies is that the cell divides at a critical multiple of the initial size:
+\begin{equation}
+    l_i(\tau) = l_i(0) \times \text{const.} = a l_i(0)
+\end{equation}
+If $ a = 2 $, the cell separates when it doubles in size. Let's say the cell divides in a ratio $ r $ to $ 1-r $. This means that
+\begin{equation}
+    l_{i+1}(0) = r l_i(\tau) = a r l_i(0)
+\end{equation}
+As a trivial example, we could say $ r = \frac{1}{2} $. In other words, we have an iterative equation. What is $ l_{i + n} $?
+\begin{equation}
+    l_{i + n} = (ar)^n l_i
+\end{equation}
+The problem with this model is that if $ ar \neq 1 $, the parent cell size will either grow or decay exponentially. This timer model is unstable. If you plot the generation time against the length of the cell, you find that it is not constant, as the timer model would suggest. Small cells will take longer to generate than larger cells.
+
+\subsection{Sizer Model}\label{sub:sizer_model}
+
+Maybe the cell is actually dividing at a constant size:
+\begin{equation}
+    l_i(\tau) = l_i(0) e^{\lambda \tau} = \text{const.} \equiv \delta
+\end{equation}
+such that
+\begin{equation}
+    \tau = \lambda^{-1} \ln(\frac{\delta}{l(0)})
+\end{equation}
+This give us the proper generation plot discussed above, but this is also not the correct model. After $ n $ divisions, $ l_{i + n} = r \delta $. However, this model would say that the length at which a cell divides is constant and doesn't depend on the newborn length, but data suggests that these variables are linearly dependent.
+
+
+So if neither time nor size determines when the cell divides, what does?
+
+\subsection{Adder Model}\label{sub:adder_model}
+
+Just fit the data! Let $ l_{\tau} = l_0 + \delta $. This means the difference between the newborn size and division size is constant, so the cell ``adds'' a constant amount of material before it divides. Does this lead to stable size distributions?
+
+\begin{equation}
+    l_i(\tau) = l_i(0) + \delta
+\end{equation}
+so
+\begin{align}
+    l_{i+1}(0) &= r l_i(\tau) \\
+               &= r(l_i(0) + \delta)
+\end{align}
+We make the Ansatz that as $ i \to \infty $, $ l_i \to l_s $, some stable size.
+\begin{align}
+    l_s &= r(l_s + \delta) \\
+        &= \frac{r \delta}{1 - r}
+\end{align}
+If $ r = \frac{1}{2} $, then $ l_s \to \delta $. By this adder principle, if a cell is born smaller or bigger, it will eventually converge to the size $ l_s $ (quite quickly, withing a few generations).
+
+How does the cell know how much material it has added to itself? This is largely an open question. Some molecules inside that cell could encode this information, but we will discuss some possible explanations in the next class.
+
+
+
+
+
+\end{document}

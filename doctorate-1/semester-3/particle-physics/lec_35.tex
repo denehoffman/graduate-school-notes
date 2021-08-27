@@ -1,0 +1,115 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{35}{Wednesday, December 02, 2020}{}
+
+Continuing from last lecture,
+\begin{equation}
+    u_{\uparrow}(p_4) = \sqrt{2 m_p} \mqty(c_{\eta} \\ -s_{\eta} \\ 0 \\ 0) \qquad u_{\downarrow}(p_4) = \sqrt{2 m_p} \mqty(-s_{\eta} \\ -c_{\eta} \\ 0 \\ 0)
+\end{equation}
+where $ c_{\eta} = \cos(\eta / 2) $ and $ s_{\eta} = \sin(\eta / 2) $. Then
+\begin{align}
+    j_{p \uparrow\uparrow} &= j_{p\downarrow\downarrow} = 2m_p \mqty(c_{\eta} & 0 & 0 & 0) \\
+    j_{p \uparrow\downarrow} &= j_{p\downarrow\uparrow} = -2m_p \mqty(s_{\eta} & 0 & 0 & 0)
+\end{align}
+
+Then
+\begin{align}
+    \ev{\abs{m_{fi}}^2} &= \frac{1}{4} \frac{e^2}{q^2} \sum_{\alpha, \beta, \gamma, \delta} j_{e_{\alpha \beta}} \vdot j_{p_{\gamma \delta}} \\
+                        &= \frac{4 m_p^2 m_e^2 e^4 (\gamma_e + 1)}{q^2} \left( (1 - \kappa^2)^2 + 4 \kappa^2 c^2 \right)
+\end{align}
+Using $ \kappa = \frac{p_e}{E_e + m_e} = \frac{\gamma \beta_e}{\gamma + 1} $ and $ Q^2 = - q^2 = 4 p^2 \sin[2](\theta / 2) $, we have
+\begin{equation}
+    \ev{\abs{m_{fi}}^2} = \frac{m_p^2 m_e^2 e^4}{p^4 \sin[4](\theta / 2)} \left[ \beta^2 \gamma^2 \cos[2](\theta / 2) + 1 \right]
+\end{equation}
+
+In Rutherford scattering, $ \beta \ll 1 $ ($ E_e < 100\kilo\electronvolt $), so we can neglect the first term in square brackets:
+\begin{equation}
+    \dv{\sigma}{\Omega} = \frac{\alpha^2}{16 E_k^2 \sin[4](\theta / 2)}
+\end{equation}
+where $ E_k = \frac{p^2}{2m_e} $, where $ p $ is the momentum of the electron.
+
+In Mott scattering, we consider relativistic electrons (still with a recoil-less target), so $ \gamma \gg 1 $. This puts $ E_k $ somewhere between $ 5\mega\electronvolt $ and $ \sim 50\mega\electronvolt $. In this case,
+\begin{equation}
+    \dv{\sigma}{\Omega} = \frac{\alpha^2}{4 E_k^2 \sin[4](\theta / 2)} \cos[2](\theta / 2)
+\end{equation}
+This result is often written $ \sigma_{\text{Mott}} $, which is bad notation because it's technically a differential cross-section.
+
+\section{Relativistic Elastic Scattering}\label{sec:relativistic_elastic_scattering}
+
+We will now consider relativistic scattering from a target particle (can be a proton, neutron, nucleus, etc.) without neglecting target recoil.
+
+\begin{align}
+    p_1 &= \mqty(E_1 & 0 & 0 & E_1) \\
+    p_2 &= \mqty(m_t & 0 & 0 & 0) \\
+    p_3 &= \mqty(E_3 & 0 & E_3 \sin(\theta) & E_3 \cos(\theta)) \\
+    p_4 &= \mqty(E_4 & \va{p}_4) = \mqty(m_t + w & \va{q}) \\
+\end{align}
+Start by treating the target as a point Dirac particle. Assuming single-arm, unpolarized scattering. We've already done the matrix element calculation:
+\begin{equation}
+    \ev{\abs{m_{fi}}^2} = \frac{8 e^4}{q^4} \left( (p_1 \vdot p_2)(p_3 \vdot p_4) + (p_1 \vdot p_4)(p_2 \vdot p_3) - m_t^2 (p_1 \vdot p_3) \right)
+\end{equation}
+where $ p_1 \vdot p_2 = m_t E_1 $ and $ p_2 \vdot p_3 = m_t E_3 $.
+
+Since $ p_4 = p_2 + (p_1 - p_3) $, we can write
+\begin{equation}
+    p_3 \vdot p_4 = p_3 \vdot p_2 + p_3 \vdot p_1 - \cancelto{0}{p_3^2} = m_t E_3 + E_1 E_3 (1 - \cos(\theta))
+\end{equation}
+and similarly
+\begin{equation}
+    p_1 \vdot p_4 = m_t E_1 + E_1 E_3 (1 - \cos(\theta))
+\end{equation}
+
+For elastic scattering, $ w \equiv E_1 - E_3 = \frac{Q^2}{2m_t} $.
+
+\begin{equation}
+    \ev{\abs{m_{fi}}^2} = \frac{m_t^2 e^4}{E_1 E_3 \sin[4](\theta / 2)} \left[ \cos[2](\theta / 2) + \frac{Q^2}{2m_t^2} \sin[2](\theta / 2) \right]
+\end{equation}
+
+Then we can determine the lab-frame differential cross-section:
+\begin{equation}
+    \dv{\sigma}{\Omega} = \frac{1}{64 \pi^2} \left( \frac{E_3}{m_t E_1} \right)^2 \ev{\abs{m_{fi}}^2}
+\end{equation}
+so
+\begin{align}
+    \dv{\sigma}{\Omega} &= \frac{\alpha^2}{4 E_1^2 \sin[4](\theta / 2)} \frac{E_3}{E_1} \left( \cos[2](\theta / 2) + \frac{Q^2}{2 m_t^2} \sin[2](\theta / 2) \right) \\
+                        &= \sigma_{\text{Mott}} \eta_{\text{recoil}} \left( 1 + 2 \tau + \tan[2](\theta / 2) \right)
+\end{align}
+where $ \eta_{\text{recoil}} = E_3 / E_1 = \frac{1}{1 + \frac{2 E_1}{m_t} \sin[2](\theta / 2)} $ and $ \tau = \frac{Q^2}{4 m_t}  $.
+
+\section{Separation of Form Factors}\label{sec:separation_of_form_factors}
+
+The most general 4-current at the target which is consistent with Lorentz-invariance, parity conservation, etc. is:
+\begin{equation}
+    j_t^{\mu} = \bar{u}_t(p_4) \left[ F_1(Q^2) \gamma^{\mu} + F_2(Q^2) \frac{\imath \sigma^{\mu \nu} q^{\nu}}{2 m_t} \right]u_t(p_2)
+\end{equation}
+where $ \sigma^{\mu \nu} = \comm{\gamma^{\mu}}{\gamma^{\nu}} $. These $ F_1 $ and $ F_2 $ are called Dirac form-factors. If the target were a point particle, they would be $ 1 $. Calculating matrix elements with this general current (assuming single-photon exchange) and the differential cross section as above, we find
+\begin{equation}
+    \dv{\sigma}{\Omega} = \sigma_{\text{Mott}} \eta_{\text{recoil}} \times \left[ F_1^2(Q^2) + \tau F_2^2(Q^2) + 2 \tau(F_1(Q^2) + F_2(Q^2))^2 \tan[2](\theta / 2) \right]
+\end{equation}
+
+We can define the Sachs (electric and magnetic) form-factors as
+\begin{equation}
+    G_M(Q^2) \equiv F_1(Q^2) + F_2(Q^2)
+\end{equation}
+and
+\begin{equation}
+    G_E(Q^2) \equiv F_1(Q^2) - \tau F_2(Q^2)
+\end{equation}
+so
+\begin{align}
+    \frac{G_E^2 + \tau G_M^2}{1 + \tau} &= \frac{(F_1^2 + \tau^2 F_2^2 - 2 \tau F_1 F_2) + \tau (F_1^2 + F_2^2 + 2 F_1 F_2)}{1 + \tau} \\
+                                        &= \frac{F_1^2 (1 + \tau) + \tau F_2^2 (1 + \tau)}{1 + \tau} \\
+                                        &= F_1^2 + \tau F_2^2
+\end{align}
+so
+\begin{align}
+    \dv{\sigma}{\Omega} &= \sigma_{\text{Mott}} \eta_{\text{recoil}} \times \left[ \frac{G_E^2 + \tau G_M^2}{1 + \tau} + 2 \tau G_M^2 \tan[2](\theta / 2) \right] \\
+                        &= \sigma_{\text{Mott}} \eta_{\text{recoil}} \frac{1}{1 + \tau} \left[ G_E^2 + \tau (1 + 2(1 + \tau)) \tan[2]( \theta / 2) \right]
+\end{align}
+We can then define $ \epsilon = \left[ 1 + 2 (1 + \tau) \tan[2](\theta / 2) \right]^{-1} $, which is the virtual photon's longitudinal polarization, to get
+\begin{equation}
+    \dv{\sigma}{\Omega} = \sigma_{\text{Mott}} \frac{\eta_{\text{recoil}}}{\epsilon (1 + \tau)} \left[ \epsilon G_E^2 + \tau G_M^2 \right]
+\end{equation}
+
+
+\end{document}

@@ -1,0 +1,81 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{13}{Wednesday, September 30, 2020}{}
+
+\begin{note}{Exam}
+    Mid-semester Test: October 22-25 (take home, four hours of your choice)
+\end{note}
+
+Recall in the last lecture we were proving the following theorem:
+\begin{theorem}[Hilbert's Basis Theorem]
+    If $ R $ is a Noetherean ring, then $ R[x] $ is.
+\end{theorem}
+
+\begin{proof}
+    Let $ I $ be ideal in $ R[x] $. Consider $ L = \{\text{LC}(f)\colon f \in I\} $, the set of leading coefficients of polynomials in $ I $.
+    \begin{claim}
+        $ L $ is an ideal in $ R $.
+    \end{claim}
+    \begin{proof}
+        We need to show that it is closed under addition and multiplication and also under multiplication with elements of $ R $.
+
+        Say $ a \in L $ and $ b \in R $. We need to show that $ a b \in L $, and $ a $ is the leading coefficient of some $ f \in R[x] $. By definition, $ a b = \text{LC}(b f) $.
+        
+        $ a' = \text{LC}(f') $, so $ a + a' = \text{LC} \left( x^{\text{deg} f'}f + x^{\text{deg} f} f' \right) $ if $ a + a' \neq 0 $. Otherwise, $ a + a' = \text{LC}(0) $.
+
+        Since $ R $ is Noetherean, $ L $ admits a finite set of generators, say
+        \begin{equation}
+            L = (a_1, a_2, \cdots, a_n)
+        \end{equation}
+        Let $ f_i \in I $ such that $ a_i = \text{LC}(f_i) $. Let $ D = \max(\text{deg}(f_i)) $. For each $ d \leq D $, let $ L_d = \{\text{LC}(f) \colon f \in I,\ \text{deg}(f) = d\} \cup \{0\} $ (the zero being added to make it an ideal). $ L_d $ is an ideal, and the proof is similar (in fact, they have the same degree, so the step to prove $ a + a' $ is in the set is much simpler). Because $ L_d $ is ideal, $ L_d = (S_d) $ where $ S_d $ is finite. Say $ S_d = \text{LC}(F_d) $ where $ F_d \subset I $ and finite.
+        \begin{claim}
+            $ F = F_0 \cup F_1 \cup \cdots \cup F_D \cup \{f_1, \cdots, f_n\} $ generates $ I $.
+        \end{claim}
+        \begin{proof}
+            Suppose $ f \in I $ which is not in $ (F) $ and assume $ f $ is the minimal degree among such polynomials.
+            \begin{itemize}
+                \item[Case 1:] $ \text{deg} f > D $
+
+                    In this case, $ \text{LC}(f) \in L $, so $ \text{LC}(f) \in (a_1, \cdots, a_n) $, say $ \text{LC}(f) = b_1 a_1 + \cdots b_n a_n $.
+
+                    Consider $ f' = f - b_1 f_1 x^{\text{deg} f - \text{deg} f_1} + b_2 f_2 x^{\text{deg} f - \text{deg} f_2} + \cdots \in I $. This is constructed to eliminate the leading term of $ f $, so $ \text{deg}(f') < \text{deg}(f) $. By minimality, $ f' \in (F) $. Therefore, $ f = f' + $ some linear combination of $ f_1, \cdots, f_n $ $ \in (F) $. This is a contradiction.
+                \item[Case 2:] Let $ \text{deg} f \leq D $ and $ d = \text{deg} f $. Consider $ \text{LC}(f) \in L_d $.
+
+                    $ \text{LC}(f) \in (S_d) $ so $ \text{LC}(f) = \sum b_i \text{LC}(g_i) $ where $ g_i \in F_d $. Consider $ f' = f - \sum b_i g_i $, where $ \text{deg} f' < \text{deg} f $, so we find a similar contradiction to Case 1.
+            \end{itemize}
+        \end{proof}
+    \end{proof}
+\end{proof}
+
+Consider $ F[x_1, \cdots, x_n] = F[x] $, where $ F $ is a field.
+\begin{definition}
+    \textit{Monomials} are things of the form $ x^{\alpha} $. This is in contrast to a \textit{monomial term} $ c_{\alpha} x^{\alpha} $, where $ c_{\alpha} $ is called the \textit{coefficient}
+\end{definition}
+\begin{definition}
+    A linear ordering on monomials is a \textit{monomial ordering} if it is a well-ordering such that $ x^{\alpha} < x^{\beta} \implies x^{\alpha + \gamma} < x^{\beta + \gamma} $.
+\end{definition}
+\begin{ex}
+    Lexicographic ordering (lex-ordering): $ x^{\alpha} < x^{\beta} $ if $ \alpha_1 = \beta_1, \cdots, \alpha_i = \beta_i $ and $ \alpha_{i+1} < \beta_{i+1} $. Basically, this is an ordering based on the first non-equal exponent.
+\end{ex}
+\begin{ex}
+    Graded Lexicographic ordering (grlex): $ x^{\alpha} < x^{\beta} $ if $ \text{deg}(x^{\alpha}) < \text{deg}(x^{\beta}) $. If $ \text{deg}(x^{\alpha}) = \text{deg}(x^{\beta}) $, then use lexicographic ordering.
+\end{ex}
+
+For a polynomial $ f = \sum c_{\alpha} x^{\alpha} $, the leading term of $ f $, $ \text{LT}(f) $, is the largest term in the monomial ordering. $ \text{LC}(f) $ is the coefficient of $ \text{LT}(f) $, and $ \text{LM}(f) $ is the monomial in $ \text{LT}(f) $.
+
+\subsection{Division Algorithm}
+\label{sub:division_algorithm}
+
+Input: polynomial $ f $ and polynomials $ g_1, \cdots, g_n $.
+
+Outputs: $ a_1, \cdots, a_m $ and $ m $ such that $ f = a_1 g_1 + \cdots + a_m g_m + m $ and $ \text{deg}(a_i g_i) \leq \text{deg}(f) $ and no term of $ r $ is divisible by $ \text{LT}(g_i) $.
+
+Algorithm:
+\begin{itemize}
+    \item[1.] Start with $ r = 0 $ and $ a_i = 0 $. At each step, do:
+    \item[2.] Pick $ g_i $ such that $ \text{LT}(g_i) $ divides $ \text{LT}(f) $. $ a_i \to a_i + \frac{\text{LT}(f)}{\text{LT}(g_i)} $ and $ f \to f - g_i \frac{\text{LT}(f)}{\text{LT}(g_i)} $.
+    \item[3.] If no such $ g_i $ exists, then $ r \to r + \text{LT}(f) $ and $ f \to f - \text{LT}(f) $ (move it into the remainder).
+    \item[4.] Stop when $ f = 0 $.
+\end{itemize}
+Note that $ \max \text{deg}(f) $ decreases at every step.
+\end{document}

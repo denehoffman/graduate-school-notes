@@ -1,0 +1,80 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{5}{Thursday, February 04, 2021}{Geometry of Spacetime}
+
+The equation of motion (Newton) of a particle in a gravitational field is $ \dv[2]{\va{x}}{t} = -\grad{\Phi} $, so our geodesic equation should give us this in the non-relativistic limit. Also, in the local inertial frame, we don't see any curvature, so these Christoffel symbols must vanish in the local frame. These are derivatives of $ g_{\mu \nu} $, so these derivatives must also vanish.
+
+First, we consider that the weak field limit of $ g_{\mu \nu} \approx \eta_{\mu \nu} + h_{\mu \nu} $ where $ h \ll \eta $. Then in all Christoffel symbols, only derivatives of $ h $ matter, and the time derivative should vanish:
+\begin{equation}
+    \Gamma^{\mu}_{\alpha \beta} \sim \frac{1}{2} \eta^{\mu \rho} (\partial_{\alpha} h_{\rho \beta} + \partial \beta h_{\rho \alpha} - \partial_{\rho} h_{\alpha \beta})
+\end{equation}
+
+We need $ \dv{x^{\alpha}}{\tau} = \left( c \dv{t}{\tau}, \dv{\va{x}}{\tau} \right) = \dv{t}{\tau}(c, \va{v}) $ for the weak field/non-relativistic limit ($ c \gg v $). Setting the spatial part to zero, from special relativity, $ \dv{t}{\tau} = \gamma \approx 1 $, so only $ \alpha = 0 $ and $ \beta = 0 $ components and $ \dot{x}^0 = c $:
+\begin{equation}
+    \dv[2]{x^{\mu}}{\tau} = - \Gamma^{\mu}_{00} \underbrace{\dot{x}^0\dot{x}^0}_{c^2}
+\end{equation}
+where
+\begin{equation}
+    \Gamma^{\mu}_{00} = \frac{1}{2} \eta^{\mu \rho} \left( \cancelto{0}{\partial_0 h_{\rho 0}} + \cancelto{0}{\partial_0 h_{0 \rho}} - \partial_{\rho} h_{00} \right)
+\end{equation}
+$ \partial_0 h_{00} = 0 $, so
+\begin{equation}
+    \dv[2]{x^i}{t^2} = - c^2 \underbrace{\Gamma^i_{00}}_{\frac{1}{2} \grad^i{h_{00}}} = - \grad^i{\Phi}
+\end{equation}
+Therefore,
+\begin{equation}
+    h_{00}(x) = + \frac{2 \Phi}{c^2} = - \frac{2GM}{r c^2} \equiv - \frac{R_s}{r}
+\end{equation}
+where $ R_S $ is the Schwarzschild radius. To get an idea of this, $ R_S = \frac{2GM}{c^2} = \frac{2GM_{\odot}}{c^2} \left( \frac{M}{M_{\odot}}  \right) $ where the Schwarzschild radius of the sun is $ 2.97\kilo\meter $. The radius of the earth is about $ 5000\kilo\meter $, so this $ h_{00} $ is incredibly small.
+\begin{equation}
+    g_{00} = \eta_{00} + h_{00} \simeq \left( 1 + \frac{2 \Phi}{c^2} \right)
+\end{equation}
+and
+\begin{equation}
+    g_{ij} = \eta_{ij} = - \delta_{ij} 
+\end{equation}
+to leading order. Therefore
+\begin{equation}
+    \dd{s^2} = g_{\mu \nu} \dd{x^{\mu}} \dd{x^{\nu}} = (c \dd{t} )^2 \left[ 1 + \frac{2 \Phi}{c^2} \right] - \dd{\va{x}}^2 + \cdots
+\end{equation}
+
+\section{Connection to Geometry}\label{sec:connection_to_geometry}
+
+
+Gravitational potentials obey Poisson's equation:
+\begin{equation}
+    \laplacian{\Phi} = 4 \pi G \rho
+\end{equation}
+and outside a spherical distribution of mass $ M $, $ \Phi(r) = - \frac{GM}{r} $. We've shown that this potential has a direct relation to the metric and to geodesics in spacetime, so we can conclude that mass leads to geometry in spacetime.
+
+\section{Principle of General Covariance}\label{sec:principle_of_general_covariance}
+
+Under general coordinate transformations, $ x^{\mu} \to x'^{\mu}(x) $, the differentials,
+\begin{equation}
+    \dd{x'^{\mu}} = \pdv{x'^{\mu}}{x^{\nu}} \dd{x^{\mu}} \equiv \Lambda^{\mu}_{\nu}(x) \dd{x^{\nu}}
+\end{equation}
+follow the transformation laws of contravariant 4-vectors. covariant 4-vectors are formed as
+\begin{equation}
+    x_{\mu} = g_{\mu \nu}(x) x^{\nu}
+\end{equation}
+
+Tensors transform as
+\begin{equation}
+    T^{\mu \nu}(x) \to T'^{\mu \nu}(x') = \pdv{x'^{\mu}}{x^{\alpha}} \pdv{x'^{\nu}}{x^{\beta}} T^{\alpha \beta}(x)
+\end{equation}
+
+Again, if a tensor vanishes in a coordinate system, it vanishes in all inertially related systems.
+
+Christoffel symbols are \textbf{not} tensors. They may vanish in a local frame, but they do not vanish in every frame.
+
+General covariance in GR says that physical laws must be written in terms of tensors. However, generally, equations of motion are differential equations, so we need derivatives that transform as tensors.
+
+\subsection{Covariant Derivatives}\label{sub:covariant_derivatives}
+
+We will define the covariant derivative of a tensor $ T^{\mu \nu}(x) $ as
+\begin{equation}
+    T^{\mu \nu}_{; \alpha} = \pdv{T^{\mu \nu}(x)}{x^{\alpha}} + \Gamma^{\mu}_{\alpha \sigma} T^{\sigma \nu} + \Gamma^{\nu}_{\alpha \sigma} T^{\mu \sigma}
+\end{equation}
+The lack of covariance of the ordinary derivative gets exactly compensated by the two Christoffel symbols. This is similar to the way we define derivatives in a gauge theory. This is no coincidence; GR is a gauge theory, and the group of gauge transformations are the group of generalized transformations. In gauge theories, the Christoffel symbols would be vector potentials.
+
+\end{document}

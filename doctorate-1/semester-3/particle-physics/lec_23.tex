@@ -1,0 +1,84 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{23}{Friday, October 30, 2020}{Isospin}
+
+We can define two projections $ I_1 $ and $ I_2 $ along axes perpendicular to the $ I_3 $ axis with $ \comm{I_i}{I_j} = \imath \epsilon_{ijk} I_k $. Then $ I^{\pm} = I_1 \pm \imath I_2 $ raise and lower $ I_3 $.
+
+Starting from the ``stretch'' configuration of $ A $ nucleons (e.g. $ Z = A $ protons with $ I_3 = A/2 $), we can write the isospin state as
+\begin{equation}
+    \ket{\frac{A}{2}, \frac{A}{2}} = \bigotimes_A\ket{\frac{1}{2}, \frac{1}{2}}
+\end{equation}
+$ I^- $ allows us to write down all of the $\ket{\frac{A}{2}, I_3} $ states. We can then write down the $\ket{\frac{A}{2} - 1, \frac{A}{2} - 1} $ state ($ A - 1 $ protons and one neutron) by orthogonality with $\ket{\frac{A}{2}, \frac{A}{2} - 1} $. Then $ I^- $ allows us to generate all $ I = \frac{A}{2} - 1 $ states, and so on.
+
+This is just like writing states of coupled angular momentum, and we can use the same Clebsh-Gordon coefficients.
+
+Once the quark model was advanced, $ I^- $ was generalized from $ I^-\ket{p} =\ket{n} $ to $ I^-\ket{u} =\ket{d} $ (and $ I^-\ket{\bar{d}} = -\ket{\bar{u}} $). This means that we think of $ I^-\ket{p} = I^-\ket{duu} =\ket{ddu} =\ket{n} $. Acting this on a neutron gives $ I^-\ket{n} =\ket{ddd} = 0 $ by the Pauli principle.
+
+This extends to all hadrons containing light quarks:
+\begin{equation}
+    \ket{\pi^+} =\ket{u \bar{d}} \implies I^-\ket{\pi^+} = \frac{1}{\sqrt{2}} (\ket{d \bar{d}} - \ket{u \bar{u}}) =\ket{\pi^0}
+\end{equation}
+and $ I^-\ket{\pi^0} =\ket{d \bar{u}} =\ket{\pi^-} $.
+
+These three pions are therefore predicted to have identical strong interactions, aside from slight differences in the down and up quark masses and electromagnetic interactions. Isospin not only explains the relations of multiple hadrons which differ only by up and down quarks, but it also predicts the relative strength of the strong interaction of states which differ by isospin. For example, the spin-3/2 $ \Delta $ isobar has $ 4 $ charge states:
+\begin{center}
+    \begin{tabular}{@{}ccc@{}}
+        Name & Quark content & $ I_3 $ \\
+        \toprule
+        $ \Delta^{++} $ & uuu & $ +3/2 $ \\
+        $ \Delta^{+} $ & uud & $ +1/2 $ \\
+        $ \Delta^{0} $ & udd & $ -1/2 $ \\
+        $ \Delta^{-} $ & ddd & $ -3/2 $ \\
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+Take scattering $ \pi^- $ on a $ p $ (at $ \Delta $ resonance):
+\begin{equation}
+    \pi^- + p \to \Delta^0
+\end{equation}
+either elastically (resulting in the same particles) or with charge exchange (decaying to $ \pi^0 n $). From CG coefficients, we can write
+\begin{equation}
+    \ket{J,M} = \sum_{M=m_1 + m_2}\bra{J,M}\ket{j_1, m_1, j_2 m_2}\ket{j_1, m_1}\ket{j_2, m_2}
+\end{equation}
+[TODO I missed stuff here, need to go back and rewatch lecture]
+
+\section{Relativistic Quantum Mechanics}\label{sec:relativistic_quantum_mechanics}
+
+In SR, $ E^2 = p^2 + m^2 $ and we know that $ E = \frac{p^2}{2m} + V $ gave us the Schr\"odinger equation. We can try the same trick by replacing these kinematic variables with operators:
+\begin{equation}
+    \hat{E}^2 \psi = \hat{p}^2 \psi + m^2 \psi
+\end{equation}
+with $ \hat{p} = - \imath \grad $ and $ \hat{E} = \imath \partial_t $.
+
+We can rewrite this as
+\begin{equation}
+    (\partial^{\mu} \partial_{\mu} + m^2) \psi = 0 \tag{Klein-Gordon Equation}
+\end{equation}
+Solutions to this are
+\begin{equation}
+    \psi(\va{r}, t) = A e^{\imath (\va{p} \vdot \va{r} - E t)}
+\end{equation}
+
+Unfortunately, $ E = \pm \sqrt{p^2 + m^2} $, but we can't have negative-energy states or the resulting wave functions won't be complete.
+
+\begin{equation}
+    \psi^* (\text{K.G.}) - \psi (\text{K.G.})^* = \pdv{t}\underbrace{\left( \psi^* \pdv{\psi}{t} - \psi \pdv{\psi^*}{t} \right)}_{- \imath \rho} = \div{\underbrace{(\psi^* \grad{\psi} - \psi \grad{\psi^*})}_{\imath \va{j}}}
+\end{equation}
+$ \rho = 2 \abs{A}^2 E $, so how can the probability density be negative? We can only use the K.G. equation in quantum field theories of spin-0 fields.
+
+Dirac wanted a first-order equation in derivatives which would be the square root of the K.G. equation. Assume that
+\begin{equation}
+    \hat{E} \psi = (\va{\alpha} \cdot \va{p} + \beta m) \psi
+\end{equation}
+where
+\begin{equation}
+    (\va{\alpha} \vdot \va{p} + \beta m) = p^2 + m^2 \tag{\ast}
+\end{equation}
+Then
+\begin{equation}
+    \imath \partial_t \psi = \left( - \imath \alpha_x \partial_x - \imath \alpha_y \partial_y - \imath \alpha_z \partial_z + \beta m \right) \psi
+\end{equation}
+Operating a second time should give the K.G. equation. We require $ \alpha_x^2 = \alpha_y^2 = \alpha_z^2 = \beta^2 = I $ and $ \alpha_j \beta + \beta \alpha_ j = 0 $ and $ \alpha_i \alpha_j + \alpha_j \alpha_i = 0 $, so these $ \alpha $ and $ \beta $ terms cannot just be scalars.
+
+\end{document}

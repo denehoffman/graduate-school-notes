@@ -1,0 +1,70 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{30}{Monday, April 06, 2020}{The Path Integral, Continued}
+
+We can write the phase space version of the path integral as
+\begin{equation}
+    \bra{x_f t_f}\ket{x_i t_i} = \int D x(t) D p(t) e^{\imath \int_0^t p\dot{x} - H}
+\end{equation}
+
+We essentially have an action
+\begin{equation}
+    S = \int \dd{t} \left[ p\dot{x} - H(p,x) \right]
+\end{equation}
+
+Take the special case where the potential does not depend on the momentum:
+\begin{equation}
+    H = \frac{p^2}{2m} + V(x)
+\end{equation}
+
+Here, the momentum integral is Gaussian:
+\begin{align}
+    \int Dx(t) \int Dp(t) e^{\imath \int - \frac{p^2}{2m} + p\dot{x} + V(x)} &= \int Dx(t) \int Dp(t) e^{\imath \int - \frac{1}{2m}(p - m\dot{x})^2 + \frac{1}{2} m\dot{x}^2 + V(x)} \\
+    p &\to p+mx\\
+    &= \int Dx(t) \int Dp(t) \vb{J} e^{\imath \int_0^T \left( \frac{p^2}{2m} + \frac{1}{2} m\dot{x}^2 - V(x) \right)} \\
+    &= \vu{N} \int Dx(t) e^{\imath \int_0^T L \dd{t}}
+\end{align}
+where $ \vu{N} $ is a normalization constant from the Gaussian integral which we will determine later. Let's do an example with a free particle. We split up the path into a number of time steps $ \Delta t + \epsilon $ with $ N \epsilon = T_{\text{tot}} $ and we take the limit as $ N \to \infty $ and $ \epsilon \to 0 $. Our amplitude then becomes
+\begin{align}
+    \bra{x_f t_f}\ket{x_i t_i} &= \lim \int \dd{x_1} \ldots \dd{x_{N-1}} e^{\imath \sum_{i=1}^{N-1} \frac{\epsilon}{2} \frac{m}{\hbar} \frac{(x_i - x_{i+1})^2}{\epsilon^2}} \\
+    \sqrt{\frac{m}{2 \hbar \epsilon}} x_i &\to y_i\\
+    &= \lim \int \dd{y_1} \ldots \dd{y_{N-1}} \left( \frac{2 \hbar \epsilon}{m} \right)^{\frac{N-1}{2}} e^{\imath \sum_{i=1}^{N-1} (y_i - y_{i+1})^2}
+\end{align}
+Consider $ \int \dd{y_1} $:
+\begin{align}
+    \int \dd{y_1} e^{\imath \left( (y_1 - y_0)^2 + (y_2 - y_1)^2 + \ldots \right)} &= \int \dd{y_1} e^{\imath (y_0^2 + y_2^2)} e^{-2 \imath y_1 y_0 - 2 \imath y_2 y_1 + 2 y_2^2 \ldots} \\
+    &= e^{\imath (y_0^2 + y_2^2)} \int \dd{y_1} e^{2(y_1^2 - y_1 (y_0 + y_2))} \\
+    &= e^{\imath (y_0^2 + y_2^2)} \int \dd{y_1} e^{-2 \imath \left( y_1 - \frac{(y_0 + y_2)}{2} \right)^2} e^{-2 \imath \frac{(y_0 + y_2)^2}{4}} \\
+    &= e^{\imath (y_0^2 + y_2^2)} e^{- \frac{\imath}{2} (y_0 + y_2)^2} \int \dd{y_1} e^{2 \imath y_1^2} \\
+    &= e^{\frac{\imath}{2} (y_0 - y_2)^2} \left( \frac{\imath \pi}{2} \right)^{1/2} 
+\end{align}
+Doing the $ \dd{y_2} $ integration, we can start to see the pattern:
+\begin{align}
+    \left( \frac{\imath \pi}{2} \right)^{1/2} \int \dd{y_2} e^{\frac{\imath}{2} (y_0 - y_2)^2} e^{\imath (y_2 - y_3)^2} &= \left( \frac{\imath \pi}{2} \right)^{1/2} \left( \frac{2 \pi \imath}{3} \right)^{1/2} e^{- \frac{(2 y_3^2 + y_0^2)}{2 \imath}} e^{\frac{(y_0 + 2y_3)}{6 \imath}} \\
+    &= \left( \frac{\imath \pi}{3} \right)^{1/2} e^{- \frac{\imath}{3} (y_3 - y_0)^2} 
+\end{align}
+We can see that repeating this process will turn these $ 3 $'s into $ N $'s, so our final result will be
+\begin{align}
+    \vu{N} \left( \frac{\imath \pi}{N^{1/2}} \right)^{\frac{N-1}{2}} e^{\imath (y_N - y_0)^2 / N} \left( \frac{2 \hbar \epsilon}{m} \right)^{\frac{N-1}{2}} &= \vu{N} \left( \frac{2 \hbar \epsilon}{m} \right)^{\frac{N-1}{2}} \left( \frac{2 \hbar \epsilon}{m} \right)^{\frac{N-1}{2}} \frac{(\imath \pi)^{\frac{N-1}{2}}}{N^{1/2}} e^{\frac{\imath m (x_0 - x_N)^2}{2 \hbar T_{\text{tot}}}} \\
+    \bra{x_t t_t}\ket{x_i t_i} &= \vu{N} \left[ \frac{2 \pi \imath \hbar \epsilon}{m} \right]^{N/2} \left( \frac{m}{2 \pi \imath \hbar T} \right) e^{\frac{\imath (x_0 - x_N)^2}{2 \hbar T}}
+\end{align}
+We can fix $ \vu{N} $ by saying that as $ t_f \to t_i $, this whole thing should be $ \delta(x_f - x_i) $. We know that the following can act as a definition of the $\delta$ function (a Gaussian integral with vanishing variance):
+\begin{equation}
+    \lim_{T \to 0} \frac{m}{2 \pi \imath \hbar T} e^{\frac{\imath \Delta x^2}{m} 2 \hbar T} = \delta(x_f - x_i)
+\end{equation}
+so
+\begin{equation}
+    \vu{N} = \left[ \frac{2 \pi \hbar \epsilon \imath}{m} \right]^{- N / 2}
+\end{equation}
+so we end up with
+\begin{equation}
+    \bra{x_f t_f}\ket{x_i t_i} = \left( \frac{m}{2 \pi \imath \hbar T} \right) e^{\frac{\imath m (x_0 - x_N)^2}{2 \hbar T}}
+\end{equation}
+which is what we got using canonical methods. In general, you cannot solve the path integral in closed form, although there are various special cases where you can solve it, for instance, any potential which is quadratic (or of lower order) in $ x $. There are also other systems known as integrable systems, but those are more of the exception rather than the rule. We can now do some examples of things that would be incredibly painful without the path integral. The path integral sort of explains the classical limit.
+\begin{equation}
+    \bra{x_t t_t}\ket{x_i t_i} \sim Dx(t) e^{\imath S / \hbar}
+\end{equation}
+If we think of these paths as functions of $ t $, we are imagining integrations over many different paths. However, there is a classically preferred path which extremizes the action. If you consider nearby paths and suppose $ S $ is large in units of $ \hbar $, then on average, nearby paths around the preferred classical path will cancel each other out. However, in the region that $ \pdv{S}{x} \sim 0 $, the classical path will dominate and the nearby paths will not cancel out. The farther away from the classical path, the more the phase will vary, and those paths will typically average out to zero if the action is much larger than $ \hbar $. Now remember there are systems which just inherently don't act classically. The low $ n $ states of the hydrogen atom are not classical, and the reason is because the action is much smaller than $ \hbar $. If we want large phases, $ H >> \hbar $. To do this, we could just make the kinetic energy much larger than the potential energy, or $ \frac{KE >> PE}{\hbar} $. When we were studying the WKB approximation, we found this condition: $ \frac{\hbar \pdv{V}{x}}{E-V} << \frac{1}{\lambda} \sim \left[ (E-V)(2m) \right]^{1/2} $. Notice that if $ E>>V $, this condition will be met as long as $ \pdv{V}{x} $ is not too large. This is called the Eikonal limit.
+
+
+\end{document}

@@ -1,0 +1,106 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{1}{Tuesday, January 19, 2021}{Cosmology}
+
+\section{The Big Picture}\label{sec:the_big_picture}
+
+The current understanding of our Universe is summarized in \textit{two} Standard Models: The $ \Lambda \text{CDM} $ or concordance model and the Standard Model of Particle Physics. The first of these describes the universe's expansion in terms of free parameters ($ \Lambda $, the cosmological constant). These models intertwine the large (galactic and larger) and small (particle) scales.
+
+The $ \Lambda \text{CDM} $ model assumes that on the largest scales ($ 100\mega\text{parsec} $), the universe is homogeneous (everywhere is the same) and isotropic (in all directions). Galaxies and smaller structures are formed from the gravitational collapse of small inhomogeneities in the background density with the amplitude of these fluctuations being $ \sim \frac{\Delta \rho}{\rho_{\text{background}}} \sim 10^{-5} $ where $ \rho_{\text{background}} \sim 10^{-29} \gram\per\centi\meter\cubed $. We can see these inhomogeneities in temperature fluctuations in the Cosmic Microwave Background ($ \frac{\Delta T}{T} \sim 10^{-5} $), which were first detected in the 1990s but predicted much earlier. The universe is undergoing Hubble expansion, and in our time, this expansion is accelerating. There is growing evidence which suggests that most of the matter in the universe is in the form of ``dark matter'' which only interacts gravitationally. Additionally, this model includes ``dark energy'' to describe the cause of the universe's accelerated expansion. The amount of the universe's energy comprised of these forms is as follows:
+
+$ \Lambda $ (dark energy) $ \sim 72\% $
+
+CDM (dark matter) $ \sim 23\% $
+
+Ordinary matter $ \sim 5\% $
+
+
+The Standard Model of Particle Physics includes and unifies the strong, electromagnetic, and weak interactions. All of these interactions (including gravity) are described by gauge theories. In this model, there are six quarks, six leptons, eight flavors of gluons (to mediate the strong force), one photon (to mediate the electromagnetic force), and three additional massive bosons, $ W^{\pm} $ and $ Z^0 $ (to mediate the weak interactions). ``Quantized gravity'' would predict gravitons, which are quantized gravitational waves. Finally, the Higgs boson gives mass to the quarks, leptons, and massive bosons. However, none of these particles can explain dark matter.
+
+If we take this theory along with statistical mechanics, we can predict several phase transitions in the early universe with symmetry breaking at each phase. At $ T \sim 10^{29} \kelvin $, the strong force separates from the electroweak force. At $ T \sim 10^{15} \kelvin $, the electromagnetic and weak forces separate, and the weak bosons become massive. At $ T \sim 10^{12} \kelvin $, quark-gluon confinement causes hadrons to form. Finally, at $ T \sim 10^{9} \kelvin $, light elements form (Big Bang Nucleosynthesis).
+
+The remainder of this semester will be filling in this ``big picture'' by trying to understand the connections between gravity (GR), particle physics, and (quantum) statistical mechanics. On the Planck scale ($ M_{Pl} = \sqrt{\frac{\hbar c}{G}} \sim 1.2 \times 10^{19} \giga\electronvolt\per c^2 $), it is conjectured that gravity is unified with the other three interactions.
+
+\subsection{Astrophysical scales}\label{sub:astrophysical_scales}
+
+\begin{align}
+    R_{\odot} &\sim 7 \times 10^{8} \meter\\
+    M_{\odot} &\sim 2 \times 10^{33} \gram\\
+    R_{\text{MW}} &\sim 15\kilo\text{parsec}\\
+    M_{\text{MW}} &\sim 10^{11} M_{\odot}\\
+    M_{\text{Clusters}} &\sim 10^{14} M_{\odot}\\
+    M_{\text{Visible Universe}} &\sim 10^{23} M_{\odot}
+\end{align}
+
+\subsection{Strengths and Ranges of Forces}\label{sub:strengths_and_ranges_of_forces}
+
+Strong: $ \alpha_{\text{S}} \sim 1 $ \textemdash $ \sim 1 \femto\meter $.
+
+Electromagnetic: $ \alpha_{\text{EM}} \sim \frac{1}{137} $ \textemdash $ \sim \infty $.
+
+Weak: (missed this)
+
+Gravity: ``self gravity of particles'' causes the ``self energy'' of a mass to be $ \frac{GM^2}{R} $ for radius $ R $. The energy over the rest energy is therefore $ \frac{GM^2}{RMc^2} $. If $ R \sim \lambda_c \sim \frac{\hbar}{MC} $ (the Compton wavelength), then $ \frac{GM^2}{\hbar c} \sim 5 \times 10^{-40} $ for $ M \sim m_p $. In this respect, gravity is negligible on the scales of particle physics, but dominates on the larger scales of galaxies.
+
+
+\section{The Observed Universe and Hubble's Expansion}\label{sec:the_observed_universe_and_hubble's_expansion}
+
+Non-relativistic treatment: In 1929, Hubble observed red-shifts in spectral lines from distant galaxies with the red-shift amount correlated with the luminosity distance to the galaxy. If we consider a source that emits photons isotropically with intrinsic luminosity of $ L = \\text{erg}\per\second $, which is the light energy released per unit time, then this radiation spreads uniformly. If we look at the flux of radiation on a surface at a distance $ d_L $ from the source, $ F = \frac{L}{4 \pi d_L^2} $ where $ d_L $ is called the ``luminosity distance''. $ F $ is measured by measuring the intensity of light captured by a telescope. If $ L $ is known, $ d_L $ can be extracted. To know $ L $, we need ``standard candles'' which are nearby objects whose intrinsic luminosity is well known.
+
+Hubble used (Classical) Cepheid variable stars. These stars undergo periodic pulsations of their atmospheres due to interplay between their pressure and opacity (the mean free path of photons in the star). The period is well-defined by thermodynamics and observations such that $ \tau \propto L^{0.8} $. Using these periods, one can establish the intrinsic luminosity of these stars. The process of identifying these stars and finding their intrinsic luminosities and luminosity distances is referred to as ``establishing rungs on a distance ladder''.
+
+Hubble then measured the difference between the expected spectral lines of these stars (based on their elemental composition) and compared it to the luminosity distances of the standard candles in these galaxies. If a moving light source is measured as it moves away, the observer will see the wavelength as $ \lambda_0 = \lambda_e \sqrt{\frac{1 + v/c}{1 - v/c}} $. The red-shift $ z $ is defined by $ z \equiv \frac{\lambda_0 - \lambda_e}{\lambda_e} $ or $ 1 + z = \frac{\lambda_0}{\lambda_e} $. For $ v/c << 1 $, the recession velocity is given by $ \frac{\lambda_0}{\lambda_e} \sim 1 + v/c $, so $ v \cong cz $. Hubble plotted the red-shift $ z $ against luminosity distance $ d_L $ and found a straight line correlation.
+
+\begin{equation}
+    v = H_0 r \tag{Hubble's Law of Universal Expansion}
+\end{equation}
+where $ H_0 $ is Hubble's constant, $ v $ is the velocity of recession, and $ r = d_L $ is the distance. This law only holds on very large scales, and if we look on smaller scales, stars are subject to the gravitational pull of other stars and obtain velocities which are not described by Hubble's law, which we call peculiar velocities:
+\begin{equation}
+    v = H_0 r + v_p
+\end{equation}
+These peculiar velocities were an early indicator of the presence of dark matter.
+
+Hubble's expansion can be thought of like inflating a balloon. Observers at rest on the surface of the balloon are called ``comoving'' and maintain a constant angular separation as the balloon inflates. If the radial expansion is determined by $ R(t) $, then the distance which separates the observers ($ d(t) $) is
+\begin{equation}
+    d(t) = R(t) \theta
+\end{equation}
+and their recession velocity is
+\begin{equation}
+    \dv{d(t)}{t} = \dot{R}(t) \theta
+\end{equation}
+so
+\begin{equation}
+    v(t) = H(t) d(t)
+\end{equation}
+where $ H(t) = \frac{\dot{R}(t)}{R(t)} $.
+
+If the observers are not comoving, then
+\begin{equation}
+    v = H(t) d(t) + \underbrace{R(t) \dot{\theta}(t)}_{v_p}
+\end{equation}
+Note that $ H(t) $ has units of $ 1 / \text{time} $, so the time scale of expansion is $ \tau \sim \frac{1}{H_0} \sim 1.4 \times 10^{10} \text{years} $. This tells us that the universe today is around $ 13.5 $ billion years old. The Hubble constant looks constant on our small human time scale, but from the above analysis, it should have some time dependence. We'll learn more about its time-evolution later.
+
+
+Hubble's expansion can be made manifest by writing $ R(t) = R_0 \frac{a(t)}{a(t_0)} $ where $ a(t) $ is a scale factor, a dimensionless variable that scales lengths as a function of time describing the expansion ($ t_0 $ is an arbitrary reference time). By this formulation, $ H(t) = \frac{\dot{a}(t)}{a(t)} $, so
+\begin{equation}
+    v(t) = \frac{\dot{a}(t)}{a(t)} d(t) + v_p
+\end{equation}
+
+According to Hubble's laws, all length scales stretch by the scale factor, so for example, the wavelength of light would be $ \lambda(t) = a(t) \lambda_c $ (where $ \lambda_c $ is the wavelength of a comoving emitter). If a signal is emitted at $ t_e $ and observed at $ t_0 $ with wavelengths $ \lambda_e $ and $ \lambda_0  $ respectively, then
+\begin{equation}
+    \lambda_e = a(t_e) \lambda_c \qquad \lambda_0 = a(t_0) \lambda_c
+\end{equation}
+so
+\begin{equation}
+    \frac{\lambda_e}{a(t_e)} = \frac{\lambda_0}{a(t_0)} \equiv \lambda_c \implies \lambda_0 = \lambda_e \frac{a(t_0)}{a(t_e)}
+\end{equation}
+
+If $ t_0 $ is ``today'' and $ t_e $ is the emission time in the past, then $ \frac{\lambda_0 - \lambda_e}{\lambda_e} = z_e $. Therefore, the scale factor at time of emission is related to the red-shift by
+\begin{equation}
+    a(t_e) = \frac{a(t_0)}{1 + z_e}
+\end{equation}
+
+For a source at red-shift $ z_e $ at a luminosity distance $ d_e = \frac{z_e c}{H_0} $, the Universe at time of emission was smaller by a factor of $ \frac{1}{1 + z_e} $. In Hubble's expansion lies the intrinsic idea that the universe was smaller and therefore hotter in the past. In the next class, we will look at the evolution of this scale factor solely based on Newtonian cosmological dynamics. Once we have a Classical understanding of this, we can start to incorporate the effects of General Relativity.
+
+
+\end{document}

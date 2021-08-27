@@ -1,0 +1,130 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{16}{Thursday, March 18, 2021}{Helicity and Charge}
+
+\section{Helicity}\label{sec:helicity}
+
+
+From the last lecture, we mentioned that the neutrino remains massless in the Standard Model. It has no rest frame, so the only good quantum number is the helicity, the spin projection along the direction of motion, $ \va{S} \vdot \hat{p} $. In nature, only negative helicity neutrinos exist. Weak interactions are maximally parity violating, and there are no right-handed neutrinos. Under parity, $ \va{x} \to - \va{x} $ and $ \va{p} \to - \va{p} $ but $ \va{S} \to \va{S} $ since $ \va{S} $ is a pseudovector. This was revealed in famous Cobalt-60 experiments by Wu. The gluons also remain massless, but quarks are confined into hadrons at distances greater than $ 10^{-15} \meter $ (femtometers).
+
+\section{Interaction Terms}\label{sec:interaction_terms}
+
+
+We add an interaction term for charged particles and the photon field:
+\begin{equation}
+    Q \abs{e} \bar{\psi} \gamma^{\mu} \psi A_{\mu}
+\end{equation}
+where $ Q = 1 $ for leptons and $ Q = \pm 1/3,\pm 2/3 $ for quarks. Only quarks interact with gluons with an interaction term
+\begin{equation}
+    g \bar{\psi} \gamma^{\mu} G_{\mu} \psi
+\end{equation}
+where $ g $ is the strong coupling factor. In electromagnetism, the fine structure constant describes the effective interaction strength:
+\begin{equation}
+    \alpha = \frac{e^2}{4 \pi \hbar c} \approx \frac{1}{137}
+\end{equation}
+For strong interactions, the equivalent is
+\begin{equation}
+    \alpha_s = \frac{g^2}{4 \pi \hbar c} \sim 1
+\end{equation}
+
+For weak interactions, there are two kinds of interactions. Neutral currents:
+\begin{equation}
+    g_1 \left( \bar{e} \gamma^{\mu} Z_{\mu}^0 e + \bar{\nu} \gamma^{\mu} Z_{\mu}^0 \nu + \bar{\mu} \gamma^{\mu} Z_{\mu}^0 \mu + \cdots \right)
+\end{equation}
+where
+\begin{equation}
+    \frac{g_1^2}{4 \pi \hbar c} \simeq \alpha_{w} = \frac{1}{30}
+\end{equation}
+
+For charged currents:
+\begin{equation}
+    g_2 \left( \bar{e} \gamma^{\mu} W_{\mu}^+ \nu_{e} + \bar{\mu} \gamma^{\mu} W_{\mu}^+ \nu_{\mu} + \bar{\tau} \gamma^{\mu} W_{\mu}^+ \nu_{\tau}  + \text{h.c.}\right)
+\end{equation}
+with
+\begin{equation}
+    \frac{g_2^2}{4 \pi \hbar c} \simeq \frac{1}{30} \sim \alpha_w
+\end{equation}
+However, $ g_2 \neq g_1 $ past leading order.
+
+In the standard model, $ M_W \sim M_Z \sim 90\giga\electronvolt $ and the vacuum expectation value is around $ 120\giga\electronvolt $.
+
+\section{Feynman Diagrams}\label{sec:feynman_diagrams}
+
+Motivation: Scattering in the Early Universe establishes local thermal equilibrium (or not), and it is important to understand how that local thermal equilibrium is established in relation to time scales. If the scattering rate is larger than the expansion rate, then many scattering events occur during the time scale of expansion and particles reach local thermal equilibrium.
+
+However, if the scattering rate is much less than the expansion rate, these processes cannot establish this local thermal equilibrium. For example, electrons and photons establish a fluid in local thermal equilibrium via Thomson/Compton scattering. We can describe the initial state as $\ket{i} =\ket{\gamma_{k_i}, e_{p_i}} $ and $\ket{f} =\ket{\gamma_{k_f}, e_{p_f}} $. The time evolution operator is the total Hamiltonian, so the transition amplitude is
+\begin{equation}
+    \bra{f} e^{- \frac{\imath}{\hbar} H(t_f - t_i)}\ket{i}
+\end{equation}
+where $ H = H_0 + H_I $, the free field Hamiltonian plus the interaction terms. In absence of interactions,
+\begin{equation}
+    H \equiv H_0 \implies e^{- \imath H_0 (t_f - t_i)} = e^{- \imath H_0 t_f} e^{\imath H_0 t_i}
+\end{equation}
+These operate on the other states like $ e^{\imath H_0 t_i}\ket{i} = e^{\imath E_i t_i}\ket{i} $ and $\bra{f} e^{- \imath H_0 t_f} =\bra{f} e^{- \imath E_f t_f} $. It is conveinient to write the interacting theory as separate:
+\begin{equation}
+    e^{- \imath H(t_f - t_i)} = e^{- \imath H_0 t_f} U(t_f; t_i) e^{\imath H_0 t_i} 
+\end{equation}
+where $ U(t_f; t_i) $ only contains the interactions:
+\begin{equation}
+    U(t_f ; t_i) = 1 - \imath \int_{t_i}^{t_f} H_I(t') \dd{t'}
+\end{equation}
+Then the transition amplitude will be
+\begin{equation}
+    \mathcal{A}_{i \to f} =\bra{f} e^{- \imath H(t_f - t_i)}\ket{i} = \underbrace{e^{- \imath(E_f t_f - E_i t_i)}}_{\text{phase}}\bra{f} U(t_f; t_i)\ket{i}
+\end{equation}
+The transition probability will only contain the interaction term, since the phase is complex:
+\begin{equation}
+    \Pr_{i \to f} = \abs{\bra{f} U(t_f, t_i)\ket{i}}^2
+\end{equation}
+We can further expand $ U = 1 + U^{(1)} + U^{(2)} + \ldots $.
+
+Fermi's Golden Rule states that if we conserve energy and momentum for $ t_i \to - \infty $ and $ t_f \to + \infty $, the total transition probability is proportional to $ \Gamma_{i \to f}(t_f - t_i) $ where $ \Gamma $ is the transition probability per unit time. If we consider electron-photon scattering, then at first order we can either destroy or create a photon, but we need to destroy the initial photon \textit{and} create the final, so this requires a second order term. The ``fermionic legs'' create/destroy, and we need to destroy the initial electron and create the final one. We also need to create and destroy an intermediate state. Similar to intermediate states in perturbation theory:
+\begin{equation}
+    \sum_{m \neq n} \frac{\abs{\bra{m} H_I\ket{n}}^2}{E_m - E_n}
+\end{equation}
+In QFT, the intermediate states are described by propagators. Defining $ Q^{\mu} = p_i^{\mu} - k_f^{\mu} $, the momentum transfer of the intermediate state, we can write fermionic propagators as
+\begin{equation}
+    \frac{\gamma^{\mu} Q_{\mu} + m}{(Q_{\mu} Q^{\mu} - m^2)}
+\end{equation}
+and bosonic propagators as
+\begin{equation}
+    \frac{1}{Q_{\mu} Q^{\mu} - m^2}
+\end{equation}
+where $ m $ is the mass of the initial state particle.
+
+\subsection{Feynman Rules}\label{sub:feynman_rules}
+
+1. Draw Feynman diagrams for each order in perturbation theory. 2. Conserve 4-momentum at each vertex. 3. Assign a propagator to each intermediate state. Then the transition amplitude (for $ e $-$\gamma$ scattering) is
+\begin{equation}
+    \mathcal{M}_{i \to f} \propto \underbrace{e^2}_{second-order phase transition} \times \left( \text{initial electron spinor wave function} \right) \left( \frac{\gamma^{\mu} Q_{\mu} + m}{Q^2 - m^2} \right) \left( \text{final electron spinor wave function} \right)
+\end{equation}
+
+For electron-electron scattering, we destroy \textit{two} electrons and create \text{two} final state electrons, so we need second-order interactions. Because all the fermionic legs are used up, we are left with photon legs, so we must create/annihilate a photon intermediate state. The photon propagator is a massless boson: $ \frac{1}{Q^{\mu} Q_{\mu}} = \frac{1}{Q^2} $, so
+\begin{equation}
+    \mathcal{M}_{i \to f} \propto e^2 \frac{1}{Q^2}
+\end{equation}
+
+\subsection{Transition Probability}\label{sub:transition_probability}
+
+\begin{equation}
+    \Pr_{i \to f} = \abs{\mathcal{M}_{i \to f}}^2
+\end{equation}
+so for $ e \gamma \to e \gamma $ (Thompson scattering),
+\begin{equation}
+    \Pr_{i \to f} \propto \alpha^2 \left( \frac{\gamma^{\mu} Q_{\mu} + m}{Q^2 - m^2} \right)^2
+\end{equation}
+For electron scattering,
+\begin{equation}
+    \Pr_{i \to f} \propto \alpha^2 \left( \frac{1}{Q^2} \right)^2
+\end{equation}
+
+We can also describe weak interactions, like neutral currents: $ \bar{\nu} \nu \to \bar{\nu} \nu $. We must destroy the incoming and create the outgoing particles, so we need a second-order interaction. We use up the fermionic legs so we need to create and destroy a $ Z^0 $ boson intermediate state. With $ Q = p_{1i} - p_{3f} $, the weak propagator has the form
+\begin{equation}
+    \frac{\alpha_w}{Q^2 - M_z^2}
+\end{equation}
+With $ Q^2 \ll M_z^2 $, $ \mathcal{M}_{i \to f} \propto \frac{\alpha_W}{M_z^2} \equiv G_F \simeq 10^{-5} (\giga\electronvolt)^{-2} $, called Fermi's constant. We can also consider charged currents, like $ e \nu \to e \nu $, where a $ W $ boson is created with a propagator $ \frac{\alpha_w}{Q^2 - M_W^2} $, which again has an interaction term similar to $ G_F $. Both neutral and charged interactions in the low-energy limit have $ \mathcal{M}_{i \to f} \sim G_F $. For weak interactions with $ p_{\mu} p^{\mu} \ll M^2_{Z,W} $, Feynman diagrams collapse to a point-like vertex of strength $ G_F $, and this is called Fermi's theory of weak interactions.
+
+In the next lecture, we will discuss reaction rates and cross-sections, considering some incident particle $ a $ interacting with a target $ b $ and creating $ c $ and $ d $ final-state particles, $ a + b \to c + d $.
+
+
+\end{document}

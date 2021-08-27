@@ -1,0 +1,57 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{22}{Monday, October 26, 2020}{Optional Day}
+\section{Zero-Error Communication}\label{sec:zero-error_communication}
+
+Suppose you want to send information from point A to point B. Unfortunately, the process of sending information is prone to errors. The typical way to ensure the message is received is through redundancy. Let's call $ \Sigma $ the set of possible messages to send. Which of these messages can be confused for each other on the receiving end? For example, say you're sending handwriting and the letters \textit{a} and \textit{o} look very similar. Let $ G = \{ \{x,y\} \subset \Sigma \colon x \qand y \qq{are confusable}\} $. We can represent this as a graph where nodes of the graph are connected if they represent messages which can be confused for each other.
+
+A \textit{confusion-free} set is a subset of elements $ I\subset \Sigma $ such that $ x,y \in I $ implies $ \{x,y\} \notin G $. Denote $ \alpha(G) = \max_{\text{confusion-free } I} \abs{I} $.
+
+Suppose our set $ \Sigma $ has five elements $ \Sigma = \Z/5\Z $ and $ G = \{ \{x, x+1\} \colon x \in \Sigma \} $. Na\"ively, we can only send one bit at a time, because $ \alpha(G) = 2 $.
+
+\begin{claim}
+    We can do slightly better than this. In this example, we can transmit one of the $ 5 $ messages in $ 2 $ uses. 
+\end{claim}
+\begin{proof}
+    If we the message we want to send, then a second message such that it is not confusable with the message you would send for the message confusable with the first, you can be sure the combination of messages is not confusable. For example, send $ \{0,0\} $, $ \{1,2\} $, $ \{2,4\} $, $ \{3,1\} $, or $ \{4,3\} $.
+\end{proof}
+Using this method, we can send $ \frac{1}{2} \log_2{5} $ or some of $ \sqrt{5} $ messages per day. We can construct a more general method:
+
+To each $ x \in \Sigma $, associate a vector $ v_x \in F^n $ for a field $ F $ such that if $ \{x, y\} \notin G $, then $ \ev{v_x, v_y} = 0 $ and $ \ev{v_x, v_x} \neq 0 $.
+\begin{claim}
+    $ \alpha(G) \leq n $.
+\end{claim}
+\begin{proof}
+    If $ I = \{x_1, \cdots, x_m\} $ is confusion free, then $ v_{x_1}, \cdots, v_{x_m} $ are linearly independent: $ 0 = \sum \alpha_i v_{x_i} \implies \sum \alpha_i \ev{v_{x_i, v_{x_j}}} = 0 \forall j$.
+\end{proof}
+More generally, $ \alpha(G) \leq \dim \text{span} \{v_x\colon x \in \Sigma\} $.
+
+Given a pair $ (\Sigma, G) $ models a single use of the channel, to model using the channel twice, we call $ \Sigma' = \Sigma \times \Sigma $. We then say that $ \{(x,y), (x',y')\} \in G $ if ($ \{x,x'\} \in G $ or $ x = x' $) and ($ \{y,y'\} \in G $ or $ y = y' $).
+
+Call the map $ x \mapsto v_x $ a \textit{representation}. Similarly, we could say that $ \Sigma \to V $ where $ V $ is a vector space. Then there is a representation of $ (\Sigma', G') $ where $ \Sigma' \to V \otimes V $ and $ (x,y)\mapsto v_x \otimes v_y $. One representation of the tensor product is $ v_x \otimes v_y = v_x v_y^T $, a matrix:
+\begin{equation}
+    \ev{v_x \otimes v_y, v_{x'} \otimes v_{y'}} = \sum_{i,j} \ev{v_x, b_i} \ev{v_y, b_j} \ev{v_{x'}, b_i} \ev{v_{y'}, b_j}
+\end{equation}
+where $ b_i $ are an orthonormal basis of $ V $. We can split this into two sums:
+\begin{equation}
+    \ev{v_x \otimes v_y, v_{x'} \otimes v_{y'}} = \left( \sum_i \ev{v_x, b_i} \ev{v_{x'}, b_i} \right) \left( \sum_j \ev{v_y, b_j} \ev{v_{y'}, b_j} \right) = \ev{v_x, v_{x'}} \ev{v_y, v_{y'}}
+\end{equation}
+so $ \dim \text{span} \{v_x \otimes v_y\} \geq \alpha(G') $ and $ \alpha(G') \leq \left( \dim \text{span} \{v_x\colon x \in \Sigma\} \right)^2 $. Then we can rename $ G' $ to $ G^{\otimes 2} $.
+
+Define $ G^{\otimes n} $ in this fashion on $ \Sigma^n $, where $ \{(x_1,\cdots,x_n), (y_1,\cdots,y_n)\} \notin G^{\otimes n} $ if $ \exists i $ such that $ \{x_i, y_i\} \notin G^{\otimes n} $ and $ x_i \neq y_i $. 
+
+If we are working on a vector space $ V = \R^3 $, then the largest thing we can send is $ \alpha(G^{\otimes n}) \leq 3^n $.
+
+A \textit{representation with a handle} consists of a representation $ \varphi \colon \Sigma \to \R^n $ and a vector $ h \in \R^n $ such that $ \varphi(x) $ and $ h $ are all unit vectors. The quality of such a representation is the measure of how far off elements of this representation are from $ h $. $ q = \min \ev{h, \varphi(x)} $ for $ x \in \Sigma $. 
+
+\begin{claim}
+    $ \alpha(G) \leq 1/q^2(\varphi, h) $. 
+\end{claim}
+\begin{claim}
+    Given a representation with handle $ (\varphi, h) $, we can make a representation with handle for $ G^{\otimes n} $ with quality $ q(\varphi, h)^n $.
+\end{claim}
+Then, $ \alpha(G^{\otimes n}) \leq \left( \frac{1}{q^2(\varphi, h)} \right)^n $.
+
+For the second claim, we can represent a vector $ (x_1, \cdots, x_n) \mapsto v_{x_1} \otimes \cdots \otimes v_{x_n} $. If we use the handle $ h \otimes \cdots \otimes h $, then the claim is true. For the first claim, if $ \{x_1, \cdots, x_m\} $ is confusion-free, we can complete it to an orthonormal basis $ B $, and $ \abs{h}^2 = \sum_{b \in B} \ev{h, b}^2 \geq \sum_{i=1}^{m} \ev{h, v_{x_i}}^2 \geq m \cdot q^2(\varphi, h) $.
+
+\end{document}

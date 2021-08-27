@@ -1,0 +1,62 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{19}{Wednesday, October 14, 2020}{Lab-Frame Differential Cross-Sections}
+
+Recall that in any frame,
+\begin{equation}
+    \dv{\sigma}{t} = \frac{1}{64 \pi s {p_i^*}^2} \abs{M_{f i}}^2
+\end{equation}
+
+For electron scattering, neglect $ m_e $. $ p_i^* $ follows from $ \sqrt{s} = E_{\text{tot}} = p_i^* + \sqrt{m_T^2 + p_i^*^2} $. Moving stuff around,
+\begin{equation}
+    p_i^* = \frac{s - m_T^2}{2 \sqrt{s}}\tag{\ast}
+\end{equation}
+Also see equation 3.38 in the book for the general form.
+
+In the lab frame, $ p_1 = (E_1,0,0,E_1) $, $ p_2 = (m_T, 0, 0, 0) $, and $ p_3 = (E_3,0,E_3 \sin(\theta), E_3 \cos(\theta)) $ so $ s = (p_1 + p_2)^2 = 0 + m_T^2 + 2 E_1 m_T $. Plugging this into $ \ast $,
+\begin{equation}
+    p_i^* = \frac{E_1 m_t}{\sqrt{s}} \tag{\ast\ast}
+\end{equation}
+
+Recall that
+\begin{equation}
+    \dv{\sigma}{\Omega} = \abs{\dv{t}{\Omega}} \dv{\sigma}{t} = \frac{1}{2 \pi} \dv{t}{(\cos(\theta))} \dv{\sigma}{t}
+\end{equation}
+where $ t = (p_1 - p_3)^2 = -2 E_1 E_3(1 - \cos(\theta)) $. We often define $ Q^2 \equiv -t = 4 E E' \sin[2](\theta / 2) \equiv - {q^{\mu}}^2 $.
+
+Let $ \omega \equiv E_4 - E_2 = \sqrt{m_T^2 + \va{q}^2} $ so
+\begin{equation}
+    (m_T + \omega)^2 = m_T^2 + \va{q}^2 = m_T^2 + \omega^2 + 2 m_T \omega
+\end{equation}
+where $ \va{q}^2 - \omega^2 = 2 m_T \omega = -t = Q^2 $, so
+\begin{equation}
+    \omega = \frac{Q^2}{2 m_T} = \frac{2 E_1 E_3 \sin[2](\theta / 2)}{m_T} = E_1 - E_3
+\end{equation}
+so
+\begin{equation}
+    E_1 = E_3 \left( 1 + \frac{2 E_1}{m_t} \sin[2](\theta / 2) \right)
+\end{equation}
+or
+\begin{equation}
+    E_3 = \frac{E_1}{1 + \frac{E_1}{m_T} (1 - \cos(\theta))}
+\end{equation}
+ze needed that so we can find $ \dv{t}{(\cos(\theta))} $ where $ t = (p_2 - p_4)^2 = 2m_T^2 - 2m_T E_4 $ assuming that $ p_4^2 = m_T $, which is only true for elastic collisions. Using this, we can write $ t = 2 m_T (E_3 - E_1) $, so
+\begin{equation}
+    \dv{t}{(\cos(\theta))} = 2 m_T \dv{E_3}{(\cos(\theta))} = 2 m_T \frac{- E_1}{\left( 1 + \frac{E_1}{m_T} (1 - \cos(\theta)) \right)^2} \left( - \frac{E_1}{m_T} \right) = 2 E_3^2
+\end{equation}
+Therefore
+\begin{equation}
+    \dv{\sigma}{\Omega} = \frac{1}{2 \pi} (2 E_3^2) \dv{\sigma}{t} = \frac{E_3^2}{2} \left( \frac{1}{64 \pi s {p_i^*}^2} \abs{M_{f i}}^2 \right)
+\end{equation}
+From $ \ast\ast $, we get
+\begin{equation}
+    \dv{\sigma}{\Omega} = \frac{1}{64 \pi^2} \frac{1}{\left( m_T + 2 E_1 \sin[2](\theta / 2) \right)^2} \abs{M_{f i}}^2
+\end{equation}
+
+\section{Nuclear Physics}\label{sec:nuclear_physics}
+
+For nuclei with $ N $ neutrons and $ Z $ protons, we define the atomic number as $ A \equiv N + Z $. Usually, we label using $ A $ and $ Z $: $ {}^7 \text{Be} $ has $ A = 7 $ and $ Z = 4 $ (from the element name) such that $ N = 3 $.
+
+Isotopes have the same $ Z $ but different $ A $. Isobars have the same $ A $ but different $ Z $ and $ N $. The mass of any nucleon is $ m = N m_n + Z m_p - B $, where $ B $ is the binding energy.
+
+\end{document}

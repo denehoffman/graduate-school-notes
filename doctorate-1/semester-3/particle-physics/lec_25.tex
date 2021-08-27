@@ -1,0 +1,86 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{25}{Wednesday, November 04, 2020}{Covariant Form of the Dirac Equation}
+
+\section{Magnetic Moment}\label{sec:magnetic_moment}
+
+Consider an interaction with a $ \va{B} $-field. In this situation, $ \va{p} \to \va{p} - q \va{A} $ and $ E \to q \Phi $, so the Dirac equation becomes
+\begin{equation}
+    (\va{\alpha} \vdot (\va{p} - q \va{A}) + \beta m) \psi = (E - q \Phi) \psi 
+\end{equation}
+
+$ \va{p}_i = \partial_{\dot{q}_i} \mathcal{L} $ shows, in the non-relativistic limit, that $ u = - \frac{q}{2m} (\va{\sigma} \vdot \va{B}) = - \mu \cdot \va{B} $ where $ \va{\mu} = \frac{q}{2m} \va{\sigma} = \frac{q}{m} \va{S} = g \frac{q}{2m} \va{S} $ where $ g $ is the gyromagnetic ratio. In Dirac theory, this is exactly $ 2 $ for \textit{point} spin-1/2 particles (neglecting higher-order effects).
+
+
+\section{Covariant (Standard) Form of the Dirac Equation}\label{sec:covariant_(standard)_form_of_the_dirac_equation}
+
+\begin{align}
+    (\va{\alpha} \vdot \hat{\va{p}} + \beta m) \psi &= \hat{E} \psi = \imath \partial_t \psi \\
+    0 &= (- \va{\alpha} \vdot \hat{\va{p}} - \beta m + \imath \partial_t) \psi \\
+    &= \left( \imath \alpha_x \partial_x + \imath \alpha_y \partial_y + \imath \alpha_z \partial_z - \beta m + \imath \partial_t \right) \psi \\
+    &= \left( \imath \underbrace{\beta \alpha x}_{\gamma^1} \partial_x + \imath \underbrace{\beta \alpha_y}_{\gamma^2} \partial_y + \imath \underbrace{\beta \alpha_z}_{\gamma^3} \partial_z - m I + \imath \underbrace{\beta}_{\gamma^0} \partial_t\right) \psi \\
+    &= (\imath \gamma^{\mu} \partial_{\mu} - m) \psi \\
+    &\equiv (\imath \slashed{\partial} - m) \psi = 0
+\end{align}
+This looks invariant, but $ \gamma^{\mu} $ is \textit{not} a 4-vector, but rather a set of constants.
+
+From properties of $ \va{\alpha} $ and $\beta$, $ (\gamma^0)^2 = \beta^2 = I $ and for $ k = 1,2,3 $, $ (\gamma^k)^2 = \beta \alpha_k \beta \alpha_k = - \alpha_k \beta \beta \alpha_k = - I $.
+
+On this week's homework, we show that $ \comm{\gamma^{\mu}}{\gamma^{\nu}} = \delta_{\mu \nu} $. 
+
+$ \gamma^0 = \beta $ is Hermitian, so $ (\gamma^{k})^\dagger = (\beta \alpha_k)^\dagger = \alpha_k \beta = - \beta \alpha_k = - \gamma^k  $, so $ \gamma^k $ are anti-Hermitian.
+
+In the Dirac-Pauli representation,
+\begin{equation}
+    \gamma^0 = \mqty(I_2 & 0 \\ 0 & -I_2) \qquad \gamma^k = \mqty(0 & \sigma_k \\ - \sigma_k & 0)
+\end{equation}
+
+\section{Covariant Current and Adjoint Spinor}\label{sec:covariant_current_and_adjoint_spinor}
+
+We saw that $ \rho = \psi^\dagger \psi = \psi^\dagger \gamma^0 \gamma^0 \psi $ and $ \va{j} = \psi^\dagger \va{\alpha} \psi = \psi^\dagger \gamma^0 \va{\gamma} \psi $, so the 4-current can be written
+\begin{equation}
+    j^{\mu} = \psi^\dagger \gamma^0 \gamma^{\mu} \psi
+\end{equation}
+This makes the continuity equation $ \partial_{\mu} j^{\mu} = 0 $.
+
+We can also define the adjoint spinor $ \bar{\psi} = \psi^\dagger \gamma^0 = (\psi_1^*, \psi_2^*, - \psi_3^*, - \psi_4^*) $. Then $ j^{\mu} = \bar{\psi} \gamma^{\mu \psi} $.
+
+\section{Free Particle Solutions of the Dirac Equation}\label{sec:free_particle_solutions_of_the_dirac_equation}
+
+Let's look for plane-wave solutions with well-defined energy and momentum of the form
+\begin{equation}
+    \psi(\va{r}, t) = u(E,P) e^{- \imath (\va{r} \vdot \va{p} - E t)} 
+\end{equation}
+where $ u(E\va{,p}) $ is the 4-component Dirac spinor and not a function of $ \va{r} $ and $ t $. Putting this through the Dirac equation, we find
+\begin{align}
+    0 &= (\imath \gamma^{\mu} \partial_{\mu} - m) \psi \\
+    &= (\gamma^0 E - \gamma^1 p_x - \gamma^2 p_y - \gamma^3 p_z - m) \psi
+\end{align}
+Divide out the exponential on both sides (all the space and time dependence), and we're left with
+\begin{equation}
+    (\gamma^{\mu} p_{\mu} - m) u(E, \va{p}) = 0
+\end{equation}
+This is the equation for a spinor for a particle with $ E $ and $ \va{p} $, or
+\begin{equation}
+    (\slashed{p} - m) u = 0
+\end{equation}
+
+At rest, $ \psi = u e^{- \imath E t} $, so the spinor form of the Dirac equation reduces to
+\begin{align}
+    E \gamma^0 u &= m u \\
+    E \mqty(\dmat{1,1,-1,-1}) \mqty(\varphi_1\\ \varphi_2\\ \varphi_3\\ \varphi_4) &= m\mqty(\varphi_1\\ \varphi_2\\ \varphi_3\\ \varphi_4)
+\end{align}
+Solutions of this form are $ A_1 \mqty(1\\0\\0\\0) $ or $ A_2 \mqty(0\\1\\0\\0) $ with $ E = m $ \textit{or} $ A_3 \mqty(0\\0\\1\\0) $ or $ A_4 \mqty(0\\0\\0\\1) $ with $ E = -m $.
+
+These are eigenstates of $ S_z = \frac{1}{2} \mqty(\sigma_z & 0 \\ 0 & \sigma_z) = \frac{1}{2} \mqty(\dmat{1,-1,1,-1}) $, so the first two solutions are spin-up and spin-down $ E>0 $ solutions. The second two are also spin-up and spin-down, but $ E<0 $.
+
+We can also write down the time behavior.
+\begin{equation}
+    \psi(t) = \mqty(A_1\\A_2\\0\\0) e^{- \imath m t} + \mqty(0\\0\\A_3\\A_4)e^{+ \imath m t}
+\end{equation}
+
+\subsection{General Plane-Wave Free-Particle Solutions}\label{sub:general_plane-wave_free-particle_solutions}
+
+[TODO] I missed stuff here.
+
+\end{document}

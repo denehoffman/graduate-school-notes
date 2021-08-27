@@ -1,0 +1,92 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{19}{Friday, February 28, 2020}{Interaction of Particles in Electromagnetic Fields}
+
+\section{Electrons in Electromagnetic Fields}
+\label{sec:electrons_in_electromagnetic_fields}
+
+In quantum mechanics, a wave cannot change in a static field, but we know that particles do move in static $ B $ and $ E $ fields. This means the $ A $ field must be important to the Hamiltonian:
+
+\begin{equation}
+    H = \frac{\left( \va{p} - \frac{e}{c} \va{A} \right)^2}{2m} + e \Phi
+\end{equation}
+
+Right now, we haven't shown why this is true, but we will do this later using symmetries. If we take this to be the action, let's calculate the rate of change of the $ x $ operator:
+\begin{align}
+    \imath \hbar \dot{x}_i &= \comm{x_i}{H} \\
+    &= \frac{1}{2m} \comm{x_i}{\va{p}^2 - \frac{e}{c} \left[ \va{p} \vdot \va{A} + \va{A} \vdot \va{p} \right] + \frac{e^2}{c^2} \va{A}^2} + \comm{x_i}{e \Phi}
+\end{align}
+In general, $ \va{A} $ and $ \Phi $ are operators which depend on $ x $, so $ \comm{p}{A} \neq 0 $. In fact, $ \comm{x_i}{p_j A_j} = \comm{x_i}{p_j} A_j = \imath \hbar A_i $ Therefore,
+\begin{align}
+    \comm{x_i}{H} &= \frac{1}{2m} \left[ \overbrace{\comm{x_i}{\va{p}^2}}^{2 \imath \hbar p_i} - \frac{e}{c} \left[ \comm{x_i}{\va{p} \vdot \va{A}} + \comm{x_i}{\va{A} \vdot \va{p}} \right] + \cancelto{0}{\comm{x_i}{\frac{e^2}{c^2} \va{A}^2}} \right] + \cancelto{0}{\comm{x_i}{e \Phi}} \\
+    \imath \hbar \dot{x} &= \frac{\imath \hbar}{m} \left[ p_i - \frac{e}{c} A_i \right]
+\end{align}
+so
+\begin{equation}\label{eq:kinematic_momentum}
+    m\dot{x}_i = \left[ p_i - \frac{e}{c} A_i \right] = \Pi_i \tag{Kinematic Momentum}
+\end{equation}
+As opposed to the conjugate momentum $ p_i $, which is the generator of translations ($ e^{\imath \va{p} \vdot \va{d}}\ket{\va{x}} =\ket{\va{x} + \va{d}} $ or $ e^{\imath \va{p} \vdot \va{d}} F(\va{x}) e^{- \imath \va{p} \vdot \va{d}} = F(\va{x} + \va{d}) $).
+
+\begin{equation}
+    \comm{\Pi_i}{\Pi_j} = \comm{p_i - \frac{e}{c} A_i}{p_j - \frac{e}{c} p_j} = - \frac{e}{c} \left[ \comm{A_i}{p_j} + \comm{p_i}{A_j} \right] = - \frac{e}{c} \left[ \imath \hbar \partial_j A_i - \imath \hbar \partial_i A_j \right]
+\end{equation}
+We can rewrite this using $ \epsilon_{ijk} \epsilon_{abk} = \delta_{ia} \delta_{jb} - \delta_{ib} \delta_{ja} $:
+\begin{align}
+    \comm{\Pi_i}{\Pi_j} &= \frac{e}{c} \epsilon_{ijk} \imath \hbar  B_k \\
+    &= \frac{e}{c} \epsilon_{ijk} (\partial_a A_b \epsilon_{abk}) \imath \hbar \\
+    &= \frac{e}{c} \left[ \delta_{ia} \delta_{jb} - \delta_{ib} \delta_{ja} \right] \partial_a A_b \imath \hbar \\
+    &= \frac{e}{c} \left[ \partial_i A_j - \partial_j A_i \right] \imath \hbar
+\end{align}
+
+If we think about Lorentz transformations, they form a group. Adding Lorentz transforms creates another, they all have an inverse, they're obviously associable, and there's an identity (doing nothing). We call this the Lorentz group $ \text{SO}(1,3) $. However, if we boost an electric field, it doesn't remain as an electric field, it mixes with the magnetic field. $ E $ cannot possibly be an irreducible representation of the Lorentz group. We have to combine the magnetic and electric field into one multiplet so they can transform as an irreducible representation of the group. When we look at the $ A $ field, $ A_{\mu} = (\Phi, \va{A}) $, this forms a representation of the Lorentz group. Gauge invariance tells us that $ A_{\mu}(x) = A_{\mu}(x) + \partial_{\mu} \lambda(x) $. All observables must be gauge invariant, because it wouldn't make sense for the value to be different depending on what gauge we pick. We can write down the gauge-invariant, antisymmetric, two-form (it is an irrep of $ \text{SO}(1,3) $ since it is antisymmetric),
+\begin{equation}
+    F_{\mu \nu} = \partial_{\mu} A_{\nu} - \partial_{\nu} A_{\mu}
+\end{equation}
+
+Under a gauge transformation, this goes to
+\begin{equation}
+    F_{\mu \nu} \to \left[ \partial_{\mu} (A_{\nu} + \partial_{\nu} \lambda) - \partial_{\nu} (A_{\mu} + \partial_{\mu} \lambda) \right] = F_{\mu \nu} + \partial_{\mu} \partial_{\nu} \lambda - \partial_{\nu} \partial_{\mu} \lambda = F_{\mu \nu}
+\end{equation}
+
+We can see that the elements of this tensor tell us about the fields:
+\begin{equation}
+    F_{0i} = \partial_{0} A_{i} - \partial_i A_0 = \frac{1}{c} \partial_t A_i - \partial_{i} \Phi = E_i
+\end{equation}
+where $ i = 1,2,3 $.
+We can also get the components of the $ B $ field:
+\begin{equation}
+    F_{ij} = \frac{1}{2} \epsilon_{ijk} B_k = \partial_i A_j - \partial_j A_i
+\end{equation}
+
+The Schr\"odinger equation for the Hamiltonian we wrote down at the beginning is
+\begin{equation}
+    \imath \hbar \partial_t\ket{\psi} = \frac{\left( p_i - \frac{e}{c} A_i \right)^2}{2m}\ket{\psi} + e \Phi\ket{\psi}
+\end{equation}
+This must be gauge invariant, but under a gauge transformation, $ A_i \to A_i + \partial_i \lambda $ and $ \Phi \to \Phi - \frac{1}{c} \dot{\lambda} $. The state itself transforms like
+\begin{equation}
+    \ket{\psi} \to e^{\imath \frac{e}{\hbar c} \lambda(x,t)}\ket{\psi}
+\end{equation}
+Since $ \lambda $ is a singlet of the Lorentz group (a scalar).
+
+Therefore, the momentum term will transform like
+\begin{equation}
+    P_i \left[ e^{\frac{\imath e}{\hbar c} \lambda} \psi \right] = - \imath \hbar \partial_i \left[ \frac{\imath e}{\hbar c} \partial_i \lambda \right] e^{\frac{\imath e}{\hbar c} \lambda} + e^{\frac{\imath e}{\hbar c} \lambda} \partial_i \psi
+\end{equation}
+so
+\begin{equation}
+    p_i \to p_i + \frac{e}{c} \partial_i \lambda 
+\end{equation}
+Therefore, the momentum term transformation under a gauge transformation will cancel out the effect from the transformation of $ A_i $. There is still the contribution from the $ \Phi $ term:
+\begin{equation}
+    \imath \hbar \dv{t}\left[ e^{\frac{\imath e}{\hbar c} \lambda} \psi \right] = - \frac{e}{c} \dot{\lambda} \psi e^{\frac{\imath e}{\hbar c} \lambda} + \imath \hbar e^{\frac{\imath e}{\hbar c} \lambda} \dv{\psi}{t}
+\end{equation}
+So the time derivative on the left side of the Schr\"odinger equation cancels out the $ \Phi $ contribution. Therefore, gauge invariance fixes the Hamiltonian in this form. Now technically, the state itself transforms like it does because gauge transformations are part of the $ \text{U}(1) $ group, which is the group of phases, so the state must transform by a phase.
+
+
+If we want to calculate $ \ddot{x} = \comm{\dot{x}}{H} $, this is given by
+\begin{equation}
+    \frac{\imath \hbar e}{2mc} \left[ \dot{\va{x}} \cross \va{B} - \va{B} \cross \dot{\va{x}} \right] + \frac{e}{m} \va{E}
+\end{equation}
+
+
+\end{document}

@@ -1,0 +1,53 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\chapter{Biological Fluid Dynamics}
+\lecture{11}{Wednesday, March 10, 2021}{Biological Fluid Dynamics I}
+
+There are some scale-independent dynamics that happen in fluids which allow us to treat fluids as a continuous medium. Although they are composed of individual molecules, we can define continuous fields, like density and velocity, which describe the fluid. For the velocity field, the fluid is thought of as a blob with density $ \rho $, and the state of motion is described by a vector at each point, $ \va{v}(\va{x}, t) $.
+
+Suppose a fluid has density $ \rho(\va{x}, t) $. We can also define a continuity equation, because there must be some conservation of the overall amount of fluid:
+\begin{equation}
+    \pdv{\rho}{t} = \div{\rho \va{v}}
+\end{equation}
+
+We will mostly be talking about fluids with constant density, where $ \pdv{\rho}{t} = 0 $ so $ \div{\va{v}} = 0 $. Such a fluid is called ``incompressible''.
+
+Imagine an experiment with two parallel plates of area $ A $ separated by a distance $ d $ with a fluid between them. If you move the top plate with a force $ F $, then
+\begin{equation}
+    \frac{F}{A} \propto \frac{v}{d}
+\end{equation}
+A velocity gradient exists inside this gap. We call the constant of proportionality ``viscosity'' $ \eta $: 
+\begin{equation}
+    \frac{F}{A} = \eta \frac{v}{d}
+\end{equation}
+
+We can write Newton's second law for fluids, known as the Navier-Stokes equations:
+\begin{align}
+    \underbrace{\overbrace{\rho \pdv{\va{v}}{t}}^{\text{variation}} + \overbrace{\rho (\va{v} \vdot \grad) \va{v}}^{\text{convection}}}_{m \va{a}} &= \underbrace{\overbrace{- \grad{p}}^{\text{pressure force}} + \overbrace{\eta \laplacian{\va{v}}}^{\text{diffusion}}}_{\va{F}} \tag{Navier-Stokes}
+    \rho \frac{D}{Dt} \va{v} &= \grad{\sigma}
+
+\end{align}
+where $ p $ is the scalar pressure field. $ \sigma $ is stress, which is defined as $ \sigma = -p I + \eta \div{\va{v}} $. $ \frac{D}{Dt} $ is the material derivative, taking into account the motion of the frame, $ \frac{D}{Dt} = \pdv{t} + \va{v} \vdot \grad $. If we think of a cube of fluid moving at velocity $ v $ in the $ x $-direction, then at time $ t + \Delta t $, we will have to describe that block as $ v(x + \Delta x, t + \Delta t) $. $ a = \frac{\Delta v}{\Delta t} $, so we can Taylor expand:
+\begin{equation}
+    \Delta v \approx v(x,t) + \partial_x v \Delta x + \partial_t v \Delta t - v(x, t) = \left( \pdv{v}{x} \frac{\Delta x}{\Delta t} + \pdv{v}{t} \right) \Delta t
+\end{equation}
+With $ \Delta x / \Delta t \equiv v $, we have $ a = \frac{\Delta v}{\Delta t} = \left( v \pdv{v}{x} + \pdv{v}{t} \right) $. In three dimensions, this is $ \va{a} = (\pdv{t} + \va{v} \vdot \grad) \va{v} = \frac{D}{Dt} \va{v} $. Let's now consider the final term, the viscous force.
+
+Viscous forces on each face of a fluid element is proportional to the change in flow rate perpendicular to the face. If we think of a shear flow $ \va{v} = (0, 0, v_z(x)) $, the viscous force is non-zero in the $ yz $-plane. If we consider that the velocity is increasing along $ x $, then the viscous force is an opposing force. The Laplacian comes from Taylor expanding the force to second order. The first order terms at $ x $ and $ x + \Delta x $ will cancel, leaving only the second derivative terms.
+
+Consider now an organism moving in fluid at some velocity $ v $. Suppose the fluid is defined by fixed viscosity and density, $ \eta $ and $ \rho $. If we suppose the size of the organism is approximately $ a $ (some length scale), we can write the Navier-Stokes equations as approximately
+\begin{align}
+    \rho \pdv{\va{v}}{t} + \rho (\va{v} \vdot \grad) \va{v} &= - \grad{p} + \eta \laplacian{\va{v}} \\
+    \rho \cdot \frac{v}{a/v} + \frac{\rho v^2}{a} &= 0 + \frac{\eta v}{a^2} \\
+\end{align}
+If we want to compare the inertial term to the strength of the viscosity term, we can define the Reynolds number,
+\begin{equation}
+    \text{Re} = \frac{\rho v^2 / a}{\eta v / a^2} = \frac{\rho a v}{\eta}
+\end{equation}
+
+In biology, $ \text{Re} \ll 1 $, which means the viscous force is much larger than the inertial force. if we consider \textit{E. coli} swimming in water, $ \text{Re} \approx 10^{5} $. If we talk about a fish or a person swimming in water, that number is more like $ 10^5 $ or $ 10^6 $ respectively.
+
+If you drop the inertial terms entirely (just the Stokes equation), you will have no time dependence. In this scenario, the organism will not really be able to go anywhere because the solutions are invariant under time reversal.
+
+
+\end{document}

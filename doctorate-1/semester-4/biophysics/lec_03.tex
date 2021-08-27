@@ -1,0 +1,109 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\chapter{Statistical Physics of Cellular Processes}
+
+\lecture{3}{Wednesday, February 10, 2021}{Statistical Physics of Cellular Processes I}
+
+In biological systems, there are four different types of energy which we find relevant: chemical energy, which is used to generate mechanical energy and electromagnetic energy, and finally thermal energy. At the scale of cellular processes, we will mostly be concerned with the scale of Newtonian mechanics (and not quantum mechanics).
+
+It is important to realize that biological systems are intrinsically out of equilibrium\textemdash system at equilibrium would be dead. Variables like force, entropy, and energy are dynamic and not necessarily conserved\textemdash living systems are open systems. Additionally, there are typically significant statistical fluctuations between observations of variables between experiments. Finally, energy consumption and dissipation typically occurs through irreversible processes.
+
+However, if certain processes happen much faster than other, we can apply equilibrium models. Consider a reaction $ A \leftrightarrow B \to C $ where the rate from $ A $ to $ B $ is $ k_+ $, from $ B \to A $ is $ k_- $, and from $ B \to C $ is $ r $. We can then write a system of differential equations:
+\begin{align}
+    \dv{[A]}{t} &= -k_+[A]+k_-[B] \\
+    \dv{[B]}{t} &= k_+[A]-k_-[B]-r[B] \\
+    \dv{[C]}{t} &= r[B] \\
+\end{align}
+where $ [X] $ refers to the concentration of chemical $ X $.
+If we consider the case where $ r \ll k_- $, we can ignore the $ -r[B] $ in the second equation and find that
+\begin{equation}
+    \frac{[A]}{[B]} = \frac{k_-}{k_+} = \text{constant}
+\end{equation}
+and $ [C] $ increases at a rate $ \propto [B] $.
+
+If we don't ignore $ r $, the system is not in equilibrium and all three variables change in time. Eventually, $ [A] \to 0 $ and $ [B] \to 0 $ while $ [C] \to \text{constant} $.
+
+
+\section{Equilibrium as Free-Energy Minimization}\label{sec:equilibrium_as_free-energy_minimization}
+
+The equilibrium state of a system minimizes the free energy,
+\begin{equation}
+    F = E - TS\tag{Free Energy}
+\end{equation}
+where $ E $ is the potential energy, $ T $ is the temperature, and $ S $ is the entropy, which is na\"ively the number of ways to rearrange a system. Mathematically it is
+\begin{equation}
+    S = k_B \ln(W)
+\end{equation}
+where $ W $ is the number of (equally likely) microstates and $ k_B $ is the Boltzmann constant.
+
+What is a microstate? Let's take the example of ligand-receptor binding. Ligands are molecules which pair with receptor sites to trigger certain actions in the cell. If we imagine ligands arranged on a lattice with a receptor molecule, all the possible lattice configurations of the ligands enumerate the microstates. If the system is finite, there will be a finite number of microstates.
+
+Another example could be microstates of DNA in a solution. DNA looks like some kind of curve, and such a curve can be drawn in an infinite number of ways, so the number of microstates is infinite.
+
+\section{Entropy}\label{sec:entropy}
+
+The theory of entropy was first thought of by Claude Shannon in his work on information theory. In his definition,
+\begin{equation}
+    S \propto - \sum_{i=1}^{N} P_i \ln(P_i)
+\end{equation}
+where $ P_i $ is the probability of being in state $ i $. Since $ \pdv{S}{P_i} = 0 $, $ \sum_i (\ln(P_i) + 1) = 0 $, so $ P_i $ is constant. We can normalize this to $ P_i = \frac{1}{N} $ where $ N $ is the total number of microstates. Plugging this back in, $ S \propto \ln(N) $.
+
+
+Consider proteins binding onto a strand of DNA. We can simplify the DNA as a 1-dimensional chain of lattice sites which will have two states\textemdash they will be occupied by a protein or not. If the total number of binding sites is $ N $ and the total number of proteins is $ N_p $, we can of course write the entropy as
+\begin{equation}
+    S = k_B \ln(W(N_p, N))
+\end{equation}
+where $ W(N_p,N) $ is some function enumerating the number of ways $ N_p $ proteins can be arranged on $ N $ binding sites.
+
+The first protein can occupy any $ N $ sites, the second can occupy $ N-1 $, and so on:
+\begin{equation}
+    W(N_p, N) = \frac{N!}{N_p!(N-N_p)!}
+\end{equation}
+if we consider the proteins to be indistinguishable. Then
+\begin{equation}
+    S = k_B \ln(\frac{N!}{N_p!(N-N_p)!})
+\end{equation}
+
+We can approximate logs of factorials (if $ N $ is large) as
+\begin{equation}
+    \ln(N!) \approx N \ln(N) - N \tag{Stirling Approximation}
+\end{equation}
+How do we get this? $ \ln(N!) \approx \ln(N(N-1)\ldots) $, or
+\begin{equation}
+    \ln(N!) \approx \sum_{i=1}^{N} \ln(i) \sim \int_1^N \ln(x) \dd{x} \sim N \ln(N) - N
+\end{equation}
+
+Using this approximation, we can write
+\begin{align}
+    S/k_B &= \ln(N!) - \ln(N_p!) - \ln([N-N_p]!) \\
+      &\approx (n \ln(N) - N) - (N_p \ln(N_p) - N_p) - [(N - N_p) \ln(N - N_p) - (N - N_p)] \\
+      &\approx -(N-N_p) \ln(\frac{N - N_p}{N}) - N_p \ln(\frac{N_p}{N})
+\end{align}
+
+Let us now define $ c \equiv \frac{N_p}{N} $, which we call the volume fraction, the fraction of the lattice which is occupied by proteins. With this definition,
+\begin{equation}
+    S \approx -k_B N[c \ln(c) + (1-c) \ln(1-c)] \tag{Mixing Entropy}
+\end{equation}
+Now we can maximize $ S $ (to minimize $ F = E - TS $):
+\begin{equation}
+    \pdv{S}{c} = \ln(c) + 1 - \ln(1-c) - 1 = 0 \implies c = \frac{1}{2}
+\end{equation}
+We think of this point $ c = \frac{1}{2} $ as being maximally mixed and having maximal entropy. In the other extremes, $ c = 0 $ and $ c = 1 $ have $ S = 0 $ because there is only one microstate present at this volume fraction.
+
+\section{Can Entropy Drive Cellular Organization?}\label{sec:can_entropy_drive_cellular_organization?}
+
+A (eukaryotic) cell has organelles which perform certain functions, most of which are bound by membranes. These compartmentalize the cell, increase reaction rates, and store molecules. Ten years ago, there was a discovery of certain types of organelles without membranes. These membrane-less organelles appear to behave like liquid droplets which tend to condense over time (binding with other droplets).
+
+The physics behind this behavior comes from entropy. Consider these organelles, called P-granules, in a solvent (cytoplasm). We can imagine that over time, this system will go to a high entropy state, where these two groups are mixed together and the droplets will dissolve into the cytoplasm. But we want to know if the reverse transition can happen. Consider the interaction between these particles. If the interaction between the granules and cytoplasm is much larger than the average of the granule-granule and cytoplasm-cytoplasm interaction, the low-entropy phase-separated state should be favored.
+
+Let's go back to our example of mixing entropy with this new piece of information involved. In a 2D lattice, we can think of each lattice site as either being occupied by a P-granule or cytoplasm. We know the entropy which we just studied to be the entropy of mixing. On top of that, we need to add in an interaction energy:
+\begin{equation}
+    U = k_B T N^2 \chi c(1-c)
+\end{equation}
+where $ \chi = \frac{\epsilon_{AB} -(\epsilon_{BB} + \epsilon_{AA})/2}{k_B T} $ is the energy cost of mixing. Then we can define the free energy of mixing as
+\begin{equation}
+    F/Nk_BT = c \ln(c) + (1-c) \ln(1-c) + \chi Nc(1-c)
+\end{equation}
+What happens now if we minimize this free energy? If you begin with $ \chi = 0 $, you have the familiar minimum $ c = \frac{1}{2} $. However, as you increase $ \chi $, you will find that this minimum slowly becomes a maximum, and phase-separated concentrations will become more favorable, particularly a low $ c $ ``dilute'' phase and a high $ c $ ``condensed'' phase. These minima will actually never be exactly $ 0 $ or $ 1 $, but can get arbitrarily close with larger $ \chi $. This is the physics underlying the formation of these membrane-less organelles\textemdash they interact in a way which favors phase separation. There is another problem, which is diffusion. Once these condensed particles form, why don't they diffuse away? This attractive interaction between these particles must be large enough to overcome diffusion.
+
+\end{document}

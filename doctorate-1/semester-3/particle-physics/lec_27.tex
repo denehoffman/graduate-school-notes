@@ -1,0 +1,118 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{27}{Monday, November 09, 2020}{Normalization of Dirac Spinors}
+
+In the last lecture, we ended with
+\begin{equation}
+    2 E = u_1^\dagger u_1 = \frac{E^2 + M^2 + 2 E M + p^2}{(E + M)^2} \abs{A_1}^2 = \frac{2E (E + M)}{(E + M)^2} \abs{A_1}^2
+\end{equation}
+so
+\begin{equation}
+    A_1 = \sqrt{E + M}
+\end{equation}
+and similarly, $ A_2 = A_1' = A_2' = \sqrt{E + M} $.
+
+\section{$ \va{S} $ for an Anti-Proton Spinor}\label{sec:s_for_an_anti-proton_spinor}
+
+For an anti-proton state written in terms of physical $ E $ and $ \va{p} $ of anti-particles $ \psi = N(E, \va{p}) e^{- \imath(\va{p} \vdot \va{r} - E t)} $. Acting the Hamiltonian on this, we get
+\begin{equation}
+    \hat{H} \psi = - E \psi
+\end{equation}
+and
+\begin{equation}
+    \hat{\va{p}} \psi = - \imath \grad{\psi} = - \va{p} \psi
+\end{equation}
+so we need to create some modified operators which give the proper $ E $ and $ \va{p} $ (not the negative of these):
+\begin{equation}
+    \hat{H}^{(v)} = - \imath \partial_t \qquad \hat{\va{p}}^{(v)} = + \imath \grad
+\end{equation}
+so
+\begin{equation}
+    \hat{\va{L}}^{(v)} = \va{r} \cross \hat{\va{p}}^{(v)} = - \hat{\va{L}}
+\end{equation}
+
+We want a spin operator $ \hat{\va{S}}^{(v)} $ such that $ \comm{\hat{H}_D}{\va{L}^{(v)} + \va{S}^{(v)}} $, so $ \hat{\va{S}}^{(v)} = - \hat{\va{S}} $, so $ v_1 \propto u_4 $ is a spin-up antiparticle, whereas $ u_4 $ was a spin-down, negative-energy particle.
+
+\section{Charge Conjugation}\label{sec:charge_conjugation}
+
+The $ C $-operator interchanges matter and antimatter particles. Using minimal substitution, $ \hat{E} \to \hat{E} - q \Phi $ and $ \va{p} \to \va{p} - q \va{A} $ causes $ p_{\mu} \to p_{\mu} - q A_{\mu} $ and $ \imath \partial_{\mu} \to \imath \partial_{\mu} - q A_{\mu} $.
+
+The charge conjugation operator gives $ C u_1 \to v_1 $ and $ C u_2 \to v_2 $.
+
+\section{Spin and Helicity}\label{sec:spin_and_helicity}
+
+For particles at rest, $ u_1(E, 0) = A_1 \mqty(1\\0\\0\\0) $ and $ u_2(E, 0) = A_2 \mqty(0\\1\\0\\0) $ are eigenstates of
+\begin{equation}
+    \hat{S}_z = \frac{1}{L} \mqty(\sigma_z & 0\\0 & \sigma_z) = \frac{1}{2} \mqty(\dmat{1,-1,1,-1})
+\end{equation}
+
+In general ($ \va{p} \neq 0 $), $ u_1 $ and $ u_2 $ are not eigenvectors of $ S_z $. For particles moving in the $ \pm \vu{z} $ direction,
+\begin{equation}
+    u_1 = A_1 \mqty(1\\0\\\pm \frac{p}{E+m}\\0), \qquad u_2 = A_2 \mqty(0\\1\\0\\\mp \frac{p}{E+m})
+\end{equation}
+and
+\begin{equation}
+    v_1 = A_1' \mqty(0\\\mp \frac{p}{E+m}\\0\\1),\qquad v_2 = A_2' \mqty(\pm \frac{p}{E + m}\\0\\1\\0)
+\end{equation}
+are eigenstates of $ S_z $.
+\begin{equation}
+    \hat{S}_z u_{1,2}(E,0,0,\pm p) = \pm_{(1,2)} \frac{1}{2} u_{1,2}(E,0,0,\pm p)
+\end{equation}
+and
+\begin{equation}
+    \hat{S}_z^{v} v_{1,2}(E,0,0,\pm p) = \pm_{(1,2)} \frac{1}{2} v_{1,2}(E,0,0,\pm p)
+\end{equation}
+
+\subsection{Helicity}\label{sub:helicity}
+
+Since $ \comm{\hat{H}_D}{\hat{S}_z} \neq 0 $, it is not generally possible to define a basis of simultaneous eigenstates of $ \hat{H}_D $ and $ \hat{S}_z $. We define helicity, $ h $, as
+\begin{equation}
+    \hat{h} = \frac{\hat{S} \vdot \hat{\va{p}}}{p} = \frac{1}{2p} \mqty(\va{\sigma} \vdot \va{p} & 0\\0 & \va{\sigma} \vdot \va{p})
+\end{equation}
+Then, $ \comm{\hat{H}_D}{\hat{h}} = 0 $ since $ \hat{H}_D = \va{\alpha} \vdot \va{p} + \beta m $. Let $ \hat{h} u = \lambda u $ where $ u = \mqty(u_A// u_D) $ ($ u_{A,D} $ are 2-spinors). Therefore we define
+\begin{equation}
+    \va{\sigma} \vdot \va{p} u_{A,B} = 2p \lambda u_{A,B}
+\end{equation}
+so
+\begin{equation}
+    \underbrace{(\va{\sigma} \vdot \va{p}) (\va{\sigma} \vdot \va{p})}_{p^2} u_A = 4 p^2 \lambda^2 u_A
+\end{equation}
+so $ \lambda = \pm \frac{1}{2} $ are the eigenvalues of helicity. We define $ \lambda = \frac{1}{2} $ to be ``right-handed'' helicity.
+
+
+\begin{equation}
+    (\va{\sigma} \vdot \va{p}) u_A = (E + m)u_B
+\end{equation}
+so $ u_B = 2 \lambda \frac{p}{E + m} u_A $.
+
+Let $ \va{p} = (p \sin(\theta) \cos(\varphi), p \sin(\theta) \sin(\varphi), p \cos(\theta)) $ so
+\begin{equation}
+    \va{\sigma} \vdot \va{p} = \mqty(p \cos(\theta) & p \sin(\theta) e^{- \imath \varphi} \\ p \sin(\theta) e^{\imath \varphi} & - p \sin(\theta))
+\end{equation}
+With $ u_A = \mqty(a\\b) $, this becomes
+\begin{equation}
+    p \mqty(\cos(\theta & \sin(\theta) e^{- \imath \varphi} \\ \sin(\theta) e^{\imath \varphi} & - \cos(\theta))) \mqty(a\\b)= 2 p \lambda \mqty(a\\b)
+\end{equation}
+so
+\begin{equation}
+    a(\cos(\theta) - 2 \lambda) + b \sin(\theta) e^{- \imath \varphi} = 0
+\end{equation}
+or
+\begin{equation}
+    \frac{b}{a} = \frac{2 \lambda - \cos(\theta)}{\sin(\theta)} e^{\imath \varphi}
+\end{equation}
+For right-handed helicity,
+\begin{equation}
+    \frac{b}{a} = \frac{\sin(\theta / 2)}{\cos(\theta / 2)} e^{\imath \varphi}
+\end{equation}
+From $ u_D = + \frac{p}{E+m} u_A $, we have
+\begin{equation}
+    u_{\uparrow} = A_{\uparrow} \mqty(\cos(\theta / 2) \\ \sin(\theta / 2) e^{\imath \varphi} \\ \frac{p}{E+m} \cos(\theta / 2) \\ \frac{p}{E + m} \sin(\theta / 2) e^{\imath \varphi})
+\end{equation}
+with
+\begin{equation}
+    2 E = u^\dagger_{\uparrow} u_{\uparrow} = \abs{A_{\uparrow}}^2 \left( 1 + \frac{p^2}{E^2 + m^2 + 2 Em} \right) = \abs{A_{\uparrow}}^2 \frac{2 E}{E + m}
+\end{equation}
+so $ A_{\uparrow} = \sqrt{E+m} $.
+
+\end{document}

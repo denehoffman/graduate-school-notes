@@ -1,0 +1,45 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{33}{Monday, November 23, 2020}{}
+
+When we left off, we had found the average matrix element for $ e^+ e^- \to \mu^+ \mu^- $ and the differential cross-section (and they work pretty okay, especially if we then add in electroweak corrections. We can now find the total cross section:
+\begin{align}
+    \sigma_{\text{tot}} &= \int \dv{\sigma}{\Omega} \dd{\Omega} \\
+                        &= 2 \pi \int_{-1}^{1} \frac{alpah^2}{4 s} (1 + \cos[2](\theta)) \dd{(\cos(\theta))} \\
+                        &= \frac{\pi \alpha^2}{2 s} \left( 2 + \frac{2}{3} \right) \\
+                        &= \frac{4}{3} \frac{\pi \alpha^2}{s}
+\end{align}
+This turns out to work pretty well.
+
+\section{Lorentz-Invariant Average Matrix Element}\label{sec:lorentz-invariant_average_matrix_element}
+
+We have $ \ev{\abs{M_{fi}}^2} = e^4 (1 + \cos[2](\theta)) $ with
+\begin{align}
+    p_1 &= (E, 0, 0, E) \\
+    p_2 &= (E, 0, 0, -E) \\
+    p_3 &= (E, E \sin(\theta), 0, E \cos(\theta)) \\
+    p_4 &= (E, - E \sin(\theta), 0, - E \cos(\theta))
+\end{align}
+so
+\begin{equation}
+    \frac{(p_1 \vdot p_3)^2 + (p_1 \vdot p_4)^2}{(p_1 \vdot p_2)^2} = \frac{1 + \cos[2](\theta)}{2}
+\end{equation}
+Therefore,
+\begin{equation}
+    \ev{\abs{M_{fi}}^2} = 2 e^4 \frac{(p_1 \vdot p_3)^2 + (p_1 \vdot p_4)^2}{(p_1 \vdot p_2)^2}
+\end{equation}
+with $ s = (p_1 + p_2)^2 = m_1^2 + m_2^2 + 2 p_1 \vdot p_2 \approx 2 p_1 \vdot p_2 $ and $ t = (p_1 - p_3)^2 \approx - 2 p_1 \vdot p_3 $ and $ u = (p_1 - p_4)^2 \approx - 2 p_1 \vdot p_4 $, so
+\begin{equation}
+    \ev{\abs{M_{fi}}^2} = 2 e^4 \frac{t^2 + u^2}{s^2}
+\end{equation}
+
+\section{Spin in electron-positron Annihilation}\label{sec:spin_in_electron-positron_annihilation}
+
+The non-vanishing $ j_e $ contributions are from a right-handed electron and left-handed positron $\ket{S, S_z} =\ket{1, +1} $ and a left-handed electron and right-handed positron with $\ket{S, S_z} =\ket{1, -1} $. The non-vanishing $ j_{\mu} $ contributions have the muon going off at an angle which is not necessarily the $ z $-axis, but we can look at the components along their axis: $\ket{S, S_z}_{\theta} =\ket{1, \pm 1} $. It is tempting to think that $\ket{1, 1}_{90^{\circ}} $ is orthogonal to $\ket{1,1}_{z} $, but when you perform the math on this, you'll find that the dot product of these vectors is $ 1/2 $. In general,
+\begin{equation}
+    {}_{\theta}\bra{1,1}\ket{1,1}_z = \frac{1}{2} (1 + \cos(\theta)) = M_{LR \to LR}
+\end{equation}
+
+[Notes Incomplete, need to finish later]
+
+\end{document}

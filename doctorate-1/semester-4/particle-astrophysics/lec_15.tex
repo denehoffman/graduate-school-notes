@@ -1,0 +1,175 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{15}{Tuesday, March 16, 2021}{Higgs Mechanism and Yukawa Coupling}
+
+For $ T > T_c $ the symmetry is restored and for $ \ev{\Phi} = 0 $, we can estimate the critical temperature:
+\begin{equation}
+    \left[ \ev{n^2}_T - \ev{n^2}_{T=0} \right]^{1/2} \simeq \mu / \sqrt{\lambda}
+\end{equation}
+If we suppose that
+\begin{equation}
+    \eta(x,t) = \frac{1}{\sqrt{V}} \sum_k \frac{1}{\sqrt{2 E_k}} \left[ a_k e^{\imath kx} e^{- \imath E_k t} + a^\dagger_k e^{- \imath k x} e^{\imath E_k t} \right]
+\end{equation}
+then the thermodynamic average is
+\begin{align}
+    \ev{n^2}_T &= \frac{1}{V} \sum_{k, k'}\left( \cancelto{0}{\ev{a^\dagger_k a^\dagger_{k'}}}(\cdots) + \cancelto{0}{\ev{a_k a_{k'}}}(\cdots) + \underbrace{\ev{a_k a^\dagger_{k'}}}_{\delta_{k,k'} (1 + n_k)} + \underbrace{\ev{a^\dagger_k a_{k'}}}_{\delta_{k,k'} n_k} \right) \frac{1}{\sqrt{2 E_k 2 E_{k'}}} \\
+               &= \frac{1}{V} \sum_k \frac{1 + 2 n_k}{2 E_k}
+\end{align}
+
+The $ T=0 $ term is for $ n_k = 0 $, so we can subtract (and convert from a sum over $ k $ to an integral):
+\begin{equation}
+    \ev{n^2}_T - \ev{n^2}_{T=0} = \int \frac{\dd[3]{k}}{(2 \pi)^3} \frac{1}{E_k (e^{\beta E_k} - 1)}
+\end{equation}
+with $ \beta = \frac{1}{T} $ (setting $ k_B = 1 $) and $ E_k = \sqrt{k^2 + m^2} $. Writing $ x = \frac{k}{T} $ and assuming (consistently) that $ T_c \gg m $ or $ m/T \ll 1 $, we can expand this and integrate it to find that
+\begin{equation}
+    \ev{n^2}_T - \ev{n^2}_{T=0} = c T^2 \implies c T_c^2 = \frac{\mu^2}{\lambda} \implies T_c = \tilde{c} \frac{m}{\sqrt{\lambda}}
+\end{equation}
+where $ c $ is a constant. Again, this approximation is justified if $ \lambda \ll 1 $, which implies $ T_c \gg m $.
+
+\section{Goldstone Bosons and Continuous Symmetry}\label{sec:goldstone_bosons_and_continuous_symmetry}
+
+Consider a complex scalar field $ \Phi = \frac{1}{\sqrt{2}} \left( \Phi_R + \imath \Phi_I \right) $ where $ \Phi_R, \Phi_I \in \R $. If we take the Lagrangian density to be
+\begin{equation}
+    \mathcal{L} = \partial_{\mu} \Phi \partial^{\mu} \Phi^\dagger - V(\Phi^\dagger \Phi) = \frac{1}{2} \left( \partial_{\mu} \Phi_R \partial^{\mu} \Phi_R + \partial_{\mu} \Phi_I \partial^{\mu} \Phi_I \right) - V(\Phi_R^2 + \Phi_I^2)
+\end{equation}
+then there is a continuous symmetry:
+\begin{equation}
+    \Phi \to \Phi e^{\imath \theta} \qquad \Phi^\dagger \to \Phi^\dagger e^{- \imath \theta}
+\end{equation}
+with some constant $ \theta $. This corresponds to a rotation in the $ \Phi_R $/$ \Phi_I $-plane. The prototype potential in the Standard Model is
+\begin{equation}
+    V(\Phi^\dagger \Phi) = \frac{\lambda}{4} \left( \frac{\mu^2}{\lambda} - \Phi^\dagger \Phi \right)^2 = \frac{\lambda}{4} \left( \frac{\mu^2}{\lambda} - \frac{1}{2} \left( \Phi_R^2 + \Phi_I^2 \right) \right)^2
+\end{equation}
+This potential resembles a rotation of the previous scenario about the central axis, forming a ``sombrero''/``Mexican hat''/``wine bottle'' shape. It no longer contains just two minima, but rather a manifold of continuous, degenerate minima with
+\begin{equation}
+    \Phi_R^2 + \Phi_I^2 = \frac{2 \mu^2}{\lambda}
+\end{equation}
+We can describe fluctuations perpendicular to this valley of degenerate minima as harmonic oscillators, but fluctuations along the valley (moving between degenerate states) require very little energy. Let's parameterize
+\begin{equation}
+    \Phi = \frac{\rho(\va{x}, t)}{\sqrt{2}} e^{\imath \varphi(x,t)}
+\end{equation}
+such that $ \rho = \sqrt{\Phi^\dagger \Phi} $ is invariant under rigid rotation but $ \varphi \to \varphi(x,t) + \theta $.
+
+We can now write out the potential as
+\begin{equation}
+    V(\Phi^\dagger \Phi) = \frac{\lambda}{4} \left[ \frac{\mu^2}{\lambda} - \frac{\rho^2}{2} \right]^2
+\end{equation}
+We can write out the entire Lagrangian density as
+\begin{equation}
+    \mathcal{L} = \frac{1}{2} (\partial_{\mu} \rho)(\partial^{\mu} \rho) + \frac{\rho^2}{2} (\partial_{\mu \varphi})(\partial^{\mu} \varphi) - \frac{\lambda}{4} \left( \frac{\mu^2}{\lambda} - \frac{\rho^2}{2} \right)^2
+\end{equation}
+
+We can define the minimum of the potential to be at $ \rho^2 = \frac{2 \mu^2}{\lambda} \equiv \rho_0^2 $ and write out fluctuations about $ \rho = \rho_0 + h $:
+\begin{equation}
+    \mathcal{L} = \frac{1}{2} \partial_{\mu} h \partial^{\mu} h - \frac{1}{2} m^2 h^2 + \frac{1}{2} \rho_0^2 (\partial_{\mu} \varphi)^2 + \rho_0 h \partial_{\mu} \varphi \partial^{\mu} \varphi + \frac{1}{2} h^2 \partial_{\mu} \varphi \partial^{\mu} \varphi - \frac{\lambda}{4} \rho_0 h^3 + \frac{\lambda}{16} h^4
+\end{equation}
+where $ m^2 = \frac{\lambda}{2} \rho_0^2 $ by definition. We can further simplify this by defining $ \eta = \rho_0 \varphi $:
+\begin{equation}
+    \mathcal{L} = \frac{1}{2} \partial_{\mu} h \partial^{\mu} h - \frac{1}{2} m^2 h^2 + \frac{1}{2} \partial_{\mu} \eta \partial^{\mu} \eta + \mathcal{L}_I
+\end{equation}
+
+$ h $ is a real scalar with mass $ m^2 = \frac{\lambda \rho_0^2}{2} $ corresponding to a harmonic oscillator mode perpendicular to the degeneracy. This is called the Higgs mode. On the other hand, $ \eta $ is a real \textit{massless} mode corresponding to motion along the degenerate minima. The value $ \rho_0 = \frac{\sqrt{2} \mu}{\sqrt{\lambda}} $ is called a ``vacuum expectation value'' and the $ \eta $-field is a ``Goldstone'' excitation. It takes no energy for long wavelength distortions to propagate and it only interacts with gradients of the field. A particular (nearly) Goldstone particle, called the axion (yet to be discovered) is associated with a symmetry of the strong interaction and is a candidate for dark matter.
+
+
+\subsection{The Higgs Mechanism}\label{sub:the_higgs_mechanism}
+
+Within the Standard Model, the Goldstone fields play the role of giving masses to the $ W^{\pm} $ and $ Z^0 $ vector bosons in a process known as the Higgs mechanism.The rotational symmetry described above can be generalized to a spacetime dependent symmetry by coupling to a gauge field. Consider
+\begin{equation}
+    \partial_{\mu} \Phi \to (\partial_{\mu} \Phi - \imath e A_{\mu} \Phi)
+\end{equation}
+so that under gauge transformations $ \Phi \to \Phi e^{\imath e \Lambda(x,t)} $ and $ A_{\mu} \to A_{\mu} + \partial_{\mu} \Lambda(x,t) $,
+\begin{align}
+    \partial_{\mu} (\Phi e^{\imath e \Lambda}) - \imath e A_{\mu} \Phi(e^{\imath e \Lambda}) - \imath e (\partial_{\mu} \Lambda)(e^{\imath e \Lambda}) \Phi &= e^{\imath e \Lambda} \left[ \partial_{\mu} \Phi + \Phi \imath e \partial_{\mu} \Lambda - \imath e A_{\mu} \Phi - \imath e \Phi \partial_{\mu} \Lambda \right] \\
+                                                                                                                                                             &= e^{\imath e \Lambda \left( \partial_{\mu} \Phi - \imath e A_{\mu} \Phi \right)}
+\end{align}
+then $ (\partial_{\mu} \Phi^\dagger + \imath e \Phi^\dagger A_{\mu})(\partial^{\mu} \Phi - \imath e A^{\mu} \Phi) $ is invariant under gauge transformations. Therefore, so is $ \Phi^\dagger \Phi $, so
+\begin{equation}
+    \mathcal{L} = (\partial_{\mu} \Phi^\dagger + \imath e \Phi^\dagger A_{\mu})(\partial^{\mu} \Phi - \imath e A^{\mu} \Phi) - V(\Phi^\dagger \Phi) - \frac{1}{4} F_{\mu \nu} F^{\mu \nu}
+\end{equation}
+is gauge invariant. If we write out our symmetry-breaking potential as before,
+\begin{equation}
+    V(\Phi^\dagger \Phi) = \frac{\lambda}{4} \left( \frac{\mu^2}{\lambda} - \Phi^\dagger \Phi \right)^2
+\end{equation}
+and $ \Phi = \frac{\rho}{\sqrt{2}} e^{\imath \varphi} $, $ \rho = \rho_0 + h $, then under a gauge transformation,
+\begin{equation}
+    \Phi \to \Phi e^{\imath e \Lambda} \implies \rho \to \rho \qand \varphi \to \varphi + e \Lambda
+\end{equation}
+Then,
+\begin{equation}
+    V(\Phi^\dagger \Phi) = \frac{\lambda}{4} \left( \frac{\mu^2}{\lambda} - \rho^2 \right)^2
+\end{equation}
+\begin{equation}
+    \partial_{\mu} \Phi = e^{\imath \varphi} (\partial_{\mu} \rho + \imath \rho \partial_{\mu} \varphi)
+\end{equation}
+and
+\begin{align}
+    \partial_{\mu} \Phi - \imath e A_{\mu} \Phi &\to e^{\imath \varphi}(\partial_{\mu} \rho + \imath \rho \partial_{\mu} \varphi - \imath e A_{\mu} \rho) \\
+                                                &\equiv e^{\imath \varphi} \left[ \partial_{\mu} \rho - \imath e \left( A_{\mu} - \frac{1}{e} \partial_{\mu} \varphi \right) \rho \right]
+\end{align}
+We can perform a similar transformation with the Hermitian conjugate such that
+\begin{equation}
+    (\partial_{\mu} \Phi^\dagger + \imath e A_{\mu} \Phi^\dagger)(\partial^{\mu} \Phi - \imath e A^{\mu} \Phi) \equiv \frac{1}{2} \left[ \partial_{\mu} \rho + \imath e \rho \left( A_{\mu} - \frac{1}{e} \partial_{\mu} \varphi \right) \right]\left[ \partial^{\mu} \rho - \imath e \rho \left( A^{\mu} - \frac{1}{e} \partial^{\mu} \varphi \right) \right]
+\end{equation}
+Note that $ A^{\mu} - \frac{1}{e} \partial^{\mu} \varphi $ is just a gauge transformation of $ A^{\mu} $, and it is \textit{also} gauge invariant. If we define
+\begin{equation}
+    \tilde{A}^{\mu} \equiv A^{\mu} - \frac{1}{e} \partial^{\mu} \varphi
+\end{equation}
+then
+\begin{equation}
+    F^{\mu \nu} = \partial^{\mu} A^{\nu} - \partial^{\nu} A^{\nu} \equiv \partial^{\mu} \tilde{A}^{\nu} - \partial^{\nu} \tilde{A}^{\mu} \equiv \tilde{F}^{\mu \nu}
+\end{equation}
+The Goldstone mode $ \varphi $ combines with $ A^{\mu} $ to give the gauge invariant combo $ \tilde{A}^{\mu} $:
+\begin{equation}
+    \mathcal{L} = \frac{1}{2} \left( \partial_{\mu} \rho + \imath e \rho \tilde{A}_{\mu} \right)\left( \partial^{\mu} \rho - \imath e \rho \tilde{A}^{\mu} \right) - V(\rho) - \frac{1}{4} \tilde{F}^{\mu \nu} \tilde{F}_{\mu \nu}
+\end{equation}
+Writing $ \rho = \rho_0 + h $ where $ h $ is the Higgs particle, we get
+\begin{equation}
+    \mathcal{L} = \frac{1}{2} \partial_{\mu} h \partial^{\mu} h - \frac{1}{2} m^2 h^2 - \frac{1}{4} \tilde{F}^{\mu \nu} \tilde{F}_{\mu \nu} + \underbrace{\frac{1}{2} \rho_0^2 e^2 \tilde{A}^{\mu} \tilde{A}_{\mu}}_{\text{Mass term for } A^{\mu} - \frac{1}{e} \partial^{\mu} \varphi} + \text{interactions}
+\end{equation}
+This generates a massive vector field with the equations of motion
+\begin{equation}
+    \partial_{\mu} \tilde{F}^{\mu \nu} + M^2 \tilde{A}^{\nu} = 0
+\end{equation}
+Note that $ \partial_{\nu} \partial_{\mu} \tilde{F}^{\mu \nu} + M^2 \partial_{\nu} \tilde{A}^{\nu} = 0 $ has only three degrees of freedom.
+
+The Higgs mechanism is essential the spontaneous breaking of a continuous symmetry, which results in Goldstone bosons, which couple to gauge fields, which form a gauge-invariant combination of gauge fields and the Goldstone field, which forms a massive vector boson with three degrees of freedom. Two are transverse and one comes from the Goldstone boson. The gauge field ``eats'' the Goldstone boson, becoming a massive field.
+
+\subsection{Meissner Effect}\label{sub:meissner_effect}
+
+In superconductivity, we see this arise as $ \partial_{\mu} \tilde{F}^{\mu \nu} = - M^2 \tilde{A}^{\mu} $ where $ M^2 \tilde{A}^{\mu} $ is called the ``Meissner'' current. Additionally, since $ \partial_{\mu} \tilde{A}^{\mu} = 0 $,
+\begin{equation}
+    \square \tilde{A}^{\mu} + M^2 \tilde{A}^{\mu} = 0
+\end{equation}
+for the spatial component of static fields, and $ - \laplacian{\tilde{A}} + M^2 \tilde{A} = 0 $. Taking $ \grad{\va{x}} = - \laplacian{\va{B}} + M^2 \va{B} = 0 $, consider only one spatial dimension:
+\begin{equation}
+    - \dv[2]{x} \va{B} + M^2 \va{B} = 0
+\end{equation}
+has one solution:
+\begin{equation}
+    B(x) \propto e^{-M x}
+\end{equation}
+which has a characteristic length $ \frac{1}{M} $ called the London penetration length. Magnetic fields cannot enter the sample, so the Meissner current screens the magnetic field. This is an analogue of the Higgs mechanism. In the Standard Model, the weak interaction bosons acquire mass through his mechanism, and the photon does \textit{not} couple to the Goldstone mode and remains massless.
+
+
+\section{Yukawa Couplings and Fermion Masses}\label{sec:yukawa_couplings_and_fermion_masses}
+
+Fermions get mass through a similar mechanism. Consider the simpler case of a real scalar particle coupling to a Dirac field:
+\begin{equation}
+    \mathcal{L} = \bar{\psi} (\imath \gamma^{\mu} \partial_{\mu} - Y \Phi) \psi + \frac{1}{2} \partial_{\mu} \Phi \partial^{\mu} \Phi - V(\Phi)
+\end{equation}
+where $ Y \Phi $ is the Yukawa coupling term and $ V(\Phi) = \frac{\lambda}{4} \left( \frac{\mu^2}{\lambda} - \Phi^2 \right)^2 $. This potential again has two minima, $ \Phi_{\pm} = \pm \frac{\mu}{\sqrt{\lambda}} $.
+
+Examine the term $ -Y \bar{\psi} \Phi \psi $, the Yukawa coupling between the Dirac fermion and the scalar. Writing $ \Phi = \Phi_+ + h $, $ -Y \bar{\psi} \Phi \psi \to -m \bar{\psi} \psi $ with $ m = Y \Phi_+ $. Similarly, if we choose $ \Phi_- $ to expand around, we get $ m = Y \Phi_- $. Note that $ m^2 = Y^2 \Phi_{\pm}^2 $ is the same in both cases:
+\begin{equation}
+    \mathcal{L} = \bar{\psi} (\imath \slashed{\partial} - m) \psi - \bar{\psi} Y h \psi + \frac{1}{2} \partial_{\mu} h \partial^{\mu} h - \frac{1}{2} M^2_h h^2 - \text{interactions}
+\end{equation}
+where $ M^2_h = 2 \mu^2 $.
+
+In the Standard Model, all particles acquire their masses through Yukawa couplings to scalars with $ m_i \equiv Y_i \Phi_{\pm} $. Since $ \Phi $ is from the scalar field, it is the same for all fermionic species:
+\begin{equation}
+    \frac{m_{\alpha}}{m_{\beta}} = \frac{Y_{\alpha}}{Y_{\beta}}
+\end{equation}
+
+Spontaneous symmetry breaking gives masses to the weak bosons via the Higgs mechanism and it gives masses to all massive fermions via Yukawa couplings. However, the photon and neutrinos remain massless in this model.
+
+\end{document}

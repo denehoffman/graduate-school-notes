@@ -1,0 +1,73 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{10}{Friday, March 05, 2021}{Mechanics of Biomolecules II}
+
+\section{Applications of Beam Theory}\label{sec:applications_of_beam_theory}
+
+\subsection{Elasticity and Entropy}\label{sub:elasticity_and_entropy}
+
+The worm-like chain model accounts for both elastic energy and entropy of polymer chains. We can directly specify weight of a state $ i $ as
+\begin{equation}
+    e^{- \frac{\xi_p}{2} \int_0^L \abs{\dv{\vu{t_i}(s)}{s}}^2 \dd{s}}
+\end{equation}
+where the partition function looks like
+\begin{equation}
+    Z = \int \mathcal{D} \vu{t}(s)^{- \frac{\xi_p}{2} \int_0^L \left( \dv{\vu{t}}{s} \right)^2 \dd{s}}
+\end{equation}
+like the quantum mechanical path integral over all possible curved chains.
+
+\subsection{Energetics of DNA Looping}\label{sub:energetics_of_dna_looping}
+
+We can think of the bending energy of a loop to be
+\begin{equation}
+    E_{\text{bend}} = \frac{\xi_p k_B T}{2} \underbrace{\int_0^L \dd{s}}_{2 \pi R} \underbrace{\frac{1}{R(s)^2}}_{R^{-2}}
+\end{equation}
+so
+\begin{equation}
+    E_{\text{loop}} = \frac{\xi_p \pi k_B T}{R}
+\end{equation}
+For DNA, $ \xi_p \sim 50\nano\meter $ and $ R = (0.34 N_{bp} \nano\meter / 2 \pi $, so $ E_{\text{loop}} \approx \frac{3000}{N_{bp}} k_B T $, where $ N_{bp} $ is the number of base pairs.
+
+We can also look at the entropy:
+\begin{equation}
+    \Delta S_{\text{loop}} = S_{\text{loop}} - S_{\text{total}} = k_B \ln\left( )W_{\text{loop}} / W_{\text{total}} \right)) = k_b \ln(p_0)
+\end{equation}
+where $ p_0 $ is the probability of loop formation, which we showed earlier is proportional to
+\begin{equation}
+    p_0 \propto N_{bp}^{-3/2}
+\end{equation}
+so
+\begin{equation}
+    \Delta S_{\text{loop}} = k_B \ln(p_0) = k_B \left( - \frac{3}{2} \ln(N_{bp}) + \text{const.} \right)
+\end{equation}
+
+All together, we can compute the free energy of DNA looping:
+\begin{equation}
+    \Delta G_{\text{loop}} = \Delta E_{\text{loop}} - T \Delta S_{\text{loop}} \approx k_B T \left( \frac{3000}{N_{\text{bp}}} + \frac{3}{2} \ln(N_{\text{bp}}) + \text{const.} \right)
+\end{equation}
+If we plot this, we can see there is a minimum around $ 2000 $ base pairs.
+
+\subsection{Cytoskeletal Filaments}\label{sub:cytoskeletal_filaments}
+
+Microtubules provide tracks for molecular motors. That famous animation of kinesin ``walking'' a vesicle along a microtubule demonstrates this. Muscle contraction also works in a similar way, with multiple proteins walking along microtubules or actin pulling on other filaments to contract or extend the cell.
+
+Let's think about a simple model. Motors moving along filaments have a ``plus'' and ``minus'' end, also called ``barbed'' and ``pointed'' respectively. These ends are defined by which way the motor moves along the filament (from minus to plus). Motors can be bound to more than one filament, and suppose they move at a constant velocity.
+
+Actin will ``buckle'' when it is pushed into solid structure by a myosin motor, and sometimes can break. If we imagine a beam of length $ L $, we can add a buckling force to both ends, deforming it to length $ x $. Then $ E = E_{\text{bend}} - F (L - x) $:
+\begin{align}
+    E &= \frac{\xi_p k_B T}{2} \frac{L}{R^2} - F(L - x) \\
+      &= \frac{\xi_p k_B T}{2} \frac{L}{R^2} - F(L - 2 R \sin(\theta / 2)) \\
+      &= \frac{\xi_p}{2} \frac{\theta^2}{L} - \frac{FL}{k_B T} \left( 1 - \frac{2}{\theta} \sin(\theta / 2) \right) \\
+\end{align}
+We can define $ f \equiv \frac{FL}{k_B T} $ like the bending force scaled by the thermal energy. If $ f = 0 $, $ E = \frac{\xi_p K_B T \theta^2}{2 L} $, which has a minimum at $ \theta = 0 $, a straight polymer. Otherwise, for $ F < F_{\text{crit}} $, there will be no minimum other than $ \theta = 0 $, or no buckling. At some critical energy, a buckled state will have the lowest energy, but how do we caalculate this $ F_{\text{crit}}  $? We can Taylor expand the $ \sin(\theta / 2) $ term and examine the coefficient of the $ \theta^2 $ term:
+\begin{equation}
+    \frac{E}{k_B T} = \frac{L}{24 k_B T} (F_{\text{crit}} - F) \theta^2
+\end{equation}
+where
+\begin{equation}
+    F_{\text{crit}} = 12 \frac{k_B T \xi_p}{L^2}
+\end{equation}
+In the homework, we will not ignore the higher-order terms.
+
+
+\end{document}

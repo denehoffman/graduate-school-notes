@@ -1,0 +1,127 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{33}{Monday, April 13, 2020}{Berry's Phase Continued}
+
+From last lecture, we found that if $ H(t) \equiv H(\va{R}(t)) $ where $ \va{R} $ is some parameter-space vector and we let the system evolve adiabatically,
+\begin{equation}
+    \ket{n, t} = e^{\imath \gamma_n(t) + \imath \theta_n(t)}\ket{n,t=0}
+\end{equation}
+where
+\begin{equation}
+    \imath \theta_n(t) = - \frac{\imath}{\hbar} \int^t E_n(t') \dd{t'}
+\end{equation}
+and
+\begin{equation}
+    \gamma_n = \imath \int_{\va{R}(0)}^{\va{R}(t)} \dd{\va{R}} \vdot\bra{n,t} \grad_{R}\ket{n,t}
+\end{equation}
+
+We also discussed moving around closed loops in parameter space. We defined a fictitious vector potential $ \va{A} = \imath\bra{n,t} \grad_R\ket{n,t} $, we can use Stoke's theorem to assert that
+\begin{equation}
+    \gamma_n = \int \va{B} \vdot \vu{n} \dd{A}
+\end{equation}
+where $ \va{B} $ is a fictitious magnetic field associated with the vector potential:
+\begin{equation}
+    \va{B} = \imath\sum_{n \neq m}\frac{\bra{n,t} \grad_R H\ket{m,t} \cross\bra{m,t} \grad_R H\ket{n,t}}{(E_n - E_m)^2}
+\end{equation}
+
+Let's work through an example.
+\begin{ex}
+    Take a spin in a (time-dependent, slow-moving) magnetic field:
+    \begin{equation}
+        H = - \frac{2 \mu}{\hbar} \va{S} \vdot \va{B}(t)
+    \end{equation}
+    with $ \mu_e = \frac{eh}{2m_e c} $. Here, let's let our parameter-space be $ \va{R} \equiv \va{B} $ (not to be confused with the fictitious magnetic field). Suppose the magnetic field starts in the $ \vu{z} $-direction:
+    \begin{equation}
+        \va{R}(t=0) \sim \vu{z}
+    \end{equation}
+    There are two energy states (aligned and anti-aligned):
+    \begin{equation}
+        E_{\pm} = \mp \mu \va{R}
+    \end{equation}
+    and because we are moving adiabatically in $ \va{B} $, the state will stay in one of these eigenstates. We can calculate the fictitious $ \va{B} $-field. The denominator is
+    \begin{equation}
+        (E_{\pm} - E_{\mp})^2 = 4 \mu^2 \va{R}^2
+    \end{equation}
+    We also need the gradient of the Hamiltonian:
+    \begin{equation}
+        \grad_R{H} = - \frac{2 \mu}{\hbar} \va{S}
+    \end{equation}
+    so
+    \begin{equation}
+        B_{n=\pm} = \imath \sum_n \frac{\bra{n,t} - \frac{2 \mu}{\hbar} \va{S}\ket{m,t} \cross\bra{m,t} - \frac{2 \mu}{\hbar}\ket{n,t}}{(E_n - E_m)^2}
+    \end{equation}
+    or
+    \begin{equation}
+        B_{\pm} = \sum_m \imath\bra{\pm,t} \va{S}\ket{m,t} \cross\bra{m,t} \va{S}\ket{\pm,t} \left( \frac{4 \mu^2}{4 \mu^2 \va{R}^2 \hbar^2} \right)
+    \end{equation}
+    Let's write $ \va{S} = \frac{1}{2} (S_+ + S_-) \vu{x} + \frac{1}{2 \imath} (S_+ - \imath S_-) \vu{y} + S_z \vu{z} $. Remember the summation was over $ n \neq m $, so really we have
+    \begin{equation}
+        B_{\pm} = \imath\bra{\pm, t} \va{S}\ket{\mp, t} \cross\bra{\pm, t} \va{S}\ket{\pm, t} \frac{1}{\va{R}^2 \hbar^2}
+    \end{equation}
+    and
+    \begin{equation}
+        \bra{\pm} \va{S}\ket{\mp} = \frac{\hbar}{2} \left[ \vu{x} \mp \imath \vu{y} \right]
+    \end{equation}
+    so
+    \begin{equation}
+        \va{B}_{\pm} = \frac{\imath}{4 \va{R}^2} \left[ \left( \vu{x} \mp \imath \vu{y} \right) \cross \left( \vu{x} \pm \imath \vu{y} \right) \right] = \mp \frac{\vu{z}}{2 \va{R}^2} = \mp \frac{\vu{R}}{2 \va{R}^2}
+    \end{equation}
+    This is the fictitious $ B $-field, not the real one in the problem. We can now calculate the geometric phase by calculating the flux through a surface which we traverse:
+    \begin{equation}
+        \gamma_{\pm} = \mp \int \frac{\vu{R} \vdot \dd{\va{a}}}{2 \va{R}^2} = \mp \frac{1}{2} \Omega
+    \end{equation}
+    where $ \Omega $ is the solid angle of the surface.
+\end{ex}
+
+
+\section{Hannay Angle}
+\label{sec:hannay_angle}
+
+Suppose we have a pendulum in a box and we move the pendulum slowly compared to the period of the oscillations. As long as we do this, the pendulum will always swing parallel to the box. Suppose we are on the globe and have a pendulum at the north pole which is swinging N-S. If we then move down to the equator, along the equator a certain distance, and back up to the north pole, the pendulum will no longer be swinging in the N-S direction, but rather a direction rotated by the solid angle of the path. For instance, if we went around a certain angle from the our equator departure, the area will be $ \frac{1}{2} 4 \pi R^2 \frac{\theta}{2 \pi} = R^2 \theta $ and $ \Omega = \frac{A}{R^2} = \theta $. It doesn't matter what path you take, if the solid angle is the same, you will get the same change in angle of rotation. This is called a non-holonomic process.
+
+
+\section{Bohm-Aharanov using Berry's Phase}
+\label{sec:bohm-aharanov_using_berrys_phase}
+
+The Hamiltonian for a charged particle in a magnetic field is
+\begin{equation}
+    H = \frac{\left( \va{P} - \frac{e}{c} \va{A} \right)^2}{2m} + V(X)
+\end{equation}
+When $ \va{B} = 0 $, $ \curl{\va{A}} = 0 $. In our Schr\"odinger equation, we can define
+\begin{equation}
+    \ket{\psi'} = e^{\imath \frac{e}{\hbar c} \int^{\va{x}} \va{A}(\va{x} ') \vdot \dd{\va{x}}}\ket{\psi} \equiv e^{\imath \gamma}\ket{\psi}
+\end{equation}
+such that
+\begin{equation}
+    \left(H = \frac{\va{p}^2}{2m} + V\right)\ket{\psi'_n} = E\ket{\psi'_n} 
+\end{equation}
+This only works when $ \curl{\va{A}} = 0 $, because if we look at the integral over $ \va{A} $, we see that if $ \va{A} = \grad{\chi} $, the result doesn't depend on the path. If it did depend on the path, this would be a problem, since it wouldn't be a well-defined function of $ x $.
+
+
+Consider a particle in a box:
+\begin{equation}
+    H = \frac{\va{p}^2}{2m} + V(x)
+\end{equation}
+Now $ \va{R}(t) $ will be the physical position of the box, $ \va{R} $. In this case,
+\begin{equation}
+    H = \frac{\va{p}^2}{2m} - V(\va{r} - \va{R}(t))
+\end{equation}
+If we now turn on an $ \va{A} $ field, we get
+\begin{equation}
+    \left( \frac{\va{p}^2}{2m} - V(\va{r} - \va{R}(t)) \right) e^{\imath q}\ket{\psi_n} = E_n e^{\imath q}\ket{\psi_n}
+\end{equation}
+Let's now calculate the fictitious $ \va{A} $-field (which will turn out to be the real one):
+\begin{align}
+    \va{A} &\equiv \int \imath \dd[3]{x} \psi^*_n(r-R(t)) e^{- \imath q} \grad_R \left( e^{\imath q} \psi_n(r-R(t)) \right) \\
+    &= \imath \int \dd[3]{x} \left( \cancelto{0}{\psi_n^* \grad_R \psi_n} + \frac{e}{c} \va{A}(R) \psi^*_n \psi_n \right)
+\end{align}
+since $ \ev{\va{p}} = 0 $, so
+\begin{equation}
+    \va{A}_{\text{fict}} = \frac{e}{\hbar c} \va{A}_{\text{real}}
+\end{equation}
+so 
+\begin{equation}
+    \gamma_n = \frac{e}{\hbar c} \Phi_B
+\end{equation}
+
+\end{document}

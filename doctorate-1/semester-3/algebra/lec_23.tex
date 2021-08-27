@@ -1,0 +1,50 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{23}{Wednesday, October 28, 2020}{Modules over PIDs, cont.}
+
+From last class, we discussed $ R $-modules where $ R $ is PID. We want to show that every finitely generated module decomposes as $ F \oplus \bigoplus_{p \in R} M(p) $ where $ p $ is prime in $ R $ and $ M(p) = \{m \in M \colon \exists t\quad p^t m = 0\} $.
+
+$ M $ is a torsion finitely generated module. We also proved the lemma that for a torsion module $ M $ of exponent $ p^r $, $\text{period}(x) = p^r $ and independent $ \bar{y}_1, \cdots, \bar{y}_n $ in $ \bar{M} = M / (x) $, then there exist representatives of $ y_i \in M $ of $ \bar{y}_i $ such that they have the same period and $ x_i y_1, \cdots, y_n $ are independent.
+
+Recall that $ \text{period}(z) $ means we are looking for all elements $ \{r\colon rz = 0\}  $. The key observation is that $ M_p = \{m\colon pm = 0\} $ (note that $ M(p) $ is a union of this for all powers of $ p $) is a vector space over $ R/(p) $ (a field).
+
+\begin{claim}
+    Each $ M(p) $ decomposes as a direct sum of modules isomorphic to $ R/(p^t) $ for various $ t $'s.
+\end{claim}
+\begin{proof}
+    First note that $ M(p) $ is finitely generated. If you look at $ M = \bigoplus_p M(p) $, then the projection map $ M \to M(p) $ is surjective, so $ M $ is finitely generated will imply that $ M(p) $ is finitely generated.
+
+    So $ \dim_{R/(p)} M_p $ is finite. We will now induct on this. Suppose $ M $ is a module of exponent $ p^r $. By induction, $ \bar{M} = M/(x) $ where $ \text{period}(x) = p^r $, if $ \dim_{R/(p)} \bar{M}_p = n $, there are $ \bar{y}_1, \cdots, \bar{y}_n \in \bar{M}_p $ which are linearly independent.
+
+    This means that $ 0 = a_1 \bar{y}_1 + \cdots + a_n \bar{y}_n $ implies that $ a_i + (p) = 0 $ in $ R/(p) $, so $ \forall i $, $ a_i \bar{y}_i = 0 $. By the lemma, there are independent $ x, y_1, \cdots, y_n $ in $ M $, so $ \dim_{R(p)} M_p > \dim_{R/(p)} \bar{M}_p $. Let's reindex $ y_i $ so that it starts with $ y_2 $.
+
+    Induction tells us that $ \bar{M} = (\bar{y}_2) \oplus \cdots \oplus (\bar{y}_n) $ where $ \text{period}(y_i) = p^{t_i} $. By the lemma, $ \text{period}(x) = p^r = \text{exponent}(M) $ and $ \text{periods}(\bar{y}_i) \leq \text{period}(x) $.
+    \begin{claim}
+        $ M = (x) \oplus (y_2) \oplus \cdots \oplus (y_n) $.
+    \end{claim}
+    Indeed, for $ m \in M $, if we look at $ \bar{m} \in \bar{M} $ where $ \bar{m} = m + (x) $, $ \exists a_i \in R $ with $ \bar{m} = a_2 \bar{y}_2 + \cdots + a_n \bar{y}_n $, so $ m - a_2 y_2 - \cdots - a_n y_n \in (x) $, and $ m = a_1 x + a_2 y_2 + \cdots + a_n y_n $.
+\end{proof}
+
+\begin{theorem}
+    Every finitely generated module over a PID $ R $ is isomorphic to
+    \begin{equation}
+        R^n \oplus \bigoplus_p R/(p^{t_i})
+    \end{equation}
+    where $ p $ is prime in $ R $.
+\end{theorem}
+\begin{itemize}
+    \item[1.] It suffices to prove uniqueness for torsion modules.
+    \item[2.] Similarly, $ M(p) $ was determined by $ M $, and so it suffices to deal with modules of exponent $ p^r $.
+    \item[3.] $ M = M/(p^{r_1}) \oplus M/(p^{r_2}) \oplus \cdots \oplus M/(p^{r_n}) $, then $ M_p $ is of dimension $ n $ over $ R/(p) $. 
+\end{itemize}
+
+Let's define $ \varphi \colon R \to bR \to bR/(p^t) $. Then $ \ker(\varphi) = \{r \in R \colon b r \in (p^t)\} $. By UDF, if $ p $ does not divide $ b $, then $ r \in (p^t) $. If $ b = p $ then $ r \in (p^{t-1}) $.
+
+By the first isomorphism theorem,
+\begin{equation}
+    \frac{R}{(p^{t-1})} \cong p \frac{R}{(p^t)}
+\end{equation}
+
+Then $ p M \cong \frac{R}{p^{r_1 - 1}} \oplus \frac{R}{(p^{r_2 - 1})} \oplus \cdots \oplus \frac{R}{p^{r_n - 1}} $.
+
+\end{document}

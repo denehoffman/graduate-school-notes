@@ -1,0 +1,100 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{24}{Thursday, April 15, 2021}{Grand Unified Theories}
+
+\section{Supersymmetry (SUSY) and Weakly Interacting Massive Particles (WIMPs)}\label{sec:supersymmetry_(susy)_and_weakly_interacting_massive_particles_(wimps)}
+
+In the previous lecture, we discussed the possibility of a theory with supersymmetric particles that could unify coupling constants at some energy around $ 10^{16} \giga\electronvolt $. However, SUSY cannot be exact because there are no partners with the same masses. It is conjectured that SUSY must be broken at a scale just above the EW scale and the partners are split in mass by this symmetry breaking. One consequence of this is that the lightest SUSY particle, the photino or neutralino, is a neutral particle with a mass of nearly $ 100 \giga\electronvolt $, which could be a WIMP candidate for dark matter that is non-relativistic. Let's label this particle $ \chi $. It can annihilate into the typical Standard Model particles, but it cannot decay because it should be Dark Matter today, meaning it is the lightest \textit{stable} SUSY particle. We could have interactions like
+\begin{equation}
+    \Diagram{![llft]{fdA}{\chi} & & ![lrt]{hu}{(e^+,\cdots)}\\ & !{fvV}{\chi} & \\ !{fuV}{\chi} & & !{hd}{(e^-, \cdots)}}
+\end{equation}
+
+If $ \chi $ is in local thermal and chemical equilibrium, $ \chi \bar{\chi} \leftrightarrow e^+ e^- $, and $ \mu_{\chi} + \mu_{\bar{\chi}} = 0  $. However, if it is a neutralino, the SUSY partner of the neutrino, it is charge neutral and a boson, so $ \mu_{\chi} = 0 $ (same if it is a photino, a Majorana SUSY partner). Then
+\begin{equation}
+    n_{\chi} = \left( \frac{m T}{2 \pi} \right)^{3/2} e^{-m/T}
+\end{equation}
+This particle decouples around $ \Gamma / H = 1 $ where $ \Gamma = \ev{\sigma \ev{v}} n $, so in the radiation dominated universe,
+\begin{equation}
+    H = 1.66 g_*^{1/2} \frac{T^2}{M_{pl}} \simeq \sqrt{g_*} \frac{T^2}{10^{19} \giga\electronvolt}
+\end{equation}
+Setting this equal to $ \Gamma $ for some $ T = T_D $, we get
+\begin{equation}
+    m_{\chi} \left( \frac{m_{\chi}}{T_D} \right)^{1/2} e^{- \frac{m_{\chi}}{T_D}} = \frac{\sqrt{g_*}}{\ev{\sigma \abs{v}} \times 10^{19} \giga\electronvolt}
+\end{equation}
+We can rewrite this as
+\begin{equation}
+    \left[ \frac{m_{\chi}}{100 \giga\electronvolt} \right] \left[ \frac{m_{\chi}}{T_D} \right]^{1/2} e^{- \frac{m_{\chi}}{T_D}} = \left[ \frac{\sqrt{g_*}}{10} \right] \frac{10^{-11}}{\left[ \ev{\sigma \abs{v}} \times 10^{9} (\giga\electronvolt)^2 \right]}
+\end{equation}
+We then take the natural logarithm:
+\begin{equation}
+    \frac{m_{\chi}}{T_D} \simeq \underbrace{25.34}_{11 \ln(10)} + \ln(\frac{m_{\chi}}{100 \giga\electronvolt}) + \frac{1}{2} \ln(\frac{m_{\chi}}{T_D}) + \ln(\frac{10}{\sqrt{g_*}}) + \ln(\frac{\ev{\sigma \abs{v}}}{10^{-9} (\giga\electronvolt)^{-2}})
+\end{equation}
+Then, a WIMP with $ m_{\chi} \sim 100 \giga\electronvolt $ decouples at
+\begin{equation}
+    \frac{m_{\chi}}{T_D} \sim 25 + \ln(\frac{\ev{\sigma \abs{v}}}{10^{-9} (\giga\electronvolt)^{-2}})
+\end{equation}
+If the $ \sigma $ is a weak interaction scale, $ \sigma \sim \frac{\alpha_W^2}{m_{\chi}^2} \sim \frac{10^{-8}}{(\giga\electronvolt)^2} $. For a Maxwell-Boltzmann particle (non-relativistic),
+\begin{equation}
+    \frac{1}{2} m_{\chi} v^2 = \frac{3}{2} T \implies v \sim \sqrt{\frac{3 T_D}{m}} \sim \frac{1}{3} \implies \ev{\sigma \abs{v}} \sim \frac{(10^{-8} - 10^{-9})}{(\giga\electronvolt)^2}
+\end{equation}
+which gives $ \frac{m_{\chi}}{T_D} \sim 25 $.
+
+If we call $ n_0 $ the WIMP number density today, then
+\begin{equation}
+    \rho_{\text{WIMP}, 0} = n_0 m_{\chi}
+\end{equation}
+Since
+\begin{equation}
+    n(t) = \frac{n_D a^3(t_D)}{a^3(t)}
+\end{equation}
+where $ n_D $ is the density at decoupling and
+\begin{equation}
+    T(t) = \frac{T_0}{a(t)}
+\end{equation}
+we can see that
+\begin{equation}
+    n_0 = n_D \left( \frac{T_0}{T_D} \right)^3
+\end{equation}
+We can see that
+\begin{equation}
+    n_D \simeq \frac{\sqrt{g_*} T_D^2}{\ev{\sigma \abs{v}} M_{pl}}
+\end{equation}
+so
+\begin{equation}
+    \rho_{\text{WIMP}, 0} = \frac{\sqrt{g_{*,D}} T_D^2}{\ev{\sigma \abs{v}} 10^{19} (\giga\electronvolt)} \left( \frac{T_0}{T_D} \right)^3 \simeq \left( \frac{m_{\chi}}{T_D} \right) \frac{\sqrt{g_{*,D}} T_0^3}{\ev{\sigma \abs{v}} 10^{19} \giga\electronvolt}
+\end{equation}
+If we have $ T_0 \simeq 2.4 \times 10^{-13} \giga\electronvolt $ and $ \rho_{c,0} \simeq 8 h^2 \times 10^{-47} (\giga\electronvolt)^4 $, then
+\begin{equation}
+    \Omega_{\text{WIMP}} \approx \frac{1}{10} \left( \frac{m_{\chi}}{T_D} \frac{\sqrt{g_{*,D}}}{10} \right) \times \left[ \frac{10^{-9}}{\ev{\sigma \abs{v}} (\giga\electronvolt)^2} \right]
+\end{equation}
+Using the values of $ m_{\chi} $, $ \sigma $, and $ T_D \sim \frac{m_{\chi}}{25} $, we can estimate that $ g_* \sim 30\text{--}40 $ and $ v \sim 1/3 $, so $ \ev{\sigma \abs{v}} \sim \frac{10^{-9}}{(\giga\electronvolt)^2} $. Given this, we find
+\begin{equation}
+    \Omega_{\text{WIMP}} \lesssim 1
+\end{equation}
+This is known as the WIMP miracle, sparking many experimental searches for these particles. Unfortunately, no evidence in their favor yet exists. In other dark matter candidates, the mechanism for production and decay is different, so these are not yet ruled out when WIMPs are.
+
+
+\section{Problems in the Standard Big Bang Cosmology and a Solution: Inflation}\label{sec:problems_in_the_standard_big_bang_cosmology_and_a_solution:_inflation}
+
+\subsection{The Horizon Problem}\label{sub:the_horizon_problem}
+
+Particle or causal horizons in a spatially flat FRW cosmology have
+\begin{equation}
+    \dd{s}^2 = c^2 \dd{t}^2 - a^2(t) \dd{\va{x}}^2
+\end{equation}
+Photons have a blackbody distribution after decoupling, with a decoupling time/redshift of $ z \sim 1100 $. There are, however, small temperature anisotropies in the CMB of order $ \Delta T / T_{\text{CMB}} \sim 10^{-5} $, the origin of which is associated with quantum fluctuations in the inflationary era.
+
+\subsection{Matter-Antimatter Asymmetry}\label{sub:matter-antimatter_asymmetry}
+
+There is more matter than antimatter, but what is the origin of this? Zakharov established three criteria for interactions that can cause this asymmetry:
+\begin{itemize}
+    \item Baryon violating interactions
+    \item C-violation ($ \mu $ is C-odd) \textit{and} CP-violation (or time reversal violation, where forward rates don't equal backward rates)
+    \item Must occur out of equilibrium
+\end{itemize}
+
+The standard model has some of these ingredients. Baryon violation can happen through non-perturbative physics and anomalous conservation laws ($ B+L $ for ``sphaleron'' transitions). Weak interactions violate C and P maximally (especially for neutrinos) and CP violation is present in the Cabibbo-Kobayashi-Maskawa (CKM) quark mass matrix (and possibly in themass matrix for neutrinos, which would be physics outside the SM). Non-equilibrium interactions would be present if the electroweak phase transition were first-order via bubble nucleation (like sphalerons). However, it is now clear that this transition is either a second-order or continuous (near equilibrium) crossover with $ M_{H} \sim 125 \giga\electronvolt $ and CP-violation in the CKM matrix is too small.
+
+Perhaps the neutrino matrix violations could help solve this, but that is still outside the Standard Model, so it is likely that the solution to baryogenesis will lead to new physics. Possible extensions on higher symmetry group posit new particles like leptoquarks which could mediate these processes.
+
+\end{document}

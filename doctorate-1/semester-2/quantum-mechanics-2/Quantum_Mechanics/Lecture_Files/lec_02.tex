@@ -1,0 +1,141 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{2}{Wednesday, January 15, 2020}{Symmetries, Continued}
+
+Last time, we showed that symmetries are groups. For example, rotations and translations are groups. Quantum mechanically, the group action is implemented by a unitary operator, $ U $:
+\begin{equation}
+    \ket{\psi} \mapsto U\ket{\psi}\quad U^\dagger U = 1\quad U = e^{\imath \lambda_a X_a}
+\end{equation}
+where $ X_a $ are the generators of the group and $ \lambda_a $ are the parameters which specify the particular element of the group.
+
+The \textit{group manifold} is the space of the group elements. For example, in the group $ (\R, +) $, the group manifold is $ \R $.
+
+Consider 2-D rotations in a plane. You don't need the whole real line to define the rotations, just the interval $ [0, 2 \pi) $. We parameterize this like a 1-D sphere, $ S^1 $. As a point of clarity, we refer to spheres as the boundary of a disk, which is the closure of a ball.
+
+In the last lecture, we also discussed discrete and continuous symmetries. In continuous symmetries, the group manifold contains an infinite number of elements and is smooth. The group manifolds of discrete symmetries have a finite number of elements and/or they are not smooth.
+
+\subsection{Action of a Group on an Operator}
+\label{sub:action_of_a_group_on_an_operator}
+
+\begin{equation}
+    O \to UOU^\dagger \qq{when}\ket{\psi} \to U\ket{\psi}
+\end{equation}
+since
+\begin{equation}
+    \ev{O}{\psi} = \ev{U^\dagger U O U^\dagger U}{\psi} = \ev{O}{\psi}
+\end{equation}
+
+\subsection{Abelian Groups}
+\label{sub:abelian_groups}
+
+In Abelian gropus, every element commutes. A classic example of a non-Abelian group is rotations.
+
+For Abelian groups,
+\begin{equation}
+    U(\va{\lambda}_1) U(\va{\lambda}_2) = e^{\imath \va{\lambda}_1 \vdot \va{ X}} e^{\imath \va{\lambda}_2 \vdot\va{ X}} = e^{\imath (\va{\lambda}_1 + \va{\lambda}_2) \vdot\va{ X}}
+\end{equation}
+or
+\begin{equation}
+    \comm{\va{\lambda}_1 \vdot\va{ X}}{\va{\lambda}_2 \vdot\va{ X}} = 0
+\end{equation}
+
+For non-Abelian groups, $ e^{A} e^{B} \neq e^{A+B} $, so the group generators do not commute. However, we know that the product must be a group element:
+\begin{equation}
+    e^{\imath \va{\lambda}_1 \vdot\va{ Y}} e^{\imath \va{\lambda}_2 \vdot\va{ Y}} = e^{\imath \va{\lambda}_3 \vdot\va{ Y}}
+\end{equation}
+We can determine this element using the commutator:
+\begin{equation}\label{eq:lie_algebra}
+    \comm{Y^a}{Y^b} = \imath f^{abc} Y^c\tag{Lie Algebra}
+\end{equation}
+The value of $\va{\lambda}_3$ only depends on the commutator of the $\va{ Y} $s, since if the commutator was zero, we would know exactly what it was.
+
+$ f^{abc} $ are called \textit{structure constants}. Notice that the left-hand side is antisymmetric, so the right-hand side must be:
+\begin{equation}
+    f^{abc} = - f^{bac}
+\end{equation}
+It can be shown that $ f^{abc} $ can be taken to be totally anti-symmetric.
+
+Given $ f^{abc} $, we can almost uniquely determine the group. Two different groups can have the same Lie Algebra.
+
+\subsection{Representations of the Rotation Group}
+\label{sub:representations_of_the_rotation_group}
+
+There is a one-to-one map between the groups $ (\{a,b\}, +) $ and $ (\{e^{a}, e^{b}\}, \vdot) $. These are called representations\textemdash They form the same group. The rotation group can have an infinite number of representations.
+
+A rotation is any transformation on a vector that preserves the length of the vector:
+\begin{equation}
+    R\va{ x} =\va{ x}' \quad \norm{\va{x}} = \norm{\va{x}'}
+\end{equation}
+By this definition,
+\begin{align}
+    \va{ x}^T \vdot\va{ x} &= \va{ x}'^T \vdot\va{ x}' \\
+    &=\va{ x}^T R^T R\va{ x} = 1
+\end{align}
+so
+\begin{equation}
+    R^T = R^{-1}
+\end{equation}
+This is the definition of orthogonality. We call the group of 3-D rotations $ \text{SO}(3) $, which stands for \textit{special orthogonal transformations in 3-D}. The $ S $ means that the group elements must have unit determinants. This preserves the ``handedness'' of the coordinate system under the transformation. $ 3 $-by-$ 3 $ matrices are the defining representation of this group, although they are not the only representation. Let's call $\va{ L} $ the generators of $ \text{SO}(3) $. There must be three generators since there are three parameters needed to specify a rotation. Recall that each group element is defined by $ e^{\imath \va{\lambda}\va{ L}} $ so $\va{ L} $ and $ \va{\lambda} $ must have the same dimensionality.
+
+The Lie Algebra of $ \text{SO}(3) $ is
+\begin{equation}
+    \comm{L_a}{L_b} = \imath \epsilon_{abc} L_c
+\end{equation}
+Here, the structure constants are the Levi-Civita symbol.
+
+Now, let us introduce another, seemingly unrelated group, $ \text{SU}(2) $, or \textit{special unitary 2x2 matrices}. Unitary implies complex values, otherwise it would be orthogonal. If $ g_1, g_2 \in \text{SU}(2) $, we should find that $ g_1g_2 = g_3 \in \text{SU}(2) $:
+\begin{align}
+    (g_1 g_2)^\dagger &= g_2^\dagger g_1^\dagger \\
+    (g_1 g_2)(g_1 g_2)^\dagger &= g_1 g_2 g_2^\dagger g_1^\dagger \\
+    &= g_1 g_1^\dagger = 1
+\end{align}
+
+If $ g \in \text{SU}(2) $, we can write
+\begin{equation}
+    g = e^{\imath \va{\lambda} \vdot\va{ T}}
+\end{equation}
+
+Recall that all generators are Hermitian: $ T^\dagger = T $. We also know, by definition of the group (special) that
+\begin{equation}
+    \det(e^{\imath \va{\lambda} \vdot\va{ T}}) = 1
+\end{equation}
+
+In general,
+\begin{equation}
+    \det(A) = e^{\Tr \ln{A}}
+\end{equation}
+
+If
+\begin{equation}
+    A = \mqty(\dmat{\alpha_1, \ddots, \alpha_n})
+\end{equation}
+then
+\begin{equation}
+    \ln{A} = \mqty(\dmat{\ln{\alpha_1}, \ddots, \ln{\alpha_n}})
+\end{equation}
+
+If we are in such a basis,
+\begin{equation}
+    e^{\Tr \ln{e^{\imath \va{\lambda} \vdot\va{ T}}}} = e^{\Tr[\imath \va{\lambda} \vdot\va{ T}]} = 1
+\end{equation}
+so
+\begin{equation}
+    \Tr[\va{T}] = 0
+\end{equation}
+
+We now know that $\va{ T} $ are $ 2 $-by-$ 2 $, traceless, Hermitian matrices. A general $ 2 $-by-$ 2 $ complex matrix has eight parameters, but because it's Hermitian, the diagonal elements must be real and the off-diagonals must be complex conjugates, so we have four independent parameters. Next, if we require the trace to be zero, we require the off-diagonals to be additive inverses, so there are only three defining parameters for each group element.
+
+Therefore, $ \text{SU}(2) $ has three parameters (the generators are parameterized by three real numbers) and the generators are Hermitian ($ T = T^\dagger $) and traceless ($ Tr(T) = 0 $). There are many (infinite) choices of generators. Let's choose the Pauli matrices:
+\begin{equation}
+    T_1 = \mqty(0&1\\1&0)
+\end{equation}
+\begin{equation}
+    T_2 = \mqty(0&- \imath \\ \imath &0)
+\end{equation}
+\begin{equation}
+    T_3 = \mqty(1&0\\0&-1)
+\end{equation}
+
+From this choice, we can see that $ \comm{T_a}{T_b} = \imath \epsilon_{abc} T_c $, which is the same Lie Algebra as $ \text{SO}(3) $.
+
+\end{document}

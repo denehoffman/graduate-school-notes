@@ -1,0 +1,82 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{17}{Friday, October 09, 2020}{Interaction Cross Sections}
+
+\begin{equation}
+    f(p_1) = m_a - \sqrt{m_1^2 + p_1^2} - \sqrt{m_2^2 + p_1^2}
+\end{equation}
+\begin{equation}
+    \eval{\dv{f}{p_1}}_{p_1^*} = p_1^* \frac{E_2 + E_1}{E_1 E_2}
+\end{equation}
+so
+\begin{equation}
+    \Gamma_{f i} = \frac{1}{8 \pi^2 m_a} \int \abs{M_{f i}}^2 \frac{\delta(p_1 - p_1^*)}{p_1^*(E_1 + E_2)} E_1 E_2 \frac{{p_1^*}^2}{4 E_1 E_2} \dd{p_1} \dd{\Omega^*}
+\end{equation}
+So for any 2-body decay,
+\begin{equation}
+    \Gamma_{f i} = \frac{p_1^*}{32 \pi^2 m_a^2} \int \abs{M_{f i}}^2 \dd{\Omega^*}
+\end{equation}
+
+\section{Interaction Cross Sections}\label{sec:interaction_cross_sections}
+
+\subsection{Beam Hitting a Target}\label{sub:beam_hitting_a_target}
+
+If we look at a beam hitting a stationary target, we say that the interaction probability is
+\begin{equation}
+    f = \frac{N_{\text{atom}}}{A} \sigma_{\text{int}} = \frac{N_{\text{atom}} T}{V} \sigma_{\text{int}} = \rho_{\text{atom}} T \sigma_{\text{int}} 
+\end{equation}
+where $ T $ is the target thickness. The interaction rate is therefore
+\begin{equation}
+    R = \dv{N_{\text{beam}}}{t} \rho_{\text{atom}} T \sigma_{\text{int}}
+\end{equation}
+
+\subsection{Colliding Beams}\label{sub:colliding_beams}
+
+For one beam particle with speed $ v_A $ colliding with $ \rho_{b, \text{atom}} $ particles per unit volume moving at speed $ v_b $ in the opposite direction, the effective target thickness ``seen'' by beam $ a $ in time $ \dd{t} $ is $ \dd{T} = (v_a + v_b)T $. Therefore the interaction probability is
+\begin{equation}
+    f = \rho_{b, \text{atom}} (v_a + v_b) \dd{t} \sigma_{\text{int}}
+\end{equation}
+The interaction rate per beam particle is
+\begin{equation}
+    \dv{f}{t} = \rho_{b, \text{atom}} (v_a + v_b) \sigma
+\end{equation}
+For aligned beams of uniform density, if particles of both beams are confined within a length $ L $ and area $ A $, then the interaction rate is
+\begin{equation}
+    \Gamma_{f i} = (LA \rho_{a, \text{atom}}) \rho_{b, \text{atom}}(v_a + v_b) \sigma = \mathcal{L} \times \sigma
+\end{equation}
+where $ \mathcal{L} $ is the instantaneous luminosity (events/femtobarns/second).
+
+\subsection{Lorentz Invariant Flux}\label{sub:lorentz_invariant_flux}
+
+The rate in volume $ V $ is $ \Gamma_{f i} = (v_a + v_b) \rho_a \rho_b \sigma V $. If $ \rho_a = \frac{1}{V} = \rho_b $ (normalized to one particle per unit volume), then
+\begin{equation}
+    \Gamma_{f i} =(v_a + v_b) \sigma
+\end{equation}
+so
+\begin{equation}
+    \sigma = \frac{\Gamma_{f i}}{v_a + v_b} = (2 \pi)^4 \frac{1}{2 E_a} \frac{1}{2 E_b} \int \abs{M_{f i}}^2 \delta(E_a + E_b - E_1 - E_2) \delta^3(\va{p}_a + \va{p}_b - \va{p}_1 - \va{p}_2) \frac{\dd[3]{p_1}}{(2 \pi)^3 2E_1} \frac{\dd[3]{p_2}}{(2 \pi)^3 2E_2} 
+\end{equation}
+We claim that the factor $ \frac{1}{(v_a + v_b) \times 2 E_a \times 2 E_b} \equiv \frac{1}{F} $ is Lorentz invariant:
+\begin{equation}
+    F = 4 E_a E_b(v_a + v_b) = 4 E_a E_b \left( \frac{p_a}{E_a} + \frac{p_b}{E_b} \right) = 4(E_b P_a + E_a P_b)
+\end{equation}
+
+Therefore,
+\begin{equation}
+    F^2 = 16(E_b^2 p_a^2 + E_b^2 p_b^2 + 2 E_a E_b p_a p_b)
+\end{equation}
+Meanwhile,
+\begin{equation}
+    (p_a^{\mu} p_b^{\mu})^2 = (E_a E_b + \underbrace{p_a p_b}_{- \va{p}_a \cdot \va{p}_b})^2 = E_a^2 E_b^2 + p_a^2 p_b^2 + 2 E_a E_b p_a p_b
+\end{equation}
+So we can rewrite the final term:
+\begin{align}
+    F^2 &= 16(E_b^2 p_a^2 + E_a^2 p_b^2 + (p_a^{\mu} \cdot p_b^{\mu})^2 - E_a^2 E_b^2 - p_a^2 p_b^2) \\
+    &= 16 ( (p_a^{\mu} \cdot p_b^{\mu})^2 - (E_a^2 - p_a)^2 (E_b^2 - p_b^2) ) \\
+    &= 4( (p_a^{\mu} \cdot p_b^{\mu}) - m_a^2 m_b^2)
+\end{align}
+which is Lorentz invariant.
+
+If $ F $ and $ \Gamma_{f i} $ are Lorentz invariant, so is $ \sigma $:
+
+\end{document}

@@ -1,0 +1,69 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{15}{Monday, October 05, 2020}{}
+
+\begin{equation}
+    \dv{c_f}{t} = - \frac{\imath}{\hbar} \left( \mel{f}{\hat{H}'}{i} + \sum_{k \neq i} \frac{\mel{f}{\hat{H}'}{k} \mel{k}{\hat{H}'}{i}}{E_i - E_k} \right) e^{\imath (E_f - E_i) t}
+\end{equation}
+
+From here,
+\begin{equation}
+    T_{f i} = \mel{f}{\hat{H}'}{i} + \sum_{k \neq i} \frac{\mel{f}{\hat{H}'}{k} \mel{k}{\hat{H}'}{i}}{E_i - E_k} 
+\end{equation}
+where
+\begin{equation}
+    \Gamma_{f i} = 2 \pi \abs{T_{f i}}^2 \rho(E_i) \tag{Fermi's Golden Rule}
+\end{equation}
+
+\section{Decay Rates and Cross Sections}\label{sec:decay_rates_and_cross_sections}
+\begin{equation}
+    \rho(E_i) = \eval{\dv{n}{E}}_{E_i} = \int \dv{n}{E} \delta(E_i - E) \dd{E}
+\end{equation}
+so
+\begin{equation}
+    \Gamma_{f i} = 2 \pi \int \abs{T_{f i}}^2 \delta(E_i - E) \dd{n}
+\end{equation}
+
+\subsection{Phase Space and Normalization}\label{sub:phase_space_and_normalization_}
+
+In the Born approximation, we treat initial and final states as momentum eigenstates
+\begin{equation}
+    \psi(x,t) = A e^{\imath(\va{p} \vdot \va{r} - Et)}
+\end{equation}
+
+To normalize within a cube of side $ a $, $ A = \frac{1}{a^{3/2}} $ with periodic boundary conditions: $ \psi(x+a, y, z) = \psi(x,y,z) $ or rigid/open boundaries $ \psi(a,y,z) = 0 $. The allowed states that match the boundary conditions will be an array of $ m_i \in \Z $: $ \va{p} = (m_x, m_y, m_z) \frac{2 \pi}{a} $.
+
+The volume of phase space for $ (2 N_{\text{max}})^3 $ states is $ (2 N_{\text{max}})^3 \left( \frac{2 \pi}{a} \right)^3 $, so the volume of $ \va{p} $-space per state is $ \frac{(2 \pi)^3}{V} $. Since the components can be positive or negative, to find all states with momentum between $ p $ and $ p + \dd{p} $, we can count states within a spherical shell of radius $ p $ and thickness $ \dd{p} $:
+\begin{equation}
+    \dd{n} = 4 \pi p^2 \frac{\dd{p}}{\frac{(2 \pi)^3}{V}}
+\end{equation}
+so
+\begin{equation}
+    \dv{n}{p} = \frac{4 \pi p^2}{(2 \pi)^3} V
+\end{equation}
+
+Let's make the normalization volume $ V = 1 $ so $ a = 1 $. For each independent momentum,
+\begin{equation}
+    \rho(E) = \dd{n}{E} = \frac{4 \pi p^2}{(2 \pi)^3} \abs{\dv{p}{E}}
+\end{equation}
+
+For a decay to $ N $ particles, $ \va{p} = \sum_{i=1}^{N} \va{p}_i $, so one $ \va{p}_i $ is not independent:
+\begin{equation}
+    \va{p}_N = \va{p}_a - \sum_{i=1}^{N-1} \va{p}_i
+\end{equation}
+The total number of states for the $ N $ particles is
+\begin{equation}
+    \dd{n} = \prod_{i=1}^{N-1} \dd{n_i} = \prod_{i=1}^{N-1} \frac{\dd[3]{p_i}}{(2 \pi)^3} 
+\end{equation}
+or
+\begin{align}
+    \dd{n} &= \prod_{i=1}^{N-1} \frac{\dd[3]{p_i}}{(2 \pi)^3} \delta^3(\va{p}_a - \sum_{i=1}^{N} \va{p}_i) \dd[3]{\va{p}_N} \\
+    &= (2 \pi)^3 \prod_{i=1}^{N} \frac{\dd[3]{p_i}}{(2 \pi)^3} \delta^3(\va{p} - \sum_{i=1}^{N} \va{p}_i)
+\end{align}
+
+\subsection{Lorentz-Invariant Phase Space}\label{sub:lorentz-invariant_phase_space}
+
+Volume is not Lorentz invariant. The direction of motion is length contracted. To correct for this, we introduce $ \psi' $ with a different normalization. While $\bra{\psi}\ket{\psi} = 1 $, we will have $\bra{\psi'}\ket{\psi'} = 2E $.
+
+
+\end{document}

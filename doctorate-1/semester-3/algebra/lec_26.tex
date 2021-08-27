@@ -1,0 +1,96 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{26}{Wednesday, November 04, 2020}{Category Theory}
+
+\begin{definition}
+    An \textit{initial object} in a category $ \overline{C} $ is $ I \in \text{Ob}(\overline{C}) $ such that $ \forall A \in \text{Ob}(\overline{C}) $ there exists a unique $ \varphi\colon I \to A $ ($ \varphi \in \text{Hom}(I,A) $).
+\end{definition}
+\begin{definition}
+    A \textit{final object} in a category $ \overline{C} $ is $ F \in \text{Ob}(\overline{C}) $ such that $ \forall A \in \text{Ob}(\overline{C}) $ there exists a unique $ \varphi\colon A \to F $ ($ \varphi \in \text{Hom}(F,A) $).
+\end{definition}
+We can then define categories in terms of the initial objects and their morphisms. If we imagine a category with objects $ P, A, B, P' $ and maps $ \alpha, \beta \colon P \to A,B $ and $ \alpha', \beta'\colon P' \to A,B $, the induced product gives us a map from $ P \to P' $, so the product is a terminal object in this category.
+
+\begin{definition}
+    If $ \overline{C} $ is a category, and we ``reverse the arrows'', we get the \textit{opposite category} $ \overline{C}^{\text{op}} $.
+\end{definition}
+
+As we said last lecture, every field contains one of the prime fields $ \Z/p\Z $ with $ p $ prime and $ \Q $.
+
+\begin{note}{Notation}
+    We denote field extensions by $ F/K $ signifying an ``F extension of K''.
+\end{note}
+
+\begin{definition}
+    $ [F : K] = \text{dim}_{K} F $ is the \textit{degree} of an extensions.
+\end{definition}
+
+\begin{claim}
+    If $ F/K $ and $ G/F $ are extensions, then $ [G : K]=[G:F][F:K] $. 
+\end{claim}
+\begin{proof}
+    Let $ (\alpha_i)_{i \in I} $ is a basis for $ G/F $ and $ (\beta_j)_{j \in J} $ is a basis for $ F/K $, we claim that $ (\alpha_i \beta_j)_{i \in I, j \in J} $ is a basis for $ G/K $.
+
+    We can prove this claim by saying that for $ x \in G $, we can write $ x = \sum_i y_i \alpha_i $ for $ y_i \in F $, since this is how we define the field extension. Each of these $ y_i = \sum_j z_{ij} \beta_j $ due to the second field extension, so we can write $ x = \sum_{ij} z_{ij} \alpha_i \beta_j $.
+
+    Next, we want to show linear independence.
+    \begin{equation}
+        0 = \sum_{ij} z_{ij} \alpha_i \beta_j = \sum_i (\sum_j z_{ij} \beta_j) \alpha_i
+    \end{equation}
+    This is an $ F $-linear combination of $ (\alpha_i)_{i \in I} $, so linear independence in $ \alpha $ implies $ \sum_j z_{ij} \beta_j = 0 $ for all $ i $. Then linear independence in $ \beta $ implies $ z_{ij} = 0 $ $ \forall i, j $, so $ \alpha_i \beta_j $ is a basis.
+\end{proof}
+
+\begin{definition}
+    Given two extensions $ F/K $ and $ G/K $ such that $ F,G\subseteq H $, the \textit{composition/composite} of $ F $ and $ G $ denoted $ FG $ is the smallest field containing $ F $ and $ G $.
+\end{definition}
+
+\begin{claim}
+    Let $ F $ be a field and let $ p \in F[x] $ be an irreducible polynomial. Then there exists an extension of $ F $ in which $ p $ has a root.
+\end{claim}
+
+\begin{proof}
+    $ k = \frac{F[x]}{(p)} $ is a field since $ F[x] $ is a PID and so $ (p) $ is maximal. If we take the usual map from $ F \to K $, calling it $ \pi $, the $ \ker \pi \neq 0 $ since $ \pi(1) = 1 $, so $ p $ has a root in $ K $, namely $ x $.
+\end{proof}
+Note that $ [K:F]= \text{deg} p $. 
+
+\begin{definition}
+    An element $ Q \in F $ is called \textit{algebraic} over $ K $ (if $ F/K $) if $ Q $ is a root of a polynomial in $ K[x] $.
+\end{definition}
+\begin{definition}
+    An extension $ F/k $ is \textit{algebraic} if every element is algebraic.
+\end{definition}
+\begin{ex}
+    $ \C/\R $ is algebraic, but $ \C/\Q $ is not.
+\end{ex}
+
+\begin{claim}
+    If $ F/K $ and $ Q \in F $ is a root of an irreducible polynomial $ p \in K[x] $, then $ K(Q) \cong \frac{K[x]}{(p)} $.
+\end{claim}
+\begin{proof}
+    Define $ \varphi \colon K[x] \to F $ by $ f \mapsto f(Q) $. The $ \ker \varphi \supseteq (p) $. Since $ (p) $ is maximal, $ \ker \varphi \neq (p) $, so $ \varphi(1) = 0 $. This implies that
+    \begin{equation}
+        \frac{K[x]}{(p)} \cong K[Q] = K(Q)
+    \end{equation}
+\end{proof}
+
+\begin{ex}
+    Take $ x^3 - 2 $, an irreducible over $ \Q $. The roots are $ \sqrt[3]{2} $, $ w \sqrt[3]{2} $, and $ w^2 \sqrt[3]{2} $ where $ w^3 = 1 $, so $ \Q[\sqrt[3]{2}] \cong \Q[w\sqrt[3]{2}] $.
+\end{ex}
+
+\begin{ex}
+    \begin{equation}
+        \C = \R[\imath] \cong \frac{R[x]}{(x^2 + 1)}
+    \end{equation}
+\end{ex}
+
+\begin{claim}
+    If $ FG $ is the composition of $ F $ and $ G $ and $ K $ is an extension of $ F $ and $ G $, then $ [FG:K] \leq [F:K][G:K] $.
+\end{claim}
+\begin{proof}
+    Take a basis $ \alpha_i $ of $ F/K $ and $ \beta_j $ of $ G/K $. We claim that $ (\alpha_i \beta_j) $ is a spanning set $ /K $ for $ FG $. Every polynomial in $ FG $ can be written $ \sum_{ij} c_{ij} \alpha_i \beta_j $ with $ c_{ij} \in K $. Indeed, elements of $ F $ are of this form by taking $ \beta_j = 1 $, and likewise for $ \alpha_i $ and $ G $. $ \alpha_i \alpha_k \in F $ and is therefore a $ K $-linear combination of $\alpha$'s.
+
+    We will finish this proof on the Friday lecture.
+\end{proof}
+
+
+
+\end{document}

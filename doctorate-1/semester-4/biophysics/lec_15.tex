@@ -1,0 +1,104 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\chapter{Chemical Reactions in Cells}
+\lecture{15}{Friday, April 02, 2021}{Chemical Reactions in Cells I}
+
+Let's look at the example of a cell which crawls using actin fibers to extend its cell wall. Suppose the speed of migration is $ v_{\text{cell}} = 200 \nano\meter/\second $ and the size of each monomer is $ L_m = 3\nano\meter $. Then
+\begin{equation}
+    \dv{N_{\text{actin}}}{t} = \frac{v_{\text{cell}}}{L_m} \sim 70 \text{monomers}/\second
+\end{equation} (I might have gotten this wrong)
+
+There is typically some nucleation (lag phase), an elongation phase, and a steady state equilibrium. While it's growing, the rate of adding monomers is greater than the rate of loss, and at equilibrium, the rates are equal (but never zero!). Actin is also directional, so there can be different rates for nucleation on the $ + $ end or $ - $ end. We can differentiate these rates by $ k^+_{\text{on}} $, $ k^+_{\text{off}} $, $ k^-_{\text{on}} $, and $ k^-_{\text{off}} $.
+
+For a simple model, consider an actin filament without directionality, so the only rates we care about are $ k_{\text{off}} $ and $ k_{\text{on}} $. Suppose $ P_n $ is a polymer with $ m $ monomers. The reaction we have is $ P_n + P_1 \leftrightarrow P_{n+1} $, with the forward reaction happening at rate $ k_{\text{on}} $. Let $ [P_n] $ be the concentration of polymers with $ n $ subunits. In ``equilibrium'', we have
+\begin{equation}
+    \dv{t}[P_{n+1}] = k_{\text{on}} [P_n][P_1] - k_{\text{off}} [P_{n+1}] = 0
+\end{equation}
+or
+\begin{equation}
+    \frac{[P_n][P_1]}{[P_{n+1}]} = \frac{k_{\text{off}}}{k_{\text{on}}} \equiv k_d
+\end{equation}
+where $ k_d $ is called the dissociation constant. With $ n = 1 $, $ k_d = \frac{[P_1]^2}{[P_2]} $, or the probability of having a dimer is the square of the probability of having a monomer. For $ n = 2 $, we get
+\begin{equation}
+    k_d = \frac{[P_2][P_1]}{[P_3]} = \frac{[P_1]^3}{[P_3] k_d}
+\end{equation}
+or $ [P_3] = \frac{[P_1]^3}{k_d^2} $. We now start seeing the emerging pattern. We will eventually find that
+\begin{equation}
+    [P_n] = \frac{[P_1]^n}{k_d^{n-1}} = k_d \left( \frac{[P_1]}{k_d} \right)^n
+\end{equation}
+or
+\begin{equation}
+    [P_n] = k_d e^{- \alpha n}
+\end{equation}
+where
+\begin{equation}
+    \alpha = - \ln(\frac{[P_1]}{k_d})
+\end{equation}
+If we plot $ [P_n] $ as a function of $ n $, we would get an exponential function. Is this true in a cell? Nobody knows. It works okay in-vitro.
+
+If we derive the average polymer length vs monomer concentration, we find
+\begin{equation}
+    \ev{n} = \frac{1}{\alpha}
+\end{equation}
+but this blows up at high monomer concentration, so it might not be a great model.
+
+In vitro, we find $ k_{\text{on}} \sim 10 \micro\mole^{-1} \second^{-1} $ and $ k_{\text{off}} \sim 1 \second^{-1} $, then $ k_d \sim 0.1\micro\mole $. Above the critical concentration $ c^* = k_d $, filaments will grow, but below this, they will shrink.
+
+From a statistical view, we have some distribution of filaments with various lengths, and $ N_n $ is the number of filaments with $ n $ monomers. The probability a given filament has $ n $ monomers is
+\begin{equation}
+    P_n(t) = \frac{N_n}{\sum_n N_n}
+\end{equation}
+
+If we consider that $ P_{n-1} + P_1 \leftrightarrow P_n $ and $ P_n + P_1 \leftrightarrow P_{n+1} $ as two ways a polymer $ P_n $ can be created or destroyed, then
+\begin{equation}
+    \dv{P_n}{t} = k_{\text{on}} P_{n-1} P_1 - k_{\text{off}} P_n + k_{\text{off}} P_{n+1} - k_{\text{on}} P_1 P_n
+\end{equation}
+Then
+\begin{equation}
+    \ev{L} = \sum_n a n P_n
+\end{equation}
+so
+\begin{equation}
+    \dv{\ev{L}}{t}= \sum_n a n \dv{P_n}{t} = \sum_n a n \left[ k_{\text{on} P_1 (P_{n-1} - P_n)} + k_{\text{off}} (P_{n+1} - P_n) \right]
+\end{equation}
+
+Let's examine the first term using the idea that
+\begin{equation}
+    \sum_n n P_{n-1} = \sum (n+1) P_n
+\end{equation}
+so
+\begin{align}
+    a k_{\text{on}} P_1 \sum_n n (P_{n-1} - P_n) &= a k_{\text{on}} P_1 \sum_n P_n (n + 1 - n) \\
+                                                 &= a k_{\text{on}} P_1 \underbrace{\sum_n P_n}_{1} \\
+                                                 &= a k_{\text{on}} P_1
+\end{align}
+The second term is just $ a k_{\text{off}} $, so we get
+\begin{equation}
+    \dv{\ev{L}}{t} = a (k_{\text{on}} P_1 - k_{\text{off}})
+\end{equation}
+where $ a $ is the length of the monomer. Again we can define a critical point $ c^* = k_{\text{off}} / k_{\text{on}} $ where $ P_1 > c^* $ means the polymer will grow. $ c^* $ itself is an unstable equilibrium, and in biological systems these aren't robust. Again, this means this model isn't going to work well. One way to fix this is that we have a finite source of monomers. While a polymer grows, it depletes the concentration of monomers.
+
+We can model this by adding in some negative feedback which takes away from the growth with the length of the polymer:
+\begin{equation}
+    \dv{n}{t} = k_{\text{on}} \left( c_0 - \frac{M n(t)}{V} \right) - k_{\text{off}}
+\end{equation}
+where $ M $ is the number of nuclei seeding growth and $ V $ is the volume of the solution. Solving this, we have
+\begin{equation}
+    n(t) = \frac{V}{M k_{\text{on}}} (k_{\text{on}} c_0 - k_{\text{off}})\left( 1 - e^{- k_{\text{on}} M t / V} \right)
+\end{equation}
+
+\subsection{Polymerization of Directional Actin}\label{sub:polymerization_of_directional_actin}
+
+Now we look at monomers and polymers with a $ + $ and $ - $ end. In experiment, the on-rate on the $ - $ end is lower than it is on the $ + $ end. Additionally, the polymer isn't necessarily uniform. On the $ - $ end, you add ATP-actin, but on the $ + $ end, you add ADP-actin. Let's consider a simple model:
+\begin{equation}
+    \dv{n_\pm}{t} = k_{\text{on}}^\pm c_0 - k_{\text{off}}^\pm
+\end{equation}
+we can write a critical concentration
+\begin{equation}
+    c^*_{\pm} = \frac{k_{\text{off}}^{\pm}}{k_{\text{on}}^{\pm}}
+\end{equation}
+However, if we deviate from equilibrium, there can be many different interesting possibilities. If $ \dv{n_+}{t} = - \dv{n_-}{t} $, we get a ``treadmill'' effect. The length of the polymer will be constant, but it will appear to be moving. No forces are actually acting on the filament, but the motion is caused by the filament being grown in one direction at the same rate it shrinks in the other direction.
+
+There are two critical concentrations $ c_+^* $ and $ c_-^* $, where $ c_+^* < c_-^* $ experimentally. Above $ c_-^* $, both ends will grow. Below $ c_+^* $, both ends will shrink. In between them, there is some concentration $ c^* $ which will result in treadmilling.
+
+\end{document}

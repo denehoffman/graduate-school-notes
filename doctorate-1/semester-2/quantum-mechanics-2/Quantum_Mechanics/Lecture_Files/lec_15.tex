@@ -1,0 +1,98 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{15}{Wednesday, February 19, 2020}{}
+
+Recall that in the spin-orbit coupling correction, we wanted to calculate $ \va{L} \vdot \va{S} = \frac{1}{2} \left[ \va{J}^2 - \va{L}^2 - \va{S}^2 \right] $. We need to write our states in a basis in which the Hamiltonian is diagonalized, and to do this, we had a method of writing out states using Clebsch-Gordan coefficients.
+
+Recall that
+\begin{equation}
+    J_{\text{max}} = j_1 + j_2 \qquad J_{\text{min}} = \abs{j_1 - j_2}
+\end{equation}
+
+Let's now show why $ 1 \otimes \frac{1}{2} = \frac{3}{2} \oplus \frac{1}{2} $. Recall the number of states is $ 2j+1 $, so there are the same number of states on either side of this equation. To move from the basis $\ket{j_1, j_2; m_1, m_2} $ to $\ket{J,M, j_1, j_2} $, we need to use the Clebsch-Gordan coefficients:
+\begin{equation}
+    \ket{J,M; j_1, j_2} = \sum_{m_1, m_2} C_{m_1, m_2}\ket{j_1, j_2, m_1, m_2}
+\end{equation}
+
+To calculate these coefficients, we start with the highest state. In this case, in our ``added'' space is $\ket{\frac{3}{2}, \frac{3}{2}} $ (we suppress $ j_1 $ and $ j_2 $ since it is the same on both sides of that equation). We set this equal to the highest state in the ``multiplied'' space:
+\begin{equation}
+    \ket{\frac{3}{2}, \frac{3}{2}} =\ket{m_1=1, m_2=\frac{1}{2}}
+\end{equation}
+
+We then use the lowering operator on both sides till we cannot go farther. We could additionally start with the lowest state $\ket{\frac{3}{2}, - \frac{3}{2}} =\ket{-1, - \frac{1}{2}} $ and use the raising operator.
+
+Finally, we find states with lower $ J $ using orthogonality.
+
+\section{Hydrogen Atom Corrections}
+\label{sec:hydrogen_atom_corrections}
+
+Darwin term: $ \frac{\pi^2 e^2 \hbar^2}{2 m^2 c^2} \delta^{(3)}(\va{r}) $
+
+Kinetic energy correction: $ - \frac{\va{p}^4}{8 m^3 c^2} $
+
+Spin orbit coupling: $ \frac{e^2}{2 m^2 c^2 \va{r}^3} (\va{S} \vdot \va{L}) = \frac{\hbar^2 e^2}{4 m^2 c^2 \va{r}^3} \left[ j(j+1) - l(l+1) - s(s+1) \right] $
+
+To calculate the expected energy shifts due to each of these terms, we know that to first order, we need to find the expectation values of these terms with the unperturbed wave functions. For
+
+
+These can all be derived with the Hellmann-Feynman theorem:
+\begin{theorem}[Hellmann-Feynman Theorem]
+    \begin{equation}\label{eq:hellmann_feynman_theorem}
+        \dv{E_{\lambda}}{\lambda} = \ev{\dv{H_{\lambda}}{\lambda}}\tag{Hellmann-Feynman Theorem}
+    \end{equation}
+\end{theorem}
+
+For $ \ev{\frac{1}{r}} $, we can use $ l = e $ and take derivatives of the unperturbed Hamiltonian with respect to $ e $. For $ \ev{\frac{1}{r^2}} $, we allow $ \lambda = l $ and let $ l $ be continuous rather than discrete so that we can take the derivatives. Additionally, we have to use the fact that $ n = j_{\text{max}} + l + 1 $. For $ \ev{\frac{1}{r^3}} $ and for any further expectation values, we can use the Kramers-Pasternack recurrence relation:
+\begin{equation}\label{eq:kramers_pasternack_relation}
+    4(q+1) \ev{r^q} - 4n^2 (2q+1) \ev{r^{q-1}} + n^2 q\left[ (2l+1)^2 - q^2 \right] \ev{r^{q-2}} = 0\tag{Kramers-Pasternack Relation}
+\end{equation}
+
+For the three expectation values which we care about, we find:
+
+\begin{equation}
+    \ev{\frac{1}{r}} = \frac{1}{a_0 n^2} 
+\end{equation}
+\begin{equation}
+    \ev{\frac{1}{r^2}} = \frac{1}{a_0^2 n^3\left( l + \frac{1}{2} \right)}
+\end{equation}
+\begin{equation}
+    \ev{\frac{1}{r^3}} = \frac{2}{a_0^3 n^3 l(l+1)(2l+1)}
+\end{equation}
+
+We can use these formulae to calculate some of the low-energy expectation values:
+
+\begin{equation}
+    \ev{\frac{1}{r}}_{1s} = \frac{1}{a_0} \qquad \ev{\frac{1}{r}}_{2s} = \frac{1}{4 a_0} \qquad \ev{\frac{1}{r}}_{2p} = \frac{1}{4 a_0}
+\end{equation}
+\begin{equation}
+    \ev{\frac{1}{r^2}}_{1s} = \frac{2}{a_0^2} \qquad \ev{\frac{1}{r^2}}_{2s} = \frac{1}{4 a_0^2} \qquad \ev{\frac{1}{r^2}}_{2p} = \frac{1}{12 a_0^2}
+\end{equation}
+and
+\begin{equation}
+    \ev{\frac{1}{r^3}}_{2p} \frac{1}{24 a_0^3}
+\end{equation}
+
+Let's calculate the shift for the $ 1s $ state:
+
+Taking the expectation of the Darwin term will give us the energy shift:
+\begin{equation}
+    \Delta E_{D} = \frac{\pi^2 e^2 \hbar^2}{2m^2 c^2} \left[ \ev{\delta^{(3)}(\va{r})} \right] = \frac{\pi^2 e^2 \hbar^2}{2m^2 c^2} \abs{\psi_{1s}(0)}^2 = \frac{m c^2 \alpha^4}{2} 
+\end{equation}
+
+For the kinetic energy correction, we can write
+\begin{equation}
+    - \frac{\va{p}^4}{8m^3 c^2} = - \left( \frac{\va{p}^2}{2m} \right)^2 \frac{1}{2mc^2} = - \frac{1}{2mc^2} \left( H_0 + \frac{e^2}{r} \right)^2
+\end{equation}
+so
+\begin{equation}
+    \Delta E_{KE} = - \frac{1}{2m c^2} \left[ E_n^2 + \frac{2 e^2 E_n}{\ev{r}} + \frac{e^4}{\ev{r^2}} \right] = - \frac{1}{2} m c^2 \alpha^4 \left[ \frac{5}{4} \right]
+\end{equation}
+
+Finally, for spin-orbit coupling, we don't actually need to use any of the work we previously did learning to add angular momenta. This is because, for the $ 1s $ state, $ l = 0 $, so $ J = L + S $ must give us $ j = \frac{1}{2} $ (since $ s = \frac{1}{2} $). Therefore, the spin-orbit term cancels for the $ 1s $ state and there is no correction to the energy. 
+
+Together, the Darwin term and kinetic energy correction together give us,
+\begin{equation}
+    \Delta E_{1s} = - \frac{1}{8} mc^2 \alpha^4
+\end{equation}
+
+\end{document}

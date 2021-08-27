@@ -1,0 +1,89 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{19}{Tuesday, March 30, 2021}{Effective Potentials}
+
+We briefly studied phase transitions from symmetry breaking. Now we will cover them more generally and in detail. Begin with a discrete symmetry and a scalar theory with a real scalar field $ \phi $:
+\begin{equation}
+    \mathcal{L} = \frac{1}{2} (\partial_{\mu} \phi)(\partial^{\mu} \phi) - V(\phi)
+\end{equation}
+where
+\begin{equation}
+    V(\phi) = - \frac{\mu^2}{2} \phi^2 + \frac{\lambda}{4} \phi^4
+\end{equation}
+which has minima at $ \pm \phi_0 = \pm \frac{\abs{\mu}}{\sqrt{\lambda}} $. This Lagrangian is invariant under the discrete symmetry $ \phi \to - \phi $, and there are two degenerate minima for $ \mu^2 > 0 $. Picking one minimum to expand around breaks the symmetry spontaneously, as we've seen before: $ \phi = + \phi_0 + \varphi(x) $ where $ \varphi(x) $ are small harmonic oscillations. This is a classical description modified by quantum/thermal fluctuations. We can write the Hamiltonian using $ \phi(x) = \dot{\phi}(x) $:
+\begin{equation}
+    H = \int \dd[3]{x} \left[ \frac{1}{2} \pi^2(x) + \frac{1}{2} (\grad{\phi})^2 + V(\phi) \right]
+\end{equation}
+If $ \phi $ is spacetime independent, $ H \equiv \mathcal{V} V(\phi) $ where $ \mathcal{V} $ is the total volume and $ V(\phi) $ describes the energy density for the spacetime constant $ \phi $.
+
+We can include fluctuations around $ \phi $ (not just a minimum) by writing $ \phi(x) = \phi + \varphi(x) $, since $ \dot{\phi} = \grad{\phi} = 0 $ for a spacetime constant field. We can impose that $ \ev{\varphi(x)} = 0 $ as a constraint such that $ \ev{\phi(x)} = \phi $ (this typically involves a Lagrange multiplier, but we don't need that level of detail). Expanding $ H $ in terms of the fluctuations, we have
+\begin{equation}
+    H = \mathcal{V} V(\phi) + \int \dd[3]{x} \left[ \frac{1}{2} \tilde{\pi} + \frac{1}{2} (\grad{\varphi})^2 + \varphi V'(\phi) + \frac{1}{2} \varphi^2 V''(\phi) + \cdots \right]
+\end{equation}
+where $ \tilde{\pi} = \pdv{\varphi}{t} $ and $ V' $ and $ V'' $ correspond to $ \phi $-derivatives. We can neglect the $ \varphi(x) V'(\phi) $ term since we have $ \ev{\varphi} = 0 $. Removing that linear term, we can write the Hamiltonian as
+\begin{equation}
+    H = \mathcal{V} V(\phi) + \int \dd[3]{x} \left[ \frac{1}{2} \tilde{\pi}^2 + \frac{1}{2} (\grad{\varphi})^2 + \frac{1}{2} M^2(\phi) \varphi^2 + \cdots \right]
+\end{equation}
+with $ M^2(\phi) = V''(\phi) \equiv \dv[2]{V(\phi)}{\phi^2} $. The second term is a free-field theory with effective mass-squared of $ M^2(\phi) $. We can write the partition function as
+\begin{equation}
+    Z[\beta] = \Tr e^{- \beta H} \equiv e^{- \beta F}
+\end{equation}
+where $ F $ is the free energy,
+\begin{equation}
+    F = - T \ln(\Tr e^{- \beta H})
+\end{equation}
+This is identified with a finite temperature \textit{effective potential} (times the volume $ \mathcal{V} $), or essentially a free energy density:
+\begin{equation}
+    V_{\text{eff}}(\phi ; T) = - \frac{T}{\mathcal{V}} \ln(\Tr e^{- \beta H})
+\end{equation}
+Since $ e^{- \beta H} = e^{- \mathcal{V} \frac{V(\phi)}{T}} e^{- \tilde{H} / T} $, we can write
+\begin{equation}
+    V_{\text{eff}}(\phi; T) = V(\phi) - \frac{T}{\mathcal{V}} \ln(Tr e^{- \beta \tilde{H}})
+\end{equation}
+where
+\begin{equation}
+    \tilde{H} = \int \dd[3]{x} \left[ \frac{1}{2} \tilde{\pi}^2 + \frac{1}{2} (\grad{\varphi})^2 + \frac{1}{2} M^2(\phi) \varphi^2 + \cdots \right]
+\end{equation}
+which describes our free field theory. The higher order terms are treated in perturbation theory with higher powers of $ \lambda $, the Lagrange multiplier.
+
+We can quantize these fluctuations as harmonic oscillators:
+\begin{equation}
+    \tilde{H} = \sum_k E_k \left[ a^\dagger_k a_k + \frac{1}{2} \right]
+\end{equation}
+where $ E_k = \sqrt{k^2 + M^2(\phi)} $. This makes the second term in $ V_{\text{eff}} $ become
+\begin{equation}
+    \underbrace{\int \frac{\dd[3]{k}}{(2 \pi)^3} E_k}_{\text{Zero-point energy}} + \underbrace{\frac{T}{2 \pi^2} \int_0^{\infty} k^2 \ln(1 - e^{- E_k / T}) \dd{k}}_{\text{Finite temperature contribution}}
+\end{equation}
+All together,
+\begin{equation}
+    V_{\text{eff}}(\phi ; T) = V(\phi) + \int \frac{\dd[3]{k}}{(2 \pi)^3} \sqrt{k^2 + M^2(\phi)} + \frac{T}{2 \pi^2} \int \dd{k} k^2 \ln(1 - e^{- E_k / T})
+\end{equation}
+Examining the $ T=0 $ quantum zero-point contribution, we can consider cutting off this integral at some finite radial value of $ k $:
+\begin{equation}
+    \frac{1}{2 \pi^2} \int_0^{\Lambda} k^2 \sqrt{k^2 + M^2} \dd{k} \sim \Lambda^4 + \Lambda^2 + \ln(\Lambda) + \cdots
+\end{equation}
+where $ \Lambda^4 $ is a constant, $ \Lambda^2 $ renormalizes the mass, and $ \ln(\Lambda) $ renormalizes $ \lambda $, the Lagrange constraint. If we absorb these renormalizations and focus on the $ T \neq 0 $ part at high $ T $ ($ T \gg M^2 $), we can change variables to $ x = \frac{k}{T} $ and $ \tilde{M} = \frac{M}{T} $. Then the $ T \neq 0 $ contribution is
+\begin{equation}
+    \frac{T^4}{2 \pi^2} \int_0^{\infty} x^2 \ln(1 - e^{- \sqrt{x^2 + \tilde{M}^2}}) \dd{x} = - \frac{\pi^2}{90} T^4 + \frac{M^2(\phi) T^2}{24} + \order{M^4/T^2} = \frac{\lambda}{8} \phi^2 T^2 + \text{constant} + \order{M^2 / T^4} 
+\end{equation}
+Therefore, we can write the effective potential as
+\begin{equation}
+    V_{\text{eff}}(\phi ; T) = - \frac{1}{2} \mu^2 \phi^2 + \frac{\lambda}{8} \phi^2 T^2 + \frac{\lambda}{4} \phi^4 + \cdots \equiv \underbrace{\frac{\lambda}{8} (T^2 - T_c^2)}_{\frac{1}{2} m^2(T)} \phi^2 + \frac{\lambda}{4} \phi^4 + \cdots\tag{Landau-Ginzburg Free Energy Density}
+\end{equation}
+with $ T_c = \frac{4 \mu^2}{\lambda} $. For $ T > T_c $, the minimum is at $ \phi = 0 $, but for $ T < T_c $, there are two degenerate minima (spontaneous symmetry breaking) at $ \pm \phi_0 = \pm \sqrt{- \frac{m^2(T)}{\lambda}} = \pm \frac{1}{2} \sqrt{T_c^2 - T^2} $. Note that $ \phi_0(T) \propto (T_c - T)^{1/2} $.
+
+As $ T \to T_c $ from below, $ \phi_0(T) = \ev{\phi} $ vanishes continuously, which is the hallmark of a \textit{second order} phase transition. For $ T < T_c $, the original symmetry is spontaneously broken, but the resulting minima are degenerate.
+
+Let us now introduce an explicit symmetry breaking term in a Lagrangian:
+\begin{equation}
+    \mathcal{L} \to \mathcal{L} + h \phi
+\end{equation}
+Now
+\begin{equation}
+    V_{\text{eff}}(\phi ; T ; h) = \frac{1}{2} m^2(\phi) \phi^2 + \frac{\lambda}{4} \phi^4 - h \phi
+\end{equation}
+For $ T > T_c $, the minimum is no longer at $ 0 $ but rather at some $ \bar{\phi}_h $, which approaches zero as $ h \to 0 $. For $ h \neq 0 $, the Lagrangian does not feature the discrete symmetry from before. For small $ h $, the minimum is found to linear order in $ h $ by writing $ \bar{\phi}_h = \chi(T) h $ and linearizing this to find $ \chi(T) = \frac{1}{m^2(\phi)} $, defined as the susceptibility. As $ T \to T_c^+ $, $ \chi(T) \propto \frac{1}{(T - T_c)^{\alpha}} $ where $ \alpha $ is called the critical exponent ($ \alpha = 1/2 $ in the previous example but $ \alpha = 1 $ here. The susceptibility diverges as $ T \to T_c $ from above. For $ h > 0 $, $ \phi_+ $ is the absolute stable minimum, $ \phi_- $ is a metastable point, and $ \phi_M $ is the max. As $ h \to 0^+ $, both minima approach $ \phi_0 $ and $ - \phi_0 $ respectively. For $ h < 0 $, the minima switch.
+
+As $ h \to 0^+ $, the minimum approaches $ + \phi_0 $, but as $ h \to 0^- $, the minimum approaches $ - \phi_0 $, so there is a discontinuity in the value of the absolute minimum of the free energy as a function of $ h $, for $ T < T_c $. The discontinuity in the minimum value of $ \ev{\phi} $ as $ h $ crosses $ 0 $ is a \textit{first order} phase transition.
+
+\end{document}

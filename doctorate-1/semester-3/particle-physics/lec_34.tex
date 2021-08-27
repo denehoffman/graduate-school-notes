@@ -1,0 +1,148 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{34}{Monday, November 30, 2020}{Helicity and Chirality}
+
+In the relativistic approximation, helicity and chirality are the same. Without it,
+\begin{equation}
+    u_{\uparrow} = N \mqty(c\\s e^{\imath ph i} \\kc\\kse^{\imath \varphi})
+\end{equation}
+and
+\begin{equation}
+    \gamma^5 u_{\uparrow} = N \mqty(kc\\kse^{\imath \varphi} \\c\\se^{\imath \varphi})
+\end{equation}
+so
+\begin{equation}
+    (1\pm \gamma^5)u_{\uparrow} = N\left( \mqty(c\\s e^{\imath ph i} \\kc\\kse^{\imath \varphi}) \pm \mqty(kc\\kse^{\imath \varphi} \\c\\se^{\imath \varphi}) \right)
+\end{equation}
+
+Then
+\begin{equation}
+    P_R u_{\uparrow} = \frac{1}{2} (1 + \gamma^5) u_{\uparrow} = \frac{1}{2} (1 + k)N \mqty(c\\s e^{\imath \varphi} \\c\\s e^{\imath \varphi}) = \frac{1}{2} (1 + k)u_R \frac{N}{\sqrt{E}}
+\end{equation}
+and
+\begin{equation}
+    P_L u_{\uparrow} = \frac{1}{2} (1 - \gamma^5)u_{\uparrow} = \frac{1}{2} (1 - k)u_L \frac{N}{\sqrt{E}}
+\end{equation}
+
+We know that the sum of the right-handed component and left-handed component of a spinor must equal the spinor, so
+\begin{equation}
+    u_{\uparrow} = \frac{1}{2} \left[ (1 + k)u_R + (1-k)u_L \right] \frac{N}{\sqrt{E}}
+\end{equation}
+In there relativistic limit, $ k \to 1 $ and $ N \to \sqrt{E} $, so $ u_{\uparrow} \to u_R $.
+
+We are skipping the section (6.5) on \textit{``Trace Techniques''}. In this section, the textbook shows that the sums over all the initial and final state spins and averages can be written in terms of a trace of a four-by-four matrix:
+\begin{equation}
+    \sum_{s=1}^{2} u_s(p) \bar{u}_s(p) = \slashed{p} + m
+\end{equation}
+where $ \slashed{p} \equiv \gamma^{\mu} p_{\mu} $, and similarly,
+\begin{equation}
+    \sum_{r=1}^{2} v_r(p) \bar{v}_r(p) = \slashed{p} - m
+\end{equation}
+
+Then, for example,
+\begin{equation}
+    j_e^{\mu} \vdot j_f^{\nu} = \Tr( (p_2 - m_2) \gamma^{\mu} (p_1 + m_1) \gamma^{\nu})
+\end{equation}
+which can be simplified using handy trace identities:
+\begin{equation}
+    \Tr(\gamma^{\mu} \gamma^{\nu}) = 4 g^{\mu \nu}
+\end{equation}
+\begin{equation}
+    \Tr(\gamma^5) = \Tr(\gamma^5 \gamma^{\mu} \gamma^{\nu}) = 0
+\end{equation}
+\begin{equation}
+    \Tr(\gamma^{\mu} \gamma^{\nu} \gamma^{\rho} \gamma^{\sigma}) = 4(g^{\mu \nu} g^{\rho \sigma} - g^{\mu \rho} g^{\nu \sigma} + g^{\mu \sigma} g^{\nu \rho})
+\end{equation}
+Also, the trace of $ \sigma^5 $ times any odd number of $ \gamma $ matrices is $ 0 $ and
+\begin{equation}
+    \Tr(\gamma^5 \gamma^{\mu} \gamma^{\nu} \gamma^{\rho} \gamma^{\sigma}) = 4 \imath \varepsilon^{\mu \nu \rho \sigma}
+\end{equation}
+
+We don't need to know any of these trace identities for this class.
+
+\section{Crossing Symmetry}\label{sec:crossing_symmetry}
+
+In section 6.5.6, we revisit crossing symmetry. Recall the calculation we did for electron-positron annihilation into fermion-antifermion. We could also examine the ``unrelated'' diagram of electron-fermion scattering (the same diagram rotated).
+
+For the original annihilation diagram, it is clear that
+\begin{equation}
+    j_e \vdot j_f \propto \bar{v}_e(p_2) \gamma^{\mu} u_e(p_1) \bar{u}_f(p_3) \gamma^{\nu} v(p_4)
+\end{equation}
+For the scattering diagram, we have
+\begin{equation}
+    j_e \vdot j_f \propto \bar{u}_e(p_3) \gamma^{\mu} u_e(p_1) \bar{u}_f(p_4) \gamma^{\nu} u_f(p_2)
+\end{equation}
+
+We can try to match up the terms in each of these equations. Above, we showed that we can insert complete sets of particle or antiparticle states as the identity. Clearly $ p_1 \to p_1 $ and $ p_3 \to p_4 $, but $ \slashed{p} - m \to -(\slashed{p} + m) $ gives us $ p_2 \to - p_3 $ and $ p_4 \to - p_2 $.
+
+Under these transformations,
+\begin{equation}
+    s = (p_1 + p_2)^2 \to (p_1 - p_3)^2 = t'
+\end{equation}
+(where $ t' $ is $ t $ for the scattering diagram),
+\begin{equation}
+    t = (p_1 - p_3)^2 \to (p_1 - p_4)^2 = u'
+\end{equation}
+and
+\begin{equation}
+    u = (p_1 - p_4)^2 \to (p_1 + p_2)^2 = s'
+\end{equation}
+
+For $ e^- e^+ \to f \bar{f} $, we found that
+\begin{equation}
+    \ev{\abs{m_{fi}}^2} = 2 e^4 \frac{t^2 + u^2}{s^2}
+\end{equation}
+
+Using this symmetry argument, we can predict that the matrix element for $ e^- f \to e^- f $ is
+\begin{equation}
+    \ev{\abs{m_{fi}}^2} = 2 e^4 \frac{ {u'}^2 + {s'}^2}{ {t'}^2}
+\end{equation}
+
+
+\section{Elastic Electron Scattering}\label{sec:elastic_electron_scattering}
+
+\subsection{Rutherford \& Mott Scattering}\label{sub:rutherford_mott_scattering}
+
+These forms of scattering are electron-proton scattering where the electron does not have enough energy to really cause any effect on the proton, so the recoil is negligible ($ Q^2 = - q^2 \ll m_p^2 $).
+
+Again, let
+\begin{equation}
+    \kappa \equiv \frac{p_e}{E_e + m_e}
+\end{equation}
+and
+\begin{equation}
+    N = \sqrt{E + m_e}
+\end{equation}
+so that
+\begin{equation}
+    u_{\uparrow}(p_1) = N \mqty(1\\0\\ \kappa \\ 0) \qquad u_{\downarrow}(p_1) = N \mqty(0 \\ 1 \\ 0 \\ - \kappa)
+\end{equation}
+
+Define the scattering angle as $ (\theta, \varphi)= (\theta, 0) $ and $ c \equiv \cos(\theta / 2) $ and $ s \equiv \sin(\theta / 2) $, such that
+\begin{equation}
+    u_{\uparrow}(p_3) = N \mqty(c\\s\\ \kappa c\\ \kappa s) \qquad u_{\downarrow}(p_3) = N \mqty(s\\c\\ \kappa s\\ - \kappa c)
+\end{equation}
+
+Calculating $ j_{e, \alpha \beta} = \bar{u}_{\alpha}(p_3) \gamma^{\mu} u_{\beta}(p_1) $ explicitly, we find
+\begin{equation}
+    j_{e, \uparrow\uparrow} = N^2 \mqty( (\kappa^2 + 1)c & 2 \kappa s & 2 \imath \kappa s & 2 \kappa c)
+\end{equation}
+\begin{equation}
+    j_{e, \downarrow\downarrow} = N^2 \mqty( (\kappa^2 + 1)c & 2 \kappa s & - 2 \imath \kappa s & 2 \kappa c)
+\end{equation}
+\begin{equation}
+    j_{e, \downarrow\uparrow} = N^2 \mqty( (1 - \kappa^2) s & 0 & 0 & 0)
+\end{equation}
+\begin{equation}
+    j_{e, \uparrow\downarrow} = N^2 \mqty( (\kappa^2 - 1)s & 0 & 0 & 0)
+\end{equation}
+The non-zero helicity-flip for small $ \kappa $ disappears as $ \kappa \to 1 $.
+
+If we neglect recoil, we have $ \kappa_p = \kappa_{p'} = 0 $, so in the lab frame
+\begin{equation}
+    u_{\uparrow}(p_2) = \sqrt{2m_p} \mqty(1\\0\\0\\0) \qquad u_{\downarrow}(p_2) = \sqrt{2 m_p} \mqty(0\\1\\0\\0)
+\end{equation}
+
+We also take the recoil direction into account, although the momentum is negligible, as $ (\theta, \varphi) = (\eta, \pi) $. 
+
+\end{document}

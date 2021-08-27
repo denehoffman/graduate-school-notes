@@ -1,0 +1,111 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{22}{Wednesday, May 05, 2021}{Pattern Formation II}
+
+We can add small perturbations to our activator-inhibitor system:
+\begin{align}
+    X_i &= 1 + x_i \\
+    Y_i &= 1 + y_i
+\end{align}
+since $ X = Y = 1 $ is the steady-state solution. Doing this results in a matrix form for the linearized system, and the solutions are given by exponentials of eigenvalues of the matrix, like $ x_i(t) = x_{i,0} e^{\lambda t} $:
+\begin{equation}
+    \dv{t} \mqty(x_1 \\ y_1 \\ x_2 \\ y_2) = \mqty(5-D_X & -6 & D_X & 0\\6 & -7-D_Y & 0 & D_Y\\D_X & 0 & 5 - D_X & -6\\0 & D_Y & 6 & -7-D_Y) \mqty(x_1 \\ y_1 \\ x_2 \\ y_2)
+\end{equation}
+with solutions
+\begin{align}
+    x_i(t) &= x_{i,0} e^{\lambda t} \\
+    y_i(t) &= y_{i,0} e^{\lambda t}
+\end{align}
+Only the largest eigenvalue is really important here, since it will determine the behavior over large timescales. Real eigenvalues will correspond to exponentially growing or decaying solutions, while imaginary eigenvalues will have oscillatory behavior.
+
+Consider an activator-inhibitor system in a linear array of cells labeled by the index $ r $. We can model
+\begin{align}
+    \dv{X_r}{t} &= f(X_r, Y_r) \\
+    \dv{Y_r}{t} &= g(X_r, Y_r)
+\end{align}
+where $ f $ and $ g $ are some functions which model the behavior of the chemical reactions. We can then add diffusion in a discrete form:
+\begin{align}
+    \dv{X_r}{t} &= f(X_r, Y_r) + D_X(X_{r+1} + X_{r-1} - 2 X_r) \\
+    \dv{Y_r}{t} &= g(X_r, Y_r) + D_Y(Y_{r+1} + Y_{r-1} - 2 Y_r) \\
+\end{align}
+Assume some steady-state solution $ (X_r, Y_r)= (h,k) $ which satisfies $ f(h,k)=g(h,k) = 0 $. Next, consider small perturbations about that steady state:
+\begin{equation}
+    (X_r, Y_r) = (h + x_r, k + y_r)
+\end{equation}
+\begin{align}
+    \dv{x_r}{t} &= \cancelto{0}{f(h,k)} + A_1 x_r + B_1 y_r + D_X (x_{r+1} + x_{r-1} - 2 x_r)\\
+    \dv{y_r}{t} &= \cancelto{0}{g(h,k)} + A_2 x_r + B_2 y_r + D_Y (y_{r+1} + y_{r-1} - 2 y_r)
+\end{align}
+where
+\begin{align}
+    A_1 = \eval{\pdv{f}{X_r}}_{(h,k)} &\qquad B_1 = \eval{\pdv{f}{Y_r}}_{(h,k)} \\
+    A_2 = \eval{\pdv{g}{X_r}}_{(h,k)} &\qquad B_2 = \eval{\pdv{g}{Y_r}}_{(h,k)}
+\end{align}
+
+We'll assume an ansatz of
+\begin{align}
+    x_r(t) &= x(t) e^{\imath (2 \pi r/\lambda)} \\
+    y_r(t) &= y(t) e^{\imath (2 \pi r/\lambda)} \\
+\end{align}
+
+Plugging this in, we get
+\begin{align}
+        \dv{x}{t} &= \left[ A_1 + D_X \left( e^{\imath (2 \pi / \lambda)} + e^{-\imath (2 \pi / \lambda)} - 2 \right) \right]x + B_1 y \\
+        \dv{y}{t} &= \left[ B_2 + D_Y \left( e^{\imath (2 \pi / \lambda)} + e^{-\imath (2 \pi / \lambda)} - 2 \right) \right]y + A_2 x
+\end{align}
+We can make an approximation:
+\begin{align}
+    \dv{x}{t} &= \left[ A_1 - D_X \left( \frac{2 \pi}{\lambda} \right)^2 \right]x + B_1 y
+    \dv{y}{t} &= \left[ B_2 - D_Y \left( \frac{2 \pi}{\lambda} \right)^2 \right]y + A_2 x
+\end{align}
+and write it in matrix form:
+\begin{equation}
+    \mathcal{R} = \mqty(A_1 - D_X(2 \pi / \lambda)^2 & B_1 \\ A_2 & B_2 - D_Y(2 \pi / \lambda)^2)
+\end{equation}
+so
+\begin{equation}
+    \dv{t} \mqty(x\\y) = \mathcal{R} \mqty(x\\y)
+\end{equation}
+Letting $ q = \frac{2 \pi}{\lambda} $, we can write the characteristic polynomial:
+\begin{equation}
+    \det(\mathcal{R} - \sigma I) = 0
+\end{equation}
+where solutions should have the form
+\begin{equation}
+    x(t) = x_0 e^{\sigma t} \qquad y(t) = y_0 e^{\sigma t}
+\end{equation}
+For any 2-by-2 matrix, we can use
+\begin{equation}
+    \sigma^2 - (\Tr \mathcal{R}) \sigma + \det\mathcal{R} = 0
+\end{equation}
+which has the solution
+\begin{equation}
+    \sigma = \frac{1}{2} \Tr \mathcal{R} \pm \frac{1}{2} \sqrt{(\Tr \mathcal{R})^2 - 4 \det\mathcal{R}} 
+\end{equation}
+
+Then we can work out a condition on the stability of the system. We require the real part of the eigenvalue to be negative for the system to be stable (otherwise small perturbations will grow unchecked). For $ \Re[\sigma] < 0 $ for both eigenvalues, we must have $ \det\mathcal{R} > 0 $ and $ \Tr \mathcal{R} < 0 $.
+
+\begin{align}
+    \Tr\mathcal{R} &= A_1 + B_2 - (D_X + D_Y)q^2 < 0 \\
+    \det\mathcal{R} &= (A_1 - D_X q^2)(B_2 - D_Y q^2) - B_1 A_2 > 0
+\end{align}
+
+First, let's consider $ D_X = D_Y = 0 $. Then for stability,
+\begin{equation}
+    A_1 + B_2 < 0 \qand A_2 B_2 - B_1 A_2 > 0
+\end{equation}
+must both be true.
+
+$ \Tr \mathcal{R} < 0 $ is always true in the presence of diffusion. Instability is still possible when $ \det\mathcal{R} < 0 $:
+\begin{equation}
+    \det\mathcal{R} = (A_1 B_2 - B_1 A_2) + D_X D_Y q^4 - (D_X B_2 + D_Y A_1) q^2
+\end{equation}
+The first and second terms are positive, so the third term must be large and negative for the system to be unstable: $ D_X B_2 + D_Y A_1 > 0 $.
+
+From these conditions, one possible scenario that is unstable is where $ A_1 > 0 $ and $ B_2 < 0 $. This is the activator-inhibitor system. Note that $ A_1 $ is the rate at which $ X $ produces $ X $, $ A_2 $ is the rate at which $ X $ produces $ Y $, and so on.
+
+We can then see $ D_Y > \frac{(-B_2)D_X}{A_1} \implies D_Y \gg D_X $ for $ -B_2 > A_1 $.
+
+If we look back at the determinant, we can see that the dependence on $ q $ will cause a certain region to have a negative determinant. At small $ q $, the first term dominates, and at large $ q $, the $ q^4 $ term dominates.
+
+\end{document}

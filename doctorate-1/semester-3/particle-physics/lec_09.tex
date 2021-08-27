@@ -1,0 +1,68 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{9}{Monday, September 21, 2020}{}
+
+In the last lecture, we mentioned that if a system of $ N $ particles was (or will be, or could be) a single particle, the invariant mass, $ M_I $ is the rest mass of that particle. For example, the Higgs is seen as an enhancement at $ M_I 125\giga\electronvolt $ in decays of $ Z^0 Z^0 $, $ W^+ W^- $, $ \bar{q} q $, $ \tau^+ \tau^- $, $ \mu^+ \mu^- $ and $ \gamma \gamma $.
+
+Consider the reaction $ B + T \to C + D + E + \cdots + Z $ where $ B $ is the beam and $ T $ is the target.
+
+A common exercise is to find the lab-frame threshold energy for a particular reaction. The way to do this is to find the minimum invariant mass of the final state in the center of mass frame:
+\begin{equation}
+    M_{I,\text{min}} = M_{C} + M_{D} + M_{E} + \cdots + M_{Z}
+\end{equation}
+if they are all at rest. This is okay in the COM frame, but not in the lab frame, since the beam brought in momentum so the momentum of the final state can't be zero.
+\begin{align}
+    M_I^2 &= E^2_{\text{tot, lab}} - p^2_{\text{tot, lab}}\\
+    &= (E_B + E_t)^2 - (\va{p}_{B} + \cancelto{0}{\va{p}_T})\\
+    &= E_B^2 + 2 M_T E_B + M_T^2 - p_B^2\\
+    &= M_B^2 + 2 M_T E_B + M_T^2
+\end{align}
+
+\section{Four-Derivatives}
+\label{sec:four-derivatives}
+
+For a boost along $ z $,
+\begin{equation}
+    z = \gamma z' + \gamma \beta c t'
+\end{equation}
+\begin{equation}
+    c t = \gamma c t' + \gamma \beta z'
+\end{equation}
+\begin{equation}
+    \pdv{z'} = \left( \pdv{z}{z'} \right) \eval{\pdv{z}}_{t,x,y} + \left( \pdv{ct}{z'} \right) \pdv{ct} = \gamma \pdv{z}+ \gamma \beta \pdv{ct}
+\end{equation}
+and
+\begin{equation}
+    \pdv{ct'} = \pdv{z}{ct'} \pdv{z}+ \pdv{ct}{ct'} \pdv{ct} = \gamma \beta \pdv{z}+ \gamma \pdv{ct}
+\end{equation}
+
+\begin{equation}
+    \mqty(\pdv{ct'} \\ \pdv{x'} \\ \pdv{y'} \\ \pdv_{z'}) = \mqty(\gamma & 0 & 0 & + \gamma \beta \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ + \gamma \beta & 0 & 0 & \gamma) \mqty(\pdv{ct} \\ \pdv{x} \\ \pdv{y} \\ \pdv{z})
+\end{equation}
+This transforms as a covariant 4-vector, so we write it as $ \partial_{\mu} = \pdv{x^{\mu}} = \left( \pdv{ct}, \pdv{x}, \pdv{y}, \pdv{z} \right) $. We can also define the contravariant derivative $ \partial^{\mu} = g^{\mu \nu} \partial_{\nu} = \left( \pdv{ct}, - \pdv{x}, - \pdv{y}, - \pdv{z} \right) $.
+
+\subsection{Generalization of Laplacian}
+\label{sub:generalization_of_laplacian}
+
+\begin{equation}
+    \Delta \equiv \laplacian = \pdv[2]{x} + \pdv[2]{y} + \pdv[2]{z}
+\end{equation}
+We want to generalize this to the d'Alembertion:
+\begin{equation}
+    \square = \pdv[2]{(ct)} - \pdv[2]{x} - \pdv[2]{y} - \pdv[2]{z} = \partial^{\mu} \partial_{\mu}
+\end{equation}
+
+
+\section{Mandelstam Variables}
+\label{sec:mandelstam_variables}
+
+For an s-channel interaction, $ s \equiv q^2 = (p_1 + p_2)^2 = (p_3 + p_4)^2 $.
+
+For a t-channel interaction, $ t \equiv q^2 = (p_1 - p_3)^2 = (p_2 - p_4)^2 $.
+
+For a u-channel interaction, $ u \equiv q^2 = (p_1 - p_4)^2 = (p_2 - p_3)^2 $. The only difference between this and the t-channel is that we make a choice of which particle is $ p_3 $ and $ p_4 $. Usually this definition is based on which particles are forward/backward-peaked in the center of mass frame.
+
+The textbook says that u-channels only apply when there are identical particles in the final state. This doesn't seem to be correct. For example, in high-energy neutrino-electron scattering, if the exchange particle is a $ W $ boson, this is a t-channel reaction which is distinct from the exchange of a $ Z $ boson in a u-channel.
+
+
+\end{document}

@@ -1,0 +1,105 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{5}{Friday, January 24, 2020}{Symmetries and Conservation Laws}
+
+From last lecture, $ \comm{H}{O} = 0 $, then $ O $ is a constant of motion as long as $ O $ has no explicit time dependence. If $ U $ implements a symmetry group $ G $, under the action of $ G $, $ H \to U^\dagger H U $. We can write this as
+\begin{equation}
+    e^{-i \va{\lambda} \vdot\va{ X}} H e^{\imath \va{\lambda} \vdot\va{ X}} 
+\end{equation}
+As a consequence, if $ \comm{H}{\va{X}} = 0 $, then $ H $ is invariant under $ G $, since we pull $ H $ through the exponentials and they will cancel out. Therefore, if $ H $ is invariant under $ G $, $ X $ is conserved.
+
+If $ L $ is invariant, then maybe (usually) $ H $ is invariant, so this is a similar result to Noether's theorem in classical mechanics. The simplest counterexample is boosts. Take
+\begin{equation}
+    L = \frac{1}{2} m \dot{x}^2
+\end{equation}
+A boost transformation is $ x \to x + \delta vt $, so
+\begin{equation}
+    L \to \frac{1}{2} m \dot{x}^2 + m x \delta v
+\end{equation}
+The action is still invariant, since
+\begin{equation}
+    \delta S = \int \dd{t} \delta L = \int m \delta v x \dd{t} = \left[ \dv{t}(m \delta vx) \right] \dd{t} = 0
+\end{equation}
+
+Total derivatives have no effect on the equations of motion, since they don't change the Euler-Lagrange equations. A symmetry which takes $ L \to L + \dv{t}f(x,\dot{x},t) $ is still a symmetry. However, the Hamiltonian, which leads to quantum conservation laws, is not invariant under boosts, and there is no time integral to get rid of the consequences.
+
+\section{Degeneracy}
+\label{sec:degeneracy}
+
+Symmetries imply degeneracies. If $ G $ is a symmetry with generators $\va{ X} $, then $ \comm{H}{\va{X}} = 0 $ implies
+\begin{equation}
+    H\ket{\lambda} = E(\lambda)\ket{\lambda} \implies H\va{ X}\ket{\lambda} = E(\lambda)\va{ X}\ket{\lambda}
+\end{equation}
+so if $\va{ X}\ket{\lambda} \neq\ket{\lambda} $, there exists a degeneracy.
+
+Let's first look at a case which is not degenerate: rotations. On the homework, we saw that the group defined by 3D rotations ($ \text{SO}(3) $) has the same Lie algebra as $ \text{SU}(2) $. We are going to call the generators of $ \text{SO}(3) $ $ J_i \in \mathfrak{so}(3) $ such that
+\begin{equation}
+    \comm{J_i}{J_j} = \imath \hbar \epsilon_{ijk} J_k
+\end{equation}
+
+In QM, there are two ways of forming a group representation. The first are matrices, and the second are differential operators acting on an infinite dimensional space of square integrable functions $ L^2 $ ($L^2 =\{f(x)\mid \int \abs{f(x)}^2 \dd{x} < \infty \}$). In other words, we can write
+\begin{equation}
+    \va{ L} = \imath\va{ r} \cross\va{ p}
+\end{equation}
+but we can also write
+\begin{equation}
+    \va{ p} = - \imath \hbar \pdv{\va{x}}
+\end{equation}
+such that
+\begin{equation}
+    \comm{- \imath \hbar r_a \pdv{r_b} \epsilon_{abi}}{- \imath \hbar r_c \pdv{r_d} \epsilon_{cdj}} = -\imath \hbar^2 \epsilon_{ijk} r_f \pdv{r_g} \epsilon_{fgk}
+\end{equation}
+
+Let's now find the matrix representations. First, find operators which commute with all elements of the Lie algebra:
+\begin{equation}
+    \comm{O}{\va{J}} = 0
+\end{equation}
+These are called Casimir operators. For rotations, these operators happen to be $\va{ J}^2 $ (for both $ \text{SO}(3) $ and $ \text{SU}(2) $). As it turns out, this works for all vector operators:
+\begin{equation}
+    U^\dagger(\vu{n}, \theta) \{P_i, X_i, L_i\} U(\vu{n}, \theta)  = R(\vu{n}, \theta)_{ij} \{P_j, X_j, L_j\}
+\end{equation}
+\begin{align}
+    \comm{\va{J}^2}{J_i} &= \comm{J^a J^a}{J^i} \\
+    &= J^a \comm{J^a}{J^i} - \comm{J^i}{J^a} J^a \\
+    &= J^a \left( i \hbar \epsilon^{aik} J^k \right) - \left( \imath \hbar \epsilon^{iak} J^k \right) J^a \\
+    &= \imath \hbar \left[ e^{aik} J^a J^k - \epsilon^{iak} J^k J^a \right] \\
+    &= \imath \hbar \left[ \epsilon^{kia} J^k J^a - \epsilon^{iak} J^k J^a \right] \\
+    &= \left[ \epsilon^{kia} - \epsilon^{iak} \right] J^k J^a = 0
+\end{align}
+
+Or you could just say $\va{ J}^2 $ is a scalar under rotations so it is invariant under rotations.
+
+Every representation is labelled by eigenvalues of the Casimir operator.
+\begin{lemma}[Schur's Lemma]
+    Any group element which commutes with all other group elements is proportional to $ I $ (the identity).
+\end{lemma}
+
+The eigenvalues of $\va{ J}^2 $ are the total angular momentum:
+\begin{equation}
+    \va{ J}^2\ket{a} = a\ket{a}
+\end{equation}
+
+The next step is to choose a generator to diagonalize (in $ \text{SO}(3) $ you can only diagonalize one of them at a time since they don't commute with each other). We will arbitrarily choose $ J_z $ such that
+\begin{equation}
+    J_z\ket{a,b} = b\ket{a,b}
+\end{equation}
+We are working in a basis which are eigenvectors of $ J_z $. There is nothing else we can diagonalize simultaneously, since the $ J $'s don't individually commute. These $ a $'s and $ b $'s label the states of the representation. $ a $ will not change if we operate on this state with $ J_x $ or $ J_y $, but $ b $ will change. What are the possible values of $ b $?
+
+Define raising and lowering operators
+\begin{equation}
+    J_{\pm} = \frac{(J_x \pm \imath J_y)}{\sqrt{2}}
+\end{equation}
+such that
+\begin{equation}
+    \comm{J_z}{J_{\pm}} = \pm \hbar J_{\pm}
+\end{equation}
+\begin{equation}
+    J_z J_{\pm}\ket{a,b} = (b \pm \hbar) J_{\pm}\ket{a,b}
+\end{equation}
+Call $ b = \hbar\hat{ b} $:
+\begin{equation}
+    J_z J_{\pm}\ket{a,b} = \hbar \left(\hat{ b} \pm 1 \right) J_{\pm}\ket{a,b}
+\end{equation}
+so the action of the raising and lowering operators is to raise and lower $ b $.
+
+\end{document}

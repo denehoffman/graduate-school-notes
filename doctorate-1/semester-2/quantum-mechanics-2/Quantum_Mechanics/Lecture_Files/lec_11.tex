@@ -1,0 +1,95 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{11}{Friday, February 07, 2020}{The Hydrogen Atom, Continued}
+
+From last lecture, we showed that
+\begin{equation}
+    \psi = \sum_{l,m} Y_{l,m} R_{k,l}
+\end{equation}
+where
+\begin{equation}
+    R_{k,l} = \frac{U_{k,l}}{r}
+\end{equation}
+We then rescaled our units to $ \rho = \frac{r}{a_0} $:
+\begin{equation}
+    U_{k,l} = e^{- \lambda_{k,l} \rho} y_{k,l}
+\end{equation}
+where
+\begin{equation}
+    y_{k,l} = \sum_{q=0}^{\hat{k}} \rho^{l+1} C_{q} \rho^q
+\end{equation}
+We then defined $ \hat{k} + l = \frac{1}{\lambda_{k,l}} = n $ and showed that $ \hat{k} > 0 $ and is finite. Finally, we will define
+\begin{equation}
+    y_{n=1} = C_0 \rho
+\end{equation}
+such that
+\begin{equation}
+    R_{n=1} = \frac{C_0 e^{- \frac{r}{a_0}}}{a_0} 
+\end{equation}
+
+This enumerates all the degeneracies of state. However, we have also ignored spin, so each of these states will have an additional degenerate state. We've also ignored spin-orbit and spin-spin coupling. In chemistry, we typically label states by $ n = 1,2,3,\cdots $ and $ l = 0,1,2,\cdots = s,p,d,f,\cdots $. Linear superpositions of degenerate states are eigenstates of the Hamiltonian, so we can form hybrid orbitals by combining different degenerate states. Remember that there is the additional degeneracy from the spherical harmonics, so for $ n = 2 $ (for example), $ l = 0 $ has one degenerate state while $ l = 1 $ has three from the spherical harmonic degeneracies in $ m = -1, 0, +1 $.
+
+Now that we know the hydrogen atom at this basic level, we can talk about the effects of perturbations to see what happens when we do consider certain interactions like spin-spin coupling.
+
+\section{Time Independent Perturbation Theory}
+\label{sec:time_independent_perturbation_theory}
+
+\begin{equation}
+    H = H_0 + \lambda H_I
+\end{equation}
+where $ H_I $ has no \textit{explicit} time dependence and $ \lambda << 1 $. Suppose that
+\begin{equation}
+    H_0\ket{\phi_0^{(n)}} = E_0^{(n)}\ket{\phi_0^{(n)}}
+\end{equation}
+
+We would like to be able to solve for
+\begin{equation}
+    (H_0 + \lambda H_I)\ket{\phi^{(n)}} = E^{(n)}\ket{\phi^{(n)}}
+\end{equation}
+In practice, this is difficult and typically impossible. Instead of solving this exactly, we will expand the wave function as
+\begin{equation}
+    \ket{\phi^{(n)}} = \left[\ket{\phi^{(n)}_0} + \sum_{k \neq n} C^{(n)}_{k}\ket{\phi^{(k)}_0} \right] N(\lambda)
+\end{equation}
+As long as $ H_0 $ is a self-adjoint operator, any function that is square-integrable can be decomposed into an infinite series of its eigenvectors. The goal is now to try to solve for the $ C^{(n)}_{k} $ factors:
+\begin{equation}
+    C_k^{(n)} = \lambda C^{(n)[1]}_k + \lambda^2 C_k^{(n)[2]} + \cdots
+\end{equation}
+and
+\begin{equation}
+    E^{(n)} = E^{(n)}_0 + \lambda E^{(n)}_1 + \cdots
+\end{equation}
+so that
+\begin{equation}
+    (H_0 + \lambda H_I)\left[\ket{\phi_0^{(n)}} + \lambda C_k^{(n)[1]}\ket{\varphi_0^{(k)}} \right] = (E_0^{(n)} + \lambda E_1^{(n)}) \left[ \ket{\phi_0^{(n)}} + \lambda C_k^{(n)[1]}\ket{\varphi_0^{(k)}} \right] + \order{\lambda^2}
+\end{equation}
+Finally, we match powers of $\lambda$ on both sides of the equation:
+\begin{align}
+    \lambda^0 &\to H_0\ket{\phi_0^{(n)}} = E_0^{(n)}\ket{\phi_0^{(n)}} \\
+    \lambda^1 &\to H_0 C_k^{(n)[1]}\ket{\phi_0^{(k)}} + H_I\ket{\phi_0^{(n)}} = E_1^{(n)}\ket{\phi_0^{(n)}} + E_0^{(n)} C_k^{(n)[1]}\ket{\phi_0^{(k)}}
+\end{align}
+Let's take this second equation and project onto the ground state $\bra{\phi_0^{(n)}} $ and use the fact that $ n\neq k \implies\bra{\phi_0^{(n)}}\ket{\phi_0^{(k)}} = 0 $. We are left with
+\begin{equation}
+    \bra{\phi_0^{(n)}} H_I\ket{\phi_0^{(n)}} =\bra{\phi_0^{(n)}} E_1^{(n)}\ket{\phi_0^{(n)}}
+\end{equation}
+So we find that, to first order,
+\begin{equation}
+    E_1^{(n)} = \bra{\phi_0^{(n)}} H_I\ket{\phi_0^{(n)}} = \Delta E^{(n)} \text{ at } \order{\lambda}
+\end{equation}
+Let's now project onto another $\bra{\phi_0^{(m)}} $ where $ m \neq n $:
+\begin{equation}
+    E_0^{(k)} C_k^{(n)[1]}\overbrace{\bra{\phi_0^{(m)}}\ket{\phi_0^{(k)}}}^{\delta_{mk}} +\bra{\phi_0^{(m)}} H_I\ket{\phi_0^{(n)}} = E_0^{(n)} C^{(n)[1]}_k\overbrace{\bra{\phi_0^{(m)}}\ket{\phi_0^{(k)}}}^{\delta_{mk}}
+\end{equation}
+so
+\begin{equation}
+    E_0^{(m)} C^{(n)[1]}_m +\bra{\phi_0^{(m)}} H_I\ket{\phi_0^{(n)}} = E_0^{(n)} C_m^{(n)[1]}
+\end{equation}
+We now solve for the coefficient:
+\begin{equation}
+    C_m^{(n)[1]} = \frac{\bra{\phi_0^{(m)}} H_I\ket{\phi_0^{(n)}}}{E_0^{(n)} - E_0^{(m)}}
+\end{equation}
+We can now write down the leading-order correction to the wave function:
+\begin{equation}
+    \ket{\phi^{(n)}} = \left[\ket{\phi_0^{(n)}} + \sum_{n \neq m} \frac{\bra{\phi_0^{(m)}} H_I\ket{\phi_0^{(n)}}}{E_0^{(n)} - E_0^{(m)}}\ket{\phi_0^{(m)}}\right] N(\lambda) 
+\end{equation}
+
+\end{document}

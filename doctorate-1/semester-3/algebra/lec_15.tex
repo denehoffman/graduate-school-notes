@@ -1,0 +1,53 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{15}{Monday, October 05, 2020}{}
+
+Recall the Buchberger criterion, which says that $ G $ is Gr\"obner iff $ S(g,g') \mod G = 0 $, $ \forall g,g' \in G $.
+
+How does $ S(x^{alpha} f, f') $ relate to $ S(f,f') $? Clearly $ \text{LT}(x^{\alpha} f) = x^{\alpha} \text{LT}(f) $. The new $ M $ will be $ x^{\beta} M $ for some $ x^{\beta} \mid x^{\alpha} $, so $ S(x^{\alpha} f,f')= x^{\beta} (f,f') $.
+
+Given $ f \in (G) $, we want to show that $ \text{LT}(f)in (\text{LT}(G)) $. The $ S $ polynomials are the only ways to get cancellations between elements of the basis.
+
+If we write $ f = \sum h_i g_i $ where $ h_i \in F[X] $, suppose $ x^{\alpha} = \max(\text{LM}(h_i g_i)) $. Then
+\begin{align}
+    f = \sum_{\text{LM}(h_i g_i) &= x^{\alpha}} h_i g_i + \sum_{\text{LM}(h_i g_i) < x^{\alpha}} h_i g_i \\
+    &= \underbrace{\sum_{\text{LM}(h_i g_i)= x^{\alpha}} \text{LT}(h_i)g_i}_{\sum_1} + \underbrace{\sum_{\text{LM}(h_i g_i)=x^{\alpha}} (h_i - \text{LT}(h_i)) g_i}_{\sum_2} + \underbrace{\sum_{\text{LM}(h_i g_i) < x^{\alpha}} h_i g_i}_{\sum_3}
+\end{align}
+
+Suppose $ \text{LM}(f)<x^{\alpha} $. All polynomials in that first term have the same degree. Let's write $ \text{LT}(h_i)= \text{LC}(h_i)\text{LM}(h_i) $ and define $ h'_i = \text{LM}(h_i) $. By our lemma, the first sum can be written as
+\begin{equation}
+    \sum_1 = \sum_i b_i S(h'_i g_i, h'_{i+1} g_{i+1})
+\end{equation}
+since $ S(h'_i g_i, h'_{i+1} g_{i+1}) $ is a monomial multiple of $ S(g_i, g_{i+1}) $. We know that $ S(g_i, g_{i+1}) \mod G = 0 $, so it must be a linear combination of the form $ \sum_{g_j \in G} q_j g_j $ and $ \text{LM}(q_j g_j) \leq \text{LM}(g_i, g_{i+1}) $.
+
+This means that $ s = S(h'_i g_i, h'_{i+1} g_{i+1}) $ are sums of the form $ \sum q'_j g_j $ where $ \text{LM}(s) \leq \text{LM}(q_j g_j) $.
+
+So suppose next that $ \text{LM}(f) \geq x^{\alpha} $. Since $ f = \sum h_i g_i $, $ \text{LT}(f) = \sum_{\text{LM}(h_i g_i)=x^{\alpha}} \text{LT}(h_i g_i) = \sum \text{LT}(h_i) \text{LT}(g_i) $. This concludes the proof.
+
+Now we have a practical way of determining if something is a Gr\"obner basis. Next, we want to find a way to generate one.
+
+Input: some set $ G_0 $. Output: a set $ G $ such that $ (G) = (G_0) $ and $ G $ is Gr\"obner.
+
+If $ G_i $ is Gr\"obner, we are done. Else, $ S(g,g') \mod G_i \neq 0 $ for some $ g,g' \in G_i $. Note that $ g, g' \in (G_i) \implies S(g, g') \in (G_i) $ so $ r \in (G_i) $. By the division algorithm, $ \text{LT}(r) \notin (\text{LT}(G_i)) $.
+
+Define $ G_{i+1} = G_i \cup \{r\} $. $ (\text{LT}(G_{i+1})) \supsetneq (\text{LT}(G_i)) $.
+
+\begin{claim}
+    If $ R $ is Noetherian, then every sequence of ideals $ I_1 \subseteq I_2 \subseteq I_3 \subseteq \cdots $ stabilizes (i.e. $ I_j = I_{j+1} = \cdots $ from some point on).
+\end{claim}
+\begin{proof}
+    $ I = \bigcup_{j=1}^{\infty} I_j $. Since it's Noetherian, $ I = (g_1, \cdots, g_m) $. For each $ g_s $, there is $ I_{kj} \ni g_i $. $ k = \max(k_1,\cdots, k_m) \implies I_k \ni g_1,\cdots, g_m $. Therefore, $ I_k \supseteq I $ so $ I_k = I $. 
+\end{proof}
+This is enough to show that our algorithm will eventually end.
+
+Suppose we have an ideal $ I \subset F[x_1,\cdots,x_n] $. Look at $ I_i = I \cap F[x_{i+1}, \cdots, x_n] $ is the $ i $th elimination ideal.
+\begin{claim}
+    With lex-ordering, if $ G $ is Gr\"obner for $ I $, then $ G_i = G\cap F[x_{i+1}, \cdots, x_n] $ is Gr\"obner for $ I_i $.
+\end{claim}
+\begin{proof}
+    Note $ G_i \subset I_i $. We want to show that $ (\text{LT}(G_i)) = \text{LT}(I_i) $. Say $ f \in I_i $. Since $ G $ is Gr\"obner, $ \text{LT}(f) \in (\text{LT}(G)) $. By our lemma about monomial ideals, $ \text{LT}(f) $ is divisible by some $ \text{LT}(g) $ for $ g \in G $.
+
+    Since $ f \in I_i $, $ \text{LT}(f) \in F[x_{i+1}, \cdots, x_n] $, so $ \text{LT}(g) \in F[x_{i+1}, \cdots, x_n] $. By lex-ordering, all monomials in $ g $ are free of $ x_1, \cdots x_i $, so $ g \in I_i $.
+\end{proof}
+
+\end{document}

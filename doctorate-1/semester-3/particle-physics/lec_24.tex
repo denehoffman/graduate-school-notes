@@ -1,0 +1,58 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{24}{Monday, November 02, 2020}{The Dirac Equation}
+
+Las time we said that the equivalence of the square of the Dirac equation and the Klein-Gordon equation requires $ \alpha_{x,y,z}^2 = \beta^2 = I $ and $ \pb{\alpha_j}{\beta} = 0 $ and $ \pb{\alpha_i}{\alpha_j} = 0 $ (anti-commute). These must be matrices or operators. For matrices, $ \Tr(A) \equiv \sum_i A_{ii} $, and $ \Tr(ABC) = \Tr(BCA) = \Tr(CAB) $, so
+\begin{equation}
+    \Tr(\alpha_i) = \Tr(\alpha_i \beta \beta) = \Tr(\beta \alpha \beta) = - \Tr(\alpha_i \beta \beta) = - \Tr(\alpha_i)
+\end{equation}
+so $ \Tr(\alpha_i) = 0 $. Similarly, $ \Tr(\beta) = 0 $. Additionally, we can show that $ \alpha_i^2, \beta^2 = I $ implies that the eigenvalues of $ \alpha_i $ and $ \beta $ are $ \lambda = \pm 1 $. 
+
+Finally, the trace of a matrix is equal to the sum of the eigenvalues, so the dimension of these matrices must be even (2x2, 4x4, etc.), and $ H = \va{\alpha} \vdot \hat{\va{p}} + \beta m $ must be Hermitian so $ \alpha_i $ and $ \beta $ must be anti-commuting, Hermitian, traceless matrices. These are the same properties as the Pauli matrices. Only three exist in $ 2 \times 2 $ space, so these must be at least $ 4 \times 4 $ matrices. Let's try the simplest case. We define the wave function in this four-dimensional space as the Dirac Spinor,
+\begin{equation}
+    \psi = \mqty(\psi_1\\ \psi_2\\ \psi_3\\ \psi_4)
+\end{equation}
+
+One example of matrices which satisfy the properties we want are the ``Dirac-Pauli'' representation:
+\begin{equation}
+    \beta = \mqty(I&0\\0& -I) \qquad \alpha_i = \mqty(0& \sigma_i \\ \sigma_i & 0)
+\end{equation}
+where $ \sigma_x = \smqty(\pmat{1}) $, $ \sigma_y = \smqty(\pmat{2}) $, and $ \sigma_z = \smqty(\pmat{3}) $. Any unitary transformation of these matrices is also a good representation. The results of the Dirac equation do not depend on representation.
+
+\section{Angular Momentum with the Dirac Equation}\label{sec:angular_momentum_with_the_dirac_equation}
+
+\begin{align}
+    \comm{\hat{H}_D}{\hat{\va{L}}} &= \comm{\va{\alpha} \vdot \hat{\va{p}} - \beta m}{\hat{\va{r}} \cross \hat{\va{p}}} \\
+    &= \comm{\va{\alpha} \vdot \hat{\va{p}}}{\hat{\va{r}} \cross \hat{\va{p}}}
+\end{align}
+For example,
+\begin{align}
+    \comm{\hat{H}_D}{\hat{L}_x} &= \comm{\va{\alpha} \vdot \hat{\va{p}}}{\hat{y} \hat{p}_z - \hat{z} \hat{p}_y} \\
+    &= 0 + \alpha_y \comm{\hat{p}_y}{\hat{y}} \hat{p}_z + \alpha_z \comm{\hat{p}_z}{- \hat{z}} \hat{p}_y \\
+    &= - \imath(\alpha_y \hat{p}_z - \alpha_z \hat{p}_y) = - \imath([\va{\alpha} \cross \hat{\va{p}}]_x)
+\end{align}
+and the same for $ y $ and $ z $, so in general
+\begin{equation}
+    \comm{\hat{H}_D}{\va{L}} = - \imath \va{\alpha} \cross \hat{\va{p}} \neq 0!
+\end{equation}
+This seems like a big problem.
+
+Consider an operator $ \hat{\va{S}} \equiv \frac{1}{2} \mqty( \va{\sigma} & 0 \\ 0 & \va{\sigma}) $. 
+
+Then
+\begin{equation}
+    \comm{\alpha_i}{\hat{S}_j} = 0
+\end{equation}
+so
+\begin{equation}
+    \comm{\hat{H}_D}{\hat{S}_x} = \imath \va{\alpha} \cross \hat{\va{p}}
+\end{equation}
+
+So whatever $ \va{S} $ is still isn't conserved. However, let $ \va{J} = \va{L} + \va{S} $.
+\begin{equation}
+    \comm{\va{H}_D}{\va{J}} = 0
+\end{equation}
+so $ \va{J} $ is conserved. We can identify $ \va{S} $ as the intrinsic angular momentum (spin) carried by whatever particles the Dirac equation describes. We can calculate $ \va{S}^2 = \frac{3}{4} I_4 $, and the $ \hat{S}_i $ commutation rules follow from the $ \sigma_i $ commutation rules: $ \comm{\hat{S}_i}{\hat{S}_j} = \epsilon_{ijk} \hat{S}_k $, so all the typical angular momentum relations apply to spin. Then we get that $ s(s+1) = \frac{3}{4} $, or $ s = 1/2 $ so the Dirac equation describes spin-1/2 particles.
+
+
+\end{document}

@@ -1,0 +1,46 @@
+\documentclass[12pt, twoside]{article}
+\input{../preamble.tex}
+\begin{document}
+
+\section{Decomposing Tensor Products into Irreps}
+\label{sec:decomposing_tensor_products_into_irreps}
+
+\begin{equation}
+    j \otimes j' = \abs{j+j'} \oplus \cdots \oplus \abs{j - j'}
+\end{equation}
+
+For example,
+\begin{equation}
+    \frac{1}{2} \otimes \frac{1}{2} = 1 \oplus 0
+\end{equation}
+
+When we write $ j \otimes j' $, we really mean $\ket{j,m}\ket{j',m'} $, and these transform under rotations using the Wigner matrices:
+\begin{equation}
+    \ket{j,m}\ket{j',m'} \to D^j_{mm'} D^{j'}_{m'',m'''}\ket{j,m'}\ket{j',m''}
+\end{equation}
+
+We can think of this like a two-index object:
+\begin{equation}
+    A_{ij} = R_{ia} R_{jb} A_{ab}
+\end{equation}
+or in general,
+\begin{equation}
+    A_{i_1 \ldots i_n} = R_{i_1 a_1} \cdots R_{i_n a_n} A_{a_1 \ldots a_n}
+\end{equation}
+
+We can decompose any tensor into a symmetric and antisymmetric part:
+\begin{equation}
+    A_{ij} = A_{ij}^S + A_{ij}^A
+\end{equation}
+Additionally, the trace is preserved under rotations, so
+\begin{equation}
+    A_{ij}^S = \left[A_{ij}^S - \frac{1}{3} \delta_{ij} \Tr(A)\right] + \frac{1}{3} \delta_{ij} \Tr(A)
+\end{equation}
+Using these symmetries, we have broken up the original into the following pieces:
+\begin{equation}
+    A_{ij} = A_{ij}^{(STF)} + A_{ij}^{(A)} + \frac{1}{3} \delta_{ij} \Tr(A)
+\end{equation}
+where the first part is symmetric trace free, so by the number of degrees of freedom, we can call it an $ l=2 $ irrep. The second part is $ l=1 $ and the third part is $ l=0 $ for the same reason.
+
+
+\end{document}

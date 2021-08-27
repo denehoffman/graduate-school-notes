@@ -1,0 +1,177 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{3}{Friday, January 17, 2020}{Symmetries, Continued}
+
+Recall that we said there exist representations of groups which are quantum mechanically written as
+\begin{equation}
+    U = e^{\imath \va{\lambda} \vdot\va{ X}}
+\end{equation}
+where $\va{ X} $ are called generators. The generators of continuous groups obey a Lie Algebra:
+\begin{equation}
+    \comm{X_i}{X_j} = \imath f_{ijk} X_k
+\end{equation}
+
+\begin{definition}[Representation]
+    If we consider an abstract group space $ G $ and everything in that space is a group element, we know that if we pick out two elements $ g_1 $ and $ g_2 $ from that space and multiply them together, we will get an element $ g_3 \in G $. This is a bilinear map because it takes two elements of one space and maps to a third element. This map happens to be a mapping $ G \mapsto G $.
+
+    If we consider matrix representations, there is a mapping from the group elements to a matrix, and the product of those matrices must map to the representation of the third group element as above.
+\end{definition}
+
+Suppose we have some operator $\vu{ O} $ acting on an eigenstate:
+\begin{equation}
+    \vu{ O}\ket{\psi} = \lambda \psi
+\end{equation}
+Suppose that $ G $ is a symmetry that leaves $\vu{ O} $ invariant.
+\begin{equation}
+    \vu{O} \to U\vu{O}U^\dagger = \vu{O}
+\end{equation}
+Recall $ U^\dagger U = 1$:
+\begin{equation}
+    \vu{ O} U^\dagger U\ket{\psi} = \lambda\ket{\psi}
+\end{equation}
+Multiply both sides by $ U $:
+\begin{equation}
+    (U\vu{ O} U^\dagger )U\ket{\psi} = \lambda U\ket{\psi}
+\end{equation}
+However, since the symmetry leaves $ \vu{O} $ invariant, this is equivalent to
+\begin{equation}
+    \vu{ O} (U\ket{\psi}) = \lambda (U\ket{\psi})
+\end{equation}
+so we find that $ U\ket{\psi} $ is also an eigenvector. Essentially, we've found an additional solution by examining the symmetries of the system.
+
+\section{Conservation Laws}
+\label{sec:conservation_laws}
+
+Symmetries imply conservation laws. Suppose we are given a Lagrangian:
+\begin{equation}
+    L(x, \dot{x})
+\end{equation}
+Suppose the Lagrangian is invariant under some group transformation $\va{ x} \to\va{ x}' $. There is an action
+\begin{equation}
+    S = \int \dd{t} L(x,\dot{x})
+\end{equation}
+Minimizing this action gives us the equations of motion for the system:
+
+\begin{equation}
+    x(t) \to x(t) + \delta x(t)
+\end{equation}
+We are going to look for $ x $'s that minimize the action:
+\begin{align}
+    \delta S &= \int \left[ \fdv{L}{x} \delta x + \fdv{L}{\dot{x}} \delta \dot{x} \right] \dd{t} \\
+    &= \int \left[ \fdv{L}{x} \delta x + \dv{t} \left( \fdv{L}{\dot{x}} \delta x \right) - \delta x \dv{t} \fdv{L}{x} \right] \\
+    &= \int_{t_i}^{t_f} \dd{t} \delta x \left[ \fdv{L}{x} - \dv{t} \fdv{L}{\dot{x}} \right] + \underbrace{\eval{\fdv{L}{\dot{x}} \delta x}_{t_i}^{t_f}}_{0}
+\end{align}
+Therefore, to minimize $ \delta S $, we require
+\begin{equation}
+    \fdv{L}{x} = \dv{t} \fdv{L}{\dot{x}}
+\end{equation}
+which are the Euler-Lagrange equations.
+
+If we have a transformation that keeps the Lagrangian invariant, we can take a total derivative of the Lagrangian:
+\begin{equation}
+    \delta L = \fdv{L}{x} \delta x + \fdv{L}{\dot{x}} \delta \dot{x}
+\end{equation}
+so
+\begin{equation}
+    \int \left[ \fdv{L}{x} - \dv{t} \fdv{L}{\dot{x}} \right] \delta x + \dv{t}\left[ \fdv{L}{\dot{x}} \delta x \right] = 0
+\end{equation}
+If we assume the Euler-Lagrange equations hold and  we no longer take the end points to be fixed,
+\begin{equation}\label{eq:noethers_theorem}
+    \dv{t} \left[ \fdv{L}{\dot{x}} \delta x \right] = 0\tag{Noether's Theorem}
+\end{equation}
+Therefore, $ \fdv{L}{\dot{x}} \delta x $ is a constant along a classical trajectory.
+
+\begin{ex}
+    Suppose $ L $ is invariant under translations. Under translations, $\va{ x} \to\va{ x} + \va{\epsilon} $ so $ \delta\va{ x} = \va{\epsilon} $. Therefore, the corresponding conserved quantity is
+    \begin{equation}
+        \fdv{L}{\dot{\vec{x}}} \va{\epsilon}
+    \end{equation}
+    If $ \va{\epsilon} $ does not change with time (fixed velocity), $ \fdv{L}{\dot{x}} =\va{ p} $ is conserved (momentum conservation).
+\end{ex}
+
+\begin{ex}
+    Now consider a Lagrangian invariant rotations. $ \delta L = 0 $ and $\va{ x} \to R\va{ x} $. Recall we can represent a rotation by a unit vector and a magnitude:
+    \begin{equation}
+        R(\vu{ n}, \theta) = e^{\imath\va{ L} \vdot\vu{ n} \theta}
+    \end{equation}
+    Recall that $ R^T R = 1 $, so if we consider infinitesimal rotations, we find that
+    \begin{equation}
+        R^TR = 1 = (1+ \imath\va{ L}^T \vdot\vu{ n} \theta)(1 + \imath\va{ L} \vdot\vu{ n} \theta)
+    \end{equation}
+    so
+    \begin{equation}
+        1 + \imath\va{ L}^T \vdot\vu{ n} \theta +\va{ L} \vdot\vu{ n} \theta + \order{\theta^2} = 1
+    \end{equation}
+    so
+    \begin{equation}
+        \va{ L}^T \vdot\vu{ n} \theta +\va{ L} \vdot\vu{ n} \theta = 0
+    \end{equation}
+    so
+    \begin{equation}
+        \va{ L}^T = -\va{ L}
+    \end{equation}
+    so the generators are anti-symmetric.
+    \begin{equation}
+        \delta\va{ x} =\va{ x}' -\va{ x} = e^{\imath\va{ L} \vdot\vu{ n} \theta}\va{ x} -\va{ x} = (\va{x} + \imath\va{ L} \vdot\vu{ n} \theta\va{ x} -\va{ x})
+    \end{equation}
+    so
+    \begin{equation}
+        \delta\va{ x} = \imath\va{ L} \vdot\vu{ n} \theta\va{ x}
+    \end{equation}
+
+    Our conservation law is now
+    \begin{equation}
+        \dv{t}\left[ \fdv{L}{\dot{\va{x}}} \left( \imath\va{ L} \vdot\vu{ n} \theta\va{ x} \right) \right] = 0
+    \end{equation}
+    There are three generators, and we will denote them using an upper index for now ($ a, b, c $). The lower indices will be the matrix element.
+    \begin{equation}
+        (\va{ L}) = (L)^a_{ij}
+    \end{equation}
+    Recall the Lie algebra of the rotation group:
+    \begin{equation}
+        \comm{L^a}{L^b} = \imath \epsilon^{abc} L^c
+    \end{equation}
+    The $ 3 $-by-$ 3 $ representation of the $ L $ can be written
+    \begin{equation}
+        \imath L^a_{ij} = \epsilon^a_{ij}
+    \end{equation}
+    Don't confuse this with the structure constants, although it is the same Levi-Civita tensor. This tells us that
+    \begin{equation}
+        \imath^2 \epsilon^a_{ij} \epsilon^b_{jk} - \imath^2 \epsilon^b_{ij} \epsilon^a_{jk} = \imath^2 \epsilon^{abc} \epsilon^b_{ik} 
+    \end{equation}
+    
+    \begin{note}{The Levi-Civita Symbol}
+        \begin{equation}
+            \epsilon_{ijk} \epsilon_{ijk} = 6
+        \end{equation}
+        \begin{equation}
+            [\epsilon_{ija} \epsilon_{ijb} = \delta_{ab} A] \delta_{ab}
+        \end{equation}
+        now
+        \begin{equation}
+            \epsilon_{ija} \epsilon_{ija} = A \delta_{aa}
+        \end{equation}
+        or $ 6 = 3A $, or $ A = 2 $, so
+        \begin{equation}
+            \epsilon_{ija} \epsilon_{ijb} = 2 \delta_{ab}
+        \end{equation}
+        Finally,
+        \begin{equation}
+            \epsilon_{ija} \epsilon_{kla} = A \delta_{ik} \delta_{jl} + B \delta_{il} \delta_{jk} + C \delta_{ij} \delta_{kl}
+        \end{equation}
+        If we interchange $ i $ and $ j $, the right side must be antisymmetric. Therefore $ C $ is zero, since that term is symmetric in $ i $ and $ j $. We can also conclude that $ B = -A $ so 
+        \begin{equation}
+            \epsilon_{ija} \epsilon_{kla} = = A \left[ \delta_{ik} \delta_{jl} - \delta_{il} \delta_{jk} \right]
+        \end{equation}
+        Contract both sides with $ \delta_{ik} \delta_{jl} $, and we find
+        \begin{equation}
+            6 = A \left[delta_{ii} \delta_{jj} - \delta_{ij} \delta_{ji} \right] = A[9 - 3] = 6
+        \end{equation}
+        so $ A = 1 $:
+        \begin{equation}
+            \epsilon_{ija} \epsilon_{kla} = \delta_{ik} \delta_{jl} - \delta_{il} \delta_{jk}
+        \end{equation}
+    \end{note}
+\end{ex}
+
+\end{document}

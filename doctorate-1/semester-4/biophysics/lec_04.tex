@@ -1,0 +1,170 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{4}{Friday, February 12, 2021}{Statistical Physics of Cellular Processes II}
+
+\section{Entropy and Information}\label{sec:entropy_and_information}
+
+\begin{equation}
+    S(p_1, p_2, \cdots, p_N) = - \sum_{i=1}^{N} p_i \ln(p_i) \tag{Shannon/Information Entropy}
+\end{equation}
+
+This entropy is defined as the expectation value of the log of the probability distribution, $ p $. We can say that the entropy of the $ i $th microstate is $ S_i = - \ln(p_i) $, then $ S = \ev{S_i} $.
+
+Let's define an entropy function as
+\begin{equation}
+    S = \underbrace{- \sum_i p_i \ln(p_i)}_{\text{Shannon entropy}} - \lambda \left( \sum_i p_i - 1 \right)
+\end{equation}
+The second part is a constraint that the sum of probabilities should add up to $ 1 $. Our goal is to find $ p_i $ in equilibrium, so lets find
+\begin{equation}
+    \pdv{S}{p_i} = 0
+\end{equation}
+or
+\begin{equation}
+    - \ln(p_i) - 1 - \lambda = 0
+\end{equation}
+so
+\begin{equation}
+    p_i =e^{-(1 + \lambda)}
+\end{equation}
+Now we impose a normalization constraint
+\begin{equation}
+    \sum_{i=1}^{N} p_i = 1
+\end{equation}
+so
+\begin{equation}
+    e^{-(1+ \lambda)} N = 1
+\end{equation}
+or
+\begin{equation}
+    p_i = \frac{1}{N}
+\end{equation}
+In a \textbf{microcanonical ensemble}, all states are equally likely.
+
+
+Now consider a subsystem $ S $ within a larger system $ R $ (reservoir) with energy $ E_R $. The subsystem carries some energy $ E_i $ if it is in the state $ i $. $ E_i \ll E_R $, and we want to know the probability of being in microstate $ i $, $ p_i $. We can rewrite the entropy function in a slightly different form:
+\begin{equation}
+    S = - \sum_i p_i \ln(p_i) - \lambda \left( \sum_i p_i - 1 \right) - \beta \left( \sum_i p_i E_i - \ev{E} \right)
+\end{equation}
+We have added an energy constraint requiring the total average energy of the system to add up to be $ E $. Let's maximize entropy:
+\begin{equation}
+    \pdv{S}{p_i} = 0 \implies p_i = e^{-1 - \lambda - \beta E_i}
+\end{equation}
+Again, we impose $ \sum_i p_i = 1 $, so
+\begin{equation}
+    e^{-1 - \lambda} = \frac{1}{\sum_i e^{- \beta E_i}}
+\end{equation}
+so
+\begin{equation}
+    p_i = \frac{e^{- \beta E_i}}{\sum_i e^{- \beta E_i}} \tag{Boltzmann Distribution}
+\end{equation}
+This means that the probability of being in state $ i $ decreases as the energy $ E_i $ increases. This is the \textbf{canonical ensemble}, and is often written
+\begin{equation}
+    p(E_i) = \frac{1}{Z} e^{- \beta E_i} g(E_i) 
+\end{equation}
+where $ Z $ is a partition function (the normalization in the denominator) and $ g $ counts the multiplicity of each energy state:
+\begin{equation}
+    Z = \sum_i e^{- \beta E_i}
+\end{equation}
+
+\begin{ex}
+    Ion channels can either be closed or open, so $ Z = e^{- \beta \epsilon_{\text{closed}}} + e^{- \beta \epsilon_{\text{open}}} $. We can then say that the probability of having an open ion channel is
+    \begin{equation}
+        p_{\text{open}} = \frac{e^{- \beta \epsilon_{\text{open}}}}{e^{- \beta \epsilon_{\text{closed}}} + e^{- \beta \epsilon_{\text{open}}}}
+    \end{equation}
+\end{ex}
+
+\begin{ex}
+    In protein folding of a 4-amino acid chain, we can imagine three ``open'' states with energy $ \epsilon $ and a compact state (like a horseshoe) with energy $ 0 $. The weight of the open state is $ e^{- \beta \epsilon} $ with multiplicity $ 3 $ and the weight of the compact state will be $ 1 $ with multiplicity $ 1 $. Then
+    \begin{equation}
+        Z = 1 + 3 e^{- \beta \epsilon}
+    \end{equation}
+\end{ex}
+
+\section{Partition Function Utilities}\label{sec:partition_function_utilities}
+
+The partition function can be used in many ways. For example, the free energy can be written
+\begin{equation}
+    F = - k_B T \ln(Z)
+\end{equation}
+The average energy can be written
+\begin{equation}
+    \ev{E} = \frac{1}{Z} \sum_{i=1}^{N} E_i g(E_i) e^{- E_i / k_BT}
+\end{equation}
+so in our protein folding example, $ \ev{E} = \frac{3 \epsilon e^{- \beta \epsilon}}{1 + 3 e^{- \beta \epsilon}} $. Alternatively, you could use
+\begin{equation}
+    \ev{E} = -\pdv{\ln(Z)}{\beta}
+\end{equation}
+
+\subsection{Ligand-Receptor Binding}\label{sub:ligand-receptor_binding}
+
+Let's go back to the ligand lattice model from a previous lecture, where ligands can occupy points in a lattice, a receptor is somewhere on the lattice, and there is an unbound and a bound state for the receptor molecule. If we say there are $ L $ ligands and $ \Omega $ lattice sites, we can take the scenario where $ L \ll \Omega $.
+
+Consider that each ligand has energy $ \epsilon_{\text{sol}} $ in the solution, so in the unbound state, the energy is $ L \epsilon_{\text{sol}} $. The multiplicity is
+\begin{equation}
+    \frac{\Omega!}{L!(\Omega - L)!} \approx \frac{\Omega^L}{L!}
+\end{equation}
+by Striling's approximation. Therefore, the weight in the partition function is
+\begin{equation}
+    \frac{\Omega^L}{L!} e^{- \beta L \epsilon_{\text{sol}}}
+\end{equation}
+
+In the bound state, we have a bound energy for one of the ligands:
+\begin{equation}
+    E_{\text{bound}} = (L-1) \epsilon_{\text{sol}} + \epsilon_b
+\end{equation}
+with multiplicity
+\begin{equation}
+    \frac{\Omega!}{(L-1)!(\Omega - L + 1)!} \approx \frac{\Omega^{L-1}}{(L-1)!}
+\end{equation}
+so the weight is
+\begin{equation}
+    \frac{\Omega^{L-1}}{(L-1)!} e^{- \beta \left[ (L-1) \epsilon_{\text{sol}} + \epsilon_b \right]}
+\end{equation}
+Technically, there is another approximation we have made here, which concerns the fact that the receptor occupies a lattice site, so really we should be using $ \Omega - 1 $ in these multiplicity factors.
+
+The probability of being in a bound state can be calculated as (and simplified to)
+\begin{equation}
+    p_{\text{bound}} = \frac{(L/ \Omega)e^{- \beta \Delta \epsilon}}{1 + (L / \Omega)e^{- \beta \Delta \epsilon}}
+\end{equation}
+where $ \Delta \epsilon = \epsilon_b - \epsilon_{\text{sol}} $.
+
+We can think of $ L / \Omega $ as being related to the concentration of ligands:
+\begin{equation}
+    \frac{L}{\Omega} = \frac{c}{c_0}
+\end{equation}
+where $ c $ is the concentration of ligands and $ c_0 $ is some reference concentrations:
+\begin{equation}
+    p_{\text{bound}} = \frac{(c/c_0)e^{- \beta \Delta \epsilon}}{1 + (c/c_0)e^{- \beta \Delta \epsilon}}
+\end{equation}
+
+If we plot the probability vs. the concentration, we find that as we increase the number of ligands, the binding probability approaches $ 1 $, which is fairly obvious. What happens when we increase the binding energy (or equivalently, $ \Delta \epsilon $)? You will have to go to higher and higher concentrations to approach the bound state because it is less favorable to be in the bound state.
+
+Let's look at this from a different perspective: a chemical reaction
+\begin{equation}
+    L + R \leftrightarrow LR
+\end{equation}
+where $ L $ is the ligand, $ R $ is the receptor, and $ LR $ is the ligand-receptor bound complex. We can write down a differential equation
+\begin{equation}
+    \dv{[LR]}{t} = k_{\text{on}} [L][R] - k_{\text{off}} [LR]
+\end{equation}
+At equilibrium, $ \dv{[LR]}{t} = 0 $, so
+\begin{equation}
+    \frac{[LR]}{[L][R]} = \frac{k_{\text{on}}}{k_{\text{off}}}
+\end{equation}
+In this chemical-reaction perspective, the probability of being in the bound state is
+\begin{equation}
+    p_{\text{bound}} = \frac{[LR]}{[R] + [LR]} = \frac{[L]/(k_{\text{off}} / k_{\text{on}})}{1 + [L]/(k_{\text{off}} / k_{\text{on}})}
+\end{equation}
+
+From statistical physics,
+\begin{equation}
+    p_{\text{bound}} = \frac{(c/c_0)e^{- \beta \Delta \epsilon}}{1 + (c/c_0)e^{- \beta \Delta \epsilon}} = \frac{([L]/c_0)e^{- \beta \Delta \epsilon}}{1 + ([L]/c_0)e^{- \beta \Delta \epsilon}}
+\end{equation}
+so
+\begin{equation}
+    \frac{k_{\text{off}}}{k_{\text{on}}} = c_0 e^{\beta \Delta \epsilon}
+\end{equation}
+
+In the next lecture, we will consider multiple ligands binding to a single receptor.
+
+\end{document}

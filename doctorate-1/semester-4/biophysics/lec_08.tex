@@ -1,0 +1,71 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{8}{Friday, February 26, 2021}{Structure of Macromolecules II}
+
+How is DNA actually packaged?
+
+\subsection{Chromosome Conformation Capture (3C)}\label{sub:chromosome_conformation_capture_(3c)}
+
+Proteins connect to certain sections of DNA, connecting them and creating loops in a process called cell lysis. Then, these loops are killed (restriction) and the new ends are connected (ligation). This is a form of DNA purification. When we look at the probability of contacting the DNA in the correct place against the length $ L $ of the strand, we find a nearly exact $ L^{-3/2} $ correlation, which is the correlation expected from a 3D random walk.
+
+\subsection{Statistics of Loop Formation in 3D}\label{sub:statistics_of_loop_formation_in_3d}
+
+Using a continuous 3D distribution,
+\begin{equation}
+    \Pr(\va{R} ; N) = \left( \frac{3}{2 \pi N a^2} \right)^{3/2} e^{-3R^2 / 2Na^2}
+\end{equation}
+
+For a small distance $ \delta \ll \sqrt{N a^2} $,
+\begin{equation}
+    p_0 = \int_0^{\delta} 4 \pi R^2 \Pr(R;N) \dd{R} = \left( \frac{6}{\pi N^3} \right)^{1/2} \left( \frac{\delta}{a} \right)^3
+\end{equation}
+so
+\begin{equation}
+    p_0 \propto N^{-3/2}
+\end{equation}
+
+\subsection{Chromosome Contact Map (Hi-C)}\label{sub:chromosome_contact_map_(hi-c)}
+
+Using another experiment, a contact map for a particular chromosome can be generated (a correlation plot). The diagonal will be colored because every point on the chromosome is in contact with itself, but this map can also tell us about the structure of DNA packaging. Square-like structures on this map are called domains, and these domains indicate that DNA in those areas contact each other much more than they contact other domains, so domains correspond to bundles of DNA inside the chromosome.
+
+\subsection{Force-Extension Curves of Macromolecules}\label{sub:force-extension_curves_of_macromolecules}
+
+Using atomic force microscopy, you can create force-extension curves for macromolecules. These are plots of the fractional extension of the DNA strand again the force applied by the cantilever. In experiment, there are multiple sloped regions, where the slopes give the stiffness. These increase with extension, which is quite common in biological polymers. A similar thing happens for RNA, but at some point of high extension, the force does not change but the polymer extends further. This could indicate that the structure has some folding which requires a certain amount of force to unfold. This is also common in other biological molecules, such as titin proteins in muscles.
+
+If we imagine a force $ f $ pulling a molecule of length $ L \to L + \delta L $, what is $ f(\delta L) $? If we can write out the energy of the system, we can expand in $ \delta L $ and take the gradient to get the force:
+\begin{equation}
+    f = - \pdv{G}{L}
+\end{equation}
+where $ G = U - TS $. The potential energy is $ 0 $ for the system, so
+\begin{equation}
+    f = T \pdv{S}{L}
+\end{equation}
+
+If we simplify the problem back to our 1D chain with segments pointing left and right, $ S(L;L_{\text{tot}})= k_B \ln(W(L;L_{\text{tot}})) $ where $ L_{\text{tot}} = Na $. When you apply a force $ f $, we need to factor that into the free energy:
+\begin{equation}
+    G(L) = - fL - k_B T \ln(W)
+\end{equation}
+\begin{equation}
+    W(n_R;N) = \binom{N}{n_R}
+\end{equation}
+where $ L = (2 n_R - N)a $, so by Stirling's approximation,
+\begin{equation}
+    G = - 2 f n_R a + k_B T \left[ n_R \ln(n_R) + (N - n_R) \ln(N - n_R) \right]
+\end{equation}
+$ n_R \propto L $, so in equilibrium,
+\begin{equation}
+    \pdv{G}{n_R} = - 2 f a + k_B T \ln(n_R) - k_B T \ln(N - n_R) = 0
+\end{equation}
+\begin{equation}
+    \frac{n_R}{n_L} = e^{2fa/k_B T}
+\end{equation}
+You can then compute the extension as a function of force:
+\begin{equation}
+    z = \frac{\ev{L}}{L_{\text{tot}}} = \frac{n_R - n_L}{n_R + n_L} = \tanh(\frac{fa}{k_B T})
+\end{equation}
+Expanding this ($ f a \ll k_B T $), we find $ z \approx \frac{f a}{k_B T} $, a linear response, which is experimentally true in force extension curves. Of course, the hyperbolic tangent plateaus at $ z = 1 $, which means the molecule isn't elastic and can't stretch more than the path length of the polymer. Some materials can, but biomolecules generally don't.
+
+
+There are three fundamental modes of deforming an elastic material: bending, stretching, and twisting. However, if you think of the molecule as being composed of many layers, bending is just the result of stretching one side more than the other (or compressing one side).
+
+\end{document}

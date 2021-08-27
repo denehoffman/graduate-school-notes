@@ -1,0 +1,96 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{23}{Friday, March 20, 2020}{Time-Dependent Perturbation Theory}
+
+In the previous lecture, we introduced the time-ordering operator $ T $:
+\begin{align}
+    U_I(t, t_0) &= T e^{- \frac{\imath}{\hbar} \int_{t_0}^t V_I(t') \dd{t'}}
+\end{align}
+with
+\begin{equation}
+    T \{A(x) B(y)\} \equiv \begin{cases} A(x) B(y) & t_x > t_y \\ \pm B(y) A(x) & t_y > t_x \end{cases}
+\end{equation}
+This reproduces the exact iterative solution.
+
+
+Given the initial state $\ket{i} =\ket{i, t_0, t_0}_I $, we can find the time evolution of this state as
+\begin{equation}
+    \ket{i, t_0, t} = U_I(t, t_0)\ket{i} = \sum_n c_n(t)\ket{n}
+\end{equation}
+
+We can ask what is the probability of ending up in the state $\ket{m} $:
+\begin{equation}
+    \Pr(i \to m) = \abs{c_m^{(0)} + c_m^{(1)} + \cdots}^2
+\end{equation}
+
+Our initial condition is $ c_m^{(0)} = \delta_{mi} $, and using our iterative method, we find that
+\begin{equation}
+    c_m^{(1)} = - \frac{1}{\hbar} \int_{t_0}^{t} \mel{n}{V_I(t')}{i} \dd{t'} = \mel{m}{V_I}{i}
+\end{equation}
+and
+\begin{equation}
+    U_I^{(1)} = \frac{1}{\imath \hbar} \int_{t_0}^t \dd{t'} V_I(t') 
+\end{equation}
+
+
+\begin{ex}
+    For example, consider the potential
+    \begin{equation}
+        V(t) = \begin{cases} 0 & t < 0 \\ V & t \geq 0 \end{cases}
+    \end{equation}
+    We can do the integral for $ c_m^{(1)} $:
+    \begin{align}
+        c_m^{(1)} &= - \frac{\imath}{\hbar} \int_{t_0}^t\bra{n} e^{\imath H_0 t'/ \hbar} V e^{- \imath H_0 t'/ \hbar}\ket{i} \dd{t'} = - \frac{\imath}{\hbar} \mel{n}{V}{n} \int_{t_0}^t e^{\imath \omega_{ni} t'} \dd{t'} \\
+        &= - \frac{\imath}{\hbar} \mel{n}{V}{i} \left[ \frac{1}{\imath \omega_{mi}} \left[ e^{\imath \omega_{mi} t} - e^{\imath \omega_{ni} t_0} \right] \right]
+    \end{align}
+    so
+    \begin{equation}
+        \abs{c_m(t)}^2 = \frac{4 \abs{V_{mi}}^2}{\abs{E_m - E_i}^2} \sin[2](\frac{(E_m - E_i)t}{2 \hbar})
+    \end{equation}
+    where $ V_{mi} \equiv \mel{m}{V}{i} $ and $ \omega = \frac{E_m - E_i}{\hbar} $. This is a sinc function in $ \omega $ with the middle peak height proportional to $ t^2 $. We see as we wait longer and longer, the probability of transition away from the initial state goes to zero, $ E_m \to E_i $. Why is this true? When we have time dependence, energy is not in general conserved, but if we were given a system in which we turn on an interaction which is constant in time, after a while, that ``turning on'' step won't really matter. In reality, if we were to cut off the interaction at small $ t $, the frequency of energy added to the system is proportional to $ \frac{1}{t} = \omega $. This results in the time-energy uncertainty principle,
+    \begin{equation}
+        \Delta \omega \Delta t \sim 1 \implies \Delta t \Delta E \leq \hbar
+    \end{equation}
+\end{ex}
+
+Typically we are interested in states where the final state is continuum, electron scattering for example. The end state of the electron is not bound or quantized. In such cases, we define the density of states, $ \rho(E) $ such that $ \rho(E) \dd{E} $ is the number of states which have energy at $ E + \Delta E $. In the continuum,
+\begin{equation}
+    \sum_n \abs{c_n}^2 = \int \dd{E_n} \rho(E_n) \abs{c_n}^2
+\end{equation}
+
+At lowest order in perturbation theory,
+\begin{equation}
+    \sum_n \abs{c_n}^2 = \int \dd{E_n} \rho(E_n) \frac{4 \abs{V_{ni}}^2}{\abs{E_n - E_i}^2} \sin[2](\frac{(E_n - E_i)t}{2 \hbar})
+\end{equation}
+As $ t \to \infty $,
+\begin{equation}
+    \frac{1}{\abs{E_n - E_i}} \sin[2](\frac{(E_n - E_i) t}{2 \hbar}) \to \frac{\pi t}{2 \hbar} \delta(E_i - E_n)
+\end{equation}
+so
+\begin{equation}
+    \lim_{t \to \infty} \int \dd{E_n} \rho(E_n) \abs{c_n^{(1)}}^2 = \frac{2 \pi}{\hbar} \abs{V_{ni}}^2 \rho(E_n) t
+\end{equation}
+we can define the time derivative of this as
+\begin{equation}\label{eq:fermis_golden_rule}
+    \Gamma_{i \to [n]} = \frac{2 \pi}{\hbar} \abs{V_{ni}}^2 \rho(E_n) \tag{Fermi's Golden Rule}
+\end{equation}
+where the brackets mean $ i $ ``near'' $ n $:
+\begin{equation}
+    \Gamma_{i \to n} = \frac{2 \pi}{\hbar} \abs{V_{ni}}^2 \delta(E - E_n)
+\end{equation}
+This is still for constant $ V $, we will go back to $ V \sim e^{\imath \omega t} $ soon. To next order, we are interested in
+\begin{align}
+    \bra{n} T \left[ e^{- \frac{\imath}{\hbar} \int_{t_0}^t V_I(t') \dd{t'}} \right]\ket{i} &= \left( - \frac{\imath}{\hbar} \right) \frac{1}{2!} \cdot 2 \int_{0}^t V_I(t') \dd{t'} \int_0^{t'} V_I(t'') \dd{t''}\ket{i} \\
+    &= - \frac{1}{\hbar^2} \sum_m\bra{n} \int_0^t V_I(t')\ket{m}\bra{m} \int_0^{t'} V_I(t'') \dd{t''}\ket{i} \\
+    &= - \frac{1}{\hbar^2} \sum_m \abs{V_{nm}}^2 \abs{V_{mi}}^2 \int_0^{t} e^{\imath \omega_{nm} t'} \dd{t'} \int_0^{t'} e^{\imath \omega_{mi} t''} \dd{t''} \\
+    &= \frac{\imath}{\hbar} \sum_m \frac{V_{nm} V_{mi}}{(E_m - E_i)} \int_0^t \left[ e^{\imath \omega_{ni} t'} - e^{\imath \omega_{mn} t'}\right] \dd{t'}
+\end{align}
+
+Notice that $ E_m \neq E_i $. $\ket{m} $ is some intermediate state. We are taking some initial state $ i $, scattering it off the potential to state $ m $, and it ends up in the final state $ n $. It appears energy conservation is violated at second order! The state $ m $ is a ``virtual state''. There is a short time energy violation, but there is no way to measure this energy violation in this virtual fluctuation.
+\begin{equation}
+    \feyn{!{fA}{i} !{gv}{V} !{fA}{m} !{gv}{V} !{fA}{n}}
+\end{equation}
+
+
+
+\end{document}

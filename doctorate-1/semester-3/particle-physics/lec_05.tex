@@ -1,0 +1,61 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{5}{Friday, September 11, 2020}{}
+
+\subsection{Electromagnetic Cascades}
+If a high energy photon, electron, positron, (or really high energy muon) enters a thick material, it may initiate an cascade of radiation (or shower).
+
+\subsection{Cherenkov Radiation}
+This is emitted if a particle travels faster than the speed of light in a material (this is perfectly allowed and predicted by even Classical EM). A handy way to remember the angle of the radiation is:
+\begin{equation}
+    \cos(\theta_c) = \frac{c/n}{\beta c} = \frac{1}{n \beta}
+\end{equation}
+
+Additionally, the number of photons per unit distance is given by
+\begin{equation}
+    \pdv{N}{E}{x} = \frac{\alpha Z_R^2}{\hbar c} \sin[2](\theta_c) \propto 1 - \frac{1}{\beta^2 n^2(E)}
+\end{equation}
+or
+\begin{equation}
+    \pdv{N}{\lambda}{x} = \frac{2 \pi \alpha Z^2_R}{\lambda^2} \left( 1 - \frac{1}{\beta^2 n^2(\lambda)} \right)
+\end{equation}
+Because of this dependence, Cherenkov radiation tends to be UV or blue.
+
+\subsection{Transition Radiation}
+\label{sub:transition_radiation}
+
+Charged particles crossing a transition between materials with different indices of refraction will radiate. For very high $ \gamma $ and many layers, the emissions can be x-rays.
+
+\subsection{Hadronic Showers}
+\label{sub:hadronic_showers}
+
+If a hadron enters a thick material, it may initiate a hadronic shower. The scale for these interactions is set by the nuclear interaction length. The probability for a hadron to travel a distance $ x $ without a nuclear interaction is
+\begin{equation}
+    \Pr(x) = e^{-(x/ \lambda_{\text{nuc}} )}
+\end{equation}
+where
+\begin{equation}
+    \lambda_{\text{nuc}} = \frac{1}{\rho_A \sigma_{\text{nuc}}} = \frac{A}{N_A \rho \sigma_{\text{nuc}}}
+\end{equation}
+where $ \rho_A $ is the atomic density.
+
+\section{Experiment Triggers}
+\label{sec:experiment_triggers}
+
+Experiments require triggers to select events of interest from the huge amount of interactions.
+\begin{itemize}
+    \item First-level triggers use fast detectors, hardware discriminators, and fast hardware logic
+    \item Second-level triggers may add information from slower devices and use digitized results from fast-readout electronics to make more sophisticated decisions
+    \item Higher-level triggers that decide what data gets written to the disk
+\end{itemize}
+
+\section{Detectors}
+\label{sec:detectors}
+
+\begin{itemize}
+    \item[(A)] Scintillators collect ionization energy and convert it into light through some intrinsic property of a material or a material mixed with fluorescent particles.
+        \subitem Light collection usually uses total internal reflection to lead light into a photo-detector.
+\end{itemize}
+
+
+\end{document}

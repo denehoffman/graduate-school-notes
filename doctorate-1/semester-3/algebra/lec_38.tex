@@ -1,0 +1,108 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{38}{Monday, December 07, 2020}{Proof of the Nullstellensatz}
+
+Example of the extension theorem:
+\begin{ex}
+    \begin{align}
+        f_1 &= xy-1\\
+        g_1 &= y
+    \end{align}
+    Then $ I = (f_1) $ and $ I_1 = (0) $ so $ V(I_1) = k^1 $.
+\end{ex}
+
+The aim of this is to use it to prove the Nullstellensatz.
+
+\begin{note}{Remark}
+    If $ g_1 $ is constant, then the extension is always possible.
+\end{note}
+
+\begin{lemma}[Schwartz-Zippel]
+    (Not Schwartz from Cauchy-Schwarz)
+
+    If $ f \in k[x_1, \cdots, x_n] $ and $ S_1, \cdots, S_n \subset k $ of size $ \abs{S_1} = \cdots = \abs{S_n} = m $, then
+    \begin{equation}
+        V(f) \cap (S_1 \times \cdots \times S_n) \leq d m^{n - 1}
+    \end{equation}
+    where $ d = \text{deg}(f) $.
+\end{lemma}
+\begin{proof}
+    The proof is by induction on $ n $. $ f(x_1, \cdots, x_n) = \sum_{i=0}^{s} x_1^i g_i(x_2, \cdots, x_n) $ where $ g_s \neq 0 $. Given a solution of $ f(c_1, \cdots, c_n) = 0 $, either $ g_s(c_2, \cdots, c_n) = 0 $ or $ g_s(c_2, \cdots, c_n) \neq 0 $.
+
+    In the first case, the number of solutions of this type is $ \leq (\text{deg}(g_s)) \cdot m^{n-2} \cdot m \leq (d-s)m^{n-1} $.
+
+    The number of solutions of the other case is $ \leq m^{n-1} \cdot s $.
+
+    Therefore, the total number of solutions is $ \leq dm^{n-1} $.
+\end{proof}
+
+\begin{corollary}
+    If $ k $ is infinite and $ f \in k[x_1, \cdots, x_n] $ is nonzero, then $ \exists c $ such that $ f(c) \neq 0 $.
+\end{corollary}
+\begin{corollary}
+    This is also true if $ k $ is algebraically closed, since no finite field is algebraically closed.
+\end{corollary}
+
+\begin{theorem}[Weak Nullsellensatz]
+    If $ k $ is algebraically closed and $ V(I) = \varnothing $, then $ 1 \in I $.
+\end{theorem}
+\begin{proof}
+    $ I = (f_1, f_2, \cdots, f_s) $. If we just tried to apply the extension theorem, we'd get stuck because we don't know the leading coefficients of these functions. We will apply a linear change of coordinates to remedy this:
+    \begin{equation}
+        (x_1, \cdots, x_n) \mapsto M(x_1, \cdots, x_n)
+    \end{equation}
+    where $ M $ is an invertible $ n \times n $ matrix.
+    \begin{align}
+        x_1 &= \tilde{x}_1\\
+        x_2 &= \tilde{x}_2 + a_2 \tilde{x}_1\\
+        x_3 &= \tilde{x}_3 + a_3 \tilde{x}_1 \\
+        &\vdots\\
+        x_n &= \tilde{x}_n + a_n \tilde{x}_1
+    \end{align}
+    Write $ f_1 $ as a sum of homogeneous components
+    \begin{equation}
+        f_1(x_1, \cdots, x_n) = g_d(x_1, \cdots, x_n) + g_{d-1}(\cdots) + \cdots
+    \end{equation}
+    where all terms in $ g_i $ are of degree $ i $. Then
+    \begin{align}
+        g_d(x_1, \cdots, x_n) &= g_d(a_1 \tilde{x}_1, \tilde{x}_1 + a_2 \tilde{x}_2, \cdots, \tilde{x}_1 + a_n \tilde{x}_n) \\
+                              &= \tilde{x}_1^d \cdot g_d(a_1, \cdots, a_n) + \cdots
+    \end{align}
+    We can choose $ a_1, \cdots, a_n $ such that $ g(a_1, \cdots, a_n) \neq 0 $. Then,
+    \begin{equation}
+        g_d(a_1, \cdots, a_n) = a_1^d g_d\left( 1, \frac{a_2}{a_1}, \cdots, \frac{a_n}{a_1} \right)
+    \end{equation}
+    Without loss of generality, let $ a_1 = 1 $. Let $ \tilde{I} = \{f(\tilde{x}, \cdots, \tilde{x} us n) \colon f \in I\} $. Now we use induction on $ n $. If $ 1 \not\in \tilde{I} $, then $ V(\tilde{I}) \neq \varnothing $. Consider $ \tilde{I}_1 = \tilde{I} \cap k[x_2, \cdots, x_n] $. Then $ 1 \not\in \tilde{I} $ implies that $ 1 \not\in \tilde{I}_1 $, so by induction $ V(\tilde{I}_1) \neq \varnothing $. Let $ c \in V(\tilde{I}_1) $. Then by the extension theorem, $ \exists c_1 $ such that $ (c_1, c) \in V(\tilde{I}) $.
+\end{proof}
+
+\begin{theorem}[Strong Nullstellensatz]
+    If $ k $ is algebraically closed and $ f \in I(V(f_1, \cdots, f_s)) $ then $ f \in \text{rad}(f_1, \cdots, f_s) $, i.e. $ \exists m $ such that $ f^m \in (f_1, \cdots, f_s) $.
+\end{theorem}
+\begin{proof}
+    $ f_1, \cdots, f_s \in k[x_1, \cdots, x_n] $. Consider $ J = (f_1, \cdots, f_s, 1-yf) \subset K[x_1, \cdots, x_n, y] $. Then for $ c \in V(J) $, $ f_i(c) = 0 $ $ \forall i $. This implies $ f(c) = 0 $, so $ (1-yf)(c) \neq 0 $. Therefore, $ V(J) = \varnothing $. By the Weak Nullstellensatz, $ 1 \in J $. Therefore,
+    \begin{equation}
+        1 = \sum g_i(x_1, \cdots, x_n, y) f_i + g(\cdots)(1-yf)
+    \end{equation}
+    We now work in $ k(x_1, \cdots, x_n, y) $. Plug $ y = 1/f $ into the previous equation, and we find that
+    \begin{equation}
+        1 = \sum_i g_i(X, 1/f) f_i
+    \end{equation}
+    Therefore,
+    \begin{equation}
+        f^m = \sum_i f^m g_i(X, 1/f) f_i \in (f_1, \cdots, f_s)
+    \end{equation}
+\end{proof}
+
+This gives us a correspondence between varieties and ideals:
+\begin{itemize}
+    \item[(1)] $ V $ is a variety, then $ V(I(U)) = U $
+    \item[(2)] If $ k $ is algebraically closed, then $ J $ is a radical ideal implies $ I(V(J)) = J $.
+\end{itemize}
+
+\begin{proof}
+    $ \forall f \in I(U) $ (vanishes on $ U $), $ U \subseteq V(I(U)) \implies U = V(f_1, \cdots, f_s) $. $ U \in V(f_1, \cdots, f_s) $. Then $ U\supseteq V(I(U)) $ and $ V(f_1, \cdots, f_s) \supseteq V(I(U)) $.
+
+    Also, $ f_1, \cdots, f_s \in I(U) $ so $ (f_1, \cdots, f_s) \subseteq I(U) $. Therefore $ V(f_1, \cdots, f_s) \supseteq V(I(U)) $.
+\end{proof}
+
+\end{document}

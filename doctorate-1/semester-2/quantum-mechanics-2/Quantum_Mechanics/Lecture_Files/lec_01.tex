@@ -1,0 +1,121 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{1}{Monday, January 13, 2020}{Group Theory}
+
+\section{Symmetries}
+\label{sec:symmetries}
+
+What's so special about sines and cosines? We know that the equation
+\begin{equation}
+    f'' + f = 0
+\end{equation}
+has solutions
+\begin{equation}
+    A e^{\imath t} = A \sin(t) + B \cos(t)
+\end{equation}
+
+Let's generalize this. Let $ O $ be a differential operator. We can rewrite our equation as
+\begin{equation}
+    O[f] = 0
+\end{equation}
+where
+\begin{equation}
+    O = \dv[2]{t} + 1
+\end{equation}
+
+If we transform to a new coordinate, $ t \to t' $ or $ t \to t + a $, $ O \to O $, since
+\begin{equation}
+    \dv{t} = \dv{t'} \dv{t'}{t} = \dv{t'}
+\end{equation}
+
+Therefore, we say that $ O $ is invariant under time translations. If $ f $ is a solution to $ O[f] = 0 $, then performing a time translation leaves $ O $ invariant, but $ f $ is not invariant, so
+\begin{equation}
+    O[f] \to O'[f(t+a)] = O[f(t+a)]
+\end{equation}
+so we can conclude that $ f(t+a) $ must also be a solution. Therefore, if $ A e^{\imath t} $ is a solution, so is $ A e^{\imath a} e^{\imath t} $, so if we shift our coordinate $ t $, our solutions are still sines and cosines. Why are Bessel functions and spherical harmonics special? Certain coordinate transformations (symmetry transformations) cause these functions to transform into versions of themselves. They are solutions to differential equations that allow you to generate other solutions through transformations. For instance, spherical harmonics transform to themselves under rotations. These invariances are symmetries.
+
+\subsection{Mathematical Formalism}
+\label{sub:mathematical_formalism}
+
+
+There are two types of symmetries: continuous and discrete. These symmetries are defined by having invariants which are only invariant under continuous or discrete transformations.
+
+We define transformations as a map $ A \mapsto B $. A symmetry is a map which takes an object to itself: $ A \mapsto A $. In physics, symmetries must leave the Hamiltonian invariant: $ H \mapsto H $.
+
+\begin{ex}
+    Let
+    \begin{equation}
+        H = \frac{\va{P}^2}{2m}\tag{Free Particle}
+    \end{equation}
+    This Hamiltonian is invariant under rotations. If we take a rotation matrix $ R(\theta, \varphi) $ and operate it on $ \va{P} $, the Hamiltonian will not change.
+\end{ex}
+
+In QM, we have restrictions on allowed symmetry transformations. We define the state of the system as $\ket{\psi} $, a ray in a Hilbert space, a vector space where $\bra{\psi}\ket{\psi} > 0 $. It's technically not a vector, since there is no physical difference between $\ket{\psi} $ and $ e^{\imath \lambda}\ket{\psi} $.
+
+Call our symmetry transformation operator $ T $, and let $ T\ket{\psi} =\ket{\psi'} $ be our transformed state. We require that such a transformation preserves the inner product:
+\begin{equation}
+    \bra{\psi}\ket{\psi} = 1 \implies\bra{\psi'}\ket{\psi'} = 1
+\end{equation}
+If we transform the inner product,
+\begin{equation}
+    \bra{\psi}\ket{\psi} \mapsto\bra{\psi} T^\dagger T\ket{\psi} = 1
+\end{equation}
+so
+\begin{equation}
+    T^\dagger T = 1
+\end{equation}
+This makes $ T $ unitary by definition.
+
+Any symmetry operator in QM \textbf{must be unitary} (although they can also be anti-unitary, but that's not important for now).
+
+The next constraint is that a symmetry transformation should form a group.
+\begin{definition}[Group]
+    A group is a collection of elements $ \{A_i\} = G $ and an operation $ \vdot $ which maps two group elements to another ($ A_i \vdot A_j = A_k, A_{i,j,k} \in G $). In other words, the group $ (G, \vdot) $ must be closed. Additionally,
+    \begin{itemize}
+        \item There is an identity element $ A_0 $ such that $ A_0 \vdot A_i = A_i \forall A_i $
+        \item For each $ A_i $, there exists an inverse element $ A_i^{-1} $ such that $ A_i \vdot A_i^{-1} = A_0 $
+        \item The operation $ \vdot $ is associative: $ (A_i \vdot A_j) \vdot A_k = A_i \vdot (A_j \vdot A_k)  $
+    \end{itemize}
+\end{definition}
+
+\begin{ex}
+    The integers form a group under addition: $ (\Z, +) $
+\end{ex}
+\begin{ex}
+    The integers do not form a group under division, since, for example, $ \frac{1}{2} \notin \Z $
+\end{ex}
+\begin{ex}
+    The real numbers form a group under division if zero is not included, since $ \frac{a}{0} $ is undefined
+\end{ex}
+
+Given some Hermitian operator $ X $ ($ X = X^\dagger $), we can form a unitary operator by exponentiation:
+\begin{equation}
+    U = e^{\imath X}
+\end{equation}
+since $ U^\dagger = e^{- \imath X^\dagger} = e^{- \imath X} $, so $ U^\dagger U = 1 $.
+
+What do we mean by an exponential of an operator? If we are in a finite-dimensional Hilbert space, our operator would be a matrix. We can write exponentiation as a Taylor series:
+\begin{equation}
+    e^{\imath X} = \sum_{n=0}^{\infty} \frac{(- \imath X)^n}{n!}
+\end{equation}
+
+These $ X $ operators are called the ``generator'' of the group. In general, a group has more than one generator. If we call these generators $ X_i $, the elements of the group can be enumerated
+\begin{equation}
+    U(\lambda_i) = e^{\imath \lambda_i X_i} = e^{\imath \va{\lambda} \vdot\va{ X}}
+\end{equation}
+We call $ \va{\lambda} $ the ``group parameter''.
+
+\begin{ex}
+    We can define an arbitrary rotation by an axis of rotation $\hat{ n} $ and the magnitude of the rotation $ \theta $. We require $\hat{ n} \vdot\hat{ n} = 1 $, so the entire rotation is defined by three parameters (two independent parts of the unit vector and the magnitude). Therefore
+    \begin{equation}
+        U = e^{\imath\hat{ n} \vdot\va{T} \theta}a \in G
+    \end{equation}
+    where $\va{X} =\va{T} $ is the group generator for rotations.
+
+    Since these are elements of a group,
+    \begin{equation}
+        e^{\imath\hat{ n}_1 \vdot\va{ T} \theta_1} e^{\imath\hat{ n}_2 \vdot\va{ T} \theta_2} = e^{\imath\hat{ n}_3 \vdot\va{ T} \theta_3}
+    \end{equation}
+\end{ex}
+
+\end{document}

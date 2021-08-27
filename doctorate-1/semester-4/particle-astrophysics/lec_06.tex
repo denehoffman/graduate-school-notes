@@ -1,0 +1,105 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{6}{Tuesday, February 09, 2021}{Parallel Transport}
+
+Consider walking on a sphere following a particular geodesic from the north pole to the equator carrying a vector which points south. Continue walking along the equator, another geodesic, and then back to the north pole. The vector will now point in a different direction, and the difference is proportional to the Riemann curvature tensor:
+
+\begin{equation}
+    R^{\alpha}_{\beta \rho \gamma} = \pdv{\Gamma^{\alpha}_{\beta \gamma}}{x^{\rho}} - \pdv{\Gamma^{\alpha}_{\beta \rho}}{x^{\gamma}} + \Gamma^{\alpha}_{\sigma \rho} \Gamma^{\sigma}_{\beta \gamma} - \Gamma^{\alpha}_{\sigma \gamma} \Gamma^{\sigma}_{\beta \gamma} \tag{Riemann Tensor}
+\end{equation}
+The first two terms do not vanish in a local inertial frame and are associated with tidal forces (the other two terms do). This is a rank $ 4 $ tensor, and due to symmetries, there are $ 20 $ independent components.
+
+
+By the equivalence principle, in a (small) neighborhood, we can set $ g_{\mu \nu} = \eta_{\mu \nu} $ such that the Christoffel symbols $ \Gamma \sim \partial g \equiv 0 $, but \textit{not} all $ \partial^2 g = 0 $. Twenty of these components are nonzero, so these are curvature independent components which describe tidal forces. Covariant derivatives of the Riemann tensor obey the Bianchi identity which allows for a reduction in the number of components to $ 20 $. Further reduction can be created by various constructions:
+\begin{equation}
+    g^{\alpha \gamma} R_{\alpha \beta \gamma \delta} \equiv R_{\beta \delta} \tag{Ricci Tensor}
+\end{equation}
+\begin{equation}
+    g^{\beta \delta} R_{\beta \delta} = R \tag{Ricci Scalar}
+\end{equation}
+
+Finally, we have
+\begin{equation}
+    G_{\mu \nu} = R_{\mu \nu} - \frac{1}{2} g_{\mu \nu} R \tag{Einstein Tensor}
+\end{equation}
+which is symmetric and covariantly conserved:
+\begin{equation}
+    G_{\mu \nu ; \nu} = 0
+\end{equation}
+This tensor carries information about the geometry. We have also seen a relationship between mass distributions and this geometry. We can show that
+\begin{equation}
+    G_{\mu \nu} = - \frac{8 \pi G_N}{c^4} T_{\mu \nu}
+\end{equation}
+where $ G_{N} $ is Newton's constant and $ T_{\mu \nu} $ is the energy momentum tensor, which is also symmetric and covariantly conserved. It can also be shown that $ g_{\mu \nu ; \nu} = 0 $.
+
+\section{The Energy Momentum Tensor}\label{sec:the_energy_momentum_tensor}
+
+What is $ T_{\mu \nu} $? Consider a fluid of particles of masses $ m_i $ at positions $ \va{x}_i(t) $ where the total number of particles $ N \gg 1 $. We can describe this in terms of a continuum density:
+\begin{equation}
+    \rho(\va{x};t) = \sum_{i=1}^{N} m_i \delta^{(3)}(\va{x} - \va{x}_i(t))
+\end{equation}
+so that
+\begin{equation}
+    \int \dd[3]{x} \rho(\va{x};t) = \sum_{i=1}^{N} m_i \equiv M
+\end{equation}
+the total mass. For each particle, we can introduce a momentum $ \va{p}_i(t) = m_i \va{v}_i(t) = m_i \dv{\va{x}_i(t)}{t} $ and a momentum density
+\begin{equation}
+    \va{J}(\va{x};t) = \sum_{i=1}^{N} m_i \va{v}_i(t) \delta^{(3)}(\va{x} - \va{x}_i)
+\end{equation}
+such that
+\begin{equation}
+    \int \dd[3]{x} \va{J}(\va{x};t) = \va{P}
+\end{equation}
+the total momentum. Note that
+\begin{align}
+    \pdv{\rho(\va{x};t)}{t} &= \sum_i m_i \pdv{t}\delta^{(3)}(\va{x} - \va{x}_i(t)) \\
+                            &= - \div{\va{J}}
+\end{align}
+so
+\begin{equation}
+    \pdv{\rho(\va{x};t)}{t} + \div{\va{J}(\va{x};t)} \equiv 0
+\end{equation}
+This is a continuity equation for our fluid of particles. We can then introduce the idea of flow by starting with the average velocity of a set of particles as:
+\begin{equation}
+    \va{v}_{\text{avg}} = \frac{\sum_i m_i \va{v}_i}{\sum_i m_i}
+\end{equation}
+and thinking of the average velocity of the fluid of particles as
+\begin{equation}
+    \va{v}(x;t) \equiv \frac{\va{J}(\va{x};t)}{\rho(\va{x};t)}
+\end{equation}
+or
+\begin{equation}
+    \rho(\va{x};t) \va{v}(x;t) \equiv \va{J}(\va{x};t)
+\end{equation}
+Our continuity equation can now be written as
+\begin{equation}
+    \pdv{\rho(\va{x};t)}{t} + \div{\rho(\va{x};t) \va{v}(\va{x};t)} = 0
+\end{equation}
+where this second term can now be thought of as the flow of the particle fluid.
+
+
+Consider a fluid composed of cells. In each cell there is a local pressure, velocity, and momentum, along with any other local thermodynamic variables. Consider a point $ \va{x} $ and a local quantity $ Q(\va{x};t) $, the Eulerian time derivative corresponds to keeping the point fixed in space: $ \eval{\pdv{Q(\va{x};t)}{t}}_{\va{x}} $. Now consider an observer moving along with the fluid, like a river and a boat which flows with the water (no paddling). The boat drifts along with the flow of the water, so they are at rest with the flow of water. If they now measure a property at time $ t $ and again at $ t + \dd{t} $, they have actually moved a distance $ \va{v} \dd{t} $ between measurements, or $ Q(\va{x} + \va{v} \dd{t};t + \dd{t}) $. Then we can define the Lagrangian derivative as
+\begin{equation}
+    \eval{\frac{Q(\va{x} + \va{v} \dd{t};t + \dd{t}) - Q(\va{x};t)}{\dd{t}}}_{\dd{t} \to 0} = \pdv{Q}{t} + (\va{v}(\va{x};t) \vdot \grad_{\va{x}})Q(\va{x}) \equiv \dv{Q}{t}
+\end{equation}
+This is the total derivative.
+
+We can now define things like the total acceleration:
+\begin{equation}
+    \va{a} = \dv{\va{v}}{t}a = \pdv{\va{v}}{t} + (\va{v} \vdot \grad) \va{v}
+\end{equation}
+In components, this looks like
+\begin{equation}
+    a_i = \pdv{v_i}{t} + \sum_{j=1}^{3} (v_j \pdv{x_j}) v_i
+\end{equation}
+
+\subsection{Newton's Laws for Fluids}\label{sub:newton's_laws_for_fluids}
+
+Consider a small cell of mass $ \Delta m $ and volume $ \Delta V $ with $ \rho(\va{x}) = \frac{\Delta m}{\Delta V} $ immersed in a fluid. Then
+\begin{equation}
+    \Delta m \va{a} = \va{F}_{\text{tot}} \equiv \Delta m \dv{\va{v}}{t}
+\end{equation}
+In the next lecture, we will talk about what this ``total force'' contains, including external forces such as gravity, with $ \va{F}_{\text{grav}} = - \Delta m \grad{\varphi} $ and the forces from pressure differences in nearby cells.
+
+
+\end{document}

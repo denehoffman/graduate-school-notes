@@ -1,0 +1,71 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{10}{Wednesday, February 05, 2020}{}
+
+\begin{note}{Excursion \textendash\ Exact and Inexact Differentials}
+    Consider $ f(x) \dd{x} $. This can always be written as the differential of some function $ F(x) $:
+    \begin{align}
+        F(x) &= \int^x \dd{t} f(t) \\
+        \dd{F(x)} = \pdv{F(x)}{x} \dd{x} = f(x) \dd{x}
+    \end{align}
+
+    However, this is no longer generally true in more than one dimension. Consider $ f_x(x,y) \dd{x} + f_y(x,y) \dd{y} $. Does a function exist such that
+    \begin{equation}
+        \dd{F} = f_x \dd{x} + f_y \dd{y}
+    \end{equation}
+    If so, this differential is exact. If this is true,
+    \begin{equation}
+        \dd{F} = \pdv{F}{x} \dd{x} + \pdv{F}{y} \dd{y}
+    \end{equation}
+    As a consequence, 
+    \begin{align}
+        \pdv{f_x}{y} &= \pdv{y}\left( \pdv{F}{x} \right) \\
+        &= \pdv{x}\left( \pdv{F}{y} \right) \\
+        \pdv{f_x}{y} &= \pdv{f_y}{x}
+    \end{align}
+    If this doesn't hold, our differential will never be exact. This condition is called an ``integrability condition''. If it holds, the differential is called ``closed''. Closed differentials are exact if the domain is simply connected.
+
+    The ``bar'' notation denotes differentials that are not exact. There is no $ F $ such that the equations are satisfied. In the equation $ \dd{U} = \dbar{Q} + \dbar{W} $ 
+\end{note}
+
+How would you integrate an inexact differential?
+\begin{equation}
+    \dbar{F} = f_x(x,y) \dd{x} + f_y(x,y) \dd{y}
+\end{equation}
+Define
+\begin{equation}
+    \va{f}(x,y) = \mqty(f_x(x,y) \\ f_y(x,y)) \qquad \dd{\va{r}} = \mqty(\dd{x} \\ \dd{y})
+\end{equation}
+so that
+\begin{equation}
+    \int_C \dbar{F} = \int_C \va{f} \vdot \dd{\va{r}} = \int_a^b \va{f}(\va{r}(s)) \vdot \pdv{\va{r}}{s} \dd{s}
+\end{equation}
+If the differential was exact, any path integral would only depend on the endpoints and not on the path taken. Therefore, any closed loop integral would be zero.
+
+Differentials that are not closed still have integrating factors which close them!
+\begin{equation}
+    \dbar{F}(x,y) \to a(x,y) \dbar F(x,y) = \dd{G}(x,y)
+\end{equation}
+For example:
+\begin{equation}
+    \dbar{F} = y \dd{x} + 1 \dd{y}
+\end{equation}
+Obviously, $ \pdv{y}{y} = 1 \neq \pdv{1}{x} = 0 $, so this differential is not exact, but look at
+\begin{equation}
+    e^{x} \dbar{F} = e^x y \dd{x} + e^x \dd{y}
+\end{equation}
+which is exact.
+
+Can we find the $ G $ that gives this $ e^x \dbar{F} $? Yes, we can pick a convenient starting point $ (0,0) $ and integrate to some fixed point $ (x,y) $. If the differential is exact, then the answer does not depend on the path.
+\begin{align}
+    G(x,y) &= \int_S \dbar{F}(x',y') e^{x'} \\
+    &= \int_S^{(x,y)} \left[ y' e^{x'} \dd{x'} + e^{x'} \dd{y'} \right] \\
+    &= \int_0^x \dd{x'} 0 e^{x'} + \int_0^y \dd{y} e^x = y e^x
+\end{align}
+Here, we take a straight line path along the x-axis till $ x' = x $, then move straight up/down to $ y $. Let's test if this is an exact differential.
+\begin{equation}
+    \dd{G} = \pdv{G}{x} \dd{x} + \pdv{G}{y} \dd{y} = y e^y \dd{x} + e^x \dd{y}
+\end{equation}
+
+
+\end{document}

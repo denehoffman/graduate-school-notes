@@ -1,0 +1,94 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{37}{Wednesday, April 22, 2020}{Bose-Einstein Condensation}
+
+\section{Bose-Einstein Condensation}
+\label{sec:bose-einstein_condensation}
+
+For a Boson gas, at $ T = 0 $, every particle is in the ground state. This is actually very unremarkable and not what we mean by BE condensation. The interesting thing is that for a given density $ n = \frac{N}{V} $, there exists a temperature $ T_E > 0 $ such that for $ 0 < T < T_E $, the ground state is ``macroscopically occupied''.
+
+\begin{equation}
+    n_0 \equiv \lim_{V \to \infty} \frac{\ev{n_{\alpha_0}}}{V} > 0
+\end{equation}
+
+Observe that
+\begin{equation}
+    \ev{n_{\alpha_0}} = \frac{1}{e^{\beta (\underbrace{\epsilon_0}_{0} - \mu)} - 1} = \frac{z}{1-z} \sim L^d
+\end{equation}
+since the fugacity is
+\begin{equation}
+    z \sim \frac{L^d}{1 + L^d} \sim 1 - cL^{-d}
+\end{equation}
+
+The fugacity is extremely close to $ 1 $ so $ \mu $ is extremely close to $ 0 = \epsilon_0 $. What about the first excited state? Observe that $ \epsilon_k \sim k^2 \sim \frac{1}{L^2} $ so $ \epsilon_0 \sim \frac{\gamma}{L^2} $.
+\begin{align}
+    \ev{n_{\alpha_1}} &= \frac{z}{e^{\beta \epsilon_1} - z} = \frac{z}{e^{\beta \gamma / L^2} - z} = \frac{1 - cL^{-d}}{1 + \frac{\beta \gamma}{L^2} - 1 + cL^{-d}} \\
+    &= \frac{L^d - c}{\beta \gamma L^{d-2} + c} \\
+    & \sim \begin{cases} L^2 & d=3 \implies \frac{\ev{n_{\alpha_1}}}{\ev{n_{\alpha_0}}} = \frac{1}{L} \to 0 \\ L^2 & d=2 \implies \frac{\ev{n_{\alpha_1}}}{\ev{n_{\alpha_0}}} = 1\\ L & d=1 \implies \frac{\ev{n_{\alpha_1}}}{\ev{n_{\alpha_0}}} = 1\end{cases}
+\end{align}
+In $ 1 $ and $ 2 $ dimensions, the first excited state occupancy is like the ground state (boring). Condensation only happens in $ 3 $ dimensions. It may happen that the total number of particles in all exited states cannot go beyond a certain number:
+
+\begin{equation}
+    N = (2s+1) \frac{V}{\lambda_{\text{th}}^d} L_{d/2}(z) \leq (2s+1) \frac{V}{\lambda_{\text{th}}^d} L_{d/2}(1)
+\end{equation}
+Now recall that $ L_{d/2}(z) $ diverges for $ z \to 1 $ for $ d = 1 $ and $ d = 2 $. However, $ L_{3/2}(1) = \zeta(3/2) = 2.612\cdots < \infty $. This formula claims that the total number of particles in a system is finite. This cannot be true. In reality, we are writing down the total number of particles in excited states. The ground state particles are not counted in the integral because the density of states $ D(\epsilon = 0) = 0 $!\ Therefore, once we reach the limit of particles given here, every particle added will condense into the ground state.
+\begin{equation}
+    N_{\text{excited, max}} = (2s+1) \frac{V}{\lambda_{\text{th}}^3} \gamma\left( \frac{3}{2} \right)
+\end{equation}
+\begin{equation}
+    N_0 = N - N_{\text{excited, max}} = N - (2s+1) \frac{V}{\lambda_{\text{th}}^3} \gamma\left( \frac{3}{2} \right)
+\end{equation}
+so
+\begin{equation}
+    \frac{N_0}{N} = 1 - (2s+1) \frac{V}{N\lambda_{\text{th}}^3} \gamma\left( \frac{3}{2} \right)
+\end{equation}
+Recall that $ \lambda_{\text{th}} \sim \frac{1}{\sqrt{T}} $, so
+\begin{equation}
+    \frac{N_0}{N} = 1 - \left( \frac{T}{T_E} \right)^{3/2}
+\end{equation}
+such that
+\begin{equation}
+    T_E = \frac{h^2}{2 \pi m k_B} \frac{1}{\left[ (2s+1) \frac{V}{N} \zeta \left( \frac{3}{2} \right) \right]^{2/3}}
+\end{equation}
+For sufficiently large $ T > T_E $, the ratio $ \frac{N_0}{N} = 0 $. At $ T = 0 $, $ \frac{N_0}{N} = 1 $. Neither of these properties are remarkable. The amazing thing is that for $ T < T_E $, this ratio is between $ 0 $ and $ 1 $!\ At $ T = T_E $, we have
+\begin{equation}
+    \gamma \left( \frac{3}{2} \right) (2s+1) \frac{1}{n \lambda_{\text{TE}}^3} = 1
+\end{equation}
+so
+\begin{equation}
+    n \lambda_{TE}^3 \approx \frac{0.38}{2s+1}
+\end{equation}
+so condensation happens when $ n $ exceeds this (huge) value. Let's do some comparisons. For an ideal gas at STP (say nitrogen, with mass $ m = 4.65 \times 1-^{-26} \kilo\gram $), we can work out
+\begin{equation}
+    \lambda_{\text{th}} = \frac{h}{\sqrt{2 \pi m k_B T}} = 1.9 \times 10^{-10} \meter
+\end{equation}
+The density is $ n = \frac{N}{V} = \frac{P}{k_B T} = \frac{10^5 \pascal}{4.1 \times 10^{-31} \joule} = 2.4 \times 10^{25} \meter^{-3} $ so
+\begin{equation}
+    n \lambda_{\text{th}}^3 = 1.6 \times 1-^{-7} << 1
+\end{equation}
+To see BEC, we need to either increase $ n $ or decrease $ T $. We can't really do the first thing, because increasing the density increases the interactions between the particles (ideal gasses don't exist, but they work to good approximation with low density). For example, common BECs are made with sodium atoms at $ T = 2 \micro\kelvin $. $ m_{\text{Na}} = 32\text{u} $ and $ \lambda_{\text{th}} = 2.6 \times 10^{-7} \meter $ so $ \lambda_{\text{th}}^3 $ is bigger by a factor of $ 2.5 \times 10^{12} $.
+\begin{equation}
+    n_{\text{BEC}} \approx \frac{0.38}{(2s+1) \lambda_{\text{th}}^3} = 7.3 \times 10^{18} \frac{\text{particles}}{\meter^3}
+\end{equation}
+This is three million times less dense than air!\ In any other situation, this ``condensate'' would be called a vacuum.
+
+
+What are the properties of a BEC below $ T_E $? What can we actually say about the system in this special situation? This is actually the easy part of the problem, because the fugacity is approximately $ z = 1 $ with fantastic accuracy. This makes evaluating the polylog really easy.
+\begin{equation}
+    \frac{PV}{k_BT} = - \beta \Omega = (2s+!) \frac{V}{\lambda_{\text{th}}^3} \underbrace{L_{5/2}(1)}_{1.341\ldots}
+\end{equation}
+so
+\begin{equation}
+    P = (2s+1) \gamma \left( \frac{5}{2} \right) \frac{k_B T}{\lambda_{\text{th}}^3} \propto T^{5/2}
+\end{equation}
+This is independent of $ V $!\ This makes some neat things happen, like $ \kappa_T = - \frac{1}{V} \left( \pdv{V}{P} \right) = \infty $\textemdash BECs are infinitely compressible. We can also write
+\begin{equation}
+    P = k_B T \left( \frac{T}{T_E} \right)^{3/2} \frac{N}{V} \frac{\zeta \left( \frac{5}{2} \right)}{\gamma \left( \frac{3}{2} \right)}
+\end{equation}
+so
+\begin{equation}
+    c_V = \frac{1}{N} \eval{\pdv{U}{T}}_{V} \underbrace{=}_{U = \frac{3}{2} PV} \frac{3}{2} \frac{V}{N} \eval{\pdv{P}{T}}_{V} = \frac{15}{4} \frac{\zeta(5/2)}{\zeta(3/2)} k_B \left( \frac{T}{T_E} \right)^{3/2} \approx 1.926 k_B \left( \frac{T}{T_E} \right)^{3/2}
+\end{equation}
+The classical limit of $ c_V $ is $ \frac{3}{2} k_B T^{3/2} $, so at the Einstein temperature, the graph of $ c_V(T) $ has a kink. As it turns out, $ c_V(T \gtrsim T_E) $ is really hard to calculate.
+
+\end{document}

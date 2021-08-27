@@ -1,0 +1,20 @@
+\documentclass[a4paper,twoside,master.tex]{subfiles}
+\begin{document}
+\lecture{6}{Monday, September 14, 2020}{}
+
+\begin{itemize}
+    \item[(B)] Geiger Counters take advantage of the ionized electron field creating a ``gas avalanche'' of electrons by accelerating those electrons with a powered field.
+    \item[(C)] Tracking Detectors come in various forms. Photographic emulsion (film) was the first form of this detector. Henri Becquerel discovered that pitch blend sitting on photographic plates exposed the plate, despite the black paper protecting it. The next step in these detectors was to make stacks of these films. There's no triggering, so multiple tracks are superimposed, but the tracking itself is very good, high resolution, and good $ \dd{E} / \dd{x} $ measurement. High-altitude balloon flights measured cosmic rays and discovered the meson (mountaintop experiments).
+    \subitem Bubble/Cloud/Spark Chambers identify ionized trails by the instabilities they caused. Cloud chambers use super-saturated vapor, bubble chambers have a super-heated liquid, and spark chambers use gas in an electric field near break-down. External stereo-cameras could be triggered to photograph interesting events.
+    \subitem Wire Chambers use thin (gold-plated tungsten) wires. The early version, a multiwire proportional chamber, could tell which wire was near the track and the energy deposited.
+        \subsubitem Drift Chambers use drift time of electrons relative to a start time from an external scintillator to determine how far the track was from the sense wire.
+    \subitem Micro-Pattern Detectors are conductors coated in insulators dotted with small holes. The detector works by sensing the large electric field generated when a particle goes through a hole.
+    \subitem Time Projection Chambers involve a 2D active surface (like a Gas Electron Multiplier) and a volume wrapped in a field cage (low electric field). In low-rate environments, this is useful because the 2D surface can detect ionized particles which fall down and reconstruct the 3D path based on how long it took for them to fall.
+    \subitem (Micro)Strip detectors are usually made of silicon or germanium. These are just reverse biased diodes which don't conduct unless something knocks charge into the conduction band. Beyond this, you can also make pixel detectors rather than strips. More electronics means more cost, and there's no gain, so they are very sensitive to noise.
+    \item[(D)] Cherenkov Detectors are often used in particle identification, In Threshold Cherenkov Detectors, lighter particles emit radiation while heavier ones don't. Another form of detector works by having lighter particles emitting a narrower cone of light which doesn't match the correct angle for total internal refraction in the detector. Finally, there are Ring Imaging Cherenkov detectors, where one or two radiators and perhaps some optics and position sensing light detectors measure speeds event by even from the ring diameter of the radiation.
+    \item[(E)] Electro-Magnetic Calorimeters measure the amount of energy deposited by hadrons from electron/photon showers.
+    \item[(F)] Hadron Calorimeters try to take advantage of hadron showers. They typically can't actually stop the particles, so you alternate scintillators with ``absorbers'' which initiate EM showers.
+\end{itemize}
+
+
+\end{document}
